@@ -9,6 +9,7 @@ public:
 	void Init();
 
 	void Update(float dt);
+	DataMgmt::Quadtree* GetQuadtree(){ return &mQuadtree; }
 private:
 	DataMgmt::Quadtree mQuadtree;
 };

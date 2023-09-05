@@ -10,8 +10,8 @@
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
+#include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
-#include "Systems/PlayerControlSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 #include "WindowManager.hpp"
 #include <chrono>
@@ -84,6 +84,14 @@ int main()
 
 	editorControlSystem->Init();
 
+	auto inputSystem = coordinator->RegisterSystem<InputSystem>();
+	{
+		Signature signature{};
+		coordinator->SetSystemSignature<EditorControlSystem>(signature);
+	}
+
+	inputSystem->Init();
+
 
 	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
 	{
@@ -99,8 +107,9 @@ int main()
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-
 		auto startTime = std::chrono::high_resolution_clock::now();
+
+		inputSystem->Update();
 
 		windowManager->ProcessEvents();
 
@@ -111,6 +120,8 @@ int main()
 		collisionSystem->Update(dt);
 
 		physicsSystem->PostCollisionUpdate(dt);
+
+		collisionSystem->GetQuadtree()->Draw(); // for debug
 
 		renderSystem->Update(dt);
 

@@ -25,7 +25,7 @@ namespace DataMgmt {
 		}
 		void draw() const {
 			// Draw the nodes boundaries
-			mBounds.draw();
+			mBounds.Draw();
 		}
 		//void color_objects();
 

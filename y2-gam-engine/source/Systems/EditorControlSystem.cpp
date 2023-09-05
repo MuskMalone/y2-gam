@@ -10,6 +10,7 @@
 #include "Components/Renderable.hpp"
 #include "Components/Gravity.hpp"
 #include "Core/Coordinator.hpp"
+#include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
 #include <Core/Globals.hpp>
 #include <random>
@@ -25,7 +26,6 @@ namespace Testing {
 void EditorControlSystem::Init()
 {
 	::gCoordinator = Coordinator::GetCoordinator();
-	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::INPUT, EditorControlSystem::InputListener));
 
 	// TO DELETE
 	using namespace std::chrono;
@@ -38,24 +38,24 @@ void EditorControlSystem::Update(float dt)
 {
 	
 	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
-
-	if (mButtonsPressed.test(static_cast<std::size_t>(GLFW_KEY_W))){
+	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+	if (inputSystem->CheckKey(InputSystem::KeyState::KEY_PRESSED, GLFW_KEY_W)){
 		camera.UpdatePos(camera.eye.x, camera.eye.y + dt);
 	}
 
-	else if (mButtonsPressed.test(static_cast<std::size_t>(GLFW_KEY_S))){
+	else if (inputSystem->CheckKey(InputSystem::KeyState::KEY_PRESSED, GLFW_KEY_S)){
 		camera.UpdatePos(camera.eye.x, camera.eye.y - dt);
 	}
 
-	if (mButtonsPressed.test(static_cast<std::size_t>(GLFW_KEY_A))){
+	if (inputSystem->CheckKey(InputSystem::KeyState::KEY_PRESSED, GLFW_KEY_A)){
 		camera.UpdatePos(camera.eye.x - dt, camera.eye.y);
 	}
-
-	else if (mButtonsPressed.test(static_cast<std::size_t>(GLFW_KEY_D))){
+	
+	else if (inputSystem->CheckKey(InputSystem::KeyState::KEY_PRESSED, GLFW_KEY_D)){
 		camera.UpdatePos(camera.eye.x + dt, camera.eye.y);
 	}
 
-	else if (mButtonsClicked.test(static_cast<std::size_t>(GLFW_KEY_Q))) {
+	else if (inputSystem->CheckKey(InputSystem::KeyState::KEY_CLICKED, GLFW_KEY_Q)) {
 		//std::vector<Entity> entities(1);
 		using namespace Testing;
 
@@ -66,10 +66,10 @@ void EditorControlSystem::Update(float dt)
 		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
 		std::uniform_real_distribution<float> randScale(5.f, 10.f);
 		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
-		std::uniform_real_distribution<float> randGravity(-10.f, -1.f);
-		std::uniform_real_distribution<float> randVelocity(-20.f, 20.f);
+		std::uniform_real_distribution<float> randGravity(-20.f, -10.f);
+		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 10; ++i) {
+		for (int i{}; i < 1; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 
@@ -78,12 +78,12 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent<Gravity>(
 				entity,
 				//{Vec3(0.0f, randGravity(generator), 0.0f)});
-				{ Vec3(0.0f, randGravity(generator), 0.0f) });
+				{ Vec2(0.0f, randGravity(generator)) });
 			::gCoordinator->AddComponent(
 				entity,
 				RigidBody{
 					.mass = 0.f,
-					.velocity = Vec3(randVelocity(generator), randVelocity(generator), randVelocity(generator)),
+					.velocity = Vec2(randVelocity(generator), randVelocity(generator)),
 					.acceleration = Vec3(0.0f, 0.0f, 0.0f)
 				});
 			Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
@@ -103,12 +103,13 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent(
 				entity,
 				Renderable{
-					.color = Vec3(randColor(generator), randColor(generator), randColor(generator))
+					.color = Vec3(randColor(generator), randColor(generator), randColor(generator)),
+					.drawMode = GL_FILL
 				});
 
 		}
 	}
-	else if (mButtonsClicked.test(static_cast<std::size_t>(GLFW_KEY_E))) {
+	else if (inputSystem->CheckKey(InputSystem::KeyState::KEY_CLICKED, GLFW_KEY_E)) {
 		//spawn platform
 		Entity entity = ::gCoordinator->CreateEntity();
 		using namespace Testing;
@@ -121,13 +122,13 @@ void EditorControlSystem::Update(float dt)
 		//{
 		::gCoordinator->AddComponent<Gravity>(
 			entity,
-			{ Vec3(0.0f, 0, 0.0f) });
+			{ Vec2(0.0f, 0) });
 
 		::gCoordinator->AddComponent(
 			entity,
 			RigidBody{
 				.mass = 0.f,
-				.velocity = Vec3(0.0f, 0.0f, 0.0f),
+				.velocity = Vec2(0.0f, 0.0f),
 				.acceleration = Vec3(0.0f, 0.0f, 0.0f)
 			});
 		Vec3 position = Vec3(0, WORLD_LIMIT_Y * -.5f, randDepth(generator));
@@ -147,20 +148,9 @@ void EditorControlSystem::Update(float dt)
 		::gCoordinator->AddComponent(
 			entity,
 			Renderable{
-				.color = Vec3(randColor(generator), randColor(generator), randColor(generator))
+				.color = Vec3(randColor(generator), randColor(generator), randColor(generator)),
+				.drawMode = GL_FILL
 			});
 		//}
 	}
-	mButtonsPressed.reset();
-	mButtonsClicked.reset();
-}
-
-void EditorControlSystem::InputListener(Event& event)
-{
-	std::bitset<ENGINE_KEYS_COUNT> press {event.GetParam<std::bitset<ENGINE_KEYS_COUNT>>(Events::Window::Input::KEY_PRESS)};
-	std::bitset<ENGINE_KEYS_COUNT> click {event.GetParam<std::bitset<ENGINE_KEYS_COUNT>>(Events::Window::Input::KEY_CLICK)};
-	if (press.any())
-		mButtonsPressed = press;
-	if (click.any())
-		mButtonsClicked = click;
 }

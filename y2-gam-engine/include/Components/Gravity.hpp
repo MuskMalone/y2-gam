@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Math/Vec3.hpp"
+#include "Math/Vec2.hpp"
 
 
 struct Gravity
 {
-	Vec3 force;
+	Vec2 force;
 };

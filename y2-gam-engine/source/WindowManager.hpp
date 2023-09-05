@@ -40,9 +40,9 @@ private:
 	static std::shared_ptr<WindowManager> _mSelf;
 
 	GLFWwindow* mWindow;
-	
-	std::bitset<ENGINE_KEYS_COUNT> mButtons;
-	std::bitset<ENGINE_KEYS_COUNT> mPrevButtons;
+
+	std::bitset<ENGINE_KEYS_COUNT> mButtons{};
+	std::bitset<ENGINE_KEYS_COUNT> mPrevButtons{};
 	std::pair<bool, bool> mKeystateLb{ false, false };
 	std::pair<bool, bool> mKeystateRb{ false, false };
 	std::pair<bool, bool> mKeystateMb{ false, false };

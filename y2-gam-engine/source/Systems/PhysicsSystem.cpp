@@ -25,13 +25,11 @@ void PhysicsSystem::PreCollisionUpdate(float dt)
 		auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
 		auto& transform = gCoordinator->GetComponent<Transform>(entity);
 		auto& collider = gCoordinator->GetComponent<AABBCollider>(entity);
-		auto const& gravity = gCoordinator->GetComponent<Gravity>(entity);
 
 		//rigidBody.velocity = Vec3(0, 0, 0) - transform.position;
-		transform.position += rigidBody.velocity * dt;
+		transform.position += Vec3{rigidBody.velocity, 0} *dt;
 		collider.position = transform.position;
 
-		rigidBody.velocity += gravity.force * dt;
 
 	}
 }
@@ -39,6 +37,7 @@ void PhysicsSystem::PreCollisionUpdate(float dt)
 void PhysicsSystem::PostCollisionUpdate(float dt) {
 	for (auto const& entity : mEntities) {
 		auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-
+		auto const& gravity = gCoordinator->GetComponent<Gravity>(entity);
+		rigidBody.velocity += gravity.force * dt;
 	}
 }

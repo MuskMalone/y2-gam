@@ -51,6 +51,8 @@ void WindowManager::Init(
 void WindowManager::Update()
 {
 	glfwSwapBuffers(mWindow);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // NOLINT (hicpp-signed-bitwise)
 }
 
 void WindowManager::Shutdown()
@@ -106,7 +108,8 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
     else if (GLFW_RELEASE == action) {
         //key_flags[key] = GL_FALSE;
 		GetInstance()->SetKey(currButtons, key, false);
-		event.SetParam(Events::Window::Input::KEY_RELEASE, GetInstance()->mButtons);
+		auto bsB{ GetInstance()->mButtons };
+		event.SetParam(Events::Window::Input::KEY_RELEASE, bsB.flip());
 #ifdef _DEBUG
 		std::cout << "key released\n";
 #endif
@@ -133,7 +136,7 @@ void WindowManager::MouseButtonCb(GLFWwindow* pwin, int button, int action, int 
 	std::pair<bool, bool>& rb{GetInstance()->mKeystateRb};
 	std::pair<bool, bool>& mb{GetInstance()->mKeystateMb};
 	Event event(Events::Window::INPUT);
-	std::bitset<ENGINE_KEYS_COUNT> mousebtn;
+	std::bitset<ENGINE_MOUSEKEYS_COUNT> mousebtn;
     switch (action) {
     case GLFW_PRESS:
 #ifdef _DEBUG
@@ -192,7 +195,8 @@ void WindowManager::MouseButtonCb(GLFWwindow* pwin, int button, int action, int 
 			mb.second = false;
 			mousebtn.reset(static_cast<size_t>(MouseButtons::MB));
 		}
-		event.SetParam(Events::Window::Input::MOUSE_RELEASE, mousebtn);
+		auto bsM{ mousebtn };
+		event.SetParam(Events::Window::Input::MOUSE_RELEASE, bsM.flip());
 		gCoordinator->SendEvent(event);
         break;
     }

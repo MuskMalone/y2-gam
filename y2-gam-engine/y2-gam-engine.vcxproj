@@ -161,24 +161,21 @@
     <ClInclude Include="include\Math\Vec4.hpp" />
     <ClInclude Include="include\Systems\CollisionSystem.hpp" />
     <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
+    <ClInclude Include="include\Systems\InputSystem.hpp" />
     <ClInclude Include="include\Systems\PhysicsSystem.hpp" />
-    <ClInclude Include="include\Systems\PlayerControlSystem.hpp" />
     <ClInclude Include="include\Systems\RenderSystem.hpp" />
     <ClInclude Include="source\WindowManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
-    <ClCompile Include="source\DataMgmt\QuadTree\Node.cpp" />
-    <ClCompile Include="source\DataMgmt\QuadTree\Quadtree.cpp" />
-    <ClCompile Include="source\DataMgmt\QuadTree\Rect.cpp" />
     <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\Systems\CollisionSystem.cpp" />
     <ClCompile Include="source\Systems\EditorControlSystem.cpp" />
+    <ClCompile Include="source\Systems\InputSystem.cpp" />
     <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
-    <ClCompile Include="source\Systems\PlayerControlSystem.cpp" />
     <ClCompile Include="source\Systems\RenderSystem.cpp" />
     <ClCompile Include="source\WindowManager.cpp" />
   </ItemGroup>

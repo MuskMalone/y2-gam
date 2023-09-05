@@ -14,9 +14,9 @@
 #include <iostream>
 
 // capacity of each node before splitting into more leaves
-#define NODE_CAPACITY 128 
+#define NODE_CAPACITY 16
 // max depth of tree
-#define NODE_MAX_DEPTH 16
+#define NODE_MAX_DEPTH 8
 namespace {
 	template <class T>
 	using vec = std::vector<T>;
@@ -211,7 +211,7 @@ namespace DataMgmt {
 		  //}
 
 		  // Only draw the nodes with objects in them.
-		  if (mIndex.size() != 0) mRect.draw();  // [1]
+		  if (mIndex.size() != 0) mRect.Draw();  // [1]
 		  // m_rect.draw(); // draw them all '
 	  }
 	  void Reset() {
@@ -219,7 +219,7 @@ namespace DataMgmt {
 		  // Sets bounds to the screens bounds and clears the quadtrees.
 		  //----------------------------------------------------------------
 
-		  mRect = Rect(Vec2(0, 0), Vec2(ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT));
+		  mRect = Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y));
 		  mIndex.clear();
 		  mIndex.shrink_to_fit();
 

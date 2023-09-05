@@ -143,8 +143,6 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // NOLINT (hicpp-signed-bitwise)
 
 	shader->Activate();
 	glBindVertexArray(mVao);
@@ -157,6 +155,8 @@ void RenderSystem::Update(float dt)
 	{
 		auto const& transform = gCoordinator->GetComponent<Transform>(entity);
 		auto const& renderable = gCoordinator->GetComponent<Renderable>(entity);
+
+		glPolygonMode(GL_FRONT_AND_BACK, renderable.drawMode);
 
 		Mat44 view = Camera::MakeViewTransform(camera.eye, camera.tgt, camera.up);
 

@@ -30,7 +30,12 @@ void CollisionSystem::Update(float dt) {
 		Vec2 cmax = collider.position + collider.dimension * .5f;
 		Vec2 rmin = r.get_min();
 		Vec2 rmax = r.get_max();
-
+		//std::cout << "================\n";
+		//std::cout << cmin.x << " " << cmin.y << std::endl;
+		//std::cout << cmax.x << " " << cmax.y << std::endl;
+		//std::cout << rmin.x << " " << rmin.y << std::endl;
+		//std::cout << rmax.x << " " << rmax.y << std::endl;
+		//std::cout << CheckAABBDiscrete(cmin, cmax, rmin, rmax) << std::endl;
 		//basic aabb check
 		return CheckAABBDiscrete(cmin, cmax, rmin, rmax);
 	});
@@ -43,22 +48,19 @@ void CollisionSystem::Update(float dt) {
 			for (int j{ i + 1 }; j < entityVec.size(); ++j) {
 				// COLLISION DETECTION AND RESOLUTION IS SUPPOSED TO BE PLACEHOLDERS 
 				// WILL REMOVE LATER
+				Vec2 cp, cn;
+				float t;
+				auto& rigidbody1{ gCoordinator->GetComponent<RigidBody>(entityVec[i]) };
+				auto& rigidbody2{ gCoordinator->GetComponent<RigidBody>(entityVec[j]) };
 				auto const& collider1{ gCoordinator->GetComponent<AABBCollider>(entityVec[i]) };
 				auto const& collider2{ gCoordinator->GetComponent<AABBCollider>(entityVec[j]) };
 				Vec2 cmin = collider1.position - collider1.dimension * .5f;
-				Vec2 cmax = collider1.position + collider1.dimension * .5f;
 				Vec2 rmin = collider2.position - collider2.dimension * .5f;
-				Vec2 rmax = collider2.position + collider2.dimension * .5f;
-				if (CheckAABBDiscrete(cmin, cmax, rmin, rmax)) {
-					auto & rigidbody1{ gCoordinator->GetComponent<RigidBody>(entityVec[i]) };
-					auto & rigidbody2{ gCoordinator->GetComponent<RigidBody>(entityVec[j]) };
-					rigidbody1.velocity = -rigidbody1.velocity;
-					rigidbody2.velocity = -rigidbody2.velocity;
-
+				if (CheckSweptAABB({cmin, collider1.dimension}, rigidbody1.velocity, dt, { rmin, collider2.dimension }, cp, cn, t)) {
+					std::cout << "collided\n";
+					ResolveSweptAABB({ cmin, collider1.dimension }, rigidbody1.velocity, dt, { rmin, collider2.dimension });
 				}
 			}
 		}
 	}
-	//qqqqmQuadtree.Draw();
-
 }
