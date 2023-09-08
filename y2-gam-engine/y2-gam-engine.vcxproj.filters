@@ -126,6 +126,9 @@
     <ClInclude Include="include\Systems\InputSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Components\PolygonCollider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Systems\PhysicsSystem.cpp">

@@ -134,6 +134,7 @@
     <ClInclude Include="include\Components\Editor.hpp" />
     <ClInclude Include="include\Components\Gravity.hpp" />
     <ClInclude Include="include\Components\Player.hpp" />
+    <ClInclude Include="include\Components\PolygonCollider.hpp" />
     <ClInclude Include="include\Components\Renderable.hpp" />
     <ClInclude Include="include\Components\RigidBody.hpp" />
     <ClInclude Include="include\Components\Thrust.hpp" />

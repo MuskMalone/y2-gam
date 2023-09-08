@@ -66,10 +66,10 @@ void EditorControlSystem::Update(float dt)
 		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
 		std::uniform_real_distribution<float> randScale(5.f, 10.f);
 		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
-		std::uniform_real_distribution<float> randGravity(-20.f, -10.f);
+		std::uniform_real_distribution<float> randGravity(-10.f, -1.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 1; ++i) {
+		for (int i{}; i < 10; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 

@@ -183,6 +183,8 @@ void RenderSystem::Update(float dt)
 
 		Mat44 model = translate * scaleMat * rotZ;
 
+		mLastModelXform = model;
+
 		Mat44 projection = camera.projectionTransform;
 
 		shader->SetUniform("uModel", model);

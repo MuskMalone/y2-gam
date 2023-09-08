@@ -19,6 +19,7 @@
 #include <Components/Renderable.hpp>
 #include "Core/Types.hpp"
 #include <Core/Coordinator.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
 
 namespace DataMgmt {
 
@@ -26,20 +27,19 @@ namespace DataMgmt {
 	private:
 		//stores min and max of screen
 		Vec2 min, max;
-		Entity drawrect;
 		//Color m_color;
 
 	public:
-		Rect() : min(Vec2(0, 0)), max(Vec2(0, 0)), drawrect{ static_cast<uint32_t>(-1)} {}
+		Rect() : min(Vec2(0, 0)), max(Vec2(0, 0)) {}
 		Rect(const Vec2& a, const Vec2& b) : min{ a }, max{ b } {
-
 		}
 		void Draw() const { // for debugging remove later
 			auto& camera = Coordinator::GetCoordinator()->GetComponent<Camera>(Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->GetCamera());
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
-			v4Min = camera.projectionTransform * Camera::MakeViewTransform(camera.eye, camera.tgt, camera.up) * v4Min;
-			v4Max = camera.projectionTransform * Camera::MakeViewTransform(camera.eye, camera.tgt, camera.up) * v4Max;
+			Mat44 xform{ Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->mLastModelXform };
+			//v4Min = glm::inverse(xform) * v4Min;
+			//v4Max = glm::inverse(xform) * v4Max;
 			glColor3ub(0xff, 0xff, 0xff);
 			glLineWidth(1.0);
 			glBegin(GL_LINE_LOOP);

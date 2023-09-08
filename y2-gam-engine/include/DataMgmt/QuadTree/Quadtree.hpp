@@ -14,7 +14,7 @@
 #include <iostream>
 
 // capacity of each node before splitting into more leaves
-#define NODE_CAPACITY 16
+#define NODE_CAPACITY 64
 // max depth of tree
 #define NODE_MAX_DEPTH 8
 namespace {
@@ -24,12 +24,13 @@ namespace {
 	using uptr = std::unique_ptr<T>;
 }
 namespace DataMgmt {
+	template <typename T>
 	class Quadtree {
 		int mLevel;
 		Rect mRect;
 		uptr<Quadtree> mSubnode[4];
 		//vec<int> m_index;
-		vec<Entity> mIndex;
+		vec<T> mIndex;
 
 		void Split() {
 			//----------------------------------------------------------------
@@ -58,7 +59,7 @@ namespace DataMgmt {
 			mSubnode[3] = std::make_unique<Quadtree>(mLevel + 1, NE);
 		}
 		template <typename _pred>
-		void Insert(const Entity& id, _pred p) {
+		void Insert(const T& id, _pred p) {
 			//----------------------------------------------------------------
 			// [1] Insert object into subnodes.
 			// [2] If split, insert THIS nodes objects into the subnodes.
@@ -105,7 +106,7 @@ namespace DataMgmt {
 		}
 
 		template <typename _pred>
-		bool Contain(const Entity& id, _pred p) const { return mRect.contain(id, p); }
+		bool Contain(const T& id, _pred p) const { return mRect.contain(id, p); }
 		bool ContainRect(const Rect& rect) const {
 			return mRect.contain_rect(rect);
 		}
@@ -118,6 +119,7 @@ namespace DataMgmt {
 			mRect{ mRect },
 		  mSubnode{ nullptr, nullptr, nullptr, nullptr } {
 		  mIndex.reserve(NODE_CAPACITY);
+
 	  }
 
 	  template <typename _container, typename _pred>
@@ -140,7 +142,7 @@ namespace DataMgmt {
 		  }
 	  }
 
-	  void Get(vec<vec<Entity>> &cont) const {
+	  void Get(vec<vec<T>> &cont) const {
 		  //----------------------------------------------------------------
 		  // [1] Find the deepest level node.
 		  // [2] If there are indexes, add to container.
@@ -161,7 +163,7 @@ namespace DataMgmt {
 		  // Insert indexes into our container
 		  if (mIndex.size() != 0) cont.emplace_back(mIndex);  // [2]
 	  }
-	  void Retrieve(vec<Entity> &cont, const Rect &rect) const {
+	  void Retrieve(vec<T> &cont, const Rect &rect) const {
 		  //----------------------------------------------------------------
 		  // [1] Find the deepest level node.
 		  // [2] If there are indexes, add to container.

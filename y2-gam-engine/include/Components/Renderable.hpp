@@ -6,5 +6,5 @@
 struct Renderable
 {
 	Vec3 color;
-	GLenum drawMode{GL_FILL};
+	GLenum drawMode{GL_FILL}; //ignore this
 };

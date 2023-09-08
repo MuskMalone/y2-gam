@@ -3,6 +3,7 @@
 #include "Core/System.hpp"
 #include "Graphics/Shader.hpp"
 #include <memory>
+#include <Math/Mat44.hpp>
 
 
 class Event;
@@ -16,10 +17,14 @@ public:
 	void Update(float dt);
 
 	Entity GetCamera();
+	//for debug
+	Mat44 mLastModelXform;
+
 private:
 	void WindowSizeListener(Event& event);
 
 	std::unique_ptr<Shader> shader;
+
 
 	Entity mCamera;
 
