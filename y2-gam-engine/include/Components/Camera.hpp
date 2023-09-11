@@ -1,5 +1,6 @@
 #pragma once
 
+#include "iostream"
 #include "Math/Mat44.hpp"
 #include "Math/Vec3.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,6 +26,9 @@ struct Camera
 	static Mat44 MakeViewTransform(Vec3 const& eye, Vec3 const& tgt, Vec3 const& up) {
 		return glm::lookAt(eye, tgt, up);
 	}
-	Camera() : eye{}, up{ Vec3{0,1,0} }, tgt{ eye + Vec3{0,0,1} }, projectionTransform{ MakeProjectionTransform(-WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y, -WORLD_LIMIT_DEPTH, WORLD_LIMIT_DEPTH) } {}
+	Camera() : eye{}, up{ Vec3{0,1,0} }, tgt{ eye + Vec3{0,0,1} }, projectionTransform{ MakeProjectionTransform(-WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y, -WORLD_LIMIT_DEPTH, WORLD_LIMIT_DEPTH) } {
+
+		
+	}
 
 };
