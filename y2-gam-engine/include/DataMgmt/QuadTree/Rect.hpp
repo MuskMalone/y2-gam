@@ -38,8 +38,8 @@ namespace DataMgmt {
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
 			Mat44 xform{ Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->mLastModelXform };
-			//v4Min = glm::inverse(xform) * v4Min;
-			//v4Max = glm::inverse(xform) * v4Max;
+			v4Min = glm::inverse(xform) * v4Min;
+			v4Max = glm::inverse(xform) * v4Max;
 			glColor3ub(0xff, 0xff, 0xff);
 			glLineWidth(1.0);
 			glBegin(GL_LINE_LOOP);

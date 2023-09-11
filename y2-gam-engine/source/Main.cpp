@@ -1,4 +1,4 @@
-#include "Components/AABBCollider.hpp"
+#include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Player.hpp"
@@ -31,6 +31,8 @@ void QuitHandler(Event& event)
 
 int main()
 {
+	using namespace Physics;
+	using namespace Collision;
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetCoordinator() };
 	coordinator->Init();
 
@@ -42,7 +44,7 @@ int main()
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
 	coordinator->RegisterComponent<Editor>();
-	coordinator->RegisterComponent<AABBCollider>();
+	coordinator->RegisterComponent<BoxCollider>();
 	coordinator->RegisterComponent<Camera>();
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Renderable>();
@@ -56,8 +58,7 @@ int main()
 		Signature signature;
 		signature.set(coordinator->GetComponentType<Gravity>());
 		signature.set(coordinator->GetComponentType<RigidBody>());
-		signature.set(coordinator->GetComponentType<Transform>());
-		signature.set(coordinator->GetComponentType<AABBCollider>());
+		signature.set(coordinator->GetComponentType<BoxCollider>());
 		coordinator->SetSystemSignature<PhysicsSystem>(signature);
 	}
 
@@ -67,7 +68,7 @@ int main()
 	{
 		Signature signature;
 		signature.set(coordinator->GetComponentType<RigidBody>());
-		signature.set(coordinator->GetComponentType<AABBCollider>());
+		signature.set(coordinator->GetComponentType<BoxCollider>());
 		coordinator->SetSystemSignature<CollisionSystem>(signature);
 	}
 
@@ -121,7 +122,7 @@ int main()
 
 		physicsSystem->PostCollisionUpdate(dt);
 
-		collisionSystem->GetQuadtree()->Draw(); // for debug
+		//collisionSystem->GetQuadtree()->Draw(); // for debug
 
 		renderSystem->Update(dt);
 

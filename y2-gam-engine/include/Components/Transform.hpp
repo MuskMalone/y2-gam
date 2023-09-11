@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Math/Vec3.hpp"
+#include "Math/Mat44.hpp"
 
 //world transform values
 struct Transform
