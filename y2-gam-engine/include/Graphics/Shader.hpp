@@ -9,27 +9,30 @@
 //class Mat44;
 //class Vec3;
 
-class Shader
-{
+class Shader {
 public:
-	Shader(std::string const& vertexPath, std::string const& fragmentPath);
+	Shader(std::string const& vertFile, std::string const& fragFile);
+	~Shader();
 
-	void Activate();
+	void CreateShaderFromString(std::string const& vertSrc, std::string const& fragSrc);
+	void CreateShaderFromFile(std::string const& vertFile, std::string const& fragFile);
 
-	void SetUniform(GLchar const* name, GLboolean val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, GLint val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, GLfloat val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, GLfloat x, GLfloat y) { mShader.SetUniform(name, x, y); }
-	void SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z) { mShader.SetUniform(name, x, y, z); }
-	void SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) { mShader.SetUniform(name, x, y, z, w); }
-	void SetUniform(GLchar const* name, glm::vec2 const& val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, glm::vec3 const& val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, glm::vec4 const& val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, glm::mat3 const& val) { mShader.SetUniform(name, val); }
-	void SetUniform(GLchar const* name, glm::mat4 const& val) { mShader.SetUniform(name, val); }
+	void Use() const;
+	void Unuse() const;
 
 
+	void SetUniform(std::string const& name, GLboolean val);
+	void SetUniform(std::string const& name, GLint val);
+	void SetUniform(std::string const& name, GLfloat val);
+	void SetUniform(std::string const& name, GLfloat x, GLfloat y);
+	void SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z);
+	void SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+	void SetUniform(std::string const& name, glm::vec2 const& val);
+	void SetUniform(std::string const& name, glm::vec3 const& val);
+	void SetUniform(std::string const& name, glm::vec4 const& val);
+	void SetUniform(std::string const& name, glm::mat3 const& val);
+	void SetUniform(std::string const& name, glm::mat4 const& val);
+	void SetUniform(std::string const& name, int* val, unsigned int count);
 private:
-	GLuint mId;
-	GLSLShader mShader;
+	unsigned int pgmHdl;
 };

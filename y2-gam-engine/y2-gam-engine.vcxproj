@@ -72,6 +72,12 @@
     <Import Project="..\props\engine.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -129,7 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ElementBuffer.h" />
+    <ClInclude Include="include\Graphics\Camera.hpp" />
+    <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\AABBCollider.hpp" />
     <ClInclude Include="include\Components\Camera.hpp" />
     <ClInclude Include="include\Components\Editor.hpp" />
@@ -166,15 +173,18 @@
     <ClInclude Include="include\Systems\InputSystem.hpp" />
     <ClInclude Include="include\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="include\Systems\RenderSystem.hpp" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="include\Graphics\Renderer.hpp" />
     <ClInclude Include="source\WindowManager.hpp" />
-    <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="include\Graphics\Texture.hpp" />
+    <ClInclude Include="include\Graphics\VertexArray.hpp" />
+    <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
-    <ClCompile Include="ElementBuffer.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
+    <ClCompile Include="source\Graphics\Camera.cpp" />
+    <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
+    <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
@@ -185,8 +195,9 @@
     <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="source\Systems\RenderSystem.cpp" />
     <ClCompile Include="source\WindowManager.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
-    <ClCompile Include="VetexArray.cpp" />
+    <ClCompile Include="source\Graphics\Texture.cpp" />
+    <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="source\Graphics\VetexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\fragment.glsl" />

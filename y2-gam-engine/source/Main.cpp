@@ -17,6 +17,7 @@
 #include <chrono>
 #include <random>
 #include <Core/Globals.hpp>
+#include "Graphics/Renderer.hpp"
 
 
 namespace {
@@ -32,6 +33,7 @@ void QuitHandler(Event& event)
 int main()
 {
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetCoordinator() };
+
 	coordinator->Init();
 
 
@@ -43,7 +45,7 @@ int main()
 
 	coordinator->RegisterComponent<Editor>();
 	coordinator->RegisterComponent<AABBCollider>();
-	coordinator->RegisterComponent<Camera>();
+	coordinator->RegisterComponent<tCamera>();
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Renderable>();
 	coordinator->RegisterComponent<RigidBody>();
@@ -135,7 +137,7 @@ int main()
 
 	}
 
-
+	Renderer::Shutdown();
 	windowManager->Shutdown();
 
 	return 0;
