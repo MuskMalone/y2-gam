@@ -21,7 +21,7 @@ Entity RenderSystem::GetCamera() { return mCamera; }
 
 void RenderSystem::Init()
 {
-	gCoordinator = Coordinator::GetCoordinator();
+	gCoordinator = Coordinator::GetInstance();
 	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
 	shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
