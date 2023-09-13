@@ -45,7 +45,7 @@ int main()
 
 	coordinator->RegisterComponent<Editor>();
 	coordinator->RegisterComponent<AABBCollider>();
-	coordinator->RegisterComponent<tCamera>();
+	coordinator->RegisterComponent<Camera>();
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Renderable>();
 	coordinator->RegisterComponent<RigidBody>();

@@ -37,7 +37,7 @@ void EditorControlSystem::Init()
 void EditorControlSystem::Update(float dt)
 {
 	
-	auto& camera = ::gCoordinator->GetComponent<tCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 	if (inputSystem->CheckKey(InputSystem::KeyState::KEY_PRESSED, GLFW_KEY_W)){
 		camera.UpdatePos(camera.eye.x, camera.eye.y + dt);

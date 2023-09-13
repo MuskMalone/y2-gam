@@ -1,41 +1,41 @@
-#include "Graphics/Camera.hpp"
+#include "Graphics/OrthoCamera.hpp"
 
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(float left, float right, float bottom, float top)
+OrthoCamera::OrthoCamera(float left, float right, float bottom, float top)
 	: mProjMtx{ glm::ortho(left, right, bottom, top, -1.f, 1.f) }, mViewMtx{ 1.f } {
 
 	mViewProjMtx = mProjMtx * mViewMtx;
 }
 
-void Camera::SetPosition(glm::vec3 const& pos) {
+void OrthoCamera::SetPosition(glm::vec3 const& pos) {
 	mPos = pos;
 	ComputeViewMtx();
 }
 
-void Camera::SetRotation(float rot) {
+void OrthoCamera::SetRotation(float rot) {
 	mRot = rot;
 	ComputeViewMtx();
 }
 
-glm::vec3 const& Camera::GetPosition() const {
+glm::vec3 const& OrthoCamera::GetPosition() const {
 	return mPos;
 }
 
-glm::mat4 const& Camera::GetProjMtx() const {
+glm::mat4 const& OrthoCamera::GetProjMtx() const {
 	return mProjMtx;
 }
 
-glm::mat4 const& Camera::GetViewMtx() const {
+glm::mat4 const& OrthoCamera::GetViewMtx() const {
 	return mViewMtx;
 }
 
-glm::mat4 const& Camera::GetViewProjMtx() const {
+glm::mat4 const& OrthoCamera::GetViewProjMtx() const {
 	return mViewProjMtx;
 }
 
-void Camera::ComputeViewMtx() {
+void OrthoCamera::ComputeViewMtx() {
 	glm::mat4 translate{ glm::translate(glm::mat4(1.0f), mPos) };
 	glm::mat4 rotate{ glm::rotate(glm::mat4(1.f), glm::radians(mRot), glm::vec3(0,0,1)) };
 	glm::mat4 transform{ translate * rotate };

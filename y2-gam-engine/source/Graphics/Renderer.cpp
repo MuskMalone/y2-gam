@@ -134,7 +134,7 @@ void Renderer::Shutdown() {
 	delete[] sData.lineBuffer;
 }
 
-void Renderer::RenderSceneBegin(Camera const& camera) {
+void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
 
 	sData.texShader->Use();
 	sData.texShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());

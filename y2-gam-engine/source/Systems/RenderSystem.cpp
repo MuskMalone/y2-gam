@@ -10,7 +10,7 @@
 #include "Core/Globals.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Graphics/Renderer.hpp"
-#include "Graphics/Camera.hpp"
+#include "Graphics/OrthoCamera.hpp"
 
  
 namespace {
@@ -38,7 +38,7 @@ void RenderSystem::Init()
 
 	gCoordinator->AddComponent(
 		mCamera,
-		tCamera{});
+		Camera{});
 
 	Renderer::Init();
 }
@@ -54,9 +54,9 @@ void RenderSystem::Update(float dt)
 	//sData.
 
 	auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
-	auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
 
-	Camera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
 	Renderer::RenderSceneBegin(cam);
 
 	for (auto const& entity : mEntities)

@@ -8,7 +8,7 @@
 #include <Core/Globals.hpp>
 #define M_PI (22.f/7.f)
 
-struct tCamera
+struct Camera
 {
 	Vec3 eye;
 	Vec3 up;
@@ -26,7 +26,7 @@ struct tCamera
 	static Mat44 MakeViewTransform(Vec3 const& eye, Vec3 const& tgt, Vec3 const& up) {
 		return glm::lookAt(eye, tgt, up);
 	}
-	tCamera() : eye{}, up{ Vec3{0,1,0} }, tgt{ eye + Vec3{0,0,1} }, projectionTransform{ MakeProjectionTransform(-WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y, -WORLD_LIMIT_DEPTH, WORLD_LIMIT_DEPTH) } {
+	Camera() : eye{}, up{ Vec3{0,1,0} }, tgt{ eye + Vec3{0,0,1} }, projectionTransform{ MakeProjectionTransform(-WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y, -WORLD_LIMIT_DEPTH, WORLD_LIMIT_DEPTH) } {
 
 		
 	}

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "glm/glm.hpp"
-class Camera {
+class OrthoCamera {
 public:
-	Camera(float left, float right, float bottom, float top);
+	OrthoCamera(float left, float right, float bottom, float top);
 
 	glm::vec3 const& GetPosition() const;
 

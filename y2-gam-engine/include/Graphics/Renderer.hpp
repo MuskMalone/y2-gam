@@ -8,7 +8,7 @@
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/VertexBuffer.hpp"
 #include "Graphics/ElementBuffer.hpp"
-#include "Camera.hpp"
+#include "OrthoCamera.hpp"
 
 class Renderer {
 public:
@@ -16,7 +16,7 @@ public:
 	static void Init();
 	static void Shutdown();
 
-	static void RenderSceneBegin(Camera const& camera);
+	static void RenderSceneBegin(OrthoCamera const& camera);
 	static void RenderSceneEnd();
 
 	static unsigned int GetMaxTextureUnits();
