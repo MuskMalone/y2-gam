@@ -38,10 +38,3 @@ float FrameRateController::EndFrameTime() {
 
 	return mDeltaTime;
 }
-
-void FrameRateController::StartSubFrameTime() {
-
-}
-float FrameRateController::EndSubFrameTime() {
-
-}

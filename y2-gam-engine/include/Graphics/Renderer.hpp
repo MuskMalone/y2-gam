@@ -37,11 +37,26 @@ public:
 	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr);
 
 	static void FlushBatch();
-
+private:
+	static void BeginBatch();
+	static void NextBatch();
+public:
 	//OpenGL Render Commands
 	static void SetClearColor(glm::vec4 const& color);
 	static void ClearColor();
 	static void ClearDepth();
 	static void DrawIndexed(std::shared_ptr<VertexArray> const& vertexArray, unsigned int idxCount = 0);
 	static void DrawLineArray(std::shared_ptr<VertexArray> const& vao, unsigned int vtxCount);
+
+	//Stats
+	struct Statistics {
+		unsigned int drawCalls{};
+		unsigned int quadCount{};
+		unsigned int lineCount{};
+
+		unsigned int GetTotalVtxCount() { return quadCount * 4; }
+		unsigned int GetTotalIdxCount() { return quadCount * 6; }
+	};
+	static Statistics GetStats();
+	static void ResetStats();
 };
