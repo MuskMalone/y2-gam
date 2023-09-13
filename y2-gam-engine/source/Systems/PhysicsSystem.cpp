@@ -21,8 +21,8 @@ namespace Physics {
         const float k_allowed_penetration = 0.01f;
         float k_bias_factor = 0.2f;
 
-        auto& rb1{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(a.b1) };
-        auto& rb2{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(a.b2) };
+        auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
+        auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
 
 
         for (size_t i = 0; i < a.contacts_count; i++) {
@@ -67,8 +67,8 @@ namespace Physics {
     }
 
     void ArbiterApplyImpulse(Arbiter& a) {
-        auto& rb1{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(a.b1) };
-        auto& rb2{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(a.b2) };
+        auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
+        auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
 
 
         for (size_t i = 0; i < a.contacts_count; i++) {
@@ -138,7 +138,7 @@ namespace Physics {
 
 	void PhysicsSystem::Init()
 	{
-		gCoordinator = Coordinator::GetCoordinator();
+		gCoordinator = Coordinator::GetInstance();
         mArbiterTable.clear();
 	}
 

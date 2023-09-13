@@ -17,6 +17,9 @@
 #include <chrono>
 #include <random>
 #include <Core/Globals.hpp>
+#include <Core/FrameRateController.hpp>
+
+#include <memory>
 
 
 namespace {
@@ -31,16 +34,21 @@ void QuitHandler(Event& event)
 
 int main()
 {
+	// Enable run-time memory check for debug builds.
+#if defined(DEBUG) | defined(_DEBUG)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 	using namespace Physics;
 	using namespace Collision;
-	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetCoordinator() };
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
 
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
-
-
+	
+	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
+	frameController->Init(60, true);
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
 	coordinator->RegisterComponent<Editor>();
@@ -58,7 +66,6 @@ int main()
 		Signature signature;
 		signature.set(coordinator->GetComponentType<Gravity>());
 		signature.set(coordinator->GetComponentType<RigidBody>());
-		signature.set(coordinator->GetComponentType<BoxCollider>());
 		coordinator->SetSystemSignature<PhysicsSystem>(signature);
 	}
 
@@ -104,12 +111,11 @@ int main()
 
 	renderSystem->Init();
 
-	float dt = 0.0f;
+	float dt = frameController->GetDeltaTime();
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		auto startTime = std::chrono::high_resolution_clock::now();
-
+		frameController->StartFrameTime();
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
@@ -130,8 +136,8 @@ int main()
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
-		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
-		std::string title = "FPS: " + std::to_string(1.0 / dt) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
+		dt = frameController->EndFrameTime();
+		std::string title = "FPS: " + std::to_string(frameController->GetFps()) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
 		windowManager->UpdateWindowTitle(title);
 
 	}

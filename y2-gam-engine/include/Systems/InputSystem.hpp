@@ -3,6 +3,7 @@
 
 #include "Core/System.hpp"
 #include <Core/Globals.hpp>
+#include <utility>
 
 class Event;
 
@@ -29,5 +30,6 @@ private:
 	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsPressed;	
 	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsClicked;
 	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsReleased;
+	MousePosition mMousePos;
 	void InputListener(Event& event);
 };

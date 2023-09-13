@@ -25,11 +25,12 @@ struct RigidBody
 
 	Vec2 acceleration{};
 	RigidBody() = default;
-	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension) {
+	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension, bool rotate = true) {
 		this->position = pos;
 		this->rotation = rotation;
 		this->dimension = dimension;
 		this->mass = mass;
+		this->isLockRotation = rotate;
 		this->friction = 0.2f;
 
 		if (mass < FLOAT_MAX) {

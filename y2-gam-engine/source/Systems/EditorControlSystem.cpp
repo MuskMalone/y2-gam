@@ -25,13 +25,100 @@ namespace Testing {
 
 void EditorControlSystem::Init()
 {
-	::gCoordinator = Coordinator::GetCoordinator();
+	::gCoordinator = Coordinator::GetInstance();
 
 	// TO DELETE
 	using namespace std::chrono;
 	Testing::generator.seed(static_cast<unsigned int>(duration_cast<milliseconds>(
 		system_clock::now().time_since_epoch()
 	).count()));
+
+	Entity entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(2 * WORLD_LIMIT_X, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			.position = Vec3(position),
+			.rotation = Vec3(),
+			.scale = Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
+		});
+
+	::gCoordinator->AddComponent(
+		entity,
+		Renderable{
+			.color = Vec3(0,0,0),
+			.drawMode = GL_FILL
+		});
+
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(-WORLD_LIMIT_X, 0, 1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9 * WORLD_LIMIT_Y)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			.position = Vec3(position),
+			.rotation = Vec3(),
+			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+		});
+
+	::gCoordinator->AddComponent(
+		entity,
+		Renderable{
+			.color = Vec3(1,1,1),
+			.drawMode = GL_FILL
+		});
+
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(WORLD_LIMIT_X, 0, 1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9 * WORLD_LIMIT_Y)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			.position = Vec3(position),
+			.rotation = Vec3(),
+			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+		});
+
+	::gCoordinator->AddComponent(
+		entity,
+		Renderable{
+			.color = Vec3(1,1,1),
+			.drawMode = GL_FILL
+		});
 }
 
 void EditorControlSystem::Update(float dt)
@@ -69,7 +156,7 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 10; ++i) {
+		for (int i{}; i < 500; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 
@@ -78,7 +165,7 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent<Gravity>(
 				entity,
 				//{Vec3(0.0f, randGravity(generator), 0.0f)});
-				{ Vec2(0.0f, -10.f) });
+				{ Vec2(0.0f, -100.f) });
 
 			Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
 			::gCoordinator->AddComponent(
@@ -88,7 +175,7 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent(
 				entity,
 				RigidBody{
-					Vec2(position),.0f, 10.f, Vec2(scale, scale)
+					Vec2(position),.0f, 10.f, Vec2(scale, scale), false
 				});
 			::gCoordinator->AddComponent(
 				entity,
@@ -105,45 +192,5 @@ void EditorControlSystem::Update(float dt)
 				});
 
 		}
-	}
-	if (inputSystem->CheckKey(InputSystem::KeyState::KEY_CLICKED, GLFW_KEY_E)) {
-		//spawn platform
-		Entity entity = ::gCoordinator->CreateEntity();
-		using namespace Testing;
-
-		std::uniform_real_distribution<float> randPosition(-WORLD_LIMIT_X, WORLD_LIMIT_X);
-		std::uniform_real_distribution<float> randDepth(-1.0f, 0.0f);
-		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
-		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
-		//for (auto& entity : entities)
-		//{
-		::gCoordinator->AddComponent<Gravity>(
-			entity,
-			{ Vec2(0.0f, -10.f) });
-		Vec3 position = Vec3(0, WORLD_LIMIT_Y * -.5f, randDepth(generator));
-		::gCoordinator->AddComponent(
-			entity,
-			BoxCollider{
-			});
-		::gCoordinator->AddComponent(
-			entity,
-			RigidBody{
-				Vec2(position), .0f, FLOAT_MAX, Vec2(100.f, 5.f)
-			});
-		::gCoordinator->AddComponent(
-			entity,
-			Transform{
-				.position = Vec3(position),
-				.rotation = Vec3(),
-				.scale = Vec3(100.f, 5.f, 1.f)
-			});
-
-		::gCoordinator->AddComponent(
-			entity,
-			Renderable{
-				.color = Vec3(randColor(generator), randColor(generator), randColor(generator)),
-				.drawMode = GL_FILL
-			});
-		
 	}
 }

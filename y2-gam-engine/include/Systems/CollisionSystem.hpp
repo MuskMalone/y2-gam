@@ -12,7 +12,7 @@ namespace Collision {
         float clip_edge);
     void ComputeIncidentEdge(ClipVertex c[2], const Vec2& h, const Vec2& pos, const Mat22& rot,
         const Vec2& normal);
-	uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, BoxCollider const& c1, RigidBody& b2, BoxCollider const& c2);
+	uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
 
 	class CollisionSystem : public System
 	{

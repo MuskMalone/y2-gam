@@ -13,6 +13,7 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Collision{
+
     inline constexpr Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
     inline constexpr Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m[0]),vabs(m[1])}; }
     Mat22 Mat22FromAngle(float rads) {
@@ -23,7 +24,35 @@ namespace Collision{
             -s, c
         };
     }
+    Mat33 Mat33FromAngle(float rads) {
+        float c = cosf(rads);
+        float s = sinf(rads);
+        return Mat33{
+            c, s, 0,
+            -s, c, 0,
+            0, 0, 1
+        };
+    }
+    Mat33 Mat33FromTranslate(float x, float y) {
+        return Mat33{
+            1,0,0,
+            0,1,0,
+            x,y,1
+        };
+    }
     using namespace Physics;
+    //returns the min and max values of the 
+    std::pair<Vec2, Vec2> GetAABBBody(RigidBody const& rb) {
+        auto transform{ Mat33FromTranslate(rb.position.x, rb.position.y) * Mat33FromAngle(rb.rotation) };
+        Vec2 topleft{ transform * Vec3{ rb.dimension.x * -.5f, rb.dimension.y * .5f, 1.f } };
+        Vec2 topright{ transform * Vec3{ rb.dimension.x * .5f, rb.dimension.y * .5f, 1.f } };
+        Vec2 bottomleft{ transform * Vec3{ rb.dimension.x * -.5f, rb.dimension.y * -.5f, 1.f } };
+        Vec2 bottomright{ transform * Vec3{ rb.dimension.x * .5f, rb.dimension.y * -.5f, 1.f } };
+        return {
+            Vec2{std::min({topleft.x, topright.x, bottomleft.x, bottomright.x}), std::min({topleft.y, topright.y, bottomleft.y, bottomright.y})},
+            Vec2{std::max({topleft.x, topright.x, bottomleft.x, bottomright.x}), std::max({topleft.y, topright.y, bottomleft.y, bottomright.y})}
+        };
+    }
     void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
         Contact merged_contacts[2];
 
@@ -155,7 +184,9 @@ namespace Collision{
         c[1].v = pos + rot * c[1].v;
     }
 
-    uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, BoxCollider const& c1, RigidBody& b2, BoxCollider const& c2) {
+    uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+
+
         Vec2 h1 = b1.dimension * 0.5f;
         Vec2 h2 = b2.dimension * 0.5f;
 
@@ -192,33 +223,31 @@ namespace Collision{
         Axis axis;
         float seperation;
         Vec2 normal;
-        {
             // Box 1 faces
-            axis = Axis::FACE_A_X;
-            seperation = face1.x;
-            normal = (d1.x > 0.0f) ? rot1[0] : rot1[0] * (-1.0f);
+        axis = Axis::FACE_A_X;
+        seperation = face1.x;
+        normal = (d1.x > 0.0f) ? rot1[0] : rot1[0] * (-1.0f);
 
-            const float relative_to_l = 0.95f;
-            const float absolute_to_l = 0.01f;
+        const float relative_to_l = 0.95f;
+        const float absolute_to_l = 0.01f;
 
-            if (face1.y > relative_to_l * seperation + absolute_to_l * h1.y) {
-                axis = Axis::FACE_A_Y;
-                seperation = face1.y;
-                normal = (d1.y > 0.0f) ? rot1[1] : rot1[1] * (-1.0f);
-            }
+        if (face1.y > relative_to_l * seperation + absolute_to_l * h1.y) {
+            axis = Axis::FACE_A_Y;
+            seperation = face1.y;
+            normal = (d1.y > 0.0f) ? rot1[1] : rot1[1] * (-1.0f);
+        }
             
-            // Box 2 faces
-            if (face2.x > relative_to_l * seperation + absolute_to_l * h2.x) {
-                axis = Axis::FACE_B_X;
-                seperation = face2.x;
-                normal = (d2.x > 0.0f) ? rot2[0] : rot2[0] * (-1.0f);
-            }
+        // Box 2 faces
+        if (face2.x > relative_to_l * seperation + absolute_to_l * h2.x) {
+            axis = Axis::FACE_B_X;
+            seperation = face2.x;
+            normal = (d2.x > 0.0f) ? rot2[0] : rot2[0] * (-1.0f);
+        }
 
-            if (face2.y > relative_to_l * seperation + absolute_to_l * h2.y) {
-                axis = Axis::FACE_B_Y;
-                seperation = face2.y;
-                normal = (d2.y > 0.0f) ? rot2[1] : rot2[1] * (-1.0f);
-            }
+        if (face2.y > relative_to_l * seperation + absolute_to_l * h2.y) {
+            axis = Axis::FACE_B_Y;
+            seperation = face2.y;
+            normal = (d2.y > 0.0f) ? rot2[1] : rot2[1] * (-1.0f);
         }
 
         // Setup clipping plane data based on the separating axis
@@ -327,10 +356,16 @@ namespace Collision{
     }
 
     Arbiter Collide(Entity b1, Entity b2) {
-        auto const& box1{ Coordinator::GetCoordinator()->GetComponent<BoxCollider>(b1) };
-        auto const& box2{ Coordinator::GetCoordinator()->GetComponent<BoxCollider>(b2) };
-        auto & rb1{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(b1) };
-        auto & rb2{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(b2) };
+        auto & rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(b1) };
+        auto & rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(b2) };
+
+        auto aabb1{ GetAABBBody(rb1) };
+        auto aabb2{ GetAABBBody(rb2) };
+        //////trivial reject
+        if (!CheckAABBDiscrete(aabb1.first, aabb1.second, aabb2.first, aabb2.second)) {
+            //std::cout << "reject\n";
+            return Arbiter{};
+        }
 
         Arbiter result {};
 
@@ -338,13 +373,13 @@ namespace Collision{
         result.b2 = b2;
 
         result.combined_friction = sqrtf(rb1.friction * rb2.friction);
-        result.contacts_count = Collide(result.contacts, rb1, box1, rb2, box2);
+        result.contacts_count = Collide(result.contacts, rb1, rb2);
 
         return result;
     }
 
     void CollisionSystem::Init() {
-        gCoordinator = Coordinator::GetCoordinator();
+        gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
         mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y)) };
     }
@@ -358,13 +393,15 @@ namespace Collision{
         //}
 
         mQuadtree.Update(mEntities, [](Entity const& e, DataMgmt::Rect const& r) {
-            auto const& rigidBody{ Coordinator::GetCoordinator()->GetComponent<RigidBody>(e) };
-            Vec2 cmin = rigidBody.position - rigidBody.dimension * .5f;
-            Vec2 cmax = rigidBody.position + rigidBody.dimension * .5f;
+            auto const& rigidBody{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
+            
+            //todo update the position based on rotated box not aabb
+            //todo substep checking
+            auto aabb = GetAABBBody(rigidBody);
             Vec2 rmin = r.get_min();
             Vec2 rmax = r.get_max();
             //basic aabb check
-            return CheckAABBDiscrete(cmin, cmax, rmin, rmax);
+            return CheckAABBDiscrete(aabb.first, aabb.second, rmin, rmax);
         });
         std::vector<std::vector<Entity>> entity2dVec;
         mQuadtree.Get(entity2dVec);
@@ -372,13 +409,14 @@ namespace Collision{
         //calculate each list of entities in each quad
         for (auto const& entityVec : entity2dVec) {
             for (int i{}; i < entityVec.size(); ++i) {
-                for (int j{}; j < entityVec.size(); ++j) {
-                    if (entityVec[i] == entityVec[j]) continue;
+                for (int j{i + 1}; j < entityVec.size(); ++j) {
+                    //if (entityVec[i] == entityVec[j]) continue;
                     Arbiter arbiter = Collide(entityVec[i], entityVec[j]);
                     ArbiterKey arbiterKey{ entityVec[i], entityVec[j] };
+                    //i have no clue why murmur works but chrono doesnt
                     uint64_t hashTableKey = murmur64((void*)&arbiterKey, sizeof(ArbiterKey));
                         //std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-                    ArbiterHashTable& arbiterTable{ Coordinator::GetCoordinator()->GetSystem<PhysicsSystem>()->mArbiterTable };
+                    ArbiterHashTable& arbiterTable{ Coordinator::GetInstance()->GetSystem<PhysicsSystem>()->mArbiterTable };
                     ArbiterHashTable::iterator iter = arbiterTable.find(hashTableKey);
                     //HashTableGet(&world->arbiter_table, hashTableKey);
 
@@ -392,27 +430,6 @@ namespace Collision{
                         }
                     }
 
-                    // COLLISION DETECTION AND RESOLUTION IS SUPPOSED TO BE PLACEHOLDERS 
-                    // WILL REMOVE LATER
-                    //Vec2 cp, cn;
-                    //float t;
-                    //auto& rigidbody1{ gCoordinator->GetComponent<RigidBody>(entityVec[i]) };
-                    //auto& rigidbody2{ gCoordinator->GetComponent<RigidBody>(entityVec[j]) };
-                    //auto const& collider1{ gCoordinator->GetComponent<BoxCollider>(entityVec[i]) };
-                    //auto const& collider2{ gCoordinator->GetComponent<BoxCollider>(entityVec[j]) };
-                    //Vec2 cmin = collider1.position - collider1.dimension * .5f;
-                    //Vec2 rmin = collider2.position - collider2.dimension * .5f;
-                    //Vec2 cmax = collider1.position + collider1.dimension * .5f;
-                    //Vec2 rmax = collider2.position + collider2.dimension * .5f;
-                    //if (CheckAABBDiscrete(cmin, cmax, rmin, rmax)) {
-                    //    rigidbody1.velocity = -rigidbody1.velocity;
-                    //    rigidbody2.velocity = -rigidbody2.velocity;
-
-                    //}
-                    //if (CheckSweptAABB({cmin, collider1.dimension}, rigidbody1.velocity, dt, { rmin, collider2.dimension }, cp, cn, t)) {
-                    //	//std::cout << "collided\n";
-                    //	ResolveSweptAABB({ cmin, collider1.dimension }, rigidbody1.velocity, dt, { rmin, collider2.dimension });
-                    //}
 
                 }
             }

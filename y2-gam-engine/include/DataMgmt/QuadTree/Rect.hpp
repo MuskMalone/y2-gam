@@ -34,10 +34,10 @@ namespace DataMgmt {
 		Rect(const Vec2& a, const Vec2& b) : min{ a }, max{ b } {
 		}
 		void Draw() const { // for debugging remove later
-			auto& camera = Coordinator::GetCoordinator()->GetComponent<Camera>(Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->GetCamera());
+			auto& camera = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
-			Mat44 xform{ Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->mLastModelXform };
+			Mat44 xform{ Coordinator::GetInstance()->GetSystem<RenderSystem>()->mLastModelXform };
 			v4Min = glm::inverse(xform) * v4Min;
 			v4Max = glm::inverse(xform) * v4Max;
 			glColor3ub(0xff, 0xff, 0xff);

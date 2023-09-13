@@ -2,6 +2,8 @@
 
 #include <bitset>
 #include <cstdint>
+#include <Core/Globals.hpp>
+#include <utility>
 
 // Source: https://gist.github.com/Lee-R/3839813
 constexpr std::uint32_t fnv1a_32(char const* s, std::size_t count)
@@ -14,6 +16,7 @@ constexpr std::uint32_t operator "" _hash(char const* s, std::size_t count)
 	return fnv1a_32(s, count);
 }
 
+//hashing algorithm
 constexpr std::uint64_t murmur64_seed(void const* data_, std::size_t len, std::size_t seed) {
 #if defined(GB_ARCH_64_BIT)
     std::uint64_t const m = 0xc6a4a7935bd1e995ULL;
@@ -125,8 +128,6 @@ constexpr std::uint64_t murmur64_seed(void const* data_, std::size_t len, std::s
 }
 constexpr std::uint64_t murmur64(void const* data, std::size_t len) { return murmur64_seed(data, len, 0x9747b28c); }
 
-
-
 // ECS
 using Entity = std::uint32_t;
 const Entity MAX_ENTITIES = 10000;
@@ -134,16 +135,16 @@ using ComponentType = std::uint8_t;
 const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
 
-
 // Input
 enum class MouseButtons
 {
 	LB, RB, MB
 };
-
+using MousePosition = std::pair<float, float>;
 
 // Events
 using EventId = std::uint32_t;
+
 using ParamId = std::uint32_t;
 
 #define METHOD_LISTENER(EventType, Listener) EventType, std::bind(&Listener, this, std::placeholders::_1)
@@ -174,3 +175,5 @@ namespace Events::Window::Resized {
 const ParamId WIDTH = "Events::Window::Resized::WIDTH"_hash;
 const ParamId HEIGHT = "Events::Window::Resized::HEIGHT"_hash;
 }
+
+

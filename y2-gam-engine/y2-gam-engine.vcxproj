@@ -144,6 +144,7 @@
     <ClInclude Include="include\Core\EntityManager.hpp" />
     <ClInclude Include="include\Core\Event.hpp" />
     <ClInclude Include="include\Core\EventManager.hpp" />
+    <ClInclude Include="include\Core\FrameRateController.hpp" />
     <ClInclude Include="include\Core\Globals.hpp" />
     <ClInclude Include="include\Core\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
+    <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Main.cpp" />
