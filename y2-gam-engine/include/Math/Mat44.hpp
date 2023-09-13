@@ -1,13 +1,9 @@
 #pragma once
 #include <glm/matrix.hpp>
-#include <cmath>
+
 #include "Vec4.hpp"
 
 using Mat44 = glm::mat4;
-using Mat33 = glm::mat3;
-using Mat22 = glm::mat2;
-
-
 //class Mat44
 //{
 //public:

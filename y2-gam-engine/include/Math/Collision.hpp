@@ -7,6 +7,7 @@ using CollisionRect = std::pair<Vec2, Vec2>;
 bool CheckAABBDiscrete(Vec2 const& cmin, Vec2 const& cmax, Vec2 const& rmin, Vec2 const& rmax) {
 	return (cmin.x < rmax.x && cmax.x > rmin.x && cmin.y < rmax.y && cmax.y > rmin.y);
 }
+
 bool CheckRayRect(const Vec2& ray_origin, const Vec2& ray_dir, const CollisionRect& target, Vec2& contactPoint, Vec2& contactNormal, float& t_hit_near)
 {
 	contactNormal = { 0,0 };

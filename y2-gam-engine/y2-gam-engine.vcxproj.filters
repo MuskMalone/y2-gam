@@ -111,7 +111,7 @@
     <ClInclude Include="include\Core\Globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\BoxCollider.hpp">
+    <ClInclude Include="include\Components\AABBCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Systems\CollisionSystem.hpp">
@@ -129,10 +129,7 @@
     <ClInclude Include="include\Systems\InputSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Core\Physics.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\FrameRateController.hpp">
+    <ClInclude Include="include\Components\PolygonCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Graphics\ElementBuffer.hpp">
@@ -208,9 +205,6 @@
     </ClCompile>
     <ClCompile Include="source\Graphics\VetexArray.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Core\FrameRateController.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

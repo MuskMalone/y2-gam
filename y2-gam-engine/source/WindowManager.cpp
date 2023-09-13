@@ -4,7 +4,6 @@
 #include "Core/Globals.hpp"
 #include <bitset>
 #include <iostream>
-#include <utility>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -18,7 +17,7 @@ void WindowManager::Init(
 {
 
 	glfwInit();
-	gCoordinator = Coordinator::GetInstance();
+	gCoordinator = Coordinator::GetCoordinator();
 	mWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
 
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
@@ -30,6 +29,7 @@ void WindowManager::Init(
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+	glfwSwapInterval(1);
 
 	// Configure OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -206,9 +206,6 @@ void WindowManager::MousePosCb(GLFWwindow* pwin, double xpos, double ypos) {
     UNREFERENCED_PARAMETER(ypos);
     UNREFERENCED_PARAMETER(xpos);
     UNREFERENCED_PARAMETER(pwin);
-	Event event(Events::Window::INPUT);
-	event.SetParam(Events::Window::Input::MOUSE_MOVE, MousePosition(static_cast<float>(xpos), static_cast<float>(ypos)));
-	gCoordinator->SendEvent(event);
 #ifdef _DEBUG
     std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
 #endif

@@ -1,4 +1,4 @@
-#include "Components/BoxCollider.hpp"
+#include "Components/AABBCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Player.hpp"
@@ -18,9 +18,6 @@
 #include <random>
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
-#include <Core/FrameRateController.hpp>
-
-#include <memory>
 
 
 namespace {
@@ -35,26 +32,20 @@ void QuitHandler(Event& event)
 
 int main()
 {
-	// Enable run-time memory check for debug builds.
-#if defined(DEBUG) | defined(_DEBUG)
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
-	using namespace Physics;
-	using namespace Collision;
-	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetCoordinator() };
+
 	coordinator->Init();
 
 
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
-	
-	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
-	frameController->Init(60, true);
+
+
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
 	coordinator->RegisterComponent<Editor>();
-	coordinator->RegisterComponent<BoxCollider>();
-	coordinator->RegisterComponent<Camera>();
+	coordinator->RegisterComponent<AABBCollider>();
+	coordinator->RegisterComponent<tCamera>();
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Renderable>();
 	coordinator->RegisterComponent<RigidBody>();
@@ -67,6 +58,8 @@ int main()
 		Signature signature;
 		signature.set(coordinator->GetComponentType<Gravity>());
 		signature.set(coordinator->GetComponentType<RigidBody>());
+		signature.set(coordinator->GetComponentType<Transform>());
+		signature.set(coordinator->GetComponentType<AABBCollider>());
 		coordinator->SetSystemSignature<PhysicsSystem>(signature);
 	}
 
@@ -76,7 +69,7 @@ int main()
 	{
 		Signature signature;
 		signature.set(coordinator->GetComponentType<RigidBody>());
-		signature.set(coordinator->GetComponentType<BoxCollider>());
+		signature.set(coordinator->GetComponentType<AABBCollider>());
 		coordinator->SetSystemSignature<CollisionSystem>(signature);
 	}
 
@@ -112,11 +105,12 @@ int main()
 
 	renderSystem->Init();
 
-	float dt = frameController->GetDeltaTime();
+	float dt = 0.0f;
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		frameController->StartFrameTime();
+		auto startTime = std::chrono::high_resolution_clock::now();
+
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
@@ -129,7 +123,7 @@ int main()
 
 		physicsSystem->PostCollisionUpdate(dt);
 
-		//collisionSystem->GetQuadtree()->Draw(); // for debug
+		collisionSystem->GetQuadtree()->Draw(); // for debug
 
 		renderSystem->Update(dt);
 
@@ -137,8 +131,8 @@ int main()
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
-		dt = frameController->EndFrameTime();
-		std::string title = "FPS: " + std::to_string(frameController->GetFps()) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
+		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+		std::string title = "FPS: " + std::to_string(1.0 / dt) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
 		windowManager->UpdateWindowTitle(title);
 
 	}

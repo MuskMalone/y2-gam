@@ -13,7 +13,7 @@ namespace {
 
 void InputSystem::Init()
 {
-	::gCoordinator = Coordinator::GetInstance();
+	::gCoordinator = Coordinator::GetCoordinator();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::INPUT, InputSystem::InputListener));
 }
 bool InputSystem::CheckKey(KeyState state, size_t key) const {
@@ -66,6 +66,4 @@ void InputSystem::InputListener(Event& event)
 	mMouseButtonsPressed = mspress;
 	if (msclick.any()) mMouseButtonsClicked = msclick;
 	if (msrelease.any()) mMouseButtonsReleased = msrelease;
-
-	mMousePos = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_RELEASE);
 }

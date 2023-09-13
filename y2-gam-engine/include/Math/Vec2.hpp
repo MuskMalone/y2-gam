@@ -1,9 +1,6 @@
 #pragma once
 #include <glm/vec2.hpp>
 using Vec2 = glm::vec2;
-inline float Vector2Cross(Vec2 a, Vec2 b) { return a.x * b.y - a.y * b.x; }
-inline Vec2 Vector2Cross(Vec2 a, float s) { return Vec2 { s* a.y, -s * a.x }; }
-inline Vec2 Vector2Cross(float s, Vec2 a) { return Vec2 { -s * a.y, s* a.x }; }
 
 //class Vec2
 //{

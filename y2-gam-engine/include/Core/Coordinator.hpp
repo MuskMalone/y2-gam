@@ -11,7 +11,7 @@
 class Coordinator
 {
 public:
-	static std::shared_ptr<Coordinator> GetInstance();
+	static std::shared_ptr<Coordinator> GetCoordinator();
 	void Init()
 	{
 		mComponentManager = std::make_unique<ComponentManager>();
