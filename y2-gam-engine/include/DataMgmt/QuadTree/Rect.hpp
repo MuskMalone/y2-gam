@@ -34,20 +34,20 @@ namespace DataMgmt {
 		Rect(const Vec2& a, const Vec2& b) : min{ a }, max{ b } {
 		}
 		void Draw() const { // for debugging remove later
-			auto& camera = Coordinator::GetCoordinator()->GetComponent<tCamera>(Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->GetCamera());
+			auto& camera = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
-			Mat44 xform{ Coordinator::GetCoordinator()->GetSystem<RenderSystem>()->mLastModelXform };
-			//v4Min = glm::inverse(xform) * v4Min;
-			//v4Max = glm::inverse(xform) * v4Max;
-			//glColor3ub(0xff, 0xff, 0xff);
-			//glLineWidth(1.0);
-			//glBegin(GL_LINE_LOOP);
-			//glVertex2f(v4Min.x, v4Min.y);
-			//glVertex2f(v4Min.x, v4Max.y);
-			//glVertex2f(v4Max.x, v4Max.y);
-			//glVertex2f(v4Max.x, v4Min.y);
-			//glEnd();
+			Mat44 xform{ Coordinator::GetInstance()->GetSystem<RenderSystem>()->mLastModelXform };
+			v4Min = glm::inverse(xform) * v4Min;
+			v4Max = glm::inverse(xform) * v4Max;
+			glColor3ub(0xff, 0xff, 0xff);
+			glLineWidth(1.0);
+			glBegin(GL_LINE_LOOP);
+			glVertex2f(v4Min.x, v4Min.y);
+			glVertex2f(v4Min.x, v4Max.y);
+			glVertex2f(v4Max.x, v4Max.y);
+			glVertex2f(v4Max.x, v4Min.y);
+			glEnd();
 		}
 
 		template <typename _pred>
