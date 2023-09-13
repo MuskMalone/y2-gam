@@ -1,4 +1,7 @@
 #pragma once
+#include <limits>
+#define FLOAT_MAX (std::numeric_limits<float>::max())
+
 #define UNREFERENCED_PARAMETER(P) (P)
 
 //i saw in glfw3.h that the max GLenum goes up to ~380ish
