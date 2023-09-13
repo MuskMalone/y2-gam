@@ -79,13 +79,13 @@ void EditorControlSystem::Update(float dt)
 				entity,
 				//{Vec3(0.0f, randGravity(generator), 0.0f)});
 				{ Vec2(0.0f, randGravity(generator)) });
-			::gCoordinator->AddComponent(
-				entity,
-				RigidBody{
-					.mass = 0.f,
-					.velocity = Vec2(randVelocity(generator), randVelocity(generator)),
-					.acceleration = Vec3(0.0f, 0.0f, 0.0f)
-				});
+			//::gCoordinator->AddComponent(
+			//	entity,
+			//	RigidBody{
+			//		.mass = 0.f,
+			//		.velocity = Vec2(randVelocity(generator), randVelocity(generator)),
+			//		.acceleration = Vec3(0.0f, 0.0f, 0.0f)
+			//	});
 			Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
 			::gCoordinator->AddComponent(
 				entity,
@@ -94,12 +94,12 @@ void EditorControlSystem::Update(float dt)
 					.rotation = Vec3(),
 					.scale = Vec3(scale, scale, scale)
 				});
-			::gCoordinator->AddComponent(
-				entity,
-				AABBCollider{
-					.dimension = Vec2(scale, scale),
-					.position = Vec2(position)
-				});
+			//::gCoordinator->AddComponent(
+			//	entity,
+			//	AABBCollider{
+			//		.dimension = Vec2(scale, scale),
+			//		.position = Vec2(position)
+			//	});
 			::gCoordinator->AddComponent(
 				entity,
 				Renderable{

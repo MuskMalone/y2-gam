@@ -119,8 +119,8 @@ void Renderer::Init() {
 	for (unsigned int i{}; i < sData.maxTexUnits; ++i)
 		samplers[i] = i;
 
-	sData.lineShader.reset(new Shader{ "./src/shaders/Line.vert", "./src/shaders/Line.frag" });
-	sData.texShader.reset(new Shader{ "./src/shaders/Tex.vert", "./src/shaders/Tex.frag" });
+	sData.lineShader.reset(new Shader{ "../Shaders/Line.vert", "../Shaders/Line.frag" });
+	sData.texShader.reset(new Shader{ "../Shaders/Tex.vert", "../Shaders/Tex.frag" });
 	sData.texShader->Use();
 	sData.texShader->SetUniform("u_Tex", samplers.data(), sData.maxTexUnits);
 
@@ -186,8 +186,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
 	glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
 	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
-	//glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
-	glm::mat4 transformMtx{ 1 };
+	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[0], scale, clr, { 0.f, 0.f }, texIdx);
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[1], scale, clr, { 1.f, 0.f }, texIdx);

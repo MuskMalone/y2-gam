@@ -41,107 +41,6 @@ void RenderSystem::Init()
 		tCamera{});
 
 	Renderer::Init();
-
-	////36 vertices form a cube
-	//std::vector<Vec3> vertices =
-	//	{
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(0.5f, -0.5f, -0.5f),
-	//		Vec3(0.5f, 0.5f, -0.5f),
-	//		Vec3(0.5f, 0.5f, -0.5f),
-	//		Vec3(-0.5f, 0.5f, -0.5f),
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(-0.5f, -0.5f, 0.5),
-	//		Vec3(0.5f, -0.5f, 0.5),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(-0.5f, 0.5f, 0.5),
-	//		Vec3(-0.5f, -0.5f, 0.5),
-	//		Vec3(-0.5f, 0.5f, 0.5f),
-	//		Vec3(-0.5f, 0.5f, -0.5f),
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(-0.5f, -0.5f, 0.5f),
-	//		Vec3(-0.5f, 0.5f, 0.5f),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(0.5f, 0.5f, -0.5),
-	//		Vec3(0.5f, -0.5f, -0.5),
-	//		Vec3(0.5f, -0.5f, -0.5),
-	//		Vec3(0.5f, -0.5f, 0.5),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(0.5f, -0.5f, -0.5f),
-	//		Vec3(0.5f, -0.5f, 0.5f),
-	//		Vec3(0.5f, -0.5f, 0.5f),
-	//		Vec3(-0.5f, -0.5f, 0.5f),
-	//		Vec3(-0.5f, -0.5f, -0.5f),
-	//		Vec3(-0.5f, 0.5f, -0.5),
-	//		Vec3(0.5f, 0.5f, -0.5),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(0.5f, 0.5f, 0.5),
-	//		Vec3(-0.5f, 0.5f, 0.5),
-	//		Vec3(-0.5f, 0.5f, -0.5)
-	//	};
-
-	//std::vector<Vec3> normals =
-	//	{
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, -1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(0.0f, 0.0f, 1.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(-1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(1.0f, 0.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, -1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0f),
-	//		Vec3(0.0f, 1.0f, 0.0)
-	//	};
-
-
-	//glGenVertexArrays(1, &mVao);
-	//glBindVertexArray(mVao);
-
-	//// Vertices
-	//glGenBuffers(1, &mVboVertices);
-	//glBindBuffer(GL_ARRAY_BUFFER, mVboVertices);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vec3) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3), (void*)nullptr);
-	//glEnableVertexAttribArray(0);
-
-	//// Surface normal
-	//glGenBuffers(1, &mVboNormals);
-	//glBindBuffer(GL_ARRAY_BUFFER, mVboNormals);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vec3) * normals.size(), normals.data(), GL_STATIC_DRAW);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3), (void*)nullptr);
-	//glEnableVertexAttribArray(1);
-
-	//glBindVertexArray(0);
 }
 
 
@@ -157,7 +56,7 @@ void RenderSystem::Update(float dt)
 	auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
 	auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
 
-	Camera cam{1.f,1.f,1.f,1.f};
+	Camera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
 	Renderer::RenderSceneBegin(cam);
 
 	for (auto const& entity : mEntities)
@@ -165,25 +64,14 @@ void RenderSystem::Update(float dt)
 		auto const& transform = gCoordinator->GetComponent<Transform>(entity);
 		auto const& renderable = gCoordinator->GetComponent<Renderable>(entity);
 
+		//Renderer::DrawQuad({ 0,0,0 }, { 50,50 }, { 1.f,1.f,0.f, 1.f });
+
 		//glPolygonMode(GL_FRONT_AND_BACK, renderable.drawMode);
 
-		Mat44 view = tCamera::MakeViewTransform(camera.eye, camera.tgt, camera.up);
+		//Mat44 view = tCamera::MakeViewTransform(camera.eye, camera.tgt, camera.up);
 
-		Mat44 translate{ 1 };
-		translate[3][0] = transform.position.x;
-		translate[3][1] = transform.position.y;
-		translate[3][2] = transform.position.z;
 
-		Mat44 scaleMat{ 1 };
-		scaleMat[0][0] = transform.scale.x;
-		scaleMat[1][1] = transform.scale.y;
-		scaleMat[2][2] = transform.scale.z;
-
-		Mat44 model = translate * scaleMat;
-
-		mLastModelXform = model;
-
-		Mat44 projection = camera.projectionTransform;
+		//Mat44 projection = camera.projectionTransform;
 
 		//shader->SetUniform("uModel", model);
 		//shader->SetUniform("uView", view);
@@ -204,8 +92,8 @@ void RenderSystem::WindowSizeListener(Event& event)
 	auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
 	auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
-	auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
+	//auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
 	//camera.projectionTransform = Camera::MakeProjectionTransform(45.0f, 0.1f, 1000.0f, windowWidth, windowHeight);
-	camera.projectionTransform = tCamera::MakeProjectionTransform(-50, 50, -50, 50, 0, -100);
+	//camera.projectionTransform = tCamera::MakeProjectionTransform(-50, 50, -50, 50, 0, -100);
 }
 

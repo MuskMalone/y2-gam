@@ -7,13 +7,6 @@ Camera::Camera(float left, float right, float bottom, float top)
 	: mProjMtx{ glm::ortho(left, right, bottom, top, -1.f, 1.f) }, mViewMtx{ 1.f } {
 
 	mViewProjMtx = mProjMtx * mViewMtx;
-
-	for (int i = 0; i < 4; ++i) {
-		for (int j = 0; j < 4; ++j) {
-			std::cout << mViewProjMtx[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
 }
 
 void Camera::SetPosition(glm::vec3 const& pos) {
