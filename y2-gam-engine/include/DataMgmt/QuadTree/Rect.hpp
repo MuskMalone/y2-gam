@@ -20,6 +20,8 @@
 #include "Core/Types.hpp"
 #include <Core/Coordinator.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
+#include <Graphics/Renderer.hpp>
+#include <Graphics/OrthoCamera.hpp>
 
 namespace DataMgmt {
 
@@ -34,20 +36,17 @@ namespace DataMgmt {
 		Rect(const Vec2& a, const Vec2& b) : min{ a }, max{ b } {
 		}
 		void Draw() const { // for debugging remove later
-			auto& camera = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
+			//auto& camera = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
+
+			OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+			Renderer::RenderSceneBegin(cam);
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
-			Mat44 xform{ Coordinator::GetInstance()->GetSystem<RenderSystem>()->mLastModelXform };
-			v4Min = glm::inverse(xform) * v4Min;
-			v4Max = glm::inverse(xform) * v4Max;
-			glColor3ub(0xff, 0xff, 0xff);
-			glLineWidth(1.0);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(v4Min.x, v4Min.y);
-			glVertex2f(v4Min.x, v4Max.y);
-			glVertex2f(v4Max.x, v4Max.y);
-			glVertex2f(v4Max.x, v4Min.y);
-			glEnd();
+			Vec4 v4Scale{ v4Max - v4Min };
+
+			Renderer::DrawLineRect((v4Min + v4Scale / 2.f), v4Scale, { 1.f, 1.f, 1.f ,1.f });
+			Renderer::RenderSceneEnd();
+
 		}
 
 		template <typename _pred>

@@ -142,7 +142,8 @@ void EditorControlSystem::Update(float dt)
 		camera.UpdatePos(camera.eye.x + dt, camera.eye.y);
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_PRESSED, static_cast<size_t>(MouseButtons::LB))) {
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
 		using namespace Testing;
 
@@ -156,7 +157,7 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 5; ++i) {
+		for (int i{}; i < 1; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 

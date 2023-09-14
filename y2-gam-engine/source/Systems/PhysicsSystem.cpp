@@ -10,6 +10,7 @@
 #include <glm/matrix.hpp>
 #include <Math/Vec2.hpp>
 #include <glm/common.hpp>
+#include <glm/glm.hpp>
 #include <Core/Physics.hpp>
 
 namespace {
@@ -18,8 +19,8 @@ namespace {
 namespace Physics {
 
     void ArbiterPreStep(Arbiter & a, float inv_dt) {
-        const float k_allowed_penetration = 0.01f;
-        float k_bias_factor = 0.2f;
+        const float k_allowed_penetration = 0.0f;
+        float k_bias_factor = .2f;
 
         auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
         auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
@@ -221,8 +222,8 @@ namespace Physics {
             rigidBody.rotation += rigidBody.angularVelocity * dt;
 
             //change this soon
-            transform.position += Vec3{rigidBody.velocity, 0} *dt;
-            transform.rotation += Vec3{ 0, 0, rigidBody.angularVelocity } *dt;
+            transform.position = Vec3{rigidBody.position, 0};
+            transform.rotation = Vec3{ 0, 0, glm::degrees(rigidBody.rotation) };
 
             rigidBody.torque = 0.0f;
             rigidBody.force = Vec2{};//Vector2Zero();

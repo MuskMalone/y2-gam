@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 namespace Physics {
+    constexpr float PI{ 3.14159265358979323846f };
     enum class Axis { FACE_A_X, FACE_A_Y, FACE_B_X, FACE_B_Y };
 
     enum class EdgeNumbers {

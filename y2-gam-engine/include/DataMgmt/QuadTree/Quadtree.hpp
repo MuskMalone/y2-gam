@@ -12,9 +12,11 @@
 #include <set>
 #include <Core/Globals.hpp>
 #include <iostream>
+#include <Graphics/Renderer.hpp>
+#include <Graphics/OrthoCamera.hpp>
 
 // capacity of each node before splitting into more leaves
-#define NODE_CAPACITY 64
+#define NODE_CAPACITY 32
 // max depth of tree
 #define NODE_MAX_DEPTH 8
 namespace {
@@ -184,7 +186,7 @@ namespace DataMgmt {
 		  // Add all indexes to our container
 		  for (const auto& index : mIndex) cont.emplace_back(index);
 	  }
-	  void Draw() const {
+	  void Debug() const {
 		  //----------------------------------------------------------------
 		  // [1] Draw this nodes boundaries.
 		  // [2] Draw subnodes boundaries.
@@ -199,14 +201,13 @@ namespace DataMgmt {
 			  //m_subnode[3]->set_color(pastel_pink);
 
 			  // Continue down the tree
-			  mSubnode[0]->Draw();
-			  mSubnode[1]->Draw();
-			  mSubnode[2]->Draw();
-			  mSubnode[3]->Draw();
+			  mSubnode[0]->Debug();
+			  mSubnode[1]->Debug();
+			  mSubnode[2]->Debug();
+			  mSubnode[3]->Debug();
 
 			  return;
 		  }
-
 		  //// Color the balls in the same color as the boundaries
 		  //for (const auto &id : m_index) {
 		  //  object_vec[id]->set_temp_color(m_rect.get_color());

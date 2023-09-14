@@ -4,7 +4,8 @@
 #include <array>
 #include <cassert>
 #include <queue>
-
+#include <iostream>
+#include <exception>
 
 class EntityManager
 {
@@ -20,7 +21,7 @@ public:
 	Entity CreateEntity()
 	{
 		assert(mLivingEntityCount < MAX_ENTITIES && "Too many entities in existence.");
-
+		if (mLivingEntityCount >= MAX_ENTITIES) throw std::out_of_range{"too many entities	"};
 		Entity id = mAvailableEntities.front();
 		mAvailableEntities.pop();
 		++mLivingEntityCount;

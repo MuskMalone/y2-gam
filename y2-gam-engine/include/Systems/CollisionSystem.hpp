@@ -20,7 +20,8 @@ namespace Collision {
 		void Init();
 
 		void Update(float dt);
-		DataMgmt::Quadtree<Entity>* GetQuadtree() { return &mQuadtree; }
+
+		void Debug();
 	private:
 
 		DataMgmt::Quadtree<Entity> mQuadtree;

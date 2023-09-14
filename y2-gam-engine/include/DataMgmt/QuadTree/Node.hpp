@@ -16,14 +16,14 @@ namespace DataMgmt {
 	public:
 		Node(const Rect& r) : mBounds{ r } {}
 
-		void insert(Entity const& id) { mIndex.emplace_back(id); }
+		void Insert(Entity const& id) { mIndex.emplace_back(id); }
 
-		void get(std::vector<std::vector<Entity>>& cont) {
+		void Get(std::vector<std::vector<Entity>>& cont) {
 			cont.emplace_back(mIndex);
 			mIndex.clear();
 			mIndex.shrink_to_fit();
 		}
-		void draw() const {
+		void Draw() const {
 			// Draw the nodes boundaries
 			mBounds.Draw();
 		}

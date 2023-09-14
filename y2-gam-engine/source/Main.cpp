@@ -129,7 +129,7 @@ int main()
 
 		physicsSystem->PostCollisionUpdate(dt);
 
-		//collisionSystem->GetQuadtree()->Draw(); // for debug
+		collisionSystem->Debug(); // for debug
 
 		renderSystem->Update(dt);
 

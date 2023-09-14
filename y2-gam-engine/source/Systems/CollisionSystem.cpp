@@ -435,4 +435,22 @@ namespace Collision{
             }
         }
     }
+
+    void CollisionSystem::Debug() {
+        mQuadtree.Debug();
+        OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+        Renderer::RenderSceneBegin(cam);
+        size_t sizeent{ mEntities.size() };
+
+        for (auto const& e : mEntities) {
+            auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
+
+            auto aabb{ GetAABBBody(rb) };
+            auto scale{ aabb.second - aabb.first };
+            Renderer::DrawLineRect(Vec3(aabb.first + scale / 2.f, 1), scale, { 1.f, 1.f, 1.f ,1.f });
+
+        }
+        Renderer::RenderSceneEnd();
+
+    }
 }
