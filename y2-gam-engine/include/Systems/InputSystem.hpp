@@ -11,7 +11,7 @@ class Event;
 class InputSystem : public System
 {
 public:
-	enum class KeyState {
+	enum class InputKeyState {
 		KEY_PRESSED = 0,
 		KEY_CLICKED,
 		KEY_RELEASED,
@@ -20,16 +20,16 @@ public:
 		MOUSE_RELEASED
 	};
 	void Init();
-	bool CheckKey(KeyState state, size_t key) const;
+	bool CheckKey(InputKeyState state, size_t key) const;
 	void Update();
 
 private:
-	std::bitset<ENGINE_KEYS_COUNT> mButtonsPressed;
-	std::bitset<ENGINE_KEYS_COUNT> mButtonsClicked;
-	std::bitset<ENGINE_KEYS_COUNT> mButtonsReleased;
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsPressed;	
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsClicked;
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> mMouseButtonsReleased;
+	KeyState mButtonsPressed;
+	KeyState mButtonsClicked;
+	KeyState mButtonsReleased;
+	MouseKeyState mMouseButtonsPressed;	
+	MouseKeyState mMouseButtonsClicked;
+	MouseKeyState mMouseButtonsReleased;
 	MousePosition mMousePos;
 	void InputListener(Event& event);
 };

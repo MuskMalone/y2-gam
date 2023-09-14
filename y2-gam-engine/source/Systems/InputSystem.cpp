@@ -16,25 +16,25 @@ void InputSystem::Init()
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::INPUT, InputSystem::InputListener));
 }
-bool InputSystem::CheckKey(KeyState state, size_t key) const {
+bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	bool out{ false };
 	switch (state) {
-	case KeyState::KEY_PRESSED:
+	case InputKeyState::KEY_PRESSED:
 		out= mButtonsPressed.test(static_cast<std::size_t>(key));
 		break;
-	case KeyState::KEY_CLICKED:
+	case InputKeyState::KEY_CLICKED:
 		out = mButtonsClicked.test(static_cast<std::size_t>(key));
 		break;
-	case KeyState::KEY_RELEASED:
+	case InputKeyState::KEY_RELEASED:
 		out = mButtonsReleased.test(static_cast<std::size_t>(key));
 		break;
-	case KeyState::MOUSE_PRESSED:
+	case InputKeyState::MOUSE_PRESSED:
 		out = mMouseButtonsPressed.test(static_cast<std::size_t>(key));
 		break;
-	case KeyState::MOUSE_CLICKED:
+	case InputKeyState::MOUSE_CLICKED:
 		out = mMouseButtonsClicked.test(static_cast<std::size_t>(key));
 		break;
-	case KeyState::MOUSE_RELEASED:
+	case InputKeyState::MOUSE_RELEASED:
 		out = mMouseButtonsReleased.test(static_cast<std::size_t>(key));
 		break;
 	}
@@ -53,19 +53,19 @@ void InputSystem::Update()
 
 void InputSystem::InputListener(Event& event)
 {
-	std::bitset<ENGINE_KEYS_COUNT> press {event.GetParam<std::bitset<ENGINE_KEYS_COUNT>>(Events::Window::Input::KEY_PRESS)};
-	std::bitset<ENGINE_KEYS_COUNT> click {event.GetParam<std::bitset<ENGINE_KEYS_COUNT>>(Events::Window::Input::KEY_CLICK)};
-	std::bitset<ENGINE_KEYS_COUNT> release {event.GetParam<std::bitset<ENGINE_KEYS_COUNT>>(Events::Window::Input::KEY_RELEASE)};
+	KeyState press {event.GetParam<KeyState>(Events::Window::Input::KEY_PRESS)};
+	KeyState click {event.GetParam<KeyState>(Events::Window::Input::KEY_CLICK)};
+	KeyState release {event.GetParam<KeyState>(Events::Window::Input::KEY_RELEASE)};
 	mButtonsPressed = press;
 	if (click.any()) mButtonsClicked = click;
 	if (release.any()) mButtonsReleased = release;
 
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> mspress {event.GetParam<std::bitset<ENGINE_MOUSEKEYS_COUNT>>(Events::Window::Input::MOUSE_PRESS)};
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> msclick {event.GetParam<std::bitset<ENGINE_MOUSEKEYS_COUNT>>(Events::Window::Input::MOUSE_CLICK)};
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> msrelease {event.GetParam<std::bitset<ENGINE_MOUSEKEYS_COUNT>>(Events::Window::Input::MOUSE_RELEASE)};
+	MouseKeyState mspress {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_PRESS)};
+	MouseKeyState msclick {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_CLICK)};
+	MouseKeyState msrelease {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_RELEASE)};
 	mMouseButtonsPressed = mspress;
 	if (msclick.any()) mMouseButtonsClicked = msclick;
 	if (msrelease.any()) mMouseButtonsReleased = msrelease;
 
-	mMousePos = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_RELEASE);
+	mMousePos = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE);
 }

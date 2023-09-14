@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <bitset>
 #include <string>
-#include <Core/Globals.hpp>
+#include <Core/Types.hpp>
 #include <memory>
 
 
@@ -41,11 +41,13 @@ private:
 
 	GLFWwindow* mWindow;
 
-	std::bitset<ENGINE_KEYS_COUNT> mButtons{};
-	std::bitset<ENGINE_KEYS_COUNT> mPrevButtons{};
-	std::pair<bool, bool> mKeystateLb{ false, false };
-	std::pair<bool, bool> mKeystateRb{ false, false };
-	std::pair<bool, bool> mKeystateMb{ false, false };
+	KeyState mButtons{};
+	KeyState mPrevButtons{};
+	MouseKeyState mMouseButtons{};
+	MouseKeyState mPrevMouseButtons{};
+	//std::pair<bool, bool> mKeystateLb{ false, false };
+	//std::pair<bool, bool> mKeystateRb{ false, false };
+	//std::pair<bool, bool> mKeystateMb{ false, false };
 	template <typename _bitset>
 	void SetKey(_bitset & bs, GLenum key, bool state);
 };

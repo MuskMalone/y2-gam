@@ -43,5 +43,5 @@ void FrameRateController::StartSubFrameTime() {
 
 }
 float FrameRateController::EndSubFrameTime() {
-
+	return 0.f;
 }

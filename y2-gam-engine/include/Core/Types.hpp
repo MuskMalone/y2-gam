@@ -141,6 +141,8 @@ enum class MouseButtons
 	LB, RB, MB
 };
 using MousePosition = std::pair<float, float>;
+using KeyState = std::bitset<ENGINE_KEYS_COUNT>;
+using MouseKeyState = std::bitset<ENGINE_MOUSEKEYS_COUNT>;
 
 // Events
 using EventId = std::uint32_t;

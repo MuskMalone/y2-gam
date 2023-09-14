@@ -64,15 +64,14 @@ void WindowManager::Shutdown()
 void WindowManager::ProcessEvents()
 {
 	mPrevButtons = mButtons;
-	mKeystateLb.first = mKeystateLb.second;
-	mKeystateRb.first = mKeystateRb.second;
-	mKeystateMb.first = mKeystateMb.second;
+	mPrevMouseButtons = mMouseButtons;
 
 	glfwPollEvents();
 
 	////hack to send event for pressed key
 	Event event(Events::Window::INPUT);
 	event.SetParam(Events::Window::Input::KEY_PRESS,mButtons & mPrevButtons);
+	event.SetParam(Events::Window::Input::MOUSE_PRESS, mMouseButtons & mPrevMouseButtons);
 	gCoordinator->SendEvent(event);
 
 }
@@ -88,8 +87,8 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
     UNREFERENCED_PARAMETER(mod);
     UNREFERENCED_PARAMETER(scancode);
 
-	std::bitset<ENGINE_KEYS_COUNT>const& prevButtons {GetInstance()->mPrevButtons};
-	std::bitset<ENGINE_KEYS_COUNT>& currButtons {GetInstance()->mButtons};
+	KeyState const& prevButtons {GetInstance()->mPrevButtons};
+	KeyState& currButtons {GetInstance()->mButtons};
 	Event event(Events::Window::INPUT);
     if (GLFW_PRESS == action) {
         if (GLFW_KEY_ESCAPE == key) {
@@ -132,49 +131,34 @@ void WindowManager::MouseButtonCb(GLFWwindow* pwin, int button, int action, int 
 #endif
         break;
     }
-	std::pair<bool, bool>& lb{GetInstance()->mKeystateLb};
-	std::pair<bool, bool>& rb{GetInstance()->mKeystateRb};
-	std::pair<bool, bool>& mb{GetInstance()->mKeystateMb};
+	MouseKeyState const& prevButtons {GetInstance()->mPrevMouseButtons};
+	MouseKeyState& currButtons {GetInstance()->mMouseButtons};
+
 	Event event(Events::Window::INPUT);
-	std::bitset<ENGINE_MOUSEKEYS_COUNT> mousebtn;
+	//MouseKeyState& mousebtn;
     switch (action) {
     case GLFW_PRESS:
 #ifdef _DEBUG
         std::cout << "pressed!!!" << std::endl;
 #endif
 		if (GLFW_MOUSE_BUTTON_LEFT == button) {
-			lb.second = true;
-			mousebtn.set(static_cast<size_t>(MouseButtons::LB), true);
-			if (!lb.first && lb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_CLICK, mousebtn);
-				gCoordinator->SendEvent(event);
-			}
-			else if (lb.first && lb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_PRESS, mousebtn);
+			currButtons.set(static_cast<size_t>(MouseButtons::LB), true);
+			if (!prevButtons.test(static_cast<std::size_t>(MouseButtons::LB)) && currButtons.test(static_cast<std::size_t>(MouseButtons::LB))) {
+				event.SetParam(Events::Window::Input::MOUSE_CLICK, currButtons);
 				gCoordinator->SendEvent(event);
 			}
 		}
 		if (GLFW_MOUSE_BUTTON_RIGHT == button) {
-			rb.second = true;
-			mousebtn.set(static_cast<size_t>(MouseButtons::RB), true);
-			if (!rb.first && rb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_CLICK, mousebtn);
-				gCoordinator->SendEvent(event);
-			}
-			else if (rb.first && rb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_PRESS, mousebtn);
+			currButtons.set(static_cast<size_t>(MouseButtons::RB), true);
+			if (!prevButtons.test(static_cast<std::size_t>(MouseButtons::RB)) && currButtons.test(static_cast<std::size_t>(MouseButtons::RB))) {
+				event.SetParam(Events::Window::Input::MOUSE_CLICK, currButtons);
 				gCoordinator->SendEvent(event);
 			}
 		}
 		if (GLFW_MOUSE_BUTTON_MIDDLE == button) {
-			mb.second = true;
-			mousebtn.set(static_cast<size_t>(MouseButtons::MB), true);
-			if (!mb.first && mb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_CLICK, mousebtn);
-				gCoordinator->SendEvent(event);
-			}
-			else if (mb.first && mb.second) {
-				event.SetParam(Events::Window::Input::MOUSE_PRESS, mousebtn);
+			currButtons.set(static_cast<size_t>(MouseButtons::MB), true);
+			if (!prevButtons.test(static_cast<std::size_t>(MouseButtons::MB)) && currButtons.test(static_cast<std::size_t>(MouseButtons::MB))) {
+				event.SetParam(Events::Window::Input::MOUSE_CLICK, currButtons);
 				gCoordinator->SendEvent(event);
 			}
 		}
@@ -184,18 +168,15 @@ void WindowManager::MouseButtonCb(GLFWwindow* pwin, int button, int action, int 
         std::cout << "released!!!" << std::endl;
 #endif
 		if (GLFW_MOUSE_BUTTON_LEFT == button) {
-			lb.second = false;
-			mousebtn.reset(static_cast<size_t>(MouseButtons::LB));
+			currButtons.reset(static_cast<size_t>(MouseButtons::LB));
 		}
 		if (GLFW_MOUSE_BUTTON_RIGHT == button) {
-			rb.second = false;
-			mousebtn.reset(static_cast<size_t>(MouseButtons::RB));
+			currButtons.reset(static_cast<size_t>(MouseButtons::RB));
 		}
 		if (GLFW_MOUSE_BUTTON_MIDDLE == button) {
-			mb.second = false;
-			mousebtn.reset(static_cast<size_t>(MouseButtons::MB));
+			currButtons.reset(static_cast<size_t>(MouseButtons::MB));
 		}
-		auto bsM{ mousebtn };
+		auto bsM{ currButtons };
 		event.SetParam(Events::Window::Input::MOUSE_RELEASE, bsM.flip());
 		gCoordinator->SendEvent(event);
         break;
