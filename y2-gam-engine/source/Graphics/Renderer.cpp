@@ -19,9 +19,9 @@ struct LineVtx {
 
 struct RendererData {
 
-	const unsigned int cMaxQuads{ 10000 };
-	const unsigned int cMaxVtxCount{ cMaxQuads * 4 };
-	const unsigned int cMaxIdxCount{ cMaxQuads * 6 };
+	static const unsigned int cMaxQuads{ 1000 };
+	static const unsigned int cMaxVertices{ cMaxQuads * 4 };
+	static const unsigned int cMaxIndices{ cMaxQuads * 6 };
 	unsigned int maxTexUnits{}; //set actual number in init 
 
 	std::shared_ptr<VertexArray> quadVertexArray;
@@ -33,7 +33,7 @@ struct RendererData {
 	std::shared_ptr<VertexBuffer> lineVertexBuffer;
 	std::shared_ptr<Shader> lineShader;
 
-	unsigned int QuadIdxCount{};
+	unsigned int quadIdxCount{};
 	QuadVtx* quadBuffer{ nullptr }; // Dynamic buffer to hold vertex data for batching
 	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
 
@@ -46,6 +46,7 @@ struct RendererData {
 	std::unique_ptr<std::shared_ptr<Texture>[]> texUnits; //pointer to an array of Texture pointers (may change to vector)
 	unsigned int texUnitIdx{ 1 }; // 0 = white tex
 
+	Renderer::Statistics stats;
 };
 
 static RendererData sData;
@@ -64,7 +65,7 @@ void Renderer::Init() {
 
 	sData.quadVertexArray.reset(new VertexArray);
 
-	sData.quadVertexBuffer.reset(new VertexBuffer{ sData.cMaxVtxCount * sizeof(QuadVtx) });
+	sData.quadVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(QuadVtx) });
 
 	BufferLayout quadLayout = {
 		{AttributeType::VEC3, "a_Position"},
@@ -75,13 +76,13 @@ void Renderer::Init() {
 
 	sData.quadVertexBuffer->SetLayout(quadLayout); //must set layout before adding vbo
 	sData.quadVertexArray->AddVertexBuffer(sData.quadVertexBuffer);
-	sData.quadBuffer = new QuadVtx[sData.cMaxVtxCount]; //deleted in shutdown
+	sData.quadBuffer = new QuadVtx[sData.cMaxVertices]; //deleted in shutdown
 
-	unsigned int* quadIndices = new unsigned int[sData.cMaxIdxCount]; //might need to refactor, do a ref count?
-	//std::unique_ptr<unsigned int[]> quadIndices{new unsigned int[sData.cMaxIdxCount]};
+	unsigned int* quadIndices = new unsigned int[sData.cMaxIndices]; //might need to refactor, do a ref count?
+	//std::unique_ptr<unsigned int[]> quadIndices{new unsigned int[sData.cMaxIndices]};
 
 	unsigned int offset{};
-	for (unsigned int i{}; i < sData.cMaxQuads; i += 6) {
+	for (unsigned int i{}; i < sData.cMaxIndices; i += 6) {
 		quadIndices[i + 0] = offset + 0;
 		quadIndices[i + 1] = offset + 1;
 		quadIndices[i + 2] = offset + 2;
@@ -93,13 +94,13 @@ void Renderer::Init() {
 		offset += 4;
 	}
 	std::shared_ptr<ElementBuffer> quadIB;
-	quadIB.reset(new ElementBuffer(quadIndices, sData.cMaxQuads));
+	quadIB.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
 	sData.quadVertexArray->SetElementBuffer(quadIB);
 	delete[] quadIndices; //assumes indices gets uploaded by gpu immediately this line might cause trouble
 
 	//Lines
 	sData.lineVertexArray.reset(new VertexArray);
-	sData.lineVertexBuffer.reset(new VertexBuffer{ sData.cMaxVtxCount * sizeof(LineVtx) });
+	sData.lineVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(LineVtx) });
 
 	BufferLayout lineLayout = {
 		{AttributeType::VEC3, "a_Position"},
@@ -108,7 +109,7 @@ void Renderer::Init() {
 
 	sData.lineVertexBuffer->SetLayout(lineLayout); //must set layout before adding vbo
 	sData.lineVertexArray->AddVertexBuffer(sData.lineVertexBuffer);
-	sData.lineBuffer = new LineVtx[sData.cMaxVtxCount]; //change this in future.. deleted in shutdown
+	sData.lineBuffer = new LineVtx[sData.cMaxVertices]; //change this in future.. deleted in shutdown
 
 	sData.whiteTex.reset(new Texture{ 1, 1 });
 	unsigned int whiteTexData{ 0xffffffff };
@@ -143,13 +144,7 @@ void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
 	sData.lineShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
 
 	//start Batch
-	sData.QuadIdxCount = 0;
-	sData.quadBufferPtr = sData.quadBuffer;
-
-	sData.lineVtxCount = 0;
-	sData.lineBufferPtr = sData.lineBuffer;
-
-	sData.texUnitIdx = 1;
+	BeginBatch();
 }
 
 void Renderer::RenderSceneEnd() {
@@ -181,6 +176,9 @@ void Renderer::SetLineBufferData(glm::vec3 const& pos, glm::vec4 const& clr) {
 //rotation is an optinal paramter
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
 
+	if (sData.quadIdxCount >= RendererData::cMaxIndices)
+		NextBatch();
+
 	const float texIdx{}; //white tex
 
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
@@ -193,7 +191,9 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[2], scale, clr, { 1.f, 1.f }, texIdx);
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[3], scale, clr, { 0.f, 1.f }, texIdx);
 
-	sData.QuadIdxCount += 6;
+	sData.quadIdxCount += 6;
+
+	++sData.stats.quadCount;
 }
 
 void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
@@ -210,6 +210,8 @@ void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, std::share
 //this version takes in vec3 for pos
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	std::shared_ptr<Texture>const& tex, float rot) {
+	if (sData.quadIdxCount >= RendererData::cMaxIndices)
+		NextBatch();
 
 	constexpr glm::vec4 clr{ 1.f, 1.f, 1.f, 1.f }; //TODO add parameter tint
 
@@ -240,7 +242,9 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[2], scale, clr, { 1.f, 1.f }, texIdx);
 	SetQuadBufferData(transformMtx * sData.quadVtxPos[3], scale, clr, { 0.f, 1.f }, texIdx);
 
-	tex->Bind();
+	sData.quadIdxCount += 6;
+
+	++sData.stats.quadCount;
 }
 
 void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr) {
@@ -249,6 +253,8 @@ void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 cons
 	SetLineBufferData(p1, clr);
 
 	sData.lineVtxCount += 2;
+
+	++sData.stats.lineCount;
 }
 
 void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr) {
@@ -264,12 +270,13 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 }
 
 void Renderer::FlushBatch() {
-	if (sData.QuadIdxCount) {
+	if (sData.quadIdxCount) {
 		ptrdiff_t difference{ reinterpret_cast<unsigned char*>(sData.quadBufferPtr)
 							- reinterpret_cast<unsigned char*>(sData.quadBuffer) };
 
 		//how many elements it takes up in terms of bytes
 		unsigned int dataSize = static_cast<unsigned int>(difference);
+		//uint32_t dataSize = (uint32_t)((uint8_t*)sData.quadBufferPtr - (uint8_t*)sData.quadBuffer);
 		sData.quadVertexBuffer->SetData(sData.quadBuffer, dataSize);
 
 		//Bind all the textures that has been set
@@ -277,7 +284,9 @@ void Renderer::FlushBatch() {
 			sData.texUnits[i]->Bind(i);
 		}
 		sData.texShader->Use();
-		DrawIndexed(sData.quadVertexArray, sData.QuadIdxCount);
+		DrawIndexed(sData.quadVertexArray, sData.quadIdxCount);
+
+		++sData.stats.drawCalls;
 	}
 
 	if (sData.lineVtxCount) {
@@ -290,7 +299,31 @@ void Renderer::FlushBatch() {
 
 		sData.lineShader->Use();
 		DrawLineArray(sData.lineVertexArray, sData.lineVtxCount);
+
+		++sData.stats.drawCalls;
 	}
+}
+
+void Renderer::BeginBatch() {
+	sData.quadIdxCount = 0;
+	sData.quadBufferPtr = sData.quadBuffer;
+
+	sData.lineVtxCount = 0;
+	sData.lineBufferPtr = sData.lineBuffer;
+
+	sData.texUnitIdx = 1;
+}
+void Renderer::NextBatch() {
+	FlushBatch();
+	BeginBatch();
+
+	//auto stats = GetStats();
+	//std::cout << "Renderer Stats:\n"
+	//	<< "Draw Calls: " << stats.drawCalls
+	//	<< "\nQuads: " << stats.quadCount
+	//	<< "\nVertices: " << stats.GetTotalVtxCount()
+	//	<< "\nIndices: " << stats.GetTotalIdxCount();
+	//ResetStats();
 }
 
 //OpenGL Commands
@@ -318,3 +351,10 @@ void Renderer::DrawLineArray(std::shared_ptr<VertexArray> const& vao, unsigned i
 	glDrawArrays(GL_LINES, 0, vtxCount);
 }
 
+void Renderer::ResetStats() {
+	memset(&sData.stats, 0, sizeof(Statistics));
+}
+
+Renderer::Statistics Renderer::GetStats() {
+	return sData.stats;
+}
