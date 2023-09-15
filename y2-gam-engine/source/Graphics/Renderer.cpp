@@ -248,6 +248,8 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 }
 
 void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr) {
+	if (sData.lineVtxCount >= RendererData::cMaxVertices)
+		NextBatch();
 
 	SetLineBufferData(p0, clr);
 	SetLineBufferData(p1, clr);

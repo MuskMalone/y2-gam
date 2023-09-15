@@ -47,12 +47,6 @@ void RenderSystem::Init()
 void RenderSystem::Update(float dt)
 {
 
-	//shader->Use();
-	//
-	
-	//BindVertexArray(mVao);
-	//sData.
-
 	auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
 	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
 
@@ -80,11 +74,9 @@ void RenderSystem::Update(float dt)
 
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		Renderer::DrawQuad(transform.position, transform.scale, { renderable.color,1.f }, transform.rotation.z);
-	}
 
 	Renderer::RenderSceneEnd();
 
-	//glBindVertexArray(0);
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

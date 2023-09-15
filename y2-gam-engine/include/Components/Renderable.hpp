@@ -8,3 +8,8 @@ struct Renderable
 	Vec3 color;
 	GLenum drawMode{GL_FILL}; //ignore this
 };
+
+struct Sprite {
+	Vec4 color;
+
+};
