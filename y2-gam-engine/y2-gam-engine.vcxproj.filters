@@ -51,7 +51,7 @@
     <ClInclude Include="include\Components\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\Renderable.hpp">
+    <ClInclude Include="include\Components\Sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\RigidBody.hpp">
@@ -150,7 +150,7 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Graphics\Camera.hpp">
+    <ClInclude Include="include\Graphics\OrthoCamera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -182,9 +182,6 @@
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Graphics\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\Graphics\ElementBuffer.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -210,6 +207,9 @@
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\FrameRateController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Graphics\OrthoCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

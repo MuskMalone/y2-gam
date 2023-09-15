@@ -2,7 +2,7 @@
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Player.hpp"
-#include "Components/Renderable.hpp"
+#include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
@@ -56,7 +56,7 @@ int main()
 	coordinator->RegisterComponent<BoxCollider>();
 	coordinator->RegisterComponent<Camera>();
 	coordinator->RegisterComponent<Gravity>();
-	coordinator->RegisterComponent<Renderable>();
+	coordinator->RegisterComponent<Sprite>();
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Thrust>();
 	coordinator->RegisterComponent<Transform>();
@@ -105,7 +105,7 @@ int main()
 	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
 	{
 		Signature signature;
-		signature.set(coordinator->GetComponentType<Renderable>());
+		signature.set(coordinator->GetComponentType<Sprite>());
 		signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<RenderSystem>(signature);
 	}

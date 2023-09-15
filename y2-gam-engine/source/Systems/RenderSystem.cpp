@@ -1,7 +1,7 @@
 #include "Systems/RenderSystem.hpp"
 
 #include "Components/Camera.hpp"
-#include "Components/Renderable.hpp"
+#include "Components/Sprite.hpp"
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
@@ -56,24 +56,9 @@ void RenderSystem::Update(float dt)
 	for (auto const& entity : mEntities)
 	{
 		auto const& transform = gCoordinator->GetComponent<Transform>(entity);
-		auto const& renderable = gCoordinator->GetComponent<Renderable>(entity);
+		auto const& renderable = gCoordinator->GetComponent<Sprite>(entity);
 
-		//Renderer::DrawQuad({ 0,0,0 }, { 50,50 }, { 1.f,1.f,0.f, 1.f });
-
-		//glPolygonMode(GL_FRONT_AND_BACK, renderable.drawMode);
-
-		//Mat44 view = tCamera::MakeViewTransform(camera.eye, camera.tgt, camera.up);
-
-
-		//Mat44 projection = camera.projectionTransform;
-
-		//shader->SetUniform("uModel", model);
-		//shader->SetUniform("uView", view);
-		//shader->SetUniform("uProjection", projection);
-		//shader->SetUniform("uColor", renderable.color);
-
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		Renderer::DrawQuad(transform.position, transform.scale, { renderable.color,1.f }, transform.rotation.z);
+		Renderer::DrawQuad(transform.position, transform.scale, renderable.color, transform.rotation.z);
 
 	}
 

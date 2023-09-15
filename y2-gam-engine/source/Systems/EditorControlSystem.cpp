@@ -7,7 +7,7 @@
 #include "Components/Transform.hpp"
 #include "Components/Rigidbody.hpp"
 #include "Components/BoxCollider.hpp"
-#include "Components/Renderable.hpp"
+#include "Components/Sprite.hpp"
 #include "Components/Gravity.hpp"
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
@@ -57,9 +57,9 @@ void EditorControlSystem::Init()
 
 	::gCoordinator->AddComponent(
 		entity,
-		Renderable{
-			.color = Vec3(0,0,0),
-			.drawMode = GL_FILL
+		Sprite{
+			.color = Vec4(0,0,0, 1),
+			.texture = nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -86,9 +86,9 @@ void EditorControlSystem::Init()
 
 	::gCoordinator->AddComponent(
 		entity,
-		Renderable{
-			.color = Vec3(1,1,1),
-			.drawMode = GL_FILL
+		Sprite{
+			.color = Vec4(1,1,1,1),
+			.texture = nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -115,9 +115,9 @@ void EditorControlSystem::Init()
 
 	::gCoordinator->AddComponent(
 		entity,
-		Renderable{
-			.color = Vec3(1,1,1),
-			.drawMode = GL_FILL
+		Sprite{
+			.color = Vec4(1,1,1,1),
+			.texture = nullptr
 		});
 }
 
@@ -187,9 +187,9 @@ void EditorControlSystem::Update(float dt)
 				});
 			::gCoordinator->AddComponent(
 				entity,
-				Renderable{
-					.color = Vec3(randColor(generator), randColor(generator), randColor(generator)),
-					.drawMode = GL_FILL
+				Sprite{
+					.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+					.texture = nullptr
 				});
 
 		}
