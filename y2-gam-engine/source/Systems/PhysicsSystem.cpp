@@ -12,12 +12,47 @@
 #include <glm/common.hpp>
 #include <glm/glm.hpp>
 #include <Core/Physics.hpp>
+#include <Core/Types.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Physics {
+    void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
+        Contact merged_contacts[2];
 
+        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
+            Contact& c_new{ toMerge.contacts[i] };
+            int k = -1;
+            for (uint32_t j = 0; j < a.contacts_count; j++) {
+                Contact& c_old = *(a.contacts + j);
+                if (c_new.feature.value == c_old.feature.value) {
+                    k = j;
+                    break;
+                }
+            }
+
+            if (k > -1) {
+                Contact& c{ merged_contacts[i] };
+                Contact& c_old{ a.contacts[k] };
+                c = c_new;
+
+                // Warm starting
+                c.acc_normal_impulse = c_old.acc_normal_impulse;
+                c.acc_tangent_impulse = c_old.acc_tangent_impulse;
+                c.acc_biased_normal_impulse = c_old.acc_biased_normal_impulse;
+            }
+            else {
+                merged_contacts[i] = toMerge.contacts[i];
+            }
+        }
+
+        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
+            a.contacts[i] = merged_contacts[i];
+        }
+
+        a.contacts_count = toMerge.contacts_count;
+    }
     void ArbiterPreStep(Arbiter & a, float inv_dt) {
         const float k_allowed_penetration = 0.0f;
         float k_bias_factor = .2f;
@@ -140,32 +175,12 @@ namespace Physics {
 	void PhysicsSystem::Init()
 	{
 		gCoordinator = Coordinator::GetInstance();
+        ::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Physics::COLLISION, PhysicsSystem::CollisionListener));
+
         mArbiterTable.clear();
 	}
 
-	//void PhysicsSystem::PreCollisionUpdate(float dt)
-	//{
-	//	for (auto const& entity : mEntities)
-	//	{
-	//		auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-	//		auto& transform = gCoordinator->GetComponent<Transform>(entity);
-	//		auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
-	//		auto const& gravity = gCoordinator->GetComponent<Gravity>(entity);
 
-	//		//rigidBody.velocity = Vec3(0, 0, 0) - transform.position;
-	//		transform.position += Vec3{rigidBody.velocity, 0} *dt;
-	//		collider.position = transform.position;
-
-	//		rigidBody.velocity += gravity.force * dt;
-	//	}
-	//}
-
-	//void PhysicsSystem::PostCollisionUpdate(float dt) {
-	//	for (auto const& entity : mEntities) {
-	//		auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-	//	}
-
-	//}
     void PhysicsSystem::PreCollisionUpdate(float dt)
     {
         mArbiterTable.clear();
@@ -230,4 +245,15 @@ namespace Physics {
         }
 
 	}
+    void PhysicsSystem::CollisionListener(Event& event) {
+        auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
+        ArbiterHashTable::iterator iter = mArbiterTable.find(ap.first);
+        //HashTableGet(&world->arbiter_table, hashTableKey);
+        if (iter == mArbiterTable.end()) {
+            mArbiterTable.emplace(ap.first, ap.second);
+        }
+        else {
+            ArbiterMergeContacts(iter->second, ap.second);
+        }
+    }
 }

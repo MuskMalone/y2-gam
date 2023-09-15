@@ -46,7 +46,7 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-
+	Renderer::ClearColor();
 	auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
 	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
 

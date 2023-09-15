@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Core\EventTypes.hpp" />
+    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />

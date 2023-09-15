@@ -129,10 +129,10 @@ int main()
 
 		physicsSystem->PostCollisionUpdate(dt);
 
-		collisionSystem->Debug(); // for debug
+
 
 		renderSystem->Update(dt);
-
+		collisionSystem->Debug(); // for debug
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
