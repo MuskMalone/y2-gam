@@ -19,7 +19,7 @@ struct LineVtx {
 
 struct RendererData {
 
-	static const unsigned int cMaxQuads{ 1000 };
+	static const unsigned int cMaxQuads{ 10000 };
 	static const unsigned int cMaxVertices{ cMaxQuads * 4 };
 	static const unsigned int cMaxIndices{ cMaxQuads * 6 };
 	unsigned int maxTexUnits{}; //set actual number in init 

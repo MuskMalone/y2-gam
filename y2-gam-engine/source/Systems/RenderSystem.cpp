@@ -75,6 +75,8 @@ void RenderSystem::Update(float dt)
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		Renderer::DrawQuad(transform.position, transform.scale, { renderable.color,1.f }, transform.rotation.z);
 
+	}
+
 	Renderer::RenderSceneEnd();
 
 }

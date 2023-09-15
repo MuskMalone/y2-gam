@@ -157,7 +157,7 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 1; ++i) {
+		for (int i{}; i < 10; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 
