@@ -12,7 +12,6 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/OrthoCamera.hpp"
 
- 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -41,6 +40,7 @@ void RenderSystem::Init()
 		Camera{});
 
 	Renderer::Init();
+
 }
 
 
@@ -53,14 +53,22 @@ void RenderSystem::Update(float dt)
 	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
 	Renderer::RenderSceneBegin(cam);
 
+
 	for (auto const& entity : mEntities)
 	{
 		auto const& transform = gCoordinator->GetComponent<Transform>(entity);
 		auto const& renderable = gCoordinator->GetComponent<Sprite>(entity);
 
-		Renderer::DrawQuad(transform.position, transform.scale, renderable.color, transform.rotation.z);
+		if (renderable.texture) {
+			Renderer::DrawQuad(transform.position, transform.scale, renderable.texture, transform.rotation.z);
+		}
+		else {
+			Renderer::DrawQuad(transform.position, transform.scale, renderable.color, transform.rotation.z);
+		}
+
 
 	}
+
 
 	Renderer::RenderSceneEnd();
 

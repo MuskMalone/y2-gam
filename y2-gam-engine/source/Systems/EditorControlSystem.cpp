@@ -9,6 +9,7 @@
 #include "Components/BoxCollider.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/Gravity.hpp"
+#include "Components/Animation.hpp"
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
@@ -193,5 +194,48 @@ void EditorControlSystem::Update(float dt)
 				});
 
 		}
+
+
 	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_P)) {
+		using namespace Testing;
+		std::uniform_real_distribution<float> randPositionY(0.f, 100.f);
+		std::uniform_real_distribution<float> randPosition(-WORLD_LIMIT_X, WORLD_LIMIT_X);
+
+		std::uniform_real_distribution<float> randDepth(-1.0f, 0.0f);
+		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
+		std::uniform_real_distribution<float> randScale(5.f, 10.f);
+		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
+		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
+		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
+		float scale = randScale(generator);
+		Entity entity = ::gCoordinator->CreateEntity();
+		Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
+		::gCoordinator->AddComponent(
+			entity,
+			Transform{
+				.position = Vec3(position),
+				.rotation = Vec3(),
+				.scale = Vec3(scale, scale, scale)
+			});
+		::gCoordinator->AddComponent(
+			entity,
+			Sprite{
+				.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+				.texture = nullptr
+			});
+
+		std::vector<AnimationFrame> frames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 } };
+		std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map { {ANIM_STATE::ATTACK, frames} };
+		::gCoordinator->AddComponent(
+			entity,
+			Animation{
+				.speed = 0.25f,
+				.currFrame = 0,
+				.currState = ANIM_STATE::ATTACK,
+				.stateMap = map
+			});
+	}
+
+
 }

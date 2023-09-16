@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="include\Math\Vec2.hpp" />
     <ClInclude Include="include\Math\Vec3.hpp" />
     <ClInclude Include="include\Math\Vec4.hpp" />
+    <ClInclude Include="include\Systems\AnimationSystem.hpp" />
     <ClInclude Include="include\Systems\CollisionSystem.hpp" />
     <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
     <ClInclude Include="include\Systems\InputSystem.hpp" />
@@ -179,6 +181,7 @@
     <ClInclude Include="include\Graphics\Texture.hpp" />
     <ClInclude Include="include\Graphics\VertexArray.hpp" />
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
+    <ClInclude Include="include\Graphics\SubTexture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
@@ -191,6 +194,7 @@
     <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\Systems\AnimationSystem.cpp" />
     <ClCompile Include="source\Systems\CollisionSystem.cpp" />
     <ClCompile Include="source\Systems\EditorControlSystem.cpp" />
     <ClCompile Include="source\Systems\InputSystem.cpp" />
@@ -200,6 +204,7 @@
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="source\Graphics\VetexArray.cpp" />
+    <ClCompile Include="source\Graphics\SubTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\fragment.glsl" />
@@ -208,6 +213,9 @@
     <None Include="..\Shaders\Tex.frag" />
     <None Include="..\Shaders\Tex.vert" />
     <None Include="..\Shaders\vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Textures\Attack_1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

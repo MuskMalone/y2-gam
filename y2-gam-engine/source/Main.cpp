@@ -7,12 +7,14 @@
 #include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
+#include "Components/Animation.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 #include "WindowManager.hpp"
 #include <chrono>
 #include <random>
@@ -60,7 +62,7 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Thrust>();
 	coordinator->RegisterComponent<Transform>();
-
+	coordinator->RegisterComponent<Animation>();
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -112,6 +114,14 @@ int main()
 
 	renderSystem->Init();
 
+	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Animation>());
+		coordinator->SetSystemSignature<AnimationSystem>(signature);
+	}
+
 	float dt = frameController->GetDeltaTime();
 
 	while (!quit && !windowManager->ShouldClose())
@@ -130,6 +140,8 @@ int main()
 		physicsSystem->PostCollisionUpdate(dt);
 
 		collisionSystem->Debug(); // for debug
+
+		animationSystem->Update(dt);
 
 		renderSystem->Update(dt);
 
