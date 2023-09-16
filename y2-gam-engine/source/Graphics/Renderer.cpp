@@ -55,7 +55,7 @@ void Renderer::Init() {
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	sData.maxTexUnits = GetMaxTextureUnits();
 	sData.texUnits.reset(new std::shared_ptr<Texture>[sData.maxTexUnits]);

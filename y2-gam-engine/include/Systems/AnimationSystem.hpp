@@ -16,6 +16,9 @@ public:
 	void Update(float dt);
 
 private:
-	std::shared_ptr<Texture> mSpriteSheet;
+	//TODO REMOVE ------------TEMP------------------
+	std::shared_ptr<Texture> mIdle;
+	std::shared_ptr<Texture> mRun;
+	std::shared_ptr<Texture> mAttack;
 	std::vector<std::shared_ptr<SubTexture>> mSpriteList;
 };

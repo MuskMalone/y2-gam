@@ -122,6 +122,8 @@ int main()
 		coordinator->SetSystemSignature<AnimationSystem>(signature);
 	}
 
+	animationSystem->Init();
+
 	float dt = frameController->GetDeltaTime();
 
 	while (!quit && !windowManager->ShouldClose())
