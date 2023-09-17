@@ -11,6 +11,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Graphics/Renderer.hpp"
 #include "Graphics/OrthoCamera.hpp"
+#include "Components/BoxCollider.hpp"
+#include "Components/RigidBody.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -46,9 +48,54 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
+	//struct RenderEntry {
+	//	Entity entity;
+	//	Transform* transform;
+	//	Sprite* sprite;
+	//};
 
-	auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
-	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+	//std::vector<RenderEntry> renderQueue;
+	//for (auto const& entity : mEntities) {
+	//	RenderEntry entry{
+	//		.entity = entity,
+	//		.transform = &gCoordinator->GetComponent<Transform>(entity),
+	//		.sprite = &gCoordinator->GetComponent<Sprite>(entity)
+	//	};
+	//	renderQueue.push_back(entry);
+	//}
+
+	//std::sort(renderQueue.begin(), renderQueue.end(),
+	//	[](RenderEntry const& rhs, RenderEntry const& lhs) {
+	//		return rhs.transform->position.z < lhs.transform->position.z;
+	//	});
+
+	//OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+	//Renderer::RenderSceneBegin(cam);
+
+
+	//for (auto const& entry : renderQueue)
+	//{
+
+	//	if (entry.sprite->texture) {
+	//		Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->texture, entry.transform->rotation.z);
+	//	}
+	//	else {
+	//		Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+	//	}
+
+	//}
+
+	//Renderer::RenderSceneEnd();
+
+	//auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
+	//auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+	////lambda function
+	//auto EntityCompareZ = [&](Entity a, Entity b)-> bool {
+	//	auto& transformA = gCoordinator->GetComponent<Transform>(a);
+	//	auto& transformB = gCoordinator->GetComponent<Transform>(b);
+	//	return transformA.position.z < transformB.position.z;
+	//};
 
 	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
 	Renderer::RenderSceneBegin(cam);
