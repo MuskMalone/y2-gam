@@ -1,10 +1,8 @@
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
-#include "Components/Player.hpp"
 #include "Components/Renderable.hpp"
 #include "Components/RigidBody.hpp"
-#include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
 #include "Core/Coordinator.hpp"
@@ -58,7 +56,6 @@ int main()
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Renderable>();
 	coordinator->RegisterComponent<RigidBody>();
-	coordinator->RegisterComponent<Thrust>();
 	coordinator->RegisterComponent<Transform>();
 
 

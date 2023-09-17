@@ -2,7 +2,6 @@
 
 #include "Components/Gravity.hpp"
 #include "Components/RigidBody.hpp"
-#include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include <Components/BoxCollider.hpp>

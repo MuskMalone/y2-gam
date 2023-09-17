@@ -48,16 +48,10 @@
     <ClInclude Include="include\Components\Gravity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Components\Renderable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\RigidBody.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Thrust.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\Transform.hpp">
