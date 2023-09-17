@@ -16,7 +16,7 @@
 #include <Components/Camera.hpp>
 #include <Systems/RenderSystem.hpp>
 #include <Components/Transform.hpp>
-#include <Components/Renderable.hpp>
+#include <Components/Sprite.hpp>
 #include "Core/Types.hpp"
 #include <Core/Coordinator.hpp>
 #include <glm/gtc/matrix_inverse.hpp>

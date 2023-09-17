@@ -33,7 +33,7 @@ void WindowManager::Init(
 
 	// Configure OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
 	glfwSetErrorCallback(WindowManager::ErrorCb);
 

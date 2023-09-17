@@ -1,16 +1,19 @@
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
-#include "Components/Renderable.hpp"
+#include "Components/Player.hpp"
+#include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
+#include "Components/Animation.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 #include "WindowManager.hpp"
 #include <chrono>
 #include <random>
@@ -54,10 +57,10 @@ int main()
 	coordinator->RegisterComponent<BoxCollider>();
 	coordinator->RegisterComponent<Camera>();
 	coordinator->RegisterComponent<Gravity>();
-	coordinator->RegisterComponent<Renderable>();
+	coordinator->RegisterComponent<Sprite>();
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
-
+	coordinator->RegisterComponent<Animation>();
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -102,12 +105,22 @@ int main()
 	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
 	{
 		Signature signature;
-		signature.set(coordinator->GetComponentType<Renderable>());
+		signature.set(coordinator->GetComponentType<Sprite>());
 		signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<RenderSystem>(signature);
 	}
 
 	renderSystem->Init();
+
+	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Animation>());
+		coordinator->SetSystemSignature<AnimationSystem>(signature);
+	}
+
+	animationSystem->Init();
 
 	float dt = frameController->GetDeltaTime();
 
@@ -127,6 +140,8 @@ int main()
 		physicsSystem->PostCollisionUpdate(dt);
 
 
+
+		animationSystem->Update(dt);
 
 		renderSystem->Update(dt);
 		collisionSystem->Debug(); // for debug
