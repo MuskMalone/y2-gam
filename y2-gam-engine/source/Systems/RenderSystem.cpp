@@ -48,58 +48,56 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	//struct RenderEntry {
-	//	Entity entity;
-	//	Transform* transform;
-	//	Sprite* sprite;
-	//};
+	struct RenderEntry {
+		Entity entity;
+		Transform* transform;
+		Sprite* sprite;
+	};
 
-	//std::vector<RenderEntry> renderQueue;
-	//for (auto const& entity : mEntities) {
-	//	RenderEntry entry{
-	//		.entity = entity,
-	//		.transform = &gCoordinator->GetComponent<Transform>(entity),
-	//		.sprite = &gCoordinator->GetComponent<Sprite>(entity)
-	//	};
-	//	renderQueue.push_back(entry);
-	//}
+	std::vector<RenderEntry> renderQueue;
+	for (auto const& entity : mEntities) {
+		RenderEntry entry{
+			.entity = entity,
+			.transform = &gCoordinator->GetComponent<Transform>(entity),
+			.sprite = &gCoordinator->GetComponent<Sprite>(entity)
+		};
+		renderQueue.push_back(entry);
+	}
 
-	//std::sort(renderQueue.begin(), renderQueue.end(),
-	//	[](RenderEntry const& rhs, RenderEntry const& lhs) {
-	//		return rhs.transform->position.z < lhs.transform->position.z;
-	//	});
-
-	//OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
-	//Renderer::RenderSceneBegin(cam);
-
-
-	//for (auto const& entry : renderQueue)
-	//{
-
-	//	if (entry.sprite->texture) {
-	//		Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->texture, entry.transform->rotation.z);
-	//	}
-	//	else {
-	//		Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
-	//	}
-
-	//}
-
-	//Renderer::RenderSceneEnd();
-
-	//auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
-	//auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
-
-	////lambda function
-	//auto EntityCompareZ = [&](Entity a, Entity b)-> bool {
-	//	auto& transformA = gCoordinator->GetComponent<Transform>(a);
-	//	auto& transformB = gCoordinator->GetComponent<Transform>(b);
-	//	return transformA.position.z < transformB.position.z;
-	//};
+	std::sort(renderQueue.begin(), renderQueue.end(),
+		[](RenderEntry const& rhs, RenderEntry const& lhs) {
+			return rhs.transform->position.z < lhs.transform->position.z;
+		});
 
 	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
 	Renderer::RenderSceneBegin(cam);
 
+    Renderer::DrawQuad({ 0,0, 120.f }, {100,50}, { 0.1,0.1,0.8,1 });
+	Renderer::DrawQuad({ 0,0, -120.f }, {50,100}, { 0.8,0.1,0.1,1 });
+
+	for (auto const& entry : renderQueue)
+	{
+
+		if (entry.sprite->texture) {
+			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->texture, entry.transform->rotation.z);
+		}
+		else {
+			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+		}
+
+	}
+
+	Renderer::RenderSceneEnd();
+
+	/*auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+
+	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+	Renderer::RenderSceneBegin(cam);
+
+	Renderer::DrawQuad({ 0,0,128.f }, {50,100}, { 0.8,0.1,0.1,1 });
+	Renderer::DrawQuad({ 0,0, 128.f }, {100,50}, { 0.1,0.1,0.8,1 });
 
 	for (auto const& entity : mEntities)
 	{
@@ -117,7 +115,7 @@ void RenderSystem::Update(float dt)
 	}
 
 
-	Renderer::RenderSceneEnd();
+	Renderer::RenderSceneEnd();*/
 
 }
 
