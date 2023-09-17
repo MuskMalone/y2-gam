@@ -10,7 +10,7 @@
 #include "Core/Globals.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Graphics/Renderer.hpp"
-#include "Graphics/OrthoCamera.hpp"
+#include "Components/OrthoCamera.hpp"
 #include "Components/BoxCollider.hpp"
 #include "Components/RigidBody.hpp"
 
@@ -27,6 +27,7 @@ void RenderSystem::Init()
 
 	shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
 
+
 	mCamera = gCoordinator->CreateEntity();
 	gCoordinator->AddComponent(
 		mCamera,
@@ -36,10 +37,14 @@ void RenderSystem::Init()
 			.scale = Vec3()
 		});
 	//float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
-
 	gCoordinator->AddComponent(
 		mCamera,
 		Camera{});
+	gCoordinator->AddComponent(
+		mCamera,
+		OrthoCamera{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y }
+	);
+
 
 	Renderer::Init();
 
@@ -48,6 +53,8 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
+	
+	//TODO REFACTOR 
 	struct RenderEntry {
 		Entity entity;
 		Transform* transform;
@@ -69,17 +76,14 @@ void RenderSystem::Update(float dt)
 			return rhs.transform->position.z < lhs.transform->position.z;
 		});
 
-	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
-	Renderer::RenderSceneBegin(cam);
-
-    Renderer::DrawQuad({ 0,0, 120.f }, {100,50}, { 0.1,0.1,0.8,1 });
-	Renderer::DrawQuad({ 0,0, -120.f }, {50,100}, { 0.8,0.1,0.1,1 });
+	auto const& camera = gCoordinator->GetComponent<OrthoCamera>(mCamera);
+	Renderer::RenderSceneBegin(camera);
 
 	for (auto const& entry : renderQueue)
 	{
 
 		if (entry.sprite->texture) {
-			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->texture, entry.transform->rotation.z);
+			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color);
 		}
 		else {
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);

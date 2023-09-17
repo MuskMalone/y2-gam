@@ -21,7 +21,7 @@
 #include <Core/Coordinator.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
 #include <Graphics/Renderer.hpp>
-#include <Graphics/OrthoCamera.hpp>
+#include <Components/OrthoCamera.hpp>
 
 namespace DataMgmt {
 

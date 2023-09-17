@@ -1,9 +1,15 @@
 #pragma once
 
 #include "glm/glm.hpp"
-class OrthoCamera {
+#include "rapidjson/document.h"
+
+struct OrthoCamera {
 public:
+	OrthoCamera() = default;
 	OrthoCamera(float left, float right, float bottom, float top);
+	OrthoCamera(rapidjson::Value const& obj);
+
+	//void SetProjectionMtx(float left, float right, float bottom, float top);
 
 	glm::vec3 const& GetPosition() const;
 
@@ -13,7 +19,7 @@ public:
 	glm::mat4 const& GetProjMtx() const;
 	glm::mat4 const& GetViewMtx() const;
 	glm::mat4 const& GetViewProjMtx() const;
-private:
+
 	void ComputeViewMtx();
 
 	glm::mat4 mProjMtx;

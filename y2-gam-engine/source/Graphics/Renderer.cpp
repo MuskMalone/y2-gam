@@ -1,5 +1,6 @@
 #include "Graphics/Renderer.hpp"
 #include "glad/glad.h"
+#include "Components/Transform.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
@@ -192,18 +193,9 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	++sData.stats.quadCount;
 }
 
-void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
-	DrawQuad({ pos.x, pos.y, 0.f }, scale, clr, rot);
-}
-
 //FOR DRAWING TEXTURED QUAD
 //rotation is an optional parameter
-//this version takes in vec2 for pos
-void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, std::shared_ptr<Texture>const& tex, float rot) {
-	DrawQuad({ pos.x, pos.y, 0.f }, scale, tex, rot);
-}
 
-//this version takes in vec3 for pos
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	std::shared_ptr<Texture>const& tex, float rot) {
 	if (sData.quadIdxCount >= RendererData::cMaxIndices)
@@ -242,13 +234,11 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 }
 
 //TODO Add duplicated code in function
-void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
-	std::shared_ptr<SubTexture>const& subtex, float rot) {
+void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot) {
 
 	if (sData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
-	constexpr glm::vec4 clr{ 1.f, 1.f, 1.f, 1.f }; //TODO add parameter tint
 	glm::vec2 const* texCoords{ subtex->GetTexCoords() };
 	std::shared_ptr<Texture> tex = subtex->GetTexture();
 
@@ -275,11 +265,15 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i) 
-		SetQuadBufferData(transformMtx * sData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * sData.quadVtxPos[i], scale, tint, texCoords[i], texIdx);
 
 	sData.quadIdxCount += 6;
 
 	++sData.stats.quadCount;
+}
+
+void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint) {
+	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z);
 }
 
 void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr) {

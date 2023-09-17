@@ -15,6 +15,7 @@
 #include <Core/Globals.hpp>
 #include <random>
 #include <chrono>
+#include "Components/OrthoCamera.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -123,23 +124,35 @@ void EditorControlSystem::Init()
 
 void EditorControlSystem::Update(float dt)
 {
+	//TODO REMOVE TEMP
+	float moveSpeed = 100.f;
+	float rotSpeed = 80.f;
 
-	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)){
-		camera.UpdatePos(camera.eye.x, camera.eye.y + dt);
+		camera.mPos.y += moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)){
-		camera.UpdatePos(camera.eye.x, camera.eye.y - dt);
+		camera.mPos.y -= moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)){
-		camera.UpdatePos(camera.eye.x - dt, camera.eye.y);
+		camera.mPos.x -= moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)){
-		camera.UpdatePos(camera.eye.x + dt, camera.eye.y);
+		camera.mPos.x += moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
+		camera.mRot += rotSpeed * dt;
+		camera.SetRotation(camera.mRot);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
+		camera.mRot -= rotSpeed * dt;
+		camera.SetRotation(camera.mRot);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
@@ -157,7 +170,7 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 
-		for (int i{}; i < 3; ++i) {
+		for (int i{}; i < 500; ++i) {
 			float scale = randScale(generator);
 			Entity entity = ::gCoordinator->CreateEntity();
 

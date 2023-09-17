@@ -13,7 +13,7 @@
 #include <Core/Globals.hpp>
 #include <iostream>
 #include <Graphics/Renderer.hpp>
-#include <Graphics/OrthoCamera.hpp>
+#include <Components/OrthoCamera.hpp>
 
 // capacity of each node before splitting into more leaves
 #define NODE_CAPACITY 32

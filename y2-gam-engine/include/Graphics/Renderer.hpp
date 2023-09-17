@@ -9,7 +9,8 @@
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/VertexBuffer.hpp"
 #include "Graphics/ElementBuffer.hpp"
-#include "OrthoCamera.hpp"
+#include "Components/OrthoCamera.hpp"
+#include "Components/Transform.hpp"
 
 class Renderer {
 public:
@@ -24,17 +25,15 @@ public:
 
 	//Quads
 	//TODO overload transform parameter
-	static void DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f);
 	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f);
 
 	//TODO add tint 
-	static void DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale,
-		std::shared_ptr<Texture>const& tex, float rot = 0.f);
 	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 		std::shared_ptr<Texture>const& tex, float rot = 0.f);
 
-	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
-		std::shared_ptr<SubTexture>const& subtex, float rot = 0.f);
+	static void DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint = {1.f,1.f,1.f,1.f}, float rot = 0.f);
+
+	static void DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint = { 1.f,1.f,1.f,1.f });
 	
 	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);

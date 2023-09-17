@@ -138,7 +138,8 @@
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
-    <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
+    <ClInclude Include="include\Graphics\CameraController.h" />
+    <ClInclude Include="include\Components\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
     <ClInclude Include="include\Components\Camera.hpp" />
@@ -187,6 +188,7 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
+    <ClCompile Include="source\Graphics\CameraController.cpp" />
     <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />

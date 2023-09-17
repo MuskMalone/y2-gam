@@ -60,6 +60,7 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
+	coordinator->RegisterComponent<OrthoCamera>();
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
