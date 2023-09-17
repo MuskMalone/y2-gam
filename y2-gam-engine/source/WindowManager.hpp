@@ -35,6 +35,7 @@ public:
 	static void MouseButtonCb(GLFWwindow* pwin, int button, int action, int mod);
 	static void MouseScrollCb(GLFWwindow* pwin, double xoffset, double yoffset);
 	static void MousePosCb(GLFWwindow* pwin, double xpos, double ypos);
+	GLFWwindow* GetContext();
 
 private:
 	static std::shared_ptr<WindowManager> _mSelf;
