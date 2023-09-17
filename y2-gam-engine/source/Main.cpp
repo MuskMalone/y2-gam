@@ -1,10 +1,8 @@
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
-#include "Components/Player.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
-#include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
 #include "Components/Animation.hpp"
@@ -60,7 +58,6 @@ int main()
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Sprite>();
 	coordinator->RegisterComponent<RigidBody>();
-	coordinator->RegisterComponent<Thrust>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
 
@@ -141,12 +138,12 @@ int main()
 
 		physicsSystem->PostCollisionUpdate(dt);
 
-		collisionSystem->Debug(); // for debug
+
 
 		animationSystem->Update(dt);
 
 		renderSystem->Update(dt);
-
+		collisionSystem->Debug(); // for debug
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();

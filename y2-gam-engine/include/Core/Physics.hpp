@@ -57,5 +57,6 @@ namespace Physics {
         uint32_t contacts_count;
     };
     using ArbiterHashTable = std::unordered_map<size_t, Arbiter>;
+    using ArbiterPair = std::pair<size_t, Arbiter>;
 
 }

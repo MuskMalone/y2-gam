@@ -3,7 +3,6 @@
 #include <GLFW/glfw3.h>
 #include "Components/Camera.hpp"
 #include "Components/Editor.hpp"
-#include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Rigidbody.hpp"
 #include "Components/BoxCollider.hpp"
@@ -153,7 +152,7 @@ void EditorControlSystem::Update(float dt)
 
 		std::uniform_real_distribution<float> randDepth(-1.0f, 0.0f);
 		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
-		std::uniform_real_distribution<float> randScale(5.f, 10.f);
+		std::uniform_real_distribution<float> randScale(2.f, 5.f);
 		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);

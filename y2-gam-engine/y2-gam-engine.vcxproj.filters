@@ -57,9 +57,6 @@
     <ClInclude Include="include\Components\RigidBody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\Thrust.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Components\Transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -150,6 +147,13 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Core\Serialization\Serializer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\OrthoCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\EventTypes.hpp">
     <ClInclude Include="include\Graphics\OrthoCamera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

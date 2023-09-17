@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Core\EventTypes.hpp" />
+    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
@@ -145,7 +147,6 @@
     <ClInclude Include="include\Components\Player.hpp" />
     <ClInclude Include="include\Components\Sprite.hpp" />
     <ClInclude Include="include\Components\RigidBody.hpp" />
-    <ClInclude Include="include\Components\Thrust.hpp" />
     <ClInclude Include="include\Components\Transform.hpp" />
     <ClInclude Include="include\Core\ComponentArray.hpp" />
     <ClInclude Include="include\Core\ComponentManager.hpp" />
