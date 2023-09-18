@@ -6,8 +6,8 @@
 #include <Core/Globals.hpp>
 #include <Math/Collision.hpp>
 #include <glm/common.hpp>
-#include <Systems/PhysicsSystem.hpp>
 #include <chrono>
+#include <Core/Types.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -53,41 +53,7 @@ namespace Collision{
             Vec2{std::max({topleft.x, topright.x, bottomleft.x, bottomright.x}), std::max({topleft.y, topright.y, bottomleft.y, bottomright.y})}
         };
     }
-    void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
-        Contact merged_contacts[2];
 
-        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
-            Contact& c_new{ toMerge.contacts[i] };
-            int k = -1;
-            for (uint32_t j = 0; j < a.contacts_count; j++) {
-                Contact& c_old = *(a.contacts + j);
-                if (c_new.feature.value == c_old.feature.value) {
-                    k = j;
-                    break;
-                }
-            }
-
-            if (k > -1) {
-                Contact& c{ merged_contacts[i] };
-                Contact& c_old{ a.contacts[k] };
-                c = c_new;
-
-                // Warm starting
-                c.acc_normal_impulse = c_old.acc_normal_impulse;
-                c.acc_tangent_impulse = c_old.acc_tangent_impulse;
-                c.acc_biased_normal_impulse = c_old.acc_biased_normal_impulse;
-            }
-            else {
-                merged_contacts[i] = toMerge.contacts[i];
-            }
-        }
-
-        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
-            a.contacts[i] = merged_contacts[i];
-        }
-
-        a.contacts_count = toMerge.contacts_count;
-    }
     int ClipSegmentToLine(ClipVertex v_out[2], ClipVertex v_in[2], const Vec2& normal, float offset,
         float clip_edge) {
         // Start with no output points
@@ -413,21 +379,13 @@ namespace Collision{
                     //if (entityVec[i] == entityVec[j]) continue;
                     Arbiter arbiter = Collide(entityVec[i], entityVec[j]);
                     ArbiterKey arbiterKey{ entityVec[i], entityVec[j] };
-                    //i have no clue why murmur works but chrono doesnt
                     uint64_t hashTableKey = murmur64((void*)&arbiterKey, sizeof(ArbiterKey));
-                        //std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-                    ArbiterHashTable& arbiterTable{ Coordinator::GetInstance()->GetSystem<PhysicsSystem>()->mArbiterTable };
-                    ArbiterHashTable::iterator iter = arbiterTable.find(hashTableKey);
-                    //HashTableGet(&world->arbiter_table, hashTableKey);
 
                     if (arbiter.contacts_count > 0) {
-                        if (iter == arbiterTable.end()) {
-                            //HashTableSet(&world->arbiter_table, hashTableKey, arbiter);
-                           arbiterTable.emplace(hashTableKey, arbiter);
-                        }
-                        else {
-                            ArbiterMergeContacts(iter->second, arbiter);
-                        }
+                        Event event{ Events::Physics::COLLISION };
+                        event.SetParam(Events::Physics::Collision::COLLIDED, ArbiterPair {hashTableKey, arbiter});
+                        gCoordinator->SendEvent(event);
+
                     }
 
 

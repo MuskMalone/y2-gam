@@ -1,13 +1,23 @@
-#include "Graphics/OrthoCamera.hpp"
-
+#include "Components/OrthoCamera.hpp"
+#include "Core/Globals.hpp"
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 
 OrthoCamera::OrthoCamera(float left, float right, float bottom, float top)
-	: mProjMtx{ glm::ortho(left, right, bottom, top, -1.f, 1.f) }, mViewMtx{ 1.f } {
+	: mProjMtx{ glm::ortho(left, right, bottom, top, static_cast<float>(- WORLD_LIMIT_DEPTH), static_cast<float>(WORLD_LIMIT_DEPTH))}, mViewMtx{1.f} {
 
 	mViewProjMtx = mProjMtx * mViewMtx;
 }
+
+OrthoCamera::OrthoCamera(rapidjson::Value const& obj) {
+
+}
+
+//void OrthoCamera::SetProjectionMtx(float left, float right, float bottom, float top){
+//	mProjMtx = glm::ortho(left, right, bottom, top, -1.f, 1.f);
+//	mViewMtx = glm::mat4{1.f};
+//	mViewProjMtx = mProjMtx * mViewMtx;
+//}
 
 void OrthoCamera::SetPosition(glm::vec3 const& pos) {
 	mPos = pos;

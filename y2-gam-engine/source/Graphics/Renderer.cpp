@@ -1,5 +1,6 @@
 #include "Graphics/Renderer.hpp"
 #include "glad/glad.h"
+#include "Components/Transform.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
@@ -9,7 +10,7 @@ struct QuadVtx {
 	glm::vec4 clr;
 	glm::vec2 texCoord;
 	float texIdx; //float as it is passed to shader
-	//test if unsigned int works
+				  //TODO test if unsigned int works
 };
 
 struct LineVtx {
@@ -53,12 +54,9 @@ static RendererData sData;
 
 void Renderer::Init() {
 
-	
-	
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_DEPTH_TEST);
 
 	sData.maxTexUnits = GetMaxTextureUnits();
 	sData.texUnits.reset(new std::shared_ptr<Texture>[sData.maxTexUnits]);
@@ -93,9 +91,9 @@ void Renderer::Init() {
 
 		offset += 4;
 	}
-	std::shared_ptr<ElementBuffer> quadIB;
-	quadIB.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
-	sData.quadVertexArray->SetElementBuffer(quadIB);
+	std::shared_ptr<ElementBuffer> quadEbo;
+	quadEbo.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
+	sData.quadVertexArray->SetElementBuffer(quadEbo);
 	delete[] quadIndices; //assumes indices gets uploaded by gpu immediately this line might cause trouble
 
 	//Lines
@@ -143,7 +141,6 @@ void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
 	sData.lineShader->Use();
 	sData.lineShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
 
-	//start Batch
 	BeginBatch();
 }
 
@@ -179,41 +176,71 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	if (sData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
-	const float texIdx{}; //white tex
+	constexpr glm::vec2 texCoords[4]{ { 0.f, 0.f }, {1.f, 0.f}, {1.f, 1.f}, {0.f, 1.f} };
+
+	const float texIdx{}; //white tex index = 0
 
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
 	glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
 	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[0], scale, clr, { 0.f, 0.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[1], scale, clr, { 1.f, 0.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[2], scale, clr, { 1.f, 1.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[3], scale, clr, { 0.f, 1.f }, texIdx);
+	for (size_t i{}; i < 4; ++i)
+		SetQuadBufferData(transformMtx * sData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
 
 	sData.quadIdxCount += 6;
 
 	++sData.stats.quadCount;
 }
 
-void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
-	DrawQuad({ pos.x, pos.y, 0.f }, scale, clr, rot);
-}
-
 //FOR DRAWING TEXTURED QUAD
 //rotation is an optional parameter
-//this version takes in vec2 for pos
-void Renderer::DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, std::shared_ptr<Texture>const& tex, float rot) {
-	DrawQuad({ pos.x, pos.y, 0.f }, scale, tex, rot);
-}
 
-//this version takes in vec3 for pos
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	std::shared_ptr<Texture>const& tex, float rot) {
 	if (sData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
 	constexpr glm::vec4 clr{ 1.f, 1.f, 1.f, 1.f }; //TODO add parameter tint
+	constexpr glm::vec2 texCoords[4]{ { 0.f, 0.f }, {1.f, 0.f}, {1.f, 1.f}, {0.f, 1.f} };
+
+	float texIdx = 0.f;
+
+	//don't need to iterate all 32 slots every time
+	for (unsigned int i{ 1 }; i < sData.texUnitIdx; ++i) {
+		if (*sData.texUnits[i].get() == *tex.get()) { //check if the particular texture has already been set
+			texIdx = static_cast<float>(i);
+			break;
+		}
+	}
+
+	if (texIdx == 0.f) {
+		texIdx = static_cast<float>(sData.texUnitIdx);
+		sData.texUnits[sData.texUnitIdx] = tex;
+		++sData.texUnitIdx;
+	}
+
+	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
+	glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
+	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
+	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
+
+	for (size_t i{}; i < 4; ++i)
+		SetQuadBufferData(transformMtx * sData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+
+	sData.quadIdxCount += 6;
+
+	++sData.stats.quadCount;
+}
+
+//TODO Add duplicated code in function
+void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot) {
+
+	if (sData.quadIdxCount >= RendererData::cMaxIndices)
+		NextBatch();
+
+	glm::vec2 const* texCoords{ subtex->GetTexCoords() };
+	std::shared_ptr<Texture> tex = subtex->GetTexture();
 
 	float texIdx = 0.f;
 
@@ -237,14 +264,16 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[0], scale, clr, { 0.f, 0.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[1], scale, clr, { 1.f, 0.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[2], scale, clr, { 1.f, 1.f }, texIdx);
-	SetQuadBufferData(transformMtx * sData.quadVtxPos[3], scale, clr, { 0.f, 1.f }, texIdx);
+	for (size_t i{}; i < 4; ++i) 
+		SetQuadBufferData(transformMtx * sData.quadVtxPos[i], scale, tint, texCoords[i], texIdx);
 
 	sData.quadIdxCount += 6;
 
 	++sData.stats.quadCount;
+}
+
+void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint) {
+	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z);
 }
 
 void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr) {

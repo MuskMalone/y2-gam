@@ -5,10 +5,12 @@
 
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics/SubTexture.hpp"
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/VertexBuffer.hpp"
 #include "Graphics/ElementBuffer.hpp"
-#include "OrthoCamera.hpp"
+#include "Components/OrthoCamera.hpp"
+#include "Components/Transform.hpp"
 
 class Renderer {
 public:
@@ -20,24 +22,29 @@ public:
 	static void RenderSceneEnd();
 
 	static unsigned int GetMaxTextureUnits();
-	static void SetQuadBufferData(const glm::vec3& pos, const glm::vec2& scale,
-		const glm::vec4& clr, const glm::vec2& texCoord,
-		float texIdx);
-	static void SetLineBufferData(glm::vec3 const& pos, glm::vec4 const& clr);
 
-	static void DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f);
+	//Quads
+	//TODO overload transform parameter
 	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f);
 
-	static void DrawQuad(glm::vec2 const& pos, glm::vec2 const& scale,
-		std::shared_ptr<Texture>const& tex, float rot = 0.f);
+	//TODO add tint 
 	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 		std::shared_ptr<Texture>const& tex, float rot = 0.f);
 
+	static void DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint = {1.f,1.f,1.f,1.f}, float rot = 0.f);
+
+	static void DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint = { 1.f,1.f,1.f,1.f });
+	
+	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);
 	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr);
 
 	static void FlushBatch();
 private:
+	static void SetQuadBufferData(const glm::vec3& pos, const glm::vec2& scale,
+		const glm::vec4& clr, const glm::vec2& texCoord,
+		float texIdx);
+	static void SetLineBufferData(glm::vec3 const& pos, glm::vec4 const& clr);
 	static void BeginBatch();
 	static void NextBatch();
 public:

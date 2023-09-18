@@ -2,6 +2,7 @@
 
 #include "Math/Vec2.hpp"
 #include <Core/Globals.hpp>
+#include <rapidjson/document.h>
 
 struct RigidBody
 {
@@ -41,5 +42,8 @@ struct RigidBody
 		else {
 			inertia = FLOAT_MAX;
 		}
+	}
+	RigidBody(rapidjson::Value const& obj) {
+
 	}
 };
