@@ -46,4 +46,7 @@ struct RigidBody
 	RigidBody(rapidjson::Value const& obj) {
 
 	}
+	void Serialize(rapidjson::Value& obj) {
+
+	}
 };

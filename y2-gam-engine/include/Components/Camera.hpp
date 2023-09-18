@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
 #include <Core/Globals.hpp>
+#include <rapidjson/document.h>
 #define M_PI (22.f/7.f)
 
 struct Camera
@@ -30,5 +31,8 @@ struct Camera
 
 		
 	}
+	Camera(rapidjson::Value const& obj) {}
+	void Serialize(rapidjson::Value& obj) {
 
+	}
 };

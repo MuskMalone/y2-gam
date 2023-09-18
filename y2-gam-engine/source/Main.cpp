@@ -19,7 +19,8 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-
+#include <Engine/GameStateManager.hpp>
+#include <Engine/States/MainState.hpp>
 #include <memory>
 
 
@@ -61,6 +62,8 @@ int main()
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
 
+	GameStateManager::GetInstance()->PushState(std::make_unique<MainState>());
+	
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
@@ -137,8 +140,6 @@ int main()
 		collisionSystem->Update(dt);
 
 		physicsSystem->PostCollisionUpdate(dt);
-
-
 
 		animationSystem->Update(dt);
 

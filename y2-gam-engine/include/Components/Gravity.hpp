@@ -9,4 +9,7 @@ struct Gravity
 	Gravity() = default;
 	Gravity(Vec2 const& v) : force{ v } {}
 	Gravity(rapidjson::Value const& obj) {}
+	void Serialize(rapidjson::Value& obj) {
+
+	}
 };

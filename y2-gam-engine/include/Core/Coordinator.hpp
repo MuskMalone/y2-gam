@@ -55,7 +55,6 @@ public:
 		auto signature = mEntityManager->GetSignature(entity);
 		signature.set(mComponentManager->GetComponentType<T>(), true);
 		mEntityManager->SetSignature(entity, signature);
-
 		mSystemManager->EntitySignatureChanged(entity, signature);
 	}
 
@@ -69,6 +68,12 @@ public:
 		mEntityManager->SetSignature(entity, signature);
 
 		mSystemManager->EntitySignatureChanged(entity, signature);
+	}
+
+	template <typename T>
+	bool HasComponent(Entity entity) {
+		auto signature = mEntityManager->GetSignature(entity);
+		return signature.test(mComponentManager->GetComponentType<T>);
 	}
 
 	template<typename T>
@@ -100,6 +105,11 @@ public:
 	template<typename T>
 	std::shared_ptr<T> GetSystem() {
 		return mSystemManager->GetSystem<T>();
+	}
+
+	template<typename T>
+	std::shared_ptr<T> RemoveSystem() {
+		return mSystemManager->RemoveSystem<T>();
 	}
 
 	// Event methods

@@ -29,9 +29,9 @@ void RenderSystem::Init()
 	gCoordinator->AddComponent(
 		mCamera,
 		Transform{
-			.position = Vec3(0.0f, 0.0f, 0.0f),
-			.rotation = Vec3(),
-			.scale = Vec3()
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(),
+			Vec3()
 		});
 	//float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 

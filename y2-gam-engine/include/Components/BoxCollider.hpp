@@ -9,4 +9,7 @@ struct BoxCollider {
 	BoxCollider(rapidjson::Value const& obj) {
 
 	}
+	void Serialize(rapidjson::Value& obj) {
+
+	}
 };

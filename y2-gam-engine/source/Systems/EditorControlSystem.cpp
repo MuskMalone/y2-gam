@@ -50,16 +50,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(0,0,0, 1),
-			.texture = nullptr
+			Vec4(0,0,0, 1),
+			nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -79,16 +79,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(1,1,1,1),
-			.texture = nullptr
+			Vec4(1,1,1,1),
+			nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -108,16 +108,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(1,1,1,1),
-			.texture = nullptr
+			Vec4(1,1,1,1),
+			nullptr
 		});
 }
 
@@ -181,15 +181,15 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent(
 				entity,
 				Transform{
-					.position = Vec3(position),
-					.rotation = Vec3(),
-					.scale = Vec3(scale, scale, scale)
+					Vec3(position),
+					Vec3(),
+					Vec3(scale, scale, scale)
 				});
 			::gCoordinator->AddComponent(
 				entity,
 				Sprite{
-					.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-					.texture = nullptr
+					Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+					nullptr
 				});
 
 		}
@@ -215,15 +215,15 @@ void EditorControlSystem::Update(float dt)
 		::gCoordinator->AddComponent(
 			entity,
 			Transform{
-				.position = Vec3(position),
-				.rotation = Vec3(),
-				.scale = Vec3(scale, scale, scale)
+				Vec3(position),
+				Vec3(),
+				Vec3(scale, scale, scale)
 			});
 		::gCoordinator->AddComponent(
 			entity,
 			Sprite{
-				.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-				.texture = nullptr
+				Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+				nullptr
 			});
 
 		//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
@@ -236,10 +236,10 @@ void EditorControlSystem::Update(float dt)
 		::gCoordinator->AddComponent(
 			entity,
 			Animation{
-				.speed = 0.08f,
-				.currFrame = 0,
-				.currState = ANIM_STATE::IDLE,
-				.stateMap = map
+				0.08f,
+				0,
+				ANIM_STATE::IDLE,
+				map
 			});
 	}
 
