@@ -294,10 +294,20 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 	glm::vec3 p2{ glm::vec3(pos.x + scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
 	glm::vec3 p3{ glm::vec3(pos.x - scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
 
+	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
+	//glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
+	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
+	glm::mat4 transformMtx{ translateMtx * scaleMtx };
+
 	DrawLine(p0, p1, clr);
 	DrawLine(p1, p2, clr);
 	DrawLine(p2, p3, clr);
 	DrawLine(p3, p0, clr);
+
+	//DrawLine(transformMtx * glm::vec4(p0, 1.f), transformMtx * glm::vec4(p1, 1.f), clr);
+	//DrawLine(transformMtx * glm::vec4(p1, 1.f), transformMtx * glm::vec4(p2, 1.f), clr);
+	//DrawLine(transformMtx * glm::vec4(p2, 1.f), transformMtx * glm::vec4(p3, 1.f), clr);
+	//DrawLine(transformMtx * glm::vec4(p3, 1.f), transformMtx * glm::vec4(p0, 1.f), clr);
 }
 
 void Renderer::FlushBatch() {
