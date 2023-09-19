@@ -9,6 +9,8 @@ public:
 	VertexArray();
 	~VertexArray();
 
+	static std::shared_ptr<VertexArray> Create();
+
 	void Bind() const;
 	void Unbind() const;
 
@@ -17,6 +19,7 @@ public:
 
 	std::vector<std::shared_ptr<VertexBuffer>> const& GetVertexBuffers() const { return mVbos; }
 	std::shared_ptr<ElementBuffer> const& GetElementBuffer() const { return mEbo; }
+
 private:
 	unsigned int vaoHdl;
 	std::vector<std::shared_ptr<VertexBuffer>> mVbos;

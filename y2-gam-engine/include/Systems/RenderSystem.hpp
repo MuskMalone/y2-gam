@@ -18,7 +18,7 @@ public:
 
 	Entity GetCamera();
 	//for debug
-	Mat44 mLastModelXform;
+	//Mat44 mLastModelXform;
 
 private:
 	void WindowSizeListener(Event& event);
@@ -26,7 +26,7 @@ private:
 	std::unique_ptr<Shader> shader;
 
 
-	Entity mCamera;
+	Entity mCamera{};
 
 	GLuint mVao{};
 	GLuint mVboVertices{};

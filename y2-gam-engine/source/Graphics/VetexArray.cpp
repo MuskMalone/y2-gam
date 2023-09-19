@@ -33,6 +33,10 @@ VertexArray::~VertexArray() {
 	glDeleteVertexArrays(1, &vaoHdl);
 }
 
+std::shared_ptr<VertexArray> VertexArray::Create() {
+	return std::make_shared<VertexArray>();
+}
+
 void VertexArray::Bind() const {
 	glBindVertexArray(vaoHdl);
 }

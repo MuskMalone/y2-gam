@@ -5,52 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 
-struct QuadVtx {
-	glm::vec3 pos;
-	glm::vec4 clr;
-	glm::vec2 texCoord;
-	float texIdx; //float as it is passed to shader
-				  //TODO test if unsigned int works
-};
-
-struct LineVtx {
-	glm::vec3 pos;
-	glm::vec4 clr;
-};
-
-struct RendererData {
-
-	static const unsigned int cMaxQuads{ 10000 };
-	static const unsigned int cMaxVertices{ cMaxQuads * 4 };
-	static const unsigned int cMaxIndices{ cMaxQuads * 6 };
-	unsigned int maxTexUnits{}; //set actual number in init 
-
-	std::shared_ptr<VertexArray> quadVertexArray;
-	std::shared_ptr<VertexBuffer> quadVertexBuffer;
-	std::shared_ptr<Shader> texShader;
-	std::shared_ptr<Texture> whiteTex;
-
-	std::shared_ptr<VertexArray> lineVertexArray;
-	std::shared_ptr<VertexBuffer> lineVertexBuffer;
-	std::shared_ptr<Shader> lineShader;
-
-	unsigned int quadIdxCount{};
-	QuadVtx* quadBuffer{ nullptr }; // Dynamic buffer to hold vertex data for batching
-	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
-
-	unsigned int lineVtxCount{};
-	LineVtx* lineBuffer{ nullptr };
-	LineVtx* lineBufferPtr{ nullptr };
-
-	glm::vec4 quadVtxPos[4];
-
-	std::unique_ptr<std::shared_ptr<Texture>[]> texUnits; //pointer to an array of Texture pointers (may change to vector)
-	unsigned int texUnitIdx{ 1 }; // 0 = white tex
-
-	Renderer::Statistics stats;
-};
-
-static RendererData sData;
+RendererData Renderer::sData;
 
 void Renderer::Init() {
 
@@ -61,9 +16,11 @@ void Renderer::Init() {
 	sData.maxTexUnits = GetMaxTextureUnits();
 	sData.texUnits.reset(new std::shared_ptr<Texture>[sData.maxTexUnits]);
 
-	sData.quadVertexArray.reset(new VertexArray);
+	//sData.quadVertexArray.reset(new VertexArray);
+	sData.quadVertexArray = VertexArray::Create();
 
-	sData.quadVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(QuadVtx) });
+	//sData.quadVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(QuadVtx) });
+	sData.quadVertexBuffer = VertexBuffer::Create(sData.cMaxVertices * sizeof(QuadVtx));
 
 	BufferLayout quadLayout = {
 		{AttributeType::VEC3, "a_Position"},
@@ -91,14 +48,14 @@ void Renderer::Init() {
 
 		offset += 4;
 	}
-	std::shared_ptr<ElementBuffer> quadEbo;
-	quadEbo.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
+	std::shared_ptr<ElementBuffer> quadEbo = ElementBuffer::Create(quadIndices, sData.cMaxIndices);
+	//quadEbo.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
 	sData.quadVertexArray->SetElementBuffer(quadEbo);
 	delete[] quadIndices; //assumes indices gets uploaded by gpu immediately this line might cause trouble
 
 	//Lines
-	sData.lineVertexArray.reset(new VertexArray);
-	sData.lineVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(LineVtx) });
+	sData.lineVertexArray = VertexArray::Create();
+	sData.lineVertexBuffer = VertexBuffer::Create(sData.cMaxVertices * sizeof(LineVtx));
 
 	BufferLayout lineLayout = {
 		{AttributeType::VEC3, "a_Position"},
@@ -190,7 +147,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 
 	sData.quadIdxCount += 6;
 
-	++sData.stats.quadCount;
+	//++sData.stats.quadCount;
 }
 
 //FOR DRAWING TEXTURED QUAD
@@ -230,7 +187,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 
 	sData.quadIdxCount += 6;
 
-	++sData.stats.quadCount;
+	//++sData.stats.quadCount;
 }
 
 //TODO Add duplicated code in function
@@ -269,7 +226,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 
 	sData.quadIdxCount += 6;
 
-	++sData.stats.quadCount;
+	//++sData.stats.quadCount;
 }
 
 void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint) {
@@ -285,7 +242,7 @@ void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 cons
 
 	sData.lineVtxCount += 2;
 
-	++sData.stats.lineCount;
+	//++sData.stats.lineCount;
 }
 
 void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr) {
@@ -327,7 +284,7 @@ void Renderer::FlushBatch() {
 		sData.texShader->Use();
 		DrawIndexed(sData.quadVertexArray, sData.quadIdxCount);
 
-		++sData.stats.drawCalls;
+		//++sData.stats.drawCalls;
 	}
 
 	if (sData.lineVtxCount) {
@@ -341,7 +298,7 @@ void Renderer::FlushBatch() {
 		sData.lineShader->Use();
 		DrawLineArray(sData.lineVertexArray, sData.lineVtxCount);
 
-		++sData.stats.drawCalls;
+		//++sData.stats.drawCalls;
 	}
 }
 
@@ -396,6 +353,6 @@ void Renderer::ResetStats() {
 	memset(&sData.stats, 0, sizeof(Statistics));
 }
 
-Renderer::Statistics Renderer::GetStats() {
+Statistics Renderer::GetStats() {
 	return sData.stats;
 }
