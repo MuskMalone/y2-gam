@@ -1,5 +1,4 @@
 #include "Systems/RenderSystem.hpp"
-
 #include "Components/Camera.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/Transform.hpp"
@@ -25,7 +24,7 @@ void RenderSystem::Init()
 	gCoordinator = Coordinator::GetInstance();
 	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
+	//shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
 
 
 	mCamera = gCoordinator->CreateEntity();
@@ -48,12 +47,21 @@ void RenderSystem::Init()
 
 	Renderer::Init();
 
+	//----------temp------------
+	FramebufferProps fbProps;
+	fbProps.width = ENGINE_SCREEN_WIDTH;
+	fbProps.height = ENGINE_SCREEN_HEIGHT;
+	mFramebuffer = Framebuffer::Create(fbProps);
+	//--------------------------
+
 }
 
 
 void RenderSystem::Update(float dt)
 {
-	
+	//mFramebuffer->Bind();
+	Renderer::SetClearColor({ 0.1f,0.1f,0.1f,1.f });
+	Renderer::ClearColor();
 	//TODO REFACTOR 
 	struct RenderEntry {
 		Entity entity;
@@ -91,6 +99,7 @@ void RenderSystem::Update(float dt)
 	}
 
 	Renderer::RenderSceneEnd();
+	//mFramebuffer->Unbind();
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

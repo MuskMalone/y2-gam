@@ -19,7 +19,6 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-
 #include <memory>
 
 

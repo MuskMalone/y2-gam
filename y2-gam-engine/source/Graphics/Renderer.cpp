@@ -260,11 +260,6 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 	DrawLine(p1, p2, clr);
 	DrawLine(p2, p3, clr);
 	DrawLine(p3, p0, clr);
-
-	//DrawLine(transformMtx * glm::vec4(p0, 1.f), transformMtx * glm::vec4(p1, 1.f), clr);
-	//DrawLine(transformMtx * glm::vec4(p1, 1.f), transformMtx * glm::vec4(p2, 1.f), clr);
-	//DrawLine(transformMtx * glm::vec4(p2, 1.f), transformMtx * glm::vec4(p3, 1.f), clr);
-	//DrawLine(transformMtx * glm::vec4(p3, 1.f), transformMtx * glm::vec4(p0, 1.f), clr);
 }
 
 void Renderer::FlushBatch() {

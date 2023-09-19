@@ -4,6 +4,7 @@
 #include "Graphics/Shader.hpp"
 #include <memory>
 #include <Math/Mat44.hpp>
+#include "Graphics/Framebuffer.hpp"
 
 
 class Event;
@@ -22,13 +23,13 @@ public:
 
 private:
 	void WindowSizeListener(Event& event);
-
-	std::unique_ptr<Shader> shader;
+	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
+	//std::unique_ptr<Shader> shader;
 
 
 	Entity mCamera{};
 
-	GLuint mVao{};
-	GLuint mVboVertices{};
-	GLuint mVboNormals{};
+	//GLuint mVao{};
+	//GLuint mVboVertices{};
+	//GLuint mVboNormals{};
 };
