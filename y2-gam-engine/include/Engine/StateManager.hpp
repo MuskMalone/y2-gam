@@ -3,9 +3,9 @@
 #include <Engine/States/State.hpp>
 #include <memory>
 
-class GameStateManager {
+class StateManager {
 public:
-	static std::shared_ptr<GameStateManager> GetInstance();
+	static std::shared_ptr<StateManager> GetInstance();
 	void PushState(std::unique_ptr<GameState> state);
 	void PopState();
 	void Update(float dt);
@@ -13,5 +13,5 @@ public:
 
 private:
 	std::stack<std::unique_ptr<GameState>> mStates;
-	static std::shared_ptr<GameStateManager> _mSelf;
+	static std::shared_ptr<StateManager> _mSelf;
 };

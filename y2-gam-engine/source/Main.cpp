@@ -19,7 +19,7 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include <Engine/GameStateManager.hpp>
+#include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <memory>
 
@@ -61,8 +61,6 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
-
-	GameStateManager::GetInstance()->PushState(std::make_unique<MainState>());
 	
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -122,9 +120,12 @@ int main()
 		coordinator->SetSystemSignature<AnimationSystem>(signature);
 	}
 
+	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
+
 	animationSystem->Init();
 
 	float dt = frameController->GetDeltaTime();
+
 
 	while (!quit && !windowManager->ShouldClose())
 	{
@@ -132,19 +133,10 @@ int main()
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
+		
+		StateManager::GetInstance()->Update(dt);
+		StateManager::GetInstance()->Render(dt);
 
-		editorControlSystem->Update(dt);
-
-		physicsSystem->PreCollisionUpdate(dt);
-
-		collisionSystem->Update(dt);
-
-		physicsSystem->PostCollisionUpdate(dt);
-
-		animationSystem->Update(dt);
-
-		renderSystem->Update(dt);
-		collisionSystem->Debug(); // for debug
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();

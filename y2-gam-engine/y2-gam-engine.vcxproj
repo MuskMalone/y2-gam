@@ -138,7 +138,7 @@
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
-    <ClInclude Include="include\Engine\GameStateManager.hpp" />
+    <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
@@ -192,7 +192,7 @@
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
-    <ClCompile Include="source\Engine\GameStateManager.cpp" />
+    <ClCompile Include="source\Engine\StateManager.cpp" />
     <ClCompile Include="source\Engine\States\MainState.cpp" />
     <ClCompile Include="source\Engine\States\State.cpp" />
     <ClCompile Include="source\Graphics\OrthoCamera.cpp" />

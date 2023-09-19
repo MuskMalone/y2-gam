@@ -10,6 +10,7 @@ void writeline(std::ofstream &ofs, std::string line){
 #define getfilename(filename) filename.substr(0, filename.find_first_of('.'))
 int main(){
     std::ofstream ofs{"include/Core/Serialization/Serializer.hpp"};
+    std::ofstream ofs1{"include/Components/Component.hpp"};
     writeline(ofs, "#pragma once");
     writeline(ofs, "#include <Core/Types.hpp>");
     writeline(ofs, "#include <functional>");
@@ -23,9 +24,11 @@ int main(){
     std::vector<std::string> componentNames{};
     //create the names + includes
     #define writehpp(file) writeline(ofs, "#include <Components/" + file + ">")
+    #define writehpp1(file) writeline(ofs1, "#include <Components/" + file + ">")
     #define closebrace writeline(ofs, "}");
     for (auto const& dirEntry : std::filesystem::directory_iterator{"include/Components"}){
         writehpp(dirEntry.path().filename().string());
+        if (dirEntry.path().filename().string() != "Component.hpp") writehpp1(dirEntry.path().filename().string());
         componentNames.push_back(getfilename(dirEntry.path().filename().string()));
     }
     writeline(ofs, "namespace Serializer{");
@@ -62,5 +65,5 @@ int main(){
 
     //end namespace
     closebrace;
-
+    
 }
