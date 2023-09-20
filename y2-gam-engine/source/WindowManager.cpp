@@ -50,6 +50,7 @@ void WindowManager::Init(
 
 void WindowManager::Update()
 {
+
 	glfwSwapBuffers(mWindow);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // NOLINT (hicpp-signed-bitwise)
@@ -193,6 +194,10 @@ void WindowManager::MousePosCb(GLFWwindow* pwin, double xpos, double ypos) {
 #ifdef _DEBUG
     std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
 #endif
+}
+
+GLFWwindow* WindowManager::GetContext(){
+	return mWindow;
 }
 
 void WindowManager::MouseScrollCb(GLFWwindow* pwin, double xoffset, double yoffset) {

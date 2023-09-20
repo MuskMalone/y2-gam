@@ -19,6 +19,11 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
+#include "Systems/ImguiSystem.hpp"
 #include <memory>
 
 
@@ -43,14 +48,11 @@ int main()
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
-
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
-	
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
 	frameController->Init(60, true);
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
-
 	coordinator->RegisterComponent<Editor>();
 	coordinator->RegisterComponent<BoxCollider>();
 	coordinator->RegisterComponent<Camera>();
@@ -60,6 +62,8 @@ int main()
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
 	coordinator->RegisterComponent<OrthoCamera>();
+
+
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -120,6 +124,15 @@ int main()
 	}
 
 	animationSystem->Init();
+	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
+	{
+		Signature signature{};
+		signature.flip();
+		//signature.set(coordinator->GetComponentType<Sprite>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<ImGuiSystem>(signature);
+	}
+	imguiSystem->Init(windowManager->GetContext());
 
 	float dt = frameController->GetDeltaTime();
 
@@ -144,6 +157,9 @@ int main()
 
 		renderSystem->Update(dt);
 		collisionSystem->Debug(); // for debug
+
+		imguiSystem->Update(windowManager->GetContext());
+
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
@@ -153,7 +169,7 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 	}
-
+	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 
