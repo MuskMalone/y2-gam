@@ -1,8 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <array>
 #include "glm/glm.hpp"
-
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
@@ -36,7 +36,7 @@ struct LineVtx {
 
 struct RendererData {
 
-	static const unsigned int cMaxQuads{ 10000 };
+	static const unsigned int cMaxQuads{ 20000 };
 	static const unsigned int cMaxVertices{ cMaxQuads * 4 };
 	static const unsigned int cMaxIndices{ cMaxQuads * 6 };
 	unsigned int maxTexUnits{}; //set actual number in init 
@@ -51,16 +51,16 @@ struct RendererData {
 	std::shared_ptr<Shader> lineShader;
 
 	unsigned int quadIdxCount{};
-	QuadVtx* quadBuffer{ nullptr }; // Dynamic buffer to hold vertex data for batching
+	std::vector<QuadVtx> quadBuffer; // Dynamic buffer to hold vertex data for batching
 	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
 
 	unsigned int lineVtxCount{};
-	LineVtx* lineBuffer{ nullptr };
+	std::vector<LineVtx> lineBuffer;
 	LineVtx* lineBufferPtr{ nullptr };
 
-	glm::vec4 quadVtxPos[4];
+	std::array<glm::vec4, 4> quadVtxPos{};
 
-	std::unique_ptr<std::shared_ptr<Texture>[]> texUnits; //pointer to an array of Texture pointers (may change to vector)
+	std::vector<std::shared_ptr<Texture>> texUnits; //pointer to an array of Texture pointers (may change to vector)
 	unsigned int texUnitIdx{ 1 }; // 0 = white tex
 
 	Statistics stats;

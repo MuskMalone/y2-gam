@@ -19,6 +19,9 @@ namespace {
 }
 
 Entity RenderSystem::GetCamera() { return mCamera; }
+std::shared_ptr<Framebuffer> const& RenderSystem::GetFramebuffer() const { return mFramebuffer; }
+
+void RenderSystem::ToggleDebugMode() { mDebugMode = !mDebugMode; }
 
 void RenderSystem::Init()
 {
@@ -102,7 +105,9 @@ void RenderSystem::Update(float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
-	::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+	if (mDebugMode) {
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+	}
 	
 	Renderer::RenderSceneEnd();
 	mFramebuffer->Unbind();

@@ -41,7 +41,7 @@ namespace DataMgmt {
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
 			Vec4 v4Scale{ v4Max - v4Min };
 
-			Renderer::DrawLineRect((v4Min + v4Scale / 2.f), v4Scale, { 1.f, 1.f, 1.f ,1.f });
+			Renderer::DrawLineRect((v4Min + v4Scale / 2.f), v4Scale, { 1.f, 0.5f, 0.2f ,1.f });
 
 
 		}

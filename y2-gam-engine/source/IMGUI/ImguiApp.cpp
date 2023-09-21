@@ -16,7 +16,7 @@ namespace Image {
        InspectorWindow();
        ImGui::Begin("Image Game Engine");
 
-       unsigned int texHdl = ::gCoordinator->GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
+       unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT), ImVec2{0, 1}, ImVec2{1, 0});
        ImGui::End();
 	}
@@ -34,7 +34,6 @@ namespace Image {
                     selectedEntity = entity;
                 }
             }
-            
             
             if (ImGui::Button("Create Entity")) {
                 Entity newEntity = gCoordinator->CreateEntity();

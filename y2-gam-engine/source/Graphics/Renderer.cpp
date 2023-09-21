@@ -14,12 +14,11 @@ void Renderer::Init() {
 	glEnable(GL_DEPTH_TEST);
 
 	sData.maxTexUnits = GetMaxTextureUnits();
-	sData.texUnits.reset(new std::shared_ptr<Texture>[sData.maxTexUnits]);
 
-	//sData.quadVertexArray.reset(new VertexArray);
+	sData.texUnits = std::vector<std::shared_ptr<Texture>>(sData.maxTexUnits);
+
 	sData.quadVertexArray = VertexArray::Create();
 
-	//sData.quadVertexBuffer.reset(new VertexBuffer{ sData.cMaxVertices * sizeof(QuadVtx) });
 	sData.quadVertexBuffer = VertexBuffer::Create(sData.cMaxVertices * sizeof(QuadVtx));
 
 	BufferLayout quadLayout = {
@@ -31,13 +30,13 @@ void Renderer::Init() {
 
 	sData.quadVertexBuffer->SetLayout(quadLayout); //must set layout before adding vbo
 	sData.quadVertexArray->AddVertexBuffer(sData.quadVertexBuffer);
-	sData.quadBuffer = new QuadVtx[sData.cMaxVertices]; //deleted in shutdown
+	sData.quadBuffer = std::vector<QuadVtx>(sData.cMaxVertices);
 
-	unsigned int* quadIndices = new unsigned int[sData.cMaxIndices]; //might need to refactor, do a ref count?
-	//std::unique_ptr<unsigned int[]> quadIndices{new unsigned int[sData.cMaxIndices]};
+	std::vector<unsigned int> quadIndices(sData.cMaxIndices);
+
 
 	unsigned int offset{};
-	for (unsigned int i{}; i < sData.cMaxIndices; i += 6) {
+	for (size_t i{}; i < sData.cMaxIndices; i += 6) {
 		quadIndices[i + 0] = offset + 0;
 		quadIndices[i + 1] = offset + 1;
 		quadIndices[i + 2] = offset + 2;
@@ -48,10 +47,8 @@ void Renderer::Init() {
 
 		offset += 4;
 	}
-	std::shared_ptr<ElementBuffer> quadEbo = ElementBuffer::Create(quadIndices, sData.cMaxIndices);
-	//quadEbo.reset(new ElementBuffer(quadIndices, sData.cMaxIndices));
+	std::shared_ptr<ElementBuffer> quadEbo = ElementBuffer::Create(quadIndices.data(), sData.cMaxIndices);
 	sData.quadVertexArray->SetElementBuffer(quadEbo);
-	delete[] quadIndices; //assumes indices gets uploaded by gpu immediately this line might cause trouble
 
 	//Lines
 	sData.lineVertexArray = VertexArray::Create();
@@ -64,9 +61,9 @@ void Renderer::Init() {
 
 	sData.lineVertexBuffer->SetLayout(lineLayout); //must set layout before adding vbo
 	sData.lineVertexArray->AddVertexBuffer(sData.lineVertexBuffer);
-	sData.lineBuffer = new LineVtx[sData.cMaxVertices]; //change this in future.. deleted in shutdown
+	sData.lineBuffer = std::vector<LineVtx>(sData.cMaxVertices);
 
-	sData.whiteTex.reset(new Texture{ 1, 1 });
+	sData.whiteTex = std::make_shared<Texture>(1, 1);
 	unsigned int whiteTexData{ 0xffffffff };
 	sData.whiteTex->SetData(&whiteTexData);
 	sData.texUnits[0] = sData.whiteTex;
@@ -75,8 +72,8 @@ void Renderer::Init() {
 	for (unsigned int i{}; i < sData.maxTexUnits; ++i)
 		samplers[i] = i;
 
-	sData.lineShader.reset(new Shader{ "../Shaders/Line.vert", "../Shaders/Line.frag" });
-	sData.texShader.reset(new Shader{ "../Shaders/Tex.vert", "../Shaders/Tex.frag" });
+	sData.lineShader = std::make_shared<Shader>("../Shaders/Line.vert", "../Shaders/Line.frag");
+	sData.texShader = std::make_shared<Shader>("../Shaders/Tex.vert", "../Shaders/Tex.frag");
 	sData.texShader->Use();
 	sData.texShader->SetUniform("u_Tex", samplers.data(), sData.maxTexUnits);
 
@@ -86,8 +83,7 @@ void Renderer::Init() {
 	sData.quadVtxPos[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
 }
 void Renderer::Shutdown() {
-	delete[] sData.quadBuffer;
-	delete[] sData.lineBuffer;
+
 }
 
 void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
@@ -265,12 +261,12 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 void Renderer::FlushBatch() {
 	if (sData.quadIdxCount) {
 		ptrdiff_t difference{ reinterpret_cast<unsigned char*>(sData.quadBufferPtr)
-							- reinterpret_cast<unsigned char*>(sData.quadBuffer) };
+							- reinterpret_cast<unsigned char*>(sData.quadBuffer.data()) };
 
 		//how many elements it takes up in terms of bytes
 		unsigned int dataSize = static_cast<unsigned int>(difference);
 		//uint32_t dataSize = (uint32_t)((uint8_t*)sData.quadBufferPtr - (uint8_t*)sData.quadBuffer);
-		sData.quadVertexBuffer->SetData(sData.quadBuffer, dataSize);
+		sData.quadVertexBuffer->SetData(sData.quadBuffer.data(), dataSize);
 
 		//Bind all the textures that has been set
 		for (unsigned int i{}; i < sData.texUnitIdx; ++i) {
@@ -284,11 +280,11 @@ void Renderer::FlushBatch() {
 
 	if (sData.lineVtxCount) {
 		ptrdiff_t difference{ reinterpret_cast<unsigned char*>(sData.lineBufferPtr)
-							- reinterpret_cast<unsigned char*>(sData.lineBuffer) };
+							- reinterpret_cast<unsigned char*>(sData.lineBuffer.data()) };
 
 		//how many elements it takes up in terms of bytes
 		unsigned int dataSize = static_cast<unsigned int>(difference);
-		sData.lineVertexBuffer->SetData(sData.lineBuffer, dataSize);
+		sData.lineVertexBuffer->SetData(sData.lineBuffer.data(), dataSize);
 
 		sData.lineShader->Use();
 		DrawLineArray(sData.lineVertexArray, sData.lineVtxCount);
@@ -299,10 +295,10 @@ void Renderer::FlushBatch() {
 
 void Renderer::BeginBatch() {
 	sData.quadIdxCount = 0;
-	sData.quadBufferPtr = sData.quadBuffer;
+	sData.quadBufferPtr = sData.quadBuffer.data();
 
 	sData.lineVtxCount = 0;
-	sData.lineBufferPtr = sData.lineBuffer;
+	sData.lineBufferPtr = sData.lineBuffer.data();
 
 	sData.texUnitIdx = 1;
 }

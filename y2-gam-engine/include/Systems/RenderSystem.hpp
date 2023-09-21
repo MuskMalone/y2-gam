@@ -19,11 +19,14 @@ public:
 
 	Entity GetCamera();
 
-	std::shared_ptr<Framebuffer> const& GetFramebuffer() const { return mFramebuffer; }
+	std::shared_ptr<Framebuffer> const& GetFramebuffer() const;
 	//for debug
 	//Mat44 mLastModelXform;
+	void ToggleDebugMode();
 
 private:
+	bool mDebugMode{false};
+
 	void WindowSizeListener(Event& event);
 	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
 	//std::unique_ptr<Shader> shader;
