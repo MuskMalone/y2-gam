@@ -2,6 +2,7 @@
 
 Entity selectedEntity = MAX_ENTITIES;
 
+
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -10,9 +11,14 @@ namespace Image {
 	void AppRender(){
         
 
-        //ImGui::ShowDemoWindow();
+     //ImGui::ShowDemoWindow();
        HierarchyWindow();
        InspectorWindow();
+       ImGui::Begin("Image Game Engine");
+
+       unsigned int texHdl = ::gCoordinator->GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
+       ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT), ImVec2{0, 1}, ImVec2{1, 0});
+       ImGui::End();
 	}
     //std::vector<std::string> entities = { "Entity1", "Entity2", "Entity3" };
     //int selectedEntityIndex = -1; // -1 means no entity is selected

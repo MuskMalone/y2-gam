@@ -1,4 +1,5 @@
 #include "Systems/RenderSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/Transform.hpp"
@@ -35,23 +36,25 @@ void RenderSystem::Init()
 			.rotation = Vec3(),
 			.scale = Vec3()
 		});
-	//float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
+	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
 		Camera{});
 	gCoordinator->AddComponent(
 		mCamera,
-		OrthoCamera{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y }
+		OrthoCamera{ -WORLD_LIMIT_X * aspectRatio, WORLD_LIMIT_X * aspectRatio, -WORLD_LIMIT_Y, WORLD_LIMIT_Y}
 	);
 
 
 	Renderer::Init();
 
 	//----------temp------------
+
 	FramebufferProps fbProps;
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);
+
 	//--------------------------
 
 }
@@ -59,9 +62,12 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	//mFramebuffer->Bind();
-	Renderer::SetClearColor({ 0.1f,0.1f,0.1f,1.f });
+	mFramebuffer->Bind();
+
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
+	Renderer::ClearDepth();
+
 	//TODO REFACTOR 
 	struct RenderEntry {
 		Entity entity;
@@ -73,8 +79,8 @@ void RenderSystem::Update(float dt)
 	for (auto const& entity : mEntities) {
 		RenderEntry entry{
 			.entity = entity,
-			.transform = &gCoordinator->GetComponent<Transform>(entity),
-			.sprite = &gCoordinator->GetComponent<Sprite>(entity)
+			.transform = &::gCoordinator->GetComponent<Transform>(entity),
+			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
 		};
 		renderQueue.push_back(entry);
 	}
@@ -84,9 +90,8 @@ void RenderSystem::Update(float dt)
 			return rhs.transform->position.z < lhs.transform->position.z;
 		});
 
-	auto const& camera = gCoordinator->GetComponent<OrthoCamera>(mCamera);
+	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);
 	Renderer::RenderSceneBegin(camera);
-
 	for (auto const& entry : renderQueue)
 	{
 
@@ -97,9 +102,10 @@ void RenderSystem::Update(float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
-
+	::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+	
 	Renderer::RenderSceneEnd();
-	//mFramebuffer->Unbind();
+	mFramebuffer->Unbind();
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

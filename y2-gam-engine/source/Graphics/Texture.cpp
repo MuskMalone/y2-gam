@@ -64,6 +64,10 @@ unsigned int Texture::GetHeight() const {
 	return mHeight;
 }
 
+unsigned int Texture::GetTexHdl() const {
+	return mTexHdl;
+}
+
 //unsigned int Texture::GetTexHandle() const {
 //	return mTexHdl;
 //}

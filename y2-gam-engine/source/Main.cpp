@@ -156,7 +156,7 @@ int main()
 		animationSystem->Update(dt);
 
 		renderSystem->Update(dt);
-		collisionSystem->Debug(); // for debug
+		//collisionSystem->Debug(); // for debug
 
 		imguiSystem->Update(windowManager->GetContext());
 

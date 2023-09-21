@@ -147,11 +147,11 @@ void EditorControlSystem::Update(float dt)
 		camera.SetPosition(camera.mPos);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
-		camera.mRot += rotSpeed * dt;
+		camera.mRot -= rotSpeed * dt;
 		camera.SetRotation(camera.mRot);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
-		camera.mRot -= rotSpeed * dt;
+		camera.mRot += rotSpeed * dt;
 		camera.SetRotation(camera.mRot);
 	}
 

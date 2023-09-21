@@ -433,7 +433,8 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
 
     // Setup viewport, orthographic projection matrix
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
-    GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
+    GL_CALL(
+        (0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
     float L = draw_data->DisplayPos.x;
     float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
     float T = draw_data->DisplayPos.y;

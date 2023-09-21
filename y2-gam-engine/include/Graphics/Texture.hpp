@@ -9,6 +9,7 @@ public:
 
 	unsigned int GetWidth() const;
 	unsigned int GetHeight() const;
+	unsigned int GetTexHdl() const;
 
 	void SetData(void* data);
 

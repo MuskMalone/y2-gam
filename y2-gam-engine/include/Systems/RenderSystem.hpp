@@ -5,7 +5,7 @@
 #include <memory>
 #include <Math/Mat44.hpp>
 #include "Graphics/Framebuffer.hpp"
-
+#include "Graphics/Texture.hpp"
 
 class Event;
 
@@ -18,6 +18,8 @@ public:
 	void Update(float dt);
 
 	Entity GetCamera();
+
+	std::shared_ptr<Framebuffer> const& GetFramebuffer() const { return mFramebuffer; }
 	//for debug
 	//Mat44 mLastModelXform;
 

@@ -396,8 +396,8 @@ namespace Collision{
 
     void CollisionSystem::Debug() {
         mQuadtree.Debug();
-        auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
-        Renderer::RenderSceneBegin(camera);
+        //auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
+        //Renderer::RenderSceneBegin(camera);
         size_t sizeent{ mEntities.size() };
 
         for (auto const& e : mEntities) {
@@ -408,7 +408,7 @@ namespace Collision{
             Renderer::DrawLineRect(Vec3(aabb.first + scale / 2.f, 1), scale, { 1.f, 1.f, 1.f ,1.f });
 
         }
-        Renderer::RenderSceneEnd();
+        //Renderer::RenderSceneEnd();
 
     }
 }

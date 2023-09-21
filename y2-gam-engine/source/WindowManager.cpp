@@ -19,6 +19,7 @@ void WindowManager::Init(
 
 	glfwInit();
 	gCoordinator = Coordinator::GetInstance();
+
 	mWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
 
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
@@ -30,6 +31,7 @@ void WindowManager::Init(
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+	glViewport(0, 0, windowWidth, windowHeight);
 
 	// Configure OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -226,7 +228,10 @@ void WindowManager::FbSizeCb(GLFWwindow* pwin, int width1, int height1) {
     std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif
     // use the entire framebuffer as drawing region
-    glViewport(0, 0, width1, height1);
+    
+	
+	
+	(0, 0, width1, height1);
     // later, if working in 3D, we'll have to set the projection matrix here ...
 }
 
