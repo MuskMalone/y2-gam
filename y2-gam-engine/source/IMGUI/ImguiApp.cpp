@@ -108,9 +108,6 @@ namespace Image {
                     }
                 }
             }
-            
-
-            // ... Repeat for other component types
         }
 
         ImGui::End();
