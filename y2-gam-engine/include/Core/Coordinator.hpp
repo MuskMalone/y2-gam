@@ -20,11 +20,40 @@ public:
 		mSystemManager = std::make_unique<SystemManager>();
 	}
 
+	// Event methods
+	void AddEventListener(EventId eventId, std::function<void(Event&)> const& listener)
+	{
+		mEventManager->AddListener(eventId, listener);
+	}
+
+	void SendEvent(Event& event)
+	{
+		mEventManager->SendEvent(event);
+	}
+
+	void SendEvent(EventId eventId)
+	{
+		mEventManager->SendEvent(eventId);
+	}
 
 	// Entity methods
 	Entity CreateEntity()
 	{
-		return mEntityManager->CreateEntity();
+		Entity out{ mEntityManager->CreateEntity() };
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::CREATE, out);
+		SendEvent(event);
+		return out;
+	}
+
+	Entity CloneEntity(Entity entity) {
+		Entity clone = mEntityManager->CreateEntity();
+		mComponentManager->CloneComponents(entity, clone);
+
+		auto signature = mEntityManager->GetSignature(entity);
+		mEntityManager->SetSignature(clone, signature);
+		mSystemManager->EntitySignatureChanged(clone, signature);
+		return clone;
 	}
 
 	void DestroyEntity(Entity entity)
@@ -34,6 +63,10 @@ public:
 		mComponentManager->EntityDestroyed(entity);
 
 		mSystemManager->EntityDestroyed(entity);
+
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::DELETE, entity);
+		SendEvent(event);
 	}
 	uint32_t GetEntityCount() const {
 		return mEntityManager->GetEntityCount();
@@ -56,6 +89,10 @@ public:
 		signature.set(mComponentManager->GetComponentType<T>(), true);
 		mEntityManager->SetSignature(entity, signature);
 		mSystemManager->EntitySignatureChanged(entity, signature);
+
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::COMPONENT_ADD, entity);
+		SendEvent(event);
 	}
 
 	template<typename T>
@@ -68,13 +105,18 @@ public:
 		mEntityManager->SetSignature(entity, signature);
 
 		mSystemManager->EntitySignatureChanged(entity, signature);
+
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::COMPONENT_REMOVE, entity);
+		SendEvent(event);
 	}
 
 	template <typename T>
 	bool HasComponent(Entity entity) {
 		auto signature = mEntityManager->GetSignature(entity);
-		return signature.test(mComponentManager->GetComponentType<T>);
+		return signature.test(mComponentManager->GetComponentType<T>());
 	}
+
 
 	template<typename T>
 	T& GetComponent(Entity entity)
@@ -111,21 +153,6 @@ public:
 		return mSystemManager->RemoveSystem<T>();
 	}
 
-	// Event methods
-	void AddEventListener(EventId eventId, std::function<void(Event&)> const& listener)
-	{
-		mEventManager->AddListener(eventId, listener);
-	}
-
-	void SendEvent(Event& event)
-	{
-		mEventManager->SendEvent(event);
-	}
-
-	void SendEvent(EventId eventId)
-	{
-		mEventManager->SendEvent(eventId);
-	}
 
 private:
 	std::unique_ptr<ComponentManager> mComponentManager;

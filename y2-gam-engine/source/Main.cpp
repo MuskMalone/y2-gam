@@ -6,7 +6,9 @@
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
 #include "Components/Animation.hpp"
+#include "Core/Serialization/SerializerComponent.hpp"
 #include "Core/Coordinator.hpp"
+#include "Systems/EntitySerializationSystem.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/InputSystem.hpp"
@@ -61,6 +63,14 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
+	coordinator->RegisterComponent<Serializer::SerializerComponent>();
+
+	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
+		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
+	}
 	
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{

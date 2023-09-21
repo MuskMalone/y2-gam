@@ -21,6 +21,7 @@ namespace {
 }
 namespace Testing {
 	std::default_random_engine generator;
+	Entity lastInserted;
 }
 
 void EditorControlSystem::Init()
@@ -126,22 +127,25 @@ void EditorControlSystem::Update(float dt)
 
 	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 		camera.UpdatePos(camera.eye.x, camera.eye.y + dt);
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
 		camera.UpdatePos(camera.eye.x, camera.eye.y - dt);
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
 		camera.UpdatePos(camera.eye.x - dt, camera.eye.y);
 	}
-	
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)){
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
 		camera.UpdatePos(camera.eye.x + dt, camera.eye.y);
 	}
-
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+		gCoordinator->CloneEntity(Testing::lastInserted);
+	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
@@ -191,7 +195,7 @@ void EditorControlSystem::Update(float dt)
 					Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
 					nullptr
 				});
-
+			lastInserted = entity;
 		}
 
 

@@ -8,7 +8,6 @@
 #include <Components/Animation.hpp>
 #include <Components/BoxCollider.hpp>
 #include <Components/Camera.hpp>
-#include <Components/Component.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/RigidBody.hpp>
@@ -23,9 +22,6 @@ Coordinator::GetInstance()->AddComponent(entity, BoxCollider{ obj });
 }
 static void EntityAddCamera(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Camera{ obj });
-}
-static void EntityAddComponent(Entity const& entity, rapidjson::Value const& obj) {
-Coordinator::GetInstance()->AddComponent(entity, Component{ obj });
 }
 static void EntityAddEditor(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
@@ -46,7 +42,6 @@ template <typename _type> std::string TypeToString() {
 if constexpr (std::is_same_v<T, Animation>) return "Animation";
 if constexpr (std::is_same_v<T, BoxCollider>) return "BoxCollider";
 if constexpr (std::is_same_v<T, Camera>) return "Camera";
-if constexpr (std::is_same_v<T, Component>) return "Component";
 if constexpr (std::is_same_v<T, Editor>) return "Editor";
 if constexpr (std::is_same_v<T, Gravity>) return "Gravity";
 if constexpr (std::is_same_v<T, RigidBody>) return "RigidBody";
@@ -61,8 +56,6 @@ if (Coordinator::GetInstance()->HasComponent<BoxCollider>(entity))
 Coordinator::GetInstance()->GetComponent<BoxCollider>(entity).Serialize(obj);
 if (Coordinator::GetInstance()->HasComponent<Camera>(entity))
 Coordinator::GetInstance()->GetComponent<Camera>(entity).Serialize(obj);
-if (Coordinator::GetInstance()->HasComponent<Component>(entity))
-Coordinator::GetInstance()->GetComponent<Component>(entity).Serialize(obj);
 if (Coordinator::GetInstance()->HasComponent<Editor>(entity))
 Coordinator::GetInstance()->GetComponent<Editor>(entity).Serialize(obj);
 if (Coordinator::GetInstance()->HasComponent<Gravity>(entity))
@@ -78,7 +71,6 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Animation", EntityAddAnimation},
 {"BoxCollider", EntityAddBoxCollider},
 {"Camera", EntityAddCamera},
-{"Component", EntityAddComponent},
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
 {"RigidBody", EntityAddRigidBody},

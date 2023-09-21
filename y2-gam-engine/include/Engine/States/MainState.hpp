@@ -7,7 +7,7 @@
 #include <Systems/AnimationSystem.hpp>
 #include <Systems/RenderSystem.hpp>
 
-#include <Components/Component.hpp>
+#include <Core/Component.hpp>
 
 class MainState : public GameState {
 public:

@@ -11,6 +11,8 @@ void MainState::Init() {
 	mEditorControlSystem = coordinator->GetSystem<EditorControlSystem>();
 	mRenderSystem = coordinator->GetSystem<RenderSystem>();
 	mAnimationSystem = coordinator->GetSystem<AnimationSystem>();
+
+	
 }
 void MainState::Exit() {
 

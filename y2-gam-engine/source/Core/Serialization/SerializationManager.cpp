@@ -1,6 +1,6 @@
 #include <Core/Serialization/SerializationManager.hpp>
 
-namespace Serialization {
+namespace Serializer {
 	std::shared_ptr<SerializationManager> SerializationManager::_mSelf = 0;
 	std::shared_ptr<SerializationManager> SerializationManager::GetInstance() {
 		if (!_mSelf) return _mSelf = std::make_shared<SerializationManager>();

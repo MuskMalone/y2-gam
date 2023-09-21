@@ -9,8 +9,16 @@ void writeline(std::ofstream &ofs, std::string line){
 
 #define getfilename(filename) filename.substr(0, filename.find_first_of('.'))
 int main(){
+    namespace fs = std::filesystem;
+
+    try {
+        for (const auto &entry : fs::directory_iterator(fs::current_path())) {
+            std::cout << entry.path() << '\n';
+        }
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << e.what() << '\n';
+    }    
     std::ofstream ofs{"include/Core/Serialization/Serializer.hpp"};
-    std::ofstream ofs1{"include/Components/Component.hpp"};
     writeline(ofs, "#pragma once");
     writeline(ofs, "#include <Core/Types.hpp>");
     writeline(ofs, "#include <functional>");
@@ -28,8 +36,8 @@ int main(){
     #define closebrace writeline(ofs, "}");
     for (auto const& dirEntry : std::filesystem::directory_iterator{"include/Components"}){
         writehpp(dirEntry.path().filename().string());
-        if (dirEntry.path().filename().string() != "Component.hpp") writehpp1(dirEntry.path().filename().string());
-        componentNames.push_back(getfilename(dirEntry.path().filename().string()));
+                componentNames.push_back(getfilename(dirEntry.path().filename().string()));
+
     }
     writeline(ofs, "namespace Serializer{");
     //create the functions to add component
@@ -65,5 +73,14 @@ int main(){
 
     //end namespace
     closebrace;
+
+    std::ofstream ofs1{"include/Core/Component.hpp"};
+
+    #define writehpp1(file) writeline(ofs1, "#include <Components/" + file + ">")
+    for (auto const& dirEntry : std::filesystem::directory_iterator{"include/Components"}){
+        if (dirEntry.path().filename().string() != "Component.hpp") writehpp1(dirEntry.path().filename().string());
+    }
+
+
     
 }

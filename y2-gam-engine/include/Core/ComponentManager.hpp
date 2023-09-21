@@ -63,6 +63,11 @@ public:
 			component->EntityDestroyed(entity);
 		}
 	}
+	void CloneComponents(Entity from, Entity to) {
+		for (auto const& pair : mComponentArrays)
+			if (pair.second->FindData(from))
+				pair.second->CloneData(from, to);
+	}
 
 private:
 	std::unordered_map<const char*, ComponentType> mComponentTypes{};

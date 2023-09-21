@@ -121,7 +121,7 @@ constexpr std::uint64_t murmur64(void const* data, std::size_t len) { return mur
 // ECS
 using Entity = std::uint32_t;
 const Entity MAX_ENTITIES = 10000;
-using ComponentType = std::uint8_t;
+using ComponentType = std::uint8_t; // assumes a maximum of 256 components
 const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
 

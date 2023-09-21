@@ -11,6 +11,8 @@ class IComponentArray
 public:
 	virtual ~IComponentArray() = default;
 	virtual void EntityDestroyed(Entity entity) = 0;
+	virtual bool FindData(Entity entity) = 0;
+	virtual void CloneData(Entity from, Entity to) = 0;
 };
 
 
@@ -18,6 +20,7 @@ template<typename T>
 class ComponentArray : public IComponentArray
 {
 public:
+	using Type = T;
 	void InsertData(Entity entity, T component)
 	{
 		assert(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end() && "Component added to same entity more than once.");
@@ -56,6 +59,14 @@ public:
 		return mComponentArray[mEntityToIndexMap[entity]];
 	}
 
+	void CloneData(Entity from, Entity to) override {
+		InsertData(to, GetData(from));
+	}
+
+	bool FindData(Entity entity) override {
+		return (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end());
+	}
+
 	void EntityDestroyed(Entity entity) override
 	{
 		if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end())
@@ -63,6 +74,7 @@ public:
 			RemoveData(entity);
 		}
 	}
+
 
 private:
 	std::array<T, MAX_ENTITIES> mComponentArray{};
