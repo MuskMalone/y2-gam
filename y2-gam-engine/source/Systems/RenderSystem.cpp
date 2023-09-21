@@ -1,4 +1,5 @@
 #include "Systems/RenderSystem.hpp"
+
 #include "Components/Camera.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/Transform.hpp"
@@ -24,7 +25,7 @@ void RenderSystem::Init()
 	gCoordinator = Coordinator::GetInstance();
 	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	//shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
+	shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
 
 
 	mCamera = gCoordinator->CreateEntity();
@@ -47,21 +48,12 @@ void RenderSystem::Init()
 
 	Renderer::Init();
 
-	//----------temp------------
-	FramebufferProps fbProps;
-	fbProps.width = ENGINE_SCREEN_WIDTH;
-	fbProps.height = ENGINE_SCREEN_HEIGHT;
-	mFramebuffer = Framebuffer::Create(fbProps);
-	//--------------------------
-
 }
 
 
 void RenderSystem::Update(float dt)
 {
-	//mFramebuffer->Bind();
-	Renderer::SetClearColor({ 0.1f,0.1f,0.1f,1.f });
-	Renderer::ClearColor();
+	
 	//TODO REFACTOR 
 	struct RenderEntry {
 		Entity entity;
@@ -96,10 +88,39 @@ void RenderSystem::Update(float dt)
 		else {
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
+
 	}
 
 	Renderer::RenderSceneEnd();
-	//mFramebuffer->Unbind();
+
+	/*auto& cameraTransform = gCoordinator->GetComponent<Transform>(mCamera);
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+
+	OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+	Renderer::RenderSceneBegin(cam);
+
+	Renderer::DrawQuad({ 0,0,128.f }, {50,100}, { 0.8,0.1,0.1,1 });
+	Renderer::DrawQuad({ 0,0, 128.f }, {100,50}, { 0.1,0.1,0.8,1 });
+
+	for (auto const& entity : mEntities)
+	{
+		auto const& transform = gCoordinator->GetComponent<Transform>(entity);
+		auto const& renderable = gCoordinator->GetComponent<Sprite>(entity);
+
+		if (renderable.texture) {
+			Renderer::DrawQuad(transform.position, transform.scale, renderable.texture, transform.rotation.z);
+		}
+		else {
+			Renderer::DrawQuad(transform.position, transform.scale, renderable.color, transform.rotation.z);
+		}
+
+
+	}
+
+
+	Renderer::RenderSceneEnd();*/
+
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

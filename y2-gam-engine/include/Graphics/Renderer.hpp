@@ -12,60 +12,6 @@
 #include "Components/OrthoCamera.hpp"
 #include "Components/Transform.hpp"
 
-struct Statistics {
-	unsigned int drawCalls{};
-	unsigned int quadCount{};
-	unsigned int lineCount{};
-
-	unsigned int GetTotalVtxCount() { return quadCount * 4; }
-	unsigned int GetTotalIdxCount() { return quadCount * 6; }
-};
-
-struct QuadVtx {
-	glm::vec3 pos;
-	glm::vec4 clr;
-	glm::vec2 texCoord;
-	float texIdx; //float as it is passed to shader
-	//TODO test if unsigned int works
-};
-
-struct LineVtx {
-	glm::vec3 pos;
-	glm::vec4 clr;
-};
-
-struct RendererData {
-
-	static const unsigned int cMaxQuads{ 10000 };
-	static const unsigned int cMaxVertices{ cMaxQuads * 4 };
-	static const unsigned int cMaxIndices{ cMaxQuads * 6 };
-	unsigned int maxTexUnits{}; //set actual number in init 
-
-	std::shared_ptr<VertexArray> quadVertexArray;
-	std::shared_ptr<VertexBuffer> quadVertexBuffer;
-	std::shared_ptr<Shader> texShader;
-	std::shared_ptr<Texture> whiteTex;
-
-	std::shared_ptr<VertexArray> lineVertexArray;
-	std::shared_ptr<VertexBuffer> lineVertexBuffer;
-	std::shared_ptr<Shader> lineShader;
-
-	unsigned int quadIdxCount{};
-	QuadVtx* quadBuffer{ nullptr }; // Dynamic buffer to hold vertex data for batching
-	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
-
-	unsigned int lineVtxCount{};
-	LineVtx* lineBuffer{ nullptr };
-	LineVtx* lineBufferPtr{ nullptr };
-
-	glm::vec4 quadVtxPos[4];
-
-	std::unique_ptr<std::shared_ptr<Texture>[]> texUnits; //pointer to an array of Texture pointers (may change to vector)
-	unsigned int texUnitIdx{ 1 }; // 0 = white tex
-
-	Statistics stats;
-};
-
 class Renderer {
 public:
 
@@ -110,10 +56,14 @@ public:
 	static void DrawLineArray(std::shared_ptr<VertexArray> const& vao, unsigned int vtxCount);
 
 	//Stats
+	struct Statistics {
+		unsigned int drawCalls{};
+		unsigned int quadCount{};
+		unsigned int lineCount{};
 
+		unsigned int GetTotalVtxCount() { return quadCount * 4; }
+		unsigned int GetTotalIdxCount() { return quadCount * 6; }
+	};
 	static Statistics GetStats();
 	static void ResetStats();
-
-private:
-	static RendererData sData;
 };

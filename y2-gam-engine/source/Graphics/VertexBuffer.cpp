@@ -19,14 +19,6 @@ VertexBuffer::~VertexBuffer() {
 	glDeleteBuffers(1, &mVboHdl);
 }
 
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(unsigned int size) {
-	return std::make_shared<VertexBuffer>(size);
-}
-
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size) {
-	return std::make_shared<VertexBuffer>(vertices, size);
-}
-
 void VertexBuffer::Bind() const {
 	glBindBuffer(GL_ARRAY_BUFFER, mVboHdl);
 }

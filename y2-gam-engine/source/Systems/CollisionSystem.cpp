@@ -396,8 +396,8 @@ namespace Collision{
 
     void CollisionSystem::Debug() {
         mQuadtree.Debug();
-        auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
-        Renderer::RenderSceneBegin(camera);
+        OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
+        Renderer::RenderSceneBegin(cam);
         size_t sizeent{ mEntities.size() };
 
         for (auto const& e : mEntities) {

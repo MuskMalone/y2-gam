@@ -23,6 +23,7 @@
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="source\Graphics\VetexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
+    <ClCompile Include="include\Graphics\Framebuffer.hpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
+    <ClInclude Include="include\Graphics\CameraController.h" />
     <ClInclude Include="include\Components\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
@@ -210,7 +212,6 @@
     <ClInclude Include="include\Graphics\VertexArray.hpp" />
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Graphics\SubTexture.hpp" />
-    <ClInclude Include="include\Graphics\Framebuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
