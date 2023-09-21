@@ -108,6 +108,9 @@ public:
 	VertexBuffer(float* vertices, unsigned int size);
 	~VertexBuffer();
 
+	static std::shared_ptr<VertexBuffer> Create(unsigned int size);
+	static std::shared_ptr<VertexBuffer> Create(float* vertices, unsigned int size);
+
 	void Bind() const;
 	void Unbind() const;
 

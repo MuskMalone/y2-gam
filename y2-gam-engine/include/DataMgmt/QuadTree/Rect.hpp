@@ -36,10 +36,9 @@ namespace DataMgmt {
 		Rect(const Vec2& a, const Vec2& b) : min{ a }, max{ b } {
 		}
 		void Draw() const { // for debugging remove later
-			//auto& camera = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
+			auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
 
-			OrthoCamera cam{ -WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y };
-			Renderer::RenderSceneBegin(cam);
+			Renderer::RenderSceneBegin(camera);
 
 			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
 			Vec4 v4Scale{ v4Max - v4Min };

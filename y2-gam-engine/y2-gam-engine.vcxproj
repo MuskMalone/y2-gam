@@ -138,7 +138,6 @@
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
-    <ClInclude Include="include\Graphics\CameraController.h" />
     <ClInclude Include="include\Components\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
@@ -164,6 +163,7 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Node.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
+    <ClInclude Include="include\Graphics\Framebuffer.hpp" />
     <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
@@ -206,7 +206,6 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
-    <ClCompile Include="include\Graphics\Framebuffer.hpp" />
     <ClCompile Include="source\Graphics\CameraController.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
