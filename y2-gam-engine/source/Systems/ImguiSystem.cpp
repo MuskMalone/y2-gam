@@ -39,7 +39,6 @@
         glfwSetErrorCallback(glfw_error_callback);
         if (!glfwInit())
             return;
-
         // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100
@@ -81,7 +80,6 @@
         //io.ConfigFlags &= ImGuiConfigFlags_ViewportsEnable;
         //io.ConfigViewportsNoAutoMerge = true;
         //io.ConfigViewportsNoTaskBarIcon = true;
-
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         //ImGui::StyleColorsLight();
@@ -135,7 +133,7 @@
             // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
             // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
             // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-            glfwPollEvents();
+            //glfwPollEvents();
 
             // Start the Dear ImGui frame
             ImGui_ImplOpenGL3_NewFrame();

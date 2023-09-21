@@ -70,7 +70,7 @@ namespace Image {
                 Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
                 // Position
                 ImGui::Text("Position");
-                //ImGui::SliderFloat("X", &transform.position.x);
+                ImGui::InputFloat("X", &transform.position.x);
                 ImGui::InputFloat("Y", &transform.position.y);
                 ImGui::InputFloat("Z", &transform.position.z);
 
