@@ -16,6 +16,7 @@
 #include <random>
 #include <chrono>
 #include "Components/OrthoCamera.hpp"
+#include <algorithm>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -127,6 +128,7 @@ void EditorControlSystem::Update(float dt)
 	//TODO REMOVE TEMP
 	float moveSpeed = 100.f;
 	float rotSpeed = 80.f;
+	float zoomSpeed = 50.f;
 
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
@@ -153,6 +155,14 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
 		camera.mRot += rotSpeed * dt;
 		camera.SetRotation(camera.mRot);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
+		camera.mZoom += zoomSpeed * dt;
+		camera.ZoomIn(zoomSpeed);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
+		camera.mZoom -= zoomSpeed * dt;
+		camera.ZoomOut(zoomSpeed);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
 		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();

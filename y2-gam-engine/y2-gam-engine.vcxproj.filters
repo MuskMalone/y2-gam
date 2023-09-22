@@ -9,7 +9,6 @@
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
-    <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
@@ -24,6 +23,23 @@
     <ClCompile Include="source\Graphics\VetexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
+    <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
+    <ClCompile Include="source\Math\Mat2.cpp" />
+    <ClCompile Include="source\Math\mat3.cpp" />
+    <ClCompile Include="source\Math\mat4.cpp" />
+    <ClCompile Include="source\Math\MathUtils.cpp" />
+    <ClCompile Include="source\Math\vec2.cpp" />
+    <ClCompile Include="source\Math\vec3.cpp" />
+    <ClCompile Include="source\Math\vec4.cpp" />
+    <ClCompile Include="source\Systems\ImguiSystem.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\imgui.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -75,6 +91,25 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Graphics\SubTexture.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
+    <ClInclude Include="include\Math\Mat2.h" />
+    <ClInclude Include="include\Math\mat3.h" />
+    <ClInclude Include="include\Math\mat4.h" />
+    <ClInclude Include="include\Math\MathUtils.h" />
+    <ClInclude Include="include\Math\vec2.h" />
+    <ClInclude Include="include\Math\vec3.h" />
+    <ClInclude Include="include\Math\vec4.h" />
+    <ClInclude Include="include\Systems\ImguiSystem.hpp" />
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_win32.h" />
+    <ClInclude Include="Vendor\imgui-docking\imconfig.h" />
+    <ClInclude Include="Vendor\imgui-docking\imgui.h" />
+    <ClInclude Include="Vendor\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -100,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\RigidBody.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Thrust.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\Transform.hpp">
@@ -195,60 +227,6 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Graphics\OrthoCamera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\ImguiApp.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Mat2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\mat3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\mat4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\vec2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\vec3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\vec4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\MathUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Math\Mat44.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -259,12 +237,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Math\Vec4.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\ImguiSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -324,57 +296,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\Graphics\OrthoCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IMGUI\ImguiApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\Mat2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\mat3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\mat4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\MathUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\vec3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\vec4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Systems\ImguiSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

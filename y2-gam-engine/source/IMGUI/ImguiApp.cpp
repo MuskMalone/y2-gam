@@ -225,7 +225,7 @@ namespace Image {
         ImGui::Begin("Image Game Engine");
 
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(1040, 585), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::End();
     }
     void LoggingWindow() {

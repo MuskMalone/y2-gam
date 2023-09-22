@@ -45,7 +45,7 @@ void RenderSystem::Init()
 		Camera{});
 	gCoordinator->AddComponent(
 		mCamera,
-		OrthoCamera{ -WORLD_LIMIT_X * aspectRatio, WORLD_LIMIT_X * aspectRatio, -WORLD_LIMIT_Y, WORLD_LIMIT_Y}
+		OrthoCamera{aspectRatio, -WORLD_LIMIT_X * aspectRatio, WORLD_LIMIT_X * aspectRatio, -WORLD_LIMIT_Y, WORLD_LIMIT_Y}
 	);
 
 

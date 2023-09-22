@@ -214,7 +214,6 @@
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
-    <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Main.cpp" />
