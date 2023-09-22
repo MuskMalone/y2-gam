@@ -27,8 +27,11 @@
 #include <iostream>
 #include "Graphics/Renderer.hpp"
 namespace Image {
-		void AppRender();
-		void HierarchyWindow();
-		void InspectorWindow();
-		void LoggingWindow();
+	void AppRender();
+	void MainMenuWindow();
+	void HierarchyWindow();
+	void InspectorWindow();
+	void PropertyWindow();
+	void BufferWindow();
+	void LoggingWindow();
 }
