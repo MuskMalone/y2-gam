@@ -226,7 +226,7 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 		float scale = 50.f;
-		for (int i{}; i < 2; ++i) {
+		for (int i{}; i < 500; ++i) {
 			Entity entity = ::gCoordinator->CreateEntity();
 			Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
 			::gCoordinator->AddComponent(
