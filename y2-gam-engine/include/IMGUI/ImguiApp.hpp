@@ -13,6 +13,7 @@
 //#include "Components/Thrust.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
+#include <Components/Animation.hpp>
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
@@ -30,7 +31,10 @@
 #include "Graphics/Renderer.hpp"
 namespace Image {
 		void AppRender();
+		void MainMenuWindow();
 		void HierarchyWindow();
 		void InspectorWindow();
+		void PropertyWindow();
+		void BufferWindow();
 		void LoggingWindow();
 }
