@@ -35,7 +35,7 @@ void MainState::Update(float dt) {
 	mAnimationSystem->Update(dt);
 
 	mRenderSystem->Update(dt);
-	mCollisionSystem->Debug(); // for debug
+	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
 

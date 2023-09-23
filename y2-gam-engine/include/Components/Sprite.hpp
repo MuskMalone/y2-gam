@@ -16,7 +16,7 @@ struct Sprite {
 		color = { 1,1,1,1 };
 		texture = nullptr;
 	}
-	void Serialize(rapidjson::Value& obj) {
-
+	bool Serialize(rapidjson::Value& obj) {
+		return false;
 	}
 };

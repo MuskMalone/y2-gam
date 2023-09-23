@@ -29,8 +29,7 @@ public:
 	glm::vec3 mPos{};
 	float mRot{ 0.f };
 
-	void Serialize(rapidjson::Value& obj) {
-		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
-
+	bool Serialize(rapidjson::Value& obj) {
+		return false;
 	}
 };

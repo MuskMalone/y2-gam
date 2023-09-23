@@ -10,7 +10,8 @@ struct BoxCollider {
 	BoxCollider(rapidjson::Value const& obj) {
 
 	}
-	void Serialize(rapidjson::Value& obj) {
+	bool Serialize(rapidjson::Value& obj) {
 		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "collider", true);
+		return true;
 	}
 };

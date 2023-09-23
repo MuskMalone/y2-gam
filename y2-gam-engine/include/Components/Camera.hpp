@@ -32,7 +32,7 @@ struct Camera
 		
 	}
 	Camera(rapidjson::Value const& obj) {}
-	void Serialize(rapidjson::Value& obj) {
-
+	bool Serialize(rapidjson::Value& obj) {
+		return false;
 	}
 };

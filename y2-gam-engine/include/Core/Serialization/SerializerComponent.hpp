@@ -4,6 +4,6 @@
 #include <rapidjson/document.h>
 namespace Serializer {
 	struct SerializerComponent {
-		void Serialize() {}; // intentionally left blank to pass the componentmgr check
+		bool Serialize() {}; // intentionally left blank to pass the componentmgr check
 	};
 }

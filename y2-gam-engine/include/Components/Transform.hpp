@@ -19,7 +19,7 @@ struct Transform
 		rotation = Vec3{ obj["rotX"].GetFloat(), obj["rotY"].GetFloat(), obj["rotZ"].GetFloat() };
 		scale = Vec3{ obj["scaleX"].GetFloat(), obj["scaleY"].GetFloat(), obj["scaleZ"].GetFloat() };
 	}
-	void Serialize(rapidjson::Value& obj) {
+	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 
 		sm->InsertValue(obj, "posX", position.x);
@@ -33,6 +33,8 @@ struct Transform
 		sm->InsertValue(obj, "scaleX", scale.x);
 		sm->InsertValue(obj, "scaleY", scale.y);
 		sm->InsertValue(obj, "scaleZ", scale.z);
+		return true;
+
 
 	}
 };

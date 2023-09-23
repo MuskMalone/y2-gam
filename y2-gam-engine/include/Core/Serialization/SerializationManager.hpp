@@ -25,7 +25,8 @@ namespace Serializer {
 		static std::shared_ptr<SerializationManager> GetInstance();
 		std::ifstream& CreateJSON(std::ifstream& ifs, std::string const& path);
 
-		bool IsJSONEmpty(std::string const& name);
+		bool IsJSONNull(std::string const& name);
+		bool IsJSONObject(std::string const& name);
 		bool OpenJSON(std::string const& name);
 		bool FlushJSON(std::string const& name);
 		void ClearJSON(std::string const& name);

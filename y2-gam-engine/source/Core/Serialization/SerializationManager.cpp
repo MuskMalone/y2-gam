@@ -22,10 +22,16 @@ namespace Serializer {
 	}
 
 	//{} or [] is not considered to be null
-	bool SerializationManager::IsJSONEmpty(std::string const& name) {
+	bool SerializationManager::IsJSONNull(std::string const& name) {
 		path = mPath + name + mExt;
 		if (mDocumentMap.find(path) == mDocumentMap.end()) return false;
 		return mDocumentMap[path].IsNull();
+	}
+
+	bool SerializationManager::IsJSONObject(std::string const& name) {
+		path = mPath + name + mExt;
+		if (mDocumentMap.find(path) == mDocumentMap.end()) return false;
+		return mDocumentMap[path].IsObject();
 	}
 
 	bool SerializationManager::OpenJSON(std::string const& name) {

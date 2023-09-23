@@ -51,7 +51,7 @@ struct RigidBody
 		Vec2{ obj["dimX"].GetFloat(), obj["dimY"].GetFloat() },
 		obj["lockRotate"].GetBool()
 	} {}
-	void Serialize(rapidjson::Value& obj) {
+	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 
 		sm->InsertValue(obj, "dimX", dimension.x);
@@ -61,6 +61,6 @@ struct RigidBody
 		sm->InsertValue(obj, "posX", position.x);
 		sm->InsertValue(obj, "posY", position.y);
 		sm->InsertValue(obj, "lockRotate", isLockRotation);
-
+		return true;
 	}
 };

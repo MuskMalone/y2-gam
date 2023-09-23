@@ -62,8 +62,9 @@ int main(){
         writeline(ofs, "JSONObj obj{ JSON_OBJ_TYPE };");
         writeline(ofs, "obj.SetObject();");
 
-        writeline(ofs, "Coordinator::GetInstance()->GetComponent<"+component+">(entity).Serialize(obj);");
-        writeline(ofs, "SerializationManager::GetInstance()->InsertValue(ent, TypeToString<"+component+">(), obj);");
+        writeline(ofs, "bool res = Coordinator::GetInstance()->GetComponent<"+component+">(entity).Serialize(obj);");
+        writeline(ofs, "if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<"+component+">(), obj); }");
+        writeline(ofs, "else { obj.SetNull(); }");
         closebrace;
     }
     closebrace;

@@ -18,8 +18,9 @@ namespace Serializer {
 	void EntitySerializationSystem::LoadEntities(std::string const& name) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 
-		if (!sm->OpenJSON(name)) throw std::runtime_error{"couldnt open json"};
-		
+		if (!sm->OpenJSON(name)) return;
+
+		if (!sm->At("Entities").IsObject()) return;
 		for (auto const& item : sm->At("Entities").GetArray()) {
 			if (!item.IsObject()) continue;
 			Entity entity{ gCoordinator->CreateEntity() };
