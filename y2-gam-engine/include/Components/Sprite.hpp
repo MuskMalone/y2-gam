@@ -5,8 +5,15 @@
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
 
+enum class Layer {
+	BACKGROUND,
+	MIDGROUND,
+	FOREGROUND,
+	UI,
+};
+
 struct Sprite {
 	Vec4 color;
 	std::shared_ptr<SubTexture> texture;
-	unsigned int spriteIdx;
+	Layer layer;
 };

@@ -119,7 +119,8 @@ void EditorControlSystem::Init()
 		entity,
 		Sprite{
 			.color = Vec4(1,1,1,1),
-			.texture = nullptr
+			.texture = nullptr,
+			.layer = Layer::FOREGROUND
 		});
 }
 
@@ -215,7 +216,8 @@ void EditorControlSystem::Update(float dt)
 				entity,
 				Sprite{
 					.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-					.texture = nullptr
+					.texture = nullptr,
+					.layer = Layer::FOREGROUND
 				});
 
 		}

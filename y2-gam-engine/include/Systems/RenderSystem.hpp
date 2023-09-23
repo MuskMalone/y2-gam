@@ -6,6 +6,7 @@
 #include <Math/Mat44.hpp>
 #include "Graphics/Framebuffer.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics/SubTexture.hpp"
 
 class Event;
 
@@ -29,7 +30,7 @@ private:
 
 	void WindowSizeListener(Event& event);
 	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
-	//std::unique_ptr<Shader> shader;
+	std::shared_ptr<SubTexture> mBgSubtex; // TEMP
 
 
 	Entity mCamera{};

@@ -28,9 +28,6 @@ void RenderSystem::Init()
 	gCoordinator = Coordinator::GetInstance();
 	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	//shader = std::make_unique<Shader>("../Shaders/vertex.glsl", "../Shaders/fragment.glsl");
-
-
 	mCamera = gCoordinator->CreateEntity();
 	gCoordinator->AddComponent(
 		mCamera,
@@ -48,6 +45,24 @@ void RenderSystem::Init()
 		OrthoCamera{aspectRatio, -WORLD_LIMIT_X * aspectRatio, WORLD_LIMIT_X * aspectRatio, -WORLD_LIMIT_Y, WORLD_LIMIT_Y}
 	);
 
+	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );
+	mBgSubtex = SubTexture::Create(bgTex, { 0, 0 }, { 3497, 1200 });
+	Entity bg = gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent(
+		bg,
+		Transform{
+			.position = Vec3(0, 0, -40.f),
+			.rotation = Vec3(),
+			.scale = Vec3(350.f, 120.f, 0.f)
+		});
+	::gCoordinator->AddComponent(
+		bg,
+		Sprite{
+			.color = Vec4{1.f,1.f,1.f,1.f},
+			.texture = mBgSubtex,
+			.layer = Layer::BACKGROUND
+		}
+	);
 
 	Renderer::Init();
 
@@ -90,6 +105,11 @@ void RenderSystem::Update(float dt)
 
 	std::sort(renderQueue.begin(), renderQueue.end(),
 		[](RenderEntry const& rhs, RenderEntry const& lhs) {
+			// First, sort by layer
+			if (rhs.sprite->layer != lhs.sprite->layer) {
+				return static_cast<int>(rhs.sprite->layer) > static_cast<int>(lhs.sprite->layer);
+			}
+			// If they are in the same layer, sort by z-position
 			return rhs.transform->position.z < lhs.transform->position.z;
 		});
 

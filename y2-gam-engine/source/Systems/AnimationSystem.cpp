@@ -24,7 +24,6 @@ void AnimationSystem::Init() {
 
 	for(float i{16}; i <23; ++i)
 		mSpriteList.push_back(SubTexture::Create(mAttack, { i, 0 }, { 128, 128 }));
-	
 
 	//------------------------------------------------------------------------------------/
 
