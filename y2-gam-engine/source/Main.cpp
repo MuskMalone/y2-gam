@@ -159,7 +159,7 @@ int main()
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-		
+		imguiSystem->Update(windowManager->GetContext());
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 
@@ -174,7 +174,7 @@ int main()
 	}
 
 	StateManager::GetInstance()->Clear();
-
+	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 

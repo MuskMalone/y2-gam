@@ -14,6 +14,7 @@ void MainState::Init() {
 	mAnimationSystem = coordinator->GetSystem<AnimationSystem>();
 	mEntitySerializationSystem = coordinator->GetSystem<Serializer::EntitySerializationSystem>();
 
+
 	using namespace Serializer;
 	mEntitySerializationSystem->LoadEntities("LevelData");
 }

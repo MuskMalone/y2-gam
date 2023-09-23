@@ -2,7 +2,7 @@
 
 #include "glm/glm.hpp"
 #include "rapidjson/document.h"
-
+#include <Core/Serialization/SerializationManager.hpp>
 struct OrthoCamera {
 public:
 	OrthoCamera() = default;
@@ -28,4 +28,9 @@ public:
 
 	glm::vec3 mPos{};
 	float mRot{ 0.f };
+
+	void Serialize(rapidjson::Value& obj) {
+		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+
+	}
 };

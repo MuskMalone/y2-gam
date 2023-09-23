@@ -11,6 +11,7 @@
 #include <Components/Camera.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
+#include <Components/OrthoCamera.hpp>
 #include <Components/RigidBody.hpp>
 #include <Components/Sprite.hpp>
 #include <Components/Transform.hpp>
@@ -30,6 +31,9 @@ Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
 static void EntityAddGravity(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Gravity{ obj });
 }
+static void EntityAddOrthoCamera(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, OrthoCamera{ obj });
+}
 static void EntityAddRigidBody(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, RigidBody{ obj });
 }
@@ -45,6 +49,7 @@ if constexpr (std::is_same_v<_type, BoxCollider>) return "BoxCollider";
 if constexpr (std::is_same_v<_type, Camera>) return "Camera";
 if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
+if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
 if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
 if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
 if constexpr (std::is_same_v<_type, Transform>) return "Transform";
@@ -81,6 +86,12 @@ obj.SetObject();
 Coordinator::GetInstance()->GetComponent<Gravity>(entity).Serialize(obj);
 SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Gravity>(), obj);
 }
+if (Coordinator::GetInstance()->HasComponent<OrthoCamera>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+Coordinator::GetInstance()->GetComponent<OrthoCamera>(entity).Serialize(obj);
+SerializationManager::GetInstance()->InsertValue(ent, TypeToString<OrthoCamera>(), obj);
+}
 if (Coordinator::GetInstance()->HasComponent<RigidBody>(entity)){
 JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
@@ -106,6 +117,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Camera", EntityAddCamera},
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
+{"OrthoCamera", EntityAddOrthoCamera},
 {"RigidBody", EntityAddRigidBody},
 {"Sprite", EntityAddSprite},
 {"Transform", EntityAddTransform}

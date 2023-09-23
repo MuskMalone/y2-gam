@@ -132,19 +132,31 @@ void EditorControlSystem::Update(float dt)
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-		camera.UpdatePos(camera.eye.x, camera.eye.y + dt);
+		camera.mPos.y += moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
-		camera.UpdatePos(camera.eye.x, camera.eye.y - dt);
+		camera.mPos.y -= moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
-		camera.UpdatePos(camera.eye.x - dt, camera.eye.y);
+		camera.mPos.x -= moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
 	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
-		camera.UpdatePos(camera.eye.x + dt, camera.eye.y);
+		camera.mPos.x += moveSpeed * dt;
+		camera.SetPosition(camera.mPos);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
+		camera.mRot -= rotSpeed * dt;
+		camera.SetRotation(camera.mRot);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
+		camera.mRot += rotSpeed * dt;
+		camera.SetRotation(camera.mRot);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
+		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
