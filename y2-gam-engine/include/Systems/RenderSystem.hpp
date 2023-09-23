@@ -7,6 +7,8 @@
 #include "Graphics/Framebuffer.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
+#include "Components/Transform.hpp"
+#include "Components/Sprite.hpp"
 
 class Event;
 
@@ -32,6 +34,13 @@ private:
 	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
 	std::shared_ptr<SubTexture> mBgSubtex; // TEMP
 
+	struct RenderEntry {
+		Entity entity;
+		Transform* transform;
+		Sprite* sprite;
+	};
+
+	std::vector<RenderEntry> mRenderQueue;
 
 	Entity mCamera{};
 

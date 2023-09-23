@@ -1,8 +1,6 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Components/Camera.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
 #include <Graphics/GLSLShader.hpp>
@@ -86,24 +84,18 @@ void RenderSystem::Update(float dt)
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
 
-	//TODO REFACTOR 
-	struct RenderEntry {
-		Entity entity;
-		Transform* transform;
-		Sprite* sprite;
-	};
+	mRenderQueue.clear();
 
-	std::vector<RenderEntry> renderQueue;
 	for (auto const& entity : mEntities) {
 		RenderEntry entry{
 			.entity = entity,
 			.transform = &::gCoordinator->GetComponent<Transform>(entity),
 			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
 		};
-		renderQueue.push_back(entry);
+		mRenderQueue.push_back(entry);
 	}
 
-	std::sort(renderQueue.begin(), renderQueue.end(),
+	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
 		[](RenderEntry const& rhs, RenderEntry const& lhs) {
 			// First, sort by layer
 			if (rhs.sprite->layer != lhs.sprite->layer) {
@@ -115,7 +107,7 @@ void RenderSystem::Update(float dt)
 
 	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);
 	Renderer::RenderSceneBegin(camera);
-	for (auto const& entry : renderQueue)
+	for (auto const& entry : mRenderQueue)
 	{
 
 		if (entry.sprite->texture) {
