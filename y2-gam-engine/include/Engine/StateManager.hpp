@@ -10,6 +10,7 @@ public:
 	void PopState();
 	void Update(float dt);
 	void Render(float dt);
+	void Clear();
 
 private:
 	std::stack<std::unique_ptr<GameState>> mStates;

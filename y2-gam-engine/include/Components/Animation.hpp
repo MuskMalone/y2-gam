@@ -26,6 +26,6 @@ struct Animation {
 
 	}
 	void Serialize(rapidjson::Value& obj) {
-
+		
 	}
 };

@@ -6,6 +6,7 @@
 #include <Systems/EditorControlSystem.hpp>
 #include <Systems/AnimationSystem.hpp>
 #include <Systems/RenderSystem.hpp>
+#include <Systems/EntitySerializationSystem.hpp>
 
 #include <Core/Component.hpp>
 
@@ -23,5 +24,6 @@ private:
 	std::shared_ptr<EditorControlSystem> mEditorControlSystem;
 	std::shared_ptr<RenderSystem> mRenderSystem;
 	std::shared_ptr<AnimationSystem> mAnimationSystem;
+	std::shared_ptr<Serializer::EntitySerializationSystem> mEntitySerializationSystem;
 
 };

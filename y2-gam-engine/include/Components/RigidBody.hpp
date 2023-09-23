@@ -3,6 +3,8 @@
 #include "Math/Vec2.hpp"
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
+#include <Core/Serialization/SerializationManager.hpp>
+
 
 struct RigidBody
 {
@@ -43,10 +45,22 @@ struct RigidBody
 			inertia = FLOAT_MAX;
 		}
 	}
-	RigidBody(rapidjson::Value const& obj) {
-
-	}
+	RigidBody(rapidjson::Value const& obj) : RigidBody{
+		Vec2{ obj["posX"].GetFloat(), obj["posY"].GetFloat() },
+		obj["rotation"].GetFloat(), obj["mass"].GetFloat(), 
+		Vec2{ obj["dimX"].GetFloat(), obj["dimY"].GetFloat() },
+		obj["lockRotate"].GetBool()
+	} {}
 	void Serialize(rapidjson::Value& obj) {
+		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+
+		sm->InsertValue(obj, "dimX", dimension.x);
+		sm->InsertValue(obj, "dimY", dimension.y);
+		sm->InsertValue(obj, "rotation", rotation);
+		sm->InsertValue(obj, "mass", mass);
+		sm->InsertValue(obj, "posX", position.x);
+		sm->InsertValue(obj, "posY", position.y);
+		sm->InsertValue(obj, "lockRotate", isLockRotation);
 
 	}
 };

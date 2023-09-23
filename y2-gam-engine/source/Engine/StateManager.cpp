@@ -25,3 +25,9 @@ void StateManager::Render(float dt) {
 	if (mStates.empty()) return;
 	mStates.top()->Render(dt);
 }
+
+void StateManager::Clear() {
+	if (mStates.empty()) return;
+	mStates.top()->Exit();
+	mStates = {};
+}

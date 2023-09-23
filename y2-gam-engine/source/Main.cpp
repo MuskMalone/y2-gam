@@ -64,13 +64,6 @@ int main()
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
-
-	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
-		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
-	}
 	
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -130,10 +123,18 @@ int main()
 		coordinator->SetSystemSignature<AnimationSystem>(signature);
 	}
 
-	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
-
 	animationSystem->Init();
 
+	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
+		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
+	}
+
+	entitySerializationSystem->Init();
+
+	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
 	float dt = frameController->GetDeltaTime();
 
 
@@ -156,6 +157,8 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 	}
+
+	StateManager::GetInstance()->Clear();
 
 	Renderer::Shutdown();
 	windowManager->Shutdown();

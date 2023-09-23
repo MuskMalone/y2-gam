@@ -26,6 +26,7 @@ int main(){
     writeline(ofs, "#include <rapidjson/document.h>");
     writeline(ofs, "#include <string>");
     writeline(ofs, "#include <map>");
+    writeline(ofs, "#include <Core/Serialization/SerializationManager.hpp>");
 
     //start namespace
 
@@ -50,15 +51,20 @@ int main(){
     //write type to string
     writeline(ofs, "template <typename _type> std::string TypeToString() {");
     for (std::string const& component : componentNames){
-        writeline(ofs, "if constexpr (std::is_same_v<T, "+component+">) return \""+component+"\";");
+        writeline(ofs, "if constexpr (std::is_same_v<_type, "+component+">) return \""+component+"\";");
     }
     writeline(ofs, "return \"NULL\";");
     closebrace;
 
-    writeline(ofs, "static void SerializeEntity(Entity const& entity, rapidjson::Value& obj) {");
+    writeline(ofs, "static void SerializeEntity(Entity const& entity, JSONObj& ent) {");
     for (std::string const& component: componentNames){
-        writeline(ofs, "if (Coordinator::GetInstance()->HasComponent<"+component+">(entity))");
+        writeline(ofs, "if (Coordinator::GetInstance()->HasComponent<"+component+">(entity)){");
+        writeline(ofs, "JSONObj obj{ JSON_OBJ_TYPE };");
+        writeline(ofs, "obj.SetObject();");
+
         writeline(ofs, "Coordinator::GetInstance()->GetComponent<"+component+">(entity).Serialize(obj);");
+        writeline(ofs, "SerializationManager::GetInstance()->InsertValue(ent, TypeToString<"+component+">(), obj);");
+        closebrace;
     }
     closebrace;
 
