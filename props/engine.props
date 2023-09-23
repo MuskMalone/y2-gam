@@ -13,7 +13,8 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
-xcopy "$(SolutionDir)shaders" "$(TargetDir)Shaders" /e /y /i /r</Command>
+xcopy "$(SolutionDir)shaders" "$(TargetDir)Shaders" /e /y /i /r
+xcopy "$(ProjectDir)data" "$(TargetDir)Data" /e /y /i /r</Command>
     </PostBuildEvent>
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>

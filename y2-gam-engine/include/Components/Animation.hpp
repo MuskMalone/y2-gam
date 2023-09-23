@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <rapidjson/document.h>
 
 enum class ANIM_STATE {
 	NONE = 0,
@@ -18,4 +19,13 @@ struct Animation {
 	size_t currFrame;
 	ANIM_STATE currState;
 	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
+	Animation() = default;
+	Animation(float s, size_t cf, ANIM_STATE cs, std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> sm)
+		: speed{ s }, currFrame{ cf }, currState{ cs }, stateMap{ sm } {}
+	Animation(rapidjson::Value const& obj) {
+
+	}
+	void Serialize(rapidjson::Value& obj) {
+		
+	}
 };

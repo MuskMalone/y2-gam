@@ -6,7 +6,9 @@
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
 #include "Components/Animation.hpp"
+#include "Core/Serialization/SerializerComponent.hpp"
 #include "Core/Coordinator.hpp"
+#include "Systems/EntitySerializationSystem.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/InputSystem.hpp"
@@ -24,6 +26,8 @@
 #include "imgui_impl_opengl3.h"
 
 #include "Systems/ImguiSystem.hpp"
+#include <Engine/StateManager.hpp>
+#include <Engine/States/MainState.hpp>
 #include <memory>
 
 
@@ -65,6 +69,8 @@ int main()
 
 
 
+	coordinator->RegisterComponent<Serializer::SerializerComponent>();
+	
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
@@ -134,7 +140,18 @@ int main()
 	}
 	imguiSystem->Init(windowManager->GetContext());
 
+	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
+		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
+	}
+
+	entitySerializationSystem->Init();
+
+	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
 	float dt = frameController->GetDeltaTime();
+
 
 	while (!quit && !windowManager->ShouldClose())
 	{
@@ -142,23 +159,9 @@ int main()
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-
-		editorControlSystem->Update(dt);
-
-		physicsSystem->PreCollisionUpdate(dt);
-
-		collisionSystem->Update(dt);
-
-		physicsSystem->PostCollisionUpdate(dt);
-
-
-
-		animationSystem->Update(dt);
-
-		renderSystem->Update(dt);
-		//collisionSystem->Debug(); // for debug
-
-		imguiSystem->Update(windowManager->GetContext());
+		
+		StateManager::GetInstance()->Update(dt);
+		StateManager::GetInstance()->Render(dt);
 
 		windowManager->Update();
 
@@ -169,7 +172,9 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 	}
-	imguiSystem->Destroy();
+
+	StateManager::GetInstance()->Clear();
+
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 
