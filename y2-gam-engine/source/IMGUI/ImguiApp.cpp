@@ -123,6 +123,7 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES) {
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                 Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+
                 // Position
                 ImGui::Text("Position");
                 ImGui::SliderFloat("X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
@@ -136,6 +137,12 @@ namespace Image {
                 ImGui::Text("Scale");
                 ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                 ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                    RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
+                    rigidBody.position = Vec3{ transform.position.x,transform.position.y,0 };
+                    rigidBody.rotation =transform.rotation.z;
+                    rigidBody.dimension = Vec3{ transform.scale.x,transform.scale.y,0 };
+                }
 
       /*          if (ImGui::Button("Remove Transform Component")) {
                     gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
@@ -156,12 +163,43 @@ namespace Image {
                 //}
             }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
+                
+                ImGui::Separator();
+                ImGui::Text("RigidBody");
+                //Pos
+                ImGui::Text("Position");
+                ImGui::SliderFloat("X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                ImGui::SliderFloat("Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                // Rotation
+                ImGui::Text("Rotation");
+                ImGui::SliderFloat("Rot", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                // Scale
+                ImGui::Text("Dimension");
+                ImGui::SliderFloat("Dimension X", &rigidBody.dimension.x, 1, 50);
+                ImGui::SliderFloat("Dimension Y", &rigidBody.dimension.y, 1, 50);
+                // Mass
+                ImGui::Text("Mass");
+                ImGui::InputFloat("Mass", &rigidBody.mass);
+
+                if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                    Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+                    transform.position = Vec3{ rigidBody.position.x,rigidBody.position.y,0 };
+                    transform.rotation = Vec3{ 0,0,rigidBody.rotation };
+                    transform.scale = Vec3{ rigidBody.dimension.x,rigidBody.dimension.y,0 };
+                }
             }
-            if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
-            }
-            if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
-            }
+            //if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+            //}
+            //if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+            //}
             if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
+                ImGui::Separator();
+                //Force
+                ImGui::Text("Gravity");
+                ImGui::SliderFloat("X", &gravity.force.x, -10, 10);
+                ImGui::SliderFloat("Y", &gravity.force.y, -10,10);
             }
         }
         ImGui::End();
