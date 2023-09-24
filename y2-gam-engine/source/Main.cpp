@@ -91,7 +91,7 @@ int main()
 	}
 
 	physicsSystem->Init();
-	std::cout << "1";
+
 	auto collisionSystem = coordinator->RegisterSystem<CollisionSystem>();
 	{
 		Signature signature;
@@ -101,7 +101,7 @@ int main()
 	}
 
 	collisionSystem->Init();
-	std::cout << "2";
+
 	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
 	{
 		Signature signature;
@@ -111,7 +111,7 @@ int main()
 	}
 
 	renderSystem->Init();
-	std::cout << "3";
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -177,9 +177,9 @@ int main()
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
-		Renderer::ClearColor();
-		Renderer::ClearDepth();
+		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
+		//Renderer::ClearColor();
+		//Renderer::ClearDepth();
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();

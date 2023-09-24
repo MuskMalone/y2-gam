@@ -34,8 +34,8 @@ namespace Image {
   std::map<std::string, FaceObject> FontRenderer::sFaces{};
   std::map<std::string, std::map<char, Character>> FontRenderer::sCharacters{};
   std::map<std::string, std::shared_ptr<Texture>> FontRenderer::sBitmap{};
-  Shader* FontRenderer::sShaderPgm{nullptr};
-  //std::shared_ptr<Shader> FontRenderer::sShaderPgm{ nullptr };
+  //Shader* FontRenderer::sShaderPgm{nullptr};
+  std::shared_ptr<Shader> FontRenderer::sShaderPgm{ nullptr };
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -53,9 +53,9 @@ namespace Image {
       std::cout << "Successful init FreeType Library" << "\n";
     }
 
-    Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
-    //sShaderPgm = std::make_shared<Shader>("../Shaders/fontVertex.vert", "../Shaders/fontFragment.frag");
-    sShaderPgm = &sh;
+    //Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
+    sShaderPgm = std::make_shared<Shader>("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
+    //sShaderPgm = &sh;
   }
 
   /*  _________________________________________________________________________ */
@@ -365,7 +365,7 @@ namespace Image {
     */
     //auto& cam = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
 
-    OrthoCamera cam(16.f / 9.f, -worldLimitX, worldLimitX, -worldLimitY, worldLimitY);
+    OrthoCamera cam(16.f / 9.f, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
 
     sShaderPgm->Use();
     sShaderPgm->SetUniform("uTextColor", color.x, color.y, color.z);
