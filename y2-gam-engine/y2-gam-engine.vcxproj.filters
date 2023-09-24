@@ -23,6 +23,11 @@
     <ClCompile Include="source\Graphics\VetexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
+    <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
+    <ClCompile Include="source\Engine\States\State.cpp" />
+    <ClCompile Include="source\Engine\StateManager.cpp" />
+    <ClCompile Include="source\Engine\States\MainState.cpp" />
+    <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
     <ClCompile Include="source\Math\mat3.cpp" />
@@ -43,9 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
-    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
-    <ClInclude Include="include\Components\OrthoCamera.hpp" />
+    <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
     <ClInclude Include="include\Components\Camera.hpp" />
@@ -110,6 +114,7 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="include\Components\OrthoCamera.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -227,6 +232,9 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Graphics\OrthoCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Math\Mat44.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -298,6 +306,17 @@
     <ClCompile Include="source\Graphics\OrthoCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
+    <ClInclude Include="include\Core\Serialization\SerializationManager.hpp" />
+    <ClInclude Include="include\Engine\States\State.hpp" />
+    <ClInclude Include="include\Engine\StateManager.hpp" />
+    <ClInclude Include="include\Engine\States\MainState.hpp" />
+    <ClInclude Include="include\Core\Component.hpp" />
+    <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
+    <ClInclude Include="include\Systems\EntitySerializationSystem.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Textures\Attack_1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\fragment.glsl" />

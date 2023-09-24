@@ -16,4 +16,14 @@ struct Sprite {
 	Vec4 color;
 	std::shared_ptr<SubTexture> texture;
 	Layer layer;
+
+	Sprite() = default;
+	Sprite(Vec4 color, std::shared_ptr<SubTexture> tex) : color{ color }, texture{ tex } {}
+	Sprite(rapidjson::Value const& obj) {
+		color = { 1,1,1,1 };
+		texture = nullptr;
+	}
+	bool Serialize(rapidjson::Value& obj) {
+		return false;
+	}
 };

@@ -130,15 +130,15 @@ namespace Image {
             gCoordinator->AddComponent(
                 newEntity,
                 Transform{
-                    .position = Vec3(vP->Pos.x,vP->Pos.y,0),
-                    .rotation = Vec3(0,0,0),
-                    .scale = Vec3(5,5,5)
+                    Vec3(vP->Pos.x,vP->Pos.y,0),
+                     Vec3(0,0,0),
+                     Vec3(5,5,5)
                 });
             gCoordinator->AddComponent(
                 newEntity,
                 Sprite{
-                    .color = Vec4(1,0,0, 1),
-                    .texture = nullptr
+                     Vec4(1,0,0, 1),
+                     nullptr
                 });
             selectedEntity = newEntity;
             //Renderer::DrawLine();
@@ -159,7 +159,7 @@ namespace Image {
 
         if (selectedEntity != MAX_ENTITIES) {
             //TransformComponent if the entity has one
-            if (gCoordinator->GetComponentType<Transform>()) {
+            if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
                 Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
                 // Position
                 ImGui::Text("Position");
@@ -183,7 +183,7 @@ namespace Image {
                     gCoordinator->RemoveComponent<Transform>(selectedEntity);
                 }
             }
-            if (gCoordinator->GetComponentType<Sprite>()) {
+            if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
                 Sprite& sprite = gCoordinator->GetComponent<Sprite>(selectedEntity);
                 //Color
 
@@ -209,15 +209,15 @@ namespace Image {
     void PropertyWindow() {
         ImGui::Begin("Property");
         if (selectedEntity != MAX_ENTITIES) {
-            ImGui::Text("Entity ID: %d", selectedEntity);
-            //ImGui::Text("Transform Component: %s", gCoordinator->GetComponent<Transform>(selectedEntity)?"True":"False");
-            //ImGui::Text("Sprite Component: %s", gCoordinator->GetComponent<Sprite>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Gravity Component: %s", gCoordinator->GetComponent<Gravity>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Collsion Component: %s", gCoordinator->GetComponent<BoxCollider>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Animation Component: %s", gCoordinator->GetComponent<Animation>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Camera Component: %s", gCoordinator->GetComponent<Camera>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("OrthoCamera Component: %s", gCoordinator->GetComponent<OrthoCamera>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("RigidBody Component: %s", gCoordinator->GetComponent<RigidBody>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("Entity ID: %d", selectedEntity);
+            //ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity)?"True":"False");
+            //ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("OrthoCamera Component: %s", gCoordinator->HasComponent<OrthoCamera>(selectedEntity) ? "True" : "False");
+            //ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
         }
         ImGui::End();
     }

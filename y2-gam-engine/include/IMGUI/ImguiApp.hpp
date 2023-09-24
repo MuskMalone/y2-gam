@@ -13,6 +13,7 @@
 #include "Components/Editor.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
+#include <Components/Animation.hpp>
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"

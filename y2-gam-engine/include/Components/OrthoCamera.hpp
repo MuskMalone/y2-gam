@@ -2,7 +2,7 @@
 
 #include "glm/glm.hpp"
 #include "rapidjson/document.h"
-
+#include <Core/Serialization/SerializationManager.hpp>
 struct OrthoCamera {
 public:
 	OrthoCamera() = default;
@@ -33,4 +33,8 @@ public:
 	float mZoom;
 	float mMinZoom{10.f}, mMaxZoom{300.f};
 	float mAspectRatio;
+
+	bool Serialize(rapidjson::Value& obj) {
+		return false;
+	}
 };

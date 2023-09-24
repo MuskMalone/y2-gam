@@ -48,6 +48,15 @@ public:
 		return std::reinterpret_pointer_cast<_system>(mSystems[typeid(_system).name()]);
 	}
 
+	template <typename _system>
+	void RemoveSystem() {
+		
+		const char* typeName = typeid(_system).name();
+		
+		mSystems.erase(typeName);
+		mSignatures.erase(typeName);
+	}
+
 	void EntitySignatureChanged(Entity entity, Signature entitySignature)
 	{
 		for (auto const& pair : mSystems)

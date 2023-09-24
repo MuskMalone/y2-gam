@@ -23,6 +23,7 @@ namespace {
 }
 namespace Testing {
 	std::default_random_engine generator;
+	Entity lastInserted;
 }
 
 void EditorControlSystem::Init()
@@ -52,16 +53,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(0,0,0, 1),
-			.texture = nullptr
+			Vec4(0,0,0, 1),
+			nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -81,16 +82,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(1,1,1,1),
-			.texture = nullptr
+			Vec4(1,1,1,1),
+			nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -110,17 +111,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			.position = Vec3(position),
-			.rotation = Vec3(),
-			.scale = Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			Vec3(position),
+			Vec3(),
+			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			.color = Vec4(1,1,1,1),
-			.texture = nullptr,
-			.layer = Layer::FOREGROUND
+			Vec4(1,1,1,1),
+			nullptr
 		});
 }
 
@@ -133,19 +133,19 @@ void EditorControlSystem::Update(float dt)
 
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 		camera.mPos.y += moveSpeed * dt;
 		camera.SetPosition(camera.mPos);
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
 		camera.mPos.y -= moveSpeed * dt;
 		camera.SetPosition(camera.mPos);
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
 		camera.mPos.x -= moveSpeed * dt;
 		camera.SetPosition(camera.mPos);
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)){
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
 		camera.mPos.x += moveSpeed * dt;
 		camera.SetPosition(camera.mPos);
 	}
@@ -168,7 +168,10 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
 		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
 	}
-
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+		gCoordinator->CloneEntity(Testing::lastInserted);
+	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
@@ -208,18 +211,17 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent(
 				entity,
 				Transform{
-					.position = Vec3(position),
-					.rotation = Vec3(),
-					.scale = Vec3(scale, scale, scale)
+					Vec3(position),
+					Vec3(),
+					Vec3(scale, scale, scale)
 				});
 			::gCoordinator->AddComponent(
 				entity,
 				Sprite{
-					.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-					.texture = nullptr,
-					.layer = Layer::FOREGROUND
+					Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+					nullptr
 				});
-
+			lastInserted = entity;
 		}
 
 
@@ -238,39 +240,37 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
 		float scale = 50.f;
-		for (int i{}; i < 500; ++i) {
-			Entity entity = ::gCoordinator->CreateEntity();
-			Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
-			::gCoordinator->AddComponent(
-				entity,
-				Transform{
-					.position = Vec3(position),
-					.rotation = Vec3(),
-					.scale = Vec3(scale, scale, scale)
-				});
-			::gCoordinator->AddComponent(
-				entity,
-				Sprite{
-					.color = Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-					.texture = nullptr
-				});
+		Entity entity = ::gCoordinator->CreateEntity();
+		Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
+		::gCoordinator->AddComponent(
+			entity,
+			Transform{
+				Vec3(position),
+				Vec3(),
+				Vec3(scale, scale, scale)
+			});
+		::gCoordinator->AddComponent(
+			entity,
+			Sprite{
+				Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+				nullptr
+			});
 
-			//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
-			std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
-			std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
-			std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
-			std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
-																			 {ANIM_STATE::RUN, runFrames},
-																			 {ANIM_STATE::ATTACK, attackFrames} };
-			::gCoordinator->AddComponent(
-				entity,
-				Animation{
-					.speed = 0.08f,
-					.currFrame = 0,
-					.currState = ANIM_STATE::IDLE,
-					.stateMap = map
-				});
-		}
+		//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+		std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+		std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+		std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+		std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+																		 {ANIM_STATE::RUN, runFrames},
+																		 {ANIM_STATE::ATTACK, attackFrames} };
+		::gCoordinator->AddComponent(
+			entity,
+			Animation{
+				0.08f,
+				0,
+				ANIM_STATE::IDLE,
+				map
+			});
 	}
 
 }

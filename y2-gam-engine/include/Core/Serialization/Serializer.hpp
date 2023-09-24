@@ -1,34 +1,134 @@
 #pragma once
-//all the impt stuff here
 #include <Core/Types.hpp>
 #include <functional>
-//NOTE!
-//THIS FILE IS GENERATED IN A PRE BUILD EVENT
-//DO NOT MODIFY IT
-
 #include <Core/Coordinator.hpp>
 #include <rapidjson/document.h>
 #include <string>
 #include <map>
-//all the components here
+#include <Core/Serialization/SerializationManager.hpp>
+#include <Components/Animation.hpp>
+#include <Components/BoxCollider.hpp>
+#include <Components/Camera.hpp>
+#include <Components/Editor.hpp>
+#include <Components/Gravity.hpp>
+#include <Components/OrthoCamera.hpp>
 #include <Components/RigidBody.hpp>
-
-namespace Serializer {
-	//serialize entity to rigidbody
-	static void EntityAddRigidBody(Entity const& entity, rapidjson::Value const& obj) {
-		Coordinator::GetInstance()->AddComponent(entity, RigidBody{ obj });
-	}
-
-	//type to string
-	template <typename _type>
-	std::string TypeToString() {
-		if constexpr (std::is_same_v<T, RigidBody>) return "RigidBody";
-		return "NULL";
-	}
-
-	static const std::map<std::string, std::function<void(Entity const&, rapidjson::Value const&)>> gComponentSerializer{
-		{"RigidBody", EntityAddRigidBody}
-	};
-
-
+#include <Components/Sprite.hpp>
+#include <Components/Transform.hpp>
+namespace Serializer{
+static void EntityAddAnimation(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Animation{ obj });
+}
+static void EntityAddBoxCollider(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, BoxCollider{ obj });
+}
+static void EntityAddCamera(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Camera{ obj });
+}
+static void EntityAddEditor(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
+}
+static void EntityAddGravity(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Gravity{ obj });
+}
+static void EntityAddOrthoCamera(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, OrthoCamera{ obj });
+}
+static void EntityAddRigidBody(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, RigidBody{ obj });
+}
+static void EntityAddSprite(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Sprite{ obj });
+}
+static void EntityAddTransform(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Transform{ obj });
+}
+template <typename _type> std::string TypeToString() {
+if constexpr (std::is_same_v<_type, Animation>) return "Animation";
+if constexpr (std::is_same_v<_type, BoxCollider>) return "BoxCollider";
+if constexpr (std::is_same_v<_type, Camera>) return "Camera";
+if constexpr (std::is_same_v<_type, Editor>) return "Editor";
+if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
+if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
+if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
+if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
+if constexpr (std::is_same_v<_type, Transform>) return "Transform";
+return "NULL";
+}
+static void SerializeEntity(Entity const& entity, JSONObj& ent) {
+if (Coordinator::GetInstance()->HasComponent<Animation>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Animation>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Animation>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<BoxCollider>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<BoxCollider>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<BoxCollider>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Camera>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Camera>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Camera>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Editor>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Editor>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Editor>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Gravity>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Gravity>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Gravity>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<OrthoCamera>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<OrthoCamera>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<OrthoCamera>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<RigidBody>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<RigidBody>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<RigidBody>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Sprite>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Sprite>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Sprite>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Transform>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Transform>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Transform>(), obj); }
+else { obj.SetNull(); }
+}
+}
+static const std::map<std::string, std::function<void(Entity const&, rapidjson::Value const&)>> gComponentSerializer{
+{"Animation", EntityAddAnimation},
+{"BoxCollider", EntityAddBoxCollider},
+{"Camera", EntityAddCamera},
+{"Editor", EntityAddEditor},
+{"Gravity", EntityAddGravity},
+{"OrthoCamera", EntityAddOrthoCamera},
+{"RigidBody", EntityAddRigidBody},
+{"Sprite", EntityAddSprite},
+{"Transform", EntityAddTransform}
+};
 }

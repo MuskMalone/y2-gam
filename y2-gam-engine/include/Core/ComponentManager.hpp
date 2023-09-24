@@ -7,13 +7,14 @@
 #include <unordered_map>
 #include <iostream>
 #include <type_traits>
+
 class ComponentManager
 {
 public:
 	template<typename T>
 	void RegisterComponent()
 	{
-		//static_assert(&T::Create); //all components need to have a create function
+		//static_assert(&T::Serialize); //all components need to have a create function
 		const char* typeName = typeid(T).name();
 
 		assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
@@ -62,6 +63,11 @@ public:
 
 			component->EntityDestroyed(entity);
 		}
+	}
+	void CloneComponents(Entity from, Entity to) {
+		for (auto const& pair : mComponentArrays)
+			if (pair.second->FindData(from))
+				pair.second->CloneData(from, to);
 	}
 
 private:
