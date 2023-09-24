@@ -53,7 +53,7 @@ void RenderSystem::Init()
 			Vec3(),
 			Vec3(350.f, 120.f, 0.f)
 		});
-	/*
+	
 	::gCoordinator->AddComponent(
 		bg,
 		Sprite{
@@ -62,7 +62,7 @@ void RenderSystem::Init()
 			Layer::BACKGROUND
 		}
 	);
-	*/
+	
 	Renderer::Init();
 
 	//----------temp------------
@@ -79,7 +79,7 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	//mFramebuffer->Bind();
+	mFramebuffer->Bind();
 
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
@@ -123,7 +123,7 @@ void RenderSystem::Update(float dt)
 	}
 	
 	Renderer::RenderSceneEnd();
-	//mFramebuffer->Unbind();
+	mFramebuffer->Unbind();
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

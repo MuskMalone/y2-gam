@@ -60,13 +60,6 @@ void EditorControlSystem::Init()
 			Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
 		});
 
-	::gCoordinator->AddComponent(
-		entity,
-		Sprite{
-			Vec4(0,0,0, 1),
-			nullptr
-		});
-
 	entity = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
@@ -89,13 +82,6 @@ void EditorControlSystem::Init()
 			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
-	::gCoordinator->AddComponent(
-		entity,
-		Sprite{
-			Vec4(1,1,1,1),
-			nullptr
-		});
-
 	entity = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
@@ -116,13 +102,6 @@ void EditorControlSystem::Init()
 			Vec3(position),
 			Vec3(),
 			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
-		});
-
-	::gCoordinator->AddComponent(
-		entity,
-		Sprite{
-			Vec4(1,1,1,1),
-			nullptr
 		});
 
 	// Creating a sample player entity

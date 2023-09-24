@@ -81,7 +81,7 @@ int main()
 	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
-	
+
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
@@ -91,7 +91,7 @@ int main()
 	}
 
 	physicsSystem->Init();
-
+	std::cout << "1";
 	auto collisionSystem = coordinator->RegisterSystem<CollisionSystem>();
 	{
 		Signature signature;
@@ -101,8 +101,17 @@ int main()
 	}
 
 	collisionSystem->Init();
+	std::cout << "2";
+	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<RenderSystem>(signature);
+	}
 
-
+	renderSystem->Init();
+	std::cout << "3";
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -120,17 +129,6 @@ int main()
 	}
 
 	inputSystem->Init();
-
-
-	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Sprite>());
-		signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<RenderSystem>(signature);
-	}
-
-	renderSystem->Init();
 
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
@@ -177,9 +175,9 @@ int main()
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
-
 	while (!quit && !windowManager->ShouldClose())
 	{
+		Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
 		Renderer::ClearColor();
 		Renderer::ClearDepth();
 		Image::SoundManager::AudioUpdate();

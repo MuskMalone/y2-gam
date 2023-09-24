@@ -14,6 +14,7 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 xcopy "$(SolutionDir)shaders" "$(TargetDir)Shaders" /e /y /i /r
+xcopy "$(SolutionDir)Textures" "$(TargetDir)Textures" /e /y /i /r
 xcopy "$(ProjectDir)data" "$(TargetDir)Data" /e /y /i /r
 xcopy "$(SolutionDir)assets" "$(SolutionDir)x64\assets" /e /y /i /r
 xcopy "$(SolutionDir)lib\fmod\dll\fmod.dll" "$(TargetDir)" /e /y /i /r
