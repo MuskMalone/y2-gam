@@ -1,17 +1,15 @@
 #include "Imgui/ImguiApp.hpp"
 
-Entity selectedEntity = MAX_ENTITIES;
+Entity gSelectedEntity=MAX_ENTITIES;
 constexpr float gPI{ 3.141592653589793238462643383279502884197169399375105f };
 
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
- 
-	void AppRender(){
-        
 
-        static bool showDockSpace{ false };
+    void AppRender(std::set<Entity>const& mEntities) {
+        static bool showDockSpace{ true };
         //Press z to change dock space and non dock space
         if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
             showDockSpace = !showDockSpace;
@@ -22,12 +20,13 @@ namespace Image {
         }
         //ImGui::ShowDemoWindow();
         MainMenuWindow();
-        HierarchyWindow();
+        HierarchyWindow(mEntities);
         InspectorWindow();
         PropertyWindow();
         BufferWindow();
-       
-	}
+        LoggingWindow();
+
+    }
     void MainMenuWindow() {
         if (ImGui::BeginMainMenuBar())
         {
@@ -74,22 +73,6 @@ namespace Image {
                     ImGui::Combo("Combo", &n, "Yes\0No\0Maybe\0\0");
                     ImGui::EndMenu();
                 }
-
-
-                //if (ImGui::BeginMenu("Colors"))
-                //{
-                //    float sz = ImGui::GetTextLineHeight();
-                //    for (int i = 0; i < ImGuiCol_COUNT; i++)
-                //    {
-                //        const char* name = ImGui::GetStyleColorName((ImGuiCol)i);
-                //        ImVec2 p = ImGui::GetCursorScreenPos();
-                //        ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + sz, p.y + sz), ImGui::GetColorU32((ImGuiCol)i));
-                //        ImGui::Dummy(ImVec2(sz, sz));
-                //        ImGui::SameLine();
-                //        ImGui::MenuItem(name);
-                //    }
-                //    ImGui::EndMenu();
-                //}
                 ImGui::EndMenu();
             }
 
@@ -107,117 +90,153 @@ namespace Image {
             ImGui::EndMainMenuBar();
         }
     }
-    //std::vector<std::string> entities = { "Entity1", "Entity2", "Entity3" };
-    //int selectedEntityIndex = -1; // -1 means no entity is selected
-    //char entityNameBuffer[256]; // Buffer to hold the name for renaming
-    void HierarchyWindow() {
+    void HierarchyWindow(std::set<Entity>const& mEntities) {
         // Hierarchy Panel
         ::gCoordinator = Coordinator::GetInstance();
         ImGui::Begin("Hierarchy");
-
-        for (Entity entity{ 0 }; entity < gCoordinator->GetEntityCount(); ++entity) {
-            bool isSelected = (selectedEntity == entity);
-            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
-                selectedEntity = entity;
-            }
-        }
-
-
+        //Create entity and destory first
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
-            ImGuiViewport* vP = ImGui::GetWindowViewport();
-            
-            gCoordinator->AddComponent(
-                newEntity,
-                Transform{
-                    Vec3(vP->Pos.x,vP->Pos.y,0),
-                     Vec3(0,0,0),
-                     Vec3(5,5,5)
-                });
-            gCoordinator->AddComponent(
-                newEntity,
-                Sprite{
-                     Vec4(1,0,0, 1),
-                     nullptr
-                });
-            selectedEntity = newEntity;
-            //Renderer::DrawLine();
-
         }
 
-        if (selectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
-            gCoordinator->DestroyEntity(selectedEntity);
-            selectedEntity = MAX_ENTITIES;
+        if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
+            gCoordinator->DestroyEntity(gSelectedEntity);
+            gSelectedEntity = MAX_ENTITIES;
         }
 
+
+        //for (auto const& entity : mEntities) {
+        //    bool isSelected = (selectedEntity == entity);
+        //    if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
+        //        selectedEntity = entity;
+        //    }
+        //}
+        std::cout << "Number of entities: " << mEntities.size() << std::endl;
+
+        for (Entity entity{4  }; entity < gCoordinator->GetEntityCount(); ++entity) {
+            bool isSelected = (gSelectedEntity == entity);
+            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
+                gSelectedEntity = entity;
+            }
+        }
         ImGui::End();
-
     }
     void InspectorWindow() {
         // Inspector Panel
         ImGui::Begin("Inspector");
-
-        if (selectedEntity != MAX_ENTITIES) {
-            //TransformComponent if the entity has one
-            if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+        //TransformComponent
+        if (gSelectedEntity != MAX_ENTITIES) {
+            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
                 // Position
                 ImGui::Text("Position");
-                ImGui::SliderFloat("X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 2, ENGINE_SCREEN_WIDTH / 2);
-                ImGui::SliderFloat("Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 2, ENGINE_SCREEN_HEIGHT / 2);
-                //ImGui::InputFloat("Z", &transform.position.z);
+                ImGui::SliderFloat("X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                ImGui::SliderFloat("Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
                 // Rotation
                 ImGui::Text("Rotation");
-                //ImGui::SliderFloat("Rot X", &transform.rotation.x, -2*gPI, 2*gPI);
-                //ImGui::SliderFloat("Rot Y", &transform.rotation.y, -2 * gPI, 2 * gPI);
-                ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) 
+                ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
 
                 // Scale
                 ImGui::Text("Scale");
                 ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                 ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
-                //ImGui::InputFloat("Scale Z", &transform.scale.z);
 
                 if (ImGui::Button("Remove Transform Component")) {
-                    gCoordinator->RemoveComponent<Transform>(selectedEntity);
+                    gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
                 }
             }
-            if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                Sprite& sprite = gCoordinator->GetComponent<Sprite>(selectedEntity);
+            if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
                 //Color
-
-                ImGui::Text("\nColor");
+                ImGui::Separator();
+                ImGui::Text("Color");
                 ImGui::ColorPicker4("Color Picker", &sprite.color.r);
                 //Tex
-                ImGui::Text("\nTexture");
+                ImGui::Separator();
+                ImGui::Text("Sprite");
                 ImGui::Text("Add asset file path i think");
                 if (ImGui::Button("Remove Sprite Component")) {
-                    gCoordinator->RemoveComponent<Sprite>(selectedEntity);
+                    gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
                 }
-                /*else {
-                    if (ImGui::Button("Add Sprite Component")) {
-                        Sprite newSprite{};
-                        gCoordinator->AddComponent(selectedEntity, newSprite);
-                    }
-                }*/
             }
         }
-
         ImGui::End();
     }
     void PropertyWindow() {
         ImGui::Begin("Property");
-        if (selectedEntity != MAX_ENTITIES) {
-            //ImGui::Text("Entity ID: %d", selectedEntity);
-            //ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity)?"True":"False");
-            //ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("OrthoCamera Component: %s", gCoordinator->HasComponent<OrthoCamera>(selectedEntity) ? "True" : "False");
-            //ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity"};
+        static int selectedComponent{-1};
+
+        if (gSelectedEntity != MAX_ENTITIES) {
+            ImGui::Text("Entity ID: %d", gSelectedEntity);
+            //Combo box click to add components
+            if (ImGui::Combo("Add Component", &selectedComponent, components, IM_ARRAYSIZE(components))) {
+                switch (selectedComponent) {
+                case 0:{
+                    ImGuiViewport* vP = ImGui::GetWindowViewport();
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Transform{
+                            Vec3(vP->Pos.x,vP->Pos.y,0),
+                            Vec3(0,0,0),
+                            Vec3(5,5,5)
+                        });
+                    break;
+                }
+                case 1: {
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Sprite{
+                            Vec4(1,0,0, 1),
+                            nullptr
+                        });
+                }
+                      break;
+                case 2: {
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        RigidBody{});
+                    break;
+                }
+                case 3: {
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        BoxCollider{});
+                }
+                      break;
+                case 4: {
+                    //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+                    std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+                    std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+                    std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+                    std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+                                                                                     {ANIM_STATE::RUN, runFrames},
+                                                                                     {ANIM_STATE::ATTACK, attackFrames} };
+                    ::gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Animation{
+                            0.08f,
+                            0,
+                            ANIM_STATE::IDLE,
+                            map
+                        });
+                }
+                      break;
+                case 5: {
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Gravity{});
+                }
+                    break;
+                }
+            }
+            ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
         }
         ImGui::End();
     }
@@ -225,10 +244,11 @@ namespace Image {
         ImGui::Begin("Image Game Engine");
 
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(1040, 585), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::End();
     }
     void LoggingWindow() {
-
+        ImGui::Begin("Log");
+        ImGui::End();
     }
 }

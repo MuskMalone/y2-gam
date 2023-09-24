@@ -73,10 +73,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
