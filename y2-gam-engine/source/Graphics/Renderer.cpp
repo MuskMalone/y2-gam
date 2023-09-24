@@ -296,10 +296,10 @@ void Renderer::FlushBatch() {
 void Renderer::BeginBatch() {
 	sData.quadIdxCount = 0;
 	sData.quadBufferPtr = sData.quadBuffer.data();
-
+	//sData.quadBuffer.clear();
 	sData.lineVtxCount = 0;
 	sData.lineBufferPtr = sData.lineBuffer.data();
-
+	//sData.lineBuffer.clear();
 	sData.texUnitIdx = 1;
 }
 void Renderer::NextBatch() {

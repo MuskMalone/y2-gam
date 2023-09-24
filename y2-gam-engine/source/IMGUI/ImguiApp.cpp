@@ -112,7 +112,7 @@ namespace Image {
                 gSelectedEntity = entity;
             }
         }
-        std::cout << "Number of entities: " << mEntities.size() << std::endl;
+        //std::cout << "Number of entities: " << mEntities.size() << std::endl;
 
         ImGui::End();
     }
@@ -155,7 +155,7 @@ namespace Image {
                 ImGui::Text("Color");
                 ImGui::ColorPicker4("Color Picker", &sprite.color.r);
                 //Tex
-                ImGui::Separator();
+                //ImGui::Separator();
                 /*ImGui::Text("Sprite");*/
                 //ImGui::Text("Add asset file path i think");
                 //if (ImGui::Button("Remove Sprite Component")) {
@@ -190,6 +190,7 @@ namespace Image {
                 //    transform.scale = Vec3{ rigidBody.dimension.x,rigidBody.dimension.y,0 };
                 //}
             }
+
             //if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
             //}
             //if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
@@ -200,7 +201,7 @@ namespace Image {
                 //Force
                 ImGui::Text("Gravity");
                 ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
-                ImGui::SliderFloat("Force Y", &gravity.force.y, -10,10);
+                ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
             }
         }
         ImGui::End();

@@ -79,7 +79,7 @@ void RenderSystem::Init()
 void RenderSystem::Update(float dt)
 {
 	mFramebuffer->Bind();
-	std::cout << "Renderer: Number of entities: " << mEntities.size() << std::endl;
+	//std::cout << "Renderer: Number of entities: " << mEntities.size() << std::endl;
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
