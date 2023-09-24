@@ -49,16 +49,16 @@ void RenderSystem::Init()
 	::gCoordinator->AddComponent(
 		bg,
 		Transform{
-			.position = Vec3(0, 0, -40.f),
-			.rotation = Vec3(),
-			.scale = Vec3(350.f, 120.f, 0.f)
+			Vec3(0, 0, -40.f),
+			Vec3(),
+			Vec3(350.f, 120.f, 0.f)
 		});
 	::gCoordinator->AddComponent(
 		bg,
 		Sprite{
-			.color = Vec4{1.f,1.f,1.f,1.f},
-			.texture = mBgSubtex,
-			.layer = Layer::BACKGROUND
+			Vec4{1.f,1.f,1.f,1.f},
+			mBgSubtex,
+			Layer::BACKGROUND
 		}
 	);
 
@@ -96,13 +96,13 @@ void RenderSystem::Update(float dt)
 	}
 
 	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
-		[](RenderEntry const& rhs, RenderEntry const& lhs) {
+		[](RenderEntry const& lhs, RenderEntry const& rhs) {
 			// First, sort by layer
-			if (rhs.sprite->layer != lhs.sprite->layer) {
-				return static_cast<int>(rhs.sprite->layer) > static_cast<int>(lhs.sprite->layer);
+			if (lhs.sprite->layer != rhs.sprite->layer) {
+				return static_cast<int>(lhs.sprite->layer) < static_cast<int>(rhs.sprite->layer);
 			}
 			// If they are in the same layer, sort by z-position
-			return rhs.transform->position.z < lhs.transform->position.z;
+			return lhs.transform->position.z < rhs.transform->position.z;
 		});
 
 	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);

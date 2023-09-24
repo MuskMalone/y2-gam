@@ -253,7 +253,8 @@ void EditorControlSystem::Update(float dt)
 			entity,
 			Sprite{
 				Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-				nullptr
+				nullptr,
+				Layer::FOREGROUND
 			});
 
 		//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
