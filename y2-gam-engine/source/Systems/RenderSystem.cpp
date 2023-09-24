@@ -79,8 +79,8 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	//mFramebuffer->Bind();
-
+	mFramebuffer->Bind();
+	//std::cout << "Renderer: Number of entities: " << mEntities.size() << std::endl;
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -94,6 +94,7 @@ void RenderSystem::Update(float dt)
 			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
 		};
 		mRenderQueue.push_back(entry);
+		
 	}
 
 	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
@@ -105,6 +106,7 @@ void RenderSystem::Update(float dt)
 			// If they are in the same layer, sort by z-position
 			return lhs.transform->position.z < rhs.transform->position.z;
 		});
+
 
 	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);
 	Renderer::RenderSceneBegin(camera);
@@ -123,7 +125,7 @@ void RenderSystem::Update(float dt)
 	}
 	
 	Renderer::RenderSceneEnd();
-	//mFramebuffer->Unbind();
+	mFramebuffer->Unbind();
 }
 
 void RenderSystem::WindowSizeListener(Event& event)

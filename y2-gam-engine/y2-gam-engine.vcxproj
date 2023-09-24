@@ -73,10 +73,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -179,6 +179,7 @@
     <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\mat3.h" />

@@ -24,7 +24,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
@@ -80,6 +80,7 @@ int main()
 	coordinator->RegisterComponent<Animation>();
 	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
+	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
@@ -141,8 +142,9 @@ int main()
 	animationSystem->Init();
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
-		Signature signature{};
-		signature.flip();
+		Signature signature;
+		//signature.flip();
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
 		//signature.set(coordinator->GetComponentType<Sprite>());
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
