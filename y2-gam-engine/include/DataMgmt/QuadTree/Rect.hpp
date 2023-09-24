@@ -47,7 +47,7 @@ namespace DataMgmt {
 		}
 
 		template <typename _pred>
-		bool contain(Entity const& id, _pred predicate) const {
+		bool Contain(Entity const& id, _pred predicate) const {
 			//Vec2 o = object_vec[id]->get_pos();
 			//float r = object_vec[id]->get_radi();
 
@@ -59,9 +59,9 @@ namespace DataMgmt {
 
 			return predicate(id, * this);
 		}
-		bool contain_rect(const Rect& r) const {
-			Vec2 rmin = r.get_min();
-			Vec2 rmax = r.get_max();
+		bool ContainRect(const Rect& r) const {
+			Vec2 rmin = r.GetMin();
+			Vec2 rmax = r.GetMax();
 
 			//  basic square collision check
 			if (rmax.x < max.x && rmin.x > min.x && rmax.y < max.y && rmin.y > min.y) {
@@ -70,15 +70,15 @@ namespace DataMgmt {
 
 			return false;
 		}
-		bool contain_pos(const Vec2& v) const {
+		bool ContainPos(const Vec2& v) const {
 			if (v.x < min.x || v.x > max.x) return false;
 			if (v.y < min.y || v.y > max.y) return false;
 
 			return true;
 		}
 
-		Vec2 get_min() const { return min; }
-		Vec2 get_max() const { return max; }
+		Vec2 GetMin() const { return min; }
+		Vec2 GetMax() const { return max; }
 	};
 
 }

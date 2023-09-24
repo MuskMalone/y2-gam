@@ -18,49 +18,49 @@ namespace {
 }
 namespace Physics {
     void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
-        Contact merged_contacts[2];
+        Contact mergedContacts[2];
 
-        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
-            Contact& c_new{ toMerge.contacts[i] };
+        for (uint32_t i = 0; i < toMerge.contactsCount; i++) {
+            Contact& cNew{ toMerge.contacts[i] };
             int k = -1;
-            for (uint32_t j = 0; j < a.contacts_count; j++) {
-                Contact& c_old = *(a.contacts + j);
-                if (c_new.feature.value == c_old.feature.value) {
+            for (uint32_t j = 0; j < a.contactsCount; j++) {
+                Contact& cOld = *(a.contacts + j);
+                if (cNew.feature.value == cOld.feature.value) {
                     k = j;
                     break;
                 }
             }
 
             if (k > -1) {
-                Contact& c{ merged_contacts[i] };
-                Contact& c_old{ a.contacts[k] };
-                c = c_new;
+                Contact& c{ mergedContacts[i] };
+                Contact& cOld{ a.contacts[k] };
+                c = cNew;
 
                 // Warm starting
-                c.acc_normal_impulse = c_old.acc_normal_impulse;
-                c.acc_tangent_impulse = c_old.acc_tangent_impulse;
-                c.acc_biased_normal_impulse = c_old.acc_biased_normal_impulse;
+                c.accNormalImpulse = cOld.accNormalImpulse;
+                c.accTangentImpulse = cOld.accTangentImpulse;
+                c.accBiasedNormalImpulse = cOld.accBiasedNormalImpulse;
             }
             else {
-                merged_contacts[i] = toMerge.contacts[i];
+                mergedContacts[i] = toMerge.contacts[i];
             }
         }
 
-        for (uint32_t i = 0; i < toMerge.contacts_count; i++) {
-            a.contacts[i] = merged_contacts[i];
+        for (uint32_t i = 0; i < toMerge.contactsCount; i++) {
+            a.contacts[i] = mergedContacts[i];
         }
 
-        a.contacts_count = toMerge.contacts_count;
+        a.contactsCount = toMerge.contactsCount;
     }
     void ArbiterPreStep(Arbiter & a, float inv_dt) {
-        const float k_allowed_penetration = 0.0f;
-        float k_bias_factor = .2f;
+        const float kAllowedPenetration = 0.0f;
+        float kBiasFactor = .2f;
 
         auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
         auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
 
 
-        for (size_t i = 0; i < a.contacts_count; i++) {
+        for (size_t i = 0; i < a.contactsCount; i++) {
             Contact& c = *(a.contacts + i);
 
             Vec2 r1 = c.position - rb1.position;
@@ -69,24 +69,24 @@ namespace Physics {
             // Precompute normal mass, tangent mass, and bias
             float rn1 = glm::dot(r1, c.normal);
             float rn2 = glm::dot(r2, c.normal);
-            float k_normal = rb1.invMass + rb2.invMass;
-            k_normal += rb1.invInertia * (glm::dot(r1, r1) - rn1 * rn1)
+            float kNormal = rb1.invMass + rb2.invMass;
+            kNormal += rb1.invInertia * (glm::dot(r1, r1) - rn1 * rn1)
                 + rb2.invInertia * (glm::dot(r2, r2) - rn2 * rn2);
-            c.mass_normal = 1.0f / k_normal;
+            c.massNormal = 1.0f / kNormal;
 
             Vec2 tangent = Vector2Cross(c.normal, 1.0f);
             float rt1 = glm::dot(r1, tangent);
             float rt2 = glm::dot(r2, tangent);
-            float k_tangent = rb1.invMass + rb2.invMass;
-            k_tangent += rb1.invInertia * (glm::dot(r1, r1) - rt1 * rt1)
+            float kTangent = rb1.invMass + rb2.invMass;
+            kTangent += rb1.invInertia * (glm::dot(r1, r1) - rt1 * rt1)
                 + rb2.invInertia * (glm::dot(r2, r2) - rt2 * rt2);
-            c.mass_tangent = 1.0f / k_tangent;
+            c.massTangent = 1.0f / kTangent;
 
-            c.bias = -k_bias_factor * inv_dt * std::min(0.0f, c.seperation + k_allowed_penetration);
+            c.bias = -kBiasFactor * inv_dt * std::min(0.0f, c.seperation + kAllowedPenetration);
 
             // accumulate impulses
             {
-                Vec2 P = c.normal * c.acc_normal_impulse + tangent * c.acc_tangent_impulse;
+                Vec2 P = c.normal * c.accNormalImpulse + tangent * c.accTangentImpulse;
 
                 rb1.velocity -= P * rb1.invMass;
                 if (!rb1.isLockRotation) {
@@ -106,7 +106,7 @@ namespace Physics {
         auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
 
 
-        for (size_t i = 0; i < a.contacts_count; i++) {
+        for (size_t i = 0; i < a.contactsCount; i++) {
             Contact& c = *(a.contacts + i);
             c.r1 = c.position - rb1.position;
             c.r2 = c.position - rb2.position;
@@ -118,12 +118,12 @@ namespace Physics {
             // Compute normal impulse
             float vn = glm::dot(dv, c.normal);
 
-            float dPn = c.mass_normal * (-vn + c.bias);
+            float dPn = c.massNormal * (-vn + c.bias);
 
             // Clamp the accumulated impulse
-            float Pn0 = c.acc_normal_impulse;
-            c.acc_normal_impulse = std::max(Pn0 + dPn, 0.0f);
-            dPn = c.acc_normal_impulse - Pn0;
+            float Pn0 = c.accNormalImpulse;
+            c.accNormalImpulse = std::max(Pn0 + dPn, 0.0f);
+            dPn = c.accNormalImpulse - Pn0;
 
             // Apply contact impulse
             Vec2 Pn = c.normal * dPn;
@@ -144,16 +144,16 @@ namespace Physics {
 
             Vec2 tangent = Vector2Cross(c.normal, 1.0f);
             float vt = glm::dot(dv, tangent);
-            float dPt = vt * c.mass_tangent * (-1.0f);
+            float dPt = vt * c.massTangent * (-1.0f);
 
             // accumulate impulses
             {
                 // Compute frictional impulse
-                float maxPt = a.combined_friction * c.acc_normal_impulse;
+                float maxPt = a.combinedFriction * c.accNormalImpulse;
                 // Clamp friction
-                float old_tangent_impulse = c.acc_tangent_impulse;
-                c.acc_tangent_impulse = glm::clamp(old_tangent_impulse + dPt, -maxPt, maxPt);
-                dPt = c.acc_tangent_impulse - old_tangent_impulse;
+                float oldTangentImpulse = c.accTangentImpulse;
+                c.accTangentImpulse = glm::clamp(oldTangentImpulse + dPt, -maxPt, maxPt);
+                dPt = c.accTangentImpulse - oldTangentImpulse;
             }
 
             // Apply contact impulse
