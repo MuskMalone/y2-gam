@@ -142,9 +142,9 @@ namespace Image {
                 ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                 ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
 
-                if (ImGui::Button("Remove Transform Component")) {
+      /*          if (ImGui::Button("Remove Transform Component")) {
                     gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
-                }
+                }*/
             }
             if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                 Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
@@ -155,10 +155,10 @@ namespace Image {
                 //Tex
                 ImGui::Separator();
                 ImGui::Text("Sprite");
-                ImGui::Text("Add asset file path i think");
-                if (ImGui::Button("Remove Sprite Component")) {
-                    gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
-                }
+                //ImGui::Text("Add asset file path i think");
+                //if (ImGui::Button("Remove Sprite Component")) {
+                //    gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
+                //}
             }
         }
         ImGui::End();
@@ -166,67 +166,125 @@ namespace Image {
     void PropertyWindow() {
         ImGui::Begin("Property");
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity"};
-        static int selectedComponent{-1};
-
+        static int selectedComponentToAdd{ -1 };
+        static int selectedComponentToRemove{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
             //Combo box click to add components
-            if (ImGui::Combo("Add Component", &selectedComponent, components, IM_ARRAYSIZE(components))) {
-                switch (selectedComponent) {
-                case 0:{
-                    ImGuiViewport* vP = ImGui::GetWindowViewport();
-                    gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        Transform{
-                            Vec3(vP->Pos.x,vP->Pos.y,0),
-                            Vec3(0,0,0),
-                            Vec3(5,5,5)
-                        });
-                    break;
+            if (ImGui::Combo("Add Component", &selectedComponentToAdd, components, IM_ARRAYSIZE(components))) {
+                switch (selectedComponentToAdd) {
+                case 0: {
+                    if (!gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                        ImGuiViewport* vP = ImGui::GetWindowViewport();
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Transform{
+                                Vec3(vP->Pos.x,vP->Pos.y,0),
+                                Vec3(0,0,0),
+                                Vec3(5,5,5)
+                            });
+                    }
                 }
+                    break;
                 case 1: {
-                    gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        Sprite{
-                            Vec4(1,0,0, 1),
-                            nullptr
-                        });
+                    if (!gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Sprite{
+                                Vec4(1,0,0, 1),
+                                nullptr
+                            });
+                    }
                 }
                       break;
                 case 2: {
-                    gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        RigidBody{});
-                    break;
+                    if (!gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            RigidBody{});
+                    }
                 }
+                    break;
                 case 3: {
-                    gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        BoxCollider{});
+                    if (!gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            BoxCollider{});
+                    }
                 }
                       break;
                 case 4: {
-                    //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
-                    std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
-                    std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
-                    std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
-                    std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
-                                                                                     {ANIM_STATE::RUN, runFrames},
-                                                                                     {ANIM_STATE::ATTACK, attackFrames} };
-                    ::gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        Animation{
-                            0.08f,
-                            0,
-                            ANIM_STATE::IDLE,
-                            map
-                        });
+                    if (!gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+                        //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+                        std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+                        std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+                        std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+                        std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+                                                                                         {ANIM_STATE::RUN, runFrames},
+                                                                                         {ANIM_STATE::ATTACK, attackFrames} };
+                        ::gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Animation{
+                                0.08f,
+                                0,
+                                ANIM_STATE::IDLE,
+                                map
+                            });
+                    }
                 }
                       break;
                 case 5: {
-                    gCoordinator->AddComponent(
-                        gSelectedEntity,
-                        Gravity{});
+                    if (!gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Gravity{});
+                    }
+                }
+                    break;
+                }
+            }
+            if (ImGui::Combo("Remove Component", &selectedComponentToRemove, components, IM_ARRAYSIZE(components))) {
+                switch (selectedComponentToRemove) {
+                case 0: {
+                    // Remove Transform component
+                    if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
+                    }
+                }
+                    break;
+                case 1: {
+                    // Remove Sprite component
+                    if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
+                    }
+                }
+                    break;
+                case 2: {
+                    // Remove RigidBody component
+                    if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<RigidBody>(gSelectedEntity);
+                    }
+                }
+                    break;
+                case 3: {
+                    // Remove BoxCollider component
+                    if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<BoxCollider>(gSelectedEntity);
+                    }
+                }
+                    break;
+                case 4: {
+                    // Remove Animation component
+                    if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Animation>(gSelectedEntity);
+                    }
+                }
+                    break;
+                case 5: {
+                    // Remove Gravity component
+                    if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
+                    }
                 }
                     break;
                 }
