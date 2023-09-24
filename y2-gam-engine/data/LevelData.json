@@ -1,24 +1,31 @@
 {
     "Entities": [
         {
+            "BoxCollider": {
+                "collider": true
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
             "RigidBody": {
                 "dimX": 50.0,
-                "dimY": 38.948001861572266,
-                "rotation": 167.0590057373047,
-                "mass": 0.0,
-                "posX": 125.48999786376953,
-                "posY": -73.52899932861328,
-                "lockRotate": false
+                "dimY": 50.0,
+                "rotation": 0.0,
+                "mass": 50.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
             },
             "Transform": {
-                "posX": 125.48999786376953,
-                "posY": -73.52899932861328,
+                "posX": 0.0,
+                "posY": 0.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 167.0590057373047,
+                "rotZ": 0.0,
                 "scaleX": 50.0,
-                "scaleY": 38.948001861572266,
+                "scaleY": 50.0,
                 "scaleZ": 0.0
             }
         }

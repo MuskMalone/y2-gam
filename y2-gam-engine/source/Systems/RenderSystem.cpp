@@ -84,32 +84,32 @@ void RenderSystem::Update(float dt)
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
 
-	//mRenderQueue.clear();
+	mRenderQueue.clear();
 
-	//for (auto const& entity : mEntities) {
-	//	RenderEntry entry{
-	//		.entity = entity,
-	//		.transform = &::gCoordinator->GetComponent<Transform>(entity),
-	//		.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
-	//	};
-	//	mRenderQueue.push_back(entry);
-	//	
-	//}
+	for (auto const& entity : mEntities) {
+		RenderEntry entry{
+			.entity = entity,
+			.transform = &::gCoordinator->GetComponent<Transform>(entity),
+			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
+		};
+		mRenderQueue.push_back(entry);
+		
+	}
 
-	//std::sort(mRenderQueue.begin(), mRenderQueue.end(),
-	//	[](RenderEntry const& lhs, RenderEntry const& rhs) {
-	//		// First, sort by layer
-	//		if (lhs.sprite->layer != rhs.sprite->layer) {
-	//			return static_cast<int>(lhs.sprite->layer) < static_cast<int>(rhs.sprite->layer);
-	//		}
-	//		// If they are in the same layer, sort by z-position
-	//		return lhs.transform->position.z < rhs.transform->position.z;
-	//	});
+	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
+		[](RenderEntry const& lhs, RenderEntry const& rhs) {
+			// First, sort by layer
+			if (lhs.sprite->layer != rhs.sprite->layer) {
+				return static_cast<int>(lhs.sprite->layer) < static_cast<int>(rhs.sprite->layer);
+			}
+			// If they are in the same layer, sort by z-position
+			return lhs.transform->position.z < rhs.transform->position.z;
+		});
 
 
 	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);
 	Renderer::RenderSceneBegin(camera);
-	/*for (auto const& entry : mRenderQueue)
+	for (auto const& entry : mRenderQueue)
 	{
 
 		if (entry.sprite->texture) {
@@ -118,18 +118,18 @@ void RenderSystem::Update(float dt)
 		else {
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
-	}*/
-	for (auto const& entity : mEntities)
-	{
-		auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
-		auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
-		if (sprite.texture) {
-			Renderer::DrawSprite(transform, sprite.texture, sprite.color);
-		}
-		else {
-			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z);
-		}
 	}
+	//for (auto const& entity : mEntities)
+	//{
+	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
+	//	if (sprite.texture) {
+	//		Renderer::DrawSprite(transform, sprite.texture, sprite.color);
+	//	}
+	//	else {
+	//		Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z);
+	//	}
+	//}
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 	}
