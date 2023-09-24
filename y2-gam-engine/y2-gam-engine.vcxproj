@@ -176,6 +176,7 @@
     <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\mat3.h" />

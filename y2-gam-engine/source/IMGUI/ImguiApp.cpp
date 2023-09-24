@@ -97,6 +97,8 @@ namespace Image {
         //Create entity and destory first
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
+            gCoordinator->AddComponent(newEntity, ImguiComponent{});
+            gSelectedEntity = newEntity;
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
@@ -104,21 +106,14 @@ namespace Image {
             gSelectedEntity = MAX_ENTITIES;
         }
 
-
-        //for (auto const& entity : mEntities) {
-        //    bool isSelected = (selectedEntity == entity);
-        //    if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
-        //        selectedEntity = entity;
-        //    }
-        //}
-        std::cout << "Number of entities: " << mEntities.size() << std::endl;
-
-        for (Entity entity{4  }; entity < gCoordinator->GetEntityCount(); ++entity) {
+        for (auto const& entity : mEntities) {
             bool isSelected = (gSelectedEntity == entity);
             if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
         }
+        std::cout << "Number of entities: " << mEntities.size() << std::endl;
+
         ImGui::End();
     }
     void InspectorWindow() {
@@ -154,11 +149,19 @@ namespace Image {
                 ImGui::ColorPicker4("Color Picker", &sprite.color.r);
                 //Tex
                 ImGui::Separator();
-                ImGui::Text("Sprite");
+                /*ImGui::Text("Sprite");*/
                 //ImGui::Text("Add asset file path i think");
                 //if (ImGui::Button("Remove Sprite Component")) {
                 //    gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
                 //}
+            }
+            if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+            }
+            if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+            }
+            if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+            }
+            if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
             }
         }
         ImGui::End();
@@ -307,6 +310,7 @@ namespace Image {
     }
     void LoggingWindow() {
         ImGui::Begin("Log");
+        
         ImGui::End();
     }
 }
