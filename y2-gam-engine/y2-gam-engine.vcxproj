@@ -137,7 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\OrthoCamera.hpp" />
+    <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
@@ -146,6 +148,7 @@
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
+    <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\BoxCollider.hpp" />
@@ -188,6 +191,11 @@
     <ClInclude Include="include\Math\Vec3.hpp" />
     <ClInclude Include="include\Math\vec4.h" />
     <ClInclude Include="include\Math\Vec4.hpp" />
+    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\Scripting\ScriptClass.hpp" />
+    <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
+    <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
+    <ClInclude Include="include\Scripting\ScriptManager.hpp" />
     <ClInclude Include="include\Systems\AnimationSystem.hpp" />
     <ClInclude Include="include\Systems\CollisionSystem.hpp" />
     <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
@@ -217,7 +225,9 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
+    <ClCompile Include="source\Audio\Sound.cpp" />
     <ClCompile Include="source\Graphics\CameraController.cpp" />
+    <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
     <ClCompile Include="source\Engine\StateManager.cpp" />
@@ -231,6 +241,10 @@
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\Scripting\ScriptClass.cpp" />
+    <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
+    <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
+    <ClCompile Include="source\Scripting\ScriptManager.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
     <ClCompile Include="source\Math\mat3.cpp" />

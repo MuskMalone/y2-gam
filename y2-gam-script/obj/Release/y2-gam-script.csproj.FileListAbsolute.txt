@@ -1,0 +1,6 @@
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb

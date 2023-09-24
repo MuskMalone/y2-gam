@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 
+Texture::Texture() : mWidth{ 0 }, mHeight{ 0 }, mTexHdl{ 0 } {}
+
 Texture::Texture(std::string const& path)
 	: mPath{ path } {
 
@@ -51,6 +53,55 @@ Texture::Texture(unsigned int width, unsigned int height) :mWidth{ width }, mHei
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTextureParameteri(mTexHdl, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTextureParameteri(mTexHdl, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
+
+// For Font Glyphs
+Texture::Texture(unsigned int width, unsigned int height, const void* data) : mWidth{ width }, mHeight{ height }, mTexHdl{} {
+	/*
+	if (data == nullptr) {
+		std::cout << "Invalid Data!" << "\n";
+	}
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
+
+	// Create a texture object
+	glCreateTextures(GL_TEXTURE_2D, 1, &mTexHdl);
+
+	// Allocate storage for the texture
+	glTextureStorage2D(mTexHdl, 1, GL_RED, static_cast<GLsizei>(mWidth), static_cast<GLsizei>(mHeight));
+
+	// Upload texture data
+	glTextureSubImage2D(mTexHdl, 0, 0, 0, static_cast<GLsizei>(mWidth), static_cast<GLsizei>(mHeight), GL_RED, GL_UNSIGNED_BYTE, data);
+
+	// Set texture parameters
+	glTextureParameteri(mTexHdl, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTextureParameteri(mTexHdl, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTextureParameteri(mTexHdl, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTextureParameteri(mTexHdl, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // reset byte-alignment
+	*/
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &mTexHdl);
+	glBindTexture(GL_TEXTURE_2D, mTexHdl);
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RED,
+		mWidth,
+		mHeight,
+		0,
+		GL_RGBA,
+		GL_UNSIGNED_BYTE,
+		data
+	);
+	// set texture options
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // reset byte-alignment
 }
 
 Texture::~Texture() {

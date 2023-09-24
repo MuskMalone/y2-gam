@@ -88,6 +88,21 @@ namespace Serializer {
 			return mDocumentMap[path][key.c_str()];
 		}
 
+		void InsertValue(JSONObj& obj, std::string key, std::string val) {
+			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{ "couldnt find json document" };
+			JSONObj keyName(key.c_str(), static_cast<rapidjson::SizeType>(key.size()), mDocumentMap[key].GetAllocator());
+			JSONObj valName(val.c_str(), static_cast<rapidjson::SizeType>(val.size()), mDocumentMap[key].GetAllocator());
+			obj.AddMember(keyName, valName, mDocumentMap[key].GetAllocator());
+		}
+
+		void InsertValue(JSONObj& obj, std::string key, const char* v) {
+			std::string val{ v };
+			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{ "couldnt find json document" };
+			JSONObj keyName(key.c_str(), static_cast<rapidjson::SizeType>(key.size()), mDocumentMap[key].GetAllocator());
+			JSONObj valName(val.c_str(), static_cast<rapidjson::SizeType>(val.size()), mDocumentMap[key].GetAllocator());
+			obj.AddMember(keyName, valName, mDocumentMap[key].GetAllocator());
+		}
+
 
 	private:
 		std::string path{}; //saves the last key used
