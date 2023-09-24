@@ -350,7 +350,7 @@ namespace Image {
     }
 
     // Temporary Fix
-    //yPos = -yPos;
+    yPos = -yPos;
 
     FaceObject const& currFace{ sFaces[fontName] };
     std::shared_ptr<Texture>const& currTex{ sBitmap[fontName] };
@@ -358,13 +358,8 @@ namespace Image {
     float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
     float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
     //OrthoCamera cam(-worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
-    //OrthoCamera cam;
-    /*
-    auto const& ent{ ::gCoordinator->GetSystem<RenderSystem>()->GetCamera() };
-    auto const& cam{ ::gCoordinator->GetComponent<OrthoCamera>(ent) };
-    */
+    
     //auto& cam = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
-
     OrthoCamera cam(16.f / 9.f, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
 
     sShaderPgm->Use();

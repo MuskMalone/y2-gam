@@ -7,18 +7,18 @@ namespace Sandbox
     {
         public Player() : base()
         {
-            Console.WriteLine("Player Default Constructor Called!");
+            //Console.WriteLine("Player Default Constructor Called!");
         }
         public Player(uint entityHandle) : base(entityHandle)
         {
-            Console.WriteLine("Player Non-Default, Single Parameter Constructor Called!");
+            //Console.WriteLine("Player Non-Default, Single Parameter Constructor Called!");
             entityID = entityHandle;
         }
 
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            Console.WriteLine($"Player.OnCreate from ID: {entityID}");
+            //Console.WriteLine($"Player.OnCreate from ID: {entityID}");
         }
 
         void OnUpdate(float dt)
@@ -48,8 +48,8 @@ namespace Sandbox
             Velocity = velocity;
 
             // For Debugging Purposes
-            Vector3 translation = Translation;
-            Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
+            //Vector3 translation = Translation;
+            //Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
         }
 
         Vector2 CalculateAcceleration(Vector2 force, float mass)
