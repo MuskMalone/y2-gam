@@ -19,9 +19,14 @@
 #include <algorithm>
 
 #include "Scripting/ScriptManager.hpp"
+#include "Audio/Sound.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
+	Image::Sound soundEffect;
+	Image::Sound bgm;
+	Image::SoundGroup bgmGroup;
+	Image::SoundGroup effectGroup;
 }
 namespace Testing {
 	std::default_random_engine generator;
@@ -153,6 +158,15 @@ void EditorControlSystem::Init()
 		});
 
 	Image::ScriptManager::OnCreateEntity(player);
+
+	// Sound Testing
+	soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
+	bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	bgmGroup = Image::SoundManager::AudioCreateGroup();
+	effectGroup = Image::SoundManager::AudioCreateGroup();
+
+	Image::SoundManager::AudioPlay(bgm, bgmGroup, -1);
+	Image::SoundManager::AudioPauseGroup(bgmGroup);
 }
 
 void EditorControlSystem::Update(float dt)
@@ -169,6 +183,19 @@ void EditorControlSystem::Update(float dt)
 
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
+		Image::SoundManager::AudioResumeGroup(bgmGroup);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
+		Image::SoundManager::AudioPauseGroup(bgmGroup);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
+		Image::SoundManager::AudioPlay(soundEffect, effectGroup, 0);
+	}
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 		camera.mPos.y += moveSpeed * dt;
 		camera.SetPosition(camera.mPos);

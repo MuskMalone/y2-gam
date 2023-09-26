@@ -52,12 +52,10 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	// Mono Testing
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
 	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
 
-	// Audio Testing
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -177,6 +175,8 @@ int main()
 	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
+
+	// Audio Testing
 
 	while (!quit && !windowManager->ShouldClose())
 	{
