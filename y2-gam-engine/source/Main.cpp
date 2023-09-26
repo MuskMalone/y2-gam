@@ -113,6 +113,16 @@ int main()
 
 	renderSystem->Init();
 
+	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Animation>());
+		coordinator->SetSystemSignature<AnimationSystem>(signature);
+	}
+
+	animationSystem->Init();
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -131,15 +141,6 @@ int main()
 
 	inputSystem->Init();
 
-	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Sprite>());
-		signature.set(coordinator->GetComponentType<Animation>());
-		coordinator->SetSystemSignature<AnimationSystem>(signature);
-	}
-
-	animationSystem->Init();
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -206,9 +207,9 @@ int main()
 		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
 		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
 		Image::FontRenderer::RenderText("Lato", fpsCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 		Image::FontRenderer::RenderText("Lato", entityCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
 
 	StateManager::GetInstance()->Clear();

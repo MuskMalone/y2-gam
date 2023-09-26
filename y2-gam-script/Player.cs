@@ -25,20 +25,22 @@ namespace Sandbox
         {
             float speed = 500.0f;
             Vector2 forces = new Vector2(0.0f, 0.0f);
-            /*
-            if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
-            {
-                forces.Y = 1.0f;
-            }
-            */
+
             if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
             {
+                AnimationState = (int)AnimationCode.RUN;
                 forces.X = -1.0f;
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
             {
+                AnimationState = (int)AnimationCode.RUN;
                 forces.X = 1.0f;
+            }
+
+            else
+            {
+                AnimationState = (int)AnimationCode.IDLE;
             }
 
             forces *= speed;

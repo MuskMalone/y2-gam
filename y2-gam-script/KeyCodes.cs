@@ -1,5 +1,13 @@
 ﻿namespace Image
 {
+    public enum AnimationCode
+    {
+        NONE = 0,
+        IDLE,
+        RUN,
+        ATTACK
+    }
+
     // These key codes are pulled from GLFW
     public enum KeyCode
     {

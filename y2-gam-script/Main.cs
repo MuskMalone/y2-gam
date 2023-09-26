@@ -15,7 +15,18 @@ namespace Image
             entityID = 0;
             Console.WriteLine("Entity Parameterless Default Constructor Called!");
         }
-
+        public int AnimationState
+        {
+            get
+            {
+                InternalCalls.AnimationComponent_GetAnimationState(entityID, out int animationState);
+                return AnimationState;
+            }
+            set
+            {
+                InternalCalls.AnimationComponent_SetAnimationState(entityID, ref value);
+            }
+        }
         public Vector3 Translation
         {
             get

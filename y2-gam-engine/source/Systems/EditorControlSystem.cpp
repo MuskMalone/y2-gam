@@ -109,7 +109,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
 
 	position = Vec3(0.f, 0.f, 1.f);
-	float scale{ 5.f };
+	float scale{ 50.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
 		{ Vec2(0.0f, -100.f) });
@@ -132,8 +132,24 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Sprite{
-			Vec4(1,1,1,1),
-			nullptr
+			Vec4(1,0,1,1),
+			nullptr,
+			Layer::FOREGROUND
+		});
+	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+	std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+	std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+																	 {ANIM_STATE::RUN, runFrames},
+																	 {ANIM_STATE::ATTACK, attackFrames} };
+	::gCoordinator->AddComponent(
+		player,
+		Animation{
+			0.08f,
+			0,
+			ANIM_STATE::IDLE,
+			map
 		});
 
 	Image::ScriptManager::OnCreateEntity(player);

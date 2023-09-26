@@ -4,6 +4,13 @@ namespace Image
 {
     public static class InternalCalls
     {
+        #region AnimationComponent
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_GetAnimationState(uint entityHandle, out int animationState);
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_SetAnimationState(uint entityHandle, ref int animationState);
+        #endregion
+
         #region TransformComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector3 translation);
