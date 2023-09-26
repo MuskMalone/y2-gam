@@ -158,52 +158,52 @@ namespace Image {
 	}
 
 	void Mat44Inverse(Mat44& results, const Mat44& Mtx) {
-		Mat44 totrans{};
-		Mat44Transpose(totrans, Mtx);
-		float SubFactor00 = totrans.mMat[2][2] * totrans.mMat[3][3] - totrans.mMat[3][2] * totrans.mMat[2][3];
-		float SubFactor01 = totrans.mMat[2][1] * totrans.mMat[3][3] - totrans.mMat[3][1] * totrans.mMat[2][3];
-		float SubFactor02 = totrans.mMat[2][1] * totrans.mMat[3][2] - totrans.mMat[3][1] * totrans.mMat[2][2];
-		float SubFactor03 = totrans.mMat[2][0] * totrans.mMat[3][3] - totrans.mMat[3][0] * totrans.mMat[2][3];
-		float SubFactor04 = totrans.mMat[2][0] * totrans.mMat[3][2] - totrans.mMat[3][0] * totrans.mMat[2][2];
-		float SubFactor05 = totrans.mMat[2][0] * totrans.mMat[3][1] - totrans.mMat[3][0] * totrans.mMat[2][1];
-		float SubFactor06 = totrans.mMat[1][2] * totrans.mMat[3][3] - totrans.mMat[3][2] * totrans.mMat[1][3];
-		float SubFactor07 = totrans.mMat[1][1] * totrans.mMat[3][3] - totrans.mMat[3][1] * totrans.mMat[1][3];
-		float SubFactor08 = totrans.mMat[1][1] * totrans.mMat[3][2] - totrans.mMat[3][1] * totrans.mMat[1][2];
-		float SubFactor09 = totrans.mMat[1][0] * totrans.mMat[3][3] - totrans.mMat[3][0] * totrans.mMat[1][3];
-		float SubFactor10 = totrans.mMat[1][0] * totrans.mMat[3][2] - totrans.mMat[3][0] * totrans.mMat[1][2];
-		float SubFactor11 = totrans.mMat[1][0] * totrans.mMat[3][1] - totrans.mMat[3][0] * totrans.mMat[1][1];
-		float SubFactor12 = totrans.mMat[1][2] * totrans.mMat[2][3] - totrans.mMat[2][2] * totrans.mMat[1][3];
-		float SubFactor13 = totrans.mMat[1][1] * totrans.mMat[2][3] - totrans.mMat[2][1] * totrans.mMat[1][3];
-		float SubFactor14 = totrans.mMat[1][1] * totrans.mMat[2][2] - totrans.mMat[2][1] * totrans.mMat[1][2];
-		float SubFactor15 = totrans.mMat[1][0] * totrans.mMat[2][3] - totrans.mMat[2][0] * totrans.mMat[1][3];
-		float SubFactor16 = totrans.mMat[1][0] * totrans.mMat[2][2] - totrans.mMat[2][0] * totrans.mMat[1][2];
-		float SubFactor17 = totrans.mMat[1][0] * totrans.mMat[2][1] - totrans.mMat[2][0] * totrans.mMat[1][1];
+		Mat44 toTrans{};
+		Mat44Transpose(toTrans, Mtx);
+		float data00 = toTrans.mMat[2][2] * toTrans.mMat[3][3] - toTrans.mMat[3][2] * toTrans.mMat[2][3];
+		float data01 = toTrans.mMat[2][1] * toTrans.mMat[3][3] - toTrans.mMat[3][1] * toTrans.mMat[2][3];
+		float data02 = toTrans.mMat[2][1] * toTrans.mMat[3][2] - toTrans.mMat[3][1] * toTrans.mMat[2][2];
+		float data03 = toTrans.mMat[2][0] * toTrans.mMat[3][3] - toTrans.mMat[3][0] * toTrans.mMat[2][3];
+		float data04 = toTrans.mMat[2][0] * toTrans.mMat[3][2] - toTrans.mMat[3][0] * toTrans.mMat[2][2];
+		float data05 = toTrans.mMat[2][0] * toTrans.mMat[3][1] - toTrans.mMat[3][0] * toTrans.mMat[2][1];
+		float data06 = toTrans.mMat[1][2] * toTrans.mMat[3][3] - toTrans.mMat[3][2] * toTrans.mMat[1][3];
+		float data07 = toTrans.mMat[1][1] * toTrans.mMat[3][3] - toTrans.mMat[3][1] * toTrans.mMat[1][3];
+		float data08 = toTrans.mMat[1][1] * toTrans.mMat[3][2] - toTrans.mMat[3][1] * toTrans.mMat[1][2];
+		float data09 = toTrans.mMat[1][0] * toTrans.mMat[3][3] - toTrans.mMat[3][0] * toTrans.mMat[1][3];
+		float data10 = toTrans.mMat[1][0] * toTrans.mMat[3][2] - toTrans.mMat[3][0] * toTrans.mMat[1][2];
+		float data11 = toTrans.mMat[1][0] * toTrans.mMat[3][1] - toTrans.mMat[3][0] * toTrans.mMat[1][1];
+		float data12 = toTrans.mMat[1][2] * toTrans.mMat[2][3] - toTrans.mMat[2][2] * toTrans.mMat[1][3];
+		float data13 = toTrans.mMat[1][1] * toTrans.mMat[2][3] - toTrans.mMat[2][1] * toTrans.mMat[1][3];
+		float data14 = toTrans.mMat[1][1] * toTrans.mMat[2][2] - toTrans.mMat[2][1] * toTrans.mMat[1][2];
+		float data15 = toTrans.mMat[1][0] * toTrans.mMat[2][3] - toTrans.mMat[2][0] * toTrans.mMat[1][3];
+		float data16 = toTrans.mMat[1][0] * toTrans.mMat[2][2] - toTrans.mMat[2][0] * toTrans.mMat[1][2];
+		float data17 = toTrans.mMat[1][0] * toTrans.mMat[2][1] - toTrans.mMat[2][0] * toTrans.mMat[1][1];
 
 		Mat44 temp{};
-		temp[0][0] = +(totrans.mMat[1][1] * SubFactor00 - totrans.mMat[1][2] * SubFactor01 + totrans.mMat[1][3] * SubFactor02);
-		temp[0][1] = -(totrans.mMat[1][0] * SubFactor00 - totrans.mMat[1][2] * SubFactor03 + totrans.mMat[1][3] * SubFactor04);
-		temp[0][2] = +(totrans.mMat[1][0] * SubFactor01 - totrans.mMat[1][1] * SubFactor03 + totrans.mMat[1][3] * SubFactor05);
-		temp[0][3] = -(totrans.mMat[1][0] * SubFactor02 - totrans.mMat[1][1] * SubFactor04 + totrans.mMat[1][2] * SubFactor05);
+		temp[0][0] = +(toTrans.mMat[1][1] * data00 - toTrans.mMat[1][2] * data01 + toTrans.mMat[1][3] * data02);
+		temp[0][1] = -(toTrans.mMat[1][0] * data00 - toTrans.mMat[1][2] * data03 + toTrans.mMat[1][3] * data04);
+		temp[0][2] = +(toTrans.mMat[1][0] * data01 - toTrans.mMat[1][1] * data03 + toTrans.mMat[1][3] * data05);
+		temp[0][3] = -(toTrans.mMat[1][0] * data02 - toTrans.mMat[1][1] * data04 + toTrans.mMat[1][2] * data05);
 
-		temp[1][0] = -(totrans.mMat[0][1] * SubFactor00 - totrans.mMat[0][2] * SubFactor01 + totrans.mMat[0][3] * SubFactor02);
-		temp[1][1] = +(totrans.mMat[0][0] * SubFactor00 - totrans.mMat[0][2] * SubFactor03 + totrans.mMat[0][3] * SubFactor04);
-		temp[1][2] = -(totrans.mMat[0][0] * SubFactor01 - totrans.mMat[0][1] * SubFactor03 + totrans.mMat[0][3] * SubFactor05);
-		temp[1][3] = +(totrans.mMat[0][0] * SubFactor02 - totrans.mMat[0][1] * SubFactor04 + totrans.mMat[0][2] * SubFactor05);
+		temp[1][0] = -(toTrans.mMat[0][1] * data00 - toTrans.mMat[0][2] * data01 + toTrans.mMat[0][3] * data02);
+		temp[1][1] = +(toTrans.mMat[0][0] * data00 - toTrans.mMat[0][2] * data03 + toTrans.mMat[0][3] * data04);
+		temp[1][2] = -(toTrans.mMat[0][0] * data01 - toTrans.mMat[0][1] * data03 + toTrans.mMat[0][3] * data05);
+		temp[1][3] = +(toTrans.mMat[0][0] * data02 - toTrans.mMat[0][1] * data04 + toTrans.mMat[0][2] * data05);
 
-		temp[2][0] = +(totrans.mMat[0][1] * SubFactor06 - totrans.mMat[0][2] * SubFactor07 + totrans.mMat[0][3] * SubFactor08);
-		temp[2][1] = -(totrans.mMat[0][0] * SubFactor06 - totrans.mMat[0][2] * SubFactor09 + totrans.mMat[0][3] * SubFactor10);
-		temp[2][2] = +(totrans.mMat[0][0] * SubFactor07 - totrans.mMat[0][1] * SubFactor09 + totrans.mMat[0][3] * SubFactor11);
-		temp[2][3] = -(totrans.mMat[0][0] * SubFactor08 - totrans.mMat[0][1] * SubFactor10 + totrans.mMat[0][2] * SubFactor11);
+		temp[2][0] = +(toTrans.mMat[0][1] * data06 - toTrans.mMat[0][2] * data07 + toTrans.mMat[0][3] * data08);
+		temp[2][1] = -(toTrans.mMat[0][0] * data06 - toTrans.mMat[0][2] * data09 + toTrans.mMat[0][3] * data10);
+		temp[2][2] = +(toTrans.mMat[0][0] * data07 - toTrans.mMat[0][1] * data09 + toTrans.mMat[0][3] * data11);
+		temp[2][3] = -(toTrans.mMat[0][0] * data08 - toTrans.mMat[0][1] * data10 + toTrans.mMat[0][2] * data11);
 
-		temp[3][0] = -(totrans.mMat[0][1] * SubFactor12 - totrans.mMat[0][2] * SubFactor13 + totrans.mMat[0][3] * SubFactor14);
-		temp[3][1] = +(totrans.mMat[0][0] * SubFactor12 - totrans.mMat[0][2] * SubFactor15 + totrans.mMat[0][3] * SubFactor16);
-		temp[3][2] = -(totrans.mMat[0][0] * SubFactor13 - totrans.mMat[0][1] * SubFactor15 + totrans.mMat[0][3] * SubFactor17);
-		temp[3][3] = +(totrans.mMat[0][0] * SubFactor14 - totrans.mMat[0][1] * SubFactor16 + totrans.mMat[0][2] * SubFactor17);
+		temp[3][0] = -(toTrans.mMat[0][1] * data12 - toTrans.mMat[0][2] * data13 + toTrans.mMat[0][3] * data14);
+		temp[3][1] = +(toTrans.mMat[0][0] * data12 - toTrans.mMat[0][2] * data15 + toTrans.mMat[0][3] * data16);
+		temp[3][2] = -(toTrans.mMat[0][0] * data13 - toTrans.mMat[0][1] * data15 + toTrans.mMat[0][3] * data17);
+		temp[3][3] = +(toTrans.mMat[0][0] * data14 - toTrans.mMat[0][1] * data16 + toTrans.mMat[0][2] * data17);
 		float Determinant =
-			+ totrans[0][0] * temp[0][0]
-			+ totrans[0][1] * temp[0][1]
-			+ totrans[0][2] * temp[0][2]
-			+ totrans[0][3] * temp[0][3];
+			+ toTrans[0][0] * temp[0][0]
+			+ toTrans[0][1] * temp[0][1]
+			+ toTrans[0][2] * temp[0][2]
+			+ toTrans[0][3] * temp[0][3];
 
 		temp /= Determinant;
 		results = temp;

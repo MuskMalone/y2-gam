@@ -3,7 +3,7 @@
 #include <iostream>
 #include <math.h>
 #include <stdexcept>
-
+#include <cassert>
 namespace Image {
     class Vec2 {
 
@@ -15,7 +15,7 @@ namespace Image {
 
         float length() const;
         float dot(Vec2 const& rhs) const;
-        Vec2 cross(Vec2 const& rhs) const;
+        float cross(Vec2 const& rhs) const;
         Vec2 normalized() const;
 
         //Overloads

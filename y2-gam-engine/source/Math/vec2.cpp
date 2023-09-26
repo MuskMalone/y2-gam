@@ -27,8 +27,8 @@ namespace Image {
 		returns a Vector of the cross product between 2 Vectors
 	 */
 	 /**************************************************************************/
-	Vec2 Vec2::cross(Vec2 const& rhs) const {
-		return Vec2(mData[0] * rhs.mData[1] - rhs.mData[0] * mData[1]);
+	float Vec2::cross(Vec2 const& rhs) const {
+		return mData[0] * rhs.mData[1] - rhs.mData[0] * mData[1];
 	}
 
 	/**************************************************************************/
@@ -38,6 +38,7 @@ namespace Image {
 	 /**************************************************************************/
 	Vec2 Vec2::normalized() const {
 		float len = length();
+		assert((len != 0) && "Divide by 0");
 		return Vec2(mData[0] / len, mData[1] / len);
 	}
 
@@ -54,6 +55,7 @@ namespace Image {
 	}
 
 	Vec2 Vec2::operator/(float val) const {
+		assert((val != 0) && "Divide by 0");
 		return Vec2(mData[0] / val, mData[1] / val);
 	}
 
@@ -76,6 +78,7 @@ namespace Image {
 	}
 
 	Vec2& Vec2::operator/=(float const& val) {
+		assert((val != 0) && "Divide by 0");
 		mData[0] /= val;
 		mData[1] /= val;
 		return *this;
@@ -85,10 +88,12 @@ namespace Image {
 		return (mData[0] == rhs.mData[0] && mData[1] == rhs.mData[1]);
 	}
 	float Vec2::operator[](int idx) const {
+		assert((idx >= 0 && idx < 2) && "Ensure index is within bounds");
 		return mData[idx];
 	}
 
 	float& Vec2::operator[](int idx) {
+		assert((idx >= 0 && idx < 2) && "Ensure index is within bounds");
 		return mData[idx];
 	}
 	/**************************************************************************/

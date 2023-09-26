@@ -3,7 +3,7 @@
 #include <iostream>
 #include <math.h>
 #include <stdexcept>
-
+#include <cassert>
 namespace Image {
     class Vec4 {
 

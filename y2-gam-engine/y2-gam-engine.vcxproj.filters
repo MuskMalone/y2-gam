@@ -30,12 +30,12 @@
     <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
-    <ClCompile Include="source\Math\mat3.cpp" />
-    <ClCompile Include="source\Math\mat4.cpp" />
+    <ClCompile Include="source\Math\Mat3.cpp" />
+    <ClCompile Include="source\Math\Mat4.cpp" />
     <ClCompile Include="source\Math\MathUtils.cpp" />
-    <ClCompile Include="source\Math\vec2.cpp" />
-    <ClCompile Include="source\Math\vec3.cpp" />
-    <ClCompile Include="source\Math\vec4.cpp" />
+    <ClCompile Include="source\Math\Vec2.cpp" />
+    <ClCompile Include="source\Math\Vec3.cpp" />
+    <ClCompile Include="source\Math\Vec4.cpp" />
     <ClCompile Include="source\Systems\ImguiSystem.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />
@@ -103,12 +103,12 @@
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
-    <ClInclude Include="include\Math\mat3.h" />
-    <ClInclude Include="include\Math\mat4.h" />
+    <ClInclude Include="include\Math\Mat3.h" />
+    <ClInclude Include="include\Math\Mat4.h" />
     <ClInclude Include="include\Math\MathUtils.h" />
-    <ClInclude Include="include\Math\vec2.h" />
-    <ClInclude Include="include\Math\vec3.h" />
-    <ClInclude Include="include\Math\vec4.h" />
+    <ClInclude Include="include\Math\Vec2.h" />
+    <ClInclude Include="include\Math\Vec3.h" />
+    <ClInclude Include="include\Math\Vec4.h" />
     <ClInclude Include="include\Systems\ImguiSystem.hpp" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h" />
@@ -129,6 +129,7 @@
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
     <ClInclude Include="include\Scripting\ScriptManager.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

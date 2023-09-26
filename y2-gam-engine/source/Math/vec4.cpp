@@ -28,6 +28,7 @@ namespace Image {
 	 /**************************************************************************/
 	Vec4 Vec4::normalized() const {
 		float len = length();
+		assert((len != 0) && "Divide by 0");
 		return Vec4(mData[0] / len, mData[1] / len, mData[2] / len, mData[3] / len);
 	}
 
@@ -44,6 +45,8 @@ namespace Image {
 	}
 
 	Vec4 Vec4::operator/(float val) const {
+		assert((val != 0) && "Divide by 0");
+
 		return Vec4(mData[0] / val, mData[1] / val, mData[2] / val, mData[3] / val);
 	}
 
@@ -72,6 +75,7 @@ namespace Image {
 	}
 
 	Vec4& Vec4::operator/=(float const& val) {
+		assert((val != 0) && "Divide by 0");
 		mData[0] /= val;
 		mData[1] /= val;
 		mData[2] /= val;
@@ -84,10 +88,12 @@ namespace Image {
 	}
 
 	float Vec4::operator[](int idx) const {
+		assert((idx >= 0 && idx < 4) && "Ensure index is within bounds");
 		return mData[idx];
 	}
 
 	float& Vec4::operator[](int idx) {
+		assert((idx >= 0 && idx < 4) && "Ensure index is within bounds");
 		return mData[idx];
 	}
 
@@ -103,146 +109,3 @@ namespace Image {
 	}
 
 }
-//namespace hemp {
-//
-//	Vec4::Vec4() :x{}, y{}, z{}, w{} {}
-//
-//	Vec4::Vec4(float val) :x{ val }, y{ val }, z{ val }, w{ val } {}
-//
-//	Vec4::Vec4(float x, float y, float z, float w) : x{ x }, y{ y }, z{ z }, w{ w } {}
-//
-//	float Vec4::length() const {
-//		return std::sqrt(x * x + y * y + z * z + w * w);
-//	}
-//
-//	/**************************************************************************/
-//	/*!
-//		returns a float of the dot product between 2 Vectors
-//	 */
-//	 /**************************************************************************/
-//	float Vec4::dot(Vec4 const& rhs) const {
-//		return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;
-//	}
-//
-//	/**************************************************************************/
-//	/*!
-//		returns a normalise Vector
-//	 */
-//	 /**************************************************************************/
-//	Vec4 Vec4::normalized() const {
-//		float len = length();
-//		return Vec4(x / len, y / len, z / len, w / len);
-//	}
-//
-//	Vec4 Vec4::operator+(Vec4 const& rhs) const {
-//		return Vec4(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w);
-//	}
-//
-//	Vec4 Vec4::operator-(Vec4 const& rhs) const {
-//		return Vec4(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w);
-//	}
-//
-//	Vec4 Vec4::operator*(float val) const {
-//		return Vec4(x * val, y * val, z * val, w * val);
-//	}
-//
-//	Vec4 Vec4::operator/(float val) const {
-//		return Vec4(x / val, y / val, z / val, w / val);
-//	}
-//
-//	Vec4& Vec4::operator+=(Vec4 const& rhs) {
-//		x += rhs.x;
-//		y += rhs.y;
-//		z += rhs.z;
-//		w += rhs.w;
-//		return *this;
-//	}
-//
-//	Vec4& Vec4::operator-=(Vec4 const& rhs) {
-//		x -= rhs.x;
-//		y -= rhs.y;
-//		z -= rhs.z;
-//		w -= rhs.w;
-//		return *this;
-//	}
-//
-//	Vec4& Vec4::operator*=(float const& val) {
-//		x *= val;
-//		y *= val;
-//		z *= val;
-//		w *= val;
-//		return *this;
-//	}
-//
-//	Vec4& Vec4::operator/=(float const& val) {
-//		x /= val;
-//		y /= val;
-//		z /= val;
-//		w /= val;
-//		return *this;
-//	}
-//
-//	bool Vec4::operator==(Vec4 rhs) {
-//		return (x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w);
-//	}
-//
-//	float Vec4::operator[](int idx) const{
-//		if (idx == 0) {
-//			return x;
-//		}
-//		else if (idx == 1) {
-//			return y;
-//		}
-//		else if (idx == 2) {
-//			return z;
-//		}
-//		else if (idx == 3) {
-//			return w;
-//		}
-//		else {
-//			try {
-//				throw std::out_of_range("Index out of range");
-//			}
-//			catch (std::out_of_range const& e) {
-//				// Handle the exception.
-//				std::cerr << "Caught an exception: " << e.what() << std::endl;
-//			}
-//		}
-//	}
-//
-//	float& Vec4::operator[](int idx){
-//		if (idx == 0) {
-//			return x;
-//		}
-//		else if (idx == 1) {
-//			return y;
-//		}
-//		else if (idx == 2) {
-//			return z;
-//		}
-//		else if (idx == 3) {
-//			return w;
-//		}
-//		else {
-//			try {
-//				throw std::out_of_range("Index out of range");
-//			}
-//			catch (std::out_of_range const& e) {
-//				// Handle the exception.
-//				std::cerr << "Caught an exception: " << e.what() << std::endl;
-//			}
-//		}
-//	}
-//
-//	/**************************************************************************/
-//	/*!
-//		overloaded << operator
-//		prints x, y, z and endl in this order
-//	 */
-//	 /**************************************************************************/
-//	std::ostream& operator<<(std::ostream& os, Vec4 const& rhs) {
-//		os << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w;
-//		return os;
-//	}
-//
-//}

@@ -1,6 +1,6 @@
 #include "Math\Mat3.h"
 #include "Math\MathUtils.h"
-//const float gPI{ 3.14159f };
+
 namespace Image {
 	Mat33::Mat33() :mMat{} {}
 
@@ -20,10 +20,12 @@ namespace Image {
 	Mat33::Mat33(Vec3 col1, Vec3 col2, Vec3 col3) :mMat{ col1, col2, col3 } {}
 
 	Vec3 Mat33::operator[](int idx) const{
+		assert((idx >= 0) && idx < 3 && "Index out of bounds");
 		return mMat[idx];
 	}
 
 	Vec3& Mat33::operator[](int idx) {
+		assert((idx >= 0) && idx < 3 && "Index out of bounds");
 		return mMat[idx];
 	}
 
@@ -154,6 +156,7 @@ namespace Image {
 				+ Mtx.mMat[2][1] * Mtx.mMat[1][2] * Mtx.mMat[0][0]
 				+ Mtx.mMat[2][2] * Mtx.mMat[1][0] * Mtx.mMat[0][1]);
 		//if determinant is less than or equal 0 set results to null
+		assert((det != 0) && "Matrix cannot be inverted");
 		if (det == 0) {
 			// Handle singular matrix. For now, set it to identity.
 			Mat33Identity(results);

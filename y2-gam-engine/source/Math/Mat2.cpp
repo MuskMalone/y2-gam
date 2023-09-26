@@ -17,10 +17,12 @@ namespace Image {
 	Mat22::Mat22(Vec2 col1, Vec2 col2) : mMat{ col1, col2 } {}
 
 	Vec2 Mat22::operator[](int idx) const {
+		assert(idx >= 0 && idx < 2 && "Index out of bounds");
 		return mMat[idx];
 	}
 
 	Vec2& Mat22::operator[](int idx) {
+		assert(idx >= 0 && idx < 2 && "Index out of bounds");
 		return mMat[idx];
 	}
 
@@ -137,19 +139,8 @@ namespace Image {
 	}
 
 	void Mat22Inverse(Mat22& results,  Mat22 const& Mtx) {
-		/*float det = Mtx.mMat[0][0] * Mtx.mMat[1][1] - Mtx.mMat[0][1] * Mtx.mMat[1][0];
-
-		if (det <= 0) {
-			results = NULL;
-			return;
-		}
-
-		results.mMat[0][0] = Mtx.mMat[1][1] / det;
-		results.mMat[0][1] = -Mtx.mMat[0][1] / det;
-		results.mMat[1][0] = -Mtx.mMat[1][0] / det;
-		results.mMat[1][1] = Mtx.mMat[0][0] / det;*/
 		float det = Mtx.mMat[0][0] * Mtx.mMat[1][1] - Mtx.mMat[1][0] * Mtx.mMat[0][1];
-
+		assert((det != 0) && "Matrix cannot be inverted");
 		if (det == 0) {
 			// Handle singular matrix. For now, set it to identity.
 			Mat22Identity(results);
