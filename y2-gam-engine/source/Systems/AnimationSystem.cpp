@@ -24,7 +24,6 @@ void AnimationSystem::Init() {
 
 	for(float i{16}; i <23; ++i)
 		mSpriteList.push_back(SubTexture::Create(mAttack, { i, 0 }, { 128, 128 }));
-	
 
 	//------------------------------------------------------------------------------------/
 
@@ -54,13 +53,18 @@ void AnimationSystem::Update(float dt) {
 		}
 
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_P)) {
-			if (animation.currState == ANIM_STATE::IDLE)
+		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_O)) {
+			switch (animation.currState) {
+			case ANIM_STATE::IDLE:
 				animation.currState = ANIM_STATE::RUN;
-			else if (animation.currState == ANIM_STATE::RUN)
+				break;
+			case ANIM_STATE::RUN: 
 				animation.currState = ANIM_STATE::ATTACK;
-			else if(animation.currState == ANIM_STATE::ATTACK)
+				break;
+			case ANIM_STATE::ATTACK:
 				animation.currState = ANIM_STATE::IDLE;
+				break;
+			}
 		}
 
 

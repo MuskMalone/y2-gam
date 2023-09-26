@@ -13,6 +13,7 @@
 #include <Components/Gravity.hpp>
 #include <Components/OrthoCamera.hpp>
 #include <Components/RigidBody.hpp>
+#include <Components/Script.hpp>
 #include <Components/Sprite.hpp>
 #include <Components/Transform.hpp>
 namespace Serializer{
@@ -37,6 +38,9 @@ Coordinator::GetInstance()->AddComponent(entity, OrthoCamera{ obj });
 static void EntityAddRigidBody(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, RigidBody{ obj });
 }
+static void EntityAddScript(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Script{ obj });
+}
 static void EntityAddSprite(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Sprite{ obj });
 }
@@ -51,6 +55,7 @@ if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
 if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
 if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
+if constexpr (std::is_same_v<_type, Script>) return "Script";
 if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
 if constexpr (std::is_same_v<_type, Transform>) return "Transform";
 return "NULL";
@@ -105,6 +110,13 @@ bool res = Coordinator::GetInstance()->GetComponent<RigidBody>(entity).Serialize
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<RigidBody>(), obj); }
 else { obj.SetNull(); }
 }
+if (Coordinator::GetInstance()->HasComponent<Script>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Script>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Script>(), obj); }
+else { obj.SetNull(); }
+}
 if (Coordinator::GetInstance()->HasComponent<Sprite>(entity)){
 JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
@@ -128,6 +140,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Gravity", EntityAddGravity},
 {"OrthoCamera", EntityAddOrthoCamera},
 {"RigidBody", EntityAddRigidBody},
+{"Script", EntityAddScript},
 {"Sprite", EntityAddSprite},
 {"Transform", EntityAddTransform}
 };

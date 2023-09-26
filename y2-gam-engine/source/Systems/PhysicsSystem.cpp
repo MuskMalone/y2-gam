@@ -238,6 +238,7 @@ namespace Physics {
             //change this soon
             transform.position = Vec3{rigidBody.position, 0};
             transform.rotation = Vec3{ 0, 0, glm::degrees(rigidBody.rotation) };
+           
 
             rigidBody.torque = 0.0f;
             rigidBody.force = Vec2{};//Vector2Zero();

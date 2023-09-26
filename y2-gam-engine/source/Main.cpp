@@ -1,3 +1,4 @@
+#define _CRTDBG_MAP_ALLOC	
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
@@ -24,11 +25,15 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <memory>
+
+#include "Audio/Sound.hpp"
+#include "Graphics/FontRenderer.hpp"
+#include "Scripting/ScriptManager.hpp"
 
 
 namespace {
@@ -40,6 +45,7 @@ void QuitHandler(Event& event)
 {
 	quit = true;
 }
+std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
 int main()
 {
@@ -47,6 +53,15 @@ int main()
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
+	// Mono Testing
+	Image::ScriptManager::Init();
+	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
+	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+
+	// Audio Testing
+	Image::SoundManager::AudioInit();
+
 	using namespace Physics;
 	using namespace Collision;
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
@@ -66,11 +81,10 @@ int main()
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
 	coordinator->RegisterComponent<OrthoCamera>();
-
-
-
+	coordinator->RegisterComponent<Script>();
+	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
-	
+
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
@@ -91,6 +105,15 @@ int main()
 
 	collisionSystem->Init();
 
+	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<RenderSystem>(signature);
+	}
+
+	renderSystem->Init();
 
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
@@ -110,17 +133,6 @@ int main()
 
 	inputSystem->Init();
 
-
-	auto renderSystem = coordinator->RegisterSystem<RenderSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Sprite>());
-		signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<RenderSystem>(signature);
-	}
-
-	renderSystem->Init();
-
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;
@@ -132,8 +144,9 @@ int main()
 	animationSystem->Init();
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
-		Signature signature{};
-		signature.flip();
+		Signature signature;
+		//signature.flip();
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
 		//signature.set(coordinator->GetComponentType<Sprite>());
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
@@ -152,9 +165,26 @@ int main()
 	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
 	float dt = frameController->GetDeltaTime();
 
+	// Font Testing
+	Image::FontRenderer::Init();
+	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
+	Image::FontRenderer::SetFontSize("Arial", 100);
+	Image::FontRenderer::GenerateBitmap("Arial", 100);
+
+	Image::FontRenderer::LoadFont("../assets/fonts/lato/Lato-Bold.ttf", "Lato");
+	Image::FontRenderer::SetFontSize("Lato", 100);
+	Image::FontRenderer::GenerateBitmap("Lato", 100);
+
+	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
+	Image::FontRenderer::SetFontSize("Getho", 100);
+	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
 	while (!quit && !windowManager->ShouldClose())
 	{
+		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
+		//Renderer::ClearColor();
+		//Renderer::ClearDepth();
+		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
 
@@ -168,9 +198,23 @@ int main()
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 		dt = frameController->EndFrameTime();
+		/*
 		std::string title = "FPS: " + std::to_string(frameController->GetFps()) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
 		windowManager->UpdateWindowTitle(title);
+		*/
+		std::string title = "Image Engine";
+		windowManager->UpdateWindowTitle(title);
 
+		// Font Testing
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 0.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Lato", "Hello World in Lato", -100.f, 50.f, 0.2f, glm::vec3(1.f, 1.f, 0.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, -50.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
+		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
+		Image::FontRenderer::RenderText("Lato", fpsCounter,
+			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		Image::FontRenderer::RenderText("Lato", entityCounter,
+			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
 
 	StateManager::GetInstance()->Clear();
@@ -178,5 +222,9 @@ int main()
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 
+	Image::FontRenderer::Exit();
+	Image::SoundManager::AudioExit();
+	Image::ScriptManager::Exit();
+	_CrtDumpMemoryLeaks();
 	return 0;
 }

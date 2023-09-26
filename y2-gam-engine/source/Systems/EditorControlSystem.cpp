@@ -16,6 +16,9 @@
 #include <random>
 #include <chrono>
 #include "Components/OrthoCamera.hpp"
+#include <algorithm>
+
+#include "Scripting/ScriptManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -57,13 +60,6 @@ void EditorControlSystem::Init()
 			Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
 		});
 
-	::gCoordinator->AddComponent(
-		entity,
-		Sprite{
-			Vec4(0,0,0, 1),
-			nullptr
-		});
-
 	entity = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
@@ -84,13 +80,6 @@ void EditorControlSystem::Init()
 			Vec3(position),
 			Vec3(),
 			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
-		});
-
-	::gCoordinator->AddComponent(
-		entity,
-		Sprite{
-			Vec4(1,1,1,1),
-			nullptr
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -115,19 +104,52 @@ void EditorControlSystem::Init()
 			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
 		});
 
+	// Creating a sample player entity
+	Entity player = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
+
+	position = Vec3(0.f, 0.f, 1.f);
+	float scale{ 5.f };
+	::gCoordinator->AddComponent<Gravity>(
+		player,
+		{ Vec2(0.0f, -100.f) });
 	::gCoordinator->AddComponent(
-		entity,
+		player,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		player,
+		RigidBody{
+			Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
+		});
+	::gCoordinator->AddComponent(
+		player,
+		Transform{
+			Vec3(position),
+			Vec3(),
+			Vec3(scale, scale, scale)
+		});
+	::gCoordinator->AddComponent(
+		player,
 		Sprite{
 			Vec4(1,1,1,1),
 			nullptr
 		});
+
+	Image::ScriptManager::OnCreateEntity(player);
 }
 
 void EditorControlSystem::Update(float dt)
 {
+	// Code to run the 'on update' function on entities with script components
+	for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+		Image::ScriptManager::OnUpdateEntity(e.first, dt);
+	}
+
 	//TODO REMOVE TEMP
 	float moveSpeed = 100.f;
 	float rotSpeed = 80.f;
+	float zoomSpeed = 100.f;
 
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
@@ -154,6 +176,14 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
 		camera.mRot += rotSpeed * dt;
 		camera.SetRotation(camera.mRot);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
+		camera.mZoom += zoomSpeed * dt;
+		camera.ZoomIn(zoomSpeed);
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
+		camera.mZoom -= zoomSpeed * dt;
+		camera.ZoomOut(zoomSpeed);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
 		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
@@ -243,7 +273,8 @@ void EditorControlSystem::Update(float dt)
 			entity,
 			Sprite{
 				Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
-				nullptr
+				nullptr,
+				Layer::FOREGROUND
 			});
 
 		//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/

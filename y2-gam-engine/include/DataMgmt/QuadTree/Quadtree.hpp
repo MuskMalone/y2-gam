@@ -222,7 +222,7 @@ namespace DataMgmt {
 		  // Sets bounds to the screens bounds and clears the quadtrees.
 		  //----------------------------------------------------------------
 
-		  mRect = Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y));
+		  mRect = Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)));
 		  mIndex.clear();
 		  mIndex.shrink_to_fit();
 

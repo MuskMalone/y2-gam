@@ -9,7 +9,6 @@
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
-    <ClCompile Include="source\Graphics\GLSLShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
@@ -46,6 +45,12 @@
     <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="source\Graphics\FontRenderer.cpp" />
+    <ClCompile Include="source\Audio\Sound.cpp" />
+    <ClCompile Include="source\Scripting\ScriptClass.cpp" />
+    <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
+    <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
+    <ClCompile Include="source\Scripting\ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -116,6 +121,14 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
     <ClInclude Include="include\Components\OrthoCamera.hpp" />
+    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\Graphics\FontRenderer.hpp" />
+    <ClInclude Include="include\Audio\Sound.hpp" />
+    <ClInclude Include="include\Components\Script.hpp" />
+    <ClInclude Include="include\Scripting\ScriptClass.hpp" />
+    <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
+    <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
+    <ClInclude Include="include\Scripting\ScriptManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -278,9 +291,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\Graphics\ElementBuffer.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\GLSLShader.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\Graphics\Renderer.cpp">

@@ -3,8 +3,14 @@
 
 class Texture {
 public:
+	//Temp default constructor
+	Texture();
 	Texture(std::string const& path);
 	Texture(unsigned int width, unsigned int height);
+
+	// For Font Glyphs
+	Texture(unsigned int width, unsigned int height, const void* data);
+
 	~Texture();
 
 	unsigned int GetWidth() const;

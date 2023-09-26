@@ -347,7 +347,7 @@ namespace Collision{
     void CollisionSystem::Init() {
         gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
-        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y)) };
+        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)))};
     }
 
     void CollisionSystem::Update(float dt) {
