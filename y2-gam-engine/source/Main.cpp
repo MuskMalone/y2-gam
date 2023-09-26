@@ -179,9 +179,6 @@ int main()
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
-		//Renderer::ClearColor();
-		//Renderer::ClearDepth();
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
@@ -204,9 +201,8 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 0.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Lato", "Hello World in Lato", -100.f, 50.f, 0.2f, glm::vec3(1.f, 1.f, 0.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, -50.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
 		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
 		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
 		Image::FontRenderer::RenderText("Lato", fpsCounter,

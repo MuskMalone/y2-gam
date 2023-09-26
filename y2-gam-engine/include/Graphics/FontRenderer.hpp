@@ -49,7 +49,7 @@ namespace Image {
   };
 
   struct FaceObject {
-    FT_Face face;
+    FT_Face face{};
     std::shared_ptr<VertexArray> vao;
     std::shared_ptr<VertexBuffer> vbo;
     std::shared_ptr<ElementBuffer> ebo;

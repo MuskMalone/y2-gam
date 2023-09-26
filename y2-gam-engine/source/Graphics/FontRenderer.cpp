@@ -241,6 +241,7 @@ namespace Image {
       currChar.vMin = static_cast<float>(y) / imageHeight;
       currChar.uMax = currChar.uMin + static_cast<float>(widths[ch]) / imageWidth;
       currChar.vMax = currChar.vMin + static_cast<float>(heights[ch]) / imageHeight;
+      
 
       (sCharacters[name])[ch] = currChar;
     }
@@ -357,14 +358,17 @@ namespace Image {
 
     float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
     float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
-    //OrthoCamera cam(-worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
+    //OrthoCamera cam(16/9, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
     
-    //auto& cam = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
-    OrthoCamera cam(16.f / 9.f, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
+    auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+    glm::mat4 projection{ cam.GetProjMtx() };
+    glm::mat4 flipY{ glm::mat4(1.0f) };
+    flipY[1][1] = -1.0f;
+    projection = projection * flipY;
 
     sShaderPgm->Use();
     sShaderPgm->SetUniform("uTextColor", color.x, color.y, color.z);
-    sShaderPgm->SetUniform("uProjection", cam.GetViewProjMtx());
+    sShaderPgm->SetUniform("uProjection", projection);
     currFace.vao->Bind();
    
     glEnable(GL_BLEND);
@@ -409,8 +413,11 @@ namespace Image {
       static_cast<unsigned int>(vertices.size() * sizeof(float)));
     currFace.ebo->Bind();
     size_t eboSizePerChar{ 6 };
+
+    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Bind();
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(eboSizePerChar * text.length()), 
       GL_UNSIGNED_INT, NULL);
+    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Unbind();
 
     glEnable(GL_DEPTH_TEST);
     //glDisable(GL_BLEND);
