@@ -34,6 +34,7 @@
 #include "Audio/Sound.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
+#include <functional>
 
 
 namespace {
@@ -190,7 +191,7 @@ int main()
 
 		windowManager->ProcessEvents();
 		imguiSystem->Update(windowManager->GetContext());
-		StateManager::GetInstance()->Update(dt);
+		frameController->AccumulateDt();
 		StateManager::GetInstance()->Render(dt);
 
 		windowManager->Update();
@@ -209,9 +210,9 @@ int main()
 		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 0.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
 		Image::FontRenderer::RenderText("Lato", "Hello World in Lato", -100.f, 50.f, 0.2f, glm::vec3(1.f, 1.f, 0.f));
 		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, -50.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
-		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
+		std::string mFpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
 		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
-		Image::FontRenderer::RenderText("Lato", fpsCounter,
+		Image::FontRenderer::RenderText("Lato", mFpsCounter,
 			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 		Image::FontRenderer::RenderText("Lato", entityCounter,
 			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));

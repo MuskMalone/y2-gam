@@ -4,6 +4,7 @@
 #include <memory>
 #include <queue>
 #include <chrono>
+#include <functional>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -14,6 +15,8 @@ public:
 	void Init(int fps, bool vsync);
 	void StartFrameTime();
 	float EndFrameTime();
+
+	void AccumulateDt();
 
 	void StartSubFrameTime();
 	float EndSubFrameTime();
@@ -29,6 +32,7 @@ private:
 	float mDeltaTime{};
 	float mFps{};
 	float mTargetFps{};
-	size_t fpsCounter{ 0 };
+	size_t mFpsCounter{ 0 };
+	float mAccumulator{};
 	std::queue<std::chrono::steady_clock::time_point> subDelta{};
 };
