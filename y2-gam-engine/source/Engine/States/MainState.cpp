@@ -4,37 +4,33 @@
 #include <Core/Serialization/SerializationManager.hpp>
 
 void MainState::Init() {
-	using namespace Physics;
-	using namespace Collision;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-	mPhysicsSystem = coordinator->GetSystem<PhysicsSystem>();
-	mCollisionSystem = coordinator->GetSystem<CollisionSystem>();
-	mEditorControlSystem = coordinator->GetSystem<EditorControlSystem>();
-	mRenderSystem = coordinator->GetSystem<RenderSystem>();
-	mAnimationSystem = coordinator->GetSystem<AnimationSystem>();
-	mEntitySerializationSystem = coordinator->GetSystem<Serializer::EntitySerializationSystem>();
-
 
 	using namespace Serializer;
-	mEntitySerializationSystem->LoadEntities("LevelData");
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities("LevelData");
 }
 void MainState::Exit() {
 	using namespace Serializer;
-	mEntitySerializationSystem->FlushEntities("LevelData");
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities("LevelData");
 }
 
 void MainState::Update(float dt) {
-	mEditorControlSystem->Update(dt);
+	using namespace Physics;
+	using namespace Collision;
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 
-	mPhysicsSystem->PreCollisionUpdate(dt);
+	coordinator->GetSystem<EditorControlSystem>()->Update(dt);
 
-	mCollisionSystem->Update(dt);
+	coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(dt);
 
-	mPhysicsSystem->PostCollisionUpdate(dt);
+	coordinator->GetSystem<CollisionSystem>()->Update(dt);
 
-	mAnimationSystem->Update(dt);
+	coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(dt);
 
-	mRenderSystem->Update(dt);
+	coordinator->GetSystem<AnimationSystem>()->Update(dt);
+
+	coordinator->GetSystem<RenderSystem>()->Update(dt);
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
