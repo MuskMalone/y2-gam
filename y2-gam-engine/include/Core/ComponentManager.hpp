@@ -8,8 +8,6 @@
 #include <iostream>
 #include <type_traits>
 
-
-
 class ComponentManager
 {
 public:

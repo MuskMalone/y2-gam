@@ -37,7 +37,6 @@ LoggingSystem::~LoggingSystem() {
 //Log
 //%L: Log Level, %M: user input message, %D: Date time, %F function name
 //for infunctname: write __FUNCTION__ or __LINE__
-
 void LoggingSystem::Log(LogLevel log_level, std::string message, const std::string& infunctname) {
 
 	//std::cout << "LOG ENTERED" << std::endl;

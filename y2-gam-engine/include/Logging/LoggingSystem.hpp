@@ -1,5 +1,5 @@
-#pragma once
 
+#pragma once
 
 #include <sstream>
 #include <vector>
@@ -18,7 +18,7 @@
 
 #define LOGGINGSYSTEM
 //default m_traceFlag true: enable stacktracing false: disable stacktracing
-#define DEFAULT_TRACE false
+#define DEFAULT_TRACE true
 #define DEFAULT_DEBUG false
 #define DEFAULT_LOGLEVEL TRACE_LEVEL
 #define DEFAULT_STACKTRACENUM 5
@@ -145,5 +145,53 @@ public:
 	}
 };
 
+
+//template <typename T>
+/*void LogTrace(std::string message, int numStacktrace);
+
+template <typename T>
+
+
+template <typename T>
+void LogInfo(const T& message);
+
+template <typename T>
+void LogError(const T& message);
+
+template <typename T>
+void LogWarning(const T& message);
+
+template <typename T>
+void LogCritical(const T& message);*/
+
 #endif //LOGGINGSYSTEM
+
+//test
+int Sum(int a, int b);
+
+int Multiply(int a, int b);
+
+//#ifndef LOGGINGQUEUE
+//
+//#define LOGGINGQUEUE
+//
+//	class LoggingQueue {
+//	private:
+//		std::queue<std::string> m_logQueue;
+//		std::mutex m_logQueueMutex;
+//	public:
+//		//default constructor
+//		LoggingQueue() = default;
+//		//cannot be copied or assigned
+//		LoggingQueue(const LoggingQueue&) = delete;
+//		LoggingQueue& operator=(const LoggingQueue&) = delete;
+//		//function to push log messages from main thread into the queue
+//		
+//		//function to pop messages into logging thread
+//
+//
+//
+//};
+//
+//#endif //LOGGINGQUEUE
 

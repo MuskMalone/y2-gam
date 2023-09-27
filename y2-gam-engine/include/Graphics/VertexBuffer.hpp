@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp" 
 
 enum class AttributeType {
 	NONE = 0,
@@ -37,7 +35,6 @@ static unsigned int AttributeTypeSize(AttributeType type)
 	}
 
 	std::cout << "ERROR: Unknown AttributeType!\n";
-	//LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Unknown AttributeType!" + '\n', __FUNCTION__);
 	//@TODO exit program or assert
 	return 0;
 }
@@ -70,7 +67,6 @@ struct BufferAttribute {
 		}
 
 		std::cout << "ERROR: Unknown AttributeType!\n";
-		//LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Unknown AttributeType!" + '\n', __FUNCTION__);
 		//@TODO EXIT
 		return 0;
 	}
