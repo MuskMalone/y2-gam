@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\par        Logging System
+\file       LoggingSystem.cpp
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Sep 27, 2023
+
+\brief      This log system is a debugging tool that enables logs to file or console 
+			with 6 levels of logging, two of which stacktracing can be enabled.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include <queue>
@@ -11,7 +28,13 @@
 #include <chrono>
 #include <ctime> 
 
-// Constructor
+
+/*  _________________________________________________________________________ */
+  /*! LoggingSystem()
+
+  default constructor, initializes default values of flags and etc opens
+  config file to overwrite hardcoded initializations and closes
+  */
 LoggingSystem::LoggingSystem() {
 
 	Initialization();
@@ -28,22 +51,37 @@ LoggingSystem::LoggingSystem() {
 		m_logConfigFile.close();
 	}
 }
-// Destructor
-LoggingSystem::~LoggingSystem() {
-	/*Flush();
-	m_logFile.close();*/
-}
 
-//Log
+/*  _________________________________________________________________________ */
+  /*! ~LoggingSystem()
+	
+  Destructor
+  */
+LoggingSystem::~LoggingSystem() {}
+
+/*  _________________________________________________________________________ */
+  /*! Log
+
+  @param logLevel
+  The type of log(one of 6 from enum LogLevel)
+
+  @param message
+  message specifying info about the log
+
+  @return void
+
+  call rhis to log, formats the log message and pushes to appropriate buffer
+  based on stacktrace enabled flags
+  */
 //%L: Log Level, %M: user input message, %D: Date time, %F function name
-//for infunctname: write __FUNCTION__ or __LINE__
+//for infunctname(%F): write __FUNCTION__ or __LINE__
 void LoggingSystem::Log(LogLevel log_level, std::string message, const std::string& infunctname) {
 
-	//std::cout << "LOG ENTERED" << std::endl;
+	//only print logs with levels >= m_level
 	if (log_level < m_level) {
 		return;
 	}
-
+	//creating log message
 	std::string levelMsg;
 
 	switch (log_level) {
@@ -67,7 +105,7 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 		break;
 	}
 
-
+	//date time handling
 	std::time_t currentTime;
 	std::tm timeInfo;
 	std::time(&currentTime);
@@ -76,9 +114,8 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 	std::strftime(timeBuffer, sizeof(timeBuffer), m_formatDate.c_str(), &timeInfo);
 
 	//Info += "[" + LevelMsg + "] " + message + " " + timeBuffer + "\n";
-	//std::cout << Info << '\n';
 
-	//rearrange_format("[%L]: %M %T")
+	//rearrange_format eg("[%L]: %M %D %F")
 	size_t order_size = m_orderStr.size();
 	for (size_t i = 0; i < order_size; i++) {
 		if (m_orderStr[i] == '%') {
@@ -115,9 +152,10 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 	}
 
 	m_info += '\n';
+
 	//Backtracing enabled queue
 	if ((log_level == TRACE_LEVEL && m_traceFlag == true) || (log_level == DEBUG_LEVEL && m_debugFlag == true)) {
-		//std::cout << "ENTERED BACKTRACE ENABLED PUSH" << '\n';
+		
 		backward::TraceResolver resolvetrace;
 		backward::StackTrace st;
 		// Load the last num frames
@@ -130,14 +168,15 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 		// Add the stack trace to info
 		m_info += '\n';
 		m_info += oss.str();
-		//std::cout << "M INFO IN TRACE: " << m_info << '\n';
+		//when dealing with buffer2, lock2
 		std::unique_lock<std::mutex> lock2(m_buffer2Mutex);
+		//push m_info into buffer2
 		m_buffer2.push(m_info);
+		//notify condition variable queuepopbacktrace
 		m_cq2.notify_one();
 		m_info.clear();
 	}//Backtracing disabled queue
 	else {
-		//std::cout << "ENTERED BACKTRACE DISABLED PUSH" << '\n';
 		//push string Info into buffer_1
 		std::unique_lock<std::mutex> lock(m_buffer1Mutex);
 		//and m_write1 == false
@@ -145,30 +184,46 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 		m_cq1.notify_one();
 		//clears string that has contents of this one log
 		m_info.clear();
-		//std::cout << "QUEUESIZE AT END OF LOG: " << m_buffer1.size() << '\n';
 	}
-
-
-
-
 }
 
 //THESE ONLY WORK FOR QUEUE 1 THREAD 1
-// --------------------------------------------------------------
-//for debug purposes get queue size
+/*  _________________________________________________________________________ */
+  /*! GetQueueSize()
+
+  @return size_t
+
+  For debugging. Gets queue size of buffer1(buffer without backtrace)
+  */
 size_t LoggingSystem::GetQueueSize() {
 	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
 	return m_buffer1.size();
 }
 
-//this function returns bool on whether the queue buffer is empty
+/*  _________________________________________________________________________ */
+  /*! IsQueueEmpty
+
+  @return bool
+
+  For debugging. True if buffer1 is empty.
+  */
 bool LoggingSystem::IsQueueEmpty() {
 	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
 	return m_buffer1.empty();
 }
 //---------------------------------------------------------------
-// 
-//this function safely locks and waits for m_buffer1 to not be empty and for condition variable to be notified, pops m_buffer1
+
+/*  _________________________________________________________________________ */
+  /*! QueuePop
+
+  @param &loggingThreadActive
+  atomic global variable keeping track of life of thread 1
+
+  @return std::string
+
+  this function safely locks and waits for m_buffer1 to not be empty and
+  for condition variable to be notified, pops m_buffer1
+  */
 std::string LoggingSystem::QueuePop(std::atomic<bool>& loggingThreadActive)
 {
 	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
@@ -184,7 +239,17 @@ std::string LoggingSystem::QueuePop(std::atomic<bool>& loggingThreadActive)
 		return "";
 	}
 }
+/*  _________________________________________________________________________ */
+  /*! QueuePopBacktrace
 
+  @param &loggingThreadBacktraceActive
+  atomic global variable keeping track of life of thread 2
+
+  @return std::string
+
+  this function safely locks and waits for m_buffer2 to not be empty and
+  for condition variable to be notified, pops m_buffer2
+  */
 std::string LoggingSystem::QueuePopBacktrace(std::atomic<bool>& loggingThreadBacktraceActive) {
 	std::unique_lock<std::mutex> lock2(m_buffer2Mutex);
 	//sleep until condition variable m_cq is notified and queue is not empty
@@ -201,6 +266,17 @@ std::string LoggingSystem::QueuePopBacktrace(std::atomic<bool>& loggingThreadBac
 		return "";
 	}
 }
+/*  _________________________________________________________________________ */
+  /*! LoggingThread
+
+  @param &loggingThreadActive
+  atomic global variable keeping track of life of thread
+
+  @return void
+
+  Corresponding function to thread 1, opens logfile and while thread is active,
+  write buffer1 contents to either file or console
+  */
 void LoggingSystem::LoggingThread(std::atomic<bool>& loggingThreadActive) {
 	//opening LogFile to write logs to
 	m_logFile.open("logFile.txt", std::ios::out | std::ios::app);
@@ -223,7 +299,17 @@ void LoggingSystem::LoggingThread(std::atomic<bool>& loggingThreadActive) {
 	m_logFile.close();
 
 }
+/*  _________________________________________________________________________ */
+  /*! LoggingThreadBacktrace
 
+  @param &loggingThreadActive
+  atomic global variable keeping track of life of thread
+
+  @return void
+
+  Corresponding function to thread 2, opens logBacktracefile and while thread is active,
+  write buffer2 contents to either file or console
+  */
 void LoggingSystem::LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBacktraceActive) {
 	//opening LogFile to write logs to
 	m_logBacktraceFile.open("logBacktraceFile.txt", std::ios::out | std::ios::app);
@@ -247,28 +333,29 @@ void LoggingSystem::LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBackt
 }
 //functions to do with logging queue
 
-//In a string format input L, D, M with % in front
-//in whichever order with any additional characters or space to format the log (eg "[%D : %L, %M]")
+/*  _________________________________________________________________________ */
+  /*! RearrangeOrder
+
+  @param order
+  //In a string format input L, D, M, Fith % in front
+
+  @return void
+
+  sets private variable m_orderStr to order given
+  in whichever order with any additional characters or space to format the log
+  (eg "[%D : %L, %M %F]")
+  */
 void LoggingSystem::RearrangeOrder(const std::string order) {
-	//warning level '%L', message '%M', time '%T'
 	m_orderStr = order;
-
 }
 
-//format for date and time follows strftime identifiers (eg D, "%F %T")
-void LoggingSystem::SetFormat(char const set_type, const std::string format) {
-	switch (set_type) {
-	case 'D':
-		m_formatDate = format;
-		break;
-	case 'L':
-		m_formatLevel = format;
-		break;
-	}
-}
+/*  _________________________________________________________________________ */
+  /*! Initialization
 
+  @return void
 
-
+  default initializations
+  */
 void LoggingSystem::Initialization() {
 	//INITIALISATION
 	//default order and format
@@ -286,6 +373,13 @@ void LoggingSystem::Initialization() {
 
 }
 
+/*  _________________________________________________________________________ */
+  /*! InitializationFromConfig
+
+  @return void
+
+  Reads from Config file and processes it to set initializations for flags and order
+  */
 void LoggingSystem::InitializationFromConfig()
 {
 	std::string temp;
@@ -339,17 +433,11 @@ void LoggingSystem::InitializationFromConfig()
 			}
 			else if (temp2 == "LOGORDER")
 			{
-				//finding '<'
 				start = temp.find_first_of("<", end);
-				//start = end + 1;
 				end = temp.find_first_of(">", start);
-				//std::cout << "Start pos: " << start << " end pos: " << end << '\n';
-				//std::cout << "end: " << temp[end] << '\n';
-				//std::cout << "end-1 " << temp[end - 1] << '\n';
 				temp2 = temp.substr(start + 1, end - start - 1);
 				//std::cout << "OrderStr: " << temp2 << '\n';
 				m_orderStr = temp2;
-
 			}
 			else
 			{
@@ -363,7 +451,18 @@ void LoggingSystem::InitializationFromConfig()
 	}
 }
 
-//prints stacktrace manually to std::cout
+/*  _________________________________________________________________________ */
+  /*! GetStacktrace
+
+  @param num
+  number of stacktrace to print
+
+  @param skipFirstNumFrames
+  number of stacktrace to skip from the start
+  @return void
+
+  prints stacktrace manually to std::cout
+  */
 void LoggingSystem::GetStacktrace(int num, int skipFirstNumFrames) {
 	backward::TraceResolver resolvetrace;
 	backward::StackTrace st;
@@ -371,9 +470,6 @@ void LoggingSystem::GetStacktrace(int num, int skipFirstNumFrames) {
 	st.load_here(num);
 	//skip first number of frames
 	st.skip_n_firsts(skipFirstNumFrames);
-	// Create a stream to capture the stack trace
-	//std::ostringstream stream;
-	//prints to std::cout
 	backward::Printer printer;
 	printer.print(st, std::cout);
 }

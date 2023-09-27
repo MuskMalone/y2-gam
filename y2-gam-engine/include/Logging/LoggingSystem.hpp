@@ -1,6 +1,21 @@
 
 #pragma once
+/******************************************************************************/
+/*!
+\par        Logging System
+\file       LoggingSystem.hpp
 
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Sep 27, 2023
+
+\brief      This log system is a debugging tool that enables logs to file or console
+			with 6 levels of logging, two of which stacktracing can be enabled.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include <sstream>
 #include <vector>
 #include <cstdlib>
@@ -118,8 +133,6 @@ public:
 	void Log(LogLevel log_level, std::string message, const std::string& infunctname);
 	//functions to do with .log(LogLevel, message)
 	void RearrangeOrder(const std::string order);
-	//format for date and time follows strftime identifiers
-	void SetFormat(char const set_type, const std::string format);
 	void Initialization();
 	void InitializationFromConfig();
 	void GetStacktrace(int num, int skipFirstNumFrames);

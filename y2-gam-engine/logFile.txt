@@ -1,0 +1,32 @@
+[INFO]: Successful FMOD System Creation 2023-09-28 00:25:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-28 00:25:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Framebuffer is complete! 2023-09-28 00:25:16 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-28 00:25:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-28 00:25:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-28 00:25:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: init Freetype Library 2023-09-28 00:25:16 FN: Image::FontRenderer::Init
+
+[INFO]: Successful init FreeType Face Arial
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100
+ 2023-09-28 00:25:16 FN: Image::FontRenderer::SetFontSize
+
