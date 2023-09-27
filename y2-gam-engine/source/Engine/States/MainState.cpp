@@ -5,38 +5,35 @@
 #include <Core/FrameRateController.hpp>
 
 void MainState::Init() {
-	using namespace Physics;
-	using namespace Collision;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-	mPhysicsSystem = coordinator->GetSystem<PhysicsSystem>();
-	mCollisionSystem = coordinator->GetSystem<CollisionSystem>();
-	mEditorControlSystem = coordinator->GetSystem<EditorControlSystem>();
-	mRenderSystem = coordinator->GetSystem<RenderSystem>();
-	mAnimationSystem = coordinator->GetSystem<AnimationSystem>();
-	mEntitySerializationSystem = coordinator->GetSystem<Serializer::EntitySerializationSystem>();
-
 
 	using namespace Serializer;
-	mEntitySerializationSystem->LoadEntities("LevelData");
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities("LevelData");
 }
 void MainState::Exit() {
 	using namespace Serializer;
-	mEntitySerializationSystem->FlushEntities("LevelData");
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities("LevelData");
 }
 
 void MainState::Update(float dt) {
-	mEditorControlSystem->Update(dt);
+	using namespace Physics;
+	using namespace Collision;
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
+	coordinator->GetSystem<EditorControlSystem>()->Update(dt);
 
-	mPhysicsSystem->PreCollisionUpdate(FrameRateController::GetInstance()->GetTargetDT());
+	coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
 
-	mCollisionSystem->Update(FrameRateController::GetInstance()->GetTargetDT());
+	coordinator->GetSystem<CollisionSystem>()->Update(tdt);
 
-	mPhysicsSystem->PostCollisionUpdate(FrameRateController::GetInstance()->GetTargetDT());
+	coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
 
+	coordinator->GetSystem<AnimationSystem>()->Update(dt);
+
+	coordinator->GetSystem<RenderSystem>()->Update(dt);
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
-	mAnimationSystem->Update(dt);
 
-	mRenderSystem->Update(dt);
 }

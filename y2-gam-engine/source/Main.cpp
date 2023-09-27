@@ -51,16 +51,15 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 int main()
 {
 	// Enable run-time memory check for debug builds.
-//#if defined(DEBUG) | defined(_DEBUG)
+#if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//#endif
+#endif
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 	// Mono Testing
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
 	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
 
-	// Audio Testing
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -116,6 +115,16 @@ int main()
 
 	renderSystem->Init();
 
+	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Animation>());
+		coordinator->SetSystemSignature<AnimationSystem>(signature);
+	}
+
+	animationSystem->Init();
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -134,15 +143,6 @@ int main()
 
 	inputSystem->Init();
 
-	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Sprite>());
-		signature.set(coordinator->GetComponentType<Animation>());
-		coordinator->SetSystemSignature<AnimationSystem>(signature);
-	}
-
-	animationSystem->Init();
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -163,7 +163,7 @@ int main()
 
 	entitySerializationSystem->Init();
 
-	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
+	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
 	// Font Testing
@@ -180,11 +180,9 @@ int main()
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
+	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
-		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
-		//Renderer::ClearColor();
-		//Renderer::ClearDepth();
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
@@ -193,6 +191,18 @@ int main()
 		imguiSystem->Update(windowManager->GetContext());
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+
+		//editorControlSystem->Update(dt);
+
+		//physicsSystem->PreCollisionUpdate(dt);
+
+		//collisionSystem->Update(dt);
+
+		//physicsSystem->PostCollisionUpdate(dt);
+
+		//animationSystem->Update(dt);
+
+		//renderSystem->Update(dt);
 
 		windowManager->Update();
 
@@ -207,18 +217,16 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 0.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Lato", "Hello World in Lato", -100.f, 50.f, 0.2f, glm::vec3(1.f, 1.f, 0.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, -50.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
-		std::string mFpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
 		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
-		Image::FontRenderer::RenderText("Lato", mFpsCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		Image::FontRenderer::RenderText("Lato", fpsCounter,
+			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 		Image::FontRenderer::RenderText("Lato", entityCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
-
-	StateManager::GetInstance()->Clear();
+	//StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
@@ -226,6 +234,5 @@ int main()
 	Image::FontRenderer::Exit();
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::Exit();
-	_CrtDumpMemoryLeaks();
 	return 0;
 }

@@ -332,7 +332,7 @@ void Renderer::ClearDepth() {
 void Renderer::DrawIndexed(std::shared_ptr<VertexArray> const& vao, unsigned int idxCount) {
 	vao->Bind();
 	unsigned int count = idxCount ? idxCount : vao->GetElementBuffer()->GetCount();
-	glDrawElements(GL_TRIANGLES, vao->GetElementBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::DrawLineArray(std::shared_ptr<VertexArray> const& vao, unsigned int vtxCount) {
