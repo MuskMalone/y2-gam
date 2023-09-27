@@ -26,7 +26,9 @@
 #ifdef __EMSCRIPTEN__
 #include "../libs/emscripten/emscripten_mainloop_stub.h"
 #endif
-
+namespace {
+    std::shared_ptr<Coordinator> gCoordinator{};
+}
     static void glfw_error_callback(int error, const char* description)
     {
         fprintf(stderr, "GLFW Error %d: %s\n", error, description);
@@ -34,8 +36,9 @@
 
     // Main code
     
-    void ImGuiSystem::Init(GLFWwindow* window/*int, char***/)
-    {
+    void ImGuiSystem::Init(GLFWwindow* window/*int, char***/){
+        gCoordinator = Coordinator::GetInstance();
+        ::gCoordinator->AddEventListener(METHOD_LISTENER(Events::System::ENTITY, ImGuiSystem::ImguiEventListener));
         glfwSetErrorCallback(glfw_error_callback);
         if (!glfwInit())
             return;
@@ -164,4 +167,11 @@
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
+    }
+
+    void ImGuiSystem::ImguiEventListener(Event& event){
+        //every item added to the ecs will be marked as an entity to serialize
+        Entity e{ event.GetParam<Entity>(Events::System::Entity::CREATE) };
+        if (event.GetFail()) return;
+        gCoordinator->AddComponent<ImguiComponent>(e, {});
     }

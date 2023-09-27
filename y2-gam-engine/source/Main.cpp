@@ -83,6 +83,8 @@ int main()
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
+
+
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
@@ -113,6 +115,14 @@ int main()
 
 	renderSystem->Init();
 
+	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
+		coordinator->SetSystemSignature<ImGuiSystem>(signature);
+	}
+	imguiSystem->Init(windowManager->GetContext());
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -140,16 +150,7 @@ int main()
 	}
 
 	animationSystem->Init();
-	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
-	{
-		Signature signature;
-		//signature.flip();
-		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Sprite>());
-		//signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<ImGuiSystem>(signature);
-	}
-	imguiSystem->Init(windowManager->GetContext());
+
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -182,12 +183,13 @@ int main()
 		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
 		//Renderer::ClearColor();
 		//Renderer::ClearDepth();
+		imguiSystem->Update(windowManager->GetContext());
+
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-		imguiSystem->Update(windowManager->GetContext());
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 

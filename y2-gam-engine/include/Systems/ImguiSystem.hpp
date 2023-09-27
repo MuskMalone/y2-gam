@@ -6,6 +6,7 @@
 //#include "Math/MathUtils.h"
 #include "Math/Vec3.hpp"
 #include "Core/System.hpp"
+#include "Core/EventTypes.hpp"
 static void glfw_error_callback(int error, const char* description);
 class ImGuiSystem : public System
 {
@@ -14,5 +15,6 @@ public:
     void Init(GLFWwindow* window);
     void Update(GLFWwindow* window);
     void Destroy();
-
+private:
+    void ImguiEventListener(Event& event);
 };
