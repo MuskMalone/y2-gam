@@ -254,6 +254,10 @@ namespace Image {
     bitmapTex.reset(new Texture(imageWidth, imageHeight,
       static_cast<const void*>(buffer)));
 
+    delete[] buffer;
+    delete[] widths;
+    delete[] heights;
+
     sBitmap[name] = bitmapTex;
     CreateGLObjects(name);
   }
