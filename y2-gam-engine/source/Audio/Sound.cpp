@@ -19,6 +19,9 @@
 #include "../include/pch.h"
 #include "Audio/Sound.hpp"
 
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
+
 namespace Image {
 
   FMOD::System* SoundManager::sSystem{ nullptr };
@@ -39,21 +42,27 @@ namespace Image {
     result = FMOD::System_Create(&sSystem);              // Create the main system object.
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
       return false;
     }
     else {
-      std::cout << "Successful FMOD System Creation" << "\n";
+      //std::cout << "Successful FMOD System Creation" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Creation" + '\n', __FUNCTION__);
     }
 
     result = sSystem->init(512, FMOD_INIT_NORMAL, 0);    // Initialize FMOD.
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
       return false;
     }
     else {
-      std::cout << "Successful FMOD System Initialization" << "\n";
+      //std::cout << "Successful FMOD System Initialization" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Initialization" + '\n', __FUNCTION__);
     }
 
     return true;
@@ -72,7 +81,9 @@ namespace Image {
     result = sSystem->update();
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
   }
 
@@ -89,10 +100,13 @@ namespace Image {
     result = sSystem->release();
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
-      std::cout << "Successful FMOD System Shutdown" << "\n";
+      //std::cout << "Successful FMOD System Shutdown" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Shutdown" + '\n', __FUNCTION__);
     }
   }
 
@@ -111,7 +125,9 @@ namespace Image {
 
     result = sSystem->createChannelGroup(NULL, &sg);
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Successful FMOD Channel Group Creation" << "\n";
@@ -139,7 +155,9 @@ namespace Image {
 
     result = sSystem->createSound(filepath, FMOD_LOOP_NORMAL, NULL, &ret);
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Successfully loaded sound file " << filepath << "\n";
@@ -168,7 +186,9 @@ namespace Image {
 
     result = sSystem->createSound(filepath, FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, NULL, &ret);
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Successfully loaded music file " << filepath << "\n";
@@ -201,7 +221,9 @@ namespace Image {
     result = audio->setLoopCount(loops);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Successfully set loop count to " << loops << "\n";
@@ -210,7 +232,9 @@ namespace Image {
     result = sSystem->playSound(audio, group, false, NULL);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Now playing" << "\n";
@@ -232,7 +256,9 @@ namespace Image {
     result = group->setPaused(false);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Resume Group" << "\n";
@@ -255,7 +281,9 @@ namespace Image {
     result = group->stop();
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Group Stopped" << "\n";
@@ -277,7 +305,9 @@ namespace Image {
     result = group->setPaused(true);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+        std::string str(FMOD_ErrorString(result));
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Paused Group" << "\n";
@@ -303,7 +333,9 @@ namespace Image {
     result = group->setVolume(volume);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Set group volume to " << volume << "\n";
@@ -330,7 +362,9 @@ namespace Image {
     result = group->setPitch(pitch);
 
     if (result != FMOD_OK) {
-      std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str + '\n', __FUNCTION__);
     }
     else {
       std::cout << "Set group pitch to " << pitch << "\n";
