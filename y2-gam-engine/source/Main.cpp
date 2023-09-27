@@ -192,8 +192,6 @@ int main()
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 
-		//editorControlSystem->Update(dt);
-
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);

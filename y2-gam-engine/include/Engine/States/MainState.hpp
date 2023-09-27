@@ -15,6 +15,8 @@ public:
 	void Init() override;
 	void Exit() override;
 
-	void Update(float dt) override;
+	void Update(float dt) override; 
 	void Render(float dt) override;
+private:
+	bool mIsStep{false};
 };
