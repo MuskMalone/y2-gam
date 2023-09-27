@@ -1,126 +1,24 @@
-[INFO]: init Freetype Library 2023-09-27 18:08:38 FN: Image::FontRenderer::Init
+[INFO]: Successful FMOD System Creation 2023-09-27 20:05:38 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-27 20:05:38 FN: Image::SoundManager::AudioInit
+
+[INFO]: init Freetype Library 2023-09-27 20:05:39 FN: Image::FontRenderer::Init
 
 [INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::LoadFont
 
 [INFO]: Successful Set Font Size to 100
- 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::SetFontSize
 
 [INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::LoadFont
 
 [INFO]: Successful Set Font Size to 100
- 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::SetFontSize
 
 [INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::LoadFont
 
 [INFO]: Successful Set Font Size to 100
- 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: init Freetype Library 2023-09-27 18:24:22 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:24:22 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:24:22 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:24:22 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:24:22 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:24:23 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:24:23 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: init Freetype Library 2023-09-27 18:29:38 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:29:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:29:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:29:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:29:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:29:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:29:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: init Freetype Library 2023-09-27 18:35:40 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:35:40 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:35:40 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:35:40 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:35:40 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:35:40 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:35:40 FN: Image::FontRenderer::SetFontSize
-
-[INFO]:  FMOD System Creation 2023-09-27 18:41:37 FN: Image::SoundManager::AudioInit
-
-[INFO]: init Freetype Library 2023-09-27 18:41:38 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:41:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:41:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:41:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:41:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:41:38 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:41:38 FN: Image::FontRenderer::SetFontSize
-
-[INFO]:  FMOD System Creation 2023-09-27 18:51:07 FN: Image::SoundManager::AudioInit
-
-[INFO]:  FMOD System Initialization 2023-09-27 18:51:07 FN: Image::SoundManager::AudioInit
-
-[INFO]: init Freetype Library 2023-09-27 18:51:08 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-27 18:51:08 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:51:08 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-27 18:51:08 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:51:08 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-27 18:51:08 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-27 18:51:08 FN: Image::FontRenderer::SetFontSize
+ 2023-09-27 20:05:39 FN: Image::FontRenderer::SetFontSize
 
