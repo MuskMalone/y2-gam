@@ -23,6 +23,9 @@
 #include "Core/Coordinator.hpp"
 #include "Systems/RenderSystem.hpp"
 
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp" 
+
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -46,11 +49,13 @@ namespace Image {
   */
   void FontRenderer::Init() {
     if (FT_Init_FreeType(&sLib)) {
-      std::cout << "Could not init FreeType Library" << "\n";
+      //std::cout << "Could not init FreeType Library" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Could not init FreeType Library", __FUNCTION__);
       return;
     }
     else {
-      std::cout << "Successful init FreeType Library" << "\n";
+      //std::cout << "Successful init FreeType Library" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful init FreeType Library", __FUNCTION__);
     }
 
     //Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
@@ -94,11 +99,13 @@ namespace Image {
     FT_Error result{ FT_New_Face(sLib, filepath, 0, &addFace) };
 
     if (result) {
-      std::cout << "Failed to add font face for " << name << "\n";
+      //std::cout << "Failed to add font face for " << name << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Failed to add font face for " + name + '\n', __FUNCTION__);
       return;
     }
     else {
-      std::cout << "Successful init FreeType Face " << name << "\n";
+      //std::cout << "Successful init FreeType Face " << name << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful init FreeType Face " + name + '\n', __FUNCTION__);
     }
 
     fo.face = addFace;
@@ -144,18 +151,21 @@ namespace Image {
   */
   void FontRenderer::SetFontSize(std::string name, int fontSize) {
     if (sFaces.find(name) == sFaces.end()) {
-      std::cout << "Font " << name << " does not exist" << "\n";
+      //std::cout << "Font " << name << " does not exist" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + name + " does not exist" + '\n', __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
 
     FT_Error result{ FT_Set_Pixel_Sizes(sFaces[name].face, 0, fontSize) };
 
     if (result) {
-      std::cout << "Failed to Set Font Size for " << name << "\n";
+      //std::cout << "Failed to Set Font Size for " << name << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Failed to Set Font Size for " + name + '\n', __FUNCTION__);
       return;
     }
     else {
-      std::cout << "Successful Set Font Size to " << fontSize << "\n";
+      //std::cout << "Successful Set Font Size to " << fontSize << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful Set Font Size to " + name + '\n', __FUNCTION__);
     }
   }
 
@@ -175,7 +185,8 @@ namespace Image {
   */
   void FontRenderer::GenerateBitmap(std::string name, int fontSize) {
     if (sFaces.find(name) == sFaces.end()) {
-      std::cout << "Font " << name << " does not exist" << "\n";
+      //std::cout << "Font " << name << " does not exist" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + name + " does not exist" + '\n', __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
 
@@ -198,16 +209,17 @@ namespace Image {
     for (int ch{}; ch < MAX_ASCII; ++ch) {
       glyphIndex = FT_Get_Char_Index(currFace, ch);
       error = FT_Load_Glyph(currFace, glyphIndex, FT_LOAD_RENDER);
-
       if (error) {
-        std::cout << "Failed to load Glyph for " << static_cast<char>(ch) <<
-          " with Error code: " << error << "\n";
+        /*std::cout << "Failed to load Glyph for " << static_cast<char>(ch) <<
+          " with Error code: " << error << "\n";*/
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Failed to load Glyph for " + std::to_string(ch) + " with Error code: " + std::to_string(error) + '\n', __FUNCTION__);
         continue;
       }
 
       error = FT_Render_Glyph(currFace->glyph, FT_RENDER_MODE_NORMAL);
       if (error) {
-        std::cout << "Failed to render glyph, Error code: " << error << std::endl;
+        //std::cout << "Failed to render glyph, Error code: " << error << std::endl;
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Failed to render glyph, Error code: " + std::to_string(error) + '\n', __FUNCTION__);
       }
 
       // save the character information
@@ -269,7 +281,8 @@ namespace Image {
   */
   void FontRenderer::CreateGLObjects(std::string name) {
     if (sFaces.find(name) == sFaces.end()) {
-      std::cout << "Font " << name << " does not exist" << "\n";
+      //std::cout << "Font " << name << " does not exist" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + name + " does not exist" + '\n', __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
 
@@ -345,10 +358,11 @@ namespace Image {
   void FontRenderer::RenderText(std::string fontName, std::string text, float xPos, float yPos, 
     float scale, glm::vec3 color) {
     if (sFaces.find(fontName) == sFaces.end()) {
-      std::cout << "Font " << fontName << " does not exist" << "\n";
+      //std::cout << "Font " << fontName << " does not exist" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + fontName + " does not exist" + '\n', __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
-
+   
     // Temporary Fix
     yPos = -yPos;
 

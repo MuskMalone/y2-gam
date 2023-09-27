@@ -3,6 +3,9 @@
 #include <memory>
 #include <Core/Serialization/SerializationManager.hpp>
 
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
+
 void MainState::Init() {
 	using namespace Physics;
 	using namespace Collision;
@@ -13,7 +16,7 @@ void MainState::Init() {
 	mRenderSystem = coordinator->GetSystem<RenderSystem>();
 	mAnimationSystem = coordinator->GetSystem<AnimationSystem>();
 	mEntitySerializationSystem = coordinator->GetSystem<Serializer::EntitySerializationSystem>();
-
+	
 
 	using namespace Serializer;
 	mEntitySerializationSystem->LoadEntities("LevelData");
@@ -36,6 +39,7 @@ void MainState::Update(float dt) {
 
 	mRenderSystem->Update(dt);
 	//mCollisionSystem->Debug(); // for debug
+	
 }
 void MainState::Render(float dt) {
 

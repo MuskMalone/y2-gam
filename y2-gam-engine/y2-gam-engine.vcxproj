@@ -180,6 +180,8 @@
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
+    <ClInclude Include="include\Logging\backward.hpp" />
+    <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
@@ -241,6 +243,8 @@
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
+    <ClCompile Include="source\Logging\backward.cpp" />
+    <ClCompile Include="source\Logging\LoggingSystem.cpp" />
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\Scripting\ScriptClass.cpp" />
     <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
