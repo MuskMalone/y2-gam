@@ -17,15 +17,15 @@ using Vec3 = glm::vec3;
 //	Vec3 operator+(Vec3 const& rhs) const
 //	{
 //		return Vec3(
-//			x + rhs.x,
-//			y + rhs.y,
+//			x + rhs.mData[0],
+//			y + rhs.mData[1],
 //			z + rhs.z);
 //	}
 //
 //	Vec3 operator+=(Vec3 const& rhs)
 //	{
-//		x += rhs.x;
-//		y += rhs.y;
+//		x += rhs.mData[0];
+//		y += rhs.mData[1];
 //		z += rhs.z;
 //
 //		return *this;
@@ -34,15 +34,15 @@ using Vec3 = glm::vec3;
 //	Vec3 operator-(Vec3 const& rhs) const
 //	{
 //		return Vec3(
-//			x - rhs.x,
-//			y - rhs.y,
+//			x - rhs.mData[0],
+//			y - rhs.mData[1],
 //			z - rhs.z);
 //	}
 //
 //	Vec3 operator-=(Vec3 const& rhs)
 //	{
-//		x -= rhs.x;
-//		y -= rhs.y;
+//		x -= rhs.mData[0];
+//		y -= rhs.mData[1];
 //		z -= rhs.z;
 //
 //		return *this;
@@ -51,15 +51,15 @@ using Vec3 = glm::vec3;
 //	Vec3 operator*(Vec3 const& rhs) const
 //	{
 //		return Vec3(
-//			x * rhs.x,
-//			y * rhs.y,
+//			x * rhs.mData[0],
+//			y * rhs.mData[1],
 //			z * rhs.z);
 //	}
 //
 //	Vec3 operator*=(Vec3 const& rhs)
 //	{
-//		x *= rhs.x;
-//		y *= rhs.y;
+//		x *= rhs.mData[0];
+//		y *= rhs.mData[1];
 //		z *= rhs.z;
 //
 //		return *this;

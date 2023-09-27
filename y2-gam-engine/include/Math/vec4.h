@@ -4,7 +4,11 @@
 #include <math.h>
 #include <stdexcept>
 #include <cassert>
+#include "vec3.h"
+#include "vec2.h"
 namespace Image {
+    class Vec2; // forward decl
+    class Vec3; // forward decl
     class Vec4 {
 
     public:
@@ -12,6 +16,17 @@ namespace Image {
         Vec4();
         Vec4(float val);
         Vec4(float x, float y, float z, float w);
+        Vec4(Vec2 const& rhs);
+        Vec4(Vec3 const& rhs);
+        //template <typename vec>
+        //Vec4(vec v) : mData{ v.x,v.y,v.z,v.w } {}
+
+        //template <typename vec>
+        //operator vec() const noexcept {
+        //    vec out{};
+        //    std::memcpy(&out, mData, sizeof(vec) / sizeof(float));
+        //    return out;
+        //}
 
         float length() const;
         float dot(Vec4 const& rhs) const;
@@ -20,6 +35,8 @@ namespace Image {
         //Overloads
         Vec4 operator+(Vec4 const& rhs) const;
         Vec4 operator-(Vec4 const& rhs) const;
+        Vec4 operator+(float val) const;
+        Vec4 operator-(float val) const;
         Vec4 operator*(float val) const;
         Vec4 operator/(float val) const;
         Vec4& operator+=(Vec4 const& rhs);

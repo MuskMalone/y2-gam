@@ -20,16 +20,16 @@ using Vec4 = glm::vec4;
 //	Vec4 operator+(Vec4 const& v) const
 //	{
 //		return Vec4(
-//			x + v.x,
-//			y + v.y,
+//			x + v.mData[0],
+//			y + v.mData[1],
 //			z + v.z,
 //			w + v.w);
 //	}
 //
 //	Vec4 operator+=(Vec4 const& v)
 //	{
-//		x += v.x;
-//		y += v.y;
+//		x += v.mData[0];
+//		y += v.mData[1];
 //		z += v.z;
 //		w += v.w;
 //
@@ -39,16 +39,16 @@ using Vec4 = glm::vec4;
 //	Vec4 operator-(Vec4 const& v) const
 //	{
 //		return Vec4(
-//			x - v.x,
-//			y - v.y,
+//			x - v.mData[0],
+//			y - v.mData[1],
 //			z - v.z,
 //			w - v.w);
 //	}
 //
 //	Vec4 operator-=(Vec4 const& v)
 //	{
-//		x -= v.x;
-//		y -= v.y;
+//		x -= v.mData[0];
+//		y -= v.mData[1];
 //		z -= v.z;
 //		w -= v.w;
 //

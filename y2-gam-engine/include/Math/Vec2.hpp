@@ -19,14 +19,14 @@ inline Vec2 Vector2Cross(float s, Vec2 a) { return Vec2 { -s * a.y, s* a.x }; }
 //	Vec2 operator+(Vec2 const& v)
 //	{
 //		return Vec2(
-//			x + v.x,
-//			y + v.y);
+//			x + v.mData[0],
+//			y + v.mData[1]);
 //	}
 //
 //	Vec2 operator+=(Vec2 const& v)
 //	{
-//		x += v.x;
-//		y += v.y;
+//		x += v.mData[0];
+//		y += v.mData[1];
 //
 //		return *this;
 //	}
@@ -34,14 +34,14 @@ inline Vec2 Vector2Cross(float s, Vec2 a) { return Vec2 { -s * a.y, s* a.x }; }
 //	Vec2 operator-(Vec2 const& v)
 //	{
 //		return Vec2(
-//			x - v.x,
-//			y - v.y);
+//			x - v.mData[0],
+//			y - v.mData[1]);
 //	}
 //
 //	Vec2 operator-=(Vec2 const& v)
 //	{
-//		x -= v.x;
-//		y -= v.y;
+//		x -= v.mData[0];
+//		y -= v.mData[1];
 //
 //		return *this;
 //	}

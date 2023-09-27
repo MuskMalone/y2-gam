@@ -4,3 +4,7 @@ C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-s
 C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
 C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
 C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb

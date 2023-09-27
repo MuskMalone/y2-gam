@@ -1,4 +1,4 @@
-#include "Math\Vec4.h"
+#include "Math/Vec4.h"
 
 namespace Image {
 
@@ -7,6 +7,12 @@ namespace Image {
 	Vec4::Vec4(float val) :mData{val,val,val,val} {}
 
 	Vec4::Vec4(float x, float y, float z, float w) : mData{x,y,z,w} {}
+
+	Vec4::Vec4(Vec2 const& rhs) : mData{ rhs.mData[0],rhs.mData[1],0.f,0.f } {}
+
+	Vec4::Vec4(Vec3 const& rhs) : mData{rhs.mData[0],rhs.mData[1],rhs.mData[2],0.f} {}
+
+
 
 	float Vec4::length() const {
 		return std::sqrt(mData[0] * mData[0] + mData[1] * mData[1] + mData[2] * mData[2] + mData[3] * mData[3]);
@@ -38,6 +44,14 @@ namespace Image {
 
 	Vec4 Vec4::operator-(Vec4 const& rhs) const {
 		return Vec4(mData[0] - rhs.mData[0], mData[1] - rhs.mData[1], mData[2] - rhs.mData[2], mData[3] - rhs.mData[3]);
+	}
+
+	Vec4 Vec4::operator+(float val) const{
+		return Vec4(mData[0] + val, mData[1] + val, mData[2] + val,mData[3]+val);
+	}
+
+	Vec4 Vec4::operator-(float val) const {
+		return Vec4(mData[0] - val, mData[1] - val, mData[2] - val, mData[3] - val);
 	}
 
 	Vec4 Vec4::operator*(float val) const {

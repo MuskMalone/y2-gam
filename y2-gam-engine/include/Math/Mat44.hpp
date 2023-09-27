@@ -48,10 +48,10 @@ using Mat22 = glm::mat2;
 //	Vec4 operator*(Vec4 const& rhs)
 //	{
 //		return Vec4(
-//			(rhs.x * m[0][0]) + (rhs.y * m[0][1]) + (rhs.z * m[0][2]) + (rhs.w * m[0][3]),
-//			(rhs.x * m[1][0]) + (rhs.y * m[1][1]) + (rhs.z * m[1][2]) + (rhs.w * m[1][3]),
-//			(rhs.x * m[2][0]) + (rhs.y * m[2][1]) + (rhs.z * m[2][2]) + (rhs.w * m[2][3]),
-//			(rhs.x * m[3][0]) + (rhs.y * m[3][1]) + (rhs.z * m[3][2]) + (rhs.w * m[3][3]));
+//			(rhs.mData[0] * m[0][0]) + (rhs.mData[1] * m[0][1]) + (rhs.z * m[0][2]) + (rhs.w * m[0][3]),
+//			(rhs.mData[0] * m[1][0]) + (rhs.mData[1] * m[1][1]) + (rhs.z * m[1][2]) + (rhs.w * m[1][3]),
+//			(rhs.mData[0] * m[2][0]) + (rhs.mData[1] * m[2][1]) + (rhs.z * m[2][2]) + (rhs.w * m[2][3]),
+//			(rhs.mData[0] * m[3][0]) + (rhs.mData[1] * m[3][1]) + (rhs.z * m[3][2]) + (rhs.w * m[3][3]));
 //	}
 //
 //

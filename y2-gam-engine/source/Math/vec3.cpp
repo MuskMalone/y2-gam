@@ -1,4 +1,4 @@
-#include "Math\Vec3.h"
+#include "Math/Vec3.h"
 
 
 namespace Image {
@@ -7,6 +7,12 @@ namespace Image {
 	Vec3::Vec3(float val) :mData{val,val,val} {}
 
 	Vec3::Vec3(float x, float y, float z) : mData{x,y,z} {}
+
+	Vec3::Vec3(Vec2 const& rhs): mData{ rhs.mData[0],rhs.mData[1],0.f } {}
+
+	Vec3::Vec3(Vec4 const& rhs) : mData{rhs.mData[0],rhs.mData[1],rhs.mData[2]} {}
+
+	
 
 	float Vec3::length() const {
 		return std::sqrt(mData[0] * mData[0] + mData[1] * mData[1] + mData[2] * mData[2]);
@@ -47,6 +53,14 @@ namespace Image {
 
 	Vec3 Vec3::operator-(Vec3 const& rhs) const {
 		return Vec3(mData[0] - rhs.mData[0], mData[1] - rhs.mData[1], mData[2] - rhs.mData[2]);
+	}
+
+	Vec3 Vec3::operator+(float val)const {
+		return Vec3(mData[0] + val, mData[1] + val, mData[2] + val);
+	}
+
+	Vec3 Vec3::operator-(float val)const {
+		return Vec3(mData[0] - val, mData[1] - val, mData[2] - val);
 	}
 
 	Vec3 Vec3::operator*(float val) const {

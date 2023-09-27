@@ -1,5 +1,5 @@
-#include "Math\Mat4.h"
-#include "Math\MathUtils.h"
+#include "Math/Mat4.h"
+#include "Math/MathUtils.h"
 const float gPI{ 3.14159f };
 namespace Image {
 	Mat44::Mat44() :mMat{} {}
