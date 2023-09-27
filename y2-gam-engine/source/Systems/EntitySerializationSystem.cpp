@@ -20,7 +20,7 @@ namespace Serializer {
 
 		if (!sm->OpenJSON(name)) return;
 
-		if (!sm->At("Entities").IsObject()) return;
+		if (!sm->At("Entities").IsArray()) return;
 		for (auto const& item : sm->At("Entities").GetArray()) {
 			if (!item.IsObject()) continue;
 			Entity entity{ gCoordinator->CreateEntity() };

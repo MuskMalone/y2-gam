@@ -25,6 +25,6 @@ struct Sprite {
 		layer = Layer::FOREGROUND;
 	}
 	bool Serialize(rapidjson::Value& obj) {
-		return false;
+		return true;
 	}
 };

@@ -224,7 +224,7 @@ int main()
 		Image::FontRenderer::RenderText("Lato", entityCounter,
 			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
-	//StateManager::GetInstance()->Clear();
+	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
