@@ -1,4 +1,4 @@
-#define _CRTDBG_MAP_ALLOC	
+//#define _CRTDBG_MAP_ALLOC	
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
@@ -51,9 +51,9 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 int main()
 {
 	// Enable run-time memory check for debug builds.
-#if defined(DEBUG) | defined(_DEBUG)
+//#if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
+//#endif
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 	// Mono Testing
 	Image::ScriptManager::Init();
@@ -191,7 +191,7 @@ int main()
 
 		windowManager->ProcessEvents();
 		imguiSystem->Update(windowManager->GetContext());
-		frameController->AccumulateDt();
+		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 
 		windowManager->Update();

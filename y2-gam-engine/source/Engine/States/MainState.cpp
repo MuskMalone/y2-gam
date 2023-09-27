@@ -2,6 +2,7 @@
 #include <Core/Coordinator.hpp>
 #include <memory>
 #include <Core/Serialization/SerializationManager.hpp>
+#include <Core/FrameRateController.hpp>
 
 void MainState::Init() {
 	using namespace Physics;
@@ -26,17 +27,16 @@ void MainState::Exit() {
 void MainState::Update(float dt) {
 	mEditorControlSystem->Update(dt);
 
-	mPhysicsSystem->PreCollisionUpdate(dt);
+	mPhysicsSystem->PreCollisionUpdate(FrameRateController::GetInstance()->GetTargetDT());
 
-	mCollisionSystem->Update(dt);
+	mCollisionSystem->Update(FrameRateController::GetInstance()->GetTargetDT());
 
-	mPhysicsSystem->PostCollisionUpdate(dt);
+	mPhysicsSystem->PostCollisionUpdate(FrameRateController::GetInstance()->GetTargetDT());
 
-	mAnimationSystem->Update(dt);
-
-	mRenderSystem->Update(dt);
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
+	mAnimationSystem->Update(dt);
 
+	mRenderSystem->Update(dt);
 }

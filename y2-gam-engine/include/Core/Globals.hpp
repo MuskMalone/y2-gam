@@ -36,7 +36,7 @@ namespace Globals {
             if (!_mSelf) _mSelf = std::make_shared<GlobalValContainer>();
             return _mSelf;
         }
-        inline void ReadGlobalInts() {
+        void ReadGlobalInts() {
             std::ifstream ifsGlobals{"Data/Globals.ini"};
             if (!ifsGlobals.is_open()) exit(1);
             char ch;
@@ -48,6 +48,7 @@ namespace Globals {
                     mGlobalInts.push_back(GlobalValue{ k });
                 }
             } while (ifsGlobals >> ch);
+            ifsGlobals.close();
         }
         GlobalValue At(int i) {
             return mGlobalInts[i];

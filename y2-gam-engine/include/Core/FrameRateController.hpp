@@ -23,6 +23,7 @@ public:
 
 	float GetFps() { return mFps;  }
 	float GetDeltaTime() { return mDeltaTime; }
+	float GetTargetDT() { return mTargetDeltaTime; }
 	
 private:
 	static std::shared_ptr<FrameRateController> _mSelf;
