@@ -1,4 +1,21 @@
-﻿namespace Image
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Vector.cs
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Sep 23, 2023
+
+\brief      A simplified vector struct, that allows for basic vector 
+            functionality and operations in C#.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+namespace Image
 {
     public struct Vector3
     {

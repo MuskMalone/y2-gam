@@ -1,4 +1,21 @@
-﻿using System;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Input.cs
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Sep 23, 2023
+
+\brief      A helper wrapper class that allows the user to type fewer
+            lines to obtain input status.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

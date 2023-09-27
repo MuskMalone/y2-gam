@@ -1,4 +1,21 @@
-﻿using System.Runtime.CompilerServices;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       InternalCalls.cs
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Sep 23, 2023
+
+\brief      All C# internal calls go here, where information from CPP code 
+            can be accessed in C#, and vice versa
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+using System.Runtime.CompilerServices;
 
 namespace Image
 {
