@@ -1,7 +1,8 @@
 #include "Graphics/Framebuffer.hpp"
 #include <glad/glad.h>
 #include <iostream>
-
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
 Framebuffer::Framebuffer(FramebufferProps const& props) : mProps{ props } {
 	Invalidate();
 }
@@ -29,8 +30,11 @@ void Framebuffer::Invalidate() {
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthAttachment, 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		std::cout << "ERROR: Framebuffer is INCOMPLETE!" << std::endl;
-	else std::cout << "Framebuffer is complete!" << std::endl;
+		//std::cout << "ERROR: Framebuffer is INCOMPLETE!" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Framebuffer is INCOMPLETE!", __FUNCTION__);
+	else LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Framebuffer is complete!", __FUNCTION__);
+	//else std::cout << "Framebuffer is complete!" << std::endl;
+
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
