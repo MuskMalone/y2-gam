@@ -17,6 +17,7 @@
 
 namespace Image
 {
+    // These are the animation state codes
     public enum AnimationCode
     {
         NONE = 0,
