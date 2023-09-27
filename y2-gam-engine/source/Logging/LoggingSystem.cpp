@@ -114,6 +114,7 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 
 	}
 
+	m_info += '\n';
 	//Backtracing enabled queue
 	if ((log_level == TRACE_LEVEL && m_traceFlag == true) || (log_level == DEBUG_LEVEL && m_debugFlag == true)) {
 		//std::cout << "ENTERED BACKTRACE ENABLED PUSH" << '\n';
