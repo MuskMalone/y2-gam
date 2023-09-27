@@ -165,7 +165,7 @@ namespace Image {
     }
     else {
       //std::cout << "Successful Set Font Size to " << fontSize << "\n";
-      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful Set Font Size to " + fontSize + '\n', __FUNCTION__);
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful Set Font Size to " + std::to_string(fontSize) + '\n', __FUNCTION__);
     }
   }
 

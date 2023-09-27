@@ -1,34 +1,20 @@
-[INFO]: init Freetype Library 2023-09-27 14:45:00 FN: Image::FontRenderer::Init
+[INFO]: init Freetype Library 2023-09-27 18:08:38 FN: Image::FontRenderer::Init
 
 [INFO]: Successful init FreeType Face Arial
- 2023-09-27 14:45:00 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
 
-[INFO]: de:  2023-09-27 14:45:00 FN: Image::FontRenderer::SetFontSize
+[INFO]: Successful Set Font Size to 100
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
 
 [INFO]: Successful init FreeType Face Lato
- 2023-09-27 14:45:00 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
 
-[INFO]: de:  2023-09-27 14:45:00 FN: Image::FontRenderer::SetFontSize
+[INFO]: Successful Set Font Size to 100
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
 
 [INFO]: Successful init FreeType Face Getho
- 2023-09-27 14:45:00 FN: Image::FontRenderer::LoadFont
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::LoadFont
 
-[INFO]: de:  2023-09-27 14:45:00 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: init Freetype Library 2023-09-27 14:51:47 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face ArialHM
- 2023-09-27 14:51:47 FN: Image::FontRenderer::LoadFont
-
-[INFO]: de:  2023-09-27 14:51:47 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face LatoHM
- 2023-09-27 14:51:47 FN: Image::FontRenderer::LoadFont
-
-[INFO]: de:  2023-09-27 14:51:47 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face GethoHM
- 2023-09-27 14:51:47 FN: Image::FontRenderer::LoadFont
-
-[INFO]: de:  2023-09-27 14:51:47 FN: Image::FontRenderer::SetFontSize
+[INFO]: Successful Set Font Size to 100
+ 2023-09-27 18:08:38 FN: Image::FontRenderer::SetFontSize
 
