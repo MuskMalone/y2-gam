@@ -1,6 +1,8 @@
 # TRACE 1
 # LOGORDER <[%L]: %M %D %F>
 # DEBUG 0
+# PIPETYPE 0
+
 
 
 

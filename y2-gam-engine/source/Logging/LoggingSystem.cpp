@@ -439,6 +439,21 @@ void LoggingSystem::InitializationFromConfig()
 				//std::cout << "OrderStr: " << temp2 << '\n';
 				m_orderStr = temp2;
 			}
+			else if (temp2 == "PIPETYPE")
+			{
+				start = end + 1;
+				end = temp.find_first_of(" ", start);
+				temp2 = temp.substr(start, end - start);
+				//std::cout << "Debug: " << temp2 << '\n';
+				if (temp2 == "1")
+				{
+					m_pipeType = 1;
+				}
+				else if (temp2 == "0")
+				{
+					m_pipeType = 0;
+				}
+			}
 			else
 			{
 				continue;
