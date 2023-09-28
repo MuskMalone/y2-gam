@@ -145,6 +145,7 @@
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
+    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
@@ -224,6 +225,7 @@
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
     <ClCompile Include="source\Audio\Sound.cpp" />
+    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\CameraController.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />

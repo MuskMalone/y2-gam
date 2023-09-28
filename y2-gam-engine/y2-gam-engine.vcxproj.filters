@@ -53,6 +53,7 @@
     <ClCompile Include="source\Scripting\ScriptManager.cpp" />
     <ClCompile Include="source\Logging\LoggingSystem.cpp" />
     <ClCompile Include="source\Logging\backward.cpp" />
+    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
+    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

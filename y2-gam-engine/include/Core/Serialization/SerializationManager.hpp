@@ -87,6 +87,10 @@ namespace Serializer {
 		JSONObj& At(std::string const& key) {
 			return mDocumentMap[path][key.c_str()];
 		}
+		JSONObj& At(std::string const& name, std::string const& key) {
+			path = mPath + name + mExt;
+			return mDocumentMap[path][key.c_str()];
+		}
 
 		void InsertValue(JSONObj& obj, std::string key, std::string val) {
 			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{ "couldnt find json document" };

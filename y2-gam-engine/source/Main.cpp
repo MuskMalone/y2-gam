@@ -38,6 +38,7 @@
 
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
+#include "Engine/PrefabsManager.hpp"
 namespace {
 	static bool quit = false;
 }
@@ -167,6 +168,8 @@ int main()
 	}
 
 	entitySerializationSystem->Init();
+
+	PrefabsManager::GetInstance()->Init();
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
