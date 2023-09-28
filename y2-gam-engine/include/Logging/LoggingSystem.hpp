@@ -43,13 +43,13 @@
 
 enum LogLevel {
 	//Informational purposes, captures flow of application
-	//Enabled stacktrace
+	//stacktrace available
 	TRACE_LEVEL,
 	//Similar to trace but more related to debugging purposes
-	//No stacktrace enabled
+	//stacktrace available
 	DEBUG_LEVEL,
 	//Normal and expected occurrence, not an error
-	//No stacktrace enabled
+	//No stacktrace 
 	INFO_LEVEL,
 	//Unexpected occurrence, not an error
 	WARNING_LEVEL,
@@ -158,53 +158,6 @@ public:
 	}
 };
 
-
-//template <typename T>
-/*void LogTrace(std::string message, int numStacktrace);
-
-template <typename T>
-
-
-template <typename T>
-void LogInfo(const T& message);
-
-template <typename T>
-void LogError(const T& message);
-
-template <typename T>
-void LogWarning(const T& message);
-
-template <typename T>
-void LogCritical(const T& message);*/
-
 #endif //LOGGINGSYSTEM
 
-//test
-int Sum(int a, int b);
-
-int Multiply(int a, int b);
-
-//#ifndef LOGGINGQUEUE
-//
-//#define LOGGINGQUEUE
-//
-//	class LoggingQueue {
-//	private:
-//		std::queue<std::string> m_logQueue;
-//		std::mutex m_logQueueMutex;
-//	public:
-//		//default constructor
-//		LoggingQueue() = default;
-//		//cannot be copied or assigned
-//		LoggingQueue(const LoggingQueue&) = delete;
-//		LoggingQueue& operator=(const LoggingQueue&) = delete;
-//		//function to push log messages from main thread into the queue
-//		
-//		//function to pop messages into logging thread
-//
-//
-//
-//};
-//
-//#endif //LOGGINGQUEUE
 
