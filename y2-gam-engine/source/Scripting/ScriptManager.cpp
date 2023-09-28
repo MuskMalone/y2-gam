@@ -18,6 +18,8 @@
 
 #include "../include/pch.h"
 #include "Scripting/ScriptManager.hpp"
+#include "Logging/LoggingSystem.hpp";
+#include <Logging/backward.hpp>
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
@@ -68,7 +70,8 @@ namespace Image {
     MonoDomain* rootDomain{ mono_jit_init("ScriptRuntime") };
 
     if (rootDomain == nullptr) {
-      std::cout << "Root Domain Initialization Failed!" << "\n";
+      //std::cout << "Root Domain Initialization Failed!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Root DOmain Initialization Failed!", __FUNCTION__);
       return;
     }
     sRootDomain = rootDomain;
@@ -256,8 +259,8 @@ namespace Image {
 #ifdef _DEBUG
       for (auto const& pair : sEntityClasses) {
         ScriptClass const& value = pair.second;
-        std::cout << "Key: " << pair.first << ", Namespace: " << value.GetNamespace() 
-          << ", Class: " << value.GetClassName() << "\n";
+        //std::cout << "Key: " << pair.first << ", Namespace: " << value.GetNamespace() 
+        //  << ", Class: " << value.GetClassName() << "\n";
       }
 #endif
   }
