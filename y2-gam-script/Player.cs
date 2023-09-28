@@ -78,7 +78,13 @@ namespace Sandbox
             float speed = 500.0f;
             Vector2 forces = new Vector2(0.0f, 0.0f);
 
-            if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
+            if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+            {
+                Vector2 jumpForce = new Vector2(0.0f, 5000.0f);
+                Force = jumpForce * Mass;
+            }
+
+            else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
             {
                 AnimationState = (int)AnimationCode.RUN;
                 forces.X = -1.0f;
