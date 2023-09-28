@@ -202,16 +202,21 @@ namespace Image {
 		return Mat33(lhs.mMat[0] - rhs.mMat[0], lhs.mMat[1] - rhs.mMat[1], lhs.mMat[2] - rhs.mMat[2]);
 
 	}
-	Mat33 operator*(const Mat33& lhs, const Mat33& rhs){
+	Mat33 operator*(const Mat33& lhs, const Mat33& rhs) {
 		Mat33 result;
-		for (int i{}; i < 3; ++i) {
-			for (int j{}; j < 3; ++j) {
-				result.mMat[i][j] = 0;
-				for (int k = 0; k < 3; ++k) {
-					result.mMat[i][j] += lhs.mMat[i][k] * rhs.mMat[k][j];
-				}
-			}
-		}
+
+		result.mMat[0][0] = lhs.mMat[0][0] * rhs.mMat[0][0] + lhs.mMat[1][0] * rhs.mMat[0][1] + lhs.mMat[2][0] * rhs.mMat[0][2];
+		result.mMat[1][0] = lhs.mMat[0][0] * rhs.mMat[1][0] + lhs.mMat[1][0] * rhs.mMat[1][1] + lhs.mMat[2][0] * rhs.mMat[1][2];
+		result.mMat[2][0] = lhs.mMat[0][0] * rhs.mMat[2][0] + lhs.mMat[1][0] * rhs.mMat[2][1] + lhs.mMat[2][0] * rhs.mMat[2][2];
+
+		result.mMat[0][1] = lhs.mMat[0][1] * rhs.mMat[0][0] + lhs.mMat[1][1] * rhs.mMat[0][1] + lhs.mMat[2][1] * rhs.mMat[0][2];
+		result.mMat[1][1] = lhs.mMat[0][1] * rhs.mMat[1][0] + lhs.mMat[1][1] * rhs.mMat[1][1] + lhs.mMat[2][1] * rhs.mMat[1][2];
+		result.mMat[2][1] = lhs.mMat[0][1] * rhs.mMat[2][0] + lhs.mMat[1][1] * rhs.mMat[2][1] + lhs.mMat[2][1] * rhs.mMat[2][2];
+
+		result.mMat[0][2] = lhs.mMat[0][2] * rhs.mMat[0][0] + lhs.mMat[1][2] * rhs.mMat[0][1] + lhs.mMat[2][2] * rhs.mMat[0][2];
+		result.mMat[1][2] = lhs.mMat[0][2] * rhs.mMat[1][0] + lhs.mMat[1][2] * rhs.mMat[1][1] + lhs.mMat[2][2] * rhs.mMat[1][2];
+		result.mMat[2][2] = lhs.mMat[0][2] * rhs.mMat[2][0] + lhs.mMat[1][2] * rhs.mMat[2][1] + lhs.mMat[2][2] * rhs.mMat[2][2];
+
 		return result;
 	}
 	Mat33 operator+(const Mat33& lhs, float const& val)	{

@@ -29,14 +29,13 @@ namespace Image {
 
 	Mat22 operator*(const Mat22& lhs, const Mat22& rhs) {
 		Mat22 result;
-		for (int i{}; i < 2; ++i) {
-			for (int j{}; j < 2; ++j) {
-				result.mMat[i][j] = 0;
-				for (int k = 0; k < 2; ++k) {
-					result.mMat[i][j] += lhs.mMat[i][k] * rhs.mMat[k][j];
-				}
-			}
-		}
+
+		result.mMat[0][0] = lhs.mMat[0][0] * rhs.mMat[0][0] + lhs.mMat[1][0] * rhs.mMat[0][1];
+		result.mMat[1][0] = lhs.mMat[0][0] * rhs.mMat[1][0] + lhs.mMat[1][0] * rhs.mMat[1][1];
+
+		result.mMat[0][1] = lhs.mMat[0][1] * rhs.mMat[0][0] + lhs.mMat[1][1] * rhs.mMat[0][1];
+		result.mMat[1][1] = lhs.mMat[0][1] * rhs.mMat[1][0] + lhs.mMat[1][1] * rhs.mMat[1][1];
+
 		return result;
 	}
 

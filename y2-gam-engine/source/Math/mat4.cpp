@@ -236,14 +236,27 @@ namespace Image {
 	}
 	Mat44 operator*(const Mat44& lhs, const Mat44& rhs) {
 		Mat44 result;
-		for (int i{}; i < 4; ++i) {
-			for (int j{}; j < 4; ++j) {
-				result.mMat[i][j] = 0;
-				for (int k = 0; k < 4; ++k) {
-					result.mMat[i][j] += lhs.mMat[i][k] * rhs.mMat[k][j];
-				}
-			}
-		}
+
+		result.mMat[0][0] = lhs.mMat[0][0] * rhs.mMat[0][0] + lhs.mMat[1][0] * rhs.mMat[0][1] + lhs.mMat[2][0] * rhs.mMat[0][2] + lhs.mMat[3][0] * rhs.mMat[0][3];
+		result.mMat[0][1] = lhs.mMat[0][1] * rhs.mMat[0][0] + lhs.mMat[1][1] * rhs.mMat[0][1] + lhs.mMat[2][1] * rhs.mMat[0][2] + lhs.mMat[3][1] * rhs.mMat[0][3];
+		result.mMat[0][2] = lhs.mMat[0][2] * rhs.mMat[0][0] + lhs.mMat[1][2] * rhs.mMat[0][1] + lhs.mMat[2][2] * rhs.mMat[0][2] + lhs.mMat[3][2] * rhs.mMat[0][3];
+		result.mMat[0][3] = lhs.mMat[0][3] * rhs.mMat[0][0] + lhs.mMat[1][3] * rhs.mMat[0][1] + lhs.mMat[2][3] * rhs.mMat[0][2] + lhs.mMat[3][3] * rhs.mMat[0][3];
+
+		result.mMat[1][0] = lhs.mMat[0][0] * rhs.mMat[1][0] + lhs.mMat[1][0] * rhs.mMat[1][1] + lhs.mMat[2][0] * rhs.mMat[1][2] + lhs.mMat[3][0] * rhs.mMat[1][3];
+		result.mMat[1][1] = lhs.mMat[0][1] * rhs.mMat[1][0] + lhs.mMat[1][1] * rhs.mMat[1][1] + lhs.mMat[2][1] * rhs.mMat[1][2] + lhs.mMat[3][1] * rhs.mMat[1][3];
+		result.mMat[1][2] = lhs.mMat[0][2] * rhs.mMat[1][0] + lhs.mMat[1][2] * rhs.mMat[1][1] + lhs.mMat[2][2] * rhs.mMat[1][2] + lhs.mMat[3][2] * rhs.mMat[1][3];
+		result.mMat[1][3] = lhs.mMat[0][3] * rhs.mMat[1][0] + lhs.mMat[1][3] * rhs.mMat[1][1] + lhs.mMat[2][3] * rhs.mMat[1][2] + lhs.mMat[3][3] * rhs.mMat[1][3];
+
+		result.mMat[2][0] = lhs.mMat[0][0] * rhs.mMat[2][0] + lhs.mMat[1][0] * rhs.mMat[2][1] + lhs.mMat[2][0] * rhs.mMat[2][2] + lhs.mMat[3][0] * rhs.mMat[2][3];
+		result.mMat[2][1] = lhs.mMat[0][1] * rhs.mMat[2][0] + lhs.mMat[1][1] * rhs.mMat[2][1] + lhs.mMat[2][1] * rhs.mMat[2][2] + lhs.mMat[3][1] * rhs.mMat[2][3];
+		result.mMat[2][2] = lhs.mMat[0][2] * rhs.mMat[2][0] + lhs.mMat[1][2] * rhs.mMat[2][1] + lhs.mMat[2][2] * rhs.mMat[2][2] + lhs.mMat[3][2] * rhs.mMat[2][3];
+		result.mMat[2][3] = lhs.mMat[0][3] * rhs.mMat[2][0] + lhs.mMat[1][3] * rhs.mMat[2][1] + lhs.mMat[2][3] * rhs.mMat[2][2] + lhs.mMat[3][3] * rhs.mMat[2][3];
+
+		result.mMat[3][0] = lhs.mMat[0][0] * rhs.mMat[3][0] + lhs.mMat[1][0] * rhs.mMat[3][1] + lhs.mMat[2][0] * rhs.mMat[3][2] + lhs.mMat[3][0] * rhs.mMat[3][3];
+		result.mMat[3][1] = lhs.mMat[0][1] * rhs.mMat[3][0] + lhs.mMat[1][1] * rhs.mMat[3][1] + lhs.mMat[2][1] * rhs.mMat[3][2] + lhs.mMat[3][1] * rhs.mMat[3][3];
+		result.mMat[3][2] = lhs.mMat[0][2] * rhs.mMat[3][0] + lhs.mMat[1][2] * rhs.mMat[3][1] + lhs.mMat[2][2] * rhs.mMat[3][2] + lhs.mMat[3][2] * rhs.mMat[3][3];
+		result.mMat[3][3] = lhs.mMat[0][3] * rhs.mMat[3][0] + lhs.mMat[1][3] * rhs.mMat[3][1] + lhs.mMat[2][3] * rhs.mMat[3][2] + lhs.mMat[3][3] * rhs.mMat[3][3];
+
 		return result;
 	}
 	Mat44 operator+(const Mat44& lhs, float const& val) {

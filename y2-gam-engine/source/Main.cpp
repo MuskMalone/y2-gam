@@ -116,6 +116,7 @@ int main()
 	}
 
 	renderSystem->Init();
+
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -126,6 +127,7 @@ int main()
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}
 	imguiSystem->Init(windowManager->GetContext());
+
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;

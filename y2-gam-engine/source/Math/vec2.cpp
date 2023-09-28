@@ -74,12 +74,12 @@ namespace Image {
     }
     
     float Vec2::operator[](int idx) const {
-        assert((idx >= 0 && idx < 3) && "Ensure index is within bounds");
+        assert((idx >= 0 && idx < 2) && "Ensure index is within bounds");
         return mData[idx];
     }
 
     float& Vec2::operator[](int idx) {
-        assert((idx >= 0 && idx < 3) && "Ensure index is within bounds");
+        assert((idx >= 0 && idx < 2) && "Ensure index is within bounds");
         return mData[idx];
     }
     // Non-member function implementations
