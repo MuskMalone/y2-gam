@@ -32,26 +32,29 @@ void MainState::Update(float dt) {
 	if (mIsStep) {
 		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
 			coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
-
 			coordinator->GetSystem<CollisionSystem>()->Update(tdt);
-
 			coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
 		}
 	}
 	else {
+		FrameRateController::GetInstance()->StartSubFrameTime();
 		coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
-
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+		FrameRateController::GetInstance()->StartSubFrameTime();
 		coordinator->GetSystem<CollisionSystem>()->Update(tdt);
-
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_COLLISION_PROFILE);
+		FrameRateController::GetInstance()->StartSubFrameTime();
 		coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
-
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
 	}
-
-	coordinator->GetSystem<AnimationSystem>()->Update(dt);
-
-	coordinator->GetSystem<RenderSystem>()->Update(dt);
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	FrameRateController::GetInstance()->StartSubFrameTime();
+	coordinator->GetSystem<AnimationSystem>()->Update(dt);
+
+	coordinator->GetSystem<RenderSystem>()->Update(dt);
+	FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 
 }

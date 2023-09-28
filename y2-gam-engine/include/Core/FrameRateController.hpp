@@ -19,11 +19,12 @@ public:
 	void AccumulateDt();
 
 	void StartSubFrameTime();
-	float EndSubFrameTime();
+	float EndSubFrameTime(size_t key);
+	float GetProfilerValue(size_t key);
 
-	float GetFps() { return mFps;  }
-	float GetDeltaTime() { return mDeltaTime; }
-	float GetTargetDT() { return mTargetDeltaTime; }
+	inline float GetFps() { return mFps;  }
+	inline float GetDeltaTime() { return mDeltaTime; }
+	inline float GetTargetDT() { return mTargetDeltaTime; }
 	
 private:
 	static std::shared_ptr<FrameRateController> _mSelf;
@@ -35,5 +36,6 @@ private:
 	float mTargetFps{};
 	size_t mFpsCounter{ 0 };
 	float mAccumulator{};
-	std::queue<std::chrono::steady_clock::time_point> subDelta{};
+	std::map<size_t, float> mProfiler{};
+	std::queue<std::chrono::steady_clock::time_point> mSubDelta{};
 };

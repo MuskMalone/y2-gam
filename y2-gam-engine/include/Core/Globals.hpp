@@ -68,7 +68,12 @@ namespace Globals {
 //each key enum will be the bitshift for a bitset<ENGINE_KEYS_COUNT>
 #define ENGINE_KEYS_COUNT 400
 #define ENGINE_MOUSEKEYS_COUNT 3
+#define ENGINE_PHYSICS_PROFILE 0
+#define ENGINE_COLLISION_PROFILE 1
+#define ENGINE_RENDER_PROFILE 2
+#define ENGINE_INPUT_PROFILE 3
 
+//from here on are serialized globals
 #define GVC_AT(I) Globals::GlobalValContainer::GetInstance()->At(I)
 //world center is at 0,0
 #define WORLD_LIMIT_X GVC_AT(0)//128

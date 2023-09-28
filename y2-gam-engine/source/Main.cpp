@@ -217,12 +217,18 @@ int main()
 		// Font Testing
 		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
 		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
-		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
-		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
-		Image::FontRenderer::RenderText("Lato", fpsCounter,
-			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
-		Image::FontRenderer::RenderText("Lato", entityCounter,
-			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		std::vector<std::string> diagnostics{};
+		diagnostics.emplace_back("FPS: " + std::to_string(frameController->GetFps()));
+		diagnostics.emplace_back("Entities: " + std::to_string(coordinator->GetEntityCount()));
+		diagnostics.emplace_back("Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%");
+		diagnostics.emplace_back("Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%");
+		diagnostics.emplace_back("Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%");
+
+		for (int i{}; i < diagnostics.size(); ++i) {
+			Image::FontRenderer::RenderText("Lato", diagnostics[i],
+				-WORLD_LIMIT_X, WORLD_LIMIT_Y - (10 + (i * 5)), 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		}
+
 	}
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();

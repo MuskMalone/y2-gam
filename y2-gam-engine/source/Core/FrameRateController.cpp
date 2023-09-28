@@ -23,6 +23,10 @@ void FrameRateController::Init(int fps, bool vsync) {
 
 }
 void FrameRateController::StartFrameTime() {
+	//clear subdelta stack
+	while (!mSubDelta.empty()) mSubDelta.pop();
+	//clear profiler map
+	for (auto& pair : mProfiler) pair.second = 0.0f;
 	mStart = std::chrono::high_resolution_clock::now();
 	mAccumulator += mDeltaTime;
 }
@@ -51,8 +55,17 @@ float FrameRateController::EndFrameTime() {
 }
 
 void FrameRateController::StartSubFrameTime() {
+	mSubDelta.emplace(std::chrono::high_resolution_clock::now());
+}
+float FrameRateController::EndSubFrameTime(size_t key) {
+	float deltaTime{ std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::high_resolution_clock::now() - mSubDelta.front()).count() };
+	mSubDelta.pop();
 
+	mProfiler[key] += deltaTime;
+	return mProfiler[key];
 }
-float FrameRateController::EndSubFrameTime() {
-	return 0.f;
+float FrameRateController::GetProfilerValue(size_t key) {
+	if (mProfiler.find(key) == mProfiler.end()) return 0.0f;
+	return mProfiler[key] / mDeltaTime;
 }
+
