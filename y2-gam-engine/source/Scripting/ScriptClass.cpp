@@ -18,6 +18,8 @@
 #include "../include/pch.h"
 #include "Scripting/ScriptClass.hpp"
 #include "Scripting/ScriptManager.hpp"
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
 
 namespace Image {
   /*  _________________________________________________________________________ */
@@ -51,7 +53,8 @@ namespace Image {
     MonoObject* classInstance = mono_object_new(ScriptManager::GetAppDomain(), mMonoClass);
 
     if (classInstance == nullptr) {
-      std::cout << "Mono Exception: Failed to create instance of class" << "\n";
+      //std::cout << "Mono Exception: Failed to create instance of class" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: Failed to create instance of class", __FUNCTION__);
       std::exit(0);
     }
 
@@ -76,13 +79,15 @@ namespace Image {
     MonoMethod* ret{ mono_class_get_method_from_name(mMonoClass, name.c_str(), numParameters) };
 
     if (ret == nullptr) {
-      std::cout << "Mono Exception: method does not exist!" << "\n";
+      /*std::cout << "Mono Exception: method does not exist!" << "\n";
       std::cout << name << "\n";
-      std::cout << numParameters << "\n";
+      std::cout << numParameters << "\n";*/
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: method does not exist!" + name + std::to_string(numParameters), __FUNCTION__);
       std::exit(0);
     }
     else {
-      std::cout << "Mono method " << name << " created!" << "\n";
+      //std::cout << "Mono method " << name << " created!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Mono method " + name + " created!", __FUNCTION__);
     }
 
     return ret;

@@ -1,5 +1,5 @@
 #include "Imgui/ImguiApp.hpp"
-
+#include "Logging/LoggingSystem.hpp"
 Entity gSelectedEntity=MAX_ENTITIES;
 constexpr float gPI{ 3.141592653589793238462643383279502884197169399375105f };
 
@@ -359,7 +359,21 @@ namespace Image {
     }
     void LoggingWindow() {
         ImGui::Begin("Log");
-        
+        // Retrieve logs from LoggingSystem
+        LoggingSystem& logger = LoggingSystem::GetInstance();
+        const auto& logs1 = logger.GetLogsBuffer1();
+        const auto& logs2 = logger.GetLogsBuffer2();
+        if (ImGui::BeginChild("##log", ImVec2(0.0f, 0.0f), true, ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar)) {
+            for (const auto& log : logs1) {
+                ImGui::TextUnformatted(log.c_str());
+            }
+            for (const auto& log : logs2) {
+                ImGui::TextUnformatted(log.c_str());
+            }
+            if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+                ImGui::SetScrollHereY(1.0f);
+        }
+        ImGui::EndChild();
         ImGui::End();
     }
 }
