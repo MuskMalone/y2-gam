@@ -406,7 +406,7 @@ namespace Collision{
             auto aabb{ GetAABBBody(rb) };
             auto scale{ aabb.second - aabb.first };
             Renderer::DrawLineRect(Vec3(aabb.first + scale / 2.f, 1), scale, { 1.f, 1.f, 1.f ,1.f });
-
+            Renderer::DrawLine(Vec3{ rb.position, 0.f }, Vec3{ rb.position + rb.velocity, 1 }, { 0,1,0,1 });
         }
         //Renderer::RenderSceneEnd();
 

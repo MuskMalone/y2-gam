@@ -28,7 +28,7 @@ struct RigidBody
 
 	Vec2 acceleration{};
 	RigidBody() = default;
-	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension, bool rotate = true) {
+	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension, bool rotate = false) {
 		this->position = pos;
 		this->rotation = rotation;
 		this->dimension = dimension;

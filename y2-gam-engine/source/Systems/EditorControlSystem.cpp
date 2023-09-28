@@ -137,7 +137,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Sprite{
-			Vec4(1,0,1,1),
+			Vec4(1,1,1,1),
 			nullptr,
 			Layer::FOREGROUND
 		});
