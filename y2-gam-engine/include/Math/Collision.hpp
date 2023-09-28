@@ -1,5 +1,5 @@
 #pragma once
-#include <Math/Vec2.hpp>
+#include "Math/MathUtils.h"
 
 //first: min point, second: size
 using CollisionRect = std::pair<Vec2, Vec2>;

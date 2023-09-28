@@ -1,5 +1,5 @@
 #pragma once
-#include "Math/Vec2.hpp"
+#include "Math/MathUtils.h"
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
 

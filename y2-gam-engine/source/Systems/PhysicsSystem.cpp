@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <Core/Physics.hpp>
 #include <Core/Types.hpp>
+#include "Math/MathUtils.h"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -67,19 +68,19 @@ namespace Physics {
             Vec2 r2 = c.position - rb2.position;
 
             // Precompute normal mass, tangent mass, and bias
-            float rn1 = glm::dot(r1, c.normal);
-            float rn2 = glm::dot(r2, c.normal);
+            float rn1 = dot(r1, c.normal);
+            float rn2 = dot(r2, c.normal);
             float kNormal = rb1.invMass + rb2.invMass;
-            kNormal += rb1.invInertia * (glm::dot(r1, r1) - rn1 * rn1)
-                + rb2.invInertia * (glm::dot(r2, r2) - rn2 * rn2);
+            kNormal += rb1.invInertia * (dot(r1, r1) - rn1 * rn1)
+                + rb2.invInertia * (dot(r2, r2) - rn2 * rn2);
             c.massNormal = 1.0f / kNormal;
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
-            float rt1 = glm::dot(r1, tangent);
-            float rt2 = glm::dot(r2, tangent);
+            Vec2 tangent = cross(c.normal, 1.0f);
+            float rt1 = dot(r1, tangent);
+            float rt2 = dot(r2, tangent);
             float kTangent = rb1.invMass + rb2.invMass;
-            kTangent += rb1.invInertia * (glm::dot(r1, r1) - rt1 * rt1)
-                + rb2.invInertia * (glm::dot(r2, r2) - rt2 * rt2);
+            kTangent += rb1.invInertia * (dot(r1, r1) - rt1 * rt1)
+                + rb2.invInertia * (dot(r2, r2) - rt2 * rt2);
             c.massTangent = 1.0f / kTangent;
 
             c.bias = -kBiasFactor * inv_dt * std::min(0.0f, c.seperation + kAllowedPenetration);
@@ -90,12 +91,12 @@ namespace Physics {
 
                 rb1.velocity -= P * rb1.invMass;
                 if (!rb1.isLockRotation) {
-                    rb1.angularVelocity -= rb1.invInertia * Vector2Cross(r1, P);
+                    rb1.angularVelocity -= rb1.invInertia * cross(r1, P);
                 }
 
                 rb2.velocity += P * rb2.invMass;
                 if (!rb1.isLockRotation) {
-                    rb2.angularVelocity += rb2.invInertia * Vector2Cross(r2, P);
+                    rb2.angularVelocity += rb2.invInertia * cross(r2, P);
                 }
             }
         }
@@ -112,11 +113,11 @@ namespace Physics {
             c.r2 = c.position - rb2.position;
 
             // Relative velocity at contact
-            Vec2 dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            Vec2 dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
             // Compute normal impulse
-            float vn = glm::dot(dv, c.normal);
+            float vn = dot(dv, c.normal);
 
             float dPn = c.massNormal * (-vn + c.bias);
 
@@ -130,20 +131,20 @@ namespace Physics {
 
             rb1.velocity -= Pn * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pn);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pn);
             }
 
             rb2.velocity += Pn * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pn);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pn);
             }
 
             // Relative velocity at contact
-            dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
-            float vt = glm::dot(dv, tangent);
+            Vec2 tangent = cross(c.normal, 1.0f);
+            float vt = dot(dv, tangent);
             float dPt = vt * c.massTangent * (-1.0f);
 
             // accumulate impulses
@@ -161,12 +162,12 @@ namespace Physics {
             
             rb1.velocity -= Pt * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pt);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pt);
             }
 
             rb2.velocity += Pt * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pt);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pt);
             }
         }
     }
@@ -236,8 +237,8 @@ namespace Physics {
             rigidBody.rotation += rigidBody.angularVelocity * dt;
 
             //change this soon
-            transform.position = Vec3{rigidBody.position, 0};
-            transform.rotation = Vec3{ 0, 0, glm::degrees(rigidBody.rotation) };
+            transform.position = {rigidBody.position.x,rigidBody.position.y, 0};
+            transform.rotation = { 0, 0, Degree(rigidBody.rotation) };
            
 
             rigidBody.torque = 0.0f;

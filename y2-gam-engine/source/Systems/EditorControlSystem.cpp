@@ -17,6 +17,7 @@
 #include <chrono>
 #include "Components/OrthoCamera.hpp"
 #include <algorithm>
+#include "Math/MathUtils.h"
 
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
@@ -60,9 +61,9 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			Vec3(position),
-			Vec3(),
-			Vec3(2 * WORLD_LIMIT_X, 5.f, 1.f)
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{2 * WORLD_LIMIT_X, 5.f, 1.f}
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -82,9 +83,9 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			Vec3(position),
-			Vec3(),
-			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+				{5.f, 2 * WORLD_LIMIT_Y, 1.f}
 		});
 
 	entity = ::gCoordinator->CreateEntity();
@@ -104,9 +105,9 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
-			Vec3(position),
-			Vec3(),
-			Vec3(5.f, 2 * WORLD_LIMIT_Y, 1.f)
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{5.f, 2 * WORLD_LIMIT_Y, 1.f}
 		});
 
 	// Creating a sample player entity
@@ -130,14 +131,14 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Transform{
-			Vec3(position),
-			Vec3(),
-			Vec3(scale, scale, scale)
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{scale, scale, scale}
 		});
 	::gCoordinator->AddComponent(
 		player,
 		Sprite{
-			Vec4(1,1,1,1),
+			{1,1,1,1},
 			nullptr,
 			Layer::FOREGROUND
 		});
@@ -274,14 +275,14 @@ void EditorControlSystem::Update(float dt)
 			::gCoordinator->AddComponent(
 				entity,
 				Transform{
-					Vec3(position),
-					Vec3(),
-					Vec3(scale, scale, scale)
+					{position.x,position.y,position.z},
+					{0.f,0.f,0.f},
+					{scale, scale, scale}
 				});
 			::gCoordinator->AddComponent(
 				entity,
 				Sprite{
-					Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+					{randColor(generator), randColor(generator), randColor(generator), 1},
 					nullptr
 				});
 			lastInserted = entity;
@@ -308,14 +309,14 @@ void EditorControlSystem::Update(float dt)
 		::gCoordinator->AddComponent(
 			entity,
 			Transform{
-				Vec3(position),
-				Vec3(),
-				Vec3(scale, scale, scale)
+				{position.x,position.y,position.z},
+				{0.f,0.f,0.f},
+				{scale, scale, scale}
 			});
 		::gCoordinator->AddComponent(
 			entity,
 			Sprite{
-				Vec4(randColor(generator), randColor(generator), randColor(generator), 1),
+				{randColor(generator), randColor(generator), randColor(generator), 1},
 				nullptr,
 				Layer::FOREGROUND
 			});

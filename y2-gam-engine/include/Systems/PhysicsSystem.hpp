@@ -2,7 +2,7 @@
 
 #include "Core/System.hpp"
 #include <Components/RigidBody.hpp>
-#include <Math/Vec2.hpp>
+#include "Math/MathUtils.h"
 #include <Core/Physics.hpp>
 #include <unordered_map>
 #include <Core/Types.hpp>

@@ -1,5 +1,5 @@
 #pragma once
-#include <Math/Vec2.hpp>
+#include "Math/MathUtils.h"
 #include <cstdint>
 #include <Components/RigidBody.hpp>
 #include <Core/Types.hpp>

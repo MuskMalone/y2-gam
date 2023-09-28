@@ -5,7 +5,7 @@
 //#include "Config.h"     // Global vars, screen size
 #include "DataMgmt/QuadTree/Rect.hpp"       // Rectangle class
 //#include "Templates.h"  // vec, uptr
-#include "Math/Vec2.hpp"       // Vec2 class
+#include "Math/MathUtils.h"
 #include <vector>
 #include <memory>
 #include <Core/Types.hpp>

@@ -92,7 +92,7 @@ namespace Image {
 	*/
 	static void TransformComponent_GetTranslation(uint32_t entityID, Vec3* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = gCoordinator->GetComponent<Transform>(entityID).position;
+		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,gCoordinator->GetComponent<Transform>(entityID).position.y,gCoordinator->GetComponent<Transform>(entityID).position.z };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -110,7 +110,7 @@ namespace Image {
 	*/
 	static void TransformComponent_SetTranslation(uint32_t entityID, Vec3* translation) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).position = *translation;
+		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,translation->y,translation->z };
 	}
 
 	// For Force

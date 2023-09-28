@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Math/Vec2.hpp"
+#include "Math/MathUtils.h"
 #include <Core/Serialization/SerializationManager.hpp>
+#include <Math/MathUtils.h>
 
 struct Gravity
 {

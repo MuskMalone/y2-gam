@@ -12,6 +12,7 @@
 #include "Components/BoxCollider.hpp"
 #include "Components/RigidBody.hpp"
 
+
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -30,9 +31,9 @@ void RenderSystem::Init()
 	gCoordinator->AddComponent(
 		mCamera,
 		Transform{
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(),
-			Vec3()
+			{0.f,0.f,0.f},
+			{0.f,0.f,0.f},
+			{0.f,0.f,0.f}
 		});
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
@@ -49,15 +50,15 @@ void RenderSystem::Init()
 	::gCoordinator->AddComponent(
 		bg,
 		Transform{
-			Vec3(0, 0, -40.f),
-			Vec3(),
-			Vec3(350.f, 120.f, 0.f)
+			{0, 0, -40.f},
+			{0.f,0.f,0.f},
+			{350.f, 120.f, 0.f}
 		});
 	
 	::gCoordinator->AddComponent(
 		bg,
 		Sprite{
-			Vec4{1.f,1.f,1.f,1.f},
+			{1.f,1.f,1.f,1.f},
 			mBgSubtex,
 			Layer::BACKGROUND
 		}

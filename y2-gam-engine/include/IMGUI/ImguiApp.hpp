@@ -4,7 +4,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-//#include "Math/MathUtils.h"
+#include "Math/MathUtils.h"
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"

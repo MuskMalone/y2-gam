@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Math/Vec2.hpp"
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
-
+#include <Math/MathUtils.h>
 
 struct RigidBody
 {

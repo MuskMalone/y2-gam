@@ -1,6 +1,6 @@
 #pragma once
 #include <glm/vec4.hpp>
-using Vec4 = glm::vec4;
+//using Vec4 = glm::vec4;
 
 //class Vec4
 //{

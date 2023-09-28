@@ -1,4 +1,4 @@
-#include "Math\MathUtils.h"
+#include "Math/MathUtils.h"
 namespace Image {
 
 	float Image::Degree(float rad) {

@@ -8,14 +8,15 @@
 #include <glm/common.hpp>
 #include <chrono>
 #include <Core/Types.hpp>
+#include "Math/MathUtils.h"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Collision{
 
-    inline constexpr Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
-    inline constexpr Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m[0]),vabs(m[1])}; }
+    inline Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
+    inline Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m.mMat[0]),vabs(m.mMat[1])}; }
     Mat22 Mat22FromAngle(float rads) {
         float c = cosf(rads);
         float s = sinf(rads);
@@ -60,8 +61,8 @@ namespace Collision{
         int numOut = 0;
 
         // Calculate the distance of end points to the line
-        float distance0 = glm::dot(normal, vIn[0].v) - offset;
-        float distance1 = glm::dot(normal, vIn[1].v) - offset;
+        float distance0 = dot(normal, vIn[0].v) - offset;
+        float distance1 = dot(normal, vIn[1].v) - offset;
 
         // If the points are behind the plane
         if (distance0 <= 0.0f) {
@@ -101,7 +102,7 @@ namespace Collision{
         // to the incident boxe's frame and flip sign.
 
         //inverse the rotation
-        Mat22 rotT = glm::transpose(rot);//Matrix2x2Transpose(rot);
+        Mat22 rotT = Mat22Transpose(rot);//Matrix2x2Transpose(rot);
         Vec2 n = (rotT * normal) * (-1.0f);
         Vec2 nAbs{ vabs(n) };
 
@@ -162,8 +163,8 @@ namespace Collision{
         Mat22 rot1 = Mat22FromAngle(b1.rotation);
         Mat22 rot2 = Mat22FromAngle(b2.rotation);
 
-        Mat22 rot1T = glm::transpose(rot1); //inverse the rotation
-        Mat22 rot2T = glm::transpose(rot2);
+        Mat22 rot1T = Mat22Transpose(rot1); //inverse the rotation
+        Mat22 rot2T = Mat22Transpose(rot2);
 
         Vec2 dp = pos2 - pos1;
         Vec2 d1 = rot1T * dp;
@@ -171,7 +172,7 @@ namespace Collision{
 
         Mat22 C = rot1T * rot2;
         Mat22 absC = mabs(C);//Matrix2x2Abs(C);
-        Mat22 absCT = glm::transpose(absC);
+        Mat22 absCT = Mat22Transpose(absC);
 
         // Box 1 faces
         Vec2 face1 = vabs (d1)-h1 - (absC * h2);
@@ -192,7 +193,7 @@ namespace Collision{
             // Box 1 faces
         axis = Axis::FACE_A_X;
         seperation = face1.x;
-        normal = (d1.x > 0.0f) ? rot1[0] : rot1[0] * (-1.0f);
+        normal = (d1.x > 0.0f) ? rot1.mMat[0] : rot1.mMat[0] * (-1.0f);
 
         const float relativeToL = 0.95f;
         const float absoluteToL = 0.01f;
@@ -200,20 +201,20 @@ namespace Collision{
         if (face1.y > relativeToL * seperation + absoluteToL * h1.y) {
             axis = Axis::FACE_A_Y;
             seperation = face1.y;
-            normal = (d1.y > 0.0f) ? rot1[1] : rot1[1] * (-1.0f);
+            normal = (d1.y > 0.0f) ? rot1.mMat[1] : rot1.mMat[1] * (-1.0f);
         }
             
         // Box 2 faces
         if (face2.x > relativeToL * seperation + absoluteToL * h2.x) {
             axis = Axis::FACE_B_X;
             seperation = face2.x;
-            normal = (d2.x > 0.0f) ? rot2[0] : rot2[0] * (-1.0f);
+            normal = (d2.x > 0.0f) ? rot2.mMat[0] : rot2.mMat[0] * (-1.0f);
         }
 
         if (face2.y > relativeToL * seperation + absoluteToL * h2.y) {
             axis = Axis::FACE_B_Y;
             seperation = face2.y;
-            normal = (d2.y > 0.0f) ? rot2[1] : rot2[1] * (-1.0f);
+            normal = (d2.y > 0.0f) ? rot2.mMat[1] : rot2.mMat[1] * (-1.0f);
         }
 
         // Setup clipping plane data based on the separating axis
@@ -226,9 +227,9 @@ namespace Collision{
         switch (axis) {
         case Axis::FACE_A_X: {
             frontNormal = normal;
-            front = glm::dot(pos1, frontNormal) + h1.x;
-            sideNormal = rot1[1];
-            float side = glm::dot(pos1, sideNormal);
+            front = dot(pos1, frontNormal) + h1.x;
+            sideNormal = rot1.mMat[1];
+            float side = dot(pos1, sideNormal);
             negSide = -side + h1.y;
             posSide = side + h1.y;
             negEdge = EdgeNumbers::EDGE3;
@@ -237,9 +238,9 @@ namespace Collision{
         } break;
         case Axis::FACE_A_Y: {
             frontNormal = normal;
-            front = glm::dot(pos1, frontNormal) + h1.y;
-            sideNormal = rot1[0];
-            float side = glm::dot(pos1, sideNormal);
+            front = dot(pos1, frontNormal) + h1.y;
+            sideNormal = rot1.mMat[0];
+            float side = dot(pos1, sideNormal);
             negSide = -side + h1.x;
             posSide = side + h1.x;
             negEdge = EdgeNumbers::EDGE2;
@@ -248,9 +249,9 @@ namespace Collision{
         } break;
         case Axis::FACE_B_X: {
             frontNormal = normal * (-1.0f);
-            front = glm::dot(pos2, frontNormal) + h2.x;
-            sideNormal = rot2[1];
-            float side = glm::dot(pos2, sideNormal);
+            front = dot(pos2, frontNormal) + h2.x;
+            sideNormal = rot2.mMat[1];
+            float side = dot(pos2, sideNormal);
             negSide = -side + h2.y;
             posSide = side + h2.y;
             negEdge = EdgeNumbers::EDGE3;
@@ -259,9 +260,9 @@ namespace Collision{
         } break;
         case Axis::FACE_B_Y: {
             frontNormal = normal * (-1.0f);
-            front = glm::dot(pos2, frontNormal) + h2.y;
-            sideNormal = rot2[0];
-            float side = glm::dot(pos2, sideNormal);
+            front = dot(pos2, frontNormal) + h2.y;
+            sideNormal = rot2.mMat[0];
+            float side = dot(pos2, sideNormal);
             negSide = -side + h2.x;
             posSide = side + h2.x;
             negEdge = EdgeNumbers::EDGE2;
@@ -294,7 +295,7 @@ namespace Collision{
 
         uint32_t numContacts = 0;
         for (uint32_t i = 0; i < 2; i++) {
-            float seperation = glm::dot(frontNormal, clipPoints2[i].v) - front;
+            float seperation = dot(frontNormal, clipPoints2[i].v) - front;
 
             if (seperation <= 0) {
                 contacts[numContacts].seperation = seperation;
@@ -405,8 +406,10 @@ namespace Collision{
 
             auto aabb{ GetAABBBody(rb) };
             auto scale{ aabb.second - aabb.first };
-            Renderer::DrawLineRect(Vec3(aabb.first + scale / 2.f, 1), scale, { 1.f, 1.f, 1.f ,1.f });
-            Renderer::DrawLine(Vec3{ rb.position, 0.f }, Vec3{ rb.position + rb.velocity, 1 }, { 0,1,0,1 });
+            Vec2 pos{ aabb.first + scale / 2.f };
+            Vec2 p1{ rb.position + rb.velocity };
+            Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
+            Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
         }
         //Renderer::RenderSceneEnd();
 
