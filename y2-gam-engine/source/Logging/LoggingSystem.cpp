@@ -50,6 +50,13 @@ LoggingSystem::LoggingSystem() {
 		InitializationFromConfig();
 		m_logConfigFile.close();
 	}
+
+	m_logFile.open("logFile.txt", std::ios::out | std::ios::app);
+	//m_logFile.open("./logFile.txt", std::ios::out | std::ios::app);
+	if (!m_logFile.is_open()) {
+		std::cout << "LOGFILE NOT OPENED" << std::endl;
+	}
+
 }
 
 /*  _________________________________________________________________________ */
@@ -57,7 +64,14 @@ LoggingSystem::LoggingSystem() {
 	
   Destructor
   */
-LoggingSystem::~LoggingSystem() {}
+LoggingSystem::~LoggingSystem() {
+	if (m_logFile.is_open()) {
+		m_logFile.close();
+	}
+	if (m_logBacktraceFile.is_open()) {
+		m_logBacktraceFile.close();
+	}
+}
 
 /*  _________________________________________________________________________ */
   /*! Log
@@ -169,103 +183,33 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 		m_info += '\n';
 		m_info += oss.str();
 		//when dealing with buffer2, lock2
-		std::unique_lock<std::mutex> lock2(m_buffer2Mutex);
 		//push m_info into buffer2
-		m_buffer2.push(m_info);
+		m_buffer2.push_back(m_info);
 		//notify condition variable queuepopbacktrace
-		m_cq2.notify_one();
 		m_info.clear();
 	}//Backtracing disabled queue
 	else {
 		//push string Info into buffer_1
-		std::unique_lock<std::mutex> lock(m_buffer1Mutex);
 		//and m_write1 == false
-		m_buffer1.push(m_info);
-		m_cq1.notify_one();
+		m_buffer1.push_back(m_info);
 		//clears string that has contents of this one log
 		m_info.clear();
 	}
-}
 
-//THESE ONLY WORK FOR QUEUE 1 THREAD 1
-/*  _________________________________________________________________________ */
-  /*! GetQueueSize()
-
-  @return size_t
-
-  For debugging. Gets queue size of buffer1(buffer without backtrace)
-  */
-size_t LoggingSystem::GetQueueSize() {
-	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
-	return m_buffer1.size();
-}
-
-/*  _________________________________________________________________________ */
-  /*! IsQueueEmpty
-
-  @return bool
-
-  For debugging. True if buffer1 is empty.
-  */
-bool LoggingSystem::IsQueueEmpty() {
-	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
-	return m_buffer1.empty();
-}
-//---------------------------------------------------------------
-
-/*  _________________________________________________________________________ */
-  /*! QueuePop
-
-  @param &loggingThreadActive
-  atomic global variable keeping track of life of thread 1
-
-  @return std::string
-
-  this function safely locks and waits for m_buffer1 to not be empty and
-  for condition variable to be notified, pops m_buffer1
-  */
-std::string LoggingSystem::QueuePop(std::atomic<bool>& loggingThreadActive)
-{
-	std::unique_lock<std::mutex> lock(m_buffer1Mutex);
-	//sleep until condition variable m_cq is notified and queue is not empty
-	m_cq1.wait(lock, [this, &loggingThreadActive] {return !m_buffer1.empty() || !loggingThreadActive; });
-	//std::cout << "QUEUESIZE AT END OF QUEUEPOP: " << m_buffer1.size();
-	if (!m_buffer1.empty()) {
-		std::string msg = m_buffer1.front();
-		m_buffer1.pop();
-		return msg;
-	}
-	else {
-		return "";
+	if (m_buffer1.size() > 20) {
+		
+		//write to file
+		if (m_pipeType == 0) {
+			m_logFile << msg << std::endl;
+		}//write to std::cout
+		else if (m_pipeType == 1) {
+			std::cout << msg << std::endl;
+		}
+		
 	}
 }
-/*  _________________________________________________________________________ */
-  /*! QueuePopBacktrace
 
-  @param &loggingThreadBacktraceActive
-  atomic global variable keeping track of life of thread 2
 
-  @return std::string
-
-  this function safely locks and waits for m_buffer2 to not be empty and
-  for condition variable to be notified, pops m_buffer2
-  */
-std::string LoggingSystem::QueuePopBacktrace(std::atomic<bool>& loggingThreadBacktraceActive) {
-	std::unique_lock<std::mutex> lock2(m_buffer2Mutex);
-	//sleep until condition variable m_cq is notified and queue is not empty
-	m_cq2.wait(lock2, [this, &loggingThreadBacktraceActive] {return !m_buffer2.empty() || !loggingThreadBacktraceActive; });
-	//std::cout << "entered queue pop backtrace" << '\n';
-	//std::cout << "QUEUESIZE AT END OF QUEUEPOP: " << m_buffer1.size();
-	if (!m_buffer2.empty()) {
-		std::string msg = m_buffer2.front();
-		//std::cout << "QUEUEPOP MSG: " << msg << '\n';
-		m_buffer2.pop();
-		return msg;
-	}
-	else {
-		return "";
-	}
-}
 /*  _________________________________________________________________________ */
   /*! LoggingThread
 

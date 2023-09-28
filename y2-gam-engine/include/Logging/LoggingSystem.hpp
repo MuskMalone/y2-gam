@@ -70,14 +70,10 @@ private:
 	LogLevel m_level;
 	std::string m_info;
 	//thread queue1 logs without stacktraces
-	std::queue<std::string> m_buffer1;
-	std::mutex m_buffer1Mutex;
-	std::condition_variable m_cq1;
+	std::vector<std::string> m_buffer1;
 	std::ofstream m_logFile;
 	//thread queue2 logs with stacktraces
-	std::queue<std::string> m_buffer2;
-	std::mutex m_buffer2Mutex;
-	std::condition_variable m_cq2;
+	std::vector<std::string> m_buffer2;
 	std::ofstream m_logBacktraceFile;
 
 
@@ -86,7 +82,6 @@ private:
 	std::string m_formatStr;
 
 	std::string m_formatDate;
-	std::string m_formatLevel;
 
 	//stacktrace
 	int m_stacktraceNum;
@@ -122,13 +117,6 @@ public:
 
 	//thread 2 backtrace enabled
 	void LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBacktraceActive);
-	std::string QueuePopBacktrace(std::atomic<bool>& loggingThreadBacktraceActive);
-	//thread 1 backtrace disabled
-	void LoggingThread(std::atomic<bool>& loggingThreadActive);
-	//functions to do with log queue
-	std::string QueuePop(std::atomic<bool>& loggingThreadActive);
-	bool IsQueueEmpty();
-	size_t GetQueueSize();
 
 	void Log(LogLevel log_level, std::string message, const std::string& infunctname);
 	//functions to do with .log(LogLevel, message)

@@ -178,11 +178,7 @@ int main()
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
-	std::atomic<bool> loggingThreadActive(true);
-	std::atomic<bool> loggingThreadBacktraceActive(true);
-	LoggingSystem& logInst = LoggingSystem::GetInstance();
-	std::thread loggingThread(&LoggingSystem::LoggingThread, &logInst, std::ref(loggingThreadActive));
-	std::thread loggingThreadBacktrace(&LoggingSystem::LoggingThreadBacktrace, &logInst, std::ref(loggingThreadBacktraceActive));
+	
 
 	while (!quit && !windowManager->ShouldClose())
 	{
@@ -222,15 +218,7 @@ int main()
 			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
 
-	loggingThreadActive = false;
-	loggingThreadBacktraceActive = false;
-
-	if (loggingThread.joinable()) {
-		loggingThread.join();
-	}
-	if (loggingThreadBacktrace.joinable()) {
-		loggingThreadBacktrace.join();
-	}
+	
 
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
