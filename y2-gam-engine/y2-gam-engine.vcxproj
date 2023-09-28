@@ -176,7 +176,6 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
-    <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />

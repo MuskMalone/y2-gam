@@ -5,7 +5,6 @@
 #include <Math/Mat44.hpp>
 #include <Math/Vec3.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <Graphics/GLSLShader.hpp>
 //class Mat44;
 //class Vec3;
 

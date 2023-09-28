@@ -81,7 +81,6 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Node.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
-    <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Systems\AnimationSystem.hpp" />
@@ -244,18 +243,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Graphics\OrthoCamera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Mat44.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Vec2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Vec3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Vec4.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

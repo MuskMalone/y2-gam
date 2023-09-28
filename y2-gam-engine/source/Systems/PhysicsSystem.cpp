@@ -153,7 +153,7 @@ namespace Physics {
                 float maxPt = a.combinedFriction * c.accNormalImpulse;
                 // Clamp friction
                 float oldTangentImpulse = c.accTangentImpulse;
-                c.accTangentImpulse = glm::clamp(oldTangentImpulse + dPt, -maxPt, maxPt);
+                c.accTangentImpulse = std::clamp(oldTangentImpulse + dPt, -maxPt, maxPt);
                 dPt = c.accTangentImpulse - oldTangentImpulse;
             }
 

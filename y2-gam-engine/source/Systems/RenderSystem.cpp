@@ -3,7 +3,6 @@
 #include "Components/Camera.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
-#include <Graphics/GLSLShader.hpp>
 #include <cmath>
 #include "Core/Globals.hpp"
 #include <glm/gtc/matrix_transform.hpp>

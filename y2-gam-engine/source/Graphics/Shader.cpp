@@ -1,8 +1,8 @@
 #include "Graphics/Shader.hpp"
-#include <Graphics/GLSLShader.hpp>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 Shader::Shader(std::string const& vertFile, std::string const& fragFile)
 	:pgmHdl{} {
