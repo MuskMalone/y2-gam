@@ -1,286 +1,44 @@
-[INFO]: Successful FMOD System Creation 2023-09-28 01:17:15 FN: Image::SoundManager::AudioInit
+[INFO]: Successful FMOD System Creation 2023-09-28 14:09:48 FN: Image::SoundManager::AudioInit
 
-[INFO]: Successful FMOD System Initialization 2023-09-28 01:17:15 FN: Image::SoundManager::AudioInit
+[INFO]: Successful FMOD System Initialization 2023-09-28 14:09:48 FN: Image::SoundManager::AudioInit
 
-[INFO]: Framebuffer is complete! 2023-09-28 01:17:16 FN: Framebuffer::Invalidate
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 14:09:49 FN: Shader::CreateShaderFromString
 
-[INFO]: Mono method .ctor created! 2023-09-28 01:17:16 FN: Image::ScriptClass::GetMethod
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 14:09:49 FN: Shader::CreateShaderFromString
 
-[INFO]: Mono method OnCreate created! 2023-09-28 01:17:16 FN: Image::ScriptClass::GetMethod
+[INFO]: Framebuffer is complete! 2023-09-28 14:09:49 FN: Framebuffer::Invalidate
 
-[INFO]: Mono method OnUpdate created! 2023-09-28 01:17:16 FN: Image::ScriptClass::GetMethod
+[INFO]: Mono method .ctor created! 2023-09-28 14:09:49 FN: Image::ScriptClass::GetMethod
 
-[INFO]: init Freetype Library 2023-09-28 01:17:16 FN: Image::FontRenderer::Init
+[INFO]: Mono method OnCreate created! 2023-09-28 14:09:49 FN: Image::ScriptClass::GetMethod
 
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 01:17:16 FN: Image::FontRenderer::LoadFont
+[INFO]: Mono method OnUpdate created! 2023-09-28 14:09:49 FN: Image::ScriptClass::GetMethod
 
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 01:17:16 FN: Image::FontRenderer::SetFontSize
+[INFO]: Succesful init Freetype Library 2023-09-28 14:09:49 FN: Image::FontRenderer::Init
 
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 01:17:16 FN: Image::FontRenderer::LoadFont
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 14:09:49 FN: Shader::CreateShaderFromString
 
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 01:17:16 FN: Image::FontRenderer::SetFontSize
+[INFO]: Successful init FreeType Face Arial 2023-09-28 14:09:49 FN: Image::FontRenderer::LoadFont
 
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 01:17:16 FN: Image::FontRenderer::LoadFont
+[INFO]: Successful Set Font Size to 100 2023-09-28 14:09:49 FN: Image::FontRenderer::SetFontSize
 
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 01:17:16 FN: Image::FontRenderer::SetFontSize
+[INFO]: Successful init FreeType Face Lato 2023-09-28 14:09:49 FN: Image::FontRenderer::LoadFont
 
-[INFO]: Successful FMOD System Creation 2023-09-28 10:15:41 FN: Image::SoundManager::AudioInit
+[INFO]: Successful Set Font Size to 100 2023-09-28 14:09:49 FN: Image::FontRenderer::SetFontSize
 
-[INFO]: Successful FMOD System Initialization 2023-09-28 10:15:41 FN: Image::SoundManager::AudioInit
+[INFO]: Successful init FreeType Face Getho 2023-09-28 14:09:49 FN: Image::FontRenderer::LoadFont
 
-[INFO]: Framebuffer is complete! 2023-09-28 10:15:42 FN: Framebuffer::Invalidate
+[INFO]: Successful Set Font Size to 100 2023-09-28 14:09:49 FN: Image::FontRenderer::SetFontSize
 
-[INFO]: Mono method .ctor created! 2023-09-28 10:15:42 FN: Image::ScriptClass::GetMethod
+[INFO]: Left mouse button  2023-09-28 14:10:01 FN: WindowManager::MouseButtonCb
 
-[INFO]: Mono method OnCreate created! 2023-09-28 10:15:42 FN: Image::ScriptClass::GetMethod
+[INFO]: Left mouse button  2023-09-28 14:10:01 FN: WindowManager::MouseButtonCb
 
-[INFO]: Mono method OnUpdate created! 2023-09-28 10:15:42 FN: Image::ScriptClass::GetMethod
+[INFO]: Left mouse button  2023-09-28 14:10:05 FN: WindowManager::MouseButtonCb
 
-[INFO]: init Freetype Library 2023-09-28 10:15:42 FN: Image::FontRenderer::Init
+[INFO]: Left mouse button  2023-09-28 14:10:05 FN: WindowManager::MouseButtonCb
 
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 10:15:42 FN: Image::FontRenderer::LoadFont
+[INFO]: Left mouse button  2023-09-28 14:10:06 FN: WindowManager::MouseButtonCb
 
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:15:42 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 10:15:42 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:15:42 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 10:15:42 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:15:42 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 10:26:38 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 10:26:38 FN: Image::SoundManager::AudioInit
-
-[INFO]: Framebuffer is complete! 2023-09-28 10:26:39 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 10:26:39 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 10:26:39 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 10:26:39 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 10:26:39 FN: Image::FontRenderer::Init
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 10:26:39 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:26:39 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 10:26:39 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:26:39 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 10:26:39 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:26:39 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 10:49:09 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 10:49:09 FN: Image::SoundManager::AudioInit
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:49:09 FN: Shader::CreateShaderFromString
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:49:09 FN: Shader::CreateShaderFromString
-
-[INFO]: Framebuffer is complete! 2023-09-28 10:49:09 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 10:49:09 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 10:49:09 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 10:49:09 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 10:49:09 FN: Image::FontRenderer::Init
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:49:09 FN: Shader::CreateShaderFromString
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 10:49:09 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:49:09 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 10:49:09 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:49:09 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 10:49:09 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:49:09 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 10:52:06 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 10:52:06 FN: Image::SoundManager::AudioInit
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:52:07 FN: Shader::CreateShaderFromString
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:52:07 FN: Shader::CreateShaderFromString
-
-[INFO]: Framebuffer is complete! 2023-09-28 10:52:07 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 10:52:07 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 10:52:07 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 10:52:07 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 10:52:07 FN: Image::FontRenderer::Init
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:52:07 FN: Shader::CreateShaderFromString
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 10:52:07 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:52:07 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 10:52:07 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:52:07 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 10:52:07 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:52:07 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 10:53:06 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 10:53:06 FN: Image::SoundManager::AudioInit
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:53:06 FN: Shader::CreateShaderFromString
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:53:06 FN: Shader::CreateShaderFromString
-
-[INFO]: Framebuffer is complete! 2023-09-28 10:53:06 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 10:53:06 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 10:53:06 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 10:53:06 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 10:53:06 FN: Image::FontRenderer::Init
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 10:53:06 FN: Shader::CreateShaderFromString
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 10:53:06 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:53:06 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 10:53:06 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:53:06 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 10:53:06 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 10:53:06 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 13:07:56 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 13:07:57 FN: Image::SoundManager::AudioInit
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:07:58 FN: Shader::CreateShaderFromString
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:07:58 FN: Shader::CreateShaderFromString
-
-[INFO]: Framebuffer is complete! 2023-09-28 13:07:58 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 13:07:58 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 13:07:58 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 13:07:58 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 13:07:58 FN: Image::FontRenderer::Init
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:07:58 FN: Shader::CreateShaderFromString
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 13:07:58 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:07:58 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 13:07:58 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:07:58 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 13:07:58 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:07:58 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful FMOD System Creation 2023-09-28 13:49:16 FN: Image::SoundManager::AudioInit
-
-[INFO]: Successful FMOD System Initialization 2023-09-28 13:49:16 FN: Image::SoundManager::AudioInit
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:49:17 FN: Shader::CreateShaderFromString
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:49:17 FN: Shader::CreateShaderFromString
-
-[INFO]: Framebuffer is complete! 2023-09-28 13:49:17 FN: Framebuffer::Invalidate
-
-[INFO]: Mono method .ctor created! 2023-09-28 13:49:17 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnCreate created! 2023-09-28 13:49:17 FN: Image::ScriptClass::GetMethod
-
-[INFO]: Mono method OnUpdate created! 2023-09-28 13:49:17 FN: Image::ScriptClass::GetMethod
-
-[INFO]: init Freetype Library 2023-09-28 13:49:17 FN: Image::FontRenderer::Init
-
-[INFO]: Succesfully Compiled and Linked! 2023-09-28 13:49:17 FN: Shader::CreateShaderFromString
-
-[INFO]: Successful init FreeType Face Arial
- 2023-09-28 13:49:17 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:49:17 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Lato
- 2023-09-28 13:49:17 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:49:17 FN: Image::FontRenderer::SetFontSize
-
-[INFO]: Successful init FreeType Face Getho
- 2023-09-28 13:49:17 FN: Image::FontRenderer::LoadFont
-
-[INFO]: Successful Set Font Size to 100
- 2023-09-28 13:49:17 FN: Image::FontRenderer::SetFontSize
+[INFO]: Left mouse button  2023-09-28 14:10:06 FN: WindowManager::MouseButtonCb
 
