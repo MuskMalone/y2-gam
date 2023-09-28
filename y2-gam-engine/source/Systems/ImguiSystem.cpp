@@ -133,7 +133,7 @@ namespace {
         return;
     }
      
-    void ImGuiSystem::Update(GLFWwindow* window){
+    void ImGuiSystem::Update(){
         ImGuiIO& io = ImGui::GetIO();
             // Poll and handle events (inputs, window resize, etc.)
             // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.

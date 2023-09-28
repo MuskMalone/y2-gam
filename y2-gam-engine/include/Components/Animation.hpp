@@ -15,17 +15,17 @@ struct AnimationFrame {
 };
 
 struct Animation {
-	float speed;
-	size_t currFrame;
-	ANIM_STATE currState;
+	float speed{};
+	size_t currFrame{};
+	ANIM_STATE currState{};
 	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
 	Animation() = default;
 	Animation(float s, size_t cf, ANIM_STATE cs, std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> sm)
 		: speed{ s }, currFrame{ cf }, currState{ cs }, stateMap{ sm } {}
-	Animation(rapidjson::Value const& obj) {
+	Animation([[maybe_unused]] rapidjson::Value const& obj) {
 
 	}
-	bool Serialize(rapidjson::Value& obj) {
+	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
 };

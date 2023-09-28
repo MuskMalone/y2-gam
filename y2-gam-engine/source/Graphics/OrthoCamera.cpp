@@ -16,7 +16,7 @@ OrthoCamera::OrthoCamera(float ar, float left, float right, float bottom, float 
 	mViewProjMtx = mProjMtx * mViewMtx;
 }
 
-OrthoCamera::OrthoCamera(rapidjson::Value const& obj) {
+[[maybe_unused]] OrthoCamera::OrthoCamera(rapidjson::Value const& obj) {
 
 }
 
@@ -36,6 +36,7 @@ void OrthoCamera::SetRotation(float rot) {
 }
 
 void OrthoCamera::ZoomIn(float zoomSpeed) {
+	mZoom = zoomSpeed;
 	mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
 	SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
 	ComputeViewProjMtx();

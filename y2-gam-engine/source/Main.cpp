@@ -42,7 +42,7 @@ namespace {
 }
 
 
-void QuitHandler(Event& event)
+void QuitHandler([[maybe_unused]] Event& event)
 {
 	quit = true;
 }
@@ -194,7 +194,7 @@ int main()
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
-		imguiSystem->Update(windowManager->GetContext());
+		imguiSystem->Update();
 
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);

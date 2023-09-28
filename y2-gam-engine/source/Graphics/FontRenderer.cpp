@@ -121,7 +121,7 @@ namespace Image {
 
   Exports glypth to png files for debugging purposes.
   */
-  void FontRenderer::DebugGlyph(std::string name, int width, int height, unsigned char* buffer) {
+  void FontRenderer::DebugGlyph(std::string name, [[maybe_unused]] int width, [[maybe_unused]] int height, [[maybe_unused]] unsigned char* buffer) {
     // Define the output file path (e.g., based on character's Unicode value).
     std::string outputPath = "../Glyphs/" + name + ".png";
 

@@ -185,9 +185,6 @@
     <ClInclude Include="source\WindowManager.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Graphics\GLSLShader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DataMgmt\QuadTree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

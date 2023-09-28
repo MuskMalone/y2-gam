@@ -12,10 +12,10 @@
 
 struct Camera
 {
-	glm::vec3 eye;
-	glm::vec3 up;
-	glm::vec3 tgt;
-	glm::mat4 projectionTransform;
+	glm::vec3 eye{};
+	glm::vec3 up{};
+	glm::vec3 tgt{};
+	glm::mat4 projectionTransform{};
 	void UpdatePos(float x, float y) {
 		eye = glm::vec3{ x,y,0 };
 		tgt = eye + glm::vec3{0, 0, 1};
@@ -32,8 +32,9 @@ struct Camera
 
 		
 	}
-	Camera(rapidjson::Value const& obj) {}
-	bool Serialize(rapidjson::Value& obj) {
+	Camera([[maybe_unused]] rapidjson::Value const& obj) {}
+
+	bool Serialize([[maybe_unused]]  rapidjson::Value& obj) {
 		return false;
 	}
 };

@@ -24,17 +24,17 @@ public:
 
 	void ComputeViewProjMtx();
 
-	glm::mat4 mProjMtx;
-	glm::mat4 mViewMtx;
-	glm::mat4 mViewProjMtx;
+	glm::mat4 mProjMtx{};
+	glm::mat4 mViewMtx{};
+	glm::mat4 mViewProjMtx{};
 
 	glm::vec3 mPos{};
 	float mRot{ 0.f };
-	float mZoom;
+	float mZoom{};
 	float mMinZoom{10.f}, mMaxZoom{300.f};
-	float mAspectRatio;
+	float mAspectRatio{};
 
-	bool Serialize(rapidjson::Value& obj) {
+	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
 };

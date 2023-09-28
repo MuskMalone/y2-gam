@@ -3,8 +3,8 @@
 struct Editor
 {
 	Editor() = default;
-	Editor(rapidjson::Value const& obj) {}
-	bool Serialize(rapidjson::Value& obj) {
+	Editor([[maybe_unused]] rapidjson::Value const& obj) {}
+	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
 };

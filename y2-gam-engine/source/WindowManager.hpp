@@ -40,7 +40,7 @@ public:
 private:
 	static std::shared_ptr<WindowManager> _mSelf;
 
-	GLFWwindow* mWindow;
+	GLFWwindow* mWindow{};
 
 	KeyState mButtons{};
 	KeyState mPrevButtons{};

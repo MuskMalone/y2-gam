@@ -7,7 +7,7 @@ struct BoxCollider {
 	//this is just a struct to tell the collision system to consider this object for colliding
 	//dimensions and everythign are in rigidbody
 	BoxCollider() = default;
-	BoxCollider(rapidjson::Value const& obj) {
+	BoxCollider([[maybe_unused]] rapidjson::Value const& obj) {
 
 	}
 	bool Serialize(rapidjson::Value& obj) {
