@@ -52,6 +52,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)y2-gam-script\bin\debug\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)y2-gam-script\bin\debug\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
+xcopy "$(SolutionDir)y2-gam-script\bin\release\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
