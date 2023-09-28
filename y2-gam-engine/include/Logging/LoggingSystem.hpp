@@ -80,8 +80,11 @@ private:
 	std::ifstream m_logConfigFile;
 	std::string m_orderStr;
 	std::string m_formatStr;
-
 	std::string m_formatDate;
+
+	//flush
+	bool m_flushNow;
+	double m_timeBeforeFlush;
 
 	//stacktrace
 	int m_stacktraceNum;
@@ -115,9 +118,7 @@ public:
 	// Destructor
 	~LoggingSystem();
 
-	//thread 2 backtrace enabled
-	void LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBacktraceActive);
-
+	
 	void Log(LogLevel log_level, std::string message, const std::string& infunctname);
 	//functions to do with .log(LogLevel, message)
 	void RearrangeOrder(const std::string order);
@@ -125,7 +126,10 @@ public:
 	void InitializationFromConfig();
 	void GetStacktrace(int num, int skipFirstNumFrames);
 	//void RecordStacktraceNum(int stacktraceNum);
-
+	void Flush1();
+	void Flush2();
+	void SetTime();
+	void FlushTimeElapsed();
 };
 
 //Initializating an object instance of stopwatch starts clock

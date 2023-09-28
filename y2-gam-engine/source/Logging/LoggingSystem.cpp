@@ -56,6 +56,11 @@ LoggingSystem::LoggingSystem() {
 	if (!m_logFile.is_open()) {
 		std::cout << "LOGFILE NOT OPENED" << std::endl;
 	}
+	m_logBacktraceFile.open("logBacktraceFile.txt", std::ios::out | std::ios::app);
+	//m_logFile.open("./logFile.txt", std::ios::out | std::ios::app);
+	if (!m_logFile.is_open()) {
+		std::cout << "LOGFBACKTRACEFILE NOT OPENED" << std::endl;
+	}
 
 }
 
@@ -186,94 +191,71 @@ void LoggingSystem::Log(LogLevel log_level, std::string message, const std::stri
 		//push m_info into buffer2
 		m_buffer2.push_back(m_info);
 		//notify condition variable queuepopbacktrace
-		m_info.clear();
+		
 	}//Backtracing disabled queue
 	else {
 		//push string Info into buffer_1
 		//and m_write1 == false
 		m_buffer1.push_back(m_info);
 		//clears string that has contents of this one log
-		m_info.clear();
 	}
+	m_info.clear();
+	FlushTimeElapsed();
+	if (m_flushNow == true) {
+		Flush1();
+		Flush2();
+		m_flushNow = false;
+		SetTime();
+	}
+}
 
-	if (m_buffer1.size() > 20) {
-		
-		//write to file
+void LoggingSystem::SetTime() {
+	m_start = std::chrono::steady_clock::now();
+}
+//flush buffer contents into LogFile
+void LoggingSystem::Flush1() {
+	//if the buffer is not empty, transfer remaining contents to LogFile
+	if (!m_buffer1.empty()) {
+		std::cout << "Buffer1 size flushed: " << m_buffer1.size() << std::endl;
 		if (m_pipeType == 0) {
-			m_logFile << msg << std::endl;
-		}//write to std::cout
+			for (const auto& elem : m_buffer1) {
+				m_logFile << elem << std::endl;
+			}
+		}
 		else if (m_pipeType == 1) {
-			std::cout << msg << std::endl;
-		}
-		
-	}
-}
-
-
-/*  _________________________________________________________________________ */
-  /*! LoggingThread
-
-  @param &loggingThreadActive
-  atomic global variable keeping track of life of thread
-
-  @return void
-
-  Corresponding function to thread 1, opens logfile and while thread is active,
-  write buffer1 contents to either file or console
-  */
-void LoggingSystem::LoggingThread(std::atomic<bool>& loggingThreadActive) {
-	//opening LogFile to write logs to
-	m_logFile.open("logFile.txt", std::ios::out | std::ios::app);
-	//m_logFile.open("./logFile.txt", std::ios::out | std::ios::app);
-	if (!m_logFile.is_open()) {
-		std::cout << "LOGFILE NOT OPENED" << std::endl;
-	}
-	while (loggingThreadActive == true) {
-		std::string msg = QueuePop(loggingThreadActive);
-		if (!msg.empty()) {
-			//write to file
-			if (m_pipeType == 0) {
-				m_logFile << msg << std::endl;
-			}//write to std::cout
-			else if (m_pipeType == 1) {
-				std::cout << msg << std::endl;
+			for (const auto& elem : m_buffer1) {
+				std::cout << elem << std::endl;
 			}
 		}
 	}
-	m_logFile.close();
-
+	//clear all buffer contents
+	m_buffer1.clear();
 }
-/*  _________________________________________________________________________ */
-  /*! LoggingThreadBacktrace
 
-  @param &loggingThreadActive
-  atomic global variable keeping track of life of thread
-
-  @return void
-
-  Corresponding function to thread 2, opens logBacktracefile and while thread is active,
-  write buffer2 contents to either file or console
-  */
-void LoggingSystem::LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBacktraceActive) {
-	//opening LogFile to write logs to
-	m_logBacktraceFile.open("logBacktraceFile.txt", std::ios::out | std::ios::app);
-	//m_logFile.open("./logBacktraceFile.txt", std::ios::out | std::ios::app);
-	if (!m_logBacktraceFile.is_open()) {
-		std::cout << "LOGBACKTRACEFILE NOT OPENED" << std::endl;
-	}
-	while (loggingThreadBacktraceActive == true) {
-		std::string msg = QueuePopBacktrace(loggingThreadBacktraceActive);
-		if (!msg.empty()) {
-			//write to file
-			if (m_pipeType == 0) {
-				m_logBacktraceFile << msg << std::endl;
-			}//write to std::cout
-			else if (m_pipeType == 1) {
-				std::cout << msg << std::endl;
+void LoggingSystem::Flush2() {
+	if (!m_buffer1.empty()) {
+		std::cout << "Buffer2 size flushed: " << m_buffer2.size() << std::endl;
+		if (m_pipeType == 0) {
+			for (const auto& elem : m_buffer2) {
+				m_logFile << elem << std::endl;
+			}
+		}
+		else if (m_pipeType == 1) {
+			for (const auto& elem : m_buffer2) {
+				std::cout << elem << std::endl;
 			}
 		}
 	}
-	m_logBacktraceFile.close();
+	//clear all buffer contents
+	m_buffer2.clear();
+}
+
+void LoggingSystem::FlushTimeElapsed() {
+	std::chrono::duration<double> d = std::chrono::steady_clock::now() - m_start;
+	auto final = d.count();
+	if (final > m_timeBeforeFlush) {
+		m_flushNow = true;
+	}
 }
 //functions to do with logging queue
 
@@ -314,6 +296,12 @@ void LoggingSystem::Initialization() {
 	m_traceFlag = DEFAULT_TRACE;
 	m_debugFlag = DEFAULT_DEBUG;
 	m_pipeType = DEFAULT_PIPETYPE;
+	//flush
+	//default flush from buffer to file status
+	m_flushNow = false;
+	//Time for periodic flushing
+	SetTime();
+	m_timeBeforeFlush = 0.5;
 
 }
 
@@ -402,11 +390,7 @@ void LoggingSystem::InitializationFromConfig()
 			{
 				continue;
 			}
-
-
 		}
-
-
 	}
 }
 
