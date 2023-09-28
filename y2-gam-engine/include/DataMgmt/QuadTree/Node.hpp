@@ -30,7 +30,7 @@ namespace DataMgmt {
 		//void color_objects();
 
 		template <typename _pred>
-		bool contain(Entity const& id, _pred) const { return mBounds.contain(id, p); }
+		bool Contain(Entity const& id, _pred) const { return mBounds.Contain(id, p); }
 	};
 }
 

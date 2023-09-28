@@ -19,9 +19,14 @@
 #include <algorithm>
 
 #include "Scripting/ScriptManager.hpp"
+#include "Audio/Sound.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
+	Image::Sound soundEffect;
+	Image::Sound bgm;
+	Image::SoundGroup bgmGroup;
+	Image::SoundGroup effectGroup;
 }
 namespace Testing {
 	std::default_random_engine generator;
@@ -109,7 +114,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
 
 	position = Vec3(0.f, 0.f, 1.f);
-	float scale{ 5.f };
+	float scale{ 50.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
 		{ Vec2(0.0f, -100.f) });
@@ -133,10 +138,35 @@ void EditorControlSystem::Init()
 		player,
 		Sprite{
 			Vec4(1,1,1,1),
-			nullptr
+			nullptr,
+			Layer::FOREGROUND
+		});
+	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+	std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+	std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+																	 {ANIM_STATE::RUN, runFrames},
+																	 {ANIM_STATE::ATTACK, attackFrames} };
+	::gCoordinator->AddComponent(
+		player,
+		Animation{
+			0.08f,
+			0,
+			ANIM_STATE::IDLE,
+			map
 		});
 
 	Image::ScriptManager::OnCreateEntity(player);
+
+	// Sound Testing
+	soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
+	bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	bgmGroup = Image::SoundManager::AudioCreateGroup();
+	effectGroup = Image::SoundManager::AudioCreateGroup();
+
+	Image::SoundManager::AudioPlay(bgm, bgmGroup, -1);
+	Image::SoundManager::AudioPauseGroup(bgmGroup);
 }
 
 void EditorControlSystem::Update(float dt)
@@ -153,6 +183,19 @@ void EditorControlSystem::Update(float dt)
 
 	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
+		Image::SoundManager::AudioResumeGroup(bgmGroup);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
+		Image::SoundManager::AudioPauseGroup(bgmGroup);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
+		Image::SoundManager::AudioPlay(soundEffect, effectGroup, 0);
+	}
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 		camera.mPos.y += moveSpeed * dt;
 		camera.SetPosition(camera.mPos);

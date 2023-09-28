@@ -15,10 +15,10 @@ namespace Physics {
     };
     union FeaturePair {
         struct Edges {
-            EdgeNumbers in_edge_1;
-            EdgeNumbers out_edge_1;
-            EdgeNumbers in_edge_2;
-            EdgeNumbers out_edge_2;
+            EdgeNumbers inEdge1;
+            EdgeNumbers outEdge1;
+            EdgeNumbers inEdge2;
+            EdgeNumbers outEdge2;
         } e;
         uint32_t value;
     };
@@ -34,11 +34,11 @@ namespace Physics {
         Vec2 normal;
         Vec2 r1, r2;
         float seperation;
-        float acc_normal_impulse;
-        float acc_tangent_impulse;
-        float acc_biased_normal_impulse;
-        float mass_normal;
-        float mass_tangent;
+        float accNormalImpulse;
+        float accTangentImpulse;
+        float accBiasedNormalImpulse;
+        float massNormal;
+        float massTangent;
         float bias;
         FeaturePair feature;
     };
@@ -51,10 +51,10 @@ namespace Physics {
         Entity b2;
         //RigidBody* b1; //use of pointers are unfortunate but.....idc
         //RigidBody* b2;
-        float combined_friction;
+        float combinedFriction;
 
         Contact contacts[MAX_CONTACT_POINTS];
-        uint32_t contacts_count;
+        uint32_t contactsCount;
     };
     using ArbiterHashTable = std::unordered_map<size_t, Arbiter>;
     using ArbiterPair = std::pair<size_t, Arbiter>;

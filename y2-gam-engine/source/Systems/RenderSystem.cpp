@@ -40,7 +40,7 @@ void RenderSystem::Init()
 		Camera{});
 	gCoordinator->AddComponent(
 		mCamera,
-		OrthoCamera{aspectRatio, -WORLD_LIMIT_X * aspectRatio, WORLD_LIMIT_X * aspectRatio, -WORLD_LIMIT_Y, WORLD_LIMIT_Y}
+		OrthoCamera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
 	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );

@@ -6,13 +6,20 @@
 class StateManager {
 public:
 	static std::shared_ptr<StateManager> GetInstance();
-	void PushState(std::unique_ptr<GameState> state);
+	template <typename _state>
+	void PushState() {
+		if (!mStates.empty())
+			mStates.top()->Exit();
+		mStates.push(std::move(std::make_unique<_state>()));
+		//mStates.push(std::move(std::make_unique<State>()));
+		mStates.top()->Init();
+	}
 	void PopState();
 	void Update(float dt);
 	void Render(float dt);
 	void Clear();
 
 private:
-	std::stack<std::unique_ptr<GameState>> mStates;
+	std::stack<std::unique_ptr<State>> mStates;
 	static std::shared_ptr<StateManager> _mSelf;
 };
