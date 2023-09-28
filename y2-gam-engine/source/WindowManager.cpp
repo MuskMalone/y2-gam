@@ -129,7 +129,6 @@ void WindowManager::MouseButtonCb(GLFWwindow* pwin, int button, int action, int 
     case GLFW_MOUSE_BUTTON_LEFT:
 #ifdef _DEBUG
         std::cout << "Left mouse button ";
-		LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Left mouse button ", __FUNCTION__);
 #endif
         break;
     case GLFW_MOUSE_BUTTON_RIGHT:
