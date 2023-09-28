@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Math/Vec2.hpp"
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
-
+#include <Math/MathUtils.h>
 
 struct RigidBody
 {
@@ -28,7 +27,7 @@ struct RigidBody
 
 	Vec2 acceleration{};
 	RigidBody() = default;
-	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension, bool rotate = true) {
+	RigidBody(Vec2 pos, float rotation, float mass, Vec2 dimension, bool rotate = false) {
 		this->position = pos;
 		this->rotation = rotation;
 		this->dimension = dimension;

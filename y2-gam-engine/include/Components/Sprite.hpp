@@ -13,18 +13,18 @@ enum class Layer {
 };
 
 struct Sprite {
-	Vec4 color;
+	glm::vec4 color;
 	std::shared_ptr<SubTexture> texture;
 	Layer layer;
 
 	Sprite() = default;
-	Sprite(Vec4 color, std::shared_ptr<SubTexture> tex, Layer lyr = Layer::FOREGROUND) : color{ color }, texture{ tex }, layer{lyr} {}
+	Sprite(glm::vec4 color, std::shared_ptr<SubTexture> tex, Layer lyr = Layer::FOREGROUND) : color{ color }, texture{ tex }, layer{lyr} {}
 	Sprite(rapidjson::Value const& obj) {
 		color = { 1,1,1,1 };
 		texture = nullptr;
 		layer = Layer::FOREGROUND;
 	}
 	bool Serialize(rapidjson::Value& obj) {
-		return false;
+		return true;
 	}
 };

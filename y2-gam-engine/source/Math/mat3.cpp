@@ -1,10 +1,11 @@
-#include "Math\Mat3.h"
-#include "Math\MathUtils.h"
+#include "Math/MathUtils.h"
 
 namespace Image {
 	Mat33::Mat33() :mMat{} {}
 
-	Mat33::Mat33(float const& val) :mMat{val,val,val} {}
+	Mat33::Mat33(float const& val) :mMat{ val,val,val } {}
+
+	Mat33::Mat33(Mat33 const& rhs) :mMat{ rhs.mMat[0],rhs.mMat[1],rhs.mMat[2]} {}
 
 	/**************************************************************************/
 	/*!
@@ -12,14 +13,14 @@ namespace Image {
 	*/
 	/**************************************************************************/
 	Mat33::Mat33(float a00, float a01, float a02,
-				float a10, float a11, float a12,
-				float a20, float a21, float a22) : mMat{ Vec3(a00,a01,a02) ,
-														Vec3(a10,a11,a12) ,
-														Vec3(a20,a21,a22) } {}
+		float a10, float a11, float a12,
+		float a20, float a21, float a22) : mMat{ Vec3(a00,a01,a02) ,
+												Vec3(a10,a11,a12) ,
+												Vec3(a20,a21,a22) } {}
 
 	Mat33::Mat33(Vec3 col1, Vec3 col2, Vec3 col3) :mMat{ col1, col2, col3 } {}
 
-	Vec3 Mat33::operator[](int idx) const{
+	/*Vec3 Mat33::operator[](int idx) const {
 		assert((idx >= 0) && idx < 3 && "Index out of bounds");
 		return mMat[idx];
 	}
@@ -112,6 +113,12 @@ namespace Image {
 		return *this;
 	}
 
+	Vec3 Mat33::operator*(Vec3 const& rhs) {
+		return Vec3(mMat[0][0] * rhs.mData[0] + mMat[1][0] * rhs.mData[1] + mMat[2][0] * rhs.mData[2],
+			mMat[0][1] * rhs.mData[0] + mMat[1][1] * rhs.mData[1] + mMat[2][1] * rhs.mData[2],
+			mMat[0][2] * rhs.mData[0] + mMat[1][2] * rhs.mData[1] + mMat[2][2] * rhs.mData[2]);
+	}*/
+
 	void Mat33Identity(Mat33& results) {
 		results = { Vec3(1.f,0,0) ,
 					Vec3(0,1.f,0) ,
@@ -181,9 +188,59 @@ namespace Image {
 
 	std::ostream& operator<<(std::ostream& os, Mat33& m) {
 		for (int i{}; i < 3; ++i) {
-			os << m[0][i] << " " << m[1][i] << " " << m[2][i] << std::endl;
+			os << m.mMat[0][i] << " " << m.mMat[1][i] << " " << m.mMat[2][i] << std::endl;
 		}
 		return os;
 	}
+	bool operator==(const Mat33& lhs, const Mat33& rhs){
+		return (lhs.mMat[0] == rhs.mMat[0] && lhs.mMat[1] == rhs.mMat[1] && lhs.mMat[2] == rhs.mMat[2]);
+	}
+	Mat33 operator+(const Mat33& lhs, const Mat33& rhs){
+		return Mat33(lhs.mMat[0] + rhs.mMat[0], lhs.mMat[1] + rhs.mMat[1], lhs.mMat[2] + rhs.mMat[2]);
+	}
+	Mat33 operator-(const Mat33& lhs, const Mat33& rhs){
+		return Mat33(lhs.mMat[0] - rhs.mMat[0], lhs.mMat[1] - rhs.mMat[1], lhs.mMat[2] - rhs.mMat[2]);
 
+	}
+	Mat33 operator*(const Mat33& lhs, const Mat33& rhs){
+		Mat33 result;
+		for (int i{}; i < 3; ++i) {
+			for (int j{}; j < 3; ++j) {
+				result.mMat[i][j] = 0;
+				for (int k = 0; k < 3; ++k) {
+					result.mMat[i][j] += lhs.mMat[i][k] * rhs.mMat[k][j];
+				}
+			}
+		}
+		return result;
+	}
+	Mat33 operator+(const Mat33& lhs, float const& val)	{
+		return Mat33(lhs.mMat[0] + val, lhs.mMat[1] + val,lhs.mMat[2]+val);
+	}
+	Mat33 operator-(const Mat33& lhs, float const& val){
+		return Mat33(lhs.mMat[0] - val, lhs.mMat[1] - val, lhs.mMat[2] - val);
+	}
+	Mat33 operator*(const Mat33& lhs, float const& val){
+		return Mat33(lhs.mMat[0] * val, lhs.mMat[1] * val, lhs.mMat[2] * val);
+	}
+	Mat33 operator/(const Mat33& lhs, float const& val){
+		return Mat33(lhs.mMat[0] / val, lhs.mMat[1] / val, lhs.mMat[2] / val);
+	}
+	Mat33& operator+=(Mat33& lhs, const Mat33& rhs){
+		lhs.mMat[0] += rhs.mMat[0];
+		lhs.mMat[1] += rhs.mMat[1];
+		lhs.mMat[2] += rhs.mMat[2];
+		return lhs;
+	}
+	Mat33& operator-=(Mat33& lhs, const Mat33& rhs){
+		lhs.mMat[0] -= rhs.mMat[0];
+		lhs.mMat[1] -= rhs.mMat[1];
+		lhs.mMat[2] -= rhs.mMat[2];
+		return lhs;
+	}
+	Vec3 operator*(const Mat33& lhs, const Vec3& rhs){
+		return Vec3(lhs.mMat[0][0] * rhs.mData[0] + lhs.mMat[1][0] * rhs.mData[1] + lhs.mMat[2][0] * rhs.mData[2],
+			lhs.mMat[0][1] * rhs.mData[0] + lhs.mMat[1][1] * rhs.mData[1] + lhs.mMat[2][1] * rhs.mData[2],
+			lhs.mMat[0][2] * rhs.mData[0] + lhs.mMat[1][2] * rhs.mData[1] + lhs.mMat[2][2] * rhs.mData[2]);
+	}
 }

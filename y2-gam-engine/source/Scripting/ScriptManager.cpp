@@ -53,6 +53,14 @@ namespace Image {
   */
   void ScriptManager::Exit() {
     // Apparently mono cleans up after itself, empty for now
+
+    mono_domain_set(mono_get_root_domain(), false);
+
+    mono_domain_unload(sAppDomain);
+    sAppDomain = nullptr;
+
+    mono_jit_cleanup(sRootDomain);
+    sRootDomain = nullptr;
   }
 
   /*  _________________________________________________________________________ */

@@ -186,14 +186,10 @@
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
     <ClInclude Include="include\Math\Mat4.h" />
-    <ClInclude Include="include\Math\Mat44.hpp" />
     <ClInclude Include="include\Math\MathUtils.h" />
     <ClInclude Include="include\Math\Vec2.h" />
-    <ClInclude Include="include\Math\Vec2.hpp" />
     <ClInclude Include="include\Math\Vec3.h" />
-    <ClInclude Include="include\Math\Vec3.hpp" />
     <ClInclude Include="include\Math\Vec4.h" />
-    <ClInclude Include="include\Math\Vec4.hpp" />
     <ClInclude Include="include\pch.h" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />

@@ -8,14 +8,15 @@
 #include <glm/common.hpp>
 #include <chrono>
 #include <Core/Types.hpp>
+#include "Math/MathUtils.h"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Collision{
 
-    inline constexpr Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
-    inline constexpr Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m[0]),vabs(m[1])}; }
+    inline Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
+    inline Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m.mMat[0]),vabs(m.mMat[1])}; }
     Mat22 Mat22FromAngle(float rads) {
         float c = cosf(rads);
         float s = sinf(rads);
@@ -54,45 +55,45 @@ namespace Collision{
         };
     }
 
-    int ClipSegmentToLine(ClipVertex v_out[2], ClipVertex v_in[2], const Vec2& normal, float offset,
-        float clip_edge) {
+    int ClipSegmentToLine(ClipVertex vOut[2], ClipVertex vIn[2], const Vec2& normal, float offset,
+        float clipEdge) {
         // Start with no output points
-        int num_out = 0;
+        int numOut = 0;
 
         // Calculate the distance of end points to the line
-        float distance0 = glm::dot(normal, v_in[0].v) - offset;
-        float distance1 = glm::dot(normal, v_in[1].v) - offset;
+        float distance0 = dot(normal, vIn[0].v) - offset;
+        float distance1 = dot(normal, vIn[1].v) - offset;
 
         // If the points are behind the plane
         if (distance0 <= 0.0f) {
-            v_out[num_out] = v_in[0];
-            num_out++;
+            vOut[numOut] = vIn[0];
+            numOut++;
         }
         if (distance1 <= 0.0f) {
-            v_out[num_out] = v_in[1];
-            num_out++;
+            vOut[numOut] = vIn[1];
+            numOut++;
         }
 
         // If the points are on different sides of the plane
         if (distance0 * distance1 < 0.0f) {
             // Find intersection point of edge and plane
             float interp = distance0 / (distance0 - distance1);
-            v_out[num_out].v = v_in[0].v + (v_in[1].v - v_in[0].v) * interp;
+            vOut[numOut].v = vIn[0].v + (vIn[1].v - vIn[0].v) * interp;
             if (distance0 > 0.0f) {
-                v_out[num_out].fp = v_in[0].fp;
-                v_out[num_out].fp.e.in_edge_1 = static_cast<EdgeNumbers>(clip_edge);
-                v_out[num_out].fp.e.in_edge_2 = EdgeNumbers::NO_EDGE;
+                vOut[numOut].fp = vIn[0].fp;
+                vOut[numOut].fp.e.inEdge1 = static_cast<EdgeNumbers>(clipEdge);
+                vOut[numOut].fp.e.inEdge2 = EdgeNumbers::NO_EDGE;
             }
             else {
-                v_out[num_out].fp = v_in[1].fp;
-                v_out[num_out].fp.e.out_edge_1 = static_cast<EdgeNumbers>(clip_edge);
-                v_out[num_out].fp.e.out_edge_2 = EdgeNumbers::NO_EDGE;
+                vOut[numOut].fp = vIn[1].fp;
+                vOut[numOut].fp.e.outEdge1 = static_cast<EdgeNumbers>(clipEdge);
+                vOut[numOut].fp.e.outEdge2 = EdgeNumbers::NO_EDGE;
             }
 
-            num_out++;
+            numOut++;
         }
 
-        return num_out;
+        return numOut;
     }
 
     void ComputeIncidentEdge(ClipVertex c[2], const Vec2& h, const Vec2& pos, const Mat22& rot,
@@ -101,48 +102,48 @@ namespace Collision{
         // to the incident boxe's frame and flip sign.
 
         //inverse the rotation
-        Mat22 rotT = glm::transpose(rot);//Matrix2x2Transpose(rot);
+        Mat22 rotT = Mat22Transpose(rot);//Matrix2x2Transpose(rot);
         Vec2 n = (rotT * normal) * (-1.0f);
-        Vec2 n_abs{ vabs(n) };
+        Vec2 nAbs{ vabs(n) };
 
-        if (n_abs.x > n_abs.y) {
+        if (nAbs.x > nAbs.y) {
             if (n.x >= 0.0f) {
                 c[0].v = { h.x, -h.y };
-                c[0].fp.e.in_edge_2 = EdgeNumbers::EDGE3;
-                c[0].fp.e.out_edge_2 = EdgeNumbers::EDGE4;
+                c[0].fp.e.inEdge2 = EdgeNumbers::EDGE3;
+                c[0].fp.e.outEdge2 = EdgeNumbers::EDGE4;
 
                 c[1].v = { h.x, h.y };
-                c[1].fp.e.in_edge_2 = EdgeNumbers::EDGE4;
-                c[1].fp.e.out_edge_2 = EdgeNumbers::EDGE1;
+                c[1].fp.e.inEdge2 = EdgeNumbers::EDGE4;
+                c[1].fp.e.outEdge2 = EdgeNumbers::EDGE1;
             }
             else {
                 c[0].v = { -h.x, h.y };
-                c[0].fp.e.in_edge_2 = EdgeNumbers::EDGE1;
-                c[0].fp.e.out_edge_2 = EdgeNumbers::EDGE2;
+                c[0].fp.e.inEdge2 = EdgeNumbers::EDGE1;
+                c[0].fp.e.outEdge2 = EdgeNumbers::EDGE2;
 
                 c[1].v = { -h.x, -h.y };
-                c[1].fp.e.in_edge_2 = EdgeNumbers::EDGE2;
-                c[1].fp.e.out_edge_2 = EdgeNumbers::EDGE3;
+                c[1].fp.e.inEdge2 = EdgeNumbers::EDGE2;
+                c[1].fp.e.outEdge2 = EdgeNumbers::EDGE3;
             }
         }
         else {
             if (n.y >= 0.0f) {
                 c[0].v = { h.x, h.y };
-                c[0].fp.e.in_edge_2 = EdgeNumbers::EDGE4;
-                c[0].fp.e.out_edge_2 = EdgeNumbers::EDGE1;
+                c[0].fp.e.inEdge2 = EdgeNumbers::EDGE4;
+                c[0].fp.e.outEdge2 = EdgeNumbers::EDGE1;
 
                 c[1].v = { -h.x, h.y };
-                c[1].fp.e.in_edge_2 = EdgeNumbers::EDGE1;
-                c[1].fp.e.out_edge_2 = EdgeNumbers::EDGE2;
+                c[1].fp.e.inEdge2 = EdgeNumbers::EDGE1;
+                c[1].fp.e.outEdge2 = EdgeNumbers::EDGE2;
             }
             else {
                 c[0].v = { -h.x, -h.y };
-                c[0].fp.e.in_edge_2 = EdgeNumbers::EDGE2;
-                c[0].fp.e.out_edge_2 = EdgeNumbers::EDGE3;
+                c[0].fp.e.inEdge2 = EdgeNumbers::EDGE2;
+                c[0].fp.e.outEdge2 = EdgeNumbers::EDGE3;
 
                 c[1].v = { h.x, -h.y };
-                c[1].fp.e.in_edge_2 = EdgeNumbers::EDGE3;
-                c[1].fp.e.out_edge_2 = EdgeNumbers::EDGE4;
+                c[1].fp.e.inEdge2 = EdgeNumbers::EDGE3;
+                c[1].fp.e.outEdge2 = EdgeNumbers::EDGE4;
             }
         }
 
@@ -162,8 +163,8 @@ namespace Collision{
         Mat22 rot1 = Mat22FromAngle(b1.rotation);
         Mat22 rot2 = Mat22FromAngle(b2.rotation);
 
-        Mat22 rot1T = glm::transpose(rot1); //inverse the rotation
-        Mat22 rot2T = glm::transpose(rot2);
+        Mat22 rot1T = Mat22Transpose(rot1); //inverse the rotation
+        Mat22 rot2T = Mat22Transpose(rot2);
 
         Vec2 dp = pos2 - pos1;
         Vec2 d1 = rot1T * dp;
@@ -171,7 +172,7 @@ namespace Collision{
 
         Mat22 C = rot1T * rot2;
         Mat22 absC = mabs(C);//Matrix2x2Abs(C);
-        Mat22 absCT = glm::transpose(absC);
+        Mat22 absCT = Mat22Transpose(absC);
 
         // Box 1 faces
         Vec2 face1 = vabs (d1)-h1 - (absC * h2);
@@ -192,125 +193,125 @@ namespace Collision{
             // Box 1 faces
         axis = Axis::FACE_A_X;
         seperation = face1.x;
-        normal = (d1.x > 0.0f) ? rot1[0] : rot1[0] * (-1.0f);
+        normal = (d1.x > 0.0f) ? rot1.mMat[0] : rot1.mMat[0] * (-1.0f);
 
-        const float relative_to_l = 0.95f;
-        const float absolute_to_l = 0.01f;
+        const float relativeToL = 0.95f;
+        const float absoluteToL = 0.01f;
 
-        if (face1.y > relative_to_l * seperation + absolute_to_l * h1.y) {
+        if (face1.y > relativeToL * seperation + absoluteToL * h1.y) {
             axis = Axis::FACE_A_Y;
             seperation = face1.y;
-            normal = (d1.y > 0.0f) ? rot1[1] : rot1[1] * (-1.0f);
+            normal = (d1.y > 0.0f) ? rot1.mMat[1] : rot1.mMat[1] * (-1.0f);
         }
             
         // Box 2 faces
-        if (face2.x > relative_to_l * seperation + absolute_to_l * h2.x) {
+        if (face2.x > relativeToL * seperation + absoluteToL * h2.x) {
             axis = Axis::FACE_B_X;
             seperation = face2.x;
-            normal = (d2.x > 0.0f) ? rot2[0] : rot2[0] * (-1.0f);
+            normal = (d2.x > 0.0f) ? rot2.mMat[0] : rot2.mMat[0] * (-1.0f);
         }
 
-        if (face2.y > relative_to_l * seperation + absolute_to_l * h2.y) {
+        if (face2.y > relativeToL * seperation + absoluteToL * h2.y) {
             axis = Axis::FACE_B_Y;
             seperation = face2.y;
-            normal = (d2.y > 0.0f) ? rot2[1] : rot2[1] * (-1.0f);
+            normal = (d2.y > 0.0f) ? rot2.mMat[1] : rot2.mMat[1] * (-1.0f);
         }
 
         // Setup clipping plane data based on the separating axis
-        Vec2 front_normal, side_normal;
-        ClipVertex incident_edge[2];
-        float front, neg_side, pos_side;
-        EdgeNumbers neg_edge, pos_edge;
+        Vec2 frontNormal, sideNormal;
+        ClipVertex incidentEdge[2];
+        float front, negSide, posSide;
+        EdgeNumbers negEdge, posEdge;
 
         // Compute the clipping lines and the line segment to be clipped
         switch (axis) {
         case Axis::FACE_A_X: {
-            front_normal = normal;
-            front = glm::dot(pos1, front_normal) + h1.x;
-            side_normal = rot1[1];
-            float side = glm::dot(pos1, side_normal);
-            neg_side = -side + h1.y;
-            pos_side = side + h1.y;
-            neg_edge = EdgeNumbers::EDGE3;
-            pos_edge = EdgeNumbers::EDGE1;
-            ComputeIncidentEdge(incident_edge, h2, pos2, rot2, front_normal);
+            frontNormal = normal;
+            front = dot(pos1, frontNormal) + h1.x;
+            sideNormal = rot1.mMat[1];
+            float side = dot(pos1, sideNormal);
+            negSide = -side + h1.y;
+            posSide = side + h1.y;
+            negEdge = EdgeNumbers::EDGE3;
+            posEdge = EdgeNumbers::EDGE1;
+            ComputeIncidentEdge(incidentEdge, h2, pos2, rot2, frontNormal);
         } break;
         case Axis::FACE_A_Y: {
-            front_normal = normal;
-            front = glm::dot(pos1, front_normal) + h1.y;
-            side_normal = rot1[0];
-            float side = glm::dot(pos1, side_normal);
-            neg_side = -side + h1.x;
-            pos_side = side + h1.x;
-            neg_edge = EdgeNumbers::EDGE2;
-            pos_edge = EdgeNumbers::EDGE4;
-            ComputeIncidentEdge(incident_edge, h2, pos2, rot2, front_normal);
+            frontNormal = normal;
+            front = dot(pos1, frontNormal) + h1.y;
+            sideNormal = rot1.mMat[0];
+            float side = dot(pos1, sideNormal);
+            negSide = -side + h1.x;
+            posSide = side + h1.x;
+            negEdge = EdgeNumbers::EDGE2;
+            posEdge = EdgeNumbers::EDGE4;
+            ComputeIncidentEdge(incidentEdge, h2, pos2, rot2, frontNormal);
         } break;
         case Axis::FACE_B_X: {
-            front_normal = normal * (-1.0f);
-            front = glm::dot(pos2, front_normal) + h2.x;
-            side_normal = rot2[1];
-            float side = glm::dot(pos2, side_normal);
-            neg_side = -side + h2.y;
-            pos_side = side + h2.y;
-            neg_edge = EdgeNumbers::EDGE3;
-            pos_edge = EdgeNumbers::EDGE1;
-            ComputeIncidentEdge(incident_edge, h1, pos1, rot1, front_normal);
+            frontNormal = normal * (-1.0f);
+            front = dot(pos2, frontNormal) + h2.x;
+            sideNormal = rot2.mMat[1];
+            float side = dot(pos2, sideNormal);
+            negSide = -side + h2.y;
+            posSide = side + h2.y;
+            negEdge = EdgeNumbers::EDGE3;
+            posEdge = EdgeNumbers::EDGE1;
+            ComputeIncidentEdge(incidentEdge, h1, pos1, rot1, frontNormal);
         } break;
         case Axis::FACE_B_Y: {
-            front_normal = normal * (-1.0f);
-            front = glm::dot(pos2, front_normal) + h2.y;
-            side_normal = rot2[0];
-            float side = glm::dot(pos2, side_normal);
-            neg_side = -side + h2.x;
-            pos_side = side + h2.x;
-            neg_edge = EdgeNumbers::EDGE2;
-            pos_edge = EdgeNumbers::EDGE4;
-            ComputeIncidentEdge(incident_edge, h1, pos1, rot1, front_normal);
+            frontNormal = normal * (-1.0f);
+            front = dot(pos2, frontNormal) + h2.y;
+            sideNormal = rot2.mMat[0];
+            float side = dot(pos2, sideNormal);
+            negSide = -side + h2.x;
+            posSide = side + h2.x;
+            negEdge = EdgeNumbers::EDGE2;
+            posEdge = EdgeNumbers::EDGE4;
+            ComputeIncidentEdge(incidentEdge, h1, pos1, rot1, frontNormal);
         } break;
         }
 
         // clip other face with 5 box planes (1 face plane, 4 edge planes)
-        ClipVertex clip_points1[2];
-        ClipVertex clip_points2[2];
+        ClipVertex clipPoints1[2];
+        ClipVertex clipPoints2[2];
         int np;
 
         // Clip to box side 1
-        np = ClipSegmentToLine(clip_points1, incident_edge, side_normal * (-1.0f), neg_side, static_cast<float>(static_cast<uint32_t>(neg_edge)));
+        np = ClipSegmentToLine(clipPoints1, incidentEdge, sideNormal * (-1.0f), negSide, static_cast<float>(static_cast<uint32_t>(negEdge)));
 
         if (np < 2) {
             return 0;
         }
 
         // Clip to negative box side 1
-        np = ClipSegmentToLine(clip_points2, clip_points1, side_normal, pos_side, static_cast<float>(static_cast<uint32_t>(pos_edge)));
+        np = ClipSegmentToLine(clipPoints2, clipPoints1, sideNormal, posSide, static_cast<float>(static_cast<uint32_t>(posEdge)));
 
         if (np < 2) {
             return 0;
         }
 
-        // Now clip_points2 contains the clipping points.
+        // Now clipPoints2 contains the clipping points.
         // Due to roundoff, it is possible that clipping removes all points
 
-        uint32_t num_contacts = 0;
+        uint32_t numContacts = 0;
         for (uint32_t i = 0; i < 2; i++) {
-            float seperation = glm::dot(front_normal, clip_points2[i].v) - front;
+            float seperation = dot(frontNormal, clipPoints2[i].v) - front;
 
             if (seperation <= 0) {
-                contacts[num_contacts].seperation = seperation;
-                contacts[num_contacts].normal = normal;
+                contacts[numContacts].seperation = seperation;
+                contacts[numContacts].normal = normal;
                 // slide contact point onto reference face (easy to cull)
-                contacts[num_contacts].position = clip_points2[i].v - front_normal * seperation;
-                contacts[num_contacts].feature = clip_points2[i].fp;
+                contacts[numContacts].position = clipPoints2[i].v - frontNormal * seperation;
+                contacts[numContacts].feature = clipPoints2[i].fp;
 
                 if (axis == Axis::FACE_B_X || axis == Axis::FACE_B_Y) {
-                    std::swap(contacts[num_contacts].feature.e.in_edge_1,
-                        contacts[num_contacts].feature.e.in_edge_2);
-                    std::swap(contacts[num_contacts].feature.e.out_edge_1,
-                        contacts[num_contacts].feature.e.out_edge_2);
+                    std::swap(contacts[numContacts].feature.e.inEdge1,
+                        contacts[numContacts].feature.e.inEdge2);
+                    std::swap(contacts[numContacts].feature.e.outEdge1,
+                        contacts[numContacts].feature.e.outEdge2);
                 }
 
-                num_contacts++;
+                numContacts++;
             }
         }
 
@@ -318,7 +319,7 @@ namespace Collision{
             b1.isGrounded = (normal.y < 0.0f);
         }
 
-        return num_contacts;
+        return numContacts;
     }
 
     Arbiter Collide(Entity b1, Entity b2) {
@@ -338,8 +339,8 @@ namespace Collision{
         result.b1 = b1;
         result.b2 = b2;
 
-        result.combined_friction = sqrtf(rb1.friction * rb2.friction);
-        result.contacts_count = Collide(result.contacts, rb1, rb2);
+        result.combinedFriction = sqrtf(rb1.friction * rb2.friction);
+        result.contactsCount = Collide(result.contacts, rb1, rb2);
 
         return result;
     }
@@ -347,7 +348,7 @@ namespace Collision{
     void CollisionSystem::Init() {
         gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
-        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y)) };
+        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)))};
     }
 
     void CollisionSystem::Update(float dt) {
@@ -364,8 +365,8 @@ namespace Collision{
             //todo update the position based on rotated box not aabb
             //todo substep checking
             auto aabb = GetAABBBody(rigidBody);
-            Vec2 rmin = r.get_min();
-            Vec2 rmax = r.get_max();
+            Vec2 rmin = r.GetMin();
+            Vec2 rmax = r.GetMax();
             //basic aabb check
             return CheckAABBDiscrete(aabb.first, aabb.second, rmin, rmax);
         });
@@ -381,7 +382,7 @@ namespace Collision{
                     ArbiterKey arbiterKey{ entityVec[i], entityVec[j] };
                     uint64_t hashTableKey = murmur64((void*)&arbiterKey, sizeof(ArbiterKey));
 
-                    if (arbiter.contacts_count > 0) {
+                    if (arbiter.contactsCount > 0) {
                         Event event{ Events::Physics::COLLISION };
                         event.SetParam(Events::Physics::Collision::COLLIDED, ArbiterPair {hashTableKey, arbiter});
                         gCoordinator->SendEvent(event);
@@ -405,8 +406,10 @@ namespace Collision{
 
             auto aabb{ GetAABBBody(rb) };
             auto scale{ aabb.second - aabb.first };
-            Renderer::DrawLineRect(Vec3(aabb.first + scale / 2.f, 1), scale, { 1.f, 1.f, 1.f ,1.f });
-
+            Vec2 pos{ aabb.first + scale / 2.f };
+            Vec2 p1{ rb.position + rb.velocity };
+            Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
+            Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
         }
         //Renderer::RenderSceneEnd();
 

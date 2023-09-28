@@ -46,7 +46,11 @@ DOCUMENTATION
 - CONTROLS GUIDE
 - PROGRAMMER GUIDE
   - READ FIRST
-  - HOW TO UPDATE TO A NEWER VERSION OF DEAR IMGUI
+  - HOW TO UPDATE TO A NEWER 
+  
+  
+  
+  OF DEAR IMGUI
   - GETTING STARTED WITH INTEGRATING DEAR IMGUI IN YOUR CODE/ENGINE
   - HOW A SIMPLE APPLICATION MAY LOOK LIKE
   - HOW A SIMPLE RENDERING FUNCTION MAY LOOK LIKE
@@ -268,7 +272,7 @@ CODE
  HOW A SIMPLE APPLICATION MAY LOOK LIKE
  --------------------------------------
  EXHIBIT 1: USING THE EXAMPLE BACKENDS (= imgui_impl_XXX.cpp files from the backends/ folder).
- The sub-folders in examples/ contain examples applications following this structure.
+ The sub-folders in examples/ Contain examples applications following this structure.
 
      // Application init: create a dear imgui context, setup some options, load fonts
      ImGui::CreateContext();
@@ -364,7 +368,7 @@ CODE
 
  HOW A SIMPLE RENDERING FUNCTION MAY LOOK LIKE
  ---------------------------------------------
- The backends in impl_impl_XXX.cpp files contain many working implementations of a rendering function.
+ The backends in impl_impl_XXX.cpp files Contain many working implementations of a rendering function.
 
     void MyImGuiRenderFunction(ImDrawData* draw_data)
     {
@@ -11054,7 +11058,7 @@ void ImGui::ClosePopupsOverWindow(ImGuiWindow* ref_window, bool restore_focus_to
             // Trim the stack unless the popup is a direct parent of the reference window (the reference window is often the NavWindow)
             // - With this stack of window, clicking/focusing Popup1 will close Popup2 and Popup3:
             //     Window -> Popup1 -> Popup2 -> Popup3
-            // - Each popups may contain child windows, which is why we compare ->RootWindowDockTree!
+            // - Each popups may Contain child windows, which is why we compare ->RootWindowDockTree!
             //     Window -> Popup1 -> Popup1_Child -> Popup2 -> Popup2_Child
             bool ref_window_is_descendent_of_popup = false;
             for (int n = popup_count_to_keep; n < g.OpenPopupStack.Size; n++)

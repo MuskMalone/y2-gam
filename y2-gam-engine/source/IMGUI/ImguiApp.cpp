@@ -97,7 +97,7 @@ namespace Image {
         //Create entity and destory first
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
-            gCoordinator->AddComponent(newEntity, ImguiComponent{});
+            //gCoordinator->AddComponent(newEntity, ImguiComponent{});
             gSelectedEntity = newEntity;
         }
 
@@ -222,9 +222,9 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Transform{
-                                Vec3(vP->Pos.x,vP->Pos.y,0),
-                                Vec3(0,0,0),
-                                Vec3(5,5,5)
+                                {vP->Pos.x,vP->Pos.y,0},
+                                {0,0,0},
+                                {5,5,5}
                             });
                     }
                 }
@@ -234,7 +234,7 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Sprite{
-                                Vec4(1,0,0, 1),
+                                {1,0,0, 1},
                                 nullptr
                             });
                     }

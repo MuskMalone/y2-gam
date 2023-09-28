@@ -28,6 +28,7 @@
 #include <Math/Vec2.hpp>
 #include "Components/Transform.hpp"
 #include "Components/Rigidbody.hpp"
+#include "Components/Animation.hpp"
 #include "Systems/InputSystem.hpp"
 
 namespace {
@@ -37,6 +38,43 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
+
+	// For Animation
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_GetAnimationState
+
+	@param entityID
+	The ID of the entity.
+
+	@param outAnimationState
+	The current animation state of the entity.
+
+	@return none.
+
+	Get the current animation state of the entity in C#.
+	*/
+	static void AnimationComponent_GetAnimationState(uint32_t entityID, int* outAnimationState) {
+		::gCoordinator = Coordinator::GetInstance();
+		*outAnimationState = static_cast<int>(gCoordinator->GetComponent<Animation>(entityID).currState);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_SetAnimationState
+
+	@param entityID
+	The ID of the entity.
+
+	@param animationState
+	Updated animation state of the entity.
+
+	@return none.
+
+	Set the current animation state of the entity in C#.
+	*/
+	static void AnimationComponent_SetAnimationState(uint32_t entityID, int* animationState) {
+		::gCoordinator = Coordinator::GetInstance();
+		gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<ANIM_STATE>(*animationState);
+	}
 
 	// For Translation
 	/*  _________________________________________________________________________ */
@@ -54,7 +92,7 @@ namespace Image {
 	*/
 	static void TransformComponent_GetTranslation(uint32_t entityID, Vec3* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = gCoordinator->GetComponent<Transform>(entityID).position;
+		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,gCoordinator->GetComponent<Transform>(entityID).position.y,gCoordinator->GetComponent<Transform>(entityID).position.z };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -72,7 +110,7 @@ namespace Image {
 	*/
 	static void TransformComponent_SetTranslation(uint32_t entityID, Vec3* translation) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).position = *translation;
+		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,translation->y,translation->z };
 	}
 
 	// For Force
@@ -296,6 +334,9 @@ namespace Image {
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
 

@@ -1,3 +1,4 @@
+//#define _CRTDBG_MAP_ALLOC	
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
@@ -33,9 +34,9 @@
 #include "Audio/Sound.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
+#include <functional>
 
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
+
 namespace {
 	static bool quit = false;
 }
@@ -45,6 +46,7 @@ void QuitHandler(Event& event)
 {
 	quit = true;
 }
+std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
 int main()
 {
@@ -52,13 +54,12 @@ int main()
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-
+	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 	// Mono Testing
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
 	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
 
-	// Audio Testing
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -83,6 +84,8 @@ int main()
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
+
+
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -113,6 +116,25 @@ int main()
 	}
 
 	renderSystem->Init();
+	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
+	{
+		Signature signature;
+		//signature.flip();
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
+		//signature.set(coordinator->GetComponentType<Sprite>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<ImGuiSystem>(signature);
+	}
+	imguiSystem->Init(windowManager->GetContext());
+	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Sprite>());
+		signature.set(coordinator->GetComponentType<Animation>());
+		coordinator->SetSystemSignature<AnimationSystem>(signature);
+	}
+
+	animationSystem->Init();
 
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
@@ -132,25 +154,7 @@ int main()
 
 	inputSystem->Init();
 
-	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Sprite>());
-		signature.set(coordinator->GetComponentType<Animation>());
-		coordinator->SetSystemSignature<AnimationSystem>(signature);
-	}
 
-	animationSystem->Init();
-	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
-	{
-		Signature signature;
-		//signature.flip();
-		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Sprite>());
-		//signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<ImGuiSystem>(signature);
-	}
-	imguiSystem->Init(windowManager->GetContext());
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -161,7 +165,7 @@ int main()
 
 	entitySerializationSystem->Init();
 
-	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
+	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
 	// Font Testing
@@ -178,25 +182,31 @@ int main()
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
-	std::atomic<bool> loggingThreadActive(true);
-	std::atomic<bool> loggingThreadBacktraceActive(true);
-	LoggingSystem& logInst = LoggingSystem::GetInstance();
-	std::thread loggingThread(&LoggingSystem::LoggingThread, &logInst, std::ref(loggingThreadActive));
-	std::thread loggingThreadBacktrace(&LoggingSystem::LoggingThreadBacktrace, &logInst, std::ref(loggingThreadBacktraceActive));
-
+	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
 		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
 		//Renderer::ClearColor();
 		//Renderer::ClearDepth();
+
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
+		imguiSystem->Update(windowManager->GetContext());
 
 		windowManager->ProcessEvents();
-		imguiSystem->Update(windowManager->GetContext());
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+
+		//physicsSystem->PreCollisionUpdate(dt);
+
+		//collisionSystem->Update(dt);
+
+		//physicsSystem->PostCollisionUpdate(dt);
+
+		//animationSystem->Update(dt);
+
+		//renderSystem->Update(dt);
 
 		windowManager->Update();
 
@@ -211,27 +221,21 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 0.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Lato", "Hello World in Lato", -100.f, 50.f, 0.2f, glm::vec3(1.f, 1.f, 0.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, -50.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
-		std::string fpsCounter{ "FPS: " + std::to_string(frameController->GetFps()) };
-		std::string entityCounter{ "Entities: " + std::to_string(coordinator->GetEntityCount()) };
-		Image::FontRenderer::RenderText("Lato", fpsCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 10, 0.05f, glm::vec3(0.f, 1.f, 0.f));
-		Image::FontRenderer::RenderText("Lato", entityCounter,
-			-WORLD_LIMIT_X + 5, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
-	}
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		std::vector<std::string> diagnostics{};
+		diagnostics.emplace_back("FPS: " + std::to_string(frameController->GetFps()));
+		diagnostics.emplace_back("Entities: " + std::to_string(coordinator->GetEntityCount()));
+		diagnostics.emplace_back("Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%");
+		diagnostics.emplace_back("Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%");
+		diagnostics.emplace_back("Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%");
 
-	loggingThreadActive = false;
-	loggingThreadBacktraceActive = false;
+		for (int i{}; i < diagnostics.size(); ++i) {
+			Image::FontRenderer::RenderText("Lato", diagnostics[i],
+				-WORLD_LIMIT_X, WORLD_LIMIT_Y - (10 + (i * 5)), 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		}
 
-	if (loggingThread.joinable()) {
-		loggingThread.join();
 	}
-	if (loggingThreadBacktrace.joinable()) {
-		loggingThreadBacktrace.join();
-	}
-
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
@@ -240,6 +244,5 @@ int main()
 	Image::FontRenderer::Exit();
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::Exit();
-
 	return 0;
 }

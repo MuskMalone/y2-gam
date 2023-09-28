@@ -8,16 +8,16 @@
 //world transform values
 struct Transform
 {
-	Vec3 position{};
-	Vec3 rotation{};
-	Vec3 scale{};
+	glm::vec3 position{};
+	glm::vec3 rotation{};
+	glm::vec3 scale{};
 
 	Transform() = default;
-	Transform(Vec3 const& pos, Vec3 const& rot, Vec3 const& sca) : position{ pos }, rotation{ rot }, scale{ sca } {}
+	Transform(glm::vec3 const& pos, glm::vec3 const& rot, glm::vec3 const& sca) : position{ pos }, rotation{ rot }, scale{ sca } {}
 	Transform(rapidjson::Value const& obj) {
-		position = Vec3{ obj["posX"].GetFloat(), obj["posY"].GetFloat(), obj["posZ"].GetFloat() };
-		rotation = Vec3{ obj["rotX"].GetFloat(), obj["rotY"].GetFloat(), obj["rotZ"].GetFloat() };
-		scale = Vec3{ obj["scaleX"].GetFloat(), obj["scaleY"].GetFloat(), obj["scaleZ"].GetFloat() };
+		position = glm::vec3{ obj["posX"].GetFloat(), obj["posY"].GetFloat(), obj["posZ"].GetFloat() };
+		rotation = glm::vec3{ obj["rotX"].GetFloat(), obj["rotY"].GetFloat(), obj["rotZ"].GetFloat() };
+		scale = glm::vec3{ obj["scaleX"].GetFloat(), obj["scaleY"].GetFloat(), obj["scaleZ"].GetFloat() };
 	}
 	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};

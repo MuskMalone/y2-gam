@@ -220,7 +220,7 @@
 //    the current point based on that.
 //
 //  Displaying a character:
-//    Compute the bounding box of the character. It will contain signed values
+//    Compute the bounding box of the character. It will Contain signed values
 //    relative to <current_point, baseline>. I.e. if it returns x0,y0,x1,y1,
 //    then the character should be displayed in the rectangle from
 //    <current_point+SF*x0, baseline+SF*y0> to <current_point+SF*x1,baseline+SF*y1).
@@ -701,8 +701,8 @@ struct stbtt_pack_context {
 
 STBTT_DEF int stbtt_GetNumberOfFonts(const unsigned char *data);
 // This function will determine the number of fonts in a font file.  TrueType
-// collection (.ttc) files may contain multiple fonts, while TrueType font
-// (.ttf) files only contain one font. The number of fonts can be used for
+// collection (.ttc) files may Contain multiple fonts, while TrueType font
+// (.ttf) files only Contain one font. The number of fonts can be used for
 // indexing with the previous function where the index is between zero and one
 // less than the total fonts. If an error occurs, -1 is returned.
 

@@ -1,3 +1,43 @@
 {
-    "Entities": []
+    "Entities": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+            "BoxCollider": {
+                "collider": true
+            },
+            "Gravity": {
+                "x": -0.335999995470047,
+                "y": -10.0
+            },
+            "RigidBody": {
+                "dimX": 50.0,
+                "dimY": 50.0,
+                "rotation": 42.40052795410156,
+                "mass": 50.0,
+                "posX": -145.727294921875,
+                "posY": 441.97137451171875,
+                "lockRotate": false
+            },
+            "Sprite": {},
+            "Transform": {
+                "posX": -145.727294921875,
+                "posY": 441.97137451171875,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 2429.37109375,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
+                "scaleZ": 5.0
+            }
+        },
+        {},
+        {},
+        {},
+        {}
+    ]
 }

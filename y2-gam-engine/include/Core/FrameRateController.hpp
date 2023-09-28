@@ -4,6 +4,7 @@
 #include <memory>
 #include <queue>
 #include <chrono>
+#include <functional>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -15,11 +16,15 @@ public:
 	void StartFrameTime();
 	float EndFrameTime();
 
-	void StartSubFrameTime();
-	float EndSubFrameTime();
+	void AccumulateDt();
 
-	float GetFps() { return mFps;  }
-	float GetDeltaTime() { return mDeltaTime; }
+	void StartSubFrameTime();
+	float EndSubFrameTime(size_t key);
+	float GetProfilerValue(size_t key);
+
+	inline float GetFps() { return mFps;  }
+	inline float GetDeltaTime() { return mDeltaTime; }
+	inline float GetTargetDT() { return mTargetDeltaTime; }
 	
 private:
 	static std::shared_ptr<FrameRateController> _mSelf;
@@ -29,6 +34,8 @@ private:
 	float mDeltaTime{};
 	float mFps{};
 	float mTargetFps{};
-	size_t fpsCounter{ 0 };
-	std::queue<std::chrono::steady_clock::time_point> subDelta{};
+	size_t mFpsCounter{ 0 };
+	float mAccumulator{};
+	std::map<size_t, float> mProfiler{};
+	std::queue<std::chrono::steady_clock::time_point> mSubDelta{};
 };

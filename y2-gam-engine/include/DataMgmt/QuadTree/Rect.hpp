@@ -10,9 +10,7 @@
 //#include "Color.h"    // Color class
 //#include "Config.h"   // Global vars, screen size
 //#include "Utility.h"  // assignColor()
-#include "Math/Vec2.hpp" 
-#include "Math/Vec4.hpp"
-#include "Math/Mat44.hpp"// Vec2 class
+
 #include <Components/Camera.hpp>
 #include <Systems/RenderSystem.hpp>
 #include <Components/Transform.hpp>
@@ -22,7 +20,7 @@
 #include <glm/gtc/matrix_inverse.hpp>
 #include <Graphics/Renderer.hpp>
 #include <Components/OrthoCamera.hpp>
-
+#include <Math/MathUtils.h>
 namespace DataMgmt {
 
 	class Rect {
@@ -38,16 +36,16 @@ namespace DataMgmt {
 		void Draw() const { // for debugging remove later
 
 
-			Vec4 v4Min{ min, 0, 1 }, v4Max{ max, 0, 1 };
+			Vec4 v4Min{ min.x,min.y, 0, 1 }, v4Max{ max.x,max.y, 0, 1 };
 			Vec4 v4Scale{ v4Max - v4Min };
-
-			Renderer::DrawLineRect((v4Min + v4Scale / 2.f), v4Scale, { 1.f, 0.5f, 0.2f ,1.f });
+			Vec3 pos{ v4Min + v4Scale / 2.f };
+			Renderer::DrawLineRect({ pos.x,pos.y,pos.z }, { v4Scale.x,v4Scale.y }, { 1.f, 0.5f, 0.2f ,1.f });
 
 
 		}
 
 		template <typename _pred>
-		bool contain(Entity const& id, _pred predicate) const {
+		bool Contain(Entity const& id, _pred predicate) const {
 			//Vec2 o = object_vec[id]->get_pos();
 			//float r = object_vec[id]->get_radi();
 
@@ -59,9 +57,9 @@ namespace DataMgmt {
 
 			return predicate(id, * this);
 		}
-		bool contain_rect(const Rect& r) const {
-			Vec2 rmin = r.get_min();
-			Vec2 rmax = r.get_max();
+		bool ContainRect(const Rect& r) const {
+			Vec2 rmin = r.GetMin();
+			Vec2 rmax = r.GetMax();
 
 			//  basic square collision check
 			if (rmax.x < max.x && rmin.x > min.x && rmax.y < max.y && rmin.y > min.y) {
@@ -70,15 +68,15 @@ namespace DataMgmt {
 
 			return false;
 		}
-		bool contain_pos(const Vec2& v) const {
+		bool ContainPos(const Vec2& v) const {
 			if (v.x < min.x || v.x > max.x) return false;
 			if (v.y < min.y || v.y > max.y) return false;
 
 			return true;
 		}
 
-		Vec2 get_min() const { return min; }
-		Vec2 get_max() const { return max; }
+		Vec2 GetMin() const { return min; }
+		Vec2 GetMax() const { return max; }
 	};
 
 }

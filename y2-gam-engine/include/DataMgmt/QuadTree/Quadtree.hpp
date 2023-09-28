@@ -5,7 +5,7 @@
 //#include "Config.h"     // Global vars, screen size
 #include "DataMgmt/QuadTree/Rect.hpp"       // Rectangle class
 //#include "Templates.h"  // vec, uptr
-#include "Math/Vec2.hpp"       // Vec2 class
+#include "Math/MathUtils.h"
 #include <vector>
 #include <memory>
 #include <Core/Types.hpp>
@@ -39,8 +39,8 @@ namespace DataMgmt {
 			// Create subnodes and gives each its own quadrant.
 			//----------------------------------------------------------------
 
-			Vec2 min = mRect.get_min();
-			Vec2 max = mRect.get_max();
+			Vec2 min = mRect.GetMin();
+			Vec2 max = mRect.GetMax();
 
 			int x = static_cast<int>(min.x);
 			int y = static_cast<int>(min.y);
@@ -70,7 +70,7 @@ namespace DataMgmt {
 
 			// If this subnode has split..
 			if (mSubnode[0] != nullptr) {
-				// Find the subnodes that contain it and insert it there.
+				// Find the subnodes that Contain it and insert it there.
 				if (mSubnode[0]->Contain(id, p)) mSubnode[0]->Insert(id, p);
 				if (mSubnode[1]->Contain(id, p)) mSubnode[1]->Insert(id, p);
 				if (mSubnode[2]->Contain(id, p)) mSubnode[2]->Insert(id, p);
@@ -93,7 +93,7 @@ namespace DataMgmt {
 				{
 					// Go through all newly created subnodes..
 					for (const auto& subnode : mSubnode) {
-						// If they contain the objects..
+						// If they Contain the objects..
 						if (subnode->Contain(index, p)) {
 							// Insert the object into the subnode
 							subnode->Insert(index, p);
@@ -108,9 +108,9 @@ namespace DataMgmt {
 		}
 
 		template <typename _pred>
-		bool Contain(const T& id, _pred p) const { return mRect.contain(id, p); }
+		bool Contain(const T& id, _pred p) const { return mRect.Contain(id, p); }
 		bool ContainRect(const Rect& rect) const {
-			return mRect.contain_rect(rect);
+			return mRect.ContainRect(rect);
 		}
 		//void set_color(const Color &c);
 
@@ -222,7 +222,7 @@ namespace DataMgmt {
 		  // Sets bounds to the screens bounds and clears the quadtrees.
 		  //----------------------------------------------------------------
 
-		  mRect = Rect(Vec2(-WORLD_LIMIT_X, -WORLD_LIMIT_Y), Vec2(WORLD_LIMIT_X, WORLD_LIMIT_Y));
+		  mRect = Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)));
 		  mIndex.clear();
 		  mIndex.shrink_to_fit();
 

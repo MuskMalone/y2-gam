@@ -1,5 +1,5 @@
 #pragma once
-#include <Math/Vec2.hpp>
+#include "Math/MathUtils.h"
 
 //first: min point, second: size
 using CollisionRect = std::pair<Vec2, Vec2>;
@@ -7,17 +7,17 @@ using CollisionRect = std::pair<Vec2, Vec2>;
 bool CheckAABBDiscrete(Vec2 const& cmin, Vec2 const& cmax, Vec2 const& rmin, Vec2 const& rmax) {
 	return (cmin.x < rmax.x && cmax.x > rmin.x && cmin.y < rmax.y && cmax.y > rmin.y);
 }
-bool CheckRayRect(const Vec2& ray_origin, const Vec2& ray_dir, const CollisionRect& target, Vec2& contactPoint, Vec2& contactNormal, float& t_hit_near)
+bool CheckRayRect(const Vec2& rayOrigin, const Vec2& rayDir, const CollisionRect& target, Vec2& contactPoint, Vec2& contactNormal, float& tHitNear)
 {
 	contactNormal = { 0,0 };
 	contactPoint = { 0,0 };
 
 	// Cache division
-	Vec2 invdir{ 1.0f / ray_dir.x, 1.0f / ray_dir.y };
+	Vec2 invdir{ 1.0f / rayDir.x, 1.0f / rayDir.y };
 
 	// Calculate intersections with rectangle bounding axes
-	Vec2 tNear = (target.first - ray_origin) * invdir;
-	Vec2 tFar = (target.first + target.second - ray_origin) * invdir;
+	Vec2 tNear = (target.first - rayOrigin) * invdir;
+	Vec2 tFar = (target.first + target.second - rayOrigin) * invdir;
 
 	if (std::isnan(tFar.y) || std::isnan(tFar.x)) return false;
 	if (std::isnan(tNear.y) || std::isnan(tNear.x)) return false;
@@ -30,7 +30,7 @@ bool CheckRayRect(const Vec2& ray_origin, const Vec2& ray_dir, const CollisionRe
 	if (tNear.x > tFar.y || tNear.y > tFar.x) return false;
 
 	// closest 'time' will be the first contact
-	t_hit_near = std::max<float>(tNear.x, tNear.y);
+	tHitNear = std::max<float>(tNear.x, tNear.y);
 
 	// furthest 'time' is contact on opposite side of target
 	float tHitFar = std::min<float>(tFar.x, tFar.y);
@@ -40,7 +40,7 @@ bool CheckRayRect(const Vec2& ray_origin, const Vec2& ray_dir, const CollisionRe
 		return false;
 
 	// contact point of collision from parametric line equation
-	contactPoint = ray_origin + (ray_dir * t_hit_near);
+	contactPoint = rayOrigin + (rayDir * tHitNear);
 
 	if (tNear.x > tNear.y)
 		if (invdir.x < 0)

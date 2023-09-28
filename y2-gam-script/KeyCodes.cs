@@ -1,5 +1,31 @@
-﻿namespace Image
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       KeyCodes.cs
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Sep 23, 2023
+
+\brief      The keycodes from GLFW are made as an enumeration here, 
+            so that the keycode passed in from CPP can be understood.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+namespace Image
 {
+    // These are the animation state codes
+    public enum AnimationCode
+    {
+        NONE = 0,
+        IDLE,
+        RUN,
+        ATTACK
+    }
+
     // These key codes are pulled from GLFW
     public enum KeyCode
     {
