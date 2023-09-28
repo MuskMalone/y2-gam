@@ -5,6 +5,8 @@
 #include <bitset>
 #include <iostream>
 #include <utility>
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -114,6 +116,7 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 		event.SetParam(Events::Window::Input::KEY_RELEASE, bsB.flip());
 #ifdef _DEBUG
 		std::cout << "key released\n";
+		
 #endif
 		gCoordinator->SendEvent(event);
 	}

@@ -36,7 +36,8 @@
 #include "Scripting/ScriptManager.hpp"
 #include <functional>
 
-
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
 namespace {
 	static bool quit = false;
 }
