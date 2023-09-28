@@ -1,5 +1,5 @@
 #pragma once
-class GameState {
+class State {
 public:
 	virtual void Init() = 0;
 	virtual void Exit() = 0;

@@ -159,7 +159,7 @@ int main()
 
 	entitySerializationSystem->Init();
 
-	StateManager::GetInstance()->PushState(std::make_unique<MainState>());
+	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
 	// Font Testing
@@ -177,7 +177,6 @@ int main()
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 
 	// Audio Testing
-
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
@@ -188,6 +187,18 @@ int main()
 		imguiSystem->Update(windowManager->GetContext());
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+
+		//editorControlSystem->Update(dt);
+
+		//physicsSystem->PreCollisionUpdate(dt);
+
+		//collisionSystem->Update(dt);
+
+		//physicsSystem->PostCollisionUpdate(dt);
+
+		//animationSystem->Update(dt);
+
+		//renderSystem->Update(dt);
 
 		windowManager->Update();
 
@@ -211,8 +222,7 @@ int main()
 		Image::FontRenderer::RenderText("Lato", entityCounter,
 			-WORLD_LIMIT_X, WORLD_LIMIT_Y - 15, 0.05f, glm::vec3(0.f, 1.f, 0.f));
 	}
-
-	StateManager::GetInstance()->Clear();
+	//StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
