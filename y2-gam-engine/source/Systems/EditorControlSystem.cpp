@@ -114,7 +114,7 @@ void EditorControlSystem::Init()
 	Entity player = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
 
-	position = Vec3(0.f, 0.f, 1.f);
+	position = Vec3(0.f, 0.f, -150.f);
 	float scale{ 50.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
@@ -223,11 +223,11 @@ void EditorControlSystem::Update(float dt)
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
 		camera.mZoom += zoomSpeed * dt;
-		camera.ZoomIn(zoomSpeed);
+		camera.ZoomIn();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
 		camera.mZoom -= zoomSpeed * dt;
-		camera.ZoomOut(zoomSpeed);
+		camera.ZoomOut();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
 		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();

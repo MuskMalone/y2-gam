@@ -120,10 +120,13 @@ void RenderSystem::Update(float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
+
+	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 	}
-	
+	glDepthMask(GL_FALSE);
+
 	Renderer::RenderSceneEnd();
 	mFramebuffer->Unbind();
 }

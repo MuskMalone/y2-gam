@@ -15,8 +15,8 @@ public:
 
 	void SetPosition(glm::vec3 const& pos);
 	void SetRotation(float rot);
-	void ZoomIn(float zoomSpeed);
-	void ZoomOut(float zoomSpeed);
+	void ZoomIn();
+	void ZoomOut();
 
 	glm::mat4 const& GetProjMtx() const;
 	glm::mat4 const& GetViewMtx() const;
