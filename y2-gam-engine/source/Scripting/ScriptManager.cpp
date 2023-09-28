@@ -71,7 +71,7 @@ namespace Image {
 
     if (rootDomain == nullptr) {
       //std::cout << "Root Domain Initialization Failed!" << "\n";
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Root DOmain Initialization Failed!", __FUNCTION__);
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Root Domain Initialization Failed!", __FUNCTION__);
       return;
     }
     sRootDomain = rootDomain;
@@ -80,7 +80,8 @@ namespace Image {
     // An app domain is a C# language feature
     MonoDomain* appDomain = mono_domain_create_appdomain(appDomainName, nullptr);
     if (appDomain == nullptr) {
-      std::cout << "App Domain Initialization Failed!" << "\n";
+      //std::cout << "App Domain Initialization Failed!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "App Domain Initialization Failed!", __FUNCTION__);
       return;
     }
     sAppDomain = appDomain;
@@ -109,7 +110,8 @@ namespace Image {
   char* ScriptManager::LoadFile(std::string const& filePath, size_t& fileSize) {
     std::fstream ifs(filePath, std::ios::in | std::ios::binary);
     if (!ifs) {
-      std::cout << "File " << filePath << " could not be opened!" << "\n";
+      //std::cout << "File " << filePath << " could not be opened!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File " + filePath + " could not be opened", __FUNCTION__);
       return nullptr;
     }
 
@@ -119,14 +121,16 @@ namespace Image {
     ifs.seekg(0, ifs.beg);
 
     if (fileSize == 0) {
-      std::cout << "File being read is empty!" << "\n";
+      //std::cout << "File being read is empty!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File being read is empty!", __FUNCTION__);
       return nullptr;
     }
 
     char* fileBuffer = new char[fileSize];
     ifs.read(fileBuffer, fileSize);
     if (!ifs) {
-      std::cout << "File reading error!" << "\n";
+      //std::cout << "File reading error!" << "\n";
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File reading error!", __FUNCTION__);
       return nullptr;
     }
     ifs.close();
@@ -202,8 +206,12 @@ namespace Image {
       const char* nsName{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]) };
       const char* className{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]) };
 
-      std::cout << "Namespace: " << nsName << "\n";
-      std::cout << "Class Name: " << className << "\n";
+      //std::cout << "Namespace: " << nsName << "\n";
+      std::string str(nsName);
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Namespace: " + str, __FUNCTION__);
+      //std::cout << "Class Name: " << className << "\n";
+      std::string str1(className);
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Class Name: " + str1, __FUNCTION__);
     }
   }
 
