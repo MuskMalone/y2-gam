@@ -1,16 +1,60 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Framebuffer.cpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 15, 2023
+
+\brief      Implementation file for the Framebuffer class.
+
+			Provides the definitions for the member functions of the Framebuffer
+			class, which represents an OpenGL framebuffer object. It includes
+			functionalities for creating, binding, unbinding, and accessing
+			framebuffer properties and attachments.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Graphics/Framebuffer.hpp"
 #include <glad/glad.h>
 #include <iostream>
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
+
+
+/*  _________________________________________________________________________ */
+/*! Framebuffer
+
+@param props
+Properties of the framebuffer.
+
+This constructor initializes the Framebuffer using the provided properties and
+calls the Invalidate function.
+*/
 Framebuffer::Framebuffer(FramebufferProps const& props) : mProps{ props } {
 	Invalidate();
 }
 
+/*  _________________________________________________________________________ */
+/*! ~Framebuffer
+
+Destructor that cleans up the framebuffer resources by deleting the framebuffer
+object.
+*/
 Framebuffer::~Framebuffer() {
 	glDeleteFramebuffers(1, &mFboHdl);
 }
 
+/*  _________________________________________________________________________ */
+/*! Invalidate
+
+This function creates a new framebuffer object and sets up its color and depth
+attachments. It also checks if the framebuffer is complete and logs the result.
+*/
 void Framebuffer::Invalidate() {
 	glCreateFramebuffers(1, &mFboHdl);
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHdl);
@@ -30,27 +74,62 @@ void Framebuffer::Invalidate() {
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthAttachment, 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		//std::cout << "ERROR: Framebuffer is INCOMPLETE!" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Framebuffer is INCOMPLETE!", __FUNCTION__);
 	else LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Framebuffer is complete!", __FUNCTION__);
-	//else std::cout << "Framebuffer is complete!" << std::endl;
-
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+/*  _________________________________________________________________________ */
+/*! Bind
+
+Binds the framebuffer, making it the current target for rendering operations.
+*/
 void Framebuffer::Bind() const {
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHdl);
 }
 
+/*  _________________________________________________________________________ */
+/*! Unbind
+
+Unbinds the framebuffer, reverting the rendering target to the default framebuffer.
+*/
 void Framebuffer::Unbind() const {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+/*  _________________________________________________________________________ */
+/*! GetColorAttachmentID
+
+@return
+ID of the color attachment of the framebuffer.
+
+This function returns the ID of the color attachment associated with the framebuffer.
+*/
 unsigned int Framebuffer::GetColorAttachmentID() const { return mColorAttachment; }
 
+/*  _________________________________________________________________________ */
+/*! GetFramebufferProps
+
+@return
+Properties of the framebuffer.
+
+This function returns the properties associated with the framebuffer.
+*/
 FramebufferProps const& Framebuffer::GetFramebufferProps() const { return mProps; }
 
+/*  _________________________________________________________________________ */
+/*! Create
+
+@param props
+Properties for the new framebuffer.
+
+@return
+Shared pointer to the created Framebuffer.
+
+This static function creates and returns a shared pointer to a Framebuffer
+using the provided properties.
+*/
 std::shared_ptr<Framebuffer> Framebuffer::Create(FramebufferProps const& props) {
 	return std::make_shared<Framebuffer>(props);
 }

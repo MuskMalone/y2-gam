@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
-    <ClCompile Include="source\Graphics\CameraController.cpp" />
     <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
@@ -20,7 +19,7 @@
     <ClCompile Include="source\WindowManager.cpp" />
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="source\Graphics\VetexArray.cpp" />
+    <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />

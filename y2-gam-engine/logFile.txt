@@ -1606,3 +1606,255 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-09-28 23:15:43 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-09-28 23:18:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-28 23:18:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:18:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:18:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-09-28 23:18:32 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-28 23:18:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-28 23:18:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-28 23:18:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-09-28 23:18:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-09-28 23:18:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-28 23:18:32 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-28 23:18:32 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-09-28 23:18:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-09-28 23:18:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-09-28 23:18:32 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Succesful init Freetype Library 2023-09-28 23:18:32 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:18:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-09-28 23:18:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:18:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-09-28 23:18:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:18:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-09-28 23:18:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:18:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful FMOD System Shutdown 2023-09-28 23:18:49 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-09-28 23:23:07 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-28 23:23:07 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:23:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful FMOD System Creation 2023-09-28 23:44:23 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-28 23:44:23 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:44:24 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful FMOD System Creation 2023-09-28 23:49:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-28 23:49:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:49:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:49:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-09-28 23:49:58 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-28 23:49:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-28 23:49:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-28 23:49:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-09-28 23:49:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-09-28 23:49:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-28 23:49:58 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-28 23:49:58 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-09-28 23:49:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-09-28 23:49:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-09-28 23:49:58 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Succesful init Freetype Library 2023-09-28 23:49:58 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-28 23:49:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-09-28 23:49:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:49:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-09-28 23:49:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:49:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-09-28 23:49:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-28 23:49:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful FMOD System Shutdown 2023-09-28 23:50:11 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-09-29 00:20:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-29 00:20:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 00:20:02 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 00:20:02 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-09-29 00:20:02 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-29 00:20:02 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-29 00:20:02 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-29 00:20:02 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-09-29 00:20:02 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-09-29 00:20:02 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 00:20:02 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 00:20:02 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-09-29 00:20:02 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-09-29 00:20:02 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-09-29 00:20:02 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Succesful init Freetype Library 2023-09-29 00:20:02 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 00:20:02 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-09-29 00:20:02 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 00:20:02 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-09-29 00:20:02 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 00:20:02 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-09-29 00:20:02 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 00:20:02 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful FMOD System Shutdown 2023-09-29 00:20:15 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-09-29 03:02:47 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-29 03:02:47 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:02:47 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:02:47 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-09-29 03:02:47 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-29 03:02:47 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-29 03:02:47 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-29 03:02:47 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-09-29 03:02:47 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-09-29 03:02:47 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 03:02:47 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 03:02:47 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-09-29 03:02:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-09-29 03:02:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-09-29 03:02:47 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Succesful init Freetype Library 2023-09-29 03:02:47 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:02:47 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-09-29 03:02:47 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:02:47 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-09-29 03:02:47 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:02:47 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-09-29 03:02:47 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:02:47 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful FMOD System Shutdown 2023-09-29 03:09:29 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-09-29 03:20:18 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-29 03:20:18 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:20:19 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:20:19 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-09-29 03:20:19 FN: Framebuffer::Invalidate
+
+[INFO]: Mono method .ctor created! 2023-09-29 03:20:19 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-09-29 03:20:19 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-09-29 03:20:19 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-09-29 03:20:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-09-29 03:20:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 03:20:19 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-09-29 03:20:19 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-09-29 03:20:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-09-29 03:20:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-09-29 03:20:19 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Succesful init Freetype Library 2023-09-29 03:20:19 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 03:20:19 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-09-29 03:20:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:20:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-09-29 03:20:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:20:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-09-29 03:20:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-09-29 03:20:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful FMOD System Shutdown 2023-09-29 03:20:35 FN: Image::SoundManager::AudioExit
+

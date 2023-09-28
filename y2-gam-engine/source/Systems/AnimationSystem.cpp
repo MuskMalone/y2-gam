@@ -1,3 +1,29 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       AnimationSystem.cpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 12, 2023
+
+\brief      Implementation file for the AnimationSystem class.
+
+			The AnimationSystem class is responsible for managing the animations
+			of entities within the game. It handles the progression of animation
+			frames, responds to input events to change the animation state, and
+			integrates with other systems to ensure smooth and synchronized
+			animations.
+
+			This system also provides functionalities for loading and managing
+			animation textures, and it interfaces with the Sprite component to
+			display the correct animation frames based on the current animation state.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Systems/AnimationSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Components/Animation.hpp"
@@ -9,6 +35,12 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief Init Function
+
+Initializes the animation system, setting up necessary resources and loading textures for animations.
+*/
 void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
 
@@ -29,6 +61,14 @@ void AnimationSystem::Init() {
 
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief Update Function
+
+Updates the animation system based on the given delta time. This function handles the progression of animation frames and responds to input events to change the animation state.
+
+\param dt The time elapsed since the last frame.
+*/
 void AnimationSystem::Update(float dt) {
 	for (auto const& entity : mEntities)
 	{

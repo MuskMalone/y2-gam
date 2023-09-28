@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Shader.cpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 5, 2023
+
+\brief      Implementation file for the Shader class.
+
+			Contains the declarations for the Shader class which is responsible
+			for managing and setting up shaders for rendering. The class provides
+			functions for using shaders, setting uniform variables, and other
+			shader-related operations.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Graphics/Shader.hpp"
 #include <fstream>
 #include <iostream>
@@ -6,15 +27,48 @@
 #include "Logging/backward.hpp"
 #include <vector>
 
+
+/*  _________________________________________________________________________ */
+/*! Shader
+
+@param vertFile
+The path to the vertex shader file.
+
+@param fragFile
+The path to the fragment shader file.
+
+This constructor initializes the Shader object by creating a shader from the
+provided vertex and fragment shader files.
+
+*/
 Shader::Shader(std::string const& vertFile, std::string const& fragFile)
 	:pgmHdl{} {
 	CreateShaderFromFile(vertFile, fragFile);
 }
 
+/*  _________________________________________________________________________ */
+/*! ~Shader
+
+Destructor for the Shader class. It deletes the shader program from OpenGL.
+
+*/
 Shader::~Shader() {
 	glDeleteProgram(pgmHdl);
 }
 
+/*  _________________________________________________________________________ */
+/*! CreateShaderFromString
+
+@param vertSrc
+The source code for the vertex shader as a string.
+
+@param fragSrc
+The source code for the fragment shader as a string.
+
+This function creates a shader program from the provided vertex and fragment
+shader source strings.
+
+*/
 void Shader::CreateShaderFromString(std::string const& vertSrc, std::string const& fragSrc) {
 	// Create an empty vertex shader handle
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -43,8 +97,6 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		// Failed to compile, delete shader
 		glDeleteShader(vertexShader);
 
-		/*std::cout << "Vertex Shader compilation failure!\n";
-		std::cout << infoLog.data() << std::endl;*/
 		std::string str(infoLog.data());
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Vertex Shader compilation failure! " + str, __FUNCTION__);
 		return;
@@ -75,8 +127,6 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		glDeleteShader(fragmentShader);
 		glDeleteShader(vertexShader);
 
-		//std::cout << "Fragment Shader compilation failure!\n";
-		//std::cout << infoLog.data() << std::endl;
 		std::string str(infoLog.data());
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Fragment Shader compilation failure! " + str, __FUNCTION__);
 		return;
@@ -87,7 +137,6 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 	// Get a program object.
 	pgmHdl = glCreateProgram();
 	if (pgmHdl == 0) {
-		//std::cout << "ERROR: Unable to create program handle!\n";
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Unable to create program handle!", __FUNCTION__);
 	}
 
@@ -115,8 +164,6 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 
-		//std::cout << "Shader link failure!\n";
-		//std::cout << infoLog.data() << std::endl;
 		std::string str(infoLog.data());
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Shader link failure! " + str, __FUNCTION__);
 		return;
@@ -126,14 +173,25 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 	glDetachShader(pgmHdl, vertexShader);
 	glDetachShader(pgmHdl, fragmentShader);
 
-	//std::cout << "Successfully Compiled and Linked!\n";
 	LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Succesfully Compiled and Linked!", __FUNCTION__);
 }
 
+/*  _________________________________________________________________________ */
+/*! CreateShaderFromFile
+
+@param vertFile
+The path to the vertex shader file.
+
+@param fragFile
+The path to the fragment shader file.
+
+This function reads the source code from the provided vertex and fragment shader
+files and creates a shader program.
+
+*/
 void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const& fragFile) {
 	std::ifstream inVertFile{ vertFile };
 	if (!inVertFile) {
-		//std::cout << "ERROR: Cannot open vertex file: " << vertFile << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open vertex file: " + vertFile, __FUNCTION__);
 	}
 
@@ -143,7 +201,6 @@ void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const
 
 	std::ifstream inFragFile{ fragFile };
 	if (!inFragFile) {
-		//std::cout << "ERROR: Cannot open fragment file: " << fragFile << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open fragment file: " + fragFile, __FUNCTION__);
 	}
 
@@ -154,164 +211,303 @@ void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const
 	CreateShaderFromString(vertSrc.str(), fragSrc.str());
 }
 
+/*  _________________________________________________________________________ */
+/*! Use
+
+This function sets the current shader program to the one represented by this
+Shader object.
+
+*/
 void Shader::Use() const {
 	glUseProgram(pgmHdl);
 }
 
+/*  _________________________________________________________________________ */
+/*! Unuse
+
+This function unsets the current shader program, effectively disabling any shaders.
+
+*/
 void Shader::Unuse() const {
 	glUseProgram(0);
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The boolean value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided boolean value.
+
+*/
 void Shader::SetUniform(std::string const& name, GLboolean val) {
 	GLint loc { glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform1i(loc, val);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The integer value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided integer value.
+
+*/
 void Shader::SetUniform(std::string const& name, GLint val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform1i(loc, val);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The float value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided float value.
+
+*/
 void Shader::SetUniform(std::string const& name, GLfloat val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform1f(loc, val);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param x, y
+The x and y float values to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 2D float values.
+
+*/
 void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform2f(loc, x, y);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param x, y, z
+The x, y, and z float values to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 3D float values.
+
+*/
 void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform3f(loc, x, y, z);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param x, y, z, w
+The x, y, z, and w float values to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 4D float values.
+
+*/
 void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform4f(loc, x, y, z, w);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The 2D vector value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 2D vector value.
+
+*/
 void Shader::SetUniform(std::string const& name, glm::vec2 const& val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform2f(loc, val.x, val.y);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The 3D vector value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 3D vector value.
+
+*/
 void Shader::SetUniform(std::string const& name, glm::vec3 const& val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform3f(loc, val.x, val.y, val.z);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The 4D vector value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 4D vector value.
+
+*/
 void Shader::SetUniform(std::string const& name, glm::vec4 const& val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniform4f(loc, val.x, val.y, val.z, val.w);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The 3x3 matrix value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 3x3 matrix value.
+
+*/
 void Shader::SetUniform(std::string const& name, glm::mat3 const& val) {
 	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
 	if (loc >= 0) {
 		glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The 4x4 matrix value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided 4x4 matrix value.
+
+*/
 void Shader::SetUniform(std::string const& name, glm::mat4 const& val) {
 	GLint loc{ glGetUniformLocation(pgmHdl , name.c_str()) };
 	if (loc >= 0) {
 		glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(val));
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
+@param val
+The pointer to an array of integer values.
+
+@param count
+The number of integer values in the array.
+
+This function sets the specified uniform variable in the shader program to the
+provided array of integer values.
+
+*/
 void Shader::SetUniform(std::string const& name, int* val, unsigned int count) {
 	GLint loc{ glGetUniformLocation(pgmHdl , name.c_str()) };
 	if (loc >= 0) {
 		glUniform1iv(loc, count, val);
 	}
 	else {
-		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
-
-//Shader::Shader(std::string const& vertexPath, std::string const& fragmentPath)
-//{
-//	std::vector<std::pair<GLenum, std::string>> shdrfiles{
-//		std::make_pair(GL_VERTEX_SHADER, vertexPath),
-//			std::make_pair(GL_FRAGMENT_SHADER, fragmentPath)
-//	};
-//	GLSLShader shdrpgm;
-//	shdrpgm.CompileLinkValidate(shdrfiles);
-//	if (GL_FALSE == shdrpgm.IsLinked()) {
-//		std::cout << "Unable to compile/link/validate shader programs\n";
-//		std::cout << shdrpgm.GetLog() << "\n";
-//		std::exit(EXIT_FAILURE);
-//	}
-//	mShader = shdrpgm;
-//	mId = shdrpgm.GetHandle();
-//}
-//
-//void Shader::Activate()
-//{
-//	glUseProgram(mId);
-//}

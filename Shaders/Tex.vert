@@ -1,3 +1,24 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       Tex.vert
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 5, 2023
+
+\brief      Vertex shader for rendering textured objects with vertex colors.
+
+            This shader takes in vertex attributes such as position, color, 
+            texture coordinates, and texture index. It then passes the color, 
+            texture coordinates, and texture index to the fragment shader while 
+            transforming the vertex position using the provided view-projection matrix.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
+
 #version 450 core
 
 layout(location = 0) in vec3 a_Position;
