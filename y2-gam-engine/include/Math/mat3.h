@@ -36,8 +36,6 @@ namespace Image {
 		Mat33& operator+=(Mat33 const& rhs);
 		Mat33& operator-=(Mat33 const& rhs);
 
-		Vec3 operator*(Vec3 const& rhs);
-
 
 		Vec3 mMat[3];
 	};

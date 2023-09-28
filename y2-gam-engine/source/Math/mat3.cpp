@@ -1,5 +1,5 @@
-#include "Math/Mat3.h"
-#include "Math/MathUtils.h"
+#include "Math\Mat3.h"
+#include "Math\MathUtils.h"
 
 namespace Image {
 	Mat33::Mat33() :mMat{} {}
@@ -110,12 +110,6 @@ namespace Image {
 		mMat[1] -= rhs.mMat[1];
 		mMat[2] -= rhs.mMat[2];
 		return *this;
-	}
-
-	Vec3 Mat33::operator*(Vec3 const& rhs){
-		return Vec3(mMat[0][0] * rhs.mData[0] + mMat[1][0] * rhs.mData[1] + mMat[2][0]*rhs.mData[2],
-					mMat[0][1] * rhs.mData[0] + mMat[1][1] * rhs.mData[1] + mMat[2][1] * rhs.mData[2], 
-					mMat[0][2] * rhs.mData[0] + mMat[1][2] * rhs.mData[1] + mMat[2][2] * rhs.mData[2]);
 	}
 
 	void Mat33Identity(Mat33& results) {

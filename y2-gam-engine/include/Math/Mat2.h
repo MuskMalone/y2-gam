@@ -16,15 +16,15 @@ namespace Image {
 		Vec2 operator[](int idx)const;
 		Vec2& operator[](int idx);
 		bool operator==(Mat22 rhs);
-		Mat22 operator+(Mat22 const& rhs)const;
-		Mat22 operator-(Mat22 const& rhs)const;
-		Mat22 operator*(Mat22 const& rhs)const;
+		Mat22 operator+(Mat22 const& rhs);
+		Mat22 operator-(Mat22 const& rhs);
+		Mat22 operator*(Mat22 const& rhs);
 
 		/* Overloading scalar operators */
-		Mat22 operator+(float const& val)const;
-		Mat22 operator-(float const& val)const;
-		Mat22 operator*(float const& val)const;
-		Mat22 operator/(float const& val)const;
+		Mat22 operator+(float const& val);
+		Mat22 operator-(float const& val);
+		Mat22 operator*(float const& val);
+		Mat22 operator/(float const& val);
 
 		/* Overloading scalar shorthand operators */
 		Mat22& operator+=(float const& val);
@@ -36,7 +36,6 @@ namespace Image {
 		Mat22& operator+=(Mat22 const& rhs);
 		Mat22& operator-=(Mat22 const& rhs);
 
-		Vec2 operator*(Vec2 const& rhs) const;
 
 		Vec2 mMat[2];
 	};
@@ -47,7 +46,6 @@ namespace Image {
 	void Mat22RotRad(Mat22& results, float angle);
 	void Mat22RotDeg(Mat22& results, float angle);
 	void Mat22Transpose(Mat22& results, Mat22 const& pMtx);
-	Mat22 Mat22Transpose( Mat22 const& pMtx);
 	void Mat22Inverse(Mat22& results, Mat22 const& pMtx);
 	std::ostream& operator<<(std::ostream& os, Mat22& m);
 }
