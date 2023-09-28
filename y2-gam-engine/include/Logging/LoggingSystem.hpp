@@ -102,7 +102,8 @@ public:
 	{
 		level = new_level;
 	}*/
-
+	const std::vector<std::string>& GetLogsBuffer1() const { return m_buffer1; }
+	const std::vector<std::string>& GetLogsBuffer2() const { return m_buffer2; }
 	//cannot be copied or assigned
 	LoggingSystem(const LoggingSystem&) = delete;
 	LoggingSystem& operator=(const LoggingSystem&) = delete;
