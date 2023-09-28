@@ -223,8 +223,8 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", 0.f, 110.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", 0.f, 100.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
 		std::vector<std::string> diagnostics{};
 		diagnostics.emplace_back("FPS: " + std::to_string(frameController->GetFps()));
 		diagnostics.emplace_back("Entities: " + std::to_string(coordinator->GetEntityCount()));
