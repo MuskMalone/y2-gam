@@ -1,16 +1,46 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       ImguiApp.cpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Implementation file for Imgui
+
+            This file contains functions responsible for rendering different 
+            parts of the application's GUI. It includes the main rendering function, 
+            as well as functions for displaying various windows such as the main 
+            menu, hierarchy, inspector, property, buffer, and logging windows. 
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Imgui/ImguiApp.hpp"
 #include "Logging/LoggingSystem.hpp"
 Entity gSelectedEntity=MAX_ENTITIES;
-constexpr float gPI{ 3.141592653589793238462643383279502884197169399375105f };
-
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
+    /*  _________________________________________________________________________ */
+    /*! AppRender
 
+    @param mEntities
+    The set of Entities to loop through.
+
+    @return none.
+
+    This function is responsible for rendering the application's UI and 
+    handling user input.
+    Pressing the 'z' key toggles between dock space and non-dock space.
+    */
     void AppRender(std::set<Entity>const& mEntities) {
-        static bool showDockSpace{ true };
         //Press z to change dock space and non dock space
+        static bool showDockSpace{ true };
         if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
             showDockSpace = !showDockSpace;
         }
@@ -27,69 +57,61 @@ namespace Image {
         LoggingWindow();
 
     }
+    /*  _________________________________________________________________________ */
+    /*! MainMenuWindow
+
+    @param none
+
+    @return none.
+
+    Displaying the menu bar.
+    */
     void MainMenuWindow() {
         if (ImGui::BeginMainMenuBar())
         {
-            //FILE
+            //Read files maybe
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::MenuItem("New")) {}
                 if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-                if (ImGui::BeginMenu("Open Recent"))
-                {
-                    ImGui::MenuItem("fish_hat.c");
-                    ImGui::MenuItem("fish_hat.inl");
-                    ImGui::MenuItem("fish_hat.h");
-                    if (ImGui::BeginMenu("More.."))
-                    {
-                        ImGui::MenuItem("Hello");
-                        ImGui::MenuItem("Sailor");
-                        if (ImGui::BeginMenu("Recurse.."))
-                        {
-
-                            ImGui::EndMenu();
-                        }
-                        ImGui::EndMenu();
-                    }
+                if (ImGui::BeginMenu("Open Recent")){                                  
                     ImGui::EndMenu();
                 }
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {}
-                if (ImGui::MenuItem("Save As..")) {}
-
+                if (ImGui::MenuItem("Save As")) {}
                 ImGui::Separator();
-
-                if (ImGui::BeginMenu("Options"))
-                {
-                    static bool enabled = true;
-                    ImGui::MenuItem("Enabled", "", &enabled);
-                    ImGui::BeginChild("child", ImVec2(0, 60), true);
-                    for (int i = 0; i < 10; i++)
-                        ImGui::Text("Scrolling Text %d", i);
-                    ImGui::EndChild();
-                    static float f = 0.5f;
-                    static int n = 0;
-                    ImGui::SliderFloat("Value", &f, 0.0f, 1.0f);
-                    ImGui::InputFloat("Input", &f, 0.1f);
-                    ImGui::Combo("Combo", &n, "Yes\0No\0Maybe\0\0");
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenu();
             }
 
             //EDIT
-            if (ImGui::BeginMenu("Edit"))
-            {
+            if (ImGui::BeginMenu("Edit")){
                 if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}
                 ImGui::Separator();
                 if (ImGui::MenuItem("Cut", "CTRL+X")) {}
                 if (ImGui::MenuItem("Copy", "CTRL+C")) {}
                 if (ImGui::MenuItem("Paste", "CTRL+V")) {}
                 ImGui::EndMenu();
             }
+            //View
+            if (ImGui::BeginMenu("View")) {
+                if (ImGui::MenuItem("Animation Editer")) {}
+                ImGui::EndMenu();
+            }
             ImGui::EndMainMenuBar();
         }
     }
+    /*  _________________________________________________________________________ */
+    /*! HierarchyWindow
+
+    @param mEntities
+     Set of entities to loop through and display on the Hierarchy panel
+
+    @return none.
+
+    This function displays the hierarchy of entities and allows for the creation 
+    and destruction of entities. The entities have a default ImGui component to
+    listen from.
+    */
     void HierarchyWindow(std::set<Entity>const& mEntities) {
         // Hierarchy Panel
         ::gCoordinator = Coordinator::GetInstance();
@@ -97,7 +119,6 @@ namespace Image {
         //Create entity and destory first
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
-            //gCoordinator->AddComponent(newEntity, ImguiComponent{});
             gSelectedEntity = newEntity;
         }
 
@@ -112,10 +133,18 @@ namespace Image {
                 gSelectedEntity = entity;
             }
         }
-        //std::cout << "Number of entities: " << mEntities.size() << std::endl;
-
         ImGui::End();
     }
+    /*  _________________________________________________________________________ */
+    /*! InspectorWindow
+
+    @param none
+
+    @return none.
+
+    This function displays the components of the selected entity and allows for 
+    modification to its components.
+    */
     void InspectorWindow() {
         // Inspector Panel
         ImGui::Begin("Inspector");
@@ -137,16 +166,6 @@ namespace Image {
                 ImGui::Text("Scale");
                 ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                 ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
-                //if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
-                //    RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-                //    rigidBody.position = Vec3{ transform.position.x,transform.position.y,0 };
-                //    rigidBody.rotation =transform.rotation.z;
-                //    rigidBody.dimension = Vec3{ transform.scale.x,transform.scale.y,0 };
-                //}
-
-      /*          if (ImGui::Button("Remove Transform Component")) {
-                    gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
-                }*/
             }
             if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                 Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
@@ -154,13 +173,6 @@ namespace Image {
                 ImGui::Separator();
                 ImGui::Text("Color");
                 ImGui::ColorPicker4("Color Picker", &sprite.color.r);
-                //Tex
-                //ImGui::Separator();
-                /*ImGui::Text("Sprite");*/
-                //ImGui::Text("Add asset file path i think");
-                //if (ImGui::Button("Remove Sprite Component")) {
-                //    gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
-                //}
             }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                 RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
@@ -182,19 +194,7 @@ namespace Image {
                 ImGui::Text("Mass");
                 ImGui::InputFloat("Mass", &rigidBody.mass);
                 rigidBody.SetMass(rigidBody.mass);
-
-                //if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                //    Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
-                //    transform.position = Vec3{ rigidBody.position.x,rigidBody.position.y,0 };
-                //    transform.rotation = Vec3{ 0,0,rigidBody.rotation };
-                //    transform.scale = Vec3{ rigidBody.dimension.x,rigidBody.dimension.y,0 };
-                //}
             }
-
-            //if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
-            //}
-            //if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
-            //}
             if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                 Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
                 ImGui::Separator();
@@ -206,6 +206,17 @@ namespace Image {
         }
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! PropertyWindow
+
+    @param none
+
+    @return none.
+
+    This function displays the properties of the selected entity and allows for 
+    adding or removing components.
+    */
     void PropertyWindow() {
         ImGui::Begin("Property");
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity"};
@@ -350,6 +361,16 @@ namespace Image {
         }
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! BufferWindow
+
+    @param none
+
+    @return none.
+
+     This function displays the game engine's framebuffer.
+    */
     void BufferWindow() {
         ImGui::Begin("Image Game Engine");
 
@@ -357,6 +378,17 @@ namespace Image {
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! LoggingWindow
+
+    @param none
+
+    @return none.
+
+    This function displays logs from the LoggingSystem. It will auto scroll to the
+    bottom.
+    */
     void LoggingWindow() {
         ImGui::Begin("Log");
         // Retrieve logs from LoggingSystem

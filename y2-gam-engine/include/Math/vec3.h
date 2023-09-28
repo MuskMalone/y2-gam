@@ -1,3 +1,23 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Vec3.hpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Header file for Vec3 math
+
+            This file contains the declaration for a vector 3 class.
+            It provides various constructors, operators, and utility functions
+            for vector operations such as dot product, cross product,
+            and normalization.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 
 #include <iostream>
@@ -30,8 +50,8 @@ namespace Image {
         Vec3(Vec4 const& rhs);
 
         // Assignment operators
-        Vec3& operator += (const Vec3& rhs);
-        Vec3& operator -= (const Vec3& rhs);
+        Vec3& operator += (Vec3 const& rhs);
+        Vec3& operator -= (Vec3 const& rhs);
         Vec3& operator *= (float rhs);
         Vec3& operator /= (float rhs);
 
@@ -41,43 +61,13 @@ namespace Image {
         float& operator[](int idx);
     }Vec3;
 
-
-        ////template<typename vec>
-        ////Vec3(vec v) : mData{ v.x,v.y,v.z } {}
-
-        ////template <typename vec>
-        ////operator vec() {
-        ////    return vec{ mData[0],mData[1],mData[2] };
-        ////}
-        //float length() const;
-        //float dot(Vec3 const& rhs) const;
-        //Vec3 cross(Vec3 const& rhs) const;
-        //Vec3 normalized() const;
-
-        ////Overloads
-        //Vec3 operator+(Vec3 const& rhs) const;
-        //Vec3 operator-(Vec3 const& rhs) const;
-        //Vec3 operator+(float val) const;
-        //Vec3 operator-(float val) const;
-        //Vec3 operator*(float val) const;
-        //Vec3 operator/(float val) const;
-        //Vec3& operator+=(Vec3 const& rhs);
-        //Vec3& operator-=(Vec3 const& rhs);
-        //Vec3& operator*=(float const& val);
-        //Vec3& operator/=(float const& val);
-        //bool operator==(Vec3 rhs);
-        //float operator[](int idx)const;
-        //float& operator[](int idx);
-
-    
-
 #ifdef _MSC_VER
     // Supress warning: nonstandard extension used : nameless struct/union
 #pragma warning( default : 4201 )
 #endif
     // Overloads
-    float length(Vec3 const& v);
-    Vec3 normalized(Vec3 const& v);
+    float length(Vec3 const& rhs);
+    Vec3 normalized(Vec3 const& rhs);
     Vec3 cross(Vec3 const& lhs, Vec3 const& rhs);
     float dot(Vec3 const& lhs, Vec3 const& rhs);
     Vec3 operator+(Vec3 const& lhs, Vec3 const& rhs);

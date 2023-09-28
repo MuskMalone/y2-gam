@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Mat2.cpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Header file for Mat2 math
+
+			This file contains the declaration for a Matrix 2 class.
+			It provides various constructors, operators, and utility functions
+			for matrix operations such as addition, subtraction, multiplication,
+			transposition, and inversion.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "Vec2.h"
 #include <iostream>
@@ -21,20 +42,22 @@ namespace Image {
 		Mat22(Vec2 col1, Vec2 col2);
 		} Mat22;
 		
-
-
+#ifdef _MSC_VER
+	// Supress warning: nonstandard extension used : nameless struct/union
+#pragma warning( default : 4201 )
+#endif
 	// Overloaded operators
-	bool operator==(const Mat22& lhs, const Mat22& rhs);
-	Mat22 operator+(const Mat22& lhs, const Mat22& rhs);
-	Mat22 operator-(const Mat22& lhs, const Mat22& rhs);
-	Mat22 operator*(const Mat22& lhs, const Mat22& rhs);
-	Mat22 operator+(const Mat22& lhs, float const& val);
-	Mat22 operator-(const Mat22& lhs, float const& val);
-	Mat22 operator*(const Mat22& lhs, float const& val);
-	Mat22 operator/(const Mat22& lhs, float const& val);
-	Mat22& operator+=(Mat22& lhs, const Mat22& rhs);
-	Mat22& operator-=(Mat22& lhs, const Mat22& rhs);
-	Vec2 operator*(const Mat22& lhs, const Vec2& rhs);
+	bool operator==(Mat22 const& lhs, Mat22 const& rhs);
+	Mat22 operator+(Mat22 const& lhs, Mat22 const& rhs);
+	Mat22 operator-(Mat22 const& lhs, Mat22 const& rhs);
+	Mat22 operator*(Mat22 const& lhs, Mat22 const& rhs);
+	Mat22 operator+(Mat22 const& lhs, float const& val);
+	Mat22 operator-(Mat22 const& lhs, float const& val);
+	Mat22 operator*(Mat22 const& lhs, float const& val);
+	Mat22 operator/(Mat22 const& lhs, float const& val);
+	Mat22& operator+=(Mat22& lhs, Mat22 const& rhs);
+	Mat22& operator-=(Mat22& lhs, Mat22 const& rhs);
+	Vec2 operator*(Mat22 const& lhs, Vec2 const& rhs);
 
 
 	void Mat22Identity(Mat22& results);
@@ -47,32 +70,3 @@ namespace Image {
 	void Mat22Inverse(Mat22& results, Mat22 const& pMtx);
 	std::ostream& operator<<(std::ostream& os, Mat22& m);
 }
-
-
-
-//Vec2 operator[](int idx)const;
-//Vec2& operator[](int idx);
-//bool operator==(Mat22 rhs);
-//Mat22 operator+(Mat22 const& rhs)const;
-//Mat22 operator-(Mat22 const& rhs)const;
-//Mat22 operator*(Mat22 const& rhs)const;
-
-///* Overloading scalar operators */
-//Mat22 operator+(float const& val)const;
-//Mat22 operator-(float const& val)const;
-//Mat22 operator*(float const& val)const;
-//Mat22 operator/(float const& val)const;
-
-///* Overloading scalar shorthand operators */
-//Mat22& operator+=(float const& val);
-//Mat22& operator-=(float const& val);
-//Mat22& operator*=(float const& val);
-//Mat22& operator/=(float const& val);
-
-///* Overloading Matrix shorthand operators */
-//Mat22& operator+=(Mat22 const& rhs);
-//Mat22& operator-=(Mat22 const& rhs);
-
-//Vec2 operator*(Vec2 const& rhs) const;
-
-//Vec2 mMat[2];

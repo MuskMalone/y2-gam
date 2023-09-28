@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       ImguiApp.hpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Header file for Imgui
+
+            This file contains functions responsible for rendering different
+            parts of the application's GUI. It includes the main rendering function,
+            as well as functions for displaying various windows such as the main
+            menu, hierarchy, inspector, property, buffer, and logging windows.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "IMGUI/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"

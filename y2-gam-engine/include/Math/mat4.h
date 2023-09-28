@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Mat4.cpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Header file for Mat4 math
+
+			This file contains the declaration for a Matrix 4 class.
+			It provides various constructors, operators, and utility functions
+			for matrix operations such as addition, subtraction, multiplication,
+			transposition, and inversion.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <iostream>
 #include <Math.h>
@@ -51,16 +72,16 @@ namespace Image {
 	//	Vec4 mMat[4];
 	//};
 	// Overloaded operators
-	bool operator==(const Mat44& lhs, const Mat44& rhs);
-	Mat44 operator+(const Mat44& lhs, const Mat44& rhs);
-	Mat44 operator-(const Mat44& lhs, const Mat44& rhs);
-	Mat44 operator*(const Mat44& lhs, const Mat44& rhs);
-	Mat44 operator+(const Mat44& lhs, float const& val);
-	Mat44 operator-(const Mat44& lhs, float const& val);
-	Mat44 operator*(const Mat44& lhs, float const& val);
-	Mat44 operator/(const Mat44& lhs, float const& val);
-	Mat44& operator+=(Mat44& lhs, const Mat44& rhs);
-	Mat44& operator-=(Mat44& lhs, const Mat44& rhs);
+	bool operator==(Mat44 const& lhs, Mat44 const& rhs);
+	Mat44 operator+(Mat44 const& lhs, Mat44 const& rhs);
+	Mat44 operator-(Mat44 const& lhs, Mat44 const& rhs);
+	Mat44 operator*(Mat44 const& lhs, Mat44 const& rhs);
+	Mat44 operator+(Mat44 const& lhs, float const& val);
+	Mat44 operator-(Mat44 const& lhs, float const& val);
+	Mat44 operator*(Mat44 const& lhs, float const& val);
+	Mat44 operator/(Mat44 const& lhs, float const& val);
+	Mat44& operator+=(Mat44& lhs, Mat44 const& rhs);
+	Mat44& operator-=(Mat44& lhs, Mat44 const& rhs);
 
 
 	void Mat44Identity(Mat44& results);
