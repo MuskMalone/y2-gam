@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
 
 Shader::Shader(std::string const& vertFile, std::string const& fragFile)
 	:pgmHdl{} {
@@ -41,8 +43,10 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		// Failed to compile, delete shader
 		glDeleteShader(vertexShader);
 
-		std::cout << "Vertex Shader compilation failure!\n";
-		std::cout << infoLog.data() << std::endl;
+		/*std::cout << "Vertex Shader compilation failure!\n";
+		std::cout << infoLog.data() << std::endl;*/
+		std::string str(infoLog.data());
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Vertex Shader compilation failure! " + str, __FUNCTION__);
 		return;
 	}
 
@@ -71,8 +75,10 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		glDeleteShader(fragmentShader);
 		glDeleteShader(vertexShader);
 
-		std::cout << "Fragment Shader compilation failure!\n";
-		std::cout << infoLog.data() << std::endl;
+		//std::cout << "Fragment Shader compilation failure!\n";
+		//std::cout << infoLog.data() << std::endl;
+		std::string str(infoLog.data());
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Fragment Shader compilation failure! " + str, __FUNCTION__);
 		return;
 	}
 
@@ -81,7 +87,8 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 	// Get a program object.
 	pgmHdl = glCreateProgram();
 	if (pgmHdl == 0) {
-		std::cout << "ERROR: Unable to create program handle!\n";
+		//std::cout << "ERROR: Unable to create program handle!\n";
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Unable to create program handle!", __FUNCTION__);
 	}
 
 	// Attach our shaders to our program
@@ -108,8 +115,10 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 
-		std::cout << "Shader link failure!\n";
-		std::cout << infoLog.data() << std::endl;
+		//std::cout << "Shader link failure!\n";
+		//std::cout << infoLog.data() << std::endl;
+		std::string str(infoLog.data());
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Shader link failure! " + str, __FUNCTION__);
 		return;
 	}
 
@@ -117,13 +126,15 @@ void Shader::CreateShaderFromString(std::string const& vertSrc, std::string cons
 	glDetachShader(pgmHdl, vertexShader);
 	glDetachShader(pgmHdl, fragmentShader);
 
-	std::cout << "Successfully Compiled and Linked!\n";
+	//std::cout << "Successfully Compiled and Linked!\n";
+	LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Succesfully Compiled and Linked!", __FUNCTION__);
 }
 
 void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const& fragFile) {
 	std::ifstream inVertFile{ vertFile };
 	if (!inVertFile) {
-		std::cout << "ERROR: Cannot open vertex file: " << vertFile << std::endl;
+		//std::cout << "ERROR: Cannot open vertex file: " << vertFile << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open vertex file: " + vertFile, __FUNCTION__);
 	}
 
 	std::stringstream vertSrc;
@@ -132,7 +143,8 @@ void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const
 
 	std::ifstream inFragFile{ fragFile };
 	if (!inFragFile) {
-		std::cout << "ERROR: Cannot open fragment file: " << fragFile << std::endl;
+		//std::cout << "ERROR: Cannot open fragment file: " << fragFile << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open fragment file: " + fragFile, __FUNCTION__);
 	}
 
 	std::stringstream fragSrc;
@@ -156,7 +168,8 @@ void Shader::SetUniform(std::string const& name, GLboolean val) {
 		glUniform1i(loc, val);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -166,7 +179,8 @@ void Shader::SetUniform(std::string const& name, GLint val) {
 		glUniform1i(loc, val);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -176,7 +190,8 @@ void Shader::SetUniform(std::string const& name, GLfloat val) {
 		glUniform1f(loc, val);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -186,7 +201,8 @@ void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y) {
 		glUniform2f(loc, x, y);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -196,7 +212,8 @@ void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z
 		glUniform3f(loc, x, y, z);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -206,7 +223,8 @@ void Shader::SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z
 		glUniform4f(loc, x, y, z, w);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -216,7 +234,8 @@ void Shader::SetUniform(std::string const& name, glm::vec2 const& val) {
 		glUniform2f(loc, val.x, val.y);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -226,7 +245,8 @@ void Shader::SetUniform(std::string const& name, glm::vec3 const& val) {
 		glUniform3f(loc, val.x, val.y, val.z);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -236,7 +256,8 @@ void Shader::SetUniform(std::string const& name, glm::vec4 const& val) {
 		glUniform4f(loc, val.x, val.y, val.z, val.w);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -246,7 +267,8 @@ void Shader::SetUniform(std::string const& name, glm::mat3 const& val) {
 		glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -256,7 +278,8 @@ void Shader::SetUniform(std::string const& name, glm::mat4 const& val) {
 		glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(val));
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
@@ -266,7 +289,8 @@ void Shader::SetUniform(std::string const& name, int* val, unsigned int count) {
 		glUniform1iv(loc, count, val);
 	}
 	else {
-		std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		//std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
 	}
 }
 
