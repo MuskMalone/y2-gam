@@ -238,7 +238,7 @@ int main()
 
 		for (int i{}; i < diagnostics.size(); ++i) {
 			Image::FontRenderer::RenderText("Lato", diagnostics[i],
-				-WORLD_LIMIT_X, WORLD_LIMIT_Y - (10 + (i * 5)), 0.05f, glm::vec3(0.f, 1.f, 0.f));
+				-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))), 0.05f, glm::vec3(0.f, 1.f, 0.f));
 		}
 
 	}

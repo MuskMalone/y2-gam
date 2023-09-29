@@ -18,6 +18,17 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Physics {
+    /*  _________________________________________________________________________ */
+    /*! ArbiterMergeContacts
+
+    @param a The primary arbiter whose contacts might be updated.
+    @param toMerge The arbiter containing new contacts to be merged.
+
+    Merges contact points between two arbiters. This function checks if the new
+    contacts from `toMerge` already exist in `a`. If they do, it updates the
+    accumulated impulses; otherwise, it simply copies the new contact.
+    */
+
     void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
         Contact mergedContacts[2];
 
@@ -53,6 +64,18 @@ namespace Physics {
 
         a.contactsCount = toMerge.contactsCount;
     }
+    /*  _________________________________________________________________________ */
+/*! ArbiterPreStep
+
+@param a The arbiter to be prepared.
+@param inv_dt The inverse of the time step (i.e., 1/dt).
+
+Prepares the arbiter for the impulse resolution phase. Computes the normal
+and tangent mass for each contact point, which will be used to calculate the
+impulses applied during collision resolution. Also precomputes some values
+for the impulse application phase.
+*/
+
     void ArbiterPreStep(Arbiter & a, float inv_dt) {
         const float kAllowedPenetration = 0.0f;
         float kBiasFactor = .2f;
@@ -101,6 +124,15 @@ namespace Physics {
             }
         }
     }
+    /*  _________________________________________________________________________ */
+/*! ArbiterApplyImpulse
+
+@param a The arbiter whose colliding bodies will have impulses applied.
+
+Applies impulses to the colliding bodies based on their relative velocities.
+Ensures that the relative velocity along the contact normal becomes zero after
+the impulse is applied, preventing the bodies from penetrating each other.
+*/
 
     void ArbiterApplyImpulse(Arbiter& a) {
         auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
@@ -171,6 +203,12 @@ namespace Physics {
             }
         }
     }
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::Init
+
+Initializes the physics system. Sets up an event listener for collision events
+and clears the arbiter table.
+*/
 
 	void PhysicsSystem::Init()
 	{
@@ -180,17 +218,35 @@ namespace Physics {
         mArbiterTable.clear();
 	}
 
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::PreCollisionUpdate
+
+@param dt The time step for the current frame (not used in the current implementation).
+
+Prepares the physics system for the collision detection phase. Clears the
+arbiter table and resets the `isGrounded` flag for all rigid bodies.
+*/
 
     void PhysicsSystem::PreCollisionUpdate(float dt)
     {
+        UNREFERENCED_PARAMETER(dt);
         mArbiterTable.clear();
         for (auto const& entity : mEntities)
         {
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
             rigidBody.isGrounded = false;
         }
     }
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::PostCollisionUpdate
+
+@param dt The time step for the current frame.
+
+Updates the physics system after the collision detection phase. Integrates
+forces to update velocities, prepares for impulse resolution, iteratively
+applies impulses, and then integrates velocities again to update positions
+and rotations of the rigid bodies.
+*/
 
 	void PhysicsSystem::PostCollisionUpdate(float dt) {
         // Integrate forces
@@ -198,8 +254,6 @@ namespace Physics {
         for (auto const& entity : mEntities)
         {
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            auto& transform = gCoordinator->GetComponent<Transform>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
             auto const& gravity = gCoordinator->GetComponent<Gravity>(entity);
             if (rigidBody.invMass == 0.0f) {
                 continue;
@@ -231,7 +285,6 @@ namespace Physics {
         for (auto const& entity : mEntities){
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
             auto& transform = gCoordinator->GetComponent<Transform>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
 
             rigidBody.position += rigidBody.velocity * dt;
             rigidBody.rotation += rigidBody.angularVelocity * dt;
@@ -246,6 +299,17 @@ namespace Physics {
         }
 
 	}
+
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::CollisionListener
+
+@param event The event containing collision data.
+
+Event listener function that gets called when a collision is detected. Checks
+if an arbiter for the colliding pair already exists in the arbiter table. If
+it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
+*/
+
     void PhysicsSystem::CollisionListener(Event& event) {
         auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
         ArbiterHashTable::iterator iter = mArbiterTable.find(ap.first);

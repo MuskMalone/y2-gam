@@ -57,7 +57,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(2 * WORLD_LIMIT_X, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(2.f * WORLD_LIMIT_X, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -79,7 +79,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9 * WORLD_LIMIT_Y)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -101,7 +101,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9 * WORLD_LIMIT_Y)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,

@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Globals.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief      globals + data tweaking
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <limits>
 #include <map>
@@ -41,7 +57,7 @@ namespace Globals {
             if (!ifsGlobals.is_open()) exit(1);
             char ch;
             do {
-                char i = ifsGlobals.peek();
+                char i = static_cast<char>(ifsGlobals.peek());
                 if (std::isdigit(i)) {
                     int k;
                     ifsGlobals >> k;

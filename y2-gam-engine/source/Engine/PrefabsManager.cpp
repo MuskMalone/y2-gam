@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PrefabsManager.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		prefab reading
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include <Engine/PrefabsManager.hpp>
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Core/Serialization/Serializer.hpp>

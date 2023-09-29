@@ -10,14 +10,14 @@ namespace Serializer {
 	//creates an empty json in the path given
 	//returns ifstream of created json
 	//if file already exists returns ifstream to original file
-	std::ifstream& SerializationManager::CreateJSON(std::ifstream& ifs, std::string const& path) {
-		ifs.open(path);
+	std::ifstream& SerializationManager::CreateJSON(std::ifstream& ifs, std::string const& p) {
+		ifs.open(p);
 		if (ifs.is_open()) return ifs;
 
 		//creates an empty file
-		std::ofstream ofs{path};
+		std::ofstream ofs{p};
 		ofs.close();
-		ifs.open(path);
+		ifs.open(p);
 		return ifs;
 	}
 

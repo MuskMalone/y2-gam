@@ -49,16 +49,16 @@ Coordinator::GetInstance()->AddComponent(entity, Transform{ obj });
 }
 template <typename _type> std::string TypeToString() {
 if constexpr (std::is_same_v<_type, Animation>) return "Animation";
-if constexpr (std::is_same_v<_type, BoxCollider>) return "BoxCollider";
-if constexpr (std::is_same_v<_type, Camera>) return "Camera";
-if constexpr (std::is_same_v<_type, Editor>) return "Editor";
-if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
-if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
-if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
-if constexpr (std::is_same_v<_type, Script>) return "Script";
-if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
-if constexpr (std::is_same_v<_type, Transform>) return "Transform";
-return "NULL";
+else if constexpr (std::is_same_v<_type, BoxCollider>) return "BoxCollider";
+else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
+else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
+else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
+else if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
+else if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
+else if constexpr (std::is_same_v<_type, Script>) return "Script";
+else if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
+else if constexpr (std::is_same_v<_type, Transform>) return "Transform";
+else return "NULL";
 }
 static void SerializeEntity(Entity const& entity, JSONObj& ent) {
 if (Coordinator::GetInstance()->HasComponent<Animation>(entity)){

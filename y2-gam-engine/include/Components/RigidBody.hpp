@@ -1,5 +1,19 @@
 #pragma once
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       RigidBody.hpp
 
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief      rigidbody ecs cmpnt
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
