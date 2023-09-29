@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \par        Image Engine
-\file       Vec2.hpp
+\file       Vec2.h
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
 \date       Sep 9, 2023
@@ -74,9 +74,9 @@ namespace Image {
 #pragma warning( default : 4201 )
 #endif
 	// Overloads
-	inline float Vector2Cross(Vec2 a, Vec2 b) { return a.x * b.y - a.y * b.x; }
-	inline Vec2 Vector2Cross(Vec2 a, float s) { return Vec2 { s* a.y, -s * a.x }; }
-	inline Vec2 Vector2Cross(float s, Vec2 a) { return Vec2 { -s * a.y, s* a.x }; }
+	//inline float Vector2Cross(Vec2 a, Vec2 b) { return a.x * b.y - a.y * b.x; }
+	//inline Vec2 Vector2Cross(Vec2 a, float s) { return Vec2 { s* a.y, -s * a.x }; }
+	//inline Vec2 Vector2Cross(float s, Vec2 a) { return Vec2 { -s * a.y, s* a.x }; }
 	float length(Vec2 const& rhs);
 	Vec2 normalized(Vec2 const& rhs);
 	float cross(Vec2 const& lhs, Vec2 const& rhs);

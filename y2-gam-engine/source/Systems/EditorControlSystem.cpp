@@ -297,7 +297,6 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randPosition(-WORLD_LIMIT_X, WORLD_LIMIT_X);
 
 		std::uniform_real_distribution<float> randDepth(-1.0f, 0.0f);
-		//std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
 		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);

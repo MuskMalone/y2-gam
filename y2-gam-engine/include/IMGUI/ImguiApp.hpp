@@ -41,6 +41,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Logging/LoggingSystem.hpp"
 #include <chrono>
 #include <random>
 #include <Core/Globals.hpp>

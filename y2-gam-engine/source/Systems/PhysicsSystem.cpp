@@ -75,7 +75,7 @@ namespace Physics {
                 + rb2.invInertia * (dot(r2, r2) - rn2 * rn2);
             c.massNormal = 1.0f / kNormal;
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
+            Vec2 tangent = cross(c.normal, 1.0f);
             float rt1 = dot(r1, tangent);
             float rt2 = dot(r2, tangent);
             float kTangent = rb1.invMass + rb2.invMass;
@@ -91,12 +91,12 @@ namespace Physics {
 
                 rb1.velocity -= P * rb1.invMass;
                 if (!rb1.isLockRotation) {
-                    rb1.angularVelocity -= rb1.invInertia * Vector2Cross(r1, P);
+                    rb1.angularVelocity -= rb1.invInertia * cross(r1, P);
                 }
 
                 rb2.velocity += P * rb2.invMass;
                 if (!rb1.isLockRotation) {
-                    rb2.angularVelocity += rb2.invInertia * Vector2Cross(r2, P);
+                    rb2.angularVelocity += rb2.invInertia * cross(r2, P);
                 }
             }
         }
@@ -113,8 +113,8 @@ namespace Physics {
             c.r2 = c.position - rb2.position;
 
             // Relative velocity at contact
-            Vec2 dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            Vec2 dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
             // Compute normal impulse
             float vn = dot(dv, c.normal);
@@ -131,19 +131,19 @@ namespace Physics {
 
             rb1.velocity -= Pn * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pn);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pn);
             }
 
             rb2.velocity += Pn * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pn);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pn);
             }
 
             // Relative velocity at contact
-            dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
+            Vec2 tangent = cross(c.normal, 1.0f);
             float vt = dot(dv, tangent);
             float dPt = vt * c.massTangent * (-1.0f);
 
@@ -162,12 +162,12 @@ namespace Physics {
             
             rb1.velocity -= Pt * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pt);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pt);
             }
 
             rb2.velocity += Pt * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pt);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pt);
             }
         }
     }
