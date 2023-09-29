@@ -34,6 +34,7 @@
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
+#include "Components/Script.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"

@@ -195,11 +195,11 @@ int main()
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
-		imguiSystem->Update();
 
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+		imguiSystem->Update();
 
 		//physicsSystem->PreCollisionUpdate(dt);
 

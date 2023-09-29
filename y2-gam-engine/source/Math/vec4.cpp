@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \par        Image Engine
-\file       Vec4.hpp
+\file       Vec4.cpp
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
 \date       Sep 9, 2023

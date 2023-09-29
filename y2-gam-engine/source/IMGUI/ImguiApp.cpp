@@ -41,8 +41,13 @@ namespace Image {
     void AppRender(std::set<Entity>const& mEntities) {
         //Press z to change dock space and non dock space
         static bool showDockSpace{ true };
+        static bool toDelete{ false };
+
         if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
             showDockSpace = !showDockSpace;
+        }
+        if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+            toDelete = !toDelete;
         }
 
         if (showDockSpace) {
@@ -55,7 +60,22 @@ namespace Image {
         PropertyWindow();
         BufferWindow();
         LoggingWindow();
+        if (toDelete) {
+            std::vector<Entity> deleteEntites{};
+            for (auto & e : mEntities) {
+                deleteEntites.emplace_back(e);
+            }
+            for (auto const& e : deleteEntites) {
+                //TEMP TO BE DELETED
+                //TODO 
+                if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e)!="2" && std::to_string(e) != "3" && std::to_string(e) != "4"){
+                    gCoordinator->DestroyEntity(e);
+                }
+            }
+            gSelectedEntity = MAX_ENTITIES;
+            toDelete = !toDelete;
 
+        }
     }
     /*  _________________________________________________________________________ */
     /*! MainMenuWindow
@@ -123,8 +143,10 @@ namespace Image {
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
-            gCoordinator->DestroyEntity(gSelectedEntity);
-            gSelectedEntity = MAX_ENTITIES;
+            if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                gCoordinator->DestroyEntity(gSelectedEntity);
+                gSelectedEntity = MAX_ENTITIES;
+            }
         }
 
         for (auto const& entity : mEntities) {
@@ -219,7 +241,7 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script"};
         static int selectedComponentToAdd{ -1 };
         static int selectedComponentToRemove{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
@@ -264,6 +286,17 @@ namespace Image {
                                     Vec2{transform.scale.x,transform.scale.y}
                                 });
                         }
+                        else {
+                            ImGuiViewport* vP = ImGui::GetWindowViewport();
+                            gCoordinator->AddComponent(
+                                gSelectedEntity,
+                                RigidBody{
+                                    Vec2{vP->Pos.x,vP->Pos.y},
+                                    0.f,
+                                    50.f,
+                                    Vec2{5.f,5.f}
+                                });
+                        }
                     }
                 }
                     break;
@@ -303,7 +336,8 @@ namespace Image {
                             Gravity{ Vec2{0.f,0.f} });
                     }
                 }
-                    break;
+                    break;              
+  
                 }
             }
             if (ImGui::Combo("Remove Component", &selectedComponentToRemove, components, IM_ARRAYSIZE(components))) {
@@ -349,7 +383,7 @@ namespace Image {
                         gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
                     }
                 }
-                    break;
+                    break;               
                 }
             }
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
@@ -358,6 +392,7 @@ namespace Image {
             ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
+
         }
         ImGui::End();
     }

@@ -4,7 +4,7 @@
 \file       Mat3.cpp
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
-\date       Sep 9, 2023
+\date       Sep 4, 2023
 
 \brief      Implementation file for Mat3 math
 
