@@ -2908,3 +2908,45 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-09-29 13:29:50 FN: Image::SoundManager::AudioExit
 
+[ERROR]: Namespace:  2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Sandbox 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-09-29 15:03:57 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-09-29 15:03:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-09-29 15:03:58 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-09-29 15:03:59 FN: Shader::CreateShaderFromString
+
