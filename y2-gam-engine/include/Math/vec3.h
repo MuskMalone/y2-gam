@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \par        Image Engine
-\file       Vec3.hpp
+\file       Vec3.h
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
 \date       Sep 9, 2023

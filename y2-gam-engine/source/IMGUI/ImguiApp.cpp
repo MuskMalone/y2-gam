@@ -20,7 +20,6 @@
 /******************************************************************************/
 
 #include "Imgui/ImguiApp.hpp"
-#include "Logging/LoggingSystem.hpp"
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -37,6 +36,7 @@ namespace Image {
     This function is responsible for rendering the application's UI and 
     handling user input.
     Pressing the 'z' key toggles between dock space and non-dock space.
+    Pressing the 'c' key to clear the entities
     */
     void AppRender(std::set<Entity>const& mEntities) {
         //Press z to change dock space and non dock space

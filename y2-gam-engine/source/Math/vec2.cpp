@@ -258,12 +258,40 @@ namespace Image {
         return lhs.mData[0] * rhs.mData[1] - lhs.mData[1]* rhs.mData[0];
     }
 
+    /*  _________________________________________________________________________ */
+    /*! cross
+
+    @param lhs
+    Left-hand side vector.
+
+    @param rhs
+    Right-hand side float.
+
+    @return Vec2
+    Cross product of the vector and float.
+
+    Computes the Cross product of vector and float.
+    */
     Vec2 cross(Vec2 const& lhs, float const& rhs) {
-        return lhs.mData[0] * rhs - rhs * lhs.mData[1];
+        return Vec2{ lhs.mData[1] * rhs , -rhs * lhs.mData[0] };
     }
 
+    /*  _________________________________________________________________________ */
+    /*! cross
+
+    @param lhs
+    Left-hand side float.
+
+    @param rhs
+    Right-hand side vector.
+
+    @return Vec2
+    Cross product of the vector and float.
+
+    Computes the Cross product of vector and float.
+    */
     Vec2 cross(float const& lhs, Vec2 const& rhs) {
-        return lhs * rhs.mData[1] - rhs.mData[0] * lhs;
+        return  Vec2{ -lhs * rhs.mData[1] , rhs.mData[0] * lhs };
     }
 
     /*  _________________________________________________________________________ */
