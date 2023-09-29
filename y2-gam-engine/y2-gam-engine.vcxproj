@@ -145,6 +145,7 @@
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
+    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
@@ -224,6 +225,7 @@
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
     <ClCompile Include="source\Audio\Sound.cpp" />
+    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
@@ -236,6 +238,7 @@
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp" />
     <ClCompile Include="source\Logging\LoggingSystem.cpp" />
@@ -262,7 +265,6 @@
     <ClCompile Include="source\WindowManager.cpp" />
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />

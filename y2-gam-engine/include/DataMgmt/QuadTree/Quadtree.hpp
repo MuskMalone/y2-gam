@@ -1,4 +1,19 @@
 #pragma once
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Quadtree.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		quad tree
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 //#include "Circle.h"     // Circle class
 //#include "Color.h"      // Color class
@@ -33,7 +48,14 @@ namespace DataMgmt {
 		uptr<Quadtree> mSubnode[4];
 		//vec<int> m_index;
 		vec<T> mIndex;
+		/*  _________________________________________________________________________ */
+/*! Split
 
+@return none.
+
+Splits the current node into four subnodes, each representing a quadrant
+of the current node's rectangle.
+*/
 		void Split() {
 			//----------------------------------------------------------------
 			// Create subnodes and gives each its own quadrant.
@@ -42,13 +64,13 @@ namespace DataMgmt {
 			Vec2 min = mRect.GetMin();
 			Vec2 max = mRect.GetMax();
 
-			int x = static_cast<int>(min.x);
-			int y = static_cast<int>(min.y);
-			int width = static_cast<int>(max.x - min.x);
-			int height = static_cast<int>(max.y - min.y);
+			float x = min.x;
+			float  y = min.y;
+			float  width = max.x - min.x;
+			float  height = max.y - min.y;
 
-			int w = static_cast<int>(static_cast<float>(width) * 0.5f);
-			int h = static_cast<int>(static_cast<float>(height) * 0.5f);
+			float  w = static_cast<float>(width) * 0.5f;
+			float  h = static_cast<float>(height) * 0.5f;
 
 			Rect SW(Vec2(x, y), Vec2(x + w, y + h));
 			Rect SE(Vec2(x + w, y), Vec2(x + width, y + h));
@@ -59,7 +81,19 @@ namespace DataMgmt {
 			mSubnode[1] = std::make_unique<Quadtree>(mLevel + 1, SE);
 			mSubnode[2] = std::make_unique<Quadtree>(mLevel + 1, NW);
 			mSubnode[3] = std::make_unique<Quadtree>(mLevel + 1, NE);
-		}
+		}/*  _________________________________________________________________________ */
+/*! Insert
+
+@param id The object to be inserted.
+@param p Predicate function to determine containment.
+
+@return none.
+
+Inserts an object into the quadtree. If the current node has subnodes, 
+the object is inserted into the appropriate subnode(s). If the node is 
+full and hasn't split yet, it will split and then insert the object.
+*/
+
 		template <typename _pred>
 		void Insert(const T& id, _pred p) {
 			//----------------------------------------------------------------
@@ -106,6 +140,16 @@ namespace DataMgmt {
 				mIndex.shrink_to_fit();
 			}
 		}
+		/*  _________________________________________________________________________ */
+/*! Contain
+
+@param id The object to check containment for.
+@param p Predicate function to determine containment.
+
+@return bool Whether the object is contained within the current node's rectangle.
+
+Checks if an object is contained within the current node's rectangle.
+*/
 
 		template <typename _pred>
 		bool Contain(const T& id, _pred p) const { return mRect.Contain(id, p); }
@@ -144,6 +188,17 @@ namespace DataMgmt {
 		  }
 	  }
 
+	  /*  _________________________________________________________________________ */
+	  /*! Get
+
+	  @param cont Container to store the objects.
+
+	  @return none.
+
+	  Retrieves all objects from the deepest nodes of the quadtree and stores
+	  them in the provided container.
+	  */
+
 	  void Get(vec<vec<T>> &cont) const {
 		  //----------------------------------------------------------------
 		  // [1] Find the deepest level node.
@@ -165,6 +220,17 @@ namespace DataMgmt {
 		  // Insert indexes into our container
 		  if (mIndex.size() != 0) cont.emplace_back(mIndex);  // [2]
 	  }
+	  /*  _________________________________________________________________________ */
+/*! Retrieve
+
+@param cont Container to store the objects.
+@param rect The rectangle to retrieve objects from.
+
+@return none.
+
+Retrieves all objects that intersect with the provided rectangle and
+stores them in the provided container.
+*/
 	  void Retrieve(vec<T> &cont, const Rect &rect) const {
 		  //----------------------------------------------------------------
 		  // [1] Find the deepest level node.
