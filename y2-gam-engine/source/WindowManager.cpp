@@ -18,7 +18,8 @@ void WindowManager::Init(
 	std::string const& windowTitle, unsigned int windowWidth, unsigned int windowHeight, unsigned int windowPositionX,
 	unsigned int windowPositionY)
 {
-
+	UNREFERENCED_PARAMETER(windowPositionX);
+	UNREFERENCED_PARAMETER(windowPositionY);
 	glfwInit();
 	gCoordinator = Coordinator::GetInstance();
 

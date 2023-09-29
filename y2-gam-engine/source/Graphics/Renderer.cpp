@@ -24,6 +24,7 @@
 #include "Components/Transform.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
+#include <Core/Globals.hpp>
 
 RendererData Renderer::mData;
 
@@ -195,6 +196,7 @@ unsigned int Renderer::GetMaxTextureUnits() {
   This method populates the quad buffer with vertex data.
   */
 void Renderer::SetQuadBufferData(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, glm::vec2 const& texCoord, float texIdx) {
+	UNREFERENCED_PARAMETER(scale);
 	mData.quadBufferPtr->pos = pos;
 	mData.quadBufferPtr->clr = clr; // Ensure color is set for each vertex
 	mData.quadBufferPtr->texCoord = texCoord;

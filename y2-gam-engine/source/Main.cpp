@@ -1,4 +1,5 @@
-//#define _CRTDBG_MAP_ALLOC	
+
+
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
@@ -39,6 +40,8 @@
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
+
+
 namespace {
 	static bool quit = false;
 }

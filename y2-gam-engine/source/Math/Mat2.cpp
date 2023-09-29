@@ -405,7 +405,7 @@ namespace Image {
 
 	Transposes the given matrix and returns the result.
 	*/
-	Mat22& Mat22Transpose(Mat22 const& Mtx) {
+	Mat22 Mat22Transpose(Mat22 const& Mtx) {
 		Mat22 results{};
 		for (int i{}; i < 2; i++) {
 			for (int j{}; j < 2; j++) {

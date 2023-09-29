@@ -66,7 +66,7 @@ namespace Image {
 	void Mat22RotRad(Mat22& results, float angle);
 	void Mat22RotDeg(Mat22& results, float angle);
 	void Mat22Transpose(Mat22& results, Mat22 const& pMtx);
-	Mat22& Mat22Transpose( Mat22 const& pMtx);
+	Mat22 Mat22Transpose( Mat22 const& pMtx);
 	void Mat22Inverse(Mat22& results, Mat22 const& pMtx);
 	std::ostream& operator<<(std::ostream& os, Mat22& m);
 }

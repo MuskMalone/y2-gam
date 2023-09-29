@@ -256,7 +256,7 @@ namespace Image {
       currChar.vMax = currChar.vMin + static_cast<float>(heights[ch]) / imageHeight;
       
 
-      (sCharacters[name])[ch] = currChar;
+      (sCharacters[name])[static_cast<char>(ch)] = currChar;
     }
 /* causing memory leaks
 #ifdef _DEBUG
@@ -375,8 +375,8 @@ namespace Image {
     FaceObject const& currFace{ sFaces[fontName] };
     std::shared_ptr<Texture>const& currTex{ sBitmap[fontName] };
 
-    float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
-    float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
+    //float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
+    //float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
     //OrthoCamera cam(16/9, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
     
     auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };

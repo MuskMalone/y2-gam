@@ -18,7 +18,7 @@
 
 #include "../include/pch.h"
 #include "Scripting/ScriptManager.hpp"
-#include "Logging/LoggingSystem.hpp";
+#include "Logging/LoggingSystem.hpp"
 #include <Logging/backward.hpp>
 
 namespace {
@@ -273,11 +273,11 @@ namespace Image {
     }
 
 #ifdef _DEBUG
-      for (auto const& pair : sEntityClasses) {
-        ScriptClass const& value = pair.second;
-        //std::cout << "Key: " << pair.first << ", Namespace: " << value.GetNamespace() 
-        //  << ", Class: " << value.GetClassName() << "\n";
-      }
+      //for (auto const& pair : sEntityClasses) {
+      //    ScriptClass const& value{ pair.second };
+      //  //std::cout << "Key: " << pair.first << ", Namespace: " << value.GetNamespace() 
+      //  //  << ", Class: " << value.GetClassName() << "\n";
+      //}
 #endif
   }
 
