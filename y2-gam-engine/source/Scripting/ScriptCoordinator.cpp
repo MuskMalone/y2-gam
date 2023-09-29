@@ -24,8 +24,7 @@
 
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Core/Coordinator.hpp"
-#include <Math/Vec3.hpp>
-#include <Math/Vec2.hpp>
+
 #include "Components/Transform.hpp"
 #include "Components/Rigidbody.hpp"
 #include "Components/Animation.hpp"

@@ -21,7 +21,6 @@
 #include <Components/BoxCollider.hpp>
 #include <memory>
 #include <glm/matrix.hpp>
-#include <Math/Vec2.hpp>
 #include <glm/common.hpp>
 #include <glm/glm.hpp>
 #include <Core/Physics.hpp>

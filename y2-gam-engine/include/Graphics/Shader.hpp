@@ -23,8 +23,6 @@
 
 #include <glad/glad.h>
 #include <string>
-#include <Math/Mat44.hpp>
-#include <Math/Vec3.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 class Shader {

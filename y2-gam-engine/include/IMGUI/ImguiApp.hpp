@@ -47,7 +47,6 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include "Math/Vec3.hpp"
 #include <fstream>
 #include <iostream>
 #include "Graphics/Renderer.hpp"

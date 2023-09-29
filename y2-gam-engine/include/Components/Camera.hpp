@@ -1,8 +1,6 @@
 #pragma once
 
 #include "iostream"
-#include "Math/Mat44.hpp"
-#include "Math/Vec3.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
 #include <Core/Globals.hpp>

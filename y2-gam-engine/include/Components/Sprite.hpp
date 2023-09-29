@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "Math/Vec4.hpp"
+
 #include "glad/glad.h"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
