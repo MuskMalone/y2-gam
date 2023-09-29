@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Prebuild
+\file       prebuild.cpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 6, 2023
+
+\brief      This file's code automates the management of JSON serialization of 
+            entities with components
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include <filesystem>
 #include <string>
 #include <iostream>
