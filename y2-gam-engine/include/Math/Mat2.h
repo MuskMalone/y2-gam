@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
 \par        Image Engine
-\file       Mat2.cpp
+\file       Mat2.h
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
-\date       Sep 9, 2023
+\date       Sep 4, 2023
 
 \brief      Header file for Mat2 math
 

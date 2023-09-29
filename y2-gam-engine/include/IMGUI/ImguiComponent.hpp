@@ -4,7 +4,7 @@
 \file       ImguiComponent.hpp
 
 \author     Ng Meng Yee, Darren (ng.m@digipen.edu)
-\date       Sep 9, 2023
+\date       Sep 11, 2023
 
 \brief      Header file for Imgui component
 
