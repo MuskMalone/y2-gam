@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\par        Serializer
+\file       Serializer.hpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 6, 2023
+
+\brief      Implementation file for entity serialization
+
+			This file implements entity serialization, 
+			providing functions for adding components to entities from JSON data, 
+			converting component types to strings, and serializing entity data. 
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include <Core/Types.hpp>
 #include <functional>
