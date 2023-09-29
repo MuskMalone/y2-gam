@@ -290,9 +290,7 @@ void EditorControlSystem::Update(float dt)
 
 
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_P)) {
-
-
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P)) {
 
 		using namespace Testing;
 		std::uniform_real_distribution<float> randPositionY(0.f, 100.f);
@@ -303,23 +301,6 @@ void EditorControlSystem::Update(float dt)
 		std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
 		std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
 		std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
-		float scale = 50.f;
-		Entity entity = ::gCoordinator->CreateEntity();
-		Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
-		::gCoordinator->AddComponent(
-			entity,
-			Transform{
-				{position.x,position.y,position.z},
-				{0.f,0.f,0.f},
-				{scale, scale, scale}
-			});
-		::gCoordinator->AddComponent(
-			entity,
-			Sprite{
-				{randColor(generator), randColor(generator), randColor(generator), 1},
-				nullptr,
-				Layer::FOREGROUND
-			});
 
 		//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
 		std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
@@ -328,14 +309,43 @@ void EditorControlSystem::Update(float dt)
 		std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
 																		 {ANIM_STATE::RUN, runFrames},
 																		 {ANIM_STATE::ATTACK, attackFrames} };
-		::gCoordinator->AddComponent(
-			entity,
-			Animation{
-				0.08f,
-				0,
-				ANIM_STATE::IDLE,
-				map
-			});
+
+		float scale = 10.f;
+		float spacing = 5.f;
+		float offsetX = -250.f / 2;
+		float offsetY = -250.f / 2; 
+
+		for (int i = 0; i < 50; ++i) {
+			for (int j = 0; j < 50; ++j) {
+				Entity entity = ::gCoordinator->CreateEntity();
+				Vec3 position = Vec3(i * spacing + offsetX, j * spacing + offsetY, randDepth(generator));
+				::gCoordinator->AddComponent(
+					entity,
+					Transform{
+						{position.x, position.y, position.z},
+						{0.f, 0.f, 0.f},
+						{scale, scale, scale}
+					}
+				);
+				::gCoordinator->AddComponent(
+					entity,
+					Sprite{
+						{randColor(generator), randColor(generator), randColor(generator), 1},
+						nullptr,
+						Layer::FOREGROUND
+					}
+				);
+				::gCoordinator->AddComponent(
+					entity,
+					Animation{
+						0.08f,
+						0,
+						ANIM_STATE::IDLE,
+						map
+				});
+			}
+		}
+
 	}
 
 }
