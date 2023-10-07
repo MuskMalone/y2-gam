@@ -1,11 +1,8 @@
-#include "Systems/InputSystem.hpp"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "../include/pch.hpp"
 
+#include "Systems/InputSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include <Core/Globals.hpp>
-#include <random>
-#include <chrono>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;

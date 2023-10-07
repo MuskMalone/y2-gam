@@ -14,10 +14,6 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-
-#include <memory>
-#include <map>
-#include <string>
 #include <Core/Types.hpp>
 #include <Core/Globals.hpp>
 class PrefabsManager {

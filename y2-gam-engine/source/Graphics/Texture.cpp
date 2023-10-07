@@ -18,11 +18,8 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#include "../include/pch.hpp"
 #include "Graphics/Texture.hpp"
-
-#include <stdexcept>
-#include <glad/glad.h>
-#include <stb_image.h>
 
 /*  _________________________________________________________________________ */
 /*! Texture (default constructor)

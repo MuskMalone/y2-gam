@@ -17,11 +17,8 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
 #include <Core/FrameRateController.hpp>
-#include <chrono>
-#include <exception>
-#include <thread>
-#include <iostream>
 #include <Engine/StateManager.hpp>
 std::shared_ptr<FrameRateController> FrameRateController::_mSelf = 0;
 std::shared_ptr<FrameRateController> FrameRateController::GetInstance() {

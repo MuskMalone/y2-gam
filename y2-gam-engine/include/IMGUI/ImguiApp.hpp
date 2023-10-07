@@ -22,9 +22,6 @@
 #pragma once
 #include "IMGUI/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include "Math/MathUtils.h"
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
@@ -41,14 +38,9 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
-#include "Logging/LoggingSystem.hpp"
-#include <chrono>
-#include <random>
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include <fstream>
-#include <iostream>
 #include "Graphics/Renderer.hpp"
 namespace Image {
     void AppRender(std::set<Entity>const& mEntities);

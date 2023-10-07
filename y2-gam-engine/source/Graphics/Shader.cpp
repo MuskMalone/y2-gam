@@ -19,13 +19,9 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
+
 #include "Graphics/Shader.hpp"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
-#include <vector>
 
 
 /*  _________________________________________________________________________ */

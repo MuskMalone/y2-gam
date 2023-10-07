@@ -1,9 +1,7 @@
 #pragma once
-#pragma once
 
 #include "Core/System.hpp"
 #include <Core/Globals.hpp>
-#include <utility>
 
 class Event;
 

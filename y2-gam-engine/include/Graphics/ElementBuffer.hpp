@@ -18,7 +18,6 @@
 */
 /******************************************************************************/
 #pragma once
-#include <memory>
 
 class ElementBuffer {
 public:

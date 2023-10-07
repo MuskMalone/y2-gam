@@ -20,9 +20,6 @@
 /******************************************************************************/
 #pragma once
 
-#include <memory>
-#include <array>
-#include "glm/glm.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"

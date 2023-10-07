@@ -18,12 +18,7 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-
-
 #pragma once
-#include <string>
-#include <vector>
-#include <iostream>
 
 enum class AttributeType {
 	NONE = 0,

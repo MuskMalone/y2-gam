@@ -16,10 +16,8 @@
 */
 /******************************************************************************/
 
-#include "../include/pch.h"
+#include "../include/pch.hpp"
 #include "Scripting/ScriptManager.hpp"
-#include "Logging/LoggingSystem.hpp"
-#include <Logging/backward.hpp>
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;

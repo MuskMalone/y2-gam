@@ -24,12 +24,13 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
+
 #include "Systems/AnimationSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Components/Animation.hpp"
 #include "Components/Sprite.hpp"
 #include "Systems/InputSystem.hpp"
-#include "GLFW/glfw3.h"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;

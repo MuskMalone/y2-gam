@@ -21,7 +21,6 @@
 
 #include "Core/System.hpp"
 #include <Core/Globals.hpp>
-#include <utility>
 #include <Core/Types.hpp>
 class Event;
 

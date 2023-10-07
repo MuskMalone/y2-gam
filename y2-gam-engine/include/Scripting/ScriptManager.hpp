@@ -18,12 +18,6 @@
 
 #pragma once
 
-#include "mono/jit/jit.h"
-#include "mono/metadata/assembly.h"
-
-#include <string>
-#include <unordered_map>
-
 #include "Scripting/ScriptClass.hpp"
 #include "Core/Coordinator.hpp"
 #include "ScriptInstance.hpp"

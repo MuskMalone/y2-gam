@@ -18,13 +18,9 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#include "../include/pch.hpp"
 
 #include "Graphics/Framebuffer.hpp"
-#include <glad/glad.h>
-#include <iostream>
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
-
 
 /*  _________________________________________________________________________ */
 /*! Framebuffer

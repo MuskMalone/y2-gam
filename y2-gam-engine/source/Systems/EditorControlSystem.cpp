@@ -1,6 +1,6 @@
+#include "../include/pch.hpp"
+
 #include "Systems/EditorControlSystem.hpp"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include "Components/Camera.hpp"
 #include "Components/Editor.hpp"
 #include "Components/Transform.hpp"
@@ -13,10 +13,7 @@
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
 #include <Core/Globals.hpp>
-#include <random>
-#include <chrono>
 #include "Components/OrthoCamera.hpp"
-#include <algorithm>
 #include "Math/MathUtils.h"
 
 #include "Scripting/ScriptManager.hpp"

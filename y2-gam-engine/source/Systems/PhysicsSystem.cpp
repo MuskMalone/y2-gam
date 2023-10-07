@@ -1,4 +1,3 @@
-#include "Systems/PhysicsSystem.hpp"
 /******************************************************************************/
 /*!
 \par        Image Engine
@@ -14,15 +13,14 @@
             written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#include "../include/pch.hpp"
+
+#include "Systems/PhysicsSystem.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include <Components/BoxCollider.hpp>
-#include <memory>
-#include <glm/matrix.hpp>
-#include <glm/common.hpp>
-#include <glm/glm.hpp>
 #include <Core/Physics.hpp>
 #include <Core/Types.hpp>
 #include "Math/MathUtils.h"

@@ -21,8 +21,6 @@
 
 #pragma once
 #include "Graphics/Texture.hpp"
-#include <glm/glm.hpp>
-#include <memory>
 
 class SubTexture {
 public:

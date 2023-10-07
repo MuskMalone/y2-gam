@@ -17,20 +17,7 @@
 */
 /******************************************************************************/
 #pragma once
-#include <exception>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <rapidjson/rapidjson.h>
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/filewritestream.h>
-#include <rapidjson/prettywriter.h>
-#include <string>
-#include <map>
-#include <memory>
-#include <exception>
+
 #define JSON_OBJ_TYPE rapidjson::kObjectType
 #define JSON_ARR_TYPE rapidjson::kArrayType
 namespace Serializer {

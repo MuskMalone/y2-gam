@@ -16,17 +16,7 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-#include <sstream>
-#include <vector>
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <chrono>
-#include <ctime> 
-#include <queue>
-#include <mutex>
-#include <thread>
-#include <condition_variable>
+
 //int crashFunction(int a, int b);
 
 //#ifndef LOGGINGSYSTEM

@@ -15,9 +15,7 @@
 */
 /******************************************************************************/
 
-#include <stack>
 #include <Engine/States/State.hpp>
-#include <memory>
 
 class StateManager {
 public:

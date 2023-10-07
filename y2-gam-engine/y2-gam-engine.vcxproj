@@ -114,6 +114,8 @@
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +132,8 @@
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -192,7 +196,7 @@
     <ClInclude Include="include\Math\Vec2.h" />
     <ClInclude Include="include\Math\Vec3.h" />
     <ClInclude Include="include\Math\Vec4.h" />
-    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\pch.hpp" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
@@ -224,16 +228,34 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\glad\src\glad.c" />
-    <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
-    <ClCompile Include="source\Audio\Sound.cpp" />
-    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
+    <ClCompile Include="..\lib\glad\src\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\lib\stb\stb_image.cpp.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Audio\Sound.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../include/pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="source\Engine\PrefabsManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
-    <ClCompile Include="source\Engine\StateManager.cpp" />
+    <ClCompile Include="source\Engine\StateManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\Engine\States\MainState.cpp" />
-    <ClCompile Include="source\Engine\States\State.cpp" />
+    <ClCompile Include="source\Engine\States\State.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
@@ -242,21 +264,51 @@
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
-    <ClCompile Include="source\Logging\backward.cpp" />
+    <ClCompile Include="source\Logging\backward.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\Logging\LoggingSystem.cpp" />
     <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../include/pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="source\Scripting\ScriptClass.cpp" />
     <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
     <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
     <ClCompile Include="source\Scripting\ScriptManager.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
-    <ClCompile Include="source\Math\Mat2.cpp" />
-    <ClCompile Include="source\Math\Mat3.cpp" />
-    <ClCompile Include="source\Math\Mat4.cpp" />
-    <ClCompile Include="source\Math\MathUtils.cpp" />
-    <ClCompile Include="source\Math\Vec2.cpp" />
-    <ClCompile Include="source\Math\Vec3.cpp" />
-    <ClCompile Include="source\Math\Vec4.cpp" />
+    <ClCompile Include="source\Math\Mat2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\Mat3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\Mat4.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\MathUtils.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vec2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vec3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vec4.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\Systems\CollisionSystem.cpp" />
     <ClCompile Include="source\Systems\EditorControlSystem.cpp" />
     <ClCompile Include="source\Systems\ImguiSystem.cpp" />
@@ -268,14 +320,38 @@
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\imgui.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\imgui_demo.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp" />
-    <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\fragment.glsl" />

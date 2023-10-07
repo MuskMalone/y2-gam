@@ -16,6 +16,8 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#include "../include/pch.hpp"
+
 #include <Core/Serialization/SerializationManager.hpp>
 
 namespace Serializer {

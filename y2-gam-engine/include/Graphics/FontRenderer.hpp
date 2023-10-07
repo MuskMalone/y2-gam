@@ -16,9 +16,6 @@
 
 #pragma once
 
-#include "pch.h"
-#include "glad/glad.h"
-#include <glm/glm.hpp>
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Components/Camera.hpp"

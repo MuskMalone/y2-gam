@@ -1,12 +1,10 @@
+#include "../include/pch.hpp"
+
 #include "WindowManager.hpp"
 
 #include "Core/Coordinator.hpp"
 #include "Core/Globals.hpp"
-#include <bitset>
-#include <iostream>
-#include <utility>
 #include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
