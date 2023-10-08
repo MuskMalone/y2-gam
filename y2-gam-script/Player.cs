@@ -110,6 +110,11 @@ namespace Sandbox
             // For Debugging Purposes
             //Vector3 translation = Translation;
             //Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
+
+            if(!PhysicsWrapper.Raycast(new Vector3(0, 0, 0), new Vector3(0, 0, 0), out RaycastHit ray, 10))
+            {
+
+            }
         }
 
         /*  _________________________________________________________________________ */

@@ -15,12 +15,19 @@
 */
 /******************************************************************************/
 
+using System;
 using System.Runtime.CompilerServices;
 
 namespace Image
 {
     public static class InternalCalls
     {
+        #region PhysicsComponent
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_GetRaycast(Vector3 origin, Vector3 direction,
+            float maxDistance, out IntPtr raycastHit);
+        #endregion
+
         #region AnimationComponent
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState

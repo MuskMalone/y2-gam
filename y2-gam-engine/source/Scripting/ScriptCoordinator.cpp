@@ -26,6 +26,8 @@
 #include "Components/Animation.hpp"
 #include "Systems/InputSystem.hpp"
 
+#include "Core/Raycast.hpp"
+
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -33,6 +35,11 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
+
+	static void PhysicsComponent_GetRaycast(Vec3 origin, Vec3 direction, float maxDistance, void** raycastHit) {
+		RaycastHit* ret{ Raycast::performRaycast(origin, direction, maxDistance) };
+		*raycastHit = reinterpret_cast<void*>(ret);
+	}
 
 	// For Animation
 	/*  _________________________________________________________________________ */
@@ -329,6 +336,8 @@ namespace Image {
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
+
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 
