@@ -19,7 +19,30 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
 #include "Imgui/ImguiApp.hpp"
+#include "IMGUI/ImguiComponent.hpp"
+#include "Math/MathUtils.h"
+#include "Components/BoxCollider.hpp"
+#include "Components/Camera.hpp"
+#include "Components/Gravity.hpp"
+#include "Components/Animation.hpp"
+#include "Components/Sprite.hpp"
+#include "Components/RigidBody.hpp"
+#include "Components/Transform.hpp"
+#include "Components/Editor.hpp"
+#include "Components/Script.hpp"
+#include "Core/Coordinator.hpp"
+#include "Systems/EditorControlSystem.hpp"
+#include "Systems/PhysicsSystem.hpp"
+#include "Systems/InputSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
+#include "Systems/RenderSystem.hpp"
+#include "Logging/LoggingSystem.hpp"
+#include <Core/Globals.hpp>
+#include <Core/FrameRateController.hpp>
+#include "Graphics/Renderer.hpp"
+
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;

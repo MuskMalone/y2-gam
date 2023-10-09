@@ -19,9 +19,8 @@
 */
 /******************************************************************************/
 
-#include <memory>
+#include "../include/pch.hpp"
 #include "Graphics/VertexArray.hpp"
-#include "glad/glad.h"
 
 static GLenum AttributeToGLType(AttributeType type) {
 	switch (type) {

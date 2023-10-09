@@ -16,11 +16,10 @@
             written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-#include "../include/pch.h"
+#include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
 
 #include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 
 namespace Image {
 

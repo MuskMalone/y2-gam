@@ -14,7 +14,7 @@
 */
 /******************************************************************************/
 
-#include "../include/pch.h"
+#include "../include/pch.hpp"
 
 //#define STB_IMAGE_WRITE_IMPLEMENTATION
 //#include <stb_image_write.h>
@@ -22,9 +22,6 @@
 #include "Graphics/FontRenderer.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/RenderSystem.hpp"
-
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;

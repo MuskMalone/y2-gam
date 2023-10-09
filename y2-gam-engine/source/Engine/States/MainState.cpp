@@ -1,6 +1,7 @@
+#include "../include/pch.hpp"
+
 #include <Engine/States/MainState.hpp>
 #include <Core/Coordinator.hpp>
-#include <memory>
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Core/FrameRateController.hpp>
 #include <Systems/InputSystem.hpp>

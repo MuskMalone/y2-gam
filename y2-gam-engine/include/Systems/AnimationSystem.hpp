@@ -21,8 +21,6 @@
 #include "Core/System.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
-#include <memory>
-#include <vector>
 
 class Event;
 

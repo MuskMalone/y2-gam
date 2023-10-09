@@ -20,7 +20,6 @@
 /******************************************************************************/
 
 #pragma once
-#include <memory>
 
 struct FramebufferProps {
 	unsigned int width, height;

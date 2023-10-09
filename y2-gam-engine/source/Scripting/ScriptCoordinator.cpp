@@ -16,11 +16,7 @@
 */
 /******************************************************************************/
 
-#include "../include/pch.h"
-
-#include "mono/jit/jit.h"
-#include "mono/metadata/assembly.h"
-#include "mono/metadata/object.h"
+#include "../include/pch.hpp"
 
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Core/Coordinator.hpp"

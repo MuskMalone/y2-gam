@@ -1,4 +1,4 @@
-
+#include "../include/pch.hpp"
 
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
@@ -18,24 +18,17 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 #include "WindowManager.hpp"
-#include <chrono>
-#include <random>
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
-#include <memory>
 
 #include "Audio/Sound.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
-#include <functional>
 
 <<<<<<< HEAD
 =======

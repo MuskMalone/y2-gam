@@ -19,11 +19,9 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
 #include "Graphics/Renderer.hpp"
-#include "glad/glad.h"
 #include "Components/Transform.hpp"
-#include <glm/gtc/matrix_transform.hpp>
-#include <memory>
 #include <Core/Globals.hpp>
 
 RendererData Renderer::mData;

@@ -17,9 +17,6 @@
 /******************************************************************************/
 #pragma once
 
-#include <fmod.hpp>
-#include <fmod_errors.h>
-
 namespace Image {
 
   typedef FMOD::Sound* Sound;

@@ -21,7 +21,6 @@
 
 #pragma once
 
-#include <memory>
 #include "VertexBuffer.hpp"
 #include "ElementBuffer.hpp"
 

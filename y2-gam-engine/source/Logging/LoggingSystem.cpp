@@ -14,20 +14,7 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
-#include <queue>
-#include <mutex>
-#include <thread>
-#include <condition_variable>
-#include <string>
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <chrono>
-#include <ctime> 
-
+#include "../include/pch.hpp"
 
 /*  _________________________________________________________________________ */
   /*! LoggingSystem()

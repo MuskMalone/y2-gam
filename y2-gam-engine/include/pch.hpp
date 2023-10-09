@@ -19,22 +19,62 @@
 // Pre-compiled headers go here
 // Alphabetical order please
 
+#include <algorithm>
 #include <array>
 #include <bitset>
 #include <climits>
 #include <chrono>
+#include <cstdlib>
+#include <ctime> 
+#include <condition_variable>
 #include <exception>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <queue>
 #include <random>
 #include <unordered_map>
+#include <utility>
 #include <set>
+#include <stack>
 #include <string>
+#include <stdio.h>
+#include <sstream>
+#include <stdexcept>
 #include <thread>
 #include <vector>
 
+#include <stb_image.h>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/common.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
+#include "mono/jit/jit.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/filewritestream.h>
+#include <rapidjson/prettywriter.h>
+
+#include <Logging/backward.hpp>
+#include "Logging/LoggingSystem.hpp"
+
+#include <fmod.hpp>
+#include <fmod_errors.h>

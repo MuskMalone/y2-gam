@@ -1,4 +1,3 @@
-#include <Engine/StateManager.hpp>
 /******************************************************************************/
 /*!
 \par        Image Engine
@@ -14,6 +13,9 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+
+#include "../include/pch.hpp"
+#include <Engine/StateManager.hpp>
 
 std::shared_ptr<StateManager> StateManager::_mSelf = 0;
 std::shared_ptr<StateManager> StateManager::GetInstance() {

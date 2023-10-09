@@ -19,14 +19,14 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
+
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Components/Camera.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
-#include <cmath>
 #include "Core/Globals.hpp"
-#include <glm/gtc/matrix_transform.hpp>
 #include "Graphics/Renderer.hpp"
 #include "Components/OrthoCamera.hpp"
 #include "Components/BoxCollider.hpp"

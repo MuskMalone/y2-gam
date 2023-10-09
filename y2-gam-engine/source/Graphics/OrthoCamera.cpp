@@ -17,11 +17,9 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
 #include "Components/OrthoCamera.hpp"
 #include "Core/Globals.hpp"
-#include <iostream>
-#include <glm/gtc/matrix_transform.hpp>
-#include <algorithm>
 
 /* _________________________________________________________________________ */
 /*!

@@ -15,7 +15,7 @@
 */
 /******************************************************************************/
 
-#include "../include/pch.h"
+#include "../include/pch.hpp"
 #include "Scripting/ScriptInstance.hpp"
 
 namespace Image {

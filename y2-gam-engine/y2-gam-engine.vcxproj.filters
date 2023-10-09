@@ -53,6 +53,7 @@
     <ClCompile Include="source\Logging\backward.cpp" />
     <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
+    <ClCompile Include="source\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -118,7 +119,7 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
     <ClInclude Include="include\Components\OrthoCamera.hpp" />
-    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\pch.hpp" />
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />

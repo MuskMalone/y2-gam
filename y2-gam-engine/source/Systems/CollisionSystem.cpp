@@ -1,14 +1,3 @@
-#include "Systems/CollisionSystem.hpp"
-#include <memory>
-#include "Core/Coordinator.hpp"
-#include "Components/BoxCollider.hpp"
-#include "Components/RigidBody.hpp"
-#include <Core/Globals.hpp>
-#include <Math/Collision.hpp>
-#include <glm/common.hpp>
-#include <chrono>
-#include <Core/Types.hpp>
-#include "Math/MathUtils.h"
 /******************************************************************************/
 /*!
 \par        Image Engine
@@ -24,6 +13,18 @@
             written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+
+#include "../include/pch.hpp"
+
+#include "Systems/CollisionSystem.hpp"
+#include "Core/Coordinator.hpp"
+#include "Components/BoxCollider.hpp"
+#include "Components/RigidBody.hpp"
+#include <Core/Globals.hpp>
+#include <Math/Collision.hpp>
+#include <Core/Types.hpp>
+#include "Math/MathUtils.h"
+
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }

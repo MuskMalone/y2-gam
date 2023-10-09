@@ -23,7 +23,6 @@
 
 #include "Core/System.hpp"
 #include "Graphics/Shader.hpp"
-#include <memory>
 #include "Graphics/Framebuffer.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"

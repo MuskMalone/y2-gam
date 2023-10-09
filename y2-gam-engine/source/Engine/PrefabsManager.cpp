@@ -14,6 +14,8 @@
 */
 /******************************************************************************/
 
+#include "../include/pch.hpp"
+
 #include <Engine/PrefabsManager.hpp>
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Core/Serialization/Serializer.hpp>

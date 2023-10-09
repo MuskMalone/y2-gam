@@ -19,10 +19,8 @@
 */
 /******************************************************************************/
 #pragma once
+
 #include "IMGUI/ImguiApp.hpp"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include "Math/MathUtils.h"
 #include "Core/System.hpp"
 #include "Core/EventTypes.hpp"

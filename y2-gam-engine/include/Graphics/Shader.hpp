@@ -21,10 +21,6 @@
 
 #pragma once
 
-#include <glad/glad.h>
-#include <string>
-#include <glm/gtc/type_ptr.hpp>
-
 class Shader {
 public:
 	Shader(std::string const& vertFile, std::string const& fragFile);

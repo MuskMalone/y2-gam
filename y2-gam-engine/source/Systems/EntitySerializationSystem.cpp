@@ -17,14 +17,15 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#include "../include/pch.hpp"
+
 #include <Systems/EntitySerializationSystem.hpp>
 #include <Core/Coordinator.hpp>
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Core/Serialization/SerializerComponent.hpp>
 #include <Core/Serialization/Serializer.hpp>
-#include <memory>
 #include "Core/Serialization/Serializer.hpp"
-#include <exception>
+
 using namespace Serializer;
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator{};

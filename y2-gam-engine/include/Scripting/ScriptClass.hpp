@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "mono/jit/jit.h"
-#include "mono/metadata/assembly.h"
-
-#include <string>
-
 namespace Image {
   class ScriptClass {
   public:

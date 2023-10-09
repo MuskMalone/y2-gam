@@ -15,11 +15,10 @@
 */
 /******************************************************************************/
 
-#include "../include/pch.h"
+#include "../include/pch.hpp"
+
 #include "Scripting/ScriptClass.hpp"
 #include "Scripting/ScriptManager.hpp"
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 
 namespace Image {
   /*  _________________________________________________________________________ */
