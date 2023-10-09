@@ -37,6 +37,9 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	}
 	return out;
 }
+MousePosition InputSystem::GetMousePos() const {
+	return mMousePos;
+}
 void InputSystem::Update()
 {
 	mButtonsPressed.reset();
@@ -64,5 +67,9 @@ void InputSystem::InputListener(Event& event)
 	if (msclick.any()) mMouseButtonsClicked = msclick;
 	if (msrelease.any()) mMouseButtonsReleased = msrelease;
 
-	mMousePos = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE);
+	MousePosition mp = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE);
+	if (!event.GetFail()) {
+		mMousePos = std::move(mp);
+		//std::cout << mMousePos.first << " " << mMousePos.second << std::endl;
+	}
 }

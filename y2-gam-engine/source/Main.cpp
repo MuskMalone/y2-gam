@@ -30,7 +30,6 @@
 #include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
 
-
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
