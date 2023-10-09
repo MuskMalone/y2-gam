@@ -3834,3 +3834,9 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-10-07 16:02:30 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-10-10 00:13:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-10 00:13:41 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-10 00:13:42 FN: Shader::CreateShaderFromString
+

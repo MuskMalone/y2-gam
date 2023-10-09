@@ -30,13 +30,11 @@
 #include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
 
-<<<<<<< HEAD
-=======
+
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
 
->>>>>>> 2ec4a586aefea851fe114318ddf635674b8ab257
 
 namespace {
 	static bool quit = false;
