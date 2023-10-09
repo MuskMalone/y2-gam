@@ -1,9 +1,29 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       RenderSystem.cpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 7, 2023
+
+\brief      Implementation file for the RenderSystem class.
+
+			The RenderSystem class is responsible for managing the rendering
+			pipeline, including setting up framebuffers, handling debug modes,
+			and managing the render queue. It also provides functionalities
+			for camera management in the rendering context.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Components/Camera.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
-#include <Graphics/GLSLShader.hpp>
 #include <cmath>
 #include "Core/Globals.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,11 +37,40 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief GetCamera Function
+
+Retrieves the camera entity used in the rendering context.
+
+\return The camera entity.
+*/
 Entity RenderSystem::GetCamera() { return mCamera; }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief GetFramebuffer Function
+
+Retrieves the framebuffer used for rendering.
+
+\return A shared pointer to the framebuffer.
+*/
 std::shared_ptr<Framebuffer> const& RenderSystem::GetFramebuffer() const { return mFramebuffer; }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief ToggleDebugMode Function
+
+Toggles the debug mode for rendering. Useful for diagnostics.
+*/
 void RenderSystem::ToggleDebugMode() { mDebugMode = !mDebugMode; }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief Init Function
+
+Initializes the rendering system, setting up necessary resources.
+*/
 void RenderSystem::Init()
 {
 	gCoordinator = Coordinator::GetInstance();
@@ -68,7 +117,7 @@ void RenderSystem::Init()
 
 	//----------temp------------
 
-	FramebufferProps fbProps;
+	FramebufferProps fbProps{};
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);
@@ -77,11 +126,17 @@ void RenderSystem::Init()
 
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief Update Function
 
-void RenderSystem::Update(float dt)
+Updates the rendering system based on the given delta time.
+
+\param dt The time elapsed since the last frame.
+*/
+void RenderSystem::Update([[maybe_unused]] float dt)
 {
 	mFramebuffer->Bind();
-	//std::cout << "Renderer: Number of entities: " << mEntities.size() << std::endl;
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -121,18 +176,29 @@ void RenderSystem::Update(float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
+
+	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 	}
-	
+	glDepthMask(GL_FALSE);
+
 	Renderer::RenderSceneEnd();
 	mFramebuffer->Unbind();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief WindowSizeListener Function
+
+Listens for window size changes and adjusts rendering parameters accordingly.
+
+\param event The event data related to the window size change.
+*/
 void RenderSystem::WindowSizeListener(Event& event)
 {
-	auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
-	auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
+	[[maybe_unused]] auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
+	[[maybe_unused]] auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
 	//auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
 	//camera.projectionTransform = Camera::MakeProjectionTransform(45.0f, 0.1f, 1000.0f, windowWidth, windowHeight);

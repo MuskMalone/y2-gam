@@ -9,7 +9,21 @@
 #include <chrono>
 #include <Core/Types.hpp>
 #include "Math/MathUtils.h"
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       CollisionSystem.cpp
 
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		collision detection system
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -17,6 +31,16 @@ namespace Collision{
 
     inline Vec2 vabs(Vec2 const& v) { return Vec2{ fabs(v.x), fabs(v.y) }; }
     inline Mat22 mabs(Mat22 const&m) { return Mat22{vabs(m.mMat[0]),vabs(m.mMat[1])}; }
+    /*  _________________________________________________________________________ */
+/*! Mat22FromAngle
+
+@param rads The angle in radians.
+
+@return Mat22 A 2x2 matrix representing a rotation.
+
+Creates a 2x2 rotation matrix from the given angle in radians.
+*/
+
     Mat22 Mat22FromAngle(float rads) {
         float c = cosf(rads);
         float s = sinf(rads);
@@ -25,6 +49,16 @@ namespace Collision{
             -s, c
         };
     }
+    /*  _________________________________________________________________________ */
+/*! Mat33FromAngle
+
+@param rads The angle in radians.
+
+@return Mat33 A 3x3 matrix representing a rotation.
+
+Creates a 3x3 rotation matrix from the given angle in radians.
+*/
+
     Mat33 Mat33FromAngle(float rads) {
         float c = cosf(rads);
         float s = sinf(rads);
@@ -34,6 +68,17 @@ namespace Collision{
             0, 0, 1
         };
     }
+    /*  _________________________________________________________________________ */
+/*! Mat33FromTranslate
+
+@param x The x translation.
+@param y The y translation.
+
+@return Mat33 A 3x3 matrix representing a translation.
+
+Creates a 3x3 translation matrix from the given x and y values.
+*/
+
     Mat33 Mat33FromTranslate(float x, float y) {
         return Mat33{
             1,0,0,
@@ -43,6 +88,16 @@ namespace Collision{
     }
     using namespace Physics;
     //returns the min and max values of the 
+    /*  _________________________________________________________________________ */
+/*! GetAABBBody
+
+@param rb A reference to a RigidBody.
+
+@return std::pair<Vec2, Vec2> A pair representing the minimum and maximum corners of the AABB.
+
+Computes the Axis-Aligned Bounding Box (AABB) for a given rigid body.
+*/
+
     std::pair<Vec2, Vec2> GetAABBBody(RigidBody const& rb) {
         auto transform{ Mat33FromTranslate(rb.position.x, rb.position.y) * Mat33FromAngle(rb.rotation) };
         Vec2 topleft{ transform * Vec3{ rb.dimension.x * -.5f, rb.dimension.y * .5f, 1.f } };
@@ -54,6 +109,19 @@ namespace Collision{
             Vec2{std::max({topleft.x, topright.x, bottomleft.x, bottomright.x}), std::max({topleft.y, topright.y, bottomleft.y, bottomright.y})}
         };
     }
+    /*  _________________________________________________________________________ */
+/*! ClipSegmentToLine
+
+@param vOut An array of ClipVertex to store the output vertices.
+@param vIn An array of ClipVertex representing the input vertices.
+@param normal The normal of the clipping plane.
+@param offset The offset of the clipping plane.
+@param clipEdge The edge number for clipping.
+
+@return int The number of output vertices after clipping.
+
+Clips a line segment against a plane defined by a normal and an offset.
+*/
 
     int ClipSegmentToLine(ClipVertex vOut[2], ClipVertex vIn[2], const Vec2& normal, float offset,
         float clipEdge) {
@@ -95,6 +163,19 @@ namespace Collision{
 
         return numOut;
     }
+    /*  _________________________________________________________________________ */
+/*! ComputeIncidentEdge
+
+@param c An array of ClipVertex to store the computed incident edge.
+@param h Half extents of the box.
+@param pos Position of the box.
+@param rot Rotation matrix of the box.
+@param normal The normal against which the incident edge is computed.
+
+@return none.
+
+Computes the incident edge of a box against a given normal.
+*/
 
     void ComputeIncidentEdge(ClipVertex c[2], const Vec2& h, const Vec2& pos, const Mat22& rot,
         const Vec2& normal) {
@@ -150,6 +231,17 @@ namespace Collision{
         c[0].v = pos + rot * c[0].v;
         c[1].v = pos + rot * c[1].v;
     }
+    /*  _________________________________________________________________________ */
+/*! Collide
+
+@param contacts An array of Contact to store the collision contacts.
+@param b1 Reference to the first RigidBody.
+@param b2 Reference to the second RigidBody.
+
+@return uint32_t The number of contact points.
+
+Computes the collision between two rigid bodies and returns the contact points.
+*/
 
     uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
 
@@ -218,10 +310,10 @@ namespace Collision{
         }
 
         // Setup clipping plane data based on the separating axis
-        Vec2 frontNormal, sideNormal;
+        Vec2 frontNormal{}, sideNormal{};
         ClipVertex incidentEdge[2];
-        float front, negSide, posSide;
-        EdgeNumbers negEdge, posEdge;
+        float front{}, negSide{}, posSide{};
+        EdgeNumbers negEdge{}, posEdge{};
 
         // Compute the clipping lines and the line segment to be clipped
         switch (axis) {
@@ -295,13 +387,13 @@ namespace Collision{
 
         uint32_t numContacts = 0;
         for (uint32_t i = 0; i < 2; i++) {
-            float seperation = dot(frontNormal, clipPoints2[i].v) - front;
+            float seperation1 = dot(frontNormal, clipPoints2[i].v) - front;
 
-            if (seperation <= 0) {
-                contacts[numContacts].seperation = seperation;
+            if (seperation1 <= 0) {
+                contacts[numContacts].seperation = seperation1;
                 contacts[numContacts].normal = normal;
                 // slide contact point onto reference face (easy to cull)
-                contacts[numContacts].position = clipPoints2[i].v - frontNormal * seperation;
+                contacts[numContacts].position = clipPoints2[i].v - frontNormal * seperation1;
                 contacts[numContacts].feature = clipPoints2[i].fp;
 
                 if (axis == Axis::FACE_B_X || axis == Axis::FACE_B_Y) {
@@ -321,6 +413,16 @@ namespace Collision{
 
         return numContacts;
     }
+    /*  _________________________________________________________________________ */
+/*! Collide
+
+@param b1 The first Entity.
+@param b2 The second Entity.
+
+@return Arbiter The collision arbiter between the two entities.
+
+Computes the collision between two entities and returns an arbiter.
+*/
 
     Arbiter Collide(Entity b1, Entity b2) {
         auto & rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(b1) };
@@ -344,14 +446,31 @@ namespace Collision{
 
         return result;
     }
+    /*  _________________________________________________________________________ */
+/*! CollisionSystem::Init
+
+@return none.
+
+Initializes the CollisionSystem, setting up the Quadtree and other necessary components.
+*/
 
     void CollisionSystem::Init() {
         gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
         mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)))};
     }
+    /*  _________________________________________________________________________ */
+/*! CollisionSystem::Update
+
+@param dt The delta time since the last frame.
+
+@return none.
+
+Updates the CollisionSystem, checking for collisions between entities and sending collision events.
+*/
 
     void CollisionSystem::Update(float dt) {
+        UNREFERENCED_PARAMETER(dt);
         //for (auto const& entity : mEntities) {
         //	auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
         //	auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
@@ -394,12 +513,19 @@ namespace Collision{
             }
         }
     }
+    /*  _________________________________________________________________________ */
+/*! CollisionSystem::Debug
+
+@return none.
+
+Debugs the CollisionSystem, drawing AABBs and other debug information.
+*/
 
     void CollisionSystem::Debug() {
         mQuadtree.Debug();
         //auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
         //Renderer::RenderSceneBegin(camera);
-        size_t sizeent{ mEntities.size() };
+        //size_t sizeent{ mEntities.size() };
 
         for (auto const& e : mEntities) {
             auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };

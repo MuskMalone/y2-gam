@@ -1,4 +1,20 @@
 #pragma once
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       EventTypes.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief      unique has ids for events
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include <cstdint>
 // Events
 // Source: https://gist.github.com/Lee-R/3839813

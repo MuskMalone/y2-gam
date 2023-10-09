@@ -1,4 +1,5 @@
-//#define _CRTDBG_MAP_ALLOC	
+
+
 #include "Components/BoxCollider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
@@ -36,13 +37,20 @@
 #include "Scripting/ScriptManager.hpp"
 #include <functional>
 
+<<<<<<< HEAD
+=======
+#include "Logging/LoggingSystem.hpp"
+#include "Logging/backward.hpp"
+#include "Engine/PrefabsManager.hpp"
+
+>>>>>>> 2ec4a586aefea851fe114318ddf635674b8ab257
 
 namespace {
 	static bool quit = false;
 }
 
 
-void QuitHandler(Event& event)
+void QuitHandler([[maybe_unused]] Event& event)
 {
 	quit = true;
 }
@@ -116,6 +124,7 @@ int main()
 	}
 
 	renderSystem->Init();
+
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -126,6 +135,7 @@ int main()
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}
 	imguiSystem->Init(windowManager->GetContext());
+
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;
@@ -165,6 +175,8 @@ int main()
 
 	entitySerializationSystem->Init();
 
+	PrefabsManager::GetInstance()->Init();
+
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
@@ -192,7 +204,7 @@ int main()
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
-		imguiSystem->Update(windowManager->GetContext());
+		imguiSystem->Update();
 
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
@@ -221,8 +233,8 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", -100.f, 100.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", -100.f, 90.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
+		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", 0.f, 110.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
+		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", 0.f, 100.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
 		std::vector<std::string> diagnostics{};
 		diagnostics.emplace_back("FPS: " + std::to_string(frameController->GetFps()));
 		diagnostics.emplace_back("Entities: " + std::to_string(coordinator->GetEntityCount()));
@@ -232,7 +244,7 @@ int main()
 
 		for (int i{}; i < diagnostics.size(); ++i) {
 			Image::FontRenderer::RenderText("Lato", diagnostics[i],
-				-WORLD_LIMIT_X, WORLD_LIMIT_Y - (10 + (i * 5)), 0.05f, glm::vec3(0.f, 1.f, 0.f));
+				-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))), 0.05f, glm::vec3(0.f, 1.f, 0.f));
 		}
 
 	}

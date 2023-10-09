@@ -1,13 +1,29 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Shader.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 5, 2023
+
+\brief      Header file for the Shader class.
+
+			Contains the declarations for the Shader class which is responsible
+			for managing and setting up shaders for rendering. The class provides
+			functions for using shaders, setting uniform variables, and other
+			shader-related operations.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include <glad/glad.h>
 #include <string>
-#include <Math/Mat44.hpp>
-#include <Math/Vec3.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <Graphics/GLSLShader.hpp>
-//class Mat44;
-//class Vec3;
 
 class Shader {
 public:

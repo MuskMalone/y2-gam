@@ -1,8 +1,28 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       OrthoCamera.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 10, 2023
+
+\brief      Definition of the OrthoCamera component.
+
+			The OrthoCamera component provides functionalities for orthographic projection
+			in a 2D space, including zooming, rotation, and position adjustments.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "glm/glm.hpp"
 #include "rapidjson/document.h"
 #include <Core/Serialization/SerializationManager.hpp>
+
 struct OrthoCamera {
 public:
 	OrthoCamera() = default;
@@ -15,8 +35,8 @@ public:
 
 	void SetPosition(glm::vec3 const& pos);
 	void SetRotation(float rot);
-	void ZoomIn(float zoomSpeed);
-	void ZoomOut(float zoomSpeed);
+	void ZoomIn();
+	void ZoomOut();
 
 	glm::mat4 const& GetProjMtx() const;
 	glm::mat4 const& GetViewMtx() const;
@@ -24,17 +44,17 @@ public:
 
 	void ComputeViewProjMtx();
 
-	glm::mat4 mProjMtx;
-	glm::mat4 mViewMtx;
-	glm::mat4 mViewProjMtx;
+	glm::mat4 mProjMtx{};
+	glm::mat4 mViewMtx{};
+	glm::mat4 mViewProjMtx{};
 
 	glm::vec3 mPos{};
 	float mRot{ 0.f };
-	float mZoom;
+	float mZoom{};
 	float mMinZoom{10.f}, mMaxZoom{300.f};
-	float mAspectRatio;
+	float mAspectRatio{};
 
-	bool Serialize(rapidjson::Value& obj) {
+	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
 };

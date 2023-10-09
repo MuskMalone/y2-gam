@@ -1,0 +1,64 @@
+{
+    "Prefabs": {
+        "Platform": {
+            "BoxCollider": {
+                "collider": true
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "RigidBody": {
+                "dimX": 50.0,
+                "dimY": 5.0,
+                "rotation": 0.0,
+                "mass": 0.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {},
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 5.0,
+                "scaleZ": 5.0
+            }
+        },
+        "Box":{
+            "BoxCollider": {
+                "collider": true
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -100.0
+            },
+            "RigidBody": {
+                "dimX": 5.0,
+                "dimY": 5.0,
+                "rotation": 0.0,
+                "mass": 1.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {},
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "scaleZ": 1.0
+            }
+        }
+    }
+}

@@ -1,9 +1,29 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       RenderSystem.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 7, 2023
+
+\brief      Header file for the RenderSystem class.
+
+			The RenderSystem class is responsible for managing the rendering
+			pipeline, including setting up framebuffers, handling debug modes,
+			and managing the render queue. It also provides functionalities
+			for camera management in the rendering context.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "Core/System.hpp"
 #include "Graphics/Shader.hpp"
 #include <memory>
-#include <Math/Mat44.hpp>
 #include "Graphics/Framebuffer.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
@@ -24,7 +44,6 @@ public:
 
 	std::shared_ptr<Framebuffer> const& GetFramebuffer() const;
 	//for debug
-	//Mat44 mLastModelXform;
 	void ToggleDebugMode();
 
 private:
@@ -44,7 +63,4 @@ private:
 
 	Entity mCamera{};
 
-	//GLuint mVao{};
-	//GLuint mVboVertices{};
-	//GLuint mVboNormals{};
 };

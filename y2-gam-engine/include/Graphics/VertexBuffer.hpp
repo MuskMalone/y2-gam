@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       VertexBuffer.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 5, 2023
+
+\brief      Header file for the BufferLayout and VertexBuffer classes.
+
+			Contains the declarations for the BufferLayout and VertexBuffer classes.
+			The BufferLayout class is responsible for managing the layout of attributes
+			in a buffer, while the VertexBuffer class manages vertex buffer objects (VBOs)
+			in OpenGL.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include <string>
 #include <vector>
@@ -48,11 +70,33 @@ struct BufferAttribute {
 
 	BufferAttribute() = default;
 
+/*  _________________________________________________________________________ */
+/*! BufferAttribute
+
+@param b_type
+The type of the attribute.
+
+@param b_name
+The name of the attribute.
+
+@param b_isNormalized
+Whether the attribute is normalized.
+
+This constructor initializes the BufferAttribute with the provided type, name, and normalization flag.
+*/
 	BufferAttribute(AttributeType b_type, std::string const& b_name, bool b_isNormalized = false)
 		: name{ b_name }, type{ b_type }, size{ AttributeTypeSize(b_type) }, offset{ 0 }, isNormalized{ b_isNormalized } {
 
 	}
 
+/*  _________________________________________________________________________ */
+/*! GetComponentCount
+
+@return
+The number of components in the attribute.
+
+This function returns the number of components based on the attribute type.
+*/
 	unsigned int GetComponentCount() const {
 		switch (type) {
 		case AttributeType::FLOAT:	return 1;

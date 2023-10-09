@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\par        Frame rate controller
+\file       FrameRateController.hpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 4, 2023
+
+\brief      Implementation file for frame rate controller
+
+			This source file manages frame rates, delta times, and 
+			profiling in an application or game.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include <Core/Globals.hpp>
 #include <Core/Types.hpp>

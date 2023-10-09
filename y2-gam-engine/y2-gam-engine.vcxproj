@@ -108,11 +108,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,13 +122,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +147,7 @@
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
+    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
@@ -176,7 +179,6 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
-    <ClInclude Include="include\Graphics\GLSLShader.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
@@ -225,7 +227,7 @@
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
     <ClCompile Include="source\Audio\Sound.cpp" />
-    <ClCompile Include="source\Graphics\CameraController.cpp" />
+    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
@@ -238,6 +240,7 @@
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp" />
     <ClCompile Include="source\Logging\LoggingSystem.cpp" />
@@ -264,7 +267,6 @@
     <ClCompile Include="source\WindowManager.cpp" />
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="source\Graphics\VetexArray.cpp" />
     <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />

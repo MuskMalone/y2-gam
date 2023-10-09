@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Prebuild
+\file       prebuild.cpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 6, 2023
+
+\brief      This file's code automates the management of JSON serialization of 
+            entities with components
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include <filesystem>
 #include <string>
 #include <iostream>
@@ -51,9 +67,9 @@ int main(){
     //write type to string
     writeline(ofs, "template <typename _type> std::string TypeToString() {");
     for (std::string const& component : componentNames){
-        writeline(ofs, "if constexpr (std::is_same_v<_type, "+component+">) return \""+component+"\";");
+            writeline(ofs, std::string(component != componentNames.front() ? "else ": "") + "if constexpr (std::is_same_v<_type, "+component+">) return \""+component+"\";");
     }
-    writeline(ofs, "return \"NULL\";");
+    writeline(ofs, "else return \"NULL\";");
     closebrace;
 
     writeline(ofs, "static void SerializeEntity(Entity const& entity, JSONObj& ent) {");

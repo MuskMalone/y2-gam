@@ -1,5 +1,19 @@
 #include "Systems/PhysicsSystem.hpp"
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Physics.cpp
 
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		for physics
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "Components/Gravity.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
@@ -7,7 +21,6 @@
 #include <Components/BoxCollider.hpp>
 #include <memory>
 #include <glm/matrix.hpp>
-#include <Math/Vec2.hpp>
 #include <glm/common.hpp>
 #include <glm/glm.hpp>
 #include <Core/Physics.hpp>
@@ -18,6 +31,17 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Physics {
+    /*  _________________________________________________________________________ */
+    /*! ArbiterMergeContacts
+
+    @param a The primary arbiter whose contacts might be updated.
+    @param toMerge The arbiter containing new contacts to be merged.
+
+    Merges contact points between two arbiters. This function checks if the new
+    contacts from `toMerge` already exist in `a`. If they do, it updates the
+    accumulated impulses; otherwise, it simply copies the new contact.
+    */
+
     void ArbiterMergeContacts(Arbiter& a, Arbiter toMerge) {
         Contact mergedContacts[2];
 
@@ -53,6 +77,18 @@ namespace Physics {
 
         a.contactsCount = toMerge.contactsCount;
     }
+    /*  _________________________________________________________________________ */
+/*! ArbiterPreStep
+
+@param a The arbiter to be prepared.
+@param inv_dt The inverse of the time step (i.e., 1/dt).
+
+Prepares the arbiter for the impulse resolution phase. Computes the normal
+and tangent mass for each contact point, which will be used to calculate the
+impulses applied during collision resolution. Also precomputes some values
+for the impulse application phase.
+*/
+
     void ArbiterPreStep(Arbiter & a, float inv_dt) {
         const float kAllowedPenetration = 0.0f;
         float kBiasFactor = .2f;
@@ -75,7 +111,7 @@ namespace Physics {
                 + rb2.invInertia * (dot(r2, r2) - rn2 * rn2);
             c.massNormal = 1.0f / kNormal;
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
+            Vec2 tangent = cross(c.normal, 1.0f);
             float rt1 = dot(r1, tangent);
             float rt2 = dot(r2, tangent);
             float kTangent = rb1.invMass + rb2.invMass;
@@ -91,16 +127,25 @@ namespace Physics {
 
                 rb1.velocity -= P * rb1.invMass;
                 if (!rb1.isLockRotation) {
-                    rb1.angularVelocity -= rb1.invInertia * Vector2Cross(r1, P);
+                    rb1.angularVelocity -= rb1.invInertia * cross(r1, P);
                 }
 
                 rb2.velocity += P * rb2.invMass;
                 if (!rb1.isLockRotation) {
-                    rb2.angularVelocity += rb2.invInertia * Vector2Cross(r2, P);
+                    rb2.angularVelocity += rb2.invInertia * cross(r2, P);
                 }
             }
         }
     }
+    /*  _________________________________________________________________________ */
+/*! ArbiterApplyImpulse
+
+@param a The arbiter whose colliding bodies will have impulses applied.
+
+Applies impulses to the colliding bodies based on their relative velocities.
+Ensures that the relative velocity along the contact normal becomes zero after
+the impulse is applied, preventing the bodies from penetrating each other.
+*/
 
     void ArbiterApplyImpulse(Arbiter& a) {
         auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
@@ -113,8 +158,8 @@ namespace Physics {
             c.r2 = c.position - rb2.position;
 
             // Relative velocity at contact
-            Vec2 dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            Vec2 dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
             // Compute normal impulse
             float vn = dot(dv, c.normal);
@@ -131,19 +176,19 @@ namespace Physics {
 
             rb1.velocity -= Pn * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pn);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pn);
             }
 
             rb2.velocity += Pn * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pn);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pn);
             }
 
             // Relative velocity at contact
-            dv = rb2.velocity + Vector2Cross(rb2.angularVelocity, c.r2) - rb1.velocity
-                - Vector2Cross(rb1.angularVelocity, c.r1);
+            dv = rb2.velocity + cross(rb2.angularVelocity, c.r2) - rb1.velocity
+                - cross(rb1.angularVelocity, c.r1);
 
-            Vec2 tangent = Vector2Cross(c.normal, 1.0f);
+            Vec2 tangent = cross(c.normal, 1.0f);
             float vt = dot(dv, tangent);
             float dPt = vt * c.massTangent * (-1.0f);
 
@@ -153,7 +198,7 @@ namespace Physics {
                 float maxPt = a.combinedFriction * c.accNormalImpulse;
                 // Clamp friction
                 float oldTangentImpulse = c.accTangentImpulse;
-                c.accTangentImpulse = glm::clamp(oldTangentImpulse + dPt, -maxPt, maxPt);
+                c.accTangentImpulse = std::clamp(oldTangentImpulse + dPt, -maxPt, maxPt);
                 dPt = c.accTangentImpulse - oldTangentImpulse;
             }
 
@@ -162,15 +207,21 @@ namespace Physics {
             
             rb1.velocity -= Pt * rb1.invMass;
             if (!rb1.isLockRotation) {
-                rb1.angularVelocity -= rb1.invInertia * Vector2Cross(c.r1, Pt);
+                rb1.angularVelocity -= rb1.invInertia * cross(c.r1, Pt);
             }
 
             rb2.velocity += Pt * rb2.invMass;
             if (!rb2.isLockRotation) {
-                rb2.angularVelocity += rb2.invInertia * Vector2Cross(c.r2, Pt);
+                rb2.angularVelocity += rb2.invInertia * cross(c.r2, Pt);
             }
         }
     }
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::Init
+
+Initializes the physics system. Sets up an event listener for collision events
+and clears the arbiter table.
+*/
 
 	void PhysicsSystem::Init()
 	{
@@ -180,17 +231,35 @@ namespace Physics {
         mArbiterTable.clear();
 	}
 
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::PreCollisionUpdate
+
+@param dt The time step for the current frame (not used in the current implementation).
+
+Prepares the physics system for the collision detection phase. Clears the
+arbiter table and resets the `isGrounded` flag for all rigid bodies.
+*/
 
     void PhysicsSystem::PreCollisionUpdate(float dt)
     {
+        UNREFERENCED_PARAMETER(dt);
         mArbiterTable.clear();
         for (auto const& entity : mEntities)
         {
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
             rigidBody.isGrounded = false;
         }
     }
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::PostCollisionUpdate
+
+@param dt The time step for the current frame.
+
+Updates the physics system after the collision detection phase. Integrates
+forces to update velocities, prepares for impulse resolution, iteratively
+applies impulses, and then integrates velocities again to update positions
+and rotations of the rigid bodies.
+*/
 
 	void PhysicsSystem::PostCollisionUpdate(float dt) {
         // Integrate forces
@@ -198,8 +267,6 @@ namespace Physics {
         for (auto const& entity : mEntities)
         {
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            auto& transform = gCoordinator->GetComponent<Transform>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
             auto const& gravity = gCoordinator->GetComponent<Gravity>(entity);
             if (rigidBody.invMass == 0.0f) {
                 continue;
@@ -231,7 +298,6 @@ namespace Physics {
         for (auto const& entity : mEntities){
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
             auto& transform = gCoordinator->GetComponent<Transform>(entity);
-            auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
 
             rigidBody.position += rigidBody.velocity * dt;
             rigidBody.rotation += rigidBody.angularVelocity * dt;
@@ -246,6 +312,17 @@ namespace Physics {
         }
 
 	}
+
+    /*  _________________________________________________________________________ */
+/*! PhysicsSystem::CollisionListener
+
+@param event The event containing collision data.
+
+Event listener function that gets called when a collision is detected. Checks
+if an arbiter for the colliding pair already exists in the arbiter table. If
+it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
+*/
+
     void PhysicsSystem::CollisionListener(Event& event) {
         auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
         ArbiterHashTable::iterator iter = mArbiterTable.find(ap.first);

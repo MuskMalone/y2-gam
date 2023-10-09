@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\par        Serialization Manager
+\file       SerializationManager.hpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 7, 2023
+
+\brief      Implementation file for Serialization
+
+			This source file contains the definitions of creation, manipulation
+			and file storage of JSON data
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include <exception>
 #include <iostream>
@@ -85,6 +103,10 @@ namespace Serializer {
 		}
 
 		JSONObj& At(std::string const& key) {
+			return mDocumentMap[path][key.c_str()];
+		}
+		JSONObj& At(std::string const& name, std::string const& key) {
+			path = mPath + name + mExt;
 			return mDocumentMap[path][key.c_str()];
 		}
 

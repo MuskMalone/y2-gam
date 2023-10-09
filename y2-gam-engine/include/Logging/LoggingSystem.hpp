@@ -70,23 +70,21 @@ private:
 	LogLevel m_level;
 	std::string m_info;
 	//thread queue1 logs without stacktraces
-	std::queue<std::string> m_buffer1;
-	std::mutex m_buffer1Mutex;
-	std::condition_variable m_cq1;
+	std::vector<std::string> m_buffer1;
 	std::ofstream m_logFile;
 	//thread queue2 logs with stacktraces
-	std::queue<std::string> m_buffer2;
-	std::mutex m_buffer2Mutex;
-	std::condition_variable m_cq2;
+	std::vector<std::string> m_buffer2;
 	std::ofstream m_logBacktraceFile;
 
 
 	std::ifstream m_logConfigFile;
 	std::string m_orderStr;
 	std::string m_formatStr;
-
 	std::string m_formatDate;
-	std::string m_formatLevel;
+
+	//flush
+	bool m_flushNow;
+	double m_timeBeforeFlush;
 
 	//stacktrace
 	int m_stacktraceNum;
@@ -104,7 +102,8 @@ public:
 	{
 		level = new_level;
 	}*/
-
+	const std::vector<std::string>& GetLogsBuffer1() const { return m_buffer1; }
+	const std::vector<std::string>& GetLogsBuffer2() const { return m_buffer2; }
 	//cannot be copied or assigned
 	LoggingSystem(const LoggingSystem&) = delete;
 	LoggingSystem& operator=(const LoggingSystem&) = delete;
@@ -120,16 +119,7 @@ public:
 	// Destructor
 	~LoggingSystem();
 
-	//thread 2 backtrace enabled
-	void LoggingThreadBacktrace(std::atomic<bool>& loggingThreadBacktraceActive);
-	std::string QueuePopBacktrace(std::atomic<bool>& loggingThreadBacktraceActive);
-	//thread 1 backtrace disabled
-	void LoggingThread(std::atomic<bool>& loggingThreadActive);
-	//functions to do with log queue
-	std::string QueuePop(std::atomic<bool>& loggingThreadActive);
-	bool IsQueueEmpty();
-	size_t GetQueueSize();
-
+	
 	void Log(LogLevel log_level, std::string message, const std::string& infunctname);
 	//functions to do with .log(LogLevel, message)
 	void RearrangeOrder(const std::string order);
@@ -137,7 +127,10 @@ public:
 	void InitializationFromConfig();
 	void GetStacktrace(int num, int skipFirstNumFrames);
 	//void RecordStacktraceNum(int stacktraceNum);
-
+	void Flush1();
+	void Flush2();
+	void SetTime();
+	void FlushTimeElapsed();
 };
 
 //Initializating an object instance of stopwatch starts clock

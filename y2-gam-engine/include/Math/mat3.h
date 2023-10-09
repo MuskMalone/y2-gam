@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Mat3.h
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 4, 2023
+
+\brief      Header file for Mat3 math
+
+			This file contains the declaration for a Matrix 3 class.
+			It provides various constructors, operators, and utility functions
+			for matrix operations such as addition, subtraction, multiplication,
+			transposition, and inversion.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include <iostream>
@@ -21,45 +42,21 @@ namespace Image {
 		Mat33(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22);
 		Mat33(Vec3 col1, Vec3 col2, Vec3 col3);
 	}Mat33;
-
-	bool operator==(const Mat33& lhs, const Mat33& rhs);
-	Mat33 operator+(const Mat33& lhs, const Mat33& rhs);
-	Mat33 operator-(const Mat33& lhs, const Mat33& rhs);
-	Mat33 operator*(const Mat33& lhs, const Mat33& rhs);
-	Mat33 operator+(const Mat33& lhs, float const& val);
-	Mat33 operator-(const Mat33& lhs, float const& val);
-	Mat33 operator*(const Mat33& lhs, float const& val);
-	Mat33 operator/(const Mat33& lhs, float const& val);
-	Mat33& operator+=(Mat33& lhs, const Mat33& rhs);
-	Mat33& operator-=(Mat33& lhs, const Mat33& rhs);
-	Vec3 operator*(const Mat33& lhs, const Vec3& rhs);
-		//Vec3 operator[](int idx)const;
-		//Vec3& operator[](int idx);
-		//bool operator==(Mat33 rhs);
-		//Mat33 operator+(Mat33 const& rhs);
-		//Mat33 operator-(Mat33 const& rhs);
-		//Mat33 operator*(Mat33 const& rhs);
-
-		///* Overloading scalar operators */
-		//Mat33 operator+(float const& val);
-		//Mat33 operator-(float const& val);
-		//Mat33 operator*(float const& val);
-		//Mat33 operator/(float const& val);
-
-		///* Overloading scalar shorthand operators */
-		//Mat33& operator+=(float const& val);
-		//Mat33& operator-=(float const& val);
-		//Mat33& operator*=(float const& val);
-		//Mat33& operator/=(float const& val);
-
-		///* Overloading Matrix shorthand operators */
-		//Mat33& operator+=(Mat33 const& rhs);
-		//Mat33& operator-=(Mat33 const& rhs);
-
-		//Vec3 operator*(Vec3 const& rhs);
-
-
-		
+#ifdef _MSC_VER
+	// Supress warning: nonstandard extension used : nameless struct/union
+#pragma warning( default : 4201 )
+#endif
+	bool operator==(Mat33 const& lhs, Mat33 const& rhs);
+	Mat33 operator+(Mat33 const& lhs, Mat33 const& rhs);
+	Mat33 operator-(Mat33 const& lhs, Mat33 const& rhs);
+	Mat33 operator*(Mat33 const& lhs, Mat33 const& rhs);
+	Mat33 operator+(Mat33 const& lhs, float const& val);
+	Mat33 operator-(Mat33 const& lhs, float const& val);
+	Mat33 operator*(Mat33 const& lhs, float const& val);
+	Mat33 operator/(Mat33 const& lhs, float const& val);
+	Mat33& operator+=(Mat33& lhs, Mat33 const& rhs);
+	Mat33& operator-=(Mat33& lhs, Mat33 const& rhs);
+	Vec3 operator*(Mat33 const& lhs,  Vec3 const& rhs);
 
 	void Mat33Identity(Mat33& results);
 	void Mat33Translate(Mat33& results, float x, float y);

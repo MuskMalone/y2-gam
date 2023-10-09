@@ -1,4 +1,20 @@
 #pragma once
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Physics.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief      physics data types
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Math/MathUtils.h"
 #include <cstdint>
 #include <Components/RigidBody.hpp>
@@ -20,42 +36,43 @@ namespace Physics {
             EdgeNumbers inEdge2;
             EdgeNumbers outEdge2;
         } e;
-        uint32_t value;
+        uint32_t value{};
     };
 
     struct ClipVertex {
-        Vec2 v;
-        FeaturePair fp;
+        Vec2 v{};
+        FeaturePair fp{};
     };
 
     constexpr uint64_t MAX_CONTACT_POINTS{ 2 };
     struct Contact {
-        Vec2 position;
-        Vec2 normal;
-        Vec2 r1, r2;
-        float seperation;
-        float accNormalImpulse;
-        float accTangentImpulse;
-        float accBiasedNormalImpulse;
-        float massNormal;
-        float massTangent;
-        float bias;
-        FeaturePair feature;
+        Vec2 position{};
+        Vec2 normal{};
+        Vec2 r1{}, r2{};
+        float seperation{};
+        float accNormalImpulse{};
+        float accTangentImpulse{};
+        float accBiasedNormalImpulse{};
+        float massNormal{};
+        float massTangent{};
+        float bias{};
+        FeaturePair feature{};
     };
     struct ArbiterKey {
-        Entity b1;
-        Entity b2;
+        Entity b1{};
+        Entity b2{};
     };
     struct Arbiter {
-        Entity b1;
-        Entity b2;
+        Entity b1{};
+        Entity b2{};
         //RigidBody* b1; //use of pointers are unfortunate but.....idc
         //RigidBody* b2;
-        float combinedFriction;
+        float combinedFriction{};
 
         Contact contacts[MAX_CONTACT_POINTS];
-        uint32_t contactsCount;
+        uint32_t contactsCount{};
     };
+
     using ArbiterHashTable = std::unordered_map<size_t, Arbiter>;
     using ArbiterPair = std::pair<size_t, Arbiter>;
 

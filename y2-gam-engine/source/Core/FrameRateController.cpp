@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\par        Frame rate controller
+\file       FrameRateController.cpp
+
+\author     Ng Wen Wen (wenwen.ng@digipen.edu)
+\date       Sep 4, 2023
+
+\brief      Implementation file for frame rate controller
+
+			This source file manages frame rates, delta times, and 
+			profiling in an application or game.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include <Core/FrameRateController.hpp>
 #include <chrono>
 #include <exception>
@@ -9,10 +28,18 @@ std::shared_ptr<FrameRateController> FrameRateController::GetInstance() {
 	if (!_mSelf) return _mSelf = std::make_shared<FrameRateController>();
 	return _mSelf;
 }
+/*  _________________________________________________________________________ */
+/*! Init
 
+@param fps The target frames per second.
+@param vsync Flag to determine if vertical synchronization is enabled.
+
+@return none.
+
+Initializes the frame rate controller with the specified FPS and VSync settings.
+*/
+	
 void FrameRateController::Init(int fps, bool vsync) {
-
-
 	mFps = static_cast<float>(fps);
 	mTargetFps = mFps;
 	mDeltaTime = 1.f / static_cast<float>(fps);
@@ -22,6 +49,14 @@ void FrameRateController::Init(int fps, bool vsync) {
 	glfwSwapInterval((vsync) ? 1 : 0);
 
 }
+/*  _________________________________________________________________________ */
+/*! StartFrameTime
+
+@return none.
+
+Starts the frame time measurement and prepares the controller for the new frame.
+*/
+
 void FrameRateController::StartFrameTime() {
 	//clear subdelta stack
 	while (!mSubDelta.empty()) mSubDelta.pop();
@@ -30,6 +65,13 @@ void FrameRateController::StartFrameTime() {
 	mStart = std::chrono::high_resolution_clock::now();
 	mAccumulator += mDeltaTime;
 }
+/*  _________________________________________________________________________ */
+/*! AccumulateDt
+
+@return none.
+
+Accumulates the delta time and updates the state manager accordingly.
+*/
 
 void FrameRateController::AccumulateDt() {
 	while (mAccumulator >= mTargetDeltaTime) {
@@ -37,6 +79,13 @@ void FrameRateController::AccumulateDt() {
 		mAccumulator -= mTargetDeltaTime;
 	}
 }
+/*  _________________________________________________________________________ */
+/*! EndFrameTime
+
+@return The delta time for the frame.
+
+Ends the frame time measurement and adjusts the frame rate if necessary.
+*/
 
 float FrameRateController::EndFrameTime() {
 	mDeltaTime = std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::high_resolution_clock::now() - mStart).count();
@@ -53,10 +102,27 @@ float FrameRateController::EndFrameTime() {
 
 	return mDeltaTime;
 }
+/*  _________________________________________________________________________ */
+/*! StartSubFrameTime
+
+@return none.
+
+Starts the sub-frame time measurement.
+*/
 
 void FrameRateController::StartSubFrameTime() {
 	mSubDelta.emplace(std::chrono::high_resolution_clock::now());
 }
+/*  _________________________________________________________________________ */
+/*! EndSubFrameTime
+
+@param key The key associated with the sub-frame time measurement.
+
+@return The delta time for the sub-frame.
+
+Ends the sub-frame time measurement and updates the profiler with the measured time.
+*/
+
 float FrameRateController::EndSubFrameTime(size_t key) {
 	float deltaTime{ std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::high_resolution_clock::now() - mSubDelta.front()).count() };
 	mSubDelta.pop();
@@ -64,6 +130,16 @@ float FrameRateController::EndSubFrameTime(size_t key) {
 	mProfiler[key] += deltaTime;
 	return mProfiler[key];
 }
+/*  _________________________________________________________________________ */
+/*! GetProfilerValue
+
+@param key The key associated with the sub-frame time measurement.
+
+@return The profiler value for the specified key.
+
+Retrieves the profiler value for the specified key, normalized by the frame's delta time.
+*/
+
 float FrameRateController::GetProfilerValue(size_t key) {
 	if (mProfiler.find(key) == mProfiler.end()) return 0.0f;
 	return mProfiler[key] / mDeltaTime;

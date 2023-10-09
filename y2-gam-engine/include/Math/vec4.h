@@ -1,3 +1,23 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Vec4.h
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Sep 9, 2023
+
+\brief      Header file for Vec4 math
+
+            This file contains the declaration for a vector 4 class.
+            It provides various constructors, operators, and utility functions
+            for vector operations such as dot product, cross product,
+            and normalization.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 
 #include <iostream>
@@ -30,8 +50,8 @@ namespace Image {
         Vec4(Vec4 const& rhs);
         
         // Assignment operators
-        Vec4& operator += (const Vec4& rhs);
-        Vec4& operator -= (const Vec4& rhs);
+        Vec4& operator += (Vec4 const& rhs);
+        Vec4& operator -= (Vec4 const& rhs);
         Vec4& operator *= (float rhs);
         Vec4& operator /= (float rhs);
 
@@ -41,32 +61,14 @@ namespace Image {
         float& operator[](int idx);
 
     }Vec4;
-        //float length() const;
-        //float dot(Vec4 const& rhs) const;
-        //Vec4 normalized() const;
-
-        ////Overloads
-        //Vec4 operator+(Vec4 const& rhs) const;
-        //Vec4 operator-(Vec4 const& rhs) const;
-        //Vec4 operator+(float val) const;
-        //Vec4 operator-(float val) const;
-        //Vec4 operator*(float val) const;
-        //Vec4 operator/(float val) const;
-        //Vec4& operator+=(Vec4 const& rhs);
-        //Vec4& operator-=(Vec4 const& rhs);
-        //Vec4& operator*=(float const& val);
-        //Vec4& operator/=(float const& val);
-        //bool operator==(Vec4 rhs);
-        //float operator[](int idx)const;
-        //float& operator[](int idx);
 
 #ifdef _MSC_VER
 // Supress warning: nonstandard extension used : nameless struct/union
 #pragma warning( default : 4201 )
 #endif
     // Overloads
-    float length(Vec4 const& v);
-    Vec4 normalized(Vec4 const& v);
+    float length(Vec4 const& rhs);
+    Vec4 normalized(Vec4 const& rhs);
     float dot(Vec4 const& lhs, Vec4 const& rhs);
     Vec4 operator+(Vec4 const& lhs, Vec4 const& rhs);
     Vec4 operator-(Vec4 const& lhs, Vec4 const& rhs);

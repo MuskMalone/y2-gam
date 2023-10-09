@@ -1,3 +1,23 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Renderer.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 5, 2023
+
+\brief      Header file for graphics rendering operations
+
+			Contains the definitions for initializing graphics
+			settings, managing texture units, and rendering various graphical
+			primitives such as quads, lines, and sprites. It also provides
+			utility functions for setting buffer data and flushing batches.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 
 #include <memory>
@@ -115,5 +135,5 @@ public:
 	static void ResetStats();
 
 private:
-	static RendererData sData;
+	static RendererData mData;
 };

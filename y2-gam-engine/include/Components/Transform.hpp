@@ -1,7 +1,5 @@
 #pragma once
-
-#include "Math/Vec3.hpp"
-#include "Math/Mat44.hpp"
+#include <glm/glm.hpp>
 #include <Core/Serialization/SerializationManager.hpp>
 
 
