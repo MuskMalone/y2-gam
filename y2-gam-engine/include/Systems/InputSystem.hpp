@@ -19,6 +19,7 @@ public:
 	};
 	void Init();
 	bool CheckKey(InputKeyState state, size_t key) const;
+	MousePosition GetMousePos() const;
 	void Update();
 
 private:

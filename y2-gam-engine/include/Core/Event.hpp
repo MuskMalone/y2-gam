@@ -59,7 +59,7 @@ failure flag.
 	template<typename T>
 	T GetParam(EventId id)
 	{
-		assert(std::is_default_constructible<T>::value);
+		static_assert(std::is_default_constructible<T>::value);
 		if (mData.find(id) == mData.end()) {
 			mGetFail = true;
 			return T{};
