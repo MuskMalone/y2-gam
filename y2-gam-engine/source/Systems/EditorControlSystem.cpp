@@ -9,6 +9,8 @@
 #include "Components/Sprite.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Animation.hpp"
+#include "Components/Node.hpp"
+#include "Components/Text.hpp"
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
@@ -122,7 +124,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 50, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -134,7 +136,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{1, 1, 1, 1},
+			{0, 1, 0, 0.7},
 			nullptr
 		});
 
@@ -163,7 +165,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{1, 1, 1, 1},
+			{0, 1, 0, 0.7},
 			nullptr
 		});
 
@@ -192,7 +194,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{1, 1, 1, 1},
+			{0, 1, 0, 0.7},
 			nullptr
 		});
 		
@@ -227,6 +229,14 @@ void EditorControlSystem::Init()
 			{1,1,1,1},
 			nullptr,
 			Layer::FOREGROUND
+		});
+	::gCoordinator->AddComponent(
+		player,
+		Text{
+			"Lato",
+			0.05f,
+			"Player",
+			{1, 1, 0}
 		});
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
 	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
@@ -326,16 +336,12 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		// Create a node
 		Entity node = ::gCoordinator->CreateEntity();
-		::gCoordinator->AddComponent<Script>(node, { "ObjectNode" });
-		
-		Event event(Events::Window::INPUT);
-		MousePosition mousep{ event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE) };
+		//::gCoordinator->AddComponent<Script>(node, { "ObjectNode" });
+		::gCoordinator->AddComponent<Node>(node, Node());
+		//Vec3 position = Vec3(inputSystem->GetMousePos().first, inputSystem->GetMousePos().second, -150.f);
+		Vec3 position = Vec3(0, 0, -150.f);
 
-		Vec3 position = Vec3(mousep.first, mousep.second, -150.f);
-
-		std::cout << "Mouse Pos: " << mousep.first << ", " << mousep.second << "\n";
-
-		float scale{ 15.f };
+		float scale{ 5.f };
 		::gCoordinator->AddComponent(
 			node,
 			RigidBody{
@@ -351,8 +357,16 @@ void EditorControlSystem::Update(float dt)
 		::gCoordinator->AddComponent(
 			node,
 			Sprite{
-				{1, 0, 0, 1},
+				{0, 0, 0, 1},
 				nullptr
+			});
+		::gCoordinator->AddComponent(
+			node,
+			Text{ 
+				"Lato", 
+				0.05f, 
+				"Node " + std::to_string(node),
+				{1, 1, 0}
 			});
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&

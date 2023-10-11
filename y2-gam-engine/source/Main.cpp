@@ -8,6 +8,8 @@
 #include "Components/Transform.hpp"
 #include "Components/Editor.hpp"
 #include "Components/Animation.hpp"
+#include "Components/Text.hpp" 
+#include "Components/Node.hpp"
 #include "Core/Serialization/SerializerComponent.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EntitySerializationSystem.hpp"
@@ -17,6 +19,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 #include "Systems/AnimationSystem.hpp"
+#include "Systems/TextSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -27,7 +30,6 @@
 #include <Engine/States/MainState.hpp>
 
 #include "Audio/Sound.hpp"
-#include "Graphics/FontRenderer.hpp"
 #include "Scripting/ScriptManager.hpp"
 
 #include "Logging/LoggingSystem.hpp"
@@ -80,10 +82,20 @@ int main()
 	coordinator->RegisterComponent<Animation>();
 	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
+	coordinator->RegisterComponent<Node>();
+	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
+	auto textSystem = coordinator->RegisterSystem<TextSystem>();
+	{
+		Signature signature{};
+		signature.set(coordinator->GetComponentType<Text>());
+		signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<TextSystem>(signature);
+	}
 
+	textSystem->Init();
 
 	auto physicsSystem = coordinator->RegisterSystem<PhysicsSystem>();
 	{
@@ -154,8 +166,6 @@ int main()
 
 	inputSystem->Init();
 
-
-
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
 		Signature signature;
@@ -170,27 +180,38 @@ int main()
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
-	// Font Testing
-	Image::FontRenderer::Init();
-	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
-	Image::FontRenderer::SetFontSize("Arial", 100);
-	Image::FontRenderer::GenerateBitmap("Arial", 100);
+	std::vector<std::string> diagnostics{};
+	diagnostics.emplace_back("FPS");
+	diagnostics.emplace_back("Entities");
+	diagnostics.emplace_back("Physics");
+	diagnostics.emplace_back("Collision");
+	diagnostics.emplace_back("Render");
+	std::vector<Entity> diagnosticsList{};
 
-	Image::FontRenderer::LoadFont("../assets/fonts/lato/Lato-Bold.ttf", "Lato");
-	Image::FontRenderer::SetFontSize("Lato", 100);
-	Image::FontRenderer::GenerateBitmap("Lato", 100);
-
-	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
-	Image::FontRenderer::SetFontSize("Getho", 100);
-	Image::FontRenderer::GenerateBitmap("Getho", 100);
+	for (int i{}; i < diagnostics.size(); ++i) {
+		Entity textEnt = coordinator->CreateEntity();
+		Vec2 position = Vec2(-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))));
+		coordinator->AddComponent(
+			textEnt,
+			Transform{
+				{position.x,position.y,0},
+				{0.f,0.f,0.f},
+				{0, 0, 0}
+			});
+		coordinator->AddComponent(
+			textEnt,
+			Text{
+				"Lato",
+				0.05f,
+				"",
+				{1, 1, 0}
+			});
+		diagnosticsList.push_back(textEnt);
+	}
 
 	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
-		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
-		//Renderer::ClearColor();
-		//Renderer::ClearDepth();
-
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
@@ -215,35 +236,40 @@ int main()
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 		dt = frameController->EndFrameTime();
-		/*
-		std::string title = "FPS: " + std::to_string(frameController->GetFps()) + " | Entities: " + std::to_string(coordinator->GetEntityCount());
-		windowManager->UpdateWindowTitle(title);
-		*/
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
 
-		// Font Testing
-		Image::FontRenderer::RenderText("Arial", "Hello World in Arial", 0.f, 110.f, 0.1f, glm::vec3(0.f, 1.f, 1.f));
-		Image::FontRenderer::RenderText("Getho", "Hello World in Getho", 0.f, 100.f, 0.1f, glm::vec3(1.f, 0.f, 0.f));
-		std::vector<std::string> diagnostics{};
-		diagnostics.emplace_back("FPS: " + std::to_string(frameController->GetFps()));
-		diagnostics.emplace_back("Entities: " + std::to_string(coordinator->GetEntityCount()));
-		diagnostics.emplace_back("Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%");
-		diagnostics.emplace_back("Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%");
-		diagnostics.emplace_back("Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%");
-
-		for (int i{}; i < diagnostics.size(); ++i) {
-			Image::FontRenderer::RenderText("Lato", diagnostics[i],
-				-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))), 0.05f, glm::vec3(0.f, 1.f, 0.f));
+		int count{};
+		for (auto& ent : diagnosticsList) {
+			switch (count) {
+			case 0:
+				coordinator->GetComponent<Text>(ent).text = "FPS: " + std::to_string(frameController->GetFps());
+				break;
+			case 1:
+				coordinator->GetComponent<Text>(ent).text = "Entities: " + std::to_string(coordinator->GetEntityCount());
+				break;
+			case 2:
+				coordinator->GetComponent<Text>(ent).text = "Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%";
+				break;
+			case 3:
+				coordinator->GetComponent<Text>(ent).text = "Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%";
+				break;
+			case 4:
+				coordinator->GetComponent<Text>(ent).text = "Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%";
+				break;
+			}
+			
+			count++;
 		}
 
+		textSystem->Update();
 	}
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
 	windowManager->Shutdown();
+	textSystem->Exit();
 
-	Image::FontRenderer::Exit();
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::Exit();
 	return 0;

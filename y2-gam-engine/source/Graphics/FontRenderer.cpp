@@ -242,7 +242,7 @@ namespace Image {
       }
 
       Character currChar{};
-
+      
       currChar.size = { currFace->glyph->bitmap.width, currFace->glyph->bitmap.rows };
       currChar.bearing = { currFace->glyph->bitmap_left, currFace->glyph->bitmap_top };
       currChar.advance = currFace->glyph->advance.x;
@@ -359,7 +359,7 @@ namespace Image {
   string, then positions them according to their bearing and size.
   */
   void FontRenderer::RenderText(std::string fontName, std::string text, float xPos, float yPos, 
-    float scale, glm::vec3 color) {
+    float scale, Vec3 color) {
     if (sFaces.find(fontName) == sFaces.end()) {
       //std::cout << "Font " << fontName << " does not exist" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + fontName + " does not exist", __FUNCTION__);

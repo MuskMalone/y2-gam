@@ -21,6 +21,8 @@
 #include "Components/Camera.hpp"
 #include <Core/Globals.hpp>
 
+#include "Math/MathUtils.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -31,8 +33,8 @@ constexpr unsigned int MAXINDICES{ MAXQUADS * 6 };
 
 namespace Image {
   struct FontVtx {
-    glm::vec2 pos;
-    glm::vec2 texCoord;
+    Vec2 pos;
+    Vec2 texCoord;
   };
 
   struct Character {
@@ -60,7 +62,7 @@ namespace Image {
     static void GenerateBitmap(std::string name, int fontSize);
     static void SetFontSize(std::string name, int fontSize);
     static void RenderText(std::string fontname, std::string text, 
-      float xPos, float yPos, float scale, glm::vec3 color);
+      float xPos, float yPos, float scale, Vec3 color);
 
   private:
     static void DebugGlyph(std::string name, int width, int height, unsigned char* buffer);
