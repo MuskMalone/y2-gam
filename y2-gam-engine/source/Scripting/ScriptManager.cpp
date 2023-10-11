@@ -299,7 +299,7 @@ namespace Image {
       sEntityInstances[entity] = si;
       si.CallOnCreate();
 
-      std::cout << "Entity in the ECS with script component created!" << "\n";
+      std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
     }
     else {
       std::cout << "Entity Script does not exist!" << "\n";

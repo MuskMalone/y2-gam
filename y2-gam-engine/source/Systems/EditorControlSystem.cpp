@@ -107,13 +107,101 @@ void EditorControlSystem::Init()
 			{0.f,0.f,0.f},
 			{5.f, 2 * WORLD_LIMIT_Y, 1.f}
 		});
+	
+	// Platforms for testing
+	// Center
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(0, -WORLD_LIMIT_Y + 10, 1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{WORLD_LIMIT_X + 50, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{1, 1, 1, 1},
+			nullptr
+		});
 
+	// Left
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(-WORLD_LIMIT_X + 90, -WORLD_LIMIT_Y + 50, 1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{30.f, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{1, 1, 1, 1},
+			nullptr
+		});
+
+	// Right
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(WORLD_LIMIT_X - 90, -WORLD_LIMIT_Y + 50, 1);
+	::gCoordinator->AddComponent(
+		entity,
+		BoxCollider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{30.f, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{1, 1, 1, 1},
+			nullptr
+		});
+		
 	// Creating a sample player entity
 	Entity player = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
+	::gCoordinator->AddComponent<Script>(player, { "ObjectPlayer" });
 
 	position = Vec3(0.f, 0.f, -150.f);
-	float scale{ 50.f };
+	float scale{ 20.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
 		{ Vec2(0.0f, -100.f) });
@@ -235,6 +323,39 @@ void EditorControlSystem::Update(float dt)
 		gCoordinator->CloneEntity(Testing::lastInserted);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		// Create a node
+		Entity node = ::gCoordinator->CreateEntity();
+		::gCoordinator->AddComponent<Script>(node, { "ObjectNode" });
+		
+		Event event(Events::Window::INPUT);
+		MousePosition mousep{ event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE) };
+
+		Vec3 position = Vec3(mousep.first, mousep.second, -150.f);
+
+		std::cout << "Mouse Pos: " << mousep.first << ", " << mousep.second << "\n";
+
+		float scale{ 15.f };
+		::gCoordinator->AddComponent(
+			node,
+			RigidBody{
+				Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
+			});
+		::gCoordinator->AddComponent(
+			node,
+			Transform{
+				{position.x,position.y,position.z},
+				{0.f,0.f,0.f},
+				{scale, scale, scale}
+			});
+		::gCoordinator->AddComponent(
+			node,
+			Sprite{
+				{1, 0, 0, 1},
+				nullptr
+			});
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
 		//using namespace Testing;
@@ -287,8 +408,6 @@ void EditorControlSystem::Update(float dt)
 			//	});
 			//lastInserted = entity;
 		}
-
-
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P)) {
 
