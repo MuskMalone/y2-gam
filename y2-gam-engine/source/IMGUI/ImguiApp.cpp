@@ -23,7 +23,7 @@
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Animation.hpp"
@@ -324,10 +324,10 @@ namespace Image {
                 }
                     break;
                 case 3: {
-                    if (!gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+                    if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            BoxCollider{});
+                            Collider{});
                     }
                     
                 }
@@ -387,9 +387,9 @@ namespace Image {
                 }
                     break;
                 case 3: {
-                    // Remove BoxCollider component
-                    if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
-                        gCoordinator->RemoveComponent<BoxCollider>(gSelectedEntity);
+                    // Remove Collider component
+                    if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Collider>(gSelectedEntity);
                     }
                 }
                     break;
@@ -412,7 +412,7 @@ namespace Image {
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
 

@@ -123,9 +123,9 @@ namespace Image {
 	Translate the matrix by its x and y.
 	*/
 	void Mat33Translate(Mat33& results, float x, float y) {
-		results = { Vec3(1.f,0,x) ,
-					Vec3(0,1.f,y) ,
-					Vec3(0,0,1.f) };
+		results = { Vec3(1.f,0,0) ,
+					Vec3(0,1.f,0) ,
+					Vec3(x,y,1.f) };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -164,7 +164,8 @@ namespace Image {
 	Rotates the matrix by a given angle in radians.
 	*/
 	void Mat33RotRad(Mat33& results, float angle) {
-		results = { Vec3(cosf(angle),-sinf(angle),0) , Vec3(sinf(angle),cosf(angle),0) , Vec3(0,0,1.f) };
+		results = { Vec3(cosf(angle),sinf(angle),0) , 
+					Vec3(-sinf(angle),cosf(angle),0) , Vec3(0,0,1.f) };
 	}
 
 	/*  _________________________________________________________________________ */

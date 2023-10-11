@@ -23,7 +23,7 @@
 #include "IMGUI/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Animation.hpp"

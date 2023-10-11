@@ -20,7 +20,7 @@
 #include <Math/MathUtils.h>
 
 struct RigidBody
-{
+{	
 	Vec2 dimension{};
 	Vec2 position{};
 	float rotation{};

@@ -5,7 +5,7 @@
 #include "Components/Editor.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Rigidbody.hpp"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Animation.hpp"
@@ -49,7 +49,7 @@ void EditorControlSystem::Init()
 	Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -71,7 +71,7 @@ void EditorControlSystem::Init()
 	position = Vec3(-WORLD_LIMIT_X, 0, 1);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -93,7 +93,7 @@ void EditorControlSystem::Init()
 	position = Vec3(WORLD_LIMIT_X, 0, 1);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -119,7 +119,7 @@ void EditorControlSystem::Init()
 		{ Vec2(0.0f, -100.f) });
 	::gCoordinator->AddComponent(
 		player,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -265,7 +265,7 @@ void EditorControlSystem::Update(float dt)
 			//Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
 			//::gCoordinator->AddComponent(
 			//	entity,
-			//	BoxCollider{
+			//	Collider{
 			//	});
 			//::gCoordinator->AddComponent(
 			//	entity,

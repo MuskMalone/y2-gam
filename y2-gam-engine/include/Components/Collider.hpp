@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \par        Image Engine
-\file       BoxCollider.hpp
+\file       Collider.hpp
 
 \author     tan cheng hian (t.chenghian)
 \date       Sep 17, 2023
@@ -17,16 +17,20 @@
 #include "Math/MathUtils.h"
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
-
-struct BoxCollider {
+enum class ColliderType : int{
+	BOX = 0,
+	CIRCLE
+};
+struct Collider {
+	ColliderType type;
 	//this is just a struct to tell the collision system to consider this object for colliding
 	//dimensions and everythign are in rigidbody
-	BoxCollider() = default;
-	BoxCollider([[maybe_unused]] rapidjson::Value const& obj) {
+	Collider(ColliderType t = ColliderType::BOX) : type{t}{};
+	Collider([[maybe_unused]] rapidjson::Value const& obj) : type{ static_cast<ColliderType>(obj["collider"].GetInt()) }{
 
 	}
 	bool Serialize(rapidjson::Value& obj) {
-		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "collider", true);
+		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "collider", static_cast<int>(type));
 		return true;
 	}
 };

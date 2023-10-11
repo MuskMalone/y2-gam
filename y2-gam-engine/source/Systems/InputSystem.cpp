@@ -1,7 +1,10 @@
 #include "../include/pch.hpp"
 
 #include "Systems/InputSystem.hpp"
+#include "Systems/RenderSystem.hpp"
+#include "Components/OrthoCamera.hpp"
 #include "Core/Coordinator.hpp"
+
 #include <Core/Globals.hpp>
 
 namespace {
@@ -38,6 +41,12 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	return out;
 }
 MousePosition InputSystem::GetMousePos() const {
+
+	return mMousePos;
+}
+MousePosition InputSystem::GetWorldMousePos() const {
+	auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+	//camera.
 	return mMousePos;
 }
 void InputSystem::Update()
@@ -58,14 +67,14 @@ void InputSystem::InputListener(Event& event)
 	KeyState release {event.GetParam<KeyState>(Events::Window::Input::KEY_RELEASE)};
 	mButtonsPressed = press;
 	if (click.any()) mButtonsClicked = click;
-	if (release.any()) mButtonsReleased = release;
+	if (release.any()) mButtonsReleased |= release;
 
 	MouseKeyState mspress {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_PRESS)};
 	MouseKeyState msclick {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_CLICK)};
 	MouseKeyState msrelease {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_RELEASE)};
 	mMouseButtonsPressed = mspress;
 	if (msclick.any()) mMouseButtonsClicked = msclick;
-	if (msrelease.any()) mMouseButtonsReleased = msrelease;
+	if (msrelease.any()) mMouseButtonsReleased |= msrelease;
 
 	MousePosition mp = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE);
 	if (!event.GetFail()) {

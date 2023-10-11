@@ -29,7 +29,7 @@
 #include "Core/Globals.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Components/OrthoCamera.hpp"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/RigidBody.hpp"
 
 

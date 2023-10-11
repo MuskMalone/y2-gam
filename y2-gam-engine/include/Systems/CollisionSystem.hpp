@@ -20,7 +20,7 @@
 #include "Core/System.hpp"
 #include "DataMgmt/QuadTree/Quadtree.hpp"
 #include "Core/Physics.hpp"
-#include <Components/BoxCollider.hpp>
+#include <Components/Collider.hpp>
 
 namespace Collision {
 	using namespace Physics;
@@ -38,8 +38,10 @@ namespace Collision {
 		void Update(float dt);
 
 		void Debug();
-	private:
 
+		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh);
+	private:
+		bool RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time);
 		DataMgmt::Quadtree<Entity> mQuadtree;
 	};
 }

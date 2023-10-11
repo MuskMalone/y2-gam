@@ -57,6 +57,7 @@
 #include <glm/common.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Math/MathUtils.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -78,3 +79,4 @@
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
+
