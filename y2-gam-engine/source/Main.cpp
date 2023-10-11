@@ -1,15 +1,5 @@
 #include "../include/pch.hpp"
 
-#include "Components/BoxCollider.hpp"
-#include "Components/Camera.hpp"
-#include "Components/Gravity.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/RigidBody.hpp"
-#include "Components/Transform.hpp"
-#include "Components/Editor.hpp"
-#include "Components/Animation.hpp"
-#include "Components/Text.hpp" 
-#include "Components/Node.hpp"
 #include "Core/Serialization/SerializerComponent.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EntitySerializationSystem.hpp"
@@ -31,6 +21,7 @@
 
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
+#include "Scripting/NodeManager.hpp"
 
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
@@ -263,6 +254,8 @@ int main()
 		}
 
 		textSystem->Update();
+
+		NodeManager::DisplayDebugLines();
 	}
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();

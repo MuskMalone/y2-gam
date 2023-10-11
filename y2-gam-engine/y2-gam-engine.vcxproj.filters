@@ -56,6 +56,7 @@
     <ClCompile Include="source\pch.cpp" />
     <ClCompile Include="source\Core\Raycast.cpp" />
     <ClCompile Include="source\Systems\TextSystem.cpp" />
+    <ClCompile Include="source\Scripting\NodeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Systems\TextSystem.hpp" />
+    <ClInclude Include="include\Scripting\NodeManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

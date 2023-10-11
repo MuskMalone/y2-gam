@@ -78,3 +78,15 @@
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
+
+// Components
+#include "Components/BoxCollider.hpp"
+#include "Components/Camera.hpp"
+#include "Components/Gravity.hpp"
+#include "Components/Sprite.hpp"
+#include "Components/RigidBody.hpp"
+#include "Components/Transform.hpp"
+#include "Components/Editor.hpp"
+#include "Components/Animation.hpp"
+#include "Components/Text.hpp" 
+#include "Components/Node.hpp"

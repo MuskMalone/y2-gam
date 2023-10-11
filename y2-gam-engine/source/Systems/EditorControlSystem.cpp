@@ -1,16 +1,6 @@
 #include "../include/pch.hpp"
 
 #include "Systems/EditorControlSystem.hpp"
-#include "Components/Camera.hpp"
-#include "Components/Editor.hpp"
-#include "Components/Transform.hpp"
-#include "Components/Rigidbody.hpp"
-#include "Components/BoxCollider.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/Gravity.hpp"
-#include "Components/Animation.hpp"
-#include "Components/Node.hpp"
-#include "Components/Text.hpp"
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
@@ -21,6 +11,7 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
 #include <Engine/PrefabsManager.hpp>
+#include "Scripting/NodeManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -334,40 +325,7 @@ void EditorControlSystem::Update(float dt)
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
-		// Create a node
-		Entity node = ::gCoordinator->CreateEntity();
-		//::gCoordinator->AddComponent<Script>(node, { "ObjectNode" });
-		::gCoordinator->AddComponent<Node>(node, Node());
-		//Vec3 position = Vec3(inputSystem->GetMousePos().first, inputSystem->GetMousePos().second, -150.f);
-		Vec3 position = Vec3(0, 0, -150.f);
-
-		float scale{ 5.f };
-		::gCoordinator->AddComponent(
-			node,
-			RigidBody{
-				Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
-			});
-		::gCoordinator->AddComponent(
-			node,
-			Transform{
-				{position.x,position.y,position.z},
-				{0.f,0.f,0.f},
-				{scale, scale, scale}
-			});
-		::gCoordinator->AddComponent(
-			node,
-			Sprite{
-				{0, 0, 0, 1},
-				nullptr
-			});
-		::gCoordinator->AddComponent(
-			node,
-			Text{ 
-				"Lato", 
-				0.05f, 
-				"Node " + std::to_string(node),
-				{1, 1, 0}
-			});
+		NodeManager::AddNode();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {

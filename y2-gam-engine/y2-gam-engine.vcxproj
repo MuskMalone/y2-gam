@@ -200,6 +200,7 @@
     <ClInclude Include="include\Math\Vec3.h" />
     <ClInclude Include="include\Math\Vec4.h" />
     <ClInclude Include="include\pch.hpp" />
+    <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
@@ -281,6 +282,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Scripting\ScriptClass.cpp" />
     <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
     <ClCompile Include="source\Scripting\ScriptInstance.cpp" />

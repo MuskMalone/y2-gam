@@ -3,9 +3,10 @@
 #include <vector>
 #include <rapidjson/document.h>
 #include <Core/Serialization/SerializationManager.hpp>
+#include "Core/Types.hpp"
 
 struct Node {
-	std::vector<Node> neighbours;
+	std::vector<Entity> neighbours;
 
 	Node() = default;
 
