@@ -15,6 +15,7 @@ namespace {
 namespace Image {
   // Static Initialization
   std::vector<Entity> NodeManager::currentlyActiveNodes;
+	std::map<std::pair<Entity, Entity>, NodeManager::Cost> NodeManager::costMap;
 
   void NodeManager::DisplayDebugLines() {
     ::gCoordinator = Coordinator::GetInstance();
@@ -62,4 +63,19 @@ namespace Image {
 
     currentlyActiveNodes.push_back(node);
   }
+
+	void NodeManager::RemoveNode(Entity node) {
+
+	}
+
+	void NodeManager::ClearAllNodes() {
+
+	}
+
+	void NodeManager::CalculateCost(Entity lhs, Entity rhs) {
+
+	}
+	void NodeManager::FillCostMap() {
+
+	}
 }
