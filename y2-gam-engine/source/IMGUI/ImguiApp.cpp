@@ -439,11 +439,23 @@ namespace Image {
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();
             ImVec2 mousePos = io.MousePos;
-            ImVec2 windowPos = ImGui::GetWindowPos();
 
-            Event event(Events::Window::INPUT);
-            event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, MousePosition(static_cast<float>(mousePos.x - windowPos.x), static_cast<float>(mousePos.y - windowPos.y)));
-            gCoordinator->SendEvent(event);
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
+
+            ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
+
+            if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
+                Event event(Events::Window::INPUT);
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, MousePosition(
+                    static_cast<float>(mousePos.x - paddedTopLeft.x), 
+                    static_cast<float>((mousePos.y - paddedTopLeft.y) )
+                ));
+                gCoordinator->SendEvent(event);
+            }
+
         }
 
         ImGui::End();
