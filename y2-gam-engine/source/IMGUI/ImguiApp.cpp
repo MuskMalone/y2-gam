@@ -449,10 +449,11 @@ namespace Image {
 
             if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
                 Event event(Events::Window::INPUT);
-                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, MousePosition(
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
                     static_cast<float>(mousePos.x - paddedTopLeft.x), 
                     static_cast<float>((mousePos.y - paddedTopLeft.y) )
-                ));
+                ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
+                );
                 gCoordinator->SendEvent(event);
             }
 

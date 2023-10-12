@@ -21,7 +21,7 @@ public:
 	bool CheckKey(InputKeyState state, size_t key) const;
 	MousePosition GetMousePos() const;
 	MousePosition GetWorldMousePos() const;
-	MousePosition GetEditorMousePos() const;
+	EditorMousePosition GetEditorMousePos() const;
 
 	void Update();
 
@@ -33,6 +33,6 @@ private:
 	MouseKeyState mMouseButtonsClicked;
 	MouseKeyState mMouseButtonsReleased;
 	MousePosition mMousePos;
-	MousePosition mEditorMousePos;
+	EditorMousePosition mEditorMousePos;
 	void InputListener(Event& event);
 };
