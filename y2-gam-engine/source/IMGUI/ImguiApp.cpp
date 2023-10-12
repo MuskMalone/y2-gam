@@ -434,6 +434,18 @@ namespace Image {
 
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+       
+        //tch: hello this is my input part
+        if (ImGui::IsWindowHovered()) {
+            ImGuiIO& io = ImGui::GetIO();
+            ImVec2 mousePos = io.MousePos;
+            ImVec2 windowPos = ImGui::GetWindowPos();
+
+            Event event(Events::Window::INPUT);
+            event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, MousePosition(static_cast<float>(mousePos.x - windowPos.x), static_cast<float>(mousePos.y - windowPos.y)));
+            gCoordinator->SendEvent(event);
+        }
+
         ImGui::End();
     }
 

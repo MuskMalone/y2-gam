@@ -45,9 +45,14 @@ MousePosition InputSystem::GetMousePos() const {
 	return mMousePos;
 }
 MousePosition InputSystem::GetWorldMousePos() const {
-	auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+	//auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
 	//camera.
 	return mMousePos;
+}
+MousePosition InputSystem::GetEditorMousePos() const {
+	//auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+	//camera.
+	return mEditorMousePos;
 }
 void InputSystem::Update()
 {
@@ -80,5 +85,11 @@ void InputSystem::InputListener(Event& event)
 	if (!event.GetFail()) {
 		mMousePos = std::move(mp);
 		//std::cout << mMousePos.first << " " << mMousePos.second << std::endl;
+	}
+
+	MousePosition emp = event.GetParam<MousePosition>(Events::Window::Input::EDITOR_MOUSE_MOVE);
+	if (!event.GetFail()) {
+		mEditorMousePos = std::move(emp);
+		std::cout << mEditorMousePos.first << " " << mEditorMousePos.second << std::endl;
 	}
 }

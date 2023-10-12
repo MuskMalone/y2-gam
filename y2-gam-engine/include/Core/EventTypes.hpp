@@ -53,6 +53,8 @@ namespace Events::Window::Input {
 	const ParamId MOUSE_PRESS = "Events::Window::Input::MOUSE_PRESS"_hash;
 	const ParamId MOUSE_RELEASE = "Events::Window::Input::MOUSE_RELEASE"_hash;
 	const ParamId MOUSE_MOVE = "Events::Window::Input::MOUSE_MOVE"_hash;
+	const ParamId EDITOR_MOUSE_MOVE = "Events::Window::Input::EDITOR_MOUSE_MOVE"_hash;
+
 }
 
 namespace Events::Window::Resized {
