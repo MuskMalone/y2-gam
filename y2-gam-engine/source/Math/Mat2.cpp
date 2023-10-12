@@ -350,8 +350,8 @@ namespace Image {
 	Rotates the matrix by a given angle in radians.
 	*/
 	void Mat22RotRad(Mat22& results, float angle) {
-		results = { Vec2(cosf(angle),-sinf(angle)) ,
-				Vec2(sinf(angle),cosf(angle)) };
+		results = { Vec2(cosf(angle),sinf(angle)) ,
+					Vec2(-sinf(angle),cosf(angle)) };
 	}
 
 	/*  _________________________________________________________________________ */

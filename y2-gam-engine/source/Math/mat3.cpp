@@ -110,7 +110,7 @@ namespace Image {
 	/*! Mat33Translate
 
 	@param results
-	Matrix to be set to identity.
+	Matrix to be set to Translate.
 
 	@param x
 	Translate factor for the x-axis.

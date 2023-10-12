@@ -63,19 +63,19 @@ namespace Image {
     */
     void AppRender(std::set<Entity>const& mEntities) {
         //Press z to change dock space and non dock space
-        static bool showDockSpace{ true };
+        //static bool showDockSpace{ true };
         static bool toDelete{ false };
 
-        if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
+        /*if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
             showDockSpace = !showDockSpace;
-        }
+        }*/
         if (ImGui::IsKeyReleased(ImGuiKey_C)) {
             toDelete = !toDelete;
         }
 
-        if (showDockSpace) {
             ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-        }
+        /*if (showDockSpace) {
+        }*/
         //ImGui::ShowDemoWindow();
         MainMenuWindow();
         HierarchyWindow(mEntities);
@@ -163,6 +163,14 @@ namespace Image {
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
+            ImGuiViewport* vP = ImGui::GetWindowViewport();
+            gCoordinator->AddComponent(
+                gSelectedEntity,
+                Transform{
+                    {vP->Pos.x,vP->Pos.y,0},
+                    {0,0,0},
+                    {5,5,5}
+                });
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
@@ -265,13 +273,13 @@ namespace Image {
     void PropertyWindow() {
         ImGui::Begin("Property");
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script"};
-        static int selectedComponentToAdd{ -1 };
-        static int selectedComponentToRemove{ -1 };
+        static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
             //Combo box click to add components
-            if (ImGui::Combo("Add Component", &selectedComponentToAdd, components, IM_ARRAYSIZE(components))) {
-                switch (selectedComponentToAdd) {
+            ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
+            if (ImGui::Button("Add")) {
+                switch (selectedComponent) {
                 case 0: {
                     if (!gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                         ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -284,7 +292,7 @@ namespace Image {
                             });
                     }
                 }
-                    break;
+                      break;
                 case 1: {
                     if (!gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
@@ -322,14 +330,14 @@ namespace Image {
                         }
                     }
                 }
-                    break;
+                      break;
                 case 3: {
                     if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Collider{});
                     }
-                    
+
                 }
                       break;
                 case 4: {
@@ -359,12 +367,12 @@ namespace Image {
                             Gravity{ Vec2{0.f,0.f} });
                     }
                 }
-                    break;              
-  
+                      break;
+
                 }
             }
-            if (ImGui::Combo("Remove Component", &selectedComponentToRemove, components, IM_ARRAYSIZE(components))) {
-                switch (selectedComponentToRemove) {
+            if (ImGui::Button("Remove")) {
+                switch (selectedComponent) {
                 case 0: {
                     // Remove Transform component
                     if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {

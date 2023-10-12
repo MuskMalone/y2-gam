@@ -135,7 +135,7 @@ namespace Image {
 	/*! Mat44Translate
 
 	@param results
-	Matrix to be set to identity.
+	Matrix to be set to translate.
 
 	@param x
 	Translate factor for the x-axis.
@@ -151,10 +151,10 @@ namespace Image {
 	Translate the matrix by its x and y.
 	*/
 	void Mat44Translate(Mat44& results, float x, float y, float z) {
-		results = { Vec4(1.f,0.f,0.f,x) ,
-					Vec4(0.f,1.f,0.f,y) ,
-					Vec4(0.f,0.f,1.f,z) ,
-					Vec4(0.f,0.f,0.f,1.f) };
+		results = { Vec4(1.f,0.f,0.f,0.f) ,
+					Vec4(0.f,1.f,0.f,0.f) ,
+					Vec4(0.f,0.f,1.f,0.f) ,
+					Vec4(x,y,z,1.f) };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -197,7 +197,10 @@ namespace Image {
 	Rotates the matrix by a given angle in radians.
 	*/
 	void Mat44RotRad(Mat44& results, float angle) {
-		results = { Vec4(cosf(angle),-sinf(angle),0.f,0.f) , Vec4(sinf(angle),cosf(angle),0.f,0.f) , Vec4(0.f,0.f,1.f,0.f), Vec4(0.f,0.f,0.f,1.f) };
+		results = { Vec4(cosf(angle),sinf(angle),0.f,0.f) ,
+					Vec4(-sinf(angle),cosf(angle),0.f,0.f) ,
+					Vec4(0.f,0.f,1.f,0.f),
+					Vec4(0.f,0.f,0.f,1.f) };
 	}
 
 	/*  _________________________________________________________________________ */
