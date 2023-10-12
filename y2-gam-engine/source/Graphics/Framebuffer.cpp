@@ -29,10 +29,10 @@
 Properties of the framebuffer.
 
 This constructor initializes the Framebuffer using the provided properties and
-calls the Invalidate function.
+calls the Recreate function.
 */
 Framebuffer::Framebuffer(FramebufferProps const& props) : mProps{ props } {
-	Invalidate();
+	Recreate();
 }
 
 /*  _________________________________________________________________________ */
@@ -43,15 +43,24 @@ object.
 */
 Framebuffer::~Framebuffer() {
 	glDeleteFramebuffers(1, &mFboHdl);
+	glDeleteTextures(1, &mColorAttachment);
+	glDeleteTextures(1, &mDepthAttachment);
 }
 
 /*  _________________________________________________________________________ */
-/*! Invalidate
+/*! Recreate
 
 This function creates a new framebuffer object and sets up its color and depth
 attachments. It also checks if the framebuffer is complete and logs the result.
 */
-void Framebuffer::Invalidate() {
+void Framebuffer::Recreate() {
+
+	if (mFboHdl) {
+		glDeleteFramebuffers(1, &mFboHdl);
+		glDeleteTextures(1, &mColorAttachment);
+		glDeleteTextures(1, &mDepthAttachment);
+	}
+
 	glCreateFramebuffers(1, &mFboHdl);
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHdl);
 
@@ -92,6 +101,22 @@ Unbinds the framebuffer, reverting the rendering target to the default framebuff
 */
 void Framebuffer::Unbind() const {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+/*  _________________________________________________________________________ */
+/*! Resize
+
+@param width The new width for the framebuffer
+@param height The new height for the framebuffer
+
+Resizes the framebuffer to the specified width and height.
+
+*/
+void Framebuffer::Resize(unsigned int width, unsigned int height){
+	mProps.width = width;
+	mProps.height = height;
+
+	Recreate();
 }
 
 /*  _________________________________________________________________________ */

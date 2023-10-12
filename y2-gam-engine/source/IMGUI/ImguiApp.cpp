@@ -46,6 +46,9 @@
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
+    float engineWidth = 1600;
+    float engineHeight = 900;
+    ImVec2 viewportDim = ImVec2( engineWidth / 1.5f, engineHeight/ 1.5f);
 }
 namespace Image {
     /*  _________________________________________________________________________ */
@@ -56,7 +59,7 @@ namespace Image {
 
     @return none.
 
-    This function is responsible for rendering the application's UI and 
+    This function is responsible for rendering the application's UI and
     handling user input.
     Pressing the 'z' key toggles between dock space and non-dock space.
     Pressing the 'c' key to clear the entities
@@ -85,13 +88,13 @@ namespace Image {
         LoggingWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
-            for (auto & e : mEntities) {
+            for (auto& e : mEntities) {
                 deleteEntites.emplace_back(e);
             }
             for (auto const& e : deleteEntites) {
                 //TEMP TO BE DELETED
                 //TODO 
-                if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e)!="2" && std::to_string(e) != "3" && std::to_string(e) != "4"){
+                if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e) != "2" && std::to_string(e) != "3" && std::to_string(e) != "4") {
                     gCoordinator->DestroyEntity(e);
                 }
             }
@@ -117,7 +120,7 @@ namespace Image {
             {
                 if (ImGui::MenuItem("New")) {}
                 if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-                if (ImGui::BeginMenu("Open Recent")){                                  
+                if (ImGui::BeginMenu("Open Recent")) {
                     ImGui::EndMenu();
                 }
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {}
@@ -126,7 +129,7 @@ namespace Image {
             }
 
             //EDIT
-            if (ImGui::BeginMenu("Edit")){
+            if (ImGui::BeginMenu("Edit")) {
                 if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
                 if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}
                 ImGui::Separator();
@@ -151,7 +154,7 @@ namespace Image {
 
     @return none.
 
-    This function displays the hierarchy of entities and allows for the creation 
+    This function displays the hierarchy of entities and allows for the creation
     and destruction of entities. The entities have a default ImGui component to
     listen from.
     */
@@ -187,7 +190,7 @@ namespace Image {
 
     @return none.
 
-    This function displays the components of the selected entity and allows for 
+    This function displays the components of the selected entity and allows for
     modification to its components.
     */
     void InspectorWindow() {
@@ -221,7 +224,7 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                 RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-                
+
                 ImGui::Separator();
                 ImGui::Text("RigidBody");
                 //Pos
@@ -259,12 +262,12 @@ namespace Image {
 
     @return none.
 
-    This function displays the properties of the selected entity and allows for 
+    This function displays the properties of the selected entity and allows for
     adding or removing components.
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script" };
         static int selectedComponentToAdd{ -1 };
         static int selectedComponentToRemove{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
@@ -284,7 +287,7 @@ namespace Image {
                             });
                     }
                 }
-                    break;
+                      break;
                 case 1: {
                     if (!gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
@@ -322,14 +325,14 @@ namespace Image {
                         }
                     }
                 }
-                    break;
+                      break;
                 case 3: {
                     if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Collider{});
                     }
-                    
+
                 }
                       break;
                 case 4: {
@@ -359,8 +362,8 @@ namespace Image {
                             Gravity{ Vec2{0.f,0.f} });
                     }
                 }
-                    break;              
-  
+                      break;
+
                 }
             }
             if (ImGui::Combo("Remove Component", &selectedComponentToRemove, components, IM_ARRAYSIZE(components))) {
@@ -371,42 +374,42 @@ namespace Image {
                         gCoordinator->RemoveComponent<Transform>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 1: {
                     // Remove Sprite component
                     if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                         gCoordinator->RemoveComponent<Sprite>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 2: {
                     // Remove RigidBody component
                     if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                         gCoordinator->RemoveComponent<RigidBody>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 3: {
                     // Remove Collider component
                     if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->RemoveComponent<Collider>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 4: {
                     // Remove Animation component
                     if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
                         gCoordinator->RemoveComponent<Animation>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 5: {
                     // Remove Gravity component
                     if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                         gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
                     }
                 }
-                    break;               
+                      break;
                 }
             }
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
@@ -431,9 +434,13 @@ namespace Image {
     */
     void BufferWindow() {
         ImGui::Begin("Image Game Engine");
-
+        ImVec2 newViewportDim = ImGui::GetContentRegionAvail();
+        if (viewportDim.x != newViewportDim.x || viewportDim.y != newViewportDim.y) {
+            //::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->Resize(static_cast<unsigned int>(viewportDim.x), static_cast<unsigned int>(viewportDim.y));
+            viewportDim = newViewportDim;
+        }
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(viewportDim.x, viewportDim.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::End();
     }
 
