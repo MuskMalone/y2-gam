@@ -21,6 +21,7 @@
 #version 450 core
 
 layout(location = 0) out vec4 fragColor;
+layout(location = 1) out vec4 colorTest; //TODO CHANGE TO ENTITYID
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
@@ -31,4 +32,5 @@ uniform sampler2D u_Tex[32]; //TODO CHANGE THIS IN FUTURE
 void main(){
 	vec4 texColor = texture2D(u_Tex[int(v_TexIdx)], v_TexCoord);
 	fragColor = texColor * v_Color;
+    colorTest = v_Color;
 }
