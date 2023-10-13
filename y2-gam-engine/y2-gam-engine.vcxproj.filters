@@ -131,7 +131,6 @@
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
-    <ClInclude Include="include\Components\Circle.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
