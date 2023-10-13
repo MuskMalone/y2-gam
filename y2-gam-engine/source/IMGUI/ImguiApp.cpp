@@ -196,10 +196,6 @@ namespace Image {
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
-            /*bool isSelected = (gSelectedEntity == entity);
-            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
-                gSelectedEntity = entity;
-            }*/
         }
         ImGui::End();
     }
