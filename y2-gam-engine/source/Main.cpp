@@ -2,6 +2,7 @@
 
 #include "Components/Collider.hpp"
 #include "Components/Camera.hpp"
+#include "Components/Tag.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
@@ -81,6 +82,7 @@ int main()
 	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<ImguiComponent>();
+	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
 
@@ -120,7 +122,7 @@ int main()
 		Signature signature;
 		//signature.flip();
 		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Sprite>());
+		//signature.set(coordinator->GetComponentType<Tag>());
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}

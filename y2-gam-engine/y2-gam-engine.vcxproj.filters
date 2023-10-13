@@ -131,6 +131,7 @@
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
+    <ClInclude Include="include\Components\Tag.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -204,9 +205,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\Globals.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\BoxCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Systems\CollisionSystem.hpp">

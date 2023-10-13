@@ -30,6 +30,8 @@
 #include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
+#include "Components/Tag.hpp"
+
 #include "Components/Editor.hpp"
 #include "Components/Script.hpp"
 #include "Core/Coordinator.hpp"
@@ -171,6 +173,9 @@ namespace Image {
                     {0,0,0},
                     {5,5,5}
                 });
+            gCoordinator->AddComponent(
+                gSelectedEntity,
+                Tag{"Name"});
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
@@ -203,8 +208,9 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
-            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                if (ImGui::CollapsingHeader("Transform")) {
+            //if (ImGui::CollapsingHeader("Transform")) {
+
+                if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
 
                     // Position
@@ -221,8 +227,8 @@ namespace Image {
                     ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
                 }
-            }
-            if (ImGui::CollapsingHeader("Sprite")) {
+            //}
+            //if (ImGui::CollapsingHeader("Sprite")) {
 
                 if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                     Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
@@ -231,11 +237,11 @@ namespace Image {
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
                 }
-                else {
-                    ImGui::Text("No Sprite Component");
-                }
-            }
-            if (ImGui::CollapsingHeader("RigidBody")) {
+            //    else {
+            //        ImGui::Text("No Sprite Component");
+            //    }
+            //}
+            //if (ImGui::CollapsingHeader("RigidBody")) {
                 if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
 
@@ -257,11 +263,11 @@ namespace Image {
                     ImGui::InputFloat("Mass", &rigidBody.mass);
                     rigidBody.SetMass(rigidBody.mass);
                 }
-                else {
+                /*else {
                     ImGui::Text("No RigidBody Component");
                 }
-            }
-            if (ImGui::CollapsingHeader("Gravity")) {
+            }*/
+            //if (ImGui::CollapsingHeader("Gravity")) {
                 if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
                     ImGui::Separator();
@@ -270,10 +276,10 @@ namespace Image {
                     ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
                 }
-                else {
+                /*else {
                     ImGui::Text("No Gravity Component");
                 }
-            }
+            }*/
         }
         ImGui::End();
     }
@@ -290,16 +296,28 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag"};
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
-            ImGui::Text("Entity Tag:", gSelectedEntity);
-            static char tag[256] = "";
-            ImGui::SetNextItemWidth(50.0f);
-            if (ImGui::InputText("Change Text for tag component", tag, IM_ARRAYSIZE(tag))) {
-                
+            if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                static Entity gPreviousEntity = {MAX_ENTITIES}; 
+                static char tag[256] = "";
+                if (gPreviousEntity != gSelectedEntity) {
+                    memset(tag, 0, sizeof(tag));
+                    gPreviousEntity = gSelectedEntity; 
+                }
+                Tag& tagComponent = gCoordinator->GetComponent<Tag>(gSelectedEntity);
+                ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
+                //ImGui::SetNextItemWidth(50.0f);
+                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag))) {
+                    tagComponent.tag = tag;
+                }
             }
+            else {
+                ImGui::Text("No Entity Tag");
+            }
+
             //Combo box click to add components
             ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
             if (ImGui::Button("Add")) {
@@ -392,7 +410,14 @@ namespace Image {
                     }
                 }
                       break;
-
+                case 6: {
+                    if (!gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Tag{""});
+                    }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -439,10 +464,18 @@ namespace Image {
                         gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
                     }
                 }
-                    break;               
+                    break;
+                case 6: {
+                    // Remove Tag component
+                    if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Tag>(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
+            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
