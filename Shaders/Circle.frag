@@ -24,10 +24,9 @@ in float v_Thickness;
 in float v_Fade;
 
 void main(){
-    
     float dist = 1.0 - length(v_LocalPosition);
-    vec3 clr = vec3(smoothstep(0.0, v_Fade, dist));
-    clr *= vec3(smoothstep(v_Thickness + v_Fade, v_Thickness, dist));
-	fragColor = vec4(clr, 1.f);
-    //fragColor.rgb *= v_Color;
-}
+    float alpha = smoothstep(0.0, v_Fade, dist);
+    alpha *= smoothstep(v_Thickness + v_Fade, v_Thickness, dist);
+    fragColor = v_Color;
+	fragColor.a *= alpha;
+} 

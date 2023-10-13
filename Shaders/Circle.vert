@@ -24,7 +24,7 @@ layout(location = 4) in float a_Fade;
 
 out vec3 v_LocalPosition;
 out vec4 v_Color;
-out float v_Thickness;
+out float v_Thickness; 
 out float v_Fade;
 		
 uniform mat4 u_ViewProjMtx;

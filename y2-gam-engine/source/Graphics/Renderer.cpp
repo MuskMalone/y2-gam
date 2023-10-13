@@ -500,6 +500,30 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 	DrawLine(p3, p0, clr);
 }
 
+/*  _________________________________________________________________________ */
+/*! DrawCircle
+
+@param pos
+Position of the center of the circle.
+
+@param scale
+Scale of the circle in x and y dimensions.
+
+@param clr
+Color of the circle's border.
+
+@param thickness
+Thickness of the circle's border.
+
+@param fade
+Fade effect for the circle's border.
+
+@return none.
+
+This function draws a circle with specified parameters. It calculates the
+transformation for the circle using its position and scale. The circle's appearance
+is further defined by its color, border thickness, and fade effect.
+*/
 void Renderer::DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness, float fade) {
 
 	//TODO Implement circles
