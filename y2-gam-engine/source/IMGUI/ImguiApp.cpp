@@ -186,10 +186,20 @@ namespace Image {
         }
 
         for (auto const& entity : mEntities) {
+            std::string displayName = std::to_string(entity);
+            if (gCoordinator->HasComponent<Tag>(entity)) {
+                Tag& tagComponent = gCoordinator->GetComponent<Tag>(entity);
+                displayName = tagComponent.tag;
+            }
+
             bool isSelected = (gSelectedEntity == entity);
-            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
+            if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
+            /*bool isSelected = (gSelectedEntity == entity);
+            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
+                gSelectedEntity = entity;
+            }*/
         }
         ImGui::End();
     }
