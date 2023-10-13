@@ -51,6 +51,14 @@ struct LineVtx {
 	glm::vec4 clr;
 };
 
+struct CircleVtx {
+	glm::vec3 worldPos;
+	glm::vec3 localPos;
+	glm::vec4 clr;
+	float thickness;
+	float fade;
+};
+
 struct RendererData {
 
 	static const unsigned int cMaxQuads{ 20000 };
@@ -67,6 +75,10 @@ struct RendererData {
 	std::shared_ptr<VertexBuffer> lineVertexBuffer;
 	std::shared_ptr<Shader> lineShader;
 
+	std::shared_ptr<VertexArray> circleVertexArray;
+	std::shared_ptr<VertexBuffer> circleVertexBuffer;
+	std::shared_ptr<Shader> circleShader;
+
 	unsigned int quadIdxCount{};
 	std::vector<QuadVtx> quadBuffer; // Dynamic buffer to hold vertex data for batching
 	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
@@ -74,6 +86,10 @@ struct RendererData {
 	unsigned int lineVtxCount{};
 	std::vector<LineVtx> lineBuffer;
 	LineVtx* lineBufferPtr{ nullptr };
+
+	unsigned int circleIdxCount{};
+	std::vector<CircleVtx> circleBuffer;
+	CircleVtx* circleBufferPtr{ nullptr };
 
 	std::array<glm::vec4, 4> quadVtxPos{};
 
@@ -103,12 +119,14 @@ public:
 		std::shared_ptr<Texture>const& tex, float rot = 0.f);
 
 	static void DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint = {1.f,1.f,1.f,1.f}, float rot = 0.f);
-
 	static void DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint = { 1.f,1.f,1.f,1.f });
 	
 	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);
 	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr);
+
+	//Circles
+	static void DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness = 1.f, float fade = 0.005f);
 
 	static void FlushBatch();
 private:

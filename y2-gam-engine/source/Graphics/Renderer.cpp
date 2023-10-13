@@ -44,8 +44,8 @@ void Renderer::Init() {
 
 	mData.texUnits = std::vector<std::shared_ptr<Texture>>(mData.maxTexUnits);
 
+	//Quads
 	mData.quadVertexArray = VertexArray::Create();
-
 	mData.quadVertexBuffer = VertexBuffer::Create(mData.cMaxVertices * sizeof(QuadVtx));
 
 	BufferLayout quadLayout = {
@@ -90,6 +90,24 @@ void Renderer::Init() {
 	mData.lineVertexArray->AddVertexBuffer(mData.lineVertexBuffer);
 	mData.lineBuffer = std::vector<LineVtx>(mData.cMaxVertices);
 
+	//Circles
+	mData.circleVertexArray = VertexArray::Create();
+
+	mData.circleVertexBuffer = VertexBuffer::Create(mData.cMaxVertices * sizeof(CircleVtx));
+
+	BufferLayout circleLayout = {
+		{AttributeType::VEC3, "a_WorldPosition"},
+		{AttributeType::VEC3, "a_LocalPosition"},
+		{AttributeType::VEC4, "a_Color"},
+		{AttributeType::FLOAT, "a_Thickness"},
+		{AttributeType::FLOAT, "a_Fade" }
+	};
+
+	mData.circleVertexBuffer->SetLayout(circleLayout); //must set layout before adding vbo
+	mData.circleVertexArray->AddVertexBuffer(mData.circleVertexBuffer);
+	mData.circleVertexArray->SetElementBuffer(quadEbo); //reusing quad EBO due to same geometry for circle
+	mData.circleBuffer = std::vector<CircleVtx>(mData.cMaxVertices);
+	
 	mData.whiteTex = std::make_shared<Texture>(1, 1);
 	unsigned int whiteTexData{ 0xffffffff };
 	mData.whiteTex->SetData(&whiteTexData);
@@ -101,6 +119,8 @@ void Renderer::Init() {
 
 	mData.lineShader = std::make_shared<Shader>("../Shaders/Line.vert", "../Shaders/Line.frag");
 	mData.texShader = std::make_shared<Shader>("../Shaders/Tex.vert", "../Shaders/Tex.frag");
+	mData.circleShader = std::make_shared<Shader>("../Shaders/Circle.vert", "../Shaders/Circle.frag");
+
 	mData.texShader->Use();
 	mData.texShader->SetUniform("u_Tex", samplers.data(), mData.maxTexUnits);
 
@@ -141,6 +161,9 @@ void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
 
 	mData.lineShader->Use();
 	mData.lineShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
+
+	mData.circleShader->Use();
+	mData.circleShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
 
 	BeginBatch();
 }
@@ -477,6 +500,28 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 	DrawLine(p3, p0, clr);
 }
 
+void Renderer::DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness, float fade) {
+
+	//TODO Implement circles
+	//if (mData.quadIdxCount >= RendererData::cMaxIndices)
+	//	NextBatch();
+
+	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
+	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
+	glm::mat4 transformMtx{ translateMtx * scaleMtx };
+
+	for (size_t i{}; i < 4; ++i) {
+		mData.circleBufferPtr->worldPos = transformMtx * mData.quadVtxPos[i];
+		mData.circleBufferPtr->localPos = mData.quadVtxPos[i] * 2.f; //Using the Quad Mesh to get -1.f, to 1.f
+		mData.circleBufferPtr->clr = clr;
+		mData.circleBufferPtr->thickness = thickness;
+		mData.circleBufferPtr->fade = fade;
+		++mData.circleBufferPtr;
+	}
+
+	mData.circleIdxCount += 6;
+}
+
 /*  _________________________________________________________________________ */
 /*! FlushBatch
 
@@ -519,6 +564,17 @@ void Renderer::FlushBatch() {
 
 		//++mData.stats.drawCalls;
 	}
+
+	if (mData.circleIdxCount) {
+		ptrdiff_t difference{ reinterpret_cast<unsigned char*>(mData.circleBufferPtr)
+							- reinterpret_cast<unsigned char*>(mData.circleBuffer.data()) };
+
+		unsigned int dataSize = static_cast<unsigned int>(difference);
+		mData.circleVertexBuffer->SetData(mData.circleBuffer.data(), dataSize);
+
+		mData.circleShader->Use();
+		DrawIndexed(mData.circleVertexArray, mData.circleIdxCount);
+	}
 }
 
 /*  _________________________________________________________________________ */
@@ -533,10 +589,13 @@ start of the buffer data.
 void Renderer::BeginBatch() {
 	mData.quadIdxCount = 0;
 	mData.quadBufferPtr = mData.quadBuffer.data();
-	//mData.quadBuffer.clear();
+
 	mData.lineVtxCount = 0;
 	mData.lineBufferPtr = mData.lineBuffer.data();
-	//mData.lineBuffer.clear();
+
+	mData.circleIdxCount = 0;
+	mData.circleBufferPtr = mData.circleBuffer.data();
+
 	mData.texUnitIdx = 1;
 }
 

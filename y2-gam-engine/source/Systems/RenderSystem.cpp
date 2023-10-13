@@ -176,7 +176,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
-
+	
+	Renderer::DrawCircle({0.f, 0.f, 0.f}, { 50.f,50.f }, {1.f,1.f,1.f,1.f});
 	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();

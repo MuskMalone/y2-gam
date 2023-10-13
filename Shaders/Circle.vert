@@ -1,17 +1,12 @@
 /*******************************************************************************/
 /*!
 \par        Image Engine
-\file       Line.vert
+\file       Circle.vert
 
 \author     Xavier Choa (k.choa@digipen.edu)
-\date       Sep 5, 2023
+\date       Oct 13, 2023
 
-\brief      Vertex shader for transforming object vertices and passing through 
-            vertex colors.
-
-            This shader takes in vertex positions and colors, applies a view 
-            projection transformation to the positions, and passes the colors 
-            directly to the fragment shader.
+\brief      Vertex shader for circles.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -21,14 +16,24 @@
 
 #version 450 core
 
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Color;
+layout(location = 0) in vec3 a_WorldPosition;
+layout(location = 1) in vec3 a_LocalPosition;
+layout(location = 2) in vec4 a_Color;
+layout(location = 3) in float a_Thickness;
+layout(location = 4) in float a_Fade;
 
+out vec3 v_LocalPosition;
 out vec4 v_Color;
+out float v_Thickness;
+out float v_Fade;
 		
 uniform mat4 u_ViewProjMtx;
 
 void main(){
+
+	v_LocalPosition = a_LocalPosition;
 	v_Color = a_Color;
-	gl_Position = u_ViewProjMtx * vec4(a_Position, 1.0);
+	v_Thickness = a_Thickness;
+	v_Fade = a_Fade;
+	gl_Position = u_ViewProjMtx * vec4(a_WorldPosition, 1.0);
 } 
