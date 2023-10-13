@@ -204,57 +204,75 @@ namespace Image {
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+                if (ImGui::CollapsingHeader("Transform")) {
+                    Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
 
-                // Position
-                ImGui::Text("Position");
-                ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    // Position
+                    ImGui::Text("Position");
+                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
-                // Rotation
-                ImGui::Text("Rotation");
-                ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    // Rotation
+                    ImGui::Text("Rotation");
+                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
 
-                // Scale
-                ImGui::Text("Scale");
-                ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
-                ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                    // Scale
+                    ImGui::Text("Scale");
+                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
+                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                }
             }
-            if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
-                Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
-                //Color
-                ImGui::Separator();
-                ImGui::Text("Color");
-                ImGui::ColorPicker4("Color Picker", &sprite.color.r);
+            if (ImGui::CollapsingHeader("Sprite")) {
+
+                if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                    Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
+                    //Color
+                    ImGui::Separator();
+                    ImGui::Text("Color");
+                    ImGui::ColorPicker4("Color Picker", &sprite.color.r);
+                }
+                else {
+                    ImGui::Text("No Sprite Component");
+                }
             }
-            if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
-                RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-                
-                ImGui::Separator();
-                ImGui::Text("RigidBody");
-                //Pos
-                ImGui::Text("Position");
-                ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                // Rotation
-                ImGui::Text("Rotation");
-                ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
-                // Scale
-                ImGui::Text("Dimension");
-                ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
-                ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
-                // Mass
-                ImGui::Text("Mass");
-                ImGui::InputFloat("Mass", &rigidBody.mass);
-                rigidBody.SetMass(rigidBody.mass);
+            if (ImGui::CollapsingHeader("RigidBody")) {
+                if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                    RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
+
+                    ImGui::Separator();
+                    ImGui::Text("RigidBody");
+                    //Pos
+                    ImGui::Text("Position");
+                    ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    // Rotation
+                    ImGui::Text("Rotation");
+                    ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    // Scale
+                    ImGui::Text("Dimension");
+                    ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
+                    ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
+                    // Mass
+                    ImGui::Text("Mass");
+                    ImGui::InputFloat("Mass", &rigidBody.mass);
+                    rigidBody.SetMass(rigidBody.mass);
+                }
+                else {
+                    ImGui::Text("No RigidBody Component");
+                }
             }
-            if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
-                Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
-                ImGui::Separator();
-                //Force
-                ImGui::Text("Gravity");
-                ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
-                ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
+            if (ImGui::CollapsingHeader("Gravity")) {
+                if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                    Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
+                    ImGui::Separator();
+                    //Force
+                    ImGui::Text("Gravity");
+                    ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
+                    ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
+                }
+                else {
+                    ImGui::Text("No Gravity Component");
+                }
             }
         }
         ImGui::End();
@@ -276,6 +294,12 @@ namespace Image {
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
+            ImGui::Text("Entity Tag:", gSelectedEntity);
+            static char tag[256] = "";
+            ImGui::SetNextItemWidth(50.0f);
+            if (ImGui::InputText("Change Text for tag component", tag, IM_ARRAYSIZE(tag))) {
+                
+            }
             //Combo box click to add components
             ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
             if (ImGui::Button("Add")) {
@@ -371,6 +395,7 @@ namespace Image {
 
                 }
             }
+            ImGui::SameLine();
             if (ImGui::Button("Remove")) {
                 switch (selectedComponent) {
                 case 0: {
@@ -417,6 +442,7 @@ namespace Image {
                     break;               
                 }
             }
+            ImGui::Separator();
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
