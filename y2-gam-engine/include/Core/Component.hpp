@@ -1,5 +1,6 @@
 #include <Components/Animation.hpp>
 #include <Components/Camera.hpp>
+#include <Components/Circle.hpp>
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>

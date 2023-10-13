@@ -8,6 +8,7 @@
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Components/Animation.hpp>
 #include <Components/Camera.hpp>
+#include <Components/Circle.hpp>
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
@@ -22,6 +23,9 @@ Coordinator::GetInstance()->AddComponent(entity, Animation{ obj });
 }
 static void EntityAddCamera(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Camera{ obj });
+}
+static void EntityAddCircle(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Circle{ obj });
 }
 static void EntityAddCollider(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Collider{ obj });
@@ -50,6 +54,7 @@ Coordinator::GetInstance()->AddComponent(entity, Transform{ obj });
 template <typename _type> std::string TypeToString() {
 if constexpr (std::is_same_v<_type, Animation>) return "Animation";
 else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
+else if constexpr (std::is_same_v<_type, Circle>) return "Circle";
 else if constexpr (std::is_same_v<_type, Collider>) return "Collider";
 else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
@@ -73,6 +78,13 @@ JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Camera>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Camera>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Circle>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Circle>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Circle>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<Collider>(entity)){
@@ -135,6 +147,7 @@ else { obj.SetNull(); }
 static const std::map<std::string, std::function<void(Entity const&, rapidjson::Value const&)>> gComponentSerializer{
 {"Animation", EntityAddAnimation},
 {"Camera", EntityAddCamera},
+{"Circle", EntityAddCircle},
 {"Collider", EntityAddCollider},
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
