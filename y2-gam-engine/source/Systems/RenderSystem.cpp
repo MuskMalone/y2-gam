@@ -118,7 +118,7 @@ void RenderSystem::Init()
 	//----------temp------------
 
 	FramebufferProps fbProps;
-	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);

@@ -25,6 +25,7 @@ enum class FramebufferTexFormat {
 	NONE = 0,
 
 	RGBA8,
+	RED_INTEGER,
 	DEPTH24STENCIL8,
 
 	//default
@@ -62,6 +63,7 @@ public:
 	void Unbind() const;
 
 	void Resize(unsigned int width, unsigned int height);
+	int ReadPixel(unsigned int attachIdx, int x, int y);
 
 	unsigned int GetColorAttachmentID(unsigned int index = 0) const;
 	FramebufferProps const& GetFramebufferProps() const;

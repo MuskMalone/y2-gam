@@ -44,13 +44,13 @@ namespace FbUtils{
 		glBindTexture(TextureTarget(multisample), id);
 	}
 
-	static void AttachColorTexture(unsigned int id, int samples, GLenum intFmt, unsigned int width, unsigned int height, int index) {
+	static void AttachColorTexture(unsigned int id, int samples, GLenum intFmt, GLenum fmt, unsigned int width, unsigned int height, int index) {
 		bool multisample{ samples > 1 };
 		if (multisample) {
 			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, intFmt, width, height, GL_FALSE); //TODO may remove
 		}
 		else {
-			glTexImage2D(GL_TEXTURE_2D, 0, intFmt, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			glTexImage2D(GL_TEXTURE_2D, 0, intFmt, width, height, 0, fmt, GL_UNSIGNED_BYTE, nullptr);
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -146,7 +146,10 @@ void Framebuffer::Recreate() {
 			FbUtils::BindTexture(multisample, mColorAttachments[i]);
 			switch (mColorAttachmentProps[i].TexFormat) {
 			case FramebufferTexFormat::RGBA8:
-				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, mProps.width, mProps.height, i);
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, GL_RGBA, mProps.width, mProps.height, i);
+				break;
+			case FramebufferTexFormat::RED_INTEGER:
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, i);
 				break;
 			}
 		}
@@ -228,6 +231,13 @@ void Framebuffer::Resize(unsigned int width, unsigned int height){
 	mProps.height = height;
 
 	Recreate();
+}
+
+int ReadPixel(unsigned int attachIdx, int x, int y) {
+	glReadBuffer(GL_COLOR_ATTACHMENT0 + attachIdx);
+	int pixels;
+	glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixels);
+	return pixels;
 }
 
 /*  _________________________________________________________________________ */
