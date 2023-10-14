@@ -41,7 +41,6 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	return out;
 }
 MousePosition InputSystem::GetMousePos() const {
-
 	return mMousePos;
 }
 MousePosition InputSystem::GetWorldMousePos() const {
@@ -58,7 +57,7 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	glm::vec4 worldPos { inversedMtx * screenPos };
 
 	//return mMousePos;
-	std::cout << worldPos.x << " " << worldPos.y << std::endl;
+	//std::cout << worldPos.x << " " << worldPos.y << std::endl;
 	return { worldPos.x, worldPos.y };
 }
 EditorMousePosition InputSystem::GetEditorMousePos() const {
@@ -102,8 +101,8 @@ void InputSystem::InputListener(Event& event)
 	EditorMousePosition emp = event.GetParam<EditorMousePosition>(Events::Window::Input::EDITOR_MOUSE_MOVE);
 	if (!event.GetFail()) {
 		mEditorMousePos = std::move(emp);
-		std::cout << mEditorMousePos.first.first << " " << mEditorMousePos.first.second << std::endl;
-		std::cout << mEditorMousePos.second.first << " " << mEditorMousePos.second.second << std::endl;
+		//std::cout << mEditorMousePos.first.first << " " << mEditorMousePos.first.second << std::endl;
+		//std::cout << mEditorMousePos.second.first << " " << mEditorMousePos.second.second << std::endl;
 		GetWorldMousePos();
 	}
 }

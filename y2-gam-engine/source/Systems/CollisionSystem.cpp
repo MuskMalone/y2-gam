@@ -18,12 +18,9 @@
 
 #include "Systems/CollisionSystem.hpp"
 #include "Core/Coordinator.hpp"
-#include "Components/Collider.hpp"
-#include "Components/RigidBody.hpp"
 #include <Core/Globals.hpp>
 #include <Math/Collision.hpp>
 #include <Core/Types.hpp>
-#include "Math/MathUtils.h"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;

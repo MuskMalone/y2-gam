@@ -81,7 +81,7 @@
 #include <fmod_errors.h>
 
 // Components
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Sprite.hpp"

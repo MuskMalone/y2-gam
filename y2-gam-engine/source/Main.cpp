@@ -170,7 +170,7 @@ int main()
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
-
+	/*
 	std::vector<std::string> diagnostics{};
 	diagnostics.emplace_back("FPS");
 	diagnostics.emplace_back("Entities");
@@ -199,7 +199,7 @@ int main()
 			});
 		diagnosticsList.push_back(textEnt);
 	}
-
+	*/
 	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
@@ -229,29 +229,32 @@ int main()
 		dt = frameController->EndFrameTime();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
-
+		/*
 		int count{};
 		for (auto& ent : diagnosticsList) {
-			switch (count) {
-			case 0:
-				coordinator->GetComponent<Text>(ent).text = "FPS: " + std::to_string(frameController->GetFps());
-				break;
-			case 1:
-				coordinator->GetComponent<Text>(ent).text = "Entities: " + std::to_string(coordinator->GetEntityCount());
-				break;
-			case 2:
-				coordinator->GetComponent<Text>(ent).text = "Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%";
-				break;
-			case 3:
-				coordinator->GetComponent<Text>(ent).text = "Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%";
-				break;
-			case 4:
-				coordinator->GetComponent<Text>(ent).text = "Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%";
-				break;
+			if (diagnosticsList.size() == 5) {
+				switch (count) {
+				case 0:
+					coordinator->GetComponent<Text>(ent).text = "FPS: " + std::to_string(frameController->GetFps());
+					break;
+				case 1:
+					coordinator->GetComponent<Text>(ent).text = "Entities: " + std::to_string(coordinator->GetEntityCount());
+					break;
+				case 2:
+					coordinator->GetComponent<Text>(ent).text = "Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%";
+					break;
+				case 3:
+					coordinator->GetComponent<Text>(ent).text = "Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%";
+					break;
+				case 4:
+					coordinator->GetComponent<Text>(ent).text = "Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%";
+					break;
+				}
+
+				count++;
 			}
-			
-			count++;
 		}
+		*/
 
 		textSystem->Update();
 

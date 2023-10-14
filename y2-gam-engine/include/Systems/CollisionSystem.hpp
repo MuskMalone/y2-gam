@@ -1,4 +1,3 @@
-#pragma once
 /******************************************************************************/
 /*!
 \par        Image Engine
@@ -14,6 +13,7 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+#pragma once
 
 #include <Components/RigidBody.hpp>
 #include "Math/MathUtils.h"
@@ -40,6 +40,7 @@ namespace Collision {
 		void Debug();
 
 		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh);
+
 	private:
 		bool RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time);
 		DataMgmt::Quadtree<Entity> mQuadtree;

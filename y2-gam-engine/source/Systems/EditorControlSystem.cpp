@@ -4,6 +4,8 @@
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
+
 #include <Core/Globals.hpp>
 #include "Components/OrthoCamera.hpp"
 #include "Math/MathUtils.h"
@@ -107,10 +109,10 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(0, -WORLD_LIMIT_Y + 10, 1);
+	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 10), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -136,10 +138,10 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(-WORLD_LIMIT_X + 90, -WORLD_LIMIT_Y + 50, 1);
+	position = Vec3(static_cast<float>(-WORLD_LIMIT_X + 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -165,10 +167,10 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(WORLD_LIMIT_X - 90, -WORLD_LIMIT_Y + 50, 1);
+	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
-		BoxCollider{
+		Collider{
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -323,10 +325,36 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		gCoordinator->CloneEntity(Testing::lastInserted);
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+
+	// NODE RELATED START
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		NodeManager::AddNode();
 	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		Physics::RayHit rh{};
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		/*
+		std::cout << "Entity Hit " << rh.entityID << "\n";
+		std::cout << "Distance " << rh.distance << "\n";
+		std::cout << "Normal " << rh.normal.x << "\n";
+		std::cout << "Point " << rh.point.x << "\n";
+		*/
+		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
+			::gCoordinator->GetComponent<Text>(rh.entityID).text += " (Selected)";
+		}
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		NodeManager::ClearAllNodes();
+	}
+
+	// NODE RELATED END
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
