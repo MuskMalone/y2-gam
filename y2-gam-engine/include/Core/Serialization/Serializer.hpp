@@ -7,8 +7,8 @@
 #include <map>
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Components/Animation.hpp>
-#include <Components/BoxCollider.hpp>
 #include <Components/Camera.hpp>
+#include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/Node.hpp>
@@ -22,11 +22,11 @@ namespace Serializer{
 static void EntityAddAnimation(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Animation{ obj });
 }
-static void EntityAddBoxCollider(Entity const& entity, rapidjson::Value const& obj) {
-Coordinator::GetInstance()->AddComponent(entity, BoxCollider{ obj });
-}
 static void EntityAddCamera(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Camera{ obj });
+}
+static void EntityAddCollider(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Collider{ obj });
 }
 static void EntityAddEditor(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
@@ -57,8 +57,8 @@ Coordinator::GetInstance()->AddComponent(entity, Transform{ obj });
 }
 template <typename _type> std::string TypeToString() {
 if constexpr (std::is_same_v<_type, Animation>) return "Animation";
-else if constexpr (std::is_same_v<_type, BoxCollider>) return "BoxCollider";
 else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
+else if constexpr (std::is_same_v<_type, Collider>) return "Collider";
 else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
 else if constexpr (std::is_same_v<_type, Node>) return "Node";
@@ -78,18 +78,18 @@ bool res = Coordinator::GetInstance()->GetComponent<Animation>(entity).Serialize
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Animation>(), obj); }
 else { obj.SetNull(); }
 }
-if (Coordinator::GetInstance()->HasComponent<BoxCollider>(entity)){
-JSONObj obj{ JSON_OBJ_TYPE };
-obj.SetObject();
-bool res = Coordinator::GetInstance()->GetComponent<BoxCollider>(entity).Serialize(obj);
-if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<BoxCollider>(), obj); }
-else { obj.SetNull(); }
-}
 if (Coordinator::GetInstance()->HasComponent<Camera>(entity)){
 JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Camera>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Camera>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Collider>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Collider>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Collider>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<Editor>(entity)){
@@ -158,8 +158,8 @@ else { obj.SetNull(); }
 }
 static const std::map<std::string, std::function<void(Entity const&, rapidjson::Value const&)>> gComponentSerializer{
 {"Animation", EntityAddAnimation},
-{"BoxCollider", EntityAddBoxCollider},
 {"Camera", EntityAddCamera},
+{"Collider", EntityAddCollider},
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
 {"Node", EntityAddNode},

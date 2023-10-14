@@ -161,7 +161,7 @@
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
-    <ClInclude Include="include\Components\BoxCollider.hpp" />
+    <ClInclude Include="include\Components\Collider.hpp" />
     <ClInclude Include="include\Components\Camera.hpp" />
     <ClInclude Include="include\Components\Editor.hpp" />
     <ClInclude Include="include\Components\Gravity.hpp" />

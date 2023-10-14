@@ -23,7 +23,7 @@
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/Animation.hpp"
@@ -324,10 +324,10 @@ namespace Image {
                 }
                     break;
                 case 3: {
-                    if (!gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
+                    if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            BoxCollider{});
+                            Collider{});
                     }
                     
                 }
@@ -387,9 +387,9 @@ namespace Image {
                 }
                     break;
                 case 3: {
-                    // Remove BoxCollider component
-                    if (gCoordinator->HasComponent<BoxCollider>(gSelectedEntity)) {
-                        gCoordinator->RemoveComponent<BoxCollider>(gSelectedEntity);
+                    // Remove Collider component
+                    if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Collider>(gSelectedEntity);
                     }
                 }
                     break;
@@ -412,7 +412,7 @@ namespace Image {
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<BoxCollider>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
 
@@ -434,6 +434,31 @@ namespace Image {
 
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+       
+        //tch: hello this is my input part
+        if (ImGui::IsWindowHovered()) {
+            ImGuiIO& io = ImGui::GetIO();
+            ImVec2 mousePos = io.MousePos;
+
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
+
+            ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
+
+            if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
+                Event event(Events::Window::INPUT);
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
+                    static_cast<float>(mousePos.x - paddedTopLeft.x), 
+                    static_cast<float>((mousePos.y - paddedTopLeft.y) )
+                ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
+                );
+                gCoordinator->SendEvent(event);
+            }
+
+        }
+
         ImGui::End();
     }
 

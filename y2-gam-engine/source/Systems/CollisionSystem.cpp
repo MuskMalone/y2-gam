@@ -18,7 +18,7 @@
 
 #include "Systems/CollisionSystem.hpp"
 #include "Core/Coordinator.hpp"
-#include "Components/BoxCollider.hpp"
+#include "Components/Collider.hpp"
 #include "Components/RigidBody.hpp"
 #include <Core/Globals.hpp>
 #include <Math/Collision.hpp>
@@ -27,6 +27,13 @@
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
+}
+namespace Testing {
+    Vec2 testingStart{
+     0,0
+    }, testingEnd{
+       100,-100
+    };
 }
 namespace Collision{
 
@@ -447,7 +454,61 @@ Computes the collision between two entities and returns an arbiter.
 
         return result;
     }
-    /*  _________________________________________________________________________ */
+
+    //raycast obb or circle
+    bool CollisionSystem::RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time) {
+        auto const& rigidbody{ gCoordinator->GetComponent<RigidBody>(e) };
+        auto const& collider{ gCoordinator->GetComponent<Collider>(e) };
+        if (collider.type == ColliderType::BOX) {
+            Mat33 rot{}, translate{}, invrot{}, invtranslate{};
+            Image::Mat33RotRad(rot, rigidbody.rotation);
+            Image::Mat33Translate(translate, rigidbody.position.x, rigidbody.position.y);
+            Image::Mat33RotRad(invrot, -rigidbody.rotation);
+            Image::Mat33Translate(invtranslate, -rigidbody.position.x, -rigidbody.position.y);
+            Mat33 inverse{invrot * invtranslate}, transform{translate * rot};
+            Vec3 trnsOrigin{ inverse * Vec3{origin.x, origin.y, 1} };
+            bool out{ CheckRayRect(
+                Vec2{trnsOrigin}, Vec2{Vec3(inverse * Vec3{end.x, end.y, 1}) - trnsOrigin},
+                CollisionRect(-rigidbody.dimension / 2.f, rigidbody.dimension),
+                cp, cn, time
+                ) };
+
+            if (out) {
+                cn = std::move(Vec2{ rot * Vec3{ cn.x, cn.y, 1 } });
+                cp = std::move(Vec2{transform * Vec3{ cp.x, cp.y, 1 }});
+            }
+
+            return out;
+        }
+        return false;
+    }
+
+    bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh) {
+        float timeMin{ FLOAT_MAX };
+        Entity eMin{};
+        Vec2 cnMin, cpMin;
+        bool out{ false };
+        for (auto const& entity : mEntities) {
+            float time{};
+            Entity e{};
+            Vec2 cn{}, cp{};
+            if (RaycastBody(origin, end, entity, cn, cp, time)) {
+                out = true;
+                if (timeMin > time) {
+                    timeMin = std::move(time);
+                    eMin = std::move(e);
+                    cnMin = std::move(cn);
+                    cpMin = std::move(cp);
+                }
+            }
+        }
+        rh = RayHit{
+            cnMin, cpMin, timeMin, eMin
+        };
+        return out;
+    }
+
+  /*  _________________________________________________________________________ */
 /*! CollisionSystem::Init
 
 @return none.
@@ -473,7 +534,7 @@ Updates the CollisionSystem, checking for collisions between entities and sendin
     void CollisionSystem::Update(float dt) {
         UNREFERENCED_PARAMETER(dt);
         //for (auto const& entity : mEntities) {
-        //	auto& collider = gCoordinator->GetComponent<BoxCollider>(entity);
+        //	auto& collider = gCoordinator->GetComponent<Collider>(entity);
         //	auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
 
 
@@ -527,7 +588,13 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         //auto& camera = Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
         //Renderer::RenderSceneBegin(camera);
         //size_t sizeent{ mEntities.size() };
+        RayHit rh;
+        Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
 
+        if (Raycast(Testing::testingStart, Testing::testingEnd, rh)) {
+            Renderer::DrawLine({ rh.point.x,rh.point.y, 0.f }, { rh.point.x + rh.normal.x * 50.f,rh.point.y + rh.normal.y * 50.f , 1 }, { 1,0,0,1 });
+
+        }
         for (auto const& e : mEntities) {
             auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
 

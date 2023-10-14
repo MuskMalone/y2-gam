@@ -72,6 +72,12 @@ namespace Physics {
         Contact contacts[MAX_CONTACT_POINTS];
         uint32_t contactsCount{};
     };
+    struct RayHit {
+        Vec2 normal;
+        Vec2 point;
+        float distance;
+        Entity entityID;
+    };
 
     using ArbiterHashTable = std::unordered_map<size_t, Arbiter>;
     using ArbiterPair = std::pair<size_t, Arbiter>;

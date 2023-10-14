@@ -20,7 +20,7 @@
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
-#include <Components/BoxCollider.hpp>
+#include <Components/Collider.hpp>
 #include <Core/Physics.hpp>
 #include <Core/Types.hpp>
 #include "Math/MathUtils.h"

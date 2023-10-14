@@ -64,7 +64,7 @@ int main()
 	frameController->Init(60, true);
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 	coordinator->RegisterComponent<Editor>();
-	coordinator->RegisterComponent<BoxCollider>();
+	coordinator->RegisterComponent<Collider>();
 	coordinator->RegisterComponent<Camera>();
 	coordinator->RegisterComponent<Gravity>();
 	coordinator->RegisterComponent<Sprite>();
@@ -102,7 +102,7 @@ int main()
 	{
 		Signature signature;
 		signature.set(coordinator->GetComponentType<RigidBody>());
-		signature.set(coordinator->GetComponentType<BoxCollider>());
+		signature.set(coordinator->GetComponentType<Collider>());
 		coordinator->SetSystemSignature<CollisionSystem>(signature);
 	}
 

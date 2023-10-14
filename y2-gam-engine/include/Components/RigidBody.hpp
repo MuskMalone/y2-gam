@@ -20,8 +20,8 @@
 #include <Math/MathUtils.h>
 
 struct RigidBody
-{
-	Vec2 dimension{};
+{	
+	Vec2 dimension{}; //if collider is circle, both values of dimension is radius
 	Vec2 position{};
 	float rotation{};
 

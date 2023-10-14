@@ -16,3 +16,9 @@ C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script
 C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
 C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb

@@ -1,8 +1,8 @@
 {
     "Prefabs": {
         "Platform": {
-            "BoxCollider": {
-                "collider": true
+            "Collider": {
+                "collider": 0
             },
             "Gravity": {
                 "x": 0.0,
@@ -31,8 +31,8 @@
             }
         },
         "Box":{
-            "BoxCollider": {
-                "collider": true
+            "Collider": {
+                "collider": 0
             },
             "Gravity": {
                 "x": 0.0,
