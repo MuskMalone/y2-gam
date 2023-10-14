@@ -586,10 +586,10 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         //Renderer::RenderSceneBegin(camera);
         //size_t sizeent{ mEntities.size() };
         RayHit rh;
-        Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
+        //Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
 
         if (Raycast(Testing::testingStart, Testing::testingEnd, rh)) {
-            std::cout << rh.entityID << std::endl;
+            //std::cout << rh.entityID << std::endl;
             Renderer::DrawLine({ rh.point.x,rh.point.y, 0.f }, { rh.point.x + rh.normal.x * 50.f,rh.point.y + rh.normal.y * 50.f , 1 }, { 1,0,0,1 });
 
         }

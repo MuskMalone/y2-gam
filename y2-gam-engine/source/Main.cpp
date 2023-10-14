@@ -200,7 +200,6 @@ int main()
 		diagnosticsList.push_back(textEnt);
 	}
 	*/
-	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
@@ -257,8 +256,7 @@ int main()
 		*/
 
 		textSystem->Update();
-
-		NodeManager::DisplayDebugLines();
+		NodeManager::Update();
 	}
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();

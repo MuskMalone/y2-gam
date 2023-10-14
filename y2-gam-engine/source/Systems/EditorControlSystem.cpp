@@ -337,20 +337,23 @@ void EditorControlSystem::Update(float dt)
 		Physics::RayHit rh{};
 		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
-		/*
-		std::cout << "Entity Hit " << rh.entityID << "\n";
-		std::cout << "Distance " << rh.distance << "\n";
-		std::cout << "Normal " << rh.normal.x << "\n";
-		std::cout << "Point " << rh.point.x << "\n";
-		*/
+		
+		//std::cout << "Entity Hit " << rh.entityID << "\n";
+		
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
-			::gCoordinator->GetComponent<Text>(rh.entityID).text += " (Selected)";
+			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
 		}
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		NodeManager::ClearAllNodes();
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_N) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		NodeManager::FillCostMap();
+		NodeManager::PrintCostMap();
 	}
 
 	// NODE RELATED END

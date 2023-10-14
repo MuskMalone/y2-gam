@@ -23,6 +23,7 @@ namespace Image {
     using Cost = int;
 
   public:
+    static void Update();
     static void DisplayDebugLines();
 
     static void AddNode();
@@ -33,7 +34,10 @@ namespace Image {
 
     static int CalculateCost(Entity lhs, Entity rhs);
     static void FillCostMap();
-    
+    static void PrintCostMap();
+
+  private:
+
   private:
     static std::set<Entity> currentlyActiveNodes;
     static std::map<std::pair<Entity, Entity>, Cost> costMap;
