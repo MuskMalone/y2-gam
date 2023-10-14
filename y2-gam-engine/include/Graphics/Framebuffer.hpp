@@ -31,18 +31,20 @@ public:
 	Framebuffer(FramebufferProps const&);
 	~Framebuffer();
 
-	void Invalidate();
+	void Recreate();
 
 	void Bind() const;
 	void Unbind() const;
+
+	void Resize(unsigned int width, unsigned int height);
 
 	unsigned int GetColorAttachmentID() const;
 	FramebufferProps const& GetFramebufferProps() const;
 
 	static std::shared_ptr<Framebuffer> Create(FramebufferProps const& props);
 private:
-	unsigned int mFboHdl;
-	unsigned int mColorAttachment;
-	unsigned int mDepthAttachment;
+	unsigned int mFboHdl{};
+	unsigned int mColorAttachment{};
+	unsigned int mDepthAttachment{};
 	FramebufferProps mProps;
 };

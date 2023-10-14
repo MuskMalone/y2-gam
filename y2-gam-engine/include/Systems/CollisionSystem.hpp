@@ -21,14 +21,14 @@
 #include "DataMgmt/QuadTree/Quadtree.hpp"
 #include "Core/Physics.hpp"
 #include <Components/Collider.hpp>
-
+#include <functional>
 namespace Collision {
 	using namespace Physics;
     int ClipSegmentToLine(ClipVertex vOut[2], ClipVertex vIn[2], const Vec2& normal, float offset,
         float clipEdge);
     void ComputeIncidentEdge(ClipVertex c[2], const Vec2& h, const Vec2& pos, const Mat22& rot,
         const Vec2& normal);
-	uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+	uint32_t BoxBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
 
 	class CollisionSystem : public System
 	{
@@ -44,5 +44,6 @@ namespace Collision {
 	private:
 		bool RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time);
 		DataMgmt::Quadtree<Entity> mQuadtree;
+		std::map <std::pair<ColliderType, ColliderType>, std::function<bool(Contact* contacts, RigidBody& b1, RigidBody& b2)>> mLookupTable;
 	};
 }
