@@ -251,7 +251,7 @@ Computes the incident edge of a box against a given normal.
 Computes the collision between two rigid bodies and returns the contact points.
 */
 
-    uint32_t Collide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+    uint32_t BoxBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
 
 
         Vec2 h1 = b1.dimension * 0.5f;
@@ -450,7 +450,7 @@ Computes the collision between two entities and returns an arbiter.
         result.b2 = b2;
 
         result.combinedFriction = sqrtf(rb1.friction * rb2.friction);
-        result.contactsCount = Collide(result.contacts, rb1, rb2);
+        result.contactsCount = BoxBoxCollide(result.contacts, rb1, rb2);
 
         return result;
     }
@@ -476,6 +476,7 @@ Computes the collision between two entities and returns an arbiter.
             if (out) {
                 cn = std::move(Vec2{ rot * Vec3{ cn.x, cn.y, 1 } });
                 cp = std::move(Vec2{transform * Vec3{ cp.x, cp.y, 1 }});
+            
             }
 
             return out;
@@ -490,13 +491,12 @@ Computes the collision between two entities and returns an arbiter.
         bool out{ false };
         for (auto const& entity : mEntities) {
             float time{};
-            Entity e{};
             Vec2 cn{}, cp{};
             if (RaycastBody(origin, end, entity, cn, cp, time)) {
                 out = true;
-                if (timeMin > time) {
+                if (timeMin > time && time <= 1.f) {
                     timeMin = std::move(time);
-                    eMin = std::move(e);
+                    eMin = std::move(entity);
                     cnMin = std::move(cn);
                     cpMin = std::move(cp);
                 }
@@ -592,6 +592,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
 
         if (Raycast(Testing::testingStart, Testing::testingEnd, rh)) {
+            std::cout << rh.entityID << std::endl;
             Renderer::DrawLine({ rh.point.x,rh.point.y, 0.f }, { rh.point.x + rh.normal.x * 50.f,rh.point.y + rh.normal.y * 50.f , 1 }, { 1,0,0,1 });
 
         }
