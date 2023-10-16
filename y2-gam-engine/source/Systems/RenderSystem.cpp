@@ -77,20 +77,27 @@ void RenderSystem::Init()
 	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
 	mCamera = gCoordinator->CreateEntity();
-	gCoordinator->AddComponent(
-		mCamera,
-		Transform{
-			{0.f,0.f,0.f},
-			{0.f,0.f,0.f},
-			{0.f,0.f,0.f}
-		});
+	mSceneCamera = gCoordinator->CreateEntity();
+	//gCoordinator->AddComponent(
+	//	mCamera,
+	//	Transform{
+	//		{0.f,0.f,0.f},
+	//		{0.f,0.f,0.f},
+	//		{0.f,0.f,0.f}
+	//	});
+	//gCoordinator->AddComponent(
+	//	mCamera,
+	//	Camera{});
+
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
-		Camera{});
-	gCoordinator->AddComponent(
-		mCamera,
 		OrthoCamera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+	);
+
+	gCoordinator->AddComponent(
+		mSceneCamera,
+		OrthoCamera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
 	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );
@@ -122,9 +129,8 @@ void RenderSystem::Init()
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);
-
+	mEditorMode = false;
 	//--------------------------
-
 }
 
 /*  _________________________________________________________________________ */
@@ -165,8 +171,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		});
 
 
-	auto const& camera = ::gCoordinator->GetComponent<OrthoCamera>(mCamera);
-	Renderer::RenderSceneBegin(camera);
+	auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<OrthoCamera>(mSceneCamera);
+	Renderer::RenderSceneBegin(camera.GetViewProjMtx());
 	for (auto const& entry : mRenderQueue)
 	{
 

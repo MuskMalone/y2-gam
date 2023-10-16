@@ -44,10 +44,11 @@ public:
 
 	void ComputeViewProjMtx();
 
+private:
 	glm::mat4 mProjMtx{};
 	glm::mat4 mViewMtx{};
 	glm::mat4 mViewProjMtx{};
-
+public:
 	glm::vec3 mPos{};
 	float mRot{ 0.f };
 	float mZoom{};

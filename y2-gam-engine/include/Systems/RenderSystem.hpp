@@ -46,7 +46,8 @@ public:
 	void ToggleDebugMode();
 
 private:
-	bool mDebugMode{false};
+	bool mDebugMode{ false };
+	bool mEditorMode{ true };
 
 	void WindowSizeListener(Event& event);
 	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
@@ -60,6 +61,7 @@ private:
 
 	std::vector<RenderEntry> mRenderQueue;
 
-	Entity mCamera{};
+	Entity mCamera{}; //Editor Camera TOOD Change name
+	Entity mSceneCamera{};
 
 };

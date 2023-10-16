@@ -154,16 +154,16 @@ The orthographic camera used for rendering.
 Begins the rendering scene.
 Sets up the shaders and view projection matrices based on the provided camera.
 */
-void Renderer::RenderSceneBegin(OrthoCamera const& camera) {
+void Renderer::RenderSceneBegin(glm::mat4 const& viewProjMtx) {
 
 	mData.texShader->Use();
-	mData.texShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
+	mData.texShader->SetUniform("u_ViewProjMtx", viewProjMtx);
 
 	mData.lineShader->Use();
-	mData.lineShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
+	mData.lineShader->SetUniform("u_ViewProjMtx", viewProjMtx);
 
 	mData.circleShader->Use();
-	mData.circleShader->SetUniform("u_ViewProjMtx", camera.GetViewProjMtx());
+	mData.circleShader->SetUniform("u_ViewProjMtx", viewProjMtx);
 
 	BeginBatch();
 }

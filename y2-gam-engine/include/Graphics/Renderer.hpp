@@ -105,7 +105,7 @@ public:
 	static void Init();
 	static void Shutdown();
 
-	static void RenderSceneBegin(OrthoCamera const& camera);
+	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();
 
 	static unsigned int GetMaxTextureUnits();

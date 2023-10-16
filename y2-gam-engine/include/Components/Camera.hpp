@@ -10,29 +10,38 @@
 
 struct Camera
 {
-	glm::vec3 eye{};
-	glm::vec3 up{};
-	glm::vec3 tgt{};
-	glm::mat4 projectionTransform{};
-	void UpdatePos(float x, float y) {
-		eye = glm::vec3{ x,y,0 };
-		tgt = eye + glm::vec3{0, 0, 1};
-	}
-	static glm::mat4 MakeProjectionTransform(float l, float r, float b, float t, float n, float f)
-	{
-		return glm::ortho(l, r, b, t, n, f);
-		//return glm::ortho(fov, static_cast<float>(viewWidth), static_cast<float>(viewHeight), nearClip, farClip);//transform;
-	}
-	static glm::mat4 MakeViewTransform(glm::vec3 const& eye, glm::vec3 const& tgt, glm::vec3 const& up) {
-		return glm::lookAt(eye, tgt, up);
-	}
-	Camera() : eye{}, up{ glm::vec3{0,1,0} }, tgt{ eye + glm::vec3{0,0,1} }, projectionTransform{ MakeProjectionTransform(-WORLD_LIMIT_X, WORLD_LIMIT_X, -WORLD_LIMIT_Y, WORLD_LIMIT_Y, -WORLD_LIMIT_DEPTH, WORLD_LIMIT_DEPTH) } {
+public:
+	Camera() = default;
+	Camera(float ar, float left, float right, float bottom, float top);
+	Camera(rapidjson::Value const& obj);
 
-		
-	}
-	Camera([[maybe_unused]] rapidjson::Value const& obj) {}
+	void SetProjectionMtx(float left, float right, float bottom, float top);
 
-	bool Serialize([[maybe_unused]]  rapidjson::Value& obj) {
+	glm::vec3 const& GetPosition() const;
+
+	void SetPosition(glm::vec3 const& pos);
+	void SetRotation(float rot);
+	void ZoomIn();
+	void ZoomOut();
+
+	glm::mat4 const& GetProjMtx() const;
+	glm::mat4 const& GetViewMtx() const;
+	glm::mat4 const& GetViewProjMtx() const;
+
+	void ComputeViewProjMtx();
+
+private:
+	glm::mat4 mProjMtx{};
+	glm::mat4 mViewMtx{};
+	glm::mat4 mViewProjMtx{};
+public:
+	glm::vec3 mPos{};
+	float mRot{ 0.f };
+	float mZoom{};
+	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
+	float mAspectRatio{};
+
+	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
 };
