@@ -234,6 +234,16 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		gCoordinator->CloneEntity(Testing::lastInserted);
 	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::MB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
+		for (int i{}; i < 5; ++i) {
+			//std::cout << i << std::endl;
+			Testing::lastInserted = gCoordinator->CloneEntity(Testing::lastInserted);
+
+		}
+
+	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);

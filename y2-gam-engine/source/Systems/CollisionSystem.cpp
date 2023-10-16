@@ -421,6 +421,150 @@ Computes the collision between two rigid bodies and returns the contact points.
 
         return numContacts;
     }
+    uint32_t CircleCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+        uint32_t contactCount{};
+        // Calculate translational vector, which is normal
+        Vec2 normal{ b2.position - b1.position };
+
+        float dist_sqr{ Image::dot(normal, normal) };
+        float radius { b1.dimension.x + b2.dimension.x };
+
+        // Not in contact
+        if (dist_sqr >= radius * radius)
+        {
+            return 0;
+        }
+
+        float distance = std::sqrt(dist_sqr);
+
+        if (distance == 0.0f)
+        {
+            contacts[0].seperation = b1.dimension.x;
+            contacts[0].normal = Vec2(1, 0);
+            contacts[0].position = b1.position;
+        }
+        else
+        {
+            contacts[0].seperation = radius - distance;
+            contacts[0].normal = normal / distance; // Faster than using Normalized since we already performed sqrt
+            contacts[0].position = normal * b1.dimension.x + b1.position;
+        }
+        return 1;
+    }
+    uint32_t CircleBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+
+        uint32_t contact_count{};
+        Mat22 b2rot{}, b2invrot{};
+        Image::Mat22RotRad(b2rot, b2.rotation);
+        Image::Mat22RotRad(b2invrot, -b2.rotation);
+        // Transform circle center to Polygon model space
+        Vec2 center = b1.position;
+        //center = b2invrot * (center - b2.position);
+
+        // Find edge with minimum penetration
+        // Exact concept as using support points in Polygon vs Polygon
+        float separation = -FLOAT_MAX;
+        uint32_t faceNormal = 0;
+
+        std::array<Vec2, 4> b2Normals{
+            b2rot* Vec2{ -1, 0 }, //left
+            b2rot* Vec2{ 0,1 }, //top
+            b2rot* Vec2{ 1, 0 }, //right 
+            b2rot* Vec2{ 0,-1 }, //bottom
+        };
+        std::array<Vec2, 4> b2Vertices{
+            Vec2{ b2.position.x - b2.dimension.x * .5f, b2.position.y - b2.dimension.y * .5f }, //btm left
+            Vec2{ b2.position.x - b2.dimension.x * .5f, b2.position.y + b2.dimension.y * .5f }, //top left
+            Vec2{ b2.position.x + b2.dimension.x * .5f, b2.position.y + b2.dimension.y * .5f }, //top right
+            Vec2{ b2.position.x + b2.dimension.x * .5f, b2.position.y - b2.dimension.y * .5f } //btm right       
+        };
+
+        for (uint32_t i = 0; i < b2Normals.size(); ++i)
+        {
+            float s = Image::dot(b2Normals[i], center - b2Vertices[i]);
+
+            if (s > b1.dimension.x)
+                return 0;
+
+            if (s > separation)
+            {
+                separation = s;
+                faceNormal = i;
+            }
+        }
+
+        // Grab face's vertices
+        Vec2 v1 = b2Vertices[faceNormal];
+        uint32_t i2 = faceNormal + 1 < b2Vertices.size() ? faceNormal + 1 : 0;
+        Vec2 v2 = b2Vertices[i2];
+
+        // Check to see if center is within polygon
+        if (separation < FLT_EPSILON)
+        {
+            contact_count = 1;
+            contacts[0].normal = -b2Normals[faceNormal];
+            contacts[0].position = contacts[0].normal * b1.dimension.x + b1.position;
+            contacts[0].seperation = b1.dimension.x;
+            return contact_count;
+        }
+
+        // Determine which voronoi region of the edge center of circle lies within
+        float dot1 = Image::dot(center - v1, v2 - v1);
+        float dot2 = Image::dot(center - v2, v1 - v2);
+        contacts[0].seperation = b1.dimension.x - separation;
+
+        // Closest to v1
+        if (dot1 <= 0.0f)
+        {
+            Vec2 dist(center - v1);
+            if (Image::dot(dist, dist) > b1.dimension.x * b1.dimension.x)
+                return 0;
+
+            contact_count = 1;
+            Vec2 n = v1 - center;
+            //n = b2.u * n;
+            Image::normalized(n);
+            contacts[0].normal = n;
+            //v1 = b2.u * v1 + b2.position;
+            contacts[0].position = v1;
+        }
+
+        // Closest to v2
+        else if (dot2 <= 0.0f)
+        {
+            Vec2 dist(center - v2);
+            if (Image::dot(dist, dist) > b1.dimension.x * b1.dimension.x)
+                return 0;
+
+            contact_count = 1;
+            Vec2 n = v2 - center;
+            //v2 = b2.u * v2 + b2.position;
+            //m->contacts[0] = v2;
+            contacts[0].position = v2;
+            //n = b2.u * n;
+            Image::normalized(n);
+            contacts[0].normal = n;
+        }
+
+        // Closest to face
+        else
+        {
+            Vec2 n = b2Normals[faceNormal];
+            if (Image::dot(center - v1, n) > b1.dimension.x)
+                return 0;
+
+            //n = b2.u * n;
+            contacts[0].normal = -n;
+            contacts[0].position = contacts[0].normal * b1.dimension.x + b1.position;
+            contact_count = 1;
+        }
+        return contact_count;
+    }
+    uint32_t BoxCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+        uint32_t out{ CircleBoxCollide(contacts, b1, b2) };
+        contacts[0].normal = -(contacts[0].normal);
+        return out;
+    }
     /*  _________________________________________________________________________ */
 /*! Collide
 
@@ -432,7 +576,7 @@ Computes the collision between two rigid bodies and returns the contact points.
 Computes the collision between two entities and returns an arbiter.
 */
 
-    Arbiter Collide(Entity b1, Entity b2) {
+    Arbiter CollisionSystem::Collide(Entity b1, Entity b2) {
         auto & rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(b1) };
         auto & rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(b2) };
 
@@ -443,6 +587,8 @@ Computes the collision between two entities and returns an arbiter.
             //std::cout << "reject\n";
             return Arbiter{};
         }
+        auto& c1{ Coordinator::GetInstance()->GetComponent<Collider>(b1) };
+        auto& c2{ Coordinator::GetInstance()->GetComponent<Collider>(b2) };
 
         Arbiter result {};
 
@@ -450,7 +596,7 @@ Computes the collision between two entities and returns an arbiter.
         result.b2 = b2;
 
         result.combinedFriction = sqrtf(rb1.friction * rb2.friction);
-        result.contactsCount = BoxBoxCollide(result.contacts, rb1, rb2);
+        result.contactsCount = mLookupTable[ColliderLookupKey{c1.type, c2.type}](result.contacts, rb1, rb2);
 
         return result;
     }
@@ -520,6 +666,10 @@ Initializes the CollisionSystem, setting up the Quadtree and other necessary com
         gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
         mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)))};
+        mLookupTable[ColliderLookupKey{ ColliderType::BOX, ColliderType::BOX }] = BoxBoxCollide;
+        mLookupTable[ColliderLookupKey{ ColliderType::CIRCLE, ColliderType::BOX }] = CircleBoxCollide;
+        mLookupTable[ColliderLookupKey{ ColliderType::BOX, ColliderType::CIRCLE }] = BoxCircleCollide;
+        mLookupTable[ColliderLookupKey{ ColliderType::CIRCLE, ColliderType::CIRCLE }] = CircleCircleCollide;
     }
     /*  _________________________________________________________________________ */
 /*! CollisionSystem::Update
