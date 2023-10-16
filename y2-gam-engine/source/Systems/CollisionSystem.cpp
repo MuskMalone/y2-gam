@@ -422,12 +422,11 @@ Computes the collision between two rigid bodies and returns the contact points.
         return numContacts;
     }
     uint32_t CircleCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
-        uint32_t contactCount{};
         // Calculate translational vector, which is normal
         Vec2 normal{ b2.position - b1.position };
-
+        float b1Radius{ b1.dimension.x * .5f }, b2Radius{ b2.dimension.x * .5f };
         float dist_sqr{ Image::dot(normal, normal) };
-        float radius { b1.dimension.x + b2.dimension.x };
+        float radius { b1Radius *  + b2Radius };
 
         // Not in contact
         if (dist_sqr >= radius * radius)
@@ -439,7 +438,7 @@ Computes the collision between two rigid bodies and returns the contact points.
 
         if (distance == 0.0f)
         {
-            contacts[0].seperation = b1.dimension.x;
+            contacts[0].seperation = -b1Radius;
             contacts[0].normal = Vec2(1, 0);
             contacts[0].position = b1.position;
         }
@@ -447,16 +446,15 @@ Computes the collision between two rigid bodies and returns the contact points.
         {
             contacts[0].seperation = radius - distance;
             contacts[0].normal = normal / distance; // Faster than using Normalized since we already performed sqrt
-            contacts[0].position = normal * b1.dimension.x + b1.position;
+            contacts[0].position = normal * b1Radius + b1.position;
         }
         return 1;
     }
     uint32_t CircleBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
-
+        float b1Radius{ b1.dimension.x * .5f };
         uint32_t contact_count{};
-        Mat22 b2rot{}, b2invrot{};
+        Mat22 b2rot{};
         Image::Mat22RotRad(b2rot, b2.rotation);
-        Image::Mat22RotRad(b2invrot, -b2.rotation);
         // Transform circle center to Polygon model space
         Vec2 center = b1.position;
         //center = b2invrot * (center - b2.position);
@@ -483,7 +481,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         {
             float s = Image::dot(b2Normals[i], center - b2Vertices[i]);
 
-            if (s > b1.dimension.x)
+            if (s > b1Radius)
                 return 0;
 
             if (s > separation)
@@ -495,7 +493,7 @@ Computes the collision between two rigid bodies and returns the contact points.
 
         // Grab face's vertices
         Vec2 v1 = b2Vertices[faceNormal];
-        uint32_t i2 = faceNormal + 1 < b2Vertices.size() ? faceNormal + 1 : 0;
+        uint32_t i2 = (faceNormal + 1 < b2Vertices.size()) ? faceNormal + 1 : 0;
         Vec2 v2 = b2Vertices[i2];
 
         // Check to see if center is within polygon
@@ -503,28 +501,28 @@ Computes the collision between two rigid bodies and returns the contact points.
         {
             contact_count = 1;
             contacts[0].normal = -b2Normals[faceNormal];
-            contacts[0].position = contacts[0].normal * b1.dimension.x + b1.position;
-            contacts[0].seperation = b1.dimension.x;
+            contacts[0].position = contacts[0].normal * b1Radius + b1.position;
+            contacts[0].seperation = b1Radius;
             return contact_count;
         }
 
         // Determine which voronoi region of the edge center of circle lies within
         float dot1 = Image::dot(center - v1, v2 - v1);
         float dot2 = Image::dot(center - v2, v1 - v2);
-        contacts[0].seperation = b1.dimension.x - separation;
+        contacts[0].seperation = -(b1Radius - separation);
 
         // Closest to v1
         if (dot1 <= 0.0f)
         {
             Vec2 dist(center - v1);
-            if (Image::dot(dist, dist) > b1.dimension.x * b1.dimension.x)
+            if (Image::dot(dist, dist) > b1Radius * b1Radius)
                 return 0;
 
             contact_count = 1;
             Vec2 n = v1 - center;
             //n = b2.u * n;
-            Image::normalized(n);
-            contacts[0].normal = n;
+           
+            contacts[0].normal = Image::normalized(n);
             //v1 = b2.u * v1 + b2.position;
             contacts[0].position = v1;
         }
@@ -533,7 +531,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         else if (dot2 <= 0.0f)
         {
             Vec2 dist(center - v2);
-            if (Image::dot(dist, dist) > b1.dimension.x * b1.dimension.x)
+            if (Image::dot(dist, dist) > b1Radius * b1Radius)
                 return 0;
 
             contact_count = 1;
@@ -542,26 +540,26 @@ Computes the collision between two rigid bodies and returns the contact points.
             //m->contacts[0] = v2;
             contacts[0].position = v2;
             //n = b2.u * n;
-            Image::normalized(n);
-            contacts[0].normal = n;
+            
+            contacts[0].normal = Image::normalized(n);
         }
 
         // Closest to face
         else
         {
             Vec2 n = b2Normals[faceNormal];
-            if (Image::dot(center - v1, n) > b1.dimension.x)
+            if (Image::dot(center - v1, n) > b1Radius)
                 return 0;
 
             //n = b2.u * n;
             contacts[0].normal = -n;
-            contacts[0].position = contacts[0].normal * b1.dimension.x + b1.position;
+            contacts[0].position = contacts[0].normal * b1Radius + b1.position;
             contact_count = 1;
         }
         return contact_count;
     }
     uint32_t BoxCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
-        uint32_t out{ CircleBoxCollide(contacts, b1, b2) };
+        uint32_t out{ CircleBoxCollide(contacts, b2, b1) };
         contacts[0].normal = -(contacts[0].normal);
         return out;
     }
@@ -642,7 +640,7 @@ Computes the collision between two entities and returns an arbiter.
                 out = true;
                 if (timeMin > time && time <= 1.f) {
                     timeMin = std::move(time);
-                    eMin = std::move(entity);
+                    eMin = entity;
                     cnMin = std::move(cn);
                     cpMin = std::move(cp);
                 }
@@ -742,7 +740,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
 
         if (Raycast(Testing::testingStart, Testing::testingEnd, rh)) {
-            std::cout << rh.entityID << std::endl;
+            //std::cout << rh.entityID << std::endl;
             Renderer::DrawLine({ rh.point.x,rh.point.y, 0.f }, { rh.point.x + rh.normal.x * 50.f,rh.point.y + rh.normal.y * 50.f , 1 }, { 1,0,0,1 });
 
         }
@@ -753,8 +751,10 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             auto scale{ aabb.second - aabb.first };
             Vec2 pos{ aabb.first + scale / 2.f };
             Vec2 p1{ rb.position + rb.velocity };
+
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
             Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
+
         }
         //Renderer::RenderSceneEnd();
 

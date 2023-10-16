@@ -21,9 +21,35 @@
 
 #pragma once
 
-struct FramebufferProps {
-	unsigned int width, height;
+enum class FramebufferTexFormat {
+	NONE = 0,
 
+	RGBA8,
+	RED_INTEGER,
+	DEPTH24STENCIL8,
+
+	//default
+	DEPTH = DEPTH24STENCIL8
+};
+
+struct FramebufferTexProps {
+	FramebufferTexProps() = default;
+	FramebufferTexProps(FramebufferTexFormat fmt) : TexFormat{fmt} {}
+
+	FramebufferTexFormat TexFormat = FramebufferTexFormat::NONE;
+};
+
+struct FramebufferAttachmentProps {
+	FramebufferAttachmentProps() = default;
+	FramebufferAttachmentProps(std::initializer_list<FramebufferTexProps> ats) : attachments{ ats } {}
+
+	std::vector<FramebufferTexProps> attachments;
+};
+
+struct FramebufferProps {
+	unsigned int width{}, height{};
+	unsigned int samples = 1;
+	FramebufferAttachmentProps attachments;
 };
 
 class Framebuffer {
@@ -37,14 +63,21 @@ public:
 	void Unbind() const;
 
 	void Resize(unsigned int width, unsigned int height);
+	int ReadPixel(unsigned int attachIdx, int x, int y);
 
-	unsigned int GetColorAttachmentID() const;
+	unsigned int GetColorAttachmentID(unsigned int index = 0) const;
 	FramebufferProps const& GetFramebufferProps() const;
 
 	static std::shared_ptr<Framebuffer> Create(FramebufferProps const& props);
 private:
 	unsigned int mFboHdl{};
-	unsigned int mColorAttachment{};
-	unsigned int mDepthAttachment{};
+	//unsigned int mColorAttachment{};
+	//unsigned int mDepthAttachment{};
 	FramebufferProps mProps;
+
+	std::vector<FramebufferTexProps> mColorAttachmentProps;
+	FramebufferTexProps mDepthAttachmentProp = FramebufferTexFormat::NONE;
+
+	std::vector<unsigned int> mColorAttachments;
+	unsigned int mDepthAttachment{};
 };

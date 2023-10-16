@@ -58,7 +58,9 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	glm::vec4 worldPos { inversedMtx * screenPos };
 
 	//return mMousePos;
+#ifdef _DEBUG
 	std::cout << worldPos.x << " " << worldPos.y << std::endl;
+#endif
 	return { worldPos.x, worldPos.y };
 }
 EditorMousePosition InputSystem::GetEditorMousePos() const {

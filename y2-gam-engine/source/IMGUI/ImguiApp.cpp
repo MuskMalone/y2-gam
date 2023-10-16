@@ -46,9 +46,6 @@
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
-    float engineWidth = 1600;
-    float engineHeight = 900;
-    ImVec2 viewportDim = ImVec2( engineWidth / 1.5f, engineHeight/ 1.5f);
 }
 namespace Image {
     /*  _________________________________________________________________________ */
@@ -434,13 +431,7 @@ namespace Image {
     */
     void BufferWindow() {
         ImGui::Begin("Image Game Engine");
-        ImVec2 newViewportDim = ImGui::GetContentRegionAvail();
-        if (viewportDim.x != newViewportDim.x || viewportDim.y != newViewportDim.y) {
-            //::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->Resize(static_cast<unsigned int>(viewportDim.x), static_cast<unsigned int>(viewportDim.y));
-            viewportDim = newViewportDim;
-        }
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
        
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
@@ -465,6 +456,7 @@ namespace Image {
             }
 
         }
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }

@@ -206,9 +206,6 @@
     <ClInclude Include="include\Core\Globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\BoxCollider.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Systems\CollisionSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

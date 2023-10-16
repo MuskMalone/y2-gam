@@ -117,7 +117,8 @@ void RenderSystem::Init()
 
 	//----------temp------------
 
-	FramebufferProps fbProps{};
+	FramebufferProps fbProps;
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);
@@ -173,10 +174,15 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color);
 		}
 		else {
-			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+			if (entry.transform->elipse)
+				Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+			else
+				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
-
+	//TEMP REMOVE THIS--------------------
+	Renderer::DrawCircle({0.f, 0.f, 0.f}, { 50.f,50.f }, {.5f,.1f,.2f, .2f}, .2f);
+	//------------------------------------
 	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
