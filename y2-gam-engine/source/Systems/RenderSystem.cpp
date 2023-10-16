@@ -175,7 +175,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 		else {
 			if (entry.transform->elipse)
-				Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+				Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color);
 			else
 				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}

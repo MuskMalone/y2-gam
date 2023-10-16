@@ -426,7 +426,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         Vec2 normal{ b2.position - b1.position };
         float b1Radius{ b1.dimension.x * .5f }, b2Radius{ b2.dimension.x * .5f };
         float dist_sqr{ Image::dot(normal, normal) };
-        float radius { b1Radius *  + b2Radius };
+        float radius { b1Radius + b2Radius };
 
         // Not in contact
         if (dist_sqr >= radius * radius)
@@ -471,10 +471,10 @@ Computes the collision between two rigid bodies and returns the contact points.
             b2rot* Vec2{ 0,-1 }, //bottom
         };
         std::array<Vec2, 4> b2Vertices{
-            Vec2{ b2.position.x - b2.dimension.x * .5f, b2.position.y - b2.dimension.y * .5f }, //btm left
-            Vec2{ b2.position.x - b2.dimension.x * .5f, b2.position.y + b2.dimension.y * .5f }, //top left
-            Vec2{ b2.position.x + b2.dimension.x * .5f, b2.position.y + b2.dimension.y * .5f }, //top right
-            Vec2{ b2.position.x + b2.dimension.x * .5f, b2.position.y - b2.dimension.y * .5f } //btm right       
+            b2.position + ((b2Normals[0] + b2Normals[3]) * (b2.dimension * .5f)), //btm left
+            b2.position + ((b2Normals[0] + b2Normals[1]) * (b2.dimension * .5f)), //top left
+            b2.position + ((b2Normals[2] + b2Normals[1]) * (b2.dimension * .5f)), //top right
+            b2.position + ((b2Normals[2] + b2Normals[3]) * (b2.dimension * .5f)) //btm right       
         };
 
         for (uint32_t i = 0; i < b2Normals.size(); ++i)
@@ -502,7 +502,7 @@ Computes the collision between two rigid bodies and returns the contact points.
             contact_count = 1;
             contacts[0].normal = -b2Normals[faceNormal];
             contacts[0].position = contacts[0].normal * b1Radius + b1.position;
-            contacts[0].seperation = b1Radius;
+            contacts[0].seperation = -b1Radius;
             return contact_count;
         }
 
@@ -746,12 +746,14 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         }
         for (auto const& e : mEntities) {
             auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
-
+            auto const& c{ Coordinator::GetInstance()->GetComponent<Collider>(e) };
             auto aabb{ GetAABBBody(rb) };
             auto scale{ aabb.second - aabb.first };
             Vec2 pos{ aabb.first + scale / 2.f };
             Vec2 p1{ rb.position + rb.velocity };
-
+            if (c.type == ColliderType::BOX) {
+                Renderer::DrawQuad({ rb.position.x,rb.position.y,1 }, { rb.dimension.x,rb.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(rb.rotation));
+            }
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
             Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
 
