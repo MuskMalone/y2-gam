@@ -6,8 +6,6 @@
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
 
-#define M_PI (22.f/7.f)
-
 struct Camera
 {
 public:
@@ -29,7 +27,6 @@ public:
 	glm::mat4 const& GetViewProjMtx() const;
 
 	void ComputeViewProjMtx();
-
 private:
 	glm::mat4 mProjMtx{};
 	glm::mat4 mViewMtx{};
@@ -40,6 +37,8 @@ public:
 	float mZoom{};
 	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
 	float mAspectRatio{};
+
+	//Camera([[maybe_unused]] rapidjson::Value const& obj) {}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
