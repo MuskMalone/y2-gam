@@ -64,5 +64,7 @@ private:
 
 	Entity mCamera{}; //Editor Camera TOOD Change name
 	Entity mSceneCamera{};
+public:
+	Entity mPlayer{}; // TEMP TO BE REMOVED
 
 };

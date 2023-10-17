@@ -105,7 +105,7 @@ void RenderSystem::Init()
 
 	gCoordinator->AddComponent(
 		mSceneCamera,
-		OrthoCamera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
 	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );
@@ -178,12 +178,36 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			return lhs.transform->position.z < rhs.transform->position.z;
 		});
 
+	if (!mEditorMode) {
+		Transform const& playerTransform = gCoordinator->GetComponent<Transform>(mPlayer);
+		RigidBody const& playerRigidBody = gCoordinator->GetComponent<RigidBody>(mPlayer);
+		glm::vec3 playerPosition{ playerTransform.position };
+		Vec2 playerVel { playerRigidBody.velocity };
 
-	auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<OrthoCamera>(mSceneCamera);
-	Renderer::RenderSceneBegin(camera.GetViewProjMtx());
+		float cameraSpeed{ 0.1f };
+		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
+		if (playerVel.x > 0.f) {
+			sceneCamera.mOffset.x = 30.f;
+		}
+		else {
+			sceneCamera.mOffset.x = -30.f;
+		}
+		glm::vec3 currentCamPos { sceneCamera.GetPosition() };
+		glm::vec3 targetCamPos{ playerPosition + sceneCamera.mOffset };
+		glm::vec3 newCamPos { currentCamPos };
+
+		newCamPos.x = sceneCamera.Lerp(currentCamPos.x, targetCamPos.x, cameraSpeed );
+		newCamPos.y = sceneCamera.Lerp(currentCamPos.y, targetCamPos.y, cameraSpeed );
+		sceneCamera.SetPosition(newCamPos); 
+	}
+
+	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera).GetViewProjMtx() :
+										  ::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+
+	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
+	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
-
 		if (entry.sprite->texture) {
 			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color);
 		}

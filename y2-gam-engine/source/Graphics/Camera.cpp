@@ -134,3 +134,7 @@ void Camera::ComputeViewProjMtx() {
 	mViewMtx = glm::inverse(transform);
 	mViewProjMtx = mProjMtx * mViewMtx;
 }
+
+float Camera::Lerp(float lhs, float rhs, float t) {
+	return lhs + t * (rhs - lhs);
+}

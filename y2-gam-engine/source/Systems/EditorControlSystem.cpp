@@ -140,6 +140,8 @@ void EditorControlSystem::Init()
 			nullptr,
 			Layer::FOREGROUND
 		});
+
+	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
 	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
 	std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };

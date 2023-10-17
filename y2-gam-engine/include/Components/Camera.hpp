@@ -5,6 +5,7 @@
 #include <cmath>
 #include <Core/Globals.hpp>
 #include <rapidjson/document.h>
+#include "Core/Types.hpp"
 
 struct Camera
 {
@@ -25,14 +26,19 @@ public:
 	glm::mat4 const& GetProjMtx() const;
 	glm::mat4 const& GetViewMtx() const;
 	glm::mat4 const& GetViewProjMtx() const;
+	float Lerp(float lhs, float rhs, float t);
 
 	void ComputeViewProjMtx();
 private:
 	glm::mat4 mProjMtx{};
 	glm::mat4 mViewMtx{};
 	glm::mat4 mViewProjMtx{};
+
 public:
+	Entity mTargetEntity;
+	glm::vec3 mOffset{ 30.f, 20.f, 0.f };
 	glm::vec3 mPos{};
+
 	float mRot{ 0.f };
 	float mZoom{};
 	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
