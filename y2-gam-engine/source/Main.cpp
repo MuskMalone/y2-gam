@@ -34,7 +34,7 @@
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
-
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 
 namespace {
 	static bool quit = false;
@@ -46,7 +46,7 @@ void QuitHandler([[maybe_unused]] Event& event)
 	quit = true;
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
-
+DecisionTree gGameLoop{};
 int main()
 {
 	// Enable run-time memory check for debug builds.
@@ -185,17 +185,18 @@ int main()
 	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
 	Image::FontRenderer::SetFontSize("Getho", 100);
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
-
+	
 	// Audio Testing
 	while (!quit && !windowManager->ShouldClose())
 	{
 		//Renderer::SetClearColor({ 0.f, 1.f, 0.f, 1.f });
 		//Renderer::ClearColor();
 		//Renderer::ClearDepth();
-
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
+		gGameLoop.CheckToggleKey();
+		gGameLoop.Evaluate();
 		imguiSystem->Update();
 
 		windowManager->ProcessEvents();

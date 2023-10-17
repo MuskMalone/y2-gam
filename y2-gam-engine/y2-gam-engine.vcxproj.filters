@@ -54,6 +54,7 @@
     <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\pch.cpp" />
+    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
+    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
