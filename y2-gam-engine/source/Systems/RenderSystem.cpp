@@ -67,6 +67,14 @@ void RenderSystem::ToggleDebugMode() { mDebugMode = !mDebugMode; }
 
 /*  _________________________________________________________________________ */
 /*!
+\brief ToggleEditorMode Function
+
+Toggles the editor mode to switch from scene camera/editor camera.
+*/
+void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
+
+/*  _________________________________________________________________________ */
+/*!
 \brief Init Function
 
 Initializes the rendering system, setting up necessary resources.
@@ -129,7 +137,7 @@ void RenderSystem::Init()
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
 	mFramebuffer = Framebuffer::Create(fbProps);
-	mEditorMode = false;
+	mEditorMode = true;
 	//--------------------------
 }
 

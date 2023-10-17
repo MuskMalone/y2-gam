@@ -44,6 +44,7 @@ public:
 	std::shared_ptr<Framebuffer> const& GetFramebuffer() const;
 	//for debug
 	void ToggleDebugMode();
+	void ToggleEditorMode();
 
 private:
 	bool mDebugMode{ false };

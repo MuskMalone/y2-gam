@@ -38,8 +38,6 @@ public:
 	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
 	float mAspectRatio{};
 
-	//Camera([[maybe_unused]] rapidjson::Value const& obj) {}
-
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
 	}
