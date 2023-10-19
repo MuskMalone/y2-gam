@@ -18,6 +18,7 @@ public:
 
 	glm::vec3 const& GetPosition() const;
 
+	void UpdatePosition(glm::vec3 const& targetPos, Vec2 const& targetVel);
 	void SetPosition(glm::vec3 const& pos);
 	void SetRotation(float rot);
 	void ZoomIn();
@@ -36,7 +37,17 @@ private:
 
 public:
 	Entity mTargetEntity;
-	glm::vec3 mOffset{ 30.f, 20.f, 0.f };
+
+	struct CameraSettings{
+		float offsetX{30.f};
+		float offsetY{20.f};
+		float velocityThreshold{0.2f};
+		float cameraSpeed{0.1f};
+
+		//function to Load settings TODO IMPLEMENT
+	} mSettings;
+
+	glm::vec3 mOffset{};
 	glm::vec3 mPos{};
 
 	float mRot{ 0.f };

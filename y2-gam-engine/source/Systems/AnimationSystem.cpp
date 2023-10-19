@@ -107,7 +107,5 @@ void AnimationSystem::Update(float dt) {
 				break;
 			}
 		}
-
-
 	}
 }

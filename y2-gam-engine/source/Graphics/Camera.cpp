@@ -42,6 +42,30 @@ void Camera::SetProjectionMtx(float left, float right, float bottom, float top) 
 
 /*  _________________________________________________________________________ */
 /*!
+\brief UpdateCameraPosition
+
+Updates the camera's position based on the target's position and velocity. Adjusts the camera's offset based on the target's velocity direction and interpolates the camera's position towards the target using the camera's speed setting.
+\param targetPos Position of the target (e.g., player) in the world.
+\param targetVel Velocity of the target (e.g., player).
+*/
+void Camera::UpdatePosition(const glm::vec3& targetPosition, const Vec2& targetVelocity) {
+	if (std::abs(targetVelocity.x) > mSettings.velocityThreshold) {
+		float direction = (targetVelocity.x > 0) ? 1.0f : -1.0f;
+		mOffset.x = direction * mSettings.offsetX;
+	}
+
+	float camSpeed = mSettings.cameraSpeed;
+	glm::vec3 currentCamPos = GetPosition();
+	glm::vec3 targetCamPos = targetPosition + mOffset;
+	glm::vec3 newCamPos = currentCamPos;
+
+	newCamPos.x = Lerp(currentCamPos.x, targetCamPos.x, camSpeed);
+	newCamPos.y = Lerp(currentCamPos.y, targetCamPos.y, camSpeed);
+	SetPosition(newCamPos);
+}
+
+/*  _________________________________________________________________________ */
+/*!
 \brief SetPosition
 
 Sets the camera's position in the world and updates the view-projection matrix.

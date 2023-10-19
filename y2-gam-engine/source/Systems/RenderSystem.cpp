@@ -165,7 +165,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
 		};
 		mRenderQueue.push_back(entry);
-		
 	}
 
 	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
@@ -179,26 +178,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		});
 
 	if (!mEditorMode) {
-		Transform const& playerTransform = gCoordinator->GetComponent<Transform>(mPlayer);
-		RigidBody const& playerRigidBody = gCoordinator->GetComponent<RigidBody>(mPlayer);
+		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
+		RigidBody const& playerRigidBody {gCoordinator->GetComponent<RigidBody>(mPlayer)};
 		glm::vec3 playerPosition{ playerTransform.position };
 		Vec2 playerVel { playerRigidBody.velocity };
 
-		float cameraSpeed{ 0.1f };
 		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
-		if (playerVel.x > 0.f) {
-			sceneCamera.mOffset.x = 30.f;
-		}
-		else {
-			sceneCamera.mOffset.x = -30.f;
-		}
-		glm::vec3 currentCamPos { sceneCamera.GetPosition() };
-		glm::vec3 targetCamPos{ playerPosition + sceneCamera.mOffset };
-		glm::vec3 newCamPos { currentCamPos };
-
-		newCamPos.x = sceneCamera.Lerp(currentCamPos.x, targetCamPos.x, cameraSpeed );
-		newCamPos.y = sceneCamera.Lerp(currentCamPos.y, targetCamPos.y, cameraSpeed );
-		sceneCamera.SetPosition(newCamPos); 
+		sceneCamera.UpdatePosition(playerPosition, playerVel);
 	}
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera).GetViewProjMtx() :
@@ -215,9 +201,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
 		}
 	}
-	//TEMP REMOVE THIS--------------------
-	Renderer::DrawCircle({0.f, 0.f, 0.f}, { 50.f,50.f }, {.5f,.1f,.2f, .2f}, .2f);
-	//------------------------------------
+
 	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
