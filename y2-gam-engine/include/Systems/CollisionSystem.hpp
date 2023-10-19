@@ -15,7 +15,7 @@
 */
 /******************************************************************************/
 
-#include <Components/RigidBody.hpp>
+//#include <Components/RigidBody.hpp>
 #include "Math/MathUtils.h"
 #include "Core/System.hpp"
 #include "DataMgmt/QuadTree/Quadtree.hpp"
@@ -29,10 +29,15 @@ namespace Collision {
     void ComputeIncidentEdge(ClipVertex c[2], const Vec2& h, const Vec2& pos, const Mat22& rot,
         const Vec2& normal);
 
-	uint32_t BoxBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
-	uint32_t CircleCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
-	uint32_t CircleBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
-	uint32_t BoxCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+	//uint32_t BoxBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+	//uint32_t CircleCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+	//uint32_t CircleBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+	//uint32_t BoxCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2);
+
+	uint32_t BoxBoxCollide(Physics::Contact* contacts, Collider& b1, Collider& b2);
+	uint32_t CircleCircleCollide(Physics::Contact* contacts, Collider& b1, Collider& b2);
+	uint32_t CircleBoxCollide(Physics::Contact* contacts, Collider& b1, Collider& b2);
+	uint32_t BoxCircleCollide(Physics::Contact* contacts, Collider& b1, Collider& b2);
 
 	class CollisionSystem : public System
 	{
@@ -50,6 +55,6 @@ namespace Collision {
 		bool RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time);
 		Arbiter Collide(Entity b1, Entity b2);
 		DataMgmt::Quadtree<Entity> mQuadtree;
-		std::map <ColliderLookupKey, std::function<uint32_t(Contact*, RigidBody&, RigidBody&)>> mLookupTable;
+		std::map <ColliderLookupKey, std::function<uint32_t(Contact*, Collider&, Collider&)>> mLookupTable;
 	};
 }

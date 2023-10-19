@@ -50,6 +50,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(2.f * WORLD_LIMIT_X, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -72,6 +73,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -94,6 +96,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -120,6 +123,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Collider{
+			Vec2(position), 0.f, Vec2(scale, scale)
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -234,7 +238,7 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		gCoordinator->CloneEntity(Testing::lastInserted);
 	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::MB)) &&
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, static_cast<size_t>(GLFW_KEY_0)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
 		for (int i{}; i < 10; ++i) {

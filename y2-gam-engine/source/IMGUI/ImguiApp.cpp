@@ -327,7 +327,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Collider{});
+                            Collider{ Vec2{},0,Vec2{} });
                     }
 
                 }

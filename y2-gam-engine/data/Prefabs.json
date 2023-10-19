@@ -1,9 +1,14 @@
 {
     "Prefabs": {
         "Platform": {
-            "Collider": {
-                "collider": 0
-            },
+          "Collider": {
+            "dimX": 50.0,
+            "dimY": 5.0,
+            "rotation": 0.0,
+            "posX": 0.0,
+            "posY": 0.0,
+            "collider": 0
+          },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -39,6 +44,11 @@
         },
       "Box": {
         "Collider": {
+          "dimX": 5.0,
+          "dimY": 5.0,
+          "rotation": 0.0,
+          "posX": 0.0,
+          "posY": 0.0,
           "collider": 0
         },
         "Gravity": {
@@ -76,6 +86,11 @@
       },
       "Circle": {
         "Collider": {
+          "dimX": 5.0,
+          "dimY": 5.0,
+          "rotation": 0.0,
+          "posX": 0.0,
+          "posY": 0.0,
           "collider": 1
         },
         "Gravity": {

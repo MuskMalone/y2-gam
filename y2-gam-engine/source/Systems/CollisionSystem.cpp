@@ -19,7 +19,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Components/Collider.hpp"
-#include "Components/RigidBody.hpp"
+//#include "Components/RigidBody.hpp"
 #include <Core/Globals.hpp>
 #include <Math/Collision.hpp>
 #include <Core/Types.hpp>
@@ -106,7 +106,7 @@ Creates a 3x3 translation matrix from the given x and y values.
 Computes the Axis-Aligned Bounding Box (AABB) for a given rigid body.
 */
 
-    std::pair<Vec2, Vec2> GetAABBBody(RigidBody const& rb) {
+    std::pair<Vec2, Vec2> GetAABBBody(Collider const& rb) {
         auto transform{ Mat33FromTranslate(rb.position.x, rb.position.y) * Mat33FromAngle(rb.rotation) };
         Vec2 topleft{ transform * Vec3{ rb.dimension.x * -.5f, rb.dimension.y * .5f, 1.f } };
         Vec2 topright{ transform * Vec3{ rb.dimension.x * .5f, rb.dimension.y * .5f, 1.f } };
@@ -251,7 +251,7 @@ Computes the incident edge of a box against a given normal.
 Computes the collision between two rigid bodies and returns the contact points.
 */
 
-    uint32_t BoxBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+    uint32_t BoxBoxCollide(Physics::Contact* contacts, Collider& b1, Collider& b2) {
 
 
         Vec2 h1 = b1.dimension * 0.5f;
@@ -415,13 +415,13 @@ Computes the collision between two rigid bodies and returns the contact points.
             }
         }
 
-        if (!b1.isGrounded) {
-            b1.isGrounded = (normal.y < 0.0f);
-        }
+        //if (!b1.isGrounded) {
+        //    b1.isGrounded = (normal.y < 0.0f);
+        //}
 
         return numContacts;
     }
-    uint32_t CircleCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+    uint32_t CircleCircleCollide(Physics::Contact* contacts, Collider& b1, Collider& b2) {
         // Calculate translational vector, which is normal
         Vec2 normal{ b2.position - b1.position };
         float b1Radius{ b1.dimension.x * .5f }, b2Radius{ b2.dimension.x * .5f };
@@ -450,7 +450,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         }
         return 1;
     }
-    uint32_t CircleBoxCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+    uint32_t CircleBoxCollide(Physics::Contact* contacts, Collider& b1, Collider& b2) {
         float b1Radius{ b1.dimension.x * .5f };
         uint32_t contact_count{};
         Mat22 b2rot{};
@@ -558,7 +558,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         }
         return contact_count;
     }
-    uint32_t BoxCircleCollide(Physics::Contact* contacts, RigidBody& b1, RigidBody& b2) {
+    uint32_t BoxCircleCollide(Physics::Contact* contacts, Collider& b1, Collider& b2) {
         uint32_t out{ CircleBoxCollide(contacts, b2, b1) };
         contacts[0].normal = -(contacts[0].normal);
         return out;
@@ -575,8 +575,8 @@ Computes the collision between two entities and returns an arbiter.
 */
 
     Arbiter CollisionSystem::Collide(Entity b1, Entity b2) {
-        auto & rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(b1) };
-        auto & rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(b2) };
+        auto & rb1{ Coordinator::GetInstance()->GetComponent<Collider>(b1) };
+        auto & rb2{ Coordinator::GetInstance()->GetComponent<Collider>(b2) };
 
         auto aabb1{ GetAABBBody(rb1) };
         auto aabb2{ GetAABBBody(rb2) };
@@ -593,7 +593,7 @@ Computes the collision between two entities and returns an arbiter.
         result.b1 = b1;
         result.b2 = b2;
 
-        result.combinedFriction = sqrtf(rb1.friction * rb2.friction);
+        //result.combinedFriction = sqrtf(rb1.friction * rb2.friction);
         result.contactsCount = mLookupTable[ColliderLookupKey{c1.type, c2.type}](result.contacts, rb1, rb2);
 
         return result;
@@ -601,19 +601,18 @@ Computes the collision between two entities and returns an arbiter.
 
     //raycast obb or circle
     bool CollisionSystem::RaycastBody(Vec2 const& origin, Vec2 const& end, Entity e, Vec2& cn, Vec2& cp, float& time) {
-        auto const& rigidbody{ gCoordinator->GetComponent<RigidBody>(e) };
         auto const& collider{ gCoordinator->GetComponent<Collider>(e) };
         if (collider.type == ColliderType::BOX) {
             Mat33 rot{}, translate{}, invrot{}, invtranslate{};
-            Image::Mat33RotRad(rot, rigidbody.rotation);
-            Image::Mat33Translate(translate, rigidbody.position.x, rigidbody.position.y);
-            Image::Mat33RotRad(invrot, -rigidbody.rotation);
-            Image::Mat33Translate(invtranslate, -rigidbody.position.x, -rigidbody.position.y);
+            Image::Mat33RotRad(rot, collider.rotation);
+            Image::Mat33Translate(translate, collider.position.x, collider.position.y);
+            Image::Mat33RotRad(invrot, -collider.rotation);
+            Image::Mat33Translate(invtranslate, -collider.position.x, -collider.position.y);
             Mat33 inverse{invrot * invtranslate}, transform{translate * rot};
             Vec3 trnsOrigin{ inverse * Vec3{origin.x, origin.y, 1} };
             bool out{ CheckRayRect(
                 Vec2{trnsOrigin}, Vec2{Vec3(inverse * Vec3{end.x, end.y, 1}) - trnsOrigin},
-                CollisionRect(-rigidbody.dimension / 2.f, rigidbody.dimension),
+                CollisionRect(-collider.dimension / 2.f, collider.dimension),
                 cp, cn, time
                 ) };
 
@@ -689,7 +688,7 @@ Updates the CollisionSystem, checking for collisions between entities and sendin
         //}
 
         mQuadtree.Update(mEntities, [](Entity const& e, DataMgmt::Rect const& r) {
-            auto const& rigidBody{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
+            auto const& rigidBody{ Coordinator::GetInstance()->GetComponent<Collider>(e) };
             
             //todo update the position based on rotated box not aabb
             //todo substep checking
@@ -745,17 +744,17 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
 
         }
         for (auto const& e : mEntities) {
-            auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
+            //auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
             auto const& c{ Coordinator::GetInstance()->GetComponent<Collider>(e) };
-            auto aabb{ GetAABBBody(rb) };
+            auto aabb{ GetAABBBody(c) };
             auto scale{ aabb.second - aabb.first };
             Vec2 pos{ aabb.first + scale / 2.f };
-            Vec2 p1{ rb.position + rb.velocity };
+            //Vec2 p1{ c.position + rb.velocity };
             if (c.type == ColliderType::BOX) {
-                Renderer::DrawQuad({ rb.position.x,rb.position.y,1 }, { rb.dimension.x,rb.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(rb.rotation));
+                Renderer::DrawQuad({ c.position.x,c.position.y,1 }, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(c.rotation));
             }
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
-            Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
+            //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
 
         }
         //Renderer::RenderSceneEnd();
