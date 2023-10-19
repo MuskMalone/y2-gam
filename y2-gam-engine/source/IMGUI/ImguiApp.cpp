@@ -219,22 +219,55 @@ namespace Image {
                 ImGui::Text("Color");
                 ImGui::ColorPicker4("Color Picker", &sprite.color.r);
             }
+            if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
+
+                ImGui::Separator();
+                ImGui::Text("Collider");
+
+                ImGui::Text("Type");
+                const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
+                ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
+                //Pos
+                ImGui::Text("Position");
+                ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                // Rotation
+                ImGui::Text("Rotation");
+                ImGui::SliderFloat("Collider Rot", &collider.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                // Scale
+                if (collider.type == ColliderType::BOX) {
+                    ImGui::Text("Dimension");
+                    ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                    ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, 50);
+
+                }
+                else {
+                    ImGui::Text("Diameter");
+                    ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                    collider.dimension.y = collider.dimension.x;
+                }
+
+
+                // Mass
+
+            }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                 RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
 
                 ImGui::Separator();
                 ImGui::Text("RigidBody");
-                //Pos
-                ImGui::Text("Position");
-                ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                // Rotation
-                ImGui::Text("Rotation");
-                ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
-                // Scale
-                ImGui::Text("Dimension");
-                ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
-                ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
+                ////Pos
+                //ImGui::Text("Position");
+                //ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                //ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                //// Rotation
+                //ImGui::Text("Rotation");
+                //ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                //// Scale
+                //ImGui::Text("Dimension");
+                //ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
+                //ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
                 // Mass
                 ImGui::Text("Mass");
                 ImGui::InputFloat("Mass", &rigidBody.mass);

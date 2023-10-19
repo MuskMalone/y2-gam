@@ -107,6 +107,10 @@ Computes the Axis-Aligned Bounding Box (AABB) for a given rigid body.
 */
 
     std::pair<Vec2, Vec2> GetAABBBody(Collider const& rb) {
+        if (rb.type == ColliderType::CIRCLE) 
+            return {
+                rb.position - rb.dimension * .5f, rb.position + rb.dimension*.5f };
+      
         auto transform{ Mat33FromTranslate(rb.position.x, rb.position.y) * Mat33FromAngle(rb.rotation) };
         Vec2 topleft{ transform * Vec3{ rb.dimension.x * -.5f, rb.dimension.y * .5f, 1.f } };
         Vec2 topright{ transform * Vec3{ rb.dimension.x * .5f, rb.dimension.y * .5f, 1.f } };
@@ -752,6 +756,10 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             //Vec2 p1{ c.position + rb.velocity };
             if (c.type == ColliderType::BOX) {
                 Renderer::DrawQuad({ c.position.x,c.position.y,1 }, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(c.rotation));
+                //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, { p1.x,p1.y , 1 }, { 0,1,0,1 });
+            }
+            else {
+                Renderer::DrawCircle({ c.position.x,c.position.y, 0.f }, { c.dimension.x, c.dimension.x }, { 1.f,1.f,1.f, 1.f }, .1f);
             }
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
             //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
