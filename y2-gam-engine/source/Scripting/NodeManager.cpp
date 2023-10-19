@@ -43,7 +43,6 @@ namespace Image {
 			for (Entity const& n : gCoordinator->GetComponent<Node>(e).neighbours) {
 				Vec2 firstPosition{ gCoordinator->GetComponent<Transform>(e).position.x,  gCoordinator->GetComponent<Transform>(e).position.y };
 				Vec2 secondPosition{ gCoordinator->GetComponent<Transform>(n).position.x,  gCoordinator->GetComponent<Transform>(n).position.y };
-
 				Image::FontRenderer::RenderText("Arial", std::to_string(costMap[std::pair(e, n)]), 
 					(firstPosition.x + secondPosition.x) / 2, (firstPosition.y + secondPosition.y) / 2, 
 					0.05f, Vec3(0.f, 1.f, 0.f));
@@ -141,6 +140,7 @@ namespace Image {
 	void NodeManager::AddNeighbour(Entity lhs, Entity rhs) {
 		::gCoordinator->GetComponent<Node>(lhs).neighbours.insert(rhs);
 		::gCoordinator->GetComponent<Node>(rhs).neighbours.insert(lhs);
+		FillCostMap();
 	}
 
 	void NodeManager::RemoveNode(Entity node) {
@@ -152,6 +152,7 @@ namespace Image {
 		}
 		gCoordinator->DestroyEntity(node);
 		currentlyActiveNodes.erase(node);
+		FillCostMap();
 	}
 
 	void NodeManager::ClearAllNodes() {
@@ -159,6 +160,7 @@ namespace Image {
 			gCoordinator->DestroyEntity(e);
 		}
 		currentlyActiveNodes.clear();
+		FillCostMap();
 	}
 
 	int NodeManager::CalculateCost(Entity lhs, Entity rhs) {

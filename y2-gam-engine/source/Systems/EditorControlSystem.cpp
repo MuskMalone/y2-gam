@@ -352,7 +352,7 @@ void EditorControlSystem::Update(float dt)
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_N) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
-		NodeManager::FillCostMap();
+		//NodeManager::FillCostMap();
 		NodeManager::PrintCostMap();
 	}
 

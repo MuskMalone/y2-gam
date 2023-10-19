@@ -18,25 +18,43 @@
 #pragma once
 
 namespace Image {
+
+  struct DijkstraNode {
+    Entity parentNode;
+    bool visited;
+    int score;
+  };
+
   class NodeManager {
   public:
     using Cost = int;
+    using Path = std::vector<Entity>;
 
   public:
-    static void Update();
+    // Debug
     static void DisplayDebugLines();
 
+    // Node Management
+    static void Update();
     static void AddNode();
     static void AddNeighbour(Entity lhs, Entity rhs);
-
     static void RemoveNode(Entity node);
     static void ClearAllNodes();
 
+    // Cost Calculation
     static int CalculateCost(Entity lhs, Entity rhs);
-    static void FillCostMap();
     static void PrintCostMap();
 
+    // Pathfinding Algorithm
+    static Path DjkstraAlgorithm(Entity start, Entity end);
+
   private:
+    static void FillCostMap();
+
+    // Pathfinding Algorithm Helpers
+    static Entity GetLowestScoreNode();
+    static int CalculateScore(Entity currentNode, Entity nextNode);
+    static Path BuildPath(Entity targetNode);
 
   private:
     static std::set<Entity> currentlyActiveNodes;

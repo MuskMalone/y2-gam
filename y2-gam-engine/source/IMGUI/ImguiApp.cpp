@@ -42,6 +42,7 @@
 #include <Core/Globals.hpp>
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
+#include "Scripting/NodeManager.hpp"
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -73,6 +74,7 @@ namespace Image {
             showDockSpace = !showDockSpace;
         }
         if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+            NodeManager::ClearAllNodes();
             toDelete = !toDelete;
         }
 
