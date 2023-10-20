@@ -116,6 +116,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 50, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -145,6 +146,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), 0.f, Vec2(30.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -174,6 +176,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), 0.f, Vec2(30.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
