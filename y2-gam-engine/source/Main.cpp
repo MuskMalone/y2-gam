@@ -195,14 +195,14 @@ int main()
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
-		gGameLoop.CheckToggleKey();
-		gGameLoop.Evaluate();
-		imguiSystem->Update();
+
 
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+		gGameLoop.CheckToggleKey();
 
+		gGameLoop.Evaluate();
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);

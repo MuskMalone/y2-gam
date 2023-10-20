@@ -4,6 +4,7 @@
 #include <Core/Coordinator.hpp>
 #include "Systems/InputSystem.hpp"
 #include <Core/Globals.hpp>
+#include "Systems/ImguiSystem.hpp"
 
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -31,7 +32,9 @@ void DecisionTree::SetGameMode() {
 
 void DecisionTree::SetImGuiMode() {
     currentMode = DecisionResults::IMGUI_MODE;
-    std::cout << "ImGui mode set!" << std::endl;
+    auto imguiSystem = gCoordinator->GetSystem<ImGuiSystem>();
+    imguiSystem->Update();
+
 }
 
 DecisionTree::DecisionTree() {
@@ -73,7 +76,6 @@ void DecisionTree::CheckToggleKey() {
     auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
     if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M)) {
         ToggleGameMode();
-        std::cout << "hi";
     }
 }
 

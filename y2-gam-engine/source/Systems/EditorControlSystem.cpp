@@ -15,7 +15,7 @@
 #include <Core/Globals.hpp>
 #include "Components/OrthoCamera.hpp"
 #include "Math/MathUtils.h"
-
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
 #include <Engine/PrefabsManager.hpp>
