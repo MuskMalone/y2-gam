@@ -101,7 +101,6 @@ int main()
 	auto collisionSystem = coordinator->RegisterSystem<CollisionSystem>();
 	{
 		Signature signature;
-		signature.set(coordinator->GetComponentType<RigidBody>());
 		signature.set(coordinator->GetComponentType<Collider>());
 		coordinator->SetSystemSignature<CollisionSystem>(signature);
 	}
