@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\par        Hemp Engine
+\par        Image Engine
 \file       Sound.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)

@@ -23,15 +23,12 @@
 
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
-#include "Components/Camera.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
 #include "Core/Globals.hpp"
 #include "Graphics/Renderer.hpp"
-#include "Components/OrthoCamera.hpp"
-#include "Components/Collider.hpp"
-#include "Components/RigidBody.hpp"
 
+#include "Scripting/NodeManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -205,6 +202,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+		NodeManager::DisplayDebugLines();
 	}
 	glDepthMask(GL_FALSE);
 

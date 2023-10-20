@@ -36,7 +36,7 @@ namespace Image
         public Entity(uint entityHandle)
         {     
             entityID = entityHandle;
-            Console.WriteLine("Entity Non-Default, Single Parameter Constructor Called!");
+            //Console.WriteLine("Entity Non-Default, Single Parameter Constructor Called!");
         }
 
         /*  _________________________________________________________________________ */
@@ -49,7 +49,7 @@ namespace Image
         public Entity()
         {
             entityID = 0;
-            Console.WriteLine("Entity Parameterless Default Constructor Called!");
+            //Console.WriteLine("Entity Parameterless Default Constructor Called!");
         }
 
         /*  _________________________________________________________________________ */

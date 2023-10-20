@@ -18,7 +18,7 @@
 using Image;
 using System;
 
-namespace Sandbox
+namespace Object
 {
     public class Player : Entity
     {
@@ -80,7 +80,7 @@ namespace Sandbox
 
             if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
             {
-                Vector2 jumpForce = new Vector2(0.0f, 5000.0f);
+                Vector2 jumpForce = new Vector2(0.0f, 3000.0f);
                 Force = jumpForce * Mass;
             }
 
@@ -110,6 +110,11 @@ namespace Sandbox
             // For Debugging Purposes
             //Vector3 translation = Translation;
             //Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
+
+            if(!PhysicsWrapper.Raycast(new Vector3(0, 0, 0), new Vector3(0, 0, 0), out RaycastHit ray, 10))
+            {
+
+            }
         }
 
         /*  _________________________________________________________________________ */

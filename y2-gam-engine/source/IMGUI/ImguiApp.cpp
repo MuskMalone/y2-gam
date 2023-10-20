@@ -42,6 +42,7 @@
 #include <Core/Globals.hpp>
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
+#include "Scripting/NodeManager.hpp"
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -70,6 +71,7 @@ namespace Image {
             showDockSpace = !showDockSpace;
         }
         if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+            NodeManager::ClearAllNodes();
             toDelete = !toDelete;
         }
 
@@ -433,6 +435,31 @@ namespace Image {
         ImGui::Begin("Image Game Engine");
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+       
+        //tch: hello this is my input part
+        if (ImGui::IsWindowHovered()) {
+            ImGuiIO& io = ImGui::GetIO();
+            ImVec2 mousePos = io.MousePos;
+
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
+
+            ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
+
+            if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
+                Event event(Events::Window::INPUT);
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
+                    static_cast<float>(mousePos.x - paddedTopLeft.x), 
+                    static_cast<float>((mousePos.y - paddedTopLeft.y) )
+                ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
+                );
+                gCoordinator->SendEvent(event);
+            }
+
+        }
+
         ImGui::End();
     }
 

@@ -1,17 +1,11 @@
 #include "../include/pch.hpp"
 
 #include "Systems/EditorControlSystem.hpp"
-#include "Components/Camera.hpp"
-#include "Components/Editor.hpp"
-#include "Components/Transform.hpp"
-#include "Components/Rigidbody.hpp"
-#include "Components/Collider.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/Gravity.hpp"
-#include "Components/Animation.hpp"
 #include "Core/Coordinator.hpp"
 #include <Systems/InputSystem.hpp>
 #include "Systems/RenderSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
+
 #include <Core/Globals.hpp>
 #include "Components/OrthoCamera.hpp"
 #include "Math/MathUtils.h"
@@ -19,6 +13,7 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
 #include <Engine/PrefabsManager.hpp>
+#include "Scripting/NodeManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -107,13 +102,101 @@ void EditorControlSystem::Init()
 			{0.f,0.f,0.f},
 			{5.f, 2 * WORLD_LIMIT_Y, 1.f}
 		});
+	
+	// Platforms for testing
+	// Center
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 10), 1.f);
+	::gCoordinator->AddComponent(
+		entity,
+		Collider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 50, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{WORLD_LIMIT_X + 50, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{0, 1, 0, 0.7},
+			nullptr
+		});
 
+	// Left
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(static_cast<float>(-WORLD_LIMIT_X + 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
+	::gCoordinator->AddComponent(
+		entity,
+		Collider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{30.f, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{0, 1, 0, 0.7},
+			nullptr
+		});
+
+	// Right
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
+	::gCoordinator->AddComponent(
+		entity,
+		Collider{
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{30.f, 5.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{0, 1, 0, 0.7},
+			nullptr
+		});
+		
 	// Creating a sample player entity
 	Entity player = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent<Script>(player, { "SandboxPlayer" });
+	::gCoordinator->AddComponent<Script>(player, { "ObjectPlayer" });
 
 	position = Vec3(0.f, 0.f, -150.f);
-	float scale{ 50.f };
+	float scale{ 20.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
 		{ Vec2(0.0f, -100.f) });
@@ -139,6 +222,14 @@ void EditorControlSystem::Init()
 			{1,1,1,1},
 			nullptr,
 			Layer::FOREGROUND
+		});
+	::gCoordinator->AddComponent(
+		player,
+		Text{
+			"Lato",
+			0.05f,
+			"Player",
+			{1, 1, 0}
 		});
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
@@ -239,6 +330,39 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		gCoordinator->CloneEntity(Testing::lastInserted);
 	}
+
+	// NODE RELATED START
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		NodeManager::AddNode();
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		Physics::RayHit rh{};
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		
+		//std::cout << "Entity Hit " << rh.entityID << "\n";
+		
+		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
+			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
+		}
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		NodeManager::ClearAllNodes();
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_N) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		//NodeManager::FillCostMap();
+		NodeManager::PrintCostMap();
+	}
+
+	// NODE RELATED END
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		//std::vector<Entity> entities(1);
@@ -292,8 +416,6 @@ void EditorControlSystem::Update(float dt)
 			//	});
 			//lastInserted = entity;
 		}
-
-
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P)) {
 
