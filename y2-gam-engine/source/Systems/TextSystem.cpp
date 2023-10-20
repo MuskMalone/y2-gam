@@ -6,6 +6,7 @@
 #include <Core/Globals.hpp>
 #include "Core/Coordinator.hpp"
 #include "Graphics/FontRenderer.hpp"
+#include "Systems/RenderSystem.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
