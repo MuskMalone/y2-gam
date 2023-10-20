@@ -9,6 +9,8 @@ public:
 	void Update();
 	void Exit();
 
+	static Vec2 WorldToScreenCoordinates(Vec2 worldCoordinates);
+
 private:
 
 };

@@ -23,7 +23,9 @@
 #include "Core/Coordinator.hpp"
 #include "Core/System.hpp"
 #include <Core/Globals.hpp>
+
 #include "Systems/InputSystem.hpp"
+#include "Systems/TextSystem.hpp"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
@@ -43,8 +45,10 @@ namespace Image {
 			for (Entity const& n : gCoordinator->GetComponent<Node>(e).neighbours) {
 				Vec2 firstPosition{ gCoordinator->GetComponent<Transform>(e).position.x,  gCoordinator->GetComponent<Transform>(e).position.y };
 				Vec2 secondPosition{ gCoordinator->GetComponent<Transform>(n).position.x,  gCoordinator->GetComponent<Transform>(n).position.y };
+				Vec2 firstScreenPosition{ TextSystem::WorldToScreenCoordinates(Vec2(firstPosition.x, firstPosition.y)) };
+				Vec2 secondScreenPosition{ TextSystem::WorldToScreenCoordinates(Vec2(secondPosition.x, secondPosition.y)) };
 				Image::FontRenderer::RenderText("Arial", std::to_string(costMap[std::pair(e, n)]), 
-					(firstPosition.x + secondPosition.x) / 2, (firstPosition.y + secondPosition.y) / 2, 
+					(firstScreenPosition.x + secondScreenPosition.x) / 2, (firstScreenPosition.y + secondScreenPosition.y) / 2,
 					0.05f, Vec3(0.f, 1.f, 0.f));
 			}
 		}
