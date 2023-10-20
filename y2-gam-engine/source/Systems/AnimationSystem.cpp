@@ -46,9 +46,11 @@ void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
 
 	//-------------TEMPORARY-------------------------------------------------------------/
-	mIdle.reset(new Texture{ "../Textures/Idle.png" });
-	mRun.reset(new Texture{ "../Textures/Run.png" });
-	mAttack.reset(new Texture{ "../Textures/Attack_1.png" });
+	mIdle = Texture::Create("../Textures/Idle.png");
+	mRun = Texture::Create("../Textures/Run.png");
+	mAttack = Texture::Create("../Textures/Attack_1.png");
+
+
 	for (float i{}; i < 8; ++i)
 		mSpriteList.push_back(SubTexture::Create(mIdle, { i, 0 }, { 128, 128 }));
 

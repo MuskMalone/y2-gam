@@ -23,6 +23,8 @@
 
 class Texture {
 public:
+
+	static std::shared_ptr<Texture> Create(std::string const& path);
 	//Temp default constructor
 	Texture();
 	Texture(std::string const& path);

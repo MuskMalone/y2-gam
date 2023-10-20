@@ -261,3 +261,7 @@ This function checks if two textures are equal.
 bool Texture::operator==(Texture const& rhs) const {
 	return mTexHdl == rhs.mTexHdl;
 }
+
+std::shared_ptr<Texture> Texture::Create(std::string const& path) {
+	return std::make_shared<Texture>(path);
+}
