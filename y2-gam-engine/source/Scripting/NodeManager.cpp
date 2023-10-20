@@ -102,11 +102,7 @@ namespace Image {
 		Vec3 position = Vec3(inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second, 1.f);
 
 		float scale{ 10.f };
-		::gCoordinator->AddComponent(
-			node,
-			RigidBody{
-				Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
-			});
+
 		::gCoordinator->AddComponent(
 			node,
 			Transform{
@@ -133,6 +129,8 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Collider{
+				Vec2(position), 0.f, Vec2(scale, scale)
+
 			});
     currentlyActiveNodes.insert(node);
   }
