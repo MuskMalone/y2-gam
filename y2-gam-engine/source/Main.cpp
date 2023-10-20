@@ -201,8 +201,10 @@ int main()
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 		gGameLoop.CheckToggleKey();
-
 		gGameLoop.Evaluate();
+		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
+			imguiSystem->Update();
+		}
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);

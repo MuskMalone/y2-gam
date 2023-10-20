@@ -32,9 +32,6 @@ void DecisionTree::SetGameMode() {
 
 void DecisionTree::SetImGuiMode() {
     currentMode = DecisionResults::IMGUI_MODE;
-    auto imguiSystem = gCoordinator->GetSystem<ImGuiSystem>();
-    imguiSystem->Update();
-
 }
 
 DecisionTree::DecisionTree() {
@@ -51,6 +48,10 @@ DecisionTreeNode* DecisionTree::AddNode(DecisionTreeNode* parent, int id) {
     auto newNode = std::make_unique<DecisionTreeNode>(id);
     parent->children.push_back(std::move(newNode));
     return parent->children.back().get();
+}
+
+DecisionResults DecisionTree::GetCurrentMode() const {
+    return currentMode;
 }
 
 void DecisionTree::Evaluate(DecisionTreeNode* node) {

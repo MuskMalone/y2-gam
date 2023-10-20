@@ -35,6 +35,7 @@ public:
     DecisionTree();
     DecisionTreeNode* CreateRootNode(int id);
     DecisionTreeNode* AddNode(DecisionTreeNode* parent, int id);
+    DecisionResults GetCurrentMode() const;
     void Evaluate(DecisionTreeNode* node);
     void Evaluate();
     void CheckToggleKey();
