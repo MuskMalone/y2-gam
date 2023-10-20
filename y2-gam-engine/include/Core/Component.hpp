@@ -9,4 +9,5 @@
 #include <Components/Script.hpp>
 #include <Components/Sprite.hpp>
 #include <Components/Text.hpp>
+#include <Components/Tag.hpp>
 #include <Components/Transform.hpp>

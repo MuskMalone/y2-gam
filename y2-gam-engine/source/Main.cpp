@@ -26,7 +26,7 @@
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
-
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 
 namespace {
 	static bool quit = false;
@@ -38,7 +38,7 @@ void QuitHandler([[maybe_unused]] Event& event)
 	quit = true;
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
-
+DecisionTree gGameLoop{};
 int main()
 {
 	// Enable run-time memory check for debug builds.
@@ -76,6 +76,7 @@ int main()
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<ImguiComponent>();
+	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
 	auto textSystem = coordinator->RegisterSystem<TextSystem>();
@@ -122,7 +123,7 @@ int main()
 		Signature signature;
 		//signature.flip();
 		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Sprite>());
+		//signature.set(coordinator->GetComponentType<Tag>());
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}
@@ -204,12 +205,16 @@ int main()
 		Image::SoundManager::AudioUpdate();
 		frameController->StartFrameTime();
 		inputSystem->Update();
-		imguiSystem->Update();
+
 
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
-
+		gGameLoop.CheckToggleKey();
+		gGameLoop.Evaluate();
+		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
+			imguiSystem->Update();
+		}
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);
