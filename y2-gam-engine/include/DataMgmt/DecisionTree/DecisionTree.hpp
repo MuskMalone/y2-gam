@@ -1,3 +1,23 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       DecisionTree.hpp
+
+\author     Ng Meng Yee, Darren (ng.m@digipen.edu)
+\date       Oct 20, 2023
+
+\brief      Header file for DecisionTree
+
+            This file contains the declaration of a tree-based 
+            decision structure in the game engine. It includes methods to create 
+            and evaluate the decision tree nodes. It also provides utilities for 
+            the different nodes.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 
 enum class DecisionResults {
@@ -24,7 +44,7 @@ struct DecisionTreeNode {
 class DecisionTree {
 private:
     std::unique_ptr<DecisionTreeNode> rootNode;
-    DecisionResults currentMode = DecisionResults::GAME_MODE;
+    DecisionResults currentMode = DecisionResults::IMGUI_MODE;
 
     bool IsInGameMode() const;
     void ToggleGameMode();
