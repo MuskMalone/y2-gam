@@ -9,7 +9,7 @@
 #include <Core/Globals.hpp>
 #include "Components/OrthoCamera.hpp"
 #include "Math/MathUtils.h"
-
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
 #include <Engine/PrefabsManager.hpp>
@@ -45,6 +45,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(2.f * WORLD_LIMIT_X, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -67,11 +68,12 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9f * WORLD_LIMIT_Y)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -89,11 +91,12 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
+			Vec2(position), .0f, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.9f * WORLD_LIMIT_Y)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(5.f, 1.95f * WORLD_LIMIT_Y)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -203,6 +206,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Collider{
+			Vec2(position), 0.f, Vec2(scale, scale)
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -365,56 +369,22 @@ void EditorControlSystem::Update(float dt)
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
-		//std::vector<Entity> entities(1);
-		//using namespace Testing;
-
-		//std::uniform_real_distribution<float> randPositionY(0.f, 100.f);
-		//std::uniform_real_distribution<float> randPosition(-WORLD_LIMIT_X, WORLD_LIMIT_X);
-
-		//std::uniform_real_distribution<float> randDepth(-1.0f, 0.0f);
-		////std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
-		//std::uniform_real_distribution<float> randScale(2.f, 5.f);
-		//std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
-		//std::uniform_real_distribution<float> randGravity(-100.f, -50.f);
-		//std::uniform_real_distribution<float> randVelocity(-10.f, 10.f);
-		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Box");
-		for (int i{}; i < 5; ++i) {
+		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
+		for (int i{}; i < 10; ++i) {
 			//std::cout << i << std::endl;
 			Testing::lastInserted = gCoordinator->CloneEntity(Testing::lastInserted);
-			//float scale = randScale(generator);
-			//Entity entity = ::gCoordinator->CreateEntity();
 
-			////for (auto& entity : entities)
-			////{
-			//::gCoordinator->AddComponent<Gravity>(
-			//	entity,
-			//	//{Vec3(0.0f, randGravity(generator), 0.0f)});
-			//	{ Vec2(0.0f, -100.f) });
+		}
 
-			//Vec3 position = Vec3(randPosition(generator), randPositionY(generator), randDepth(generator));
-			//::gCoordinator->AddComponent(
-			//	entity,
-			//	Collider{
-			//	});
-			//::gCoordinator->AddComponent(
-			//	entity,
-			//	RigidBody{
-			//		Vec2(position),.0f, 10.f, Vec2(scale, scale), false
-			//	});
-			//::gCoordinator->AddComponent(
-			//	entity,
-			//	Transform{
-			//		{position.x,position.y,position.z},
-			//		{0.f,0.f,0.f},
-			//		{scale, scale, scale}
-			//	});
-			//::gCoordinator->AddComponent(
-			//	entity,
-			//	Sprite{
-			//		{randColor(generator), randColor(generator), randColor(generator), 1},
-			//		nullptr
-			//	});
-			//lastInserted = entity;
+	}
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+
+		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Box");
+		for (int i{}; i < 10; ++i) {
+			//std::cout << i << std::endl;
+			Testing::lastInserted = gCoordinator->CloneEntity(Testing::lastInserted);
+
 		}
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P)) {

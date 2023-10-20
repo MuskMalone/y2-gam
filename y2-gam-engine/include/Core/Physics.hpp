@@ -17,7 +17,6 @@
 
 #include "Math/MathUtils.h"
 #include <cstdint>
-#include <Components/RigidBody.hpp>
 #include <Core/Types.hpp>
 #include <unordered_map>
 

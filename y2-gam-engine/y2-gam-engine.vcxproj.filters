@@ -58,6 +58,7 @@
     <ClCompile Include="source\Systems\TextSystem.cpp" />
     <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
+    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -140,6 +141,8 @@
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Systems\TextSystem.hpp" />
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
+    <ClInclude Include="include\Components\Tag.hpp" />
+    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -213,9 +216,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\Globals.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\BoxCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Systems\CollisionSystem.hpp">

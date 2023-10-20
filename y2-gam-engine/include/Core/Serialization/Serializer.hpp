@@ -16,6 +16,7 @@
 #include <Components/RigidBody.hpp>
 #include <Components/Script.hpp>
 #include <Components/Sprite.hpp>
+#include <Components/Tag.hpp>
 #include <Components/Text.hpp>
 #include <Components/Transform.hpp>
 namespace Serializer{
@@ -49,6 +50,9 @@ Coordinator::GetInstance()->AddComponent(entity, Script{ obj });
 static void EntityAddSprite(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Sprite{ obj });
 }
+static void EntityAddTag(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Tag{ obj });
+}
 static void EntityAddText(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Text{ obj });
 }
@@ -66,6 +70,7 @@ else if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
 else if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
 else if constexpr (std::is_same_v<_type, Script>) return "Script";
 else if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
+else if constexpr (std::is_same_v<_type, Tag>) return "Tag";
 else if constexpr (std::is_same_v<_type, Text>) return "Text";
 else if constexpr (std::is_same_v<_type, Transform>) return "Transform";
 else return "NULL";
@@ -141,6 +146,13 @@ bool res = Coordinator::GetInstance()->GetComponent<Sprite>(entity).Serialize(ob
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Sprite>(), obj); }
 else { obj.SetNull(); }
 }
+if (Coordinator::GetInstance()->HasComponent<Tag>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Tag>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Tag>(), obj); }
+else { obj.SetNull(); }
+}
 if (Coordinator::GetInstance()->HasComponent<Text>(entity)){
 JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
@@ -167,6 +179,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"RigidBody", EntityAddRigidBody},
 {"Script", EntityAddScript},
 {"Sprite", EntityAddSprite},
+{"Tag", EntityAddTag},
 {"Text", EntityAddText},
 {"Transform", EntityAddTransform}
 };

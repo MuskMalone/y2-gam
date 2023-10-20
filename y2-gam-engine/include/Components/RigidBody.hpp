@@ -21,6 +21,10 @@
 
 struct RigidBody
 {	
+	//dimension, position, and rotation are merely here to push values from collider
+	//to modify the drawn properties, u should be referring to Transform.hpp
+	//to modify the collidable dimensions, u should be referring to Collider.hpp
+
 	Vec2 dimension{}; //if collider is circle, both values of dimension is radius
 	Vec2 position{};
 	float rotation{};

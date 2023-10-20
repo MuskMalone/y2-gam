@@ -148,7 +148,7 @@ the impulse is applied, preventing the bodies from penetrating each other.
     void ArbiterApplyImpulse(Arbiter& a) {
         auto& rb1{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b1) };
         auto& rb2{ Coordinator::GetInstance()->GetComponent<RigidBody>(a.b2) };
-
+        a.combinedFriction = sqrtf(rb1.friction * rb2.friction);
 
         for (size_t i = 0; i < a.contactsCount; i++) {
             Contact& c = *(a.contacts + i);
@@ -296,14 +296,17 @@ and rotations of the rigid bodies.
         for (auto const& entity : mEntities){
             auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
             auto& transform = gCoordinator->GetComponent<Transform>(entity);
+            
+            auto vel{ (rigidBody.velocity * dt) };
 
-            rigidBody.position += rigidBody.velocity * dt;
-            rigidBody.rotation += rigidBody.angularVelocity * dt;
-
-            //change this soon
-            transform.position = {rigidBody.position.x,rigidBody.position.y, 0};
-            transform.rotation = { 0, 0, Degree(rigidBody.rotation) };
-           
+            //i have to translate to graphics somehow
+            transform.position += glm::vec3{vel.x, vel.y, 0.f};
+            transform.rotation += glm::vec3{0, 0, rigidBody.angularVelocity* dt};
+            if (gCoordinator->HasComponent<Collider>(entity)) {
+                auto& collider = gCoordinator->GetComponent<Collider>(entity);
+                collider.position += vel;
+                collider.rotation += rigidBody.angularVelocity * dt;
+            }
 
             rigidBody.torque = 0.0f;
             rigidBody.force = Vec2{};//Vector2Zero();
@@ -323,8 +326,29 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
 
     void PhysicsSystem::CollisionListener(Event& event) {
         auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
+        if (mEntities.find(ap.second.b1) == mEntities.end() || mEntities.find(ap.second.b2) == mEntities.end())
+            return;
+
+        auto const& c1{ gCoordinator->GetComponent<Collider>(ap.second.b1) };
+        auto const& c2{ gCoordinator->GetComponent<Collider>(ap.second.b2) };
+
+        auto & rb1{ gCoordinator->GetComponent<RigidBody>(ap.second.b1) };
+        auto & rb2{ gCoordinator->GetComponent<RigidBody>(ap.second.b2) };
+
+        rb1.dimension = c1.dimension;
+        rb2.dimension = c2.dimension;
+        rb1.position = c1.position;
+        rb2.position = c2.position;
+        rb1.rotation = c1.rotation;
+        rb2.rotation = c2.rotation;
+
+
         ArbiterHashTable::iterator iter = mArbiterTable.find(ap.first);
         //HashTableGet(&world->arbiter_table, hashTableKey);
+
+        //if one of the entites are not collidable
+
+
         if (iter == mArbiterTable.end()) {
             mArbiterTable.emplace(ap.first, ap.second);
         }
