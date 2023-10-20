@@ -455,7 +455,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Tag{""});
+                            Tag{"Entity "+std::to_string(gSelectedEntity)});
                     }
                 }
                       break;
