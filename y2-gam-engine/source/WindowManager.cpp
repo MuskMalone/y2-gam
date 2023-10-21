@@ -197,7 +197,7 @@ void WindowManager::MousePosCb(GLFWwindow* pwin, double xpos, double ypos) {
 	event.SetParam(Events::Window::Input::MOUSE_MOVE, MousePosition(static_cast<float>(xpos), static_cast<float>(ypos)));
 	gCoordinator->SendEvent(event);
 #ifdef _DEBUG
-    std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
+    //std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
 #endif
 }
 

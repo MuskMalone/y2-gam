@@ -146,5 +146,6 @@ enum class MouseButtons
 	LB, RB, MB
 };
 using MousePosition = std::pair<float, float>;
+using EditorMousePosition = std::pair <MousePosition, std::pair<float, float>>; // second pair is width height of editor
 using KeyState = std::bitset<ENGINE_KEYS_COUNT>;
 using MouseKeyState = std::bitset<ENGINE_MOUSEKEYS_COUNT>;

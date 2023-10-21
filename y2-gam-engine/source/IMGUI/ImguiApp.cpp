@@ -30,6 +30,8 @@
 #include "Components/Sprite.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
+#include "Components/Tag.hpp"
+
 #include "Components/Editor.hpp"
 #include "Components/Script.hpp"
 #include "Core/Coordinator.hpp"
@@ -42,6 +44,7 @@
 #include <Core/Globals.hpp>
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
+#include "Scripting/NodeManager.hpp"
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -63,19 +66,20 @@ namespace Image {
     */
     void AppRender(std::set<Entity>const& mEntities) {
         //Press z to change dock space and non dock space
-        static bool showDockSpace{ true };
+        //static bool showDockSpace{ true };
         static bool toDelete{ false };
 
-        if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
+        /*if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
             showDockSpace = !showDockSpace;
-        }
+        }*/
         if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+            NodeManager::ClearAllNodes();
             toDelete = !toDelete;
         }
 
-        if (showDockSpace) {
             ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-        }
+        /*if (showDockSpace) {
+        }*/
         //ImGui::ShowDemoWindow();
         MainMenuWindow();
         HierarchyWindow(mEntities);
@@ -163,6 +167,17 @@ namespace Image {
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
+            ImGuiViewport* vP = ImGui::GetWindowViewport();
+            gCoordinator->AddComponent(
+                gSelectedEntity,
+                Transform{
+                    {vP->Pos.x,vP->Pos.y,0},
+                    {0,0,0},
+                    {5,5,5}
+                });
+            gCoordinator->AddComponent(
+                gSelectedEntity,
+                Tag{"Name"});
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
@@ -173,8 +188,14 @@ namespace Image {
         }
 
         for (auto const& entity : mEntities) {
+            std::string displayName = std::to_string(entity);
+            if (gCoordinator->HasComponent<Tag>(entity)) {
+                Tag& tagComponent = gCoordinator->GetComponent<Tag>(entity);
+                displayName = tagComponent.tag;
+            }
+
             bool isSelected = (gSelectedEntity == entity);
-            if (ImGui::Selectable(std::to_string(entity).c_str(), isSelected)) {
+            if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
         }
@@ -195,59 +216,111 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
-            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+            //if (ImGui::CollapsingHeader("Transform")) {
 
-                // Position
-                ImGui::Text("Position");
-                ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                    Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
 
-                // Rotation
-                ImGui::Text("Rotation");
-                ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    // Position
+                    ImGui::Text("Position");
+                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
-                // Scale
-                ImGui::Text("Scale");
-                ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
-                ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
-            }
-            if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
-                Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
-                //Color
-                ImGui::Separator();
-                ImGui::Text("Color");
-                ImGui::ColorPicker4("Color Picker", &sprite.color.r);
-            }
-            if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
-                RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
+                    // Rotation
+                    ImGui::Text("Rotation");
+                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
 
-                ImGui::Separator();
-                ImGui::Text("RigidBody");
-                //Pos
-                ImGui::Text("Position");
-                ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                // Rotation
-                ImGui::Text("Rotation");
-                ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
-                // Scale
-                ImGui::Text("Dimension");
-                ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
-                ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
-                // Mass
-                ImGui::Text("Mass");
-                ImGui::InputFloat("Mass", &rigidBody.mass);
-                rigidBody.SetMass(rigidBody.mass);
-            }
-            if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
-                Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
-                ImGui::Separator();
-                //Force
-                ImGui::Text("Gravity");
-                ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
-                ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
-            }
+                    // Scale
+                    ImGui::Text("Scale");
+                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
+                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                }
+            //}
+            //if (ImGui::CollapsingHeader("Sprite")) {
+
+                if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                    Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
+                    //Color
+                    ImGui::Separator();
+                    ImGui::Text("Color");
+                    ImGui::ColorPicker4("Color Picker", &sprite.color.r);
+                }
+            //    else {
+            //        ImGui::Text("No Sprite Component");
+            //    }
+            //}
+            //if (ImGui::CollapsingHeader("RigidBody")) {
+                if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                    Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
+
+                    ImGui::Separator();
+                    ImGui::Text("Collider");
+
+                    ImGui::Text("Type");
+                    const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
+                    ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
+                    //Pos
+                    ImGui::Text("Position");
+                    ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    // Rotation
+                    ImGui::Text("Rotation");
+                    ImGui::SliderFloat("Collider Rot", &collider.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    // Scale
+                    if (collider.type == ColliderType::BOX) {
+                        ImGui::Text("Dimension");
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                        ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, 50);
+
+                    }
+                    else {
+                        ImGui::Text("Diameter");
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                        collider.dimension.y = collider.dimension.x;
+                    }
+
+
+                    // Mass
+
+                }
+                if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                    RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
+
+                    ImGui::Separator();
+                    ImGui::Text("RigidBody");
+                    //Pos
+                    ImGui::Text("Position");
+                    ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    // Rotation
+                    ImGui::Text("Rotation");
+                    ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    // Scale
+                    ImGui::Text("Dimension");
+                    ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
+                    ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
+                    // Mass
+                    ImGui::Text("Mass");
+                    ImGui::InputFloat("Mass", &rigidBody.mass);
+                    rigidBody.SetMass(rigidBody.mass);
+                }
+                /*else {
+                    ImGui::Text("No RigidBody Component");
+                }
+            }*/
+            //if (ImGui::CollapsingHeader("Gravity")) {
+                if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                    Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
+                    ImGui::Separator();
+                    //Force
+                    ImGui::Text("Gravity");
+                    ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
+                    ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
+                }
+                /*else {
+                    ImGui::Text("No Gravity Component");
+                }
+            }*/
         }
         ImGui::End();
     }
@@ -264,14 +337,32 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Script" };
-        static int selectedComponentToAdd{ -1 };
-        static int selectedComponentToRemove{ -1 };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag"};
+        static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
+            if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                static Entity gPreviousEntity = {MAX_ENTITIES}; 
+                static char tag[256] = "";
+                if (gPreviousEntity != gSelectedEntity) {
+                    memset(tag, 0, sizeof(tag));
+                    gPreviousEntity = gSelectedEntity; 
+                }
+                Tag& tagComponent = gCoordinator->GetComponent<Tag>(gSelectedEntity);
+                ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
+                //ImGui::SetNextItemWidth(50.0f);
+                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag))) {
+                    tagComponent.tag = tag;
+                }
+            }
+            else {
+                ImGui::Text("No Entity Tag");
+            }
+
             //Combo box click to add components
-            if (ImGui::Combo("Add Component", &selectedComponentToAdd, components, IM_ARRAYSIZE(components))) {
-                switch (selectedComponentToAdd) {
+            ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
+            if (ImGui::Button("Add")) {
+                switch (selectedComponent) {
                 case 0: {
                     if (!gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                         ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -327,7 +418,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Collider{});
+                            Collider{ Vec2{},0,Vec2{} });
                     }
 
                 }
@@ -360,11 +451,19 @@ namespace Image {
                     }
                 }
                       break;
-
+                case 6: {
+                    if (!gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Tag{"Entity "+std::to_string(gSelectedEntity)});
+                    }
+                }
+                      break;
                 }
             }
-            if (ImGui::Combo("Remove Component", &selectedComponentToRemove, components, IM_ARRAYSIZE(components))) {
-                switch (selectedComponentToRemove) {
+            ImGui::SameLine();
+            if (ImGui::Button("Remove")) {
+                switch (selectedComponent) {
                 case 0: {
                     // Remove Transform component
                     if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
@@ -406,9 +505,18 @@ namespace Image {
                         gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
                     }
                 }
+                    break;
+                case 6: {
+                    // Remove Tag component
+                    if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<Tag>(gSelectedEntity);
+                    }
+                }
                       break;
                 }
             }
+            ImGui::Separator();
+            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
@@ -432,7 +540,32 @@ namespace Image {
     void BufferWindow() {
         ImGui::Begin("Image Game Engine");
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
+       
+        //tch: hello this is my input part
+        if (ImGui::IsWindowHovered()) {
+            ImGuiIO& io = ImGui::GetIO();
+            ImVec2 mousePos = io.MousePos;
+
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
+
+            ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
+
+            if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
+                Event event(Events::Window::INPUT);
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
+                    static_cast<float>(mousePos.x - paddedTopLeft.x), 
+                    static_cast<float>((mousePos.y - paddedTopLeft.y) )
+                ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
+                );
+                gCoordinator->SendEvent(event);
+            }
+
+        }
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
         ImGui::End();
     }
 

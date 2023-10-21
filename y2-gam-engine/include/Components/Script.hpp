@@ -6,7 +6,7 @@
 \author     Ernest Cheo (e.cheo@digipen.edu)
 \date       Sep 23, 2023
 
-\brief      A simple script component, with the name representing the
+\brief      Defines the simple script component, with the name representing the
             script name.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
@@ -30,7 +30,7 @@ struct Script {
 	}
 
 	bool Serialize(rapidjson::Value& obj) {
-		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 
 		sm->InsertValue(obj, "script", name);
 
