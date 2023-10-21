@@ -351,8 +351,9 @@ namespace Image {
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(gSelectedEntity);
                 ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
                 //ImGui::SetNextItemWidth(50.0f);
-                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag))) {
+                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
                     tagComponent.tag = tag;
+                    memset(tag, 0, sizeof(tag)); // Clear the input
                 }
             }
             else {
