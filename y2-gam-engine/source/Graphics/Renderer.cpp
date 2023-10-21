@@ -483,21 +483,35 @@ Color of the rectangle's border.
 This function draws a rectangle using lines. It calculates the four corners of
 the rectangle and then draws lines between them to form the rectangle.
 */
-void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr) {
-	glm::vec3 p0{ glm::vec3(pos.x - scale.x * 0.5f, pos.y - scale.y * 0.5f, pos.z) };
-	glm::vec3 p1{ glm::vec3(pos.x + scale.x * 0.5f, pos.y - scale.y * 0.5f, pos.z) };
-	glm::vec3 p2{ glm::vec3(pos.x + scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
-	glm::vec3 p3{ glm::vec3(pos.x - scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
-
+void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
-	//glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
+	glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
 	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
-	glm::mat4 transformMtx{ translateMtx * scaleMtx };
+	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
-	DrawLine(p0, p1, clr);
-	DrawLine(p1, p2, clr);
-	DrawLine(p2, p3, clr);
-	DrawLine(p3, p0, clr);
+	//DrawLine(p0, p1, clr);
+	//DrawLine(p1, p2, clr);
+	//DrawLine(p2, p3, clr);
+	//DrawLine(p3, p0, clr);
+
+	glm::vec3 lineVertices[4]{};
+	for (size_t i{}; i < 4; ++i)
+		lineVertices[i] = transformMtx * mData.quadVtxPos[i];
+
+	DrawLine(lineVertices[0], lineVertices[1], clr);
+	DrawLine(lineVertices[1], lineVertices[2], clr);
+	DrawLine(lineVertices[2], lineVertices[3], clr);
+	DrawLine(lineVertices[3], lineVertices[0], clr);
+   
+}
+
+void Renderer::DrawLineRect(glm::mat4 const& transform, glm::vec4 const& clr) {
+
+	glm::vec3 lineVertices[4]{};
+	for (size_t i{}; i < 4; ++i) {
+		lineVertices[i] = transform * mData.quadVtxPos[i];
+		DrawLine(lineVertices[i], lineVertices[i + 1 % 4], clr);
+	}
 }
 
 /*  _________________________________________________________________________ */

@@ -754,7 +754,8 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             Vec2 pos{ aabb.first + scale / 2.f };
             //Vec2 p1{ c.position + rb.velocity };
             if (c.type == ColliderType::BOX) {
-                Renderer::DrawQuad({ c.position.x,c.position.y,1 }, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(c.rotation));
+                //Renderer::DrawQuad({ c.position.x,c.position.y,1 }, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,0.f }, Image::Degree(c.rotation));
+                Renderer::DrawLineRect({ c.position.x,c.position.y,1 }, { c.dimension.x,c.dimension.y }, { 1.f, 0.f, 1.f ,1.f }, Image::Degree(c.rotation));
                 //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, { p1.x,p1.y , 1 }, { 0,1,0,1 });
             }
             else {

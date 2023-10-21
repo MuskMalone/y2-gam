@@ -123,7 +123,8 @@ public:
 	
 	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);
-	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr);
+	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float = 0.f);
+	static void DrawLineRect(glm::mat4 const& transform, glm::vec4 const& clr);
 
 	//Circles
 	static void DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness = 1.f, float fade = 0.005f);
