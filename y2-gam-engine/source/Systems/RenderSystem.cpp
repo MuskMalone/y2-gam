@@ -211,7 +211,29 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
+
 	mFramebuffer->Unbind();
+
+	int width = 1600;
+	int height = 900;
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	// Create a buffer for the red color using std::vector
+	std::vector<unsigned char> data(width * height * 4); // 4 for RGBA
+	for (int i = 0; i < width * height * 4; i += 4) {
+		data[i] = 255;     // Red
+		data[i + 1] = 0;   // Green
+		data[i + 2] = 0;   // Blue
+		data[i + 3] = 255; // Alpha
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	Renderer::RenderFullscreenTexture(textureID);
 }
 
 /*  _________________________________________________________________________ */
