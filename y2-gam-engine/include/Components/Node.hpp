@@ -30,7 +30,7 @@ struct Node {
 	Node(std::set<Entity> n, bool s) : neighbours{ n }, selected{ s } {}
 
 	Node([[maybe_unused]] rapidjson::Value const& obj) {
-		// To be completed
+		// To be completed (Need to break down std::set)
 	}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {

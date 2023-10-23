@@ -7,7 +7,6 @@
 #include "Systems/CollisionSystem.hpp"
 
 #include <Core/Globals.hpp>
-#include "Components/OrthoCamera.hpp"
 #include "Math/MathUtils.h"
 #include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "Scripting/ScriptManager.hpp"
@@ -136,6 +135,11 @@ void EditorControlSystem::Init()
 			{0, 1, 0, 0.7},
 			nullptr
 		});
+	::gCoordinator->AddComponent(
+		entity,
+		Tag{
+      "Center Platform"
+    });
 
 	// Left
 	entity = ::gCoordinator->CreateEntity();
@@ -166,6 +170,11 @@ void EditorControlSystem::Init()
 			{0, 1, 0, 0.7},
 			nullptr
 		});
+	::gCoordinator->AddComponent(
+		entity,
+		Tag{
+			"Left Platform"
+		});
 
 	// Right
 	entity = ::gCoordinator->CreateEntity();
@@ -195,6 +204,11 @@ void EditorControlSystem::Init()
 		Sprite{
 			{0, 1, 0, 0.7},
 			nullptr
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Tag{
+			"Right Platform"
 		});
 		
 	// Creating a sample player entity
@@ -237,6 +251,11 @@ void EditorControlSystem::Init()
 			0.05f,
 			"Player",
 			{1, 1, 0}
+		});
+	::gCoordinator->AddComponent(
+		player,
+		Tag{
+			"Player"
 		});
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
@@ -339,6 +358,7 @@ void EditorControlSystem::Update(float dt)
 	}
 
 	// NODE RELATED START
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		NodeManager::AddNode();
@@ -346,11 +366,11 @@ void EditorControlSystem::Update(float dt)
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+
 		Physics::RayHit rh{};
+
 		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
-		
-		//std::cout << "Entity Hit " << rh.entityID << "\n";
 		
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
@@ -364,9 +384,17 @@ void EditorControlSystem::Update(float dt)
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_N) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
-		//NodeManager::FillCostMap();
 		NodeManager::PrintCostMap();
 	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_L) &&
+    inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		Entity playerID = ::gCoordinator->GetSystem<RenderSystem>()->mPlayer;
+    NodeManager::Path path = NodeManager::DjkstraAlgorithm(0, NodeManager::FindClosestNodeToPosition(playerID));
+
+		// Print the path
+    NodeManager::PrintPath(path);
+  }
 
 	// NODE RELATED END
 

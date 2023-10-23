@@ -22,6 +22,7 @@
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
+#include "Graphics/FontRenderer.hpp"
 
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
@@ -210,7 +211,10 @@ int main()
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+
+		NodeManager::Update();
 		textSystem->Update();
+
 		gGameLoop.CheckToggleKey();
 		gGameLoop.Evaluate();
 		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
@@ -259,9 +263,6 @@ int main()
 			}
 		}
 		*/
-
-		
-		NodeManager::Update();
 	}
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();

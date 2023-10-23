@@ -28,7 +28,7 @@ namespace Image
             float maxDistance, out IntPtr raycastHit);
         #endregion
 
-        #region AnimationComponent
+        #region GraphicsComponent
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
@@ -60,6 +60,38 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void AnimationComponent_SetAnimationState(uint entityHandle, ref int animationState);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_GetScale
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param scale
+        Current scale of the entity.
+
+        @return none.
+
+        Get the current scale of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_GetScale(uint entityHandle, out Vector3 scale);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetScale
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param scale
+        Updated scale of the entity.
+
+        @return none.
+
+        Set the current scale of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
         #endregion
 
         #region TransformComponent

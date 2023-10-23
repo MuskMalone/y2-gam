@@ -71,6 +71,24 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! Scale
+
+        Getter setter for Scale.
+        */
+        public Vector3 Scale
+        {
+            get
+            {
+                InternalCalls.GraphicsComponent_GetScale(entityID, out Vector3 scale);
+                return scale;
+            }
+            set
+            {
+                InternalCalls.GraphicsComponent_SetScale(entityID, ref value);
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! Translation
 
         Getter setter for Translation.

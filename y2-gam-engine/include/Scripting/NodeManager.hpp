@@ -20,15 +20,17 @@
 namespace Image {
 
   struct DijkstraNode {
-    Entity parentNode;
-    bool visited;
-    int score;
+    Entity parentNode;                // The 'real' node that represents this node
+    bool visited;                     // Has this node been visited?
+    int score;                        // The score of this node
+    Entity previousNodeInPath;        // The previous node in the path
   };
 
   class NodeManager {
   public:
     using Cost = int;
     using Path = std::vector<Entity>;
+    using DijkstraGraph = std::vector<DijkstraNode>;
 
   public:
     // Debug
@@ -44,17 +46,20 @@ namespace Image {
     // Cost Calculation
     static int CalculateCost(Entity lhs, Entity rhs);
     static void PrintCostMap();
+    static Entity FindClosestNodeToPosition(Vec2 position);
 
     // Pathfinding Algorithm
     static Path DjkstraAlgorithm(Entity start, Entity end);
+    static void PrintPath(Path const& path);
 
   private:
     static void FillCostMap();
 
-    // Pathfinding Algorithm Helpers
-    static Entity GetLowestScoreNode();
-    static int CalculateScore(Entity currentNode, Entity nextNode);
-    static Path BuildPath(Entity targetNode);
+    // Helper Functions
+    static DijkstraNode& GetLowestScoreNode(DijkstraGraph const& dg);
+    static int CalculateScore(DijkstraNode currentNode, DijkstraNode nextNode);
+    static Path BuildPath(DijkstraNode targetNode, DijkstraGraph dg);
+    static float CalculateDistanceSquared(Vec2& lhs, Vec2& rhs);
 
   private:
     static std::set<Entity> currentlyActiveNodes;

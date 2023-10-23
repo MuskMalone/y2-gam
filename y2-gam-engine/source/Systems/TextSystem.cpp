@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       TextSystem.cpp
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Oct 23, 2023
+
+\brief      The source file for the text system.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+						or disclosure of this file or its contents without the prior
+						written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "../include/pch.hpp"
 
 #include "Systems/TextSystem.hpp"
@@ -12,6 +29,13 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*! Init
+
+@return none.
+
+Initializes the font renderer and loads the fonts, for future use.
+*/
 void TextSystem::Init() {
 	Image::FontRenderer::Init();
 	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
@@ -27,6 +51,13 @@ void TextSystem::Init() {
 	Image::FontRenderer::GenerateBitmap("Getho", 100);
 }
 
+/*  _________________________________________________________________________ */
+/*! Update
+
+@return none.
+
+Updates the text system by rendering the text.
+*/
 void TextSystem::Update() {
 	for (auto const& entity : mEntities) {
 		auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
@@ -37,10 +68,28 @@ void TextSystem::Update() {
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*! Exit
+
+@return none.
+
+A wrapper function for the font renderer's exit function.
+*/
 void TextSystem::Exit() {
 	Image::FontRenderer::Exit();
 }
 
+/*  _________________________________________________________________________ */
+/*! WorldToScreenCoordinates
+
+@param worldCoordinates
+The world coordinates to convert to screen coordinates.
+
+@return Vec2
+The screen coordinates.
+
+Calculates the screen coordinates from the world coordinates.
+*/
 Vec2 TextSystem::WorldToScreenCoordinates(Vec2 worldCoordinates) {
 	auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 	glm::vec4 screenCoordinates{ cam.GetViewMtx() * glm::vec4(worldCoordinates.x, worldCoordinates.y, 0.f, 1.f) };

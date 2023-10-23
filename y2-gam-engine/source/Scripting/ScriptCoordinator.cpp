@@ -41,7 +41,7 @@ namespace Image {
 		*raycastHit = reinterpret_cast<void*>(ret);
 	}
 
-	// For Animation
+	// For Graphics
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -78,6 +78,45 @@ namespace Image {
 		gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<ANIM_STATE>(*animationState);
 	}
 
+	/*  _________________________________________________________________________ */
+/*! GraphicsComponent_GetScale
+
+@param entityID
+The ID of the entity.
+
+@param outScale
+The current scale of the entity.
+
+@return none.
+
+Get the current scale of the entity in C#.
+*/
+	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
+		::gCoordinator = Coordinator::GetInstance();
+		*outScale = Vec3{ gCoordinator->GetComponent<Transform>(entityID).scale.x,
+			gCoordinator->GetComponent<Transform>(entityID).scale.y,
+			gCoordinator->GetComponent<Transform>(entityID).scale.z };
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetScale
+
+	@param entityID
+	The ID of the entity.
+
+	@param scale
+	Updated scale of the entity.
+
+	@return none.
+
+	Set the current scale of the entity in C#.
+	*/
+	static void GraphicsComponent_SetScale(uint32_t entityID, Vec3* scale) {
+		::gCoordinator = Coordinator::GetInstance();
+		gCoordinator->GetComponent<Transform>(entityID).scale = 
+		{ scale->x, scale->y, scale->z };
+	}
+
 	// For Translation
 	/*  _________________________________________________________________________ */
 	/*! TransformComponent_GetTranslation
@@ -94,7 +133,9 @@ namespace Image {
 	*/
 	static void TransformComponent_GetTranslation(uint32_t entityID, Vec3* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,gCoordinator->GetComponent<Transform>(entityID).position.y,gCoordinator->GetComponent<Transform>(entityID).position.z };
+		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,
+			gCoordinator->GetComponent<Transform>(entityID).position.y,
+			gCoordinator->GetComponent<Transform>(entityID).position.z };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -340,6 +381,8 @@ namespace Image {
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);

@@ -22,6 +22,8 @@ namespace Object
 {
     public class Player : Entity
     {
+        bool isFacingRight = true;
+
         /*  _________________________________________________________________________ */
         /*! Player
 
@@ -46,7 +48,6 @@ namespace Object
         */
         public Player(uint entityHandle) : base(entityHandle)
         {
-            //Console.WriteLine("Player Non-Default, Single Parameter Constructor Called!");
             entityID = entityHandle;
         }
 
@@ -60,7 +61,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            //Console.WriteLine($"Player.OnCreate from ID: {entityID}");
+
         }
 
         /*  _________________________________________________________________________ */
@@ -86,12 +87,26 @@ namespace Object
 
             else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
             {
+                if (isFacingRight)
+                {
+                    // Only update the scale if the direction changes
+                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                    isFacingRight = false;
+                }
+
                 AnimationState = (int)AnimationCode.RUN;
                 forces.X = -1.0f;
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
             {
+                if (!isFacingRight)
+                {
+                    // Only update the scale if the direction changes
+                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                    isFacingRight = true;
+                }
+
                 AnimationState = (int)AnimationCode.RUN;
                 forces.X = 1.0f;
             }
@@ -106,10 +121,6 @@ namespace Object
             Vector2 velocity = Velocity;
             velocity += acceleration * dt;
             Velocity = velocity;
-
-            // For Debugging Purposes
-            //Vector3 translation = Translation;
-            //Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
 
             if(!PhysicsWrapper.Raycast(new Vector3(0, 0, 0), new Vector3(0, 0, 0), out RaycastHit ray, 10))
             {

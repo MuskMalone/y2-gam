@@ -361,21 +361,15 @@ namespace Image {
   void FontRenderer::RenderText(std::string fontName, std::string text, float xPos, float yPos, 
     float scale, Vec3 color) {
     if (sFaces.find(fontName) == sFaces.end()) {
-      //std::cout << "Font " << fontName << " does not exist" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + fontName + " does not exist", __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
 
-    // Temporary Fix
     yPos = -yPos;
 
     FaceObject const& currFace{ sFaces[fontName] };
     std::shared_ptr<Texture>const& currTex{ sBitmap[fontName] };
 
-    //float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
-    //float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
-    //OrthoCamera cam(16/9, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
-    
     auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
     glm::mat4 projection{ cam.GetProjMtx() };
     glm::mat4 flipY{ glm::mat4(1.0f) };
