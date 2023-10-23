@@ -47,6 +47,7 @@ namespace Image {
     static int CalculateCost(Entity lhs, Entity rhs);
     static void PrintCostMap();
     static Entity FindClosestNodeToPosition(Vec2 position);
+    static Entity FindClosestNodeToEntity(Entity entity);
 
     // Pathfinding Algorithm
     static Path DjkstraAlgorithm(Entity start, Entity end);

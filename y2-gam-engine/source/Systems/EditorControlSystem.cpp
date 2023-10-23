@@ -24,6 +24,7 @@ namespace {
 namespace Testing {
 	std::default_random_engine generator;
 	Entity lastInserted;
+	Entity enemy;
 }
 
 void EditorControlSystem::Init()
@@ -257,6 +258,54 @@ void EditorControlSystem::Init()
 		Tag{
 			"Player"
 		});
+	Image::ScriptManager::OnCreateEntity(player);
+
+	// Creating a sample enemy entity
+	Testing::enemy = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Script>(Testing::enemy, { "ObjectBasicEnemy" });
+
+	position = Vec3(40.f, -64.f, -150.f);
+	scale = 20.f;
+	::gCoordinator->AddComponent<Gravity>(
+		Testing::enemy,
+		{ Vec2(0.0f, -100.f) });
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		Collider{
+			Vec2(position), 0.f, Vec2(scale, scale)
+		});
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		RigidBody{
+			Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
+		});
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{scale, scale, scale}
+		});
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		Sprite{
+			{1, 0, 0, 1},
+			nullptr
+		});
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		Text{
+			"Lato",
+			0.05f,
+			"Enemy",
+			{1, 1, 0}
+		});
+	::gCoordinator->AddComponent(
+		Testing::enemy,
+		Tag{
+			"Enemy"
+		});
+	Image::ScriptManager::OnCreateEntity(Testing::enemy);
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
@@ -275,16 +324,14 @@ void EditorControlSystem::Init()
 			map
 		});
 
-	Image::ScriptManager::OnCreateEntity(player);
-
 	// Sound Testing
-	soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
-	bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
-	bgmGroup = Image::SoundManager::AudioCreateGroup();
-	effectGroup = Image::SoundManager::AudioCreateGroup();
+	::soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
+	::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	::bgmGroup = Image::SoundManager::AudioCreateGroup();
+	::effectGroup = Image::SoundManager::AudioCreateGroup();
 
-	Image::SoundManager::AudioPlay(bgm, bgmGroup, -1);
-	Image::SoundManager::AudioPauseGroup(bgmGroup);
+	Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
+	Image::SoundManager::AudioPauseGroup(::bgmGroup);
 }
 
 void EditorControlSystem::Update(float dt)
@@ -303,15 +350,15 @@ void EditorControlSystem::Update(float dt)
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		Image::SoundManager::AudioResumeGroup(bgmGroup);
+		Image::SoundManager::AudioResumeGroup(::bgmGroup);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
-		Image::SoundManager::AudioPauseGroup(bgmGroup);
+		Image::SoundManager::AudioPauseGroup(::bgmGroup);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-		Image::SoundManager::AudioPlay(soundEffect, effectGroup, 0);
+		Image::SoundManager::AudioPlay(::soundEffect, ::effectGroup, 0);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
@@ -354,14 +401,19 @@ void EditorControlSystem::Update(float dt)
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
-		gCoordinator->CloneEntity(Testing::lastInserted);
+		::gCoordinator->CloneEntity(Testing::lastInserted);
 	}
 
 	// NODE RELATED START
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
-		NodeManager::AddNode();
+		Physics::RayHit rh{};
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		if (!::gCoordinator->HasComponent<Node>(rh.entityID)) {
+			NodeManager::AddNode();
+		}
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
@@ -377,6 +429,19 @@ void EditorControlSystem::Update(float dt)
 		}
 	}
 
+	/*
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_RELEASED, static_cast<size_t>(MouseButtons::RB)) &&
+    inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		Physics::RayHit rh{};
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+
+		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
+			//NodeManager::RemoveNode(rh.entityID);
+		}
+  }
+	*/
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		NodeManager::ClearAllNodes();
@@ -390,9 +455,12 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_L) &&
     inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Entity playerID = ::gCoordinator->GetSystem<RenderSystem>()->mPlayer;
-    NodeManager::Path path = NodeManager::DjkstraAlgorithm(0, NodeManager::FindClosestNodeToPosition(playerID));
+		std::cout << "Closest node to player: " << NodeManager::FindClosestNodeToEntity(playerID) << std::endl;
+		std::cout << "Closest node to enemy: " << NodeManager::FindClosestNodeToEntity(Testing::enemy) << std::endl;
+    NodeManager::Path path = NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(Testing::enemy),
+			NodeManager::FindClosestNodeToEntity(playerID));
 
-		// Print the path
+		// Print the shortest path
     NodeManager::PrintPath(path);
   }
 
@@ -403,7 +471,7 @@ void EditorControlSystem::Update(float dt)
 		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
 		for (int i{}; i < 10; ++i) {
 			//std::cout << i << std::endl;
-			Testing::lastInserted = gCoordinator->CloneEntity(Testing::lastInserted);
+			Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
 
 		}
 
@@ -414,7 +482,7 @@ void EditorControlSystem::Update(float dt)
 		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Box");
 		for (int i{}; i < 10; ++i) {
 			//std::cout << i << std::endl;
-			Testing::lastInserted = gCoordinator->CloneEntity(Testing::lastInserted);
+			Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
 
 		}
 	}

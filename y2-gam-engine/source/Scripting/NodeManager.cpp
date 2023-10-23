@@ -330,6 +330,26 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! FindClosestNodeToEntity
+
+	@param Entity
+	The entity to find the closest node to.
+
+	@return Entity
+	The closest node to the entity.
+
+	Wrapper function that finds the closest node to an entity.
+	*/
+	Entity NodeManager::FindClosestNodeToEntity(Entity entity) {
+		Vec2 entityPosition{ 
+			Vec2(gCoordinator->GetComponent<Transform>(entity).position.x, 
+        gCoordinator->GetComponent<Transform>(entity).position.y)
+		};
+
+		return FindClosestNodeToPosition(entityPosition);
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! GetLowestScoreNode
 
 	@param dg
@@ -463,12 +483,15 @@ namespace Image {
 			currentNode.visited = true;
 
 			for (Entity const& neighbour : gCoordinator->GetComponent<Node>(currentNode.parentNode).neighbours) {
-        DijkstraNode& neighbourNode{ djikstraGraph[neighbour] };
-        if (!neighbourNode.visited) {
-          int score{ CalculateScore(currentNode, neighbourNode) };
-          if (score < neighbourNode.score) {
-            neighbourNode.score = score;
-						neighbourNode.previousNodeInPath = currentNode.parentNode;
+				for (DijkstraNode& neighbourNode : djikstraGraph) {
+          if (neighbourNode.parentNode == neighbour) {
+						if (!neighbourNode.visited) {
+							int score{ CalculateScore(currentNode, neighbourNode) };
+							if (score < neighbourNode.score) {
+								neighbourNode.score = score;
+								neighbourNode.previousNodeInPath = currentNode.parentNode;
+							}
+						}
           }
         }
       }
