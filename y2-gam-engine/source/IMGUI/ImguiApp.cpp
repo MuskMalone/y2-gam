@@ -538,9 +538,49 @@ namespace Image {
      This function displays the game engine's framebuffer.
     */
     void BufferWindow() {
-        ImGui::Begin("Image Game Engine");
-        unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-       
+        const float scalingFactor = 1.5f;
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImVec2 originalPadding = style.WindowPadding;
+        style.WindowPadding = ImVec2(0.0f, 0.0f);
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
+
+        ImGui::Begin("Image Game Engine", nullptr, window_flags);
+        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer();
+        unsigned int texHdl = framebuffer->GetColorAttachmentID();
+
+        if (ImGui::IsWindowHovered()) {
+
+            //mouse picking part:
+
+            //ImVec2 viewportBounds[2];
+            ImVec2 contentSize = ImGui::GetContentRegionAvail();
+            ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
+            //ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 min = ImGui::GetWindowPos();
+            min.x += viewportOffset.x;
+            min.y += viewportOffset.y;
+            ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
+            ImVec2 mousePos = ImGui::GetMousePos();
+
+            mousePos.x -= min.x;
+            mousePos.y -= min.y;
+            Vec2 viewportSize = { max.x - min.x, max.y - min.y };
+            mousePos.y = viewportSize.y - mousePos.y;
+
+            int mouseX = static_cast<int>(mousePos.x);
+            int mouseY = static_cast<int>(mousePos.y);
+            int fbX = static_cast<int>(mouseX * scalingFactor);
+            int fbY = static_cast<int>(mouseY * scalingFactor);
+
+            if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
+                framebuffer->Bind();
+                int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
+                framebuffer->Unbind();
+                std::cout << "Mouse = " << mouseX << " " << mouseY << " | Pixel Data: " << pixelData << std::endl;
+            }
+        }
+
+
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();
@@ -564,7 +604,8 @@ namespace Image {
             }
 
         }
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / 1.5f, ENGINE_SCREEN_HEIGHT / 1.5f), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }

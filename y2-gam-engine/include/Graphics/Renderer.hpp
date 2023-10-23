@@ -44,6 +44,8 @@ struct QuadVtx {
 	glm::vec2 texCoord;
 	float texIdx; //float as it is passed to shader
 	//TODO test if unsigned int works
+	int entity {};
+
 };
 
 struct LineVtx {
@@ -112,14 +114,14 @@ public:
 
 	//Quads
 	//TODO overload transform parameter
-	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f);
+	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot = 0.f, int entity = -1);
 
 	//TODO add tint 
 	static void DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
-		std::shared_ptr<Texture>const& tex, float rot = 0.f);
+		std::shared_ptr<Texture>const& tex, float rot = 0.f, int entity = -1);
 
-	static void DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint = {1.f,1.f,1.f,1.f}, float rot = 0.f);
-	static void DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint = { 1.f,1.f,1.f,1.f });
+	static void DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint = {1.f,1.f,1.f,1.f}, float rot = 0.f, int entity = -1);
+	static void DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint = { 1.f,1.f,1.f,1.f }, int entity = -1);
 	
 	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);
@@ -133,7 +135,7 @@ public:
 private:
 	static void SetQuadBufferData(const glm::vec3& pos, const glm::vec2& scale,
 		const glm::vec4& clr, const glm::vec2& texCoord,
-		float texIdx);
+		float texIdx, int entity);
 	static void SetLineBufferData(glm::vec3 const& pos, glm::vec4 const& clr);
 	static void BeginBatch();
 	static void NextBatch();

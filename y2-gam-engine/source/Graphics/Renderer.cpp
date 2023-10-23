@@ -52,7 +52,8 @@ void Renderer::Init() {
 		{AttributeType::VEC3, "a_Position"},
 		{AttributeType::VEC4, "a_Color"},
 		{AttributeType::VEC2, "a_TexCoord"},
-		{AttributeType::FLOAT, "a_TexIdx"}
+		{AttributeType::FLOAT, "a_TexIdx"},
+		{AttributeType::INT, "a_E ntity"}
 	};
 
 	mData.quadVertexBuffer->SetLayout(quadLayout); //must set layout before adding vbo
@@ -216,12 +217,13 @@ unsigned int Renderer::GetMaxTextureUnits() {
   Sets the buffer data for a quad.
   This method populates the quad buffer with vertex data.
   */
-void Renderer::SetQuadBufferData(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, glm::vec2 const& texCoord, float texIdx) {
+void Renderer::SetQuadBufferData(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, glm::vec2 const& texCoord, float texIdx, int entity) {
 	UNREFERENCED_PARAMETER(scale);
 	mData.quadBufferPtr->pos = pos;
 	mData.quadBufferPtr->clr = clr; // Ensure color is set for each vertex
 	mData.quadBufferPtr->texCoord = texCoord;
 	mData.quadBufferPtr->texIdx = texIdx;
+	mData.quadBufferPtr->entity = entity;
 	++mData.quadBufferPtr;
 }
 
@@ -264,7 +266,7 @@ Rotation of the quad. Default is 0.0f.
 
 Draws a flat-colored quad.
 */
-void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
+void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot, int entity) {
 
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
@@ -279,7 +281,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i)
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -309,7 +311,7 @@ Rotation of the quad. Default is 0.0f.
 This overloaded version draws a textured quad.
 */
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
-	std::shared_ptr<Texture>const& tex, float rot) {
+	std::shared_ptr<Texture>const& tex, float rot, int entity) {
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
@@ -338,7 +340,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i)
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -375,7 +377,7 @@ function increments the quad index count by 6 for each sprite drawn.
 
 */
 //TODO Add duplicated code in function
-void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot) {
+void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot, int entity) {
 
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
@@ -406,7 +408,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i) 
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, tint, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, tint, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -432,8 +434,8 @@ This function is an overloaded version of the DrawSprite function. It uses the
 transform object to extract position, scale, and rotation information and then
 calls the primary DrawSprite function.
 */
-void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint) {
-	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z);
+void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint, int entity) {
+	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z, entity);
 }
 
 /*  _________________________________________________________________________ */
@@ -503,15 +505,6 @@ void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::v
 	DrawLine(lineVertices[2], lineVertices[3], clr);
 	DrawLine(lineVertices[3], lineVertices[0], clr);
    
-}
-
-void Renderer::DrawLineRect(glm::mat4 const& transform, glm::vec4 const& clr) {
-
-	glm::vec3 lineVertices[4]{};
-	for (size_t i{}; i < 4; ++i) {
-		lineVertices[i] = transform * mData.quadVtxPos[i];
-		DrawLine(lineVertices[i], lineVertices[i + 1 % 4], clr);
-	}
 }
 
 /*  _________________________________________________________________________ */

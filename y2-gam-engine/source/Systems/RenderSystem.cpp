@@ -152,6 +152,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
+	mFramebuffer->ClearAttachmentInt(1, -1);
 
 	mRenderQueue.clear();
 
@@ -192,13 +193,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	for (auto const& entry : mRenderQueue)
 	{
 		if (entry.sprite->texture) {
-			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color);
+			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color, entry.entity);
 		}
 		else {
 			if (entry.transform->elipse)
 				Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color);
 			else
-				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z);
+				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
 		}
 	}
 

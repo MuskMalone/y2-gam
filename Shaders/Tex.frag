@@ -21,16 +21,17 @@
 #version 450 core
 
 layout(location = 0) out vec4 fragColor;
-layout(location = 1) out int test; //TODO CHANGE TO ENTITYID
+layout(location = 1) out int entity; //TODO CHANGE TO ENTITYID
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
-in float v_TexIdx;
+in flat float v_TexIdx;
+in flat int v_Entity;
 
 uniform sampler2D u_Tex[32]; //TODO CHANGE THIS IN FUTURE
 
 void main(){
 	vec4 texColor = texture2D(u_Tex[int(v_TexIdx)], v_TexCoord);
 	fragColor = texColor * v_Color;
-    test = 50; //TEMP
+    entity = v_Entity;
 }
