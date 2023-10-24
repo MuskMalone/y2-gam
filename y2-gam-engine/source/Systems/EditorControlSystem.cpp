@@ -447,11 +447,6 @@ void EditorControlSystem::Update(float dt)
 		NodeManager::ClearAllNodes();
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_N) &&
-		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
-		NodeManager::PrintCostMap();
-	}
-
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_L) &&
     inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Entity playerID = ::gCoordinator->GetSystem<RenderSystem>()->mPlayer;

@@ -122,11 +122,6 @@ namespace Image {
 				
         Renderer::DrawLine(glm::vec3(firstPosition.x, firstPosition.y, 0), 
 					glm::vec3(secondPosition.x, secondPosition.y, 1), { 0,1,0,1 });
-
-				/*
-				std::cout << "First Position: " << gCoordinator->GetComponent<Transform>(e).position.x << " ," << gCoordinator->GetComponent<Transform>(e).position.y << "\n";
-				std::cout << "Second Position: " << gCoordinator->GetComponent<Transform>(n).position.x << " ," << gCoordinator->GetComponent<Transform>(n).position.y << "\n";
-				*/
       }
     }
   }
@@ -360,20 +355,23 @@ namespace Image {
 
 	Find the lowest score node from a graph.
 	*/
-	DijkstraNode& NodeManager::GetLowestScoreNode(DijkstraGraph const& dg) {
-		DijkstraNode result{ 
-			NULL,			// Parent Node
-      false,		// Visited
-      INT_MAX		// Score
-		};
-
-		for (DijkstraNode const& node : dg) {
-      if (node.score < result.score && !node.visited) {
-        result = node;
+	DijkstraNode& NodeManager::GetLowestScoreNode(DijkstraGraph& dg) {
+		// Find the lowest score node and return a reference of it
+		DijkstraNode* lowestScoreNode{ nullptr };
+		for (DijkstraNode& node : dg) {
+      if (!node.visited) {
+        if (lowestScoreNode == nullptr) {
+          lowestScoreNode = &node;
+        }
+        else {
+          if (node.score < lowestScoreNode->score) {
+            lowestScoreNode = &node;
+          }
+        }
       }
     }
 
-		return result;
+		return *lowestScoreNode;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -391,7 +389,7 @@ namespace Image {
 	Finds the score between two nodes.
 	*/
 	int NodeManager::CalculateScore(DijkstraNode currentNode, DijkstraNode nextNode) {
-		return currentNode.score + costMap[std::pair(currentNode.parentNode, nextNode.parentNode)];
+		return currentNode.score + static_cast<int>(costMap[std::pair(currentNode.parentNode, nextNode.parentNode)]);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -414,8 +412,17 @@ namespace Image {
 
 		while (currentNode.previousNodeInPath != NULL) {
       result.push_back(currentNode.parentNode);
-      currentNode = dg[currentNode.previousNodeInPath];
+
+			// Find the previous node in the path
+			for (DijkstraNode& node : dg) {
+        if (node.parentNode == currentNode.previousNodeInPath) {
+          currentNode = node;
+          break;
+        }
+      }
     }
+
+		result.push_back(currentNode.parentNode);
 
 		std::reverse(result.begin(), result.end());
 
@@ -466,7 +473,7 @@ namespace Image {
 		}
 
 		// Populate vector of current djikstra nodes
-		DijkstraGraph djikstraGraph;
+		DijkstraGraph djikstraGraph{};
 		for (Entity const& e : currentlyActiveNodes) {
 			DijkstraNode node{};
       node.parentNode = e;
@@ -485,7 +492,7 @@ namespace Image {
 
 		// While there are unvisited nodes
 		while (true) {
-			DijkstraNode currentNode{ GetLowestScoreNode(djikstraGraph) };
+			DijkstraNode& currentNode{ GetLowestScoreNode(djikstraGraph) };
 			currentNode.visited = true;
 
 			for (Entity const& neighbour : gCoordinator->GetComponent<Node>(currentNode.parentNode).neighbours) {
@@ -496,7 +503,6 @@ namespace Image {
 							if (score < neighbourNode.score) {
 								neighbourNode.score = score;
 								neighbourNode.previousNodeInPath = currentNode.parentNode;
-								std::cout << "Neighbour " << neighbourNode.parentNode << " score: " << neighbourNode.score << "\n";
 							}
 						}
           }
@@ -532,9 +538,10 @@ namespace Image {
 			return;
 		}
 
+		std::cout << "Path: ";
 		for (auto const& node : path) {
 			std::cout << node << " -> ";
 		}
-		std::cout << "\n";
+		std::cout << "End Reached\n";
 	}
 }

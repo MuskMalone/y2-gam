@@ -57,7 +57,7 @@ namespace Image {
     static void FillCostMap();
 
     // Helper Functions
-    static DijkstraNode& GetLowestScoreNode(DijkstraGraph const& dg);
+    static DijkstraNode& GetLowestScoreNode(DijkstraGraph& dg);
     static int CalculateScore(DijkstraNode currentNode, DijkstraNode nextNode);
     static Path BuildPath(DijkstraNode targetNode, DijkstraGraph dg);
     static float CalculateDistanceSquared(Vec2& lhs, Vec2& rhs);
