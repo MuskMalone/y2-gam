@@ -459,6 +459,12 @@ namespace Image {
 	between two nodes.
 	*/
 	NodeManager::Path NodeManager::DjkstraAlgorithm(Entity start, Entity end) {
+		if (start == end) {
+			Path result;
+			result.push_back(start);
+			return result;
+		}
+
 		// Populate vector of current djikstra nodes
 		DijkstraGraph djikstraGraph;
 		for (Entity const& e : currentlyActiveNodes) {
@@ -490,6 +496,7 @@ namespace Image {
 							if (score < neighbourNode.score) {
 								neighbourNode.score = score;
 								neighbourNode.previousNodeInPath = currentNode.parentNode;
+								std::cout << "Neighbour " << neighbourNode.parentNode << " score: " << neighbourNode.score << "\n";
 							}
 						}
           }
@@ -520,8 +527,14 @@ namespace Image {
 	Prints the path to the console.
 	*/
 	void NodeManager::PrintPath(Path const& path) {
+		if (path.size() == 1) {
+			std::cout << path[0] << " -> " << path[0] << "\n";
+			return;
+		}
+
 		for (auto const& node : path) {
 			std::cout << node << " -> ";
 		}
+		std::cout << "\n";
 	}
 }
