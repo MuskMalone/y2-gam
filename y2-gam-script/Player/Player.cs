@@ -120,35 +120,6 @@ namespace Object
             Vector2 velocity = Velocity;
             velocity += acceleration * dt;
             Velocity = velocity;
-
-            if(!PhysicsWrapper.Raycast(new Vector3(0, 0, 0), new Vector3(0, 0, 0), out RaycastHit ray, 10))
-            {
-
-            }
-        }
-
-        /*  _________________________________________________________________________ */
-        /*! CalculateAcceleration
-        
-        @param force
-        The force.
-
-        @param mass
-        The mass.
-
-        @return Vector2
-
-        Given force and mass, calculates acceleration using f=ma.
-        */
-        Vector2 CalculateAcceleration(Vector2 force, float mass)
-        {
-            if (mass == 0.0f)
-            {
-                return new Vector2(0.0f, 0.0f);
-            }
-
-            Vector2 acceleration = force / mass;
-            return acceleration;
         }
     }
 }

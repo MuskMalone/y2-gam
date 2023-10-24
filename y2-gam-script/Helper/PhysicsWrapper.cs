@@ -1,4 +1,20 @@
-﻿using System;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PhysicsWrapper.cs
+
+\author     Ernest Cheo (e.cheo@digipen.edu)
+\date       Oct 24, 2023
+
+\brief      Physics wrapper for the C++ physics component.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace Image

@@ -42,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enemy\BasicEnemy.cs" />
+    <Compile Include="Basic Enemy\BasicEnemy.cs" />
+    <Compile Include="Basic Enemy\EnemyAttackState.cs" />
+    <Compile Include="Basic Enemy\EnemyBaseState.cs" />
+    <Compile Include="Basic Enemy\EnemyChaseState.cs" />
+    <Compile Include="Basic Enemy\EnemyIdleState.cs" />
+    <Compile Include="Basic Enemy\EnemyPatrolState.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
     <Compile Include="Helper\KeyCodes.cs" />

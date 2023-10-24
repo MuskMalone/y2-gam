@@ -182,23 +182,23 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
+	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90), static_cast<float>(-WORLD_LIMIT_Y + 30), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(30.f, 5.f)
+			Vec2(position), 0.f, Vec2(70.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(70.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
 			{position.x,position.y,position.z},
 			{0.f,0.f,0.f},
-			{30.f, 5.f, 1.f}
+			{70.f, 5.f, 1.f}
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -216,8 +216,8 @@ void EditorControlSystem::Init()
 	Entity player = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Script>(player, { "ObjectPlayer" });
 
-	position = Vec3(0.f, 0.f, -150.f);
-	float scale{ 20.f };
+	position = Vec3(-70.f, -105.f, -150.f);
+	float scale{ 15.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
 		{ Vec2(0.0f, -100.f) });
@@ -265,7 +265,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Script>(Testing::enemy, { "ObjectBasicEnemy" });
 
 	position = Vec3(40.f, -64.f, -150.f);
-	scale = 20.f;
+	scale = 15.f;
 	::gCoordinator->AddComponent<Gravity>(
 		Testing::enemy,
 		{ Vec2(0.0f, -100.f) });
@@ -289,8 +289,9 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Sprite{
-			{1, 0, 0, 1},
-			nullptr
+			{1,0,0,1},
+			nullptr,
+			Layer::FOREGROUND
 		});
 	::gCoordinator->AddComponent(
 		Testing::enemy,
@@ -317,6 +318,15 @@ void EditorControlSystem::Init()
 																	 {ANIM_STATE::ATTACK, attackFrames} };
 	::gCoordinator->AddComponent(
 		player,
+		Animation{
+			0.08f,
+			0,
+			ANIM_STATE::IDLE,
+			map
+		});
+
+	::gCoordinator->AddComponent(
+		Testing::enemy,
 		Animation{
 			0.08f,
 			0,

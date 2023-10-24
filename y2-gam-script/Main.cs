@@ -53,6 +53,30 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! CalculateAcceleration
+        
+        @param force
+        The force.
+
+        @param mass
+        The mass.
+
+        @return Vector2
+
+        Given force and mass, calculates acceleration using f=ma.
+        */
+        public Vector2 CalculateAcceleration(Vector2 force, float mass)
+        {
+            if (mass == 0.0f)
+            {
+                return new Vector2(0.0f, 0.0f);
+            }
+
+            Vector2 acceleration = force / mass;
+            return acceleration;
+        }
+
+        /*  _________________________________________________________________________ */
         /*! AnimationState
 
         Getter setter for AnimationState.

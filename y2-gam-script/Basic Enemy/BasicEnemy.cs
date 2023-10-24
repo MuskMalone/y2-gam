@@ -22,6 +22,18 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
+        float speed = 500.0f;
+        bool isFacingRight = true;
+        Vector2 forces = new Vector2(0.0f, 0.0f);
+
+        // State Machines
+        EnemyBaseState currentState;
+        public EnemyPatrolState PatrolState = new EnemyPatrolState();
+        public EnemyAttackState AttackState = new EnemyAttackState();
+        public EnemyChaseState ChaseState = new EnemyChaseState();
+        public EnemyIdleState IdleState = new EnemyIdleState();
+
+
         /*  _________________________________________________________________________ */
         /*! Basic Enemy
         
@@ -59,7 +71,8 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            currentState = PatrolState;
+            currentState.EnterState(this);
         }
 
         /*  _________________________________________________________________________ */
@@ -74,7 +87,55 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            currentState.UpdateState(this);
 
+            forces *= speed;
+            Vector2 acceleration = CalculateAcceleration(forces, Mass);
+            Vector2 velocity = Velocity;
+            velocity += acceleration * dt;
+            Velocity = velocity;
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! SwitchState
+        
+        @param state
+        The state to switch to.
+
+        @return none
+
+        Switches the current state of the enemy entity. Called by the state machine.
+        */
+        public void SwitchState(EnemyBaseState state)
+        {
+            currentState = state;
+            state.EnterState(this);
+        }
+
+        public void MoveLeft()
+        {
+            if (isFacingRight)
+            {
+                // Only update the scale if the direction changes
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                isFacingRight = false;
+            }
+
+            AnimationState = (int)AnimationCode.RUN;
+            forces.X = -1.0f;
+        }
+
+        public void MoveRight()
+        {
+            if (!isFacingRight)
+            {
+                // Only update the scale if the direction changes
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                isFacingRight = true;
+            }
+
+            AnimationState = (int)AnimationCode.RUN;
+            forces.X = 1.0f;
         }
     }
 }
