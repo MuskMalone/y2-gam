@@ -91,3 +91,4 @@
 #include "Components/Animation.hpp"
 #include "Components/Text.hpp" 
 #include "Components/Node.hpp"
+#include "Components/Tag.hpp"
