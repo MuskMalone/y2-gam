@@ -21,12 +21,8 @@
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Core/Coordinator.hpp"
 
-#include "Components/Transform.hpp"
-#include "Components/Rigidbody.hpp"
-#include "Components/Animation.hpp"
 #include "Systems/InputSystem.hpp"
-
-#include "Core/Raycast.hpp"
+#include "Systems/CollisionSystem.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -36,9 +32,39 @@ namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
-	static void PhysicsComponent_GetRaycast(Vec3 origin, Vec3 direction, float maxDistance, void** raycastHit) {
-		RaycastHit* ret{ Raycast::performRaycast(origin, direction, maxDistance) };
-		*raycastHit = reinterpret_cast<void*>(ret);
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetRaycast
+
+	@param origin
+	The origin of the raycast.
+
+	@param end
+	The end of the raycast.
+
+	@param raycastHit
+	The raycast hit information.
+
+	@return none.
+
+	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, bool* hit, Vec2* normal,
+		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag) {
+		::gCoordinator = Coordinator::GetInstance();
+		Physics::RayHit rh{};
+		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh);
+		*normal = rh.normal;
+		*point = rh.point;
+		*distance = rh.distance;
+		*entityID = rh.entityID;
+		
+		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
+			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+		}
+		else {
+			*tag = mono_string_new(mono_domain_get(), "No Tag");
+		}
 	}
 
 	// For Graphics
@@ -131,11 +157,10 @@ Get the current scale of the entity in C#.
 
 	Get the current position of the entity in C#.
 	*/
-	static void TransformComponent_GetTranslation(uint32_t entityID, Vec3* outTranslation) {
+	static void TransformComponent_GetTranslation(uint32_t entityID, Vec2* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,
-			gCoordinator->GetComponent<Transform>(entityID).position.y,
-			gCoordinator->GetComponent<Transform>(entityID).position.z };
+		*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(entityID).position.x,
+			gCoordinator->GetComponent<Transform>(entityID).position.y };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -151,9 +176,11 @@ Get the current scale of the entity in C#.
 
 	Set the current position of the entity in C#.
 	*/
-	static void TransformComponent_SetTranslation(uint32_t entityID, Vec3* translation) {
+	static void TransformComponent_SetTranslation(uint32_t entityID, Vec2* translation) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,translation->y,translation->z };
+		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
+			translation->y,
+			gCoordinator->GetComponent<Transform>(entityID).position.z };
 	}
 
 	// For Force

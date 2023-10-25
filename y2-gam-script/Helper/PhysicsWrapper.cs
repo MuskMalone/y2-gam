@@ -16,26 +16,29 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Image
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct RaycastHit
     {
-        public Vector3 normal;
-        public Vector3 point;
+        public Vector2 normal;
+        public Vector2 point;
         public float distance;
         public uint entityID;
         public string tag;
     }
     public static class PhysicsWrapper
     {
-        public static bool Raycast(Vector3 origin, Vector3 direction, out RaycastHit result, float maxDistance)
+        public static bool Raycast(Vector2 origin, Vector2 end, out RaycastHit result)
         {
-            InternalCalls.PhysicsComponent_GetRaycast(origin, direction, maxDistance, out IntPtr resultPtr);
+            InternalCalls.PhysicsComponent_GetRaycast(out origin, out end,
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tagString);
             
-            if (resultPtr != IntPtr.Zero)
+            if (hit)
             {
+                /*
                 result = new RaycastHit();
                 IntPtr resultStructPtr = IntPtr.Add(resultPtr, Marshal.SizeOf(typeof(RaycastHit)));
                 RaycastHit resultCpp = Marshal.PtrToStructure<RaycastHit>(resultStructPtr);
@@ -44,7 +47,16 @@ namespace Image
                 result.point = resultCpp.point;
                 result.distance = resultCpp.distance;
                 result.entityID = resultCpp.entityID;
-                result.tag = resultCpp.tag;
+                */
+
+                result = new RaycastHit
+                {
+                    entityID = entityID,
+                    normal = normal,
+                    point = point,
+                    distance = distance,
+                    tag = tagString
+                };
 
                 return true;
             }

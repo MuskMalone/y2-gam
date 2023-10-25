@@ -126,6 +126,24 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! operator-
+                        
+        @param vector
+        The LHS vector.
+
+        @param vector
+        The RHS vector.
+
+        @return Vector2
+
+        The operator overload for -.
+        */
+        public static Vector2 operator -(Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.X - b.X, a.Y - b.Y);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! operator*
                 
         @param vector

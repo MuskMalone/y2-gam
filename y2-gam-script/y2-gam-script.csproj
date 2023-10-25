@@ -46,6 +46,7 @@
     <Compile Include="Basic Enemy\EnemyAttackState.cs" />
     <Compile Include="Basic Enemy\EnemyBaseState.cs" />
     <Compile Include="Basic Enemy\EnemyChaseState.cs" />
+    <Compile Include="Basic Enemy\EnemyDefaultState.cs" />
     <Compile Include="Basic Enemy\EnemyIdleState.cs" />
     <Compile Include="Basic Enemy\EnemyPatrolState.cs" />
     <Compile Include="Helper\Input.cs" />

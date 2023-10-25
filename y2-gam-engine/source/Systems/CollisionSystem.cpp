@@ -29,9 +29,9 @@ namespace {
 }
 namespace Testing {
     Vec2 testingStart{
-     0,0
+     40,-96.5
     }, testingEnd{
-       100,-100
+       40,-105.5
     };
 }
 namespace Collision{
@@ -639,13 +639,13 @@ Computes the collision between two entities and returns an arbiter.
             float time{};
             Vec2 cn{}, cp{};
             if (RaycastBody(origin, end, entity, cn, cp, time)) {
-                out = true;
-                if (timeMin > time && time <= 1.f) {
-                    timeMin = std::move(time);
-                    eMin = entity;
-                    cnMin = std::move(cn);
-                    cpMin = std::move(cp);
-                }
+              out = true;
+              if (timeMin > time && time <= 1.f) {
+                timeMin = std::move(time);
+                eMin = entity;
+                cnMin = std::move(cn);
+                cpMin = std::move(cp);
+              }
             }
         }
         rh = RayHit{
@@ -739,13 +739,14 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         //Renderer::RenderSceneBegin(camera);
         //size_t sizeent{ mEntities.size() };
         RayHit rh;
-        //Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
-
+        Renderer::DrawLine({ Testing::testingStart.x,Testing::testingStart.y, 0.f }, { Testing::testingEnd.x,Testing::testingEnd.y , 1 }, { 1,0,0,1 });
+        /*
         if (Raycast(Testing::testingStart, Testing::testingEnd, rh)) {
             //std::cout << rh.entityID << std::endl;
             Renderer::DrawLine({ rh.point.x,rh.point.y, 0.f }, { rh.point.x + rh.normal.x * 50.f,rh.point.y + rh.normal.y * 50.f , 1 }, { 1,0,0,1 });
 
         }
+        */
         for (auto const& e : mEntities) {
             //auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
             auto const& c{ Coordinator::GetInstance()->GetComponent<Collider>(e) };

@@ -47,7 +47,7 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
-	// Mono Testing
+
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
 	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
@@ -171,6 +171,8 @@ int main()
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
+
+
 	/*
 	std::vector<std::string> diagnostics{};
 	diagnostics.emplace_back("FPS");

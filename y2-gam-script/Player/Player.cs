@@ -22,6 +22,8 @@ namespace Object
     public class Player : Entity
     {
         bool isFacingRight = true;
+        public readonly float jumpForce = 30000.0f;
+        public readonly float MovementForce = 300.0f;
 
         /*  _________________________________________________________________________ */
         /*! Player
@@ -75,13 +77,9 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            float speed = 500.0f;
-            Vector2 forces = new Vector2(0.0f, 0.0f);
-
             if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
             {
-                Vector2 jumpForce = new Vector2(0.0f, 3000.0f);
-                Force = jumpForce * Mass;
+                Force += new Vector2(0, jumpForce);
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
@@ -94,7 +92,7 @@ namespace Object
                 }
 
                 AnimationState = (int)AnimationCode.RUN;
-                forces.X = -1.0f;
+                Force -= new Vector2(MovementForce, 0.0f);
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
@@ -107,19 +105,13 @@ namespace Object
                 }
 
                 AnimationState = (int)AnimationCode.RUN;
-                forces.X = 1.0f;
+                Force += new Vector2(MovementForce, 0.0f);
             }
 
             else
             {
                 AnimationState = (int)AnimationCode.IDLE;
             }
-
-            forces *= speed;
-            Vector2 acceleration = CalculateAcceleration(forces, Mass);
-            Vector2 velocity = Velocity;
-            velocity += acceleration * dt;
-            Velocity = velocity;
         }
     }
 }

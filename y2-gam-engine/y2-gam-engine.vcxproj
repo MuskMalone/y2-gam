@@ -151,7 +151,6 @@
     <ClInclude Include="include\Components\Tag.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
-    <ClInclude Include="include\Core\Raycast.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
@@ -247,7 +246,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../include/pch.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="source\Core\Raycast.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
     <ClCompile Include="source\Engine\PrefabsManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

@@ -22,12 +22,16 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
-        float speed = 500.0f;
-        bool isFacingRight = true;
-        Vector2 forces = new Vector2(0.0f, 0.0f);
+        public bool isFacingRight = true;
+        public bool directionChanged = false;
+        public readonly float MovementForce = 220.0f;
+
+        // Time in state
+        public float TimeInState = 0.0f;
 
         // State Machines
         EnemyBaseState currentState;
+        public EnemyDefaultState DefaultState = new EnemyDefaultState();
         public EnemyPatrolState PatrolState = new EnemyPatrolState();
         public EnemyAttackState AttackState = new EnemyAttackState();
         public EnemyChaseState ChaseState = new EnemyChaseState();
@@ -71,7 +75,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            currentState = PatrolState;
+            currentState = DefaultState;
             currentState.EnterState(this);
         }
 
@@ -87,13 +91,14 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            currentState.UpdateState(this);
+            if (directionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                directionChanged = false;
+            }
 
-            forces *= speed;
-            Vector2 acceleration = CalculateAcceleration(forces, Mass);
-            Vector2 velocity = Velocity;
-            velocity += acceleration * dt;
-            Velocity = velocity;
+            TimeInState += dt;
+            currentState.UpdateState(this);
         }
 
         /*  _________________________________________________________________________ */
@@ -108,34 +113,23 @@ namespace Object
         */
         public void SwitchState(EnemyBaseState state)
         {
+            TimeInState = 0.0f;
             currentState = state;
             state.EnterState(this);
         }
 
         public void MoveLeft()
         {
-            if (isFacingRight)
-            {
-                // Only update the scale if the direction changes
-                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                isFacingRight = false;
-            }
-
             AnimationState = (int)AnimationCode.RUN;
-            forces.X = -1.0f;
+            Force -= new Vector2(MovementForce, 0.0f);
+            isFacingRight = false;
         }
 
         public void MoveRight()
         {
-            if (!isFacingRight)
-            {
-                // Only update the scale if the direction changes
-                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                isFacingRight = true;
-            }
-
             AnimationState = (int)AnimationCode.RUN;
-            forces.X = 1.0f;
+            Force += new Vector2(MovementForce, 0.0f);
+            isFacingRight = true;
         }
     }
 }

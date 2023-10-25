@@ -117,11 +117,11 @@ namespace Image
 
         Getter setter for Translation.
         */
-        public Vector3 Translation
+        public Vector2 Translation
         {
             get
             {
-                InternalCalls.TransformComponent_GetTranslation(entityID, out Vector3 translation);
+                InternalCalls.TransformComponent_GetTranslation(entityID, out Vector2 translation);
                 return translation;
             }
             set

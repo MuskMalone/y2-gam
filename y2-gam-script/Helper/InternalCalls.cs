@@ -17,15 +17,22 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Image
 {
     public static class InternalCalls
     {
         #region PhysicsComponent
+        /*
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetRaycast(Vector3 origin, Vector3 direction,
-            float maxDistance, out IntPtr raycastHit);
+        internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end,
+            out IntPtr raycastHit);
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end,
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
         #endregion
 
         #region GraphicsComponent
@@ -109,7 +116,7 @@ namespace Image
         Get the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector3 translation);
+        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector2 translation);
 
         /*  _________________________________________________________________________ */
         /*! TransformComponent_SetTranslation
@@ -125,7 +132,7 @@ namespace Image
         Set the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_SetTranslation(uint entityHandle, ref Vector3 translation);
+        internal extern static void TransformComponent_SetTranslation(uint entityHandle, ref Vector2 translation);
         #endregion
 
         #region ForceComponent

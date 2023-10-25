@@ -139,7 +139,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-      "Center Platform"
+      "Platform"
     });
 
 	// Left
@@ -174,7 +174,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-			"Left Platform"
+			"Platform"
 		});
 
 	// Right
@@ -209,7 +209,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-			"Right Platform"
+			"Platform"
 		});
 		
 	// Creating a sample player entity
@@ -264,7 +264,7 @@ void EditorControlSystem::Init()
 	Testing::enemy = ::gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent<Script>(Testing::enemy, { "ObjectBasicEnemy" });
 
-	position = Vec3(40.f, -64.f, -150.f);
+	position = Vec3(40.f, -88.f, -150.f);
 	scale = 15.f;
 	::gCoordinator->AddComponent<Gravity>(
 		Testing::enemy,
