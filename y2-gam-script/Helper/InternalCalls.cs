@@ -24,12 +24,12 @@ namespace Image
 {
     public static class InternalCalls
     {
-        #region PhysicsComponent
-        /*
+        #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end,
-            out IntPtr raycastHit);
-        */
+        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, out Vector2 nextNode);
+        #endregion
+
+        #region PhysicsComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end,
             out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);

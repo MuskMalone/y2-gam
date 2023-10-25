@@ -19,6 +19,8 @@
 #include "../include/pch.hpp"
 
 #include "Scripting/ScriptCoordinator.hpp"
+#include "Scripting/NodeManager.hpp"
+
 #include "Core/Coordinator.hpp"
 
 #include "Systems/InputSystem.hpp"
@@ -32,6 +34,26 @@ namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
+	// For Pathfinding
+	static void PathfindingComponent_GetPath(uint32_t entityID, Vec2* closestNode, Vec2* nextNode) {
+		::gCoordinator = Coordinator::GetInstance();
+		NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(entityID),
+			NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
+
+		*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+      gCoordinator->GetComponent<Transform>(path.front()).position.y };
+
+		if (path.size() > 1) {
+      *nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
+				gCoordinator->GetComponent<Transform>(path[1]).position.y;
+    }
+    else {
+      *nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+			gCoordinator->GetComponent<Transform>(path.front()).position.y };
+    }
+	}
+	
+	// For Physics
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_GetRaycast
 
@@ -404,6 +426,8 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
+
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);

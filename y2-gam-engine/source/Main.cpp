@@ -209,8 +209,10 @@ int main()
 		frameController->StartFrameTime();
 		inputSystem->Update();
 
-
+		
 		windowManager->ProcessEvents();
+
+		
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 

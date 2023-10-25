@@ -16,12 +16,13 @@
 
 using Image;
 using Object;
+using System;
 
 public class EnemyChaseState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-
+        Console.WriteLine("Entering chase state");
     }
 
     public override void UpdateState(BasicEnemy enemy)
