@@ -29,12 +29,25 @@ struct Node {
 
 	Node(std::set<Entity> n, bool s) : neighbours{ n }, selected{ s } {}
 
-	Node([[maybe_unused]] rapidjson::Value const& obj) {
-		// To be completed (Need to break down std::set)
+	Node([[maybe_unused]] rapidjson::Value const& obj) : selected{ obj["selected"].GetBool() } {
+		const auto arr = obj["neighbours"].GetArray();
+		for (auto const& v : arr) {
+       neighbours.insert(v.GetUint());
+		}
 	}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
-		// To be completed
-		return false;
+		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		sm->InsertValue(obj, "selected", selected);
+
+		rapidjson::Value objArr{ rapidjson::kArrayType };
+		objArr.SetArray();
+		for (auto& v : neighbours) {
+			sm->PushToArray("neighbours", objArr, v);
+		}
+
+		sm->InsertValue(obj, "neighbours", objArr);
+
+		return true;
 	}
 };

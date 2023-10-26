@@ -27,7 +27,7 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void UpdateState(BasicEnemy enemy)
     {
-
+        enemy.Force += new Vector2(0, enemy.jumpForce);
     }
 
     public override void EnterOnCollision(BasicEnemy enemy)

@@ -32,12 +32,11 @@ struct Text {
 	Text(std::string fn, float s, std::string tex, Vec3 col) :
 		fontName{ fn }, scale{ s }, text{ tex }, color{ col } {}
 
-	Text([[maybe_unused]] rapidjson::Value const& obj) {
-		fontName = obj["fontName"].GetString();
-		fontName = obj["scale"].GetFloat();
-		fontName = obj["text"].GetString();
-		color = { obj["coloX"].GetFloat(), obj["coloY"].GetFloat(), obj["coloZ"].GetFloat() };
-	}
+	Text([[maybe_unused]] rapidjson::Value const& obj) :
+		fontName{ obj["fontName"].GetString() },
+		scale{ obj["scale"].GetFloat() },
+		text{ obj["text"].GetString() },
+		color{ obj["coloX"].GetFloat(), obj["coloY"].GetFloat(), obj["coloZ"].GetFloat() } {}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };

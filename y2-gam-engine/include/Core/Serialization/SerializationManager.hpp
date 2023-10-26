@@ -48,6 +48,13 @@ namespace Serializer {
 			mDocumentMap[path].SetObject();
 		}
 
+		
+		template<typename _type>
+		void PushToArray(std::string const& name, JSONObj& to, _type val) {
+      if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
+      to.PushBack(val, mDocumentMap[path].GetAllocator());
+		}
+
 		//only can be used if u used SetArray before when creating the document
 		//otherwise use AddMember!!!
 		void PushToArray(std::string const& name, JSONObj& to, JSONObj& obj) {

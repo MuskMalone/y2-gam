@@ -23,7 +23,7 @@ namespace Object
     {
         bool isFacingRight = true;
         public readonly float jumpForce = 30000.0f;
-        public readonly float MovementForce = 300.0f;
+        public readonly float MovementForce = 500.0f;
 
         /*  _________________________________________________________________________ */
         /*! Player

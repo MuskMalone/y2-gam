@@ -24,7 +24,8 @@ namespace Object
     {
         public bool isFacingRight = true;
         public bool directionChanged = false;
-        public readonly float MovementForce = 220.0f;
+        public readonly float MovementForce = 225.0f;
+        public readonly float jumpForce = 30000.0f;
 
         // Time in state
         public float TimeInState = 0.0f;

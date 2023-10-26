@@ -77,7 +77,7 @@ namespace Image {
 		}
 
 //#endif
-
+		
 		for (Entity const& e : currentlyActiveNodes) {
 			if (::gCoordinator->GetComponent<Node>(e).selected) {
 				::gCoordinator->GetComponent<Text>(e).text = "Selected";
@@ -86,7 +86,7 @@ namespace Image {
 				::gCoordinator->GetComponent<Text>(e).text = "Node " + std::to_string(e);
 			}
 		}
-
+		
 		int count{};
 		std::vector<Entity> currentSelection;
 
@@ -154,6 +154,7 @@ namespace Image {
 				{0, 0, 0, 0.1f},
 				nullptr
 			});
+		
 		::gCoordinator->AddComponent(
 			node,
 			Text{
