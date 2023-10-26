@@ -27,6 +27,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
@@ -51,12 +52,12 @@ namespace Image {
 		//DisplayDebugLines();
 		if (::gCoordinator->GetSystem<RenderSystem>()->GetDebugMode()) {
 			for (Entity const& ent : currentlyActiveNodes) {
-				for (Entity const& neighbour : gCoordinator->GetComponent<Node>(ent).neighbours) {
+				for (Entity const& neighbour : ::gCoordinator->GetComponent<Node>(ent).neighbours) {
 
-					Vec2 firstPosition{ gCoordinator->GetComponent<Transform>(ent).position.x,
-						gCoordinator->GetComponent<Transform>(ent).position.y };
-					Vec2 secondPosition{ gCoordinator->GetComponent<Transform>(neighbour).position.x,
-						gCoordinator->GetComponent<Transform>(neighbour).position.y };
+					Vec2 firstPosition{ ::gCoordinator->GetComponent<Transform>(ent).position.x,
+						::gCoordinator->GetComponent<Transform>(ent).position.y };
+					Vec2 secondPosition{ ::gCoordinator->GetComponent<Transform>(neighbour).position.x,
+						::gCoordinator->GetComponent<Transform>(neighbour).position.y };
 
 					Vec2 firstScreenPosition { 
 						TextSystem::WorldToScreenCoordinates(Vec2(firstPosition.x, firstPosition.y)) 
@@ -85,6 +86,19 @@ namespace Image {
 			else {
 				::gCoordinator->GetComponent<Text>(e).text = "Node " + std::to_string(e);
 			}
+
+			/*
+			if (::gCoordinator->HasComponent<RigidBody>(e)) {
+				Physics::RayHit rh{};
+				::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(
+					::gCoordinator->GetComponent<Transform>(e).position.x, 
+					::gCoordinator->GetComponent<Transform>(e).position.y - (::gCoordinator->GetComponent<Transform>(e).scale.y / 2.f) - 1, rh);
+				
+				if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "Platform") {
+					::gCoordinator->RemoveComponent<RigidBody>(e);
+				}
+      }
+			*/
 		}
 		
 		int count{};
@@ -114,11 +128,11 @@ namespace Image {
   void NodeManager::DisplayDebugLines() {
     
     for (Entity const& e : currentlyActiveNodes) {
-      for (Entity const& n : gCoordinator->GetComponent<Node>(e).neighbours) {
-				Vec2 firstPosition{ gCoordinator->GetComponent<Transform>(e).position.x,  
-					gCoordinator->GetComponent<Transform>(e).position.y };
-				Vec2 secondPosition{ gCoordinator->GetComponent<Transform>(n).position.x,  
-					gCoordinator->GetComponent<Transform>(n).position.y };
+      for (Entity const& n : ::gCoordinator->GetComponent<Node>(e).neighbours) {
+				Vec2 firstPosition{ ::gCoordinator->GetComponent<Transform>(e).position.x,  
+					::gCoordinator->GetComponent<Transform>(e).position.y };
+				Vec2 secondPosition{ ::gCoordinator->GetComponent<Transform>(n).position.x,  
+					::gCoordinator->GetComponent<Transform>(n).position.y };
 				
         Renderer::DrawLine(glm::vec3(firstPosition.x, firstPosition.y, 0), 
 					glm::vec3(secondPosition.x, secondPosition.y, 1), { 0,1,0,1 });
@@ -139,7 +153,7 @@ namespace Image {
 		::gCoordinator->AddComponent<Node>(node, Node());
 		Vec3 position = Vec3(inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second, 1.f);
 
-		float scale{ 10.f };
+		float scale{ 8.f };
 
 		::gCoordinator->AddComponent(
 			node,
@@ -148,10 +162,11 @@ namespace Image {
 				{0.f,0.f,0.f},
 				{scale, scale, scale}
 			});
+
 		::gCoordinator->AddComponent(
 			node,
 			Sprite{
-				{0, 0, 0, 0.1f},
+				{0, 0, 0, 0.3f},
 				nullptr
 			});
 		
@@ -159,10 +174,22 @@ namespace Image {
 			node,
 			Text{
 				"Lato",
-				0.05f,
+				0.02f,
 				"Node " + std::to_string(node),
 				{1, 1, 0}
 			});
+
+		::gCoordinator->AddComponent(
+			node,
+			RigidBody{
+				Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
+			});
+
+		::gCoordinator->AddComponent(
+			node,
+			Gravity{
+				{ Vec2(0.0f, -1000.f) }
+      });
 
 		::gCoordinator->AddComponent(
 			node,
@@ -173,8 +200,9 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Tag{
-				"Node" + std::to_string(node)
+				"Walk"
 			});
+
     currentlyActiveNodes.insert(node);
   }
 
@@ -211,13 +239,13 @@ namespace Image {
 	*/
 	void NodeManager::RemoveNode(Entity node) {
 		for (Entity const& e : currentlyActiveNodes) {
-			auto search = gCoordinator->GetComponent<Node>(e).neighbours.find(node);
+			auto search = ::gCoordinator->GetComponent<Node>(e).neighbours.find(node);
 
-			if (search != gCoordinator->GetComponent<Node>(e).neighbours.end()) {
-				gCoordinator->GetComponent<Node>(e).neighbours.erase(node);
+			if (search != ::gCoordinator->GetComponent<Node>(e).neighbours.end()) {
+				::gCoordinator->GetComponent<Node>(e).neighbours.erase(node);
 			}
 		}
-		gCoordinator->DestroyEntity(node);
+		::gCoordinator->DestroyEntity(node);
 		currentlyActiveNodes.erase(node);
 		FillCostMap();
 	}
@@ -231,10 +259,42 @@ namespace Image {
 	*/
 	void NodeManager::ClearAllNodes() {
 		for (Entity const& e : currentlyActiveNodes) {
-			gCoordinator->DestroyEntity(e);
+			::gCoordinator->DestroyEntity(e);
 		}
 		currentlyActiveNodes.clear();
 		FillCostMap();
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! ChangeNodeType
+
+	@return none.
+
+	Updates the node type of the selected node. Examples of node types are 'walk'
+	and 'jump'.
+	*/
+	void NodeManager::ChangeNodeType(Entity node) {
+		if (::gCoordinator->GetComponent<Node>(node).type > NUM_NODE_TYPES) {
+			::gCoordinator->GetComponent<Node>(node).type = static_cast<int>(NodeType::Walk);
+		}
+
+    else {
+      ::gCoordinator->GetComponent<Node>(node).type++;
+    }
+
+		switch (::gCoordinator->GetComponent<Node>(node).type) {
+			case static_cast<int>(NodeType::Walk):
+				::gCoordinator->GetComponent<Tag>(node).tag = "Walk";
+				::gCoordinator->GetComponent<Sprite>(node).color = NODE_COLORS[static_cast<int>(NodeType::Walk)];
+
+				break;
+
+			case static_cast<int>(NodeType::Jump):
+				::gCoordinator->GetComponent<Tag>(node).tag = "Jump";
+				::gCoordinator->GetComponent<Sprite>(node).color = NODE_COLORS[static_cast<int>(NodeType::Jump)];
+
+				break;
+    }
 	}
 
 	/*  _________________________________________________________________________ */
@@ -252,11 +312,11 @@ namespace Image {
 	Calculates the cost between two nodes, based on the distance between them.
 	*/
 	int NodeManager::CalculateCost(Entity lhs, Entity rhs) {
-		Vec2 posLHS{ gCoordinator->GetComponent<Transform>(lhs).position.x, 
-			gCoordinator->GetComponent<Transform>(lhs).position.y };
+		Vec2 posLHS{ ::gCoordinator->GetComponent<Transform>(lhs).position.x, 
+			::gCoordinator->GetComponent<Transform>(lhs).position.y };
 
-		Vec2 posRHS{ gCoordinator->GetComponent<Transform>(rhs).position.x, 
-			gCoordinator->GetComponent<Transform>(rhs).position.y };
+		Vec2 posRHS{ ::gCoordinator->GetComponent<Transform>(rhs).position.x, 
+			::gCoordinator->GetComponent<Transform>(rhs).position.y };
 
 		return static_cast<int>((posRHS.x - posLHS.x) * (posRHS.x - posLHS.x) + 
 			(posRHS.y - posLHS.y) * (posRHS.y - posLHS.y));
@@ -271,7 +331,7 @@ namespace Image {
 	*/
 	void NodeManager::FillCostMap() {
 		for (Entity const& e : currentlyActiveNodes) {
-			for (Entity const& n : gCoordinator->GetComponent<Node>(e).neighbours) {
+			for (Entity const& n : ::gCoordinator->GetComponent<Node>(e).neighbours) {
 				costMap[std::pair(e, n)] = CalculateCost(e, n);
 			}
 		}
@@ -312,8 +372,8 @@ namespace Image {
 		float closestDistance{ FLT_MAX };
 
 		for (Entity const& ent : currentlyActiveNodes) {
-      Vec2 nodePosition{ gCoordinator->GetComponent<Transform>(ent).position.x, 
-				gCoordinator->GetComponent<Transform>(ent).position.y };
+      Vec2 nodePosition{ ::gCoordinator->GetComponent<Transform>(ent).position.x, 
+				::gCoordinator->GetComponent<Transform>(ent).position.y };
 
       float distance{ CalculateDistanceSquared(position, nodePosition) };
       if (distance < closestDistance) {
@@ -338,8 +398,8 @@ namespace Image {
 	*/
 	Entity NodeManager::FindClosestNodeToEntity(Entity entity) {
 		Vec2 entityPosition{ 
-			Vec2(gCoordinator->GetComponent<Transform>(entity).position.x, 
-        gCoordinator->GetComponent<Transform>(entity).position.y)
+			Vec2(::gCoordinator->GetComponent<Transform>(entity).position.x, 
+        ::gCoordinator->GetComponent<Transform>(entity).position.y)
 		};
 
 		return FindClosestNodeToPosition(entityPosition);
@@ -452,6 +512,18 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! GetCurrentlyActiveNodes
+
+	@return std::set<Entity>
+	The currently active nodes.
+
+	Gets the currently active nodes.
+	*/
+	std::set<Entity> const& NodeManager::GetCurrentlyActiveNodes() {
+		return currentlyActiveNodes;
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! DjkstraAlgorithm
 
 	@param start
@@ -496,7 +568,7 @@ namespace Image {
 			DijkstraNode& currentNode{ GetLowestScoreNode(djikstraGraph) };
 			currentNode.visited = true;
 
-			for (Entity const& neighbour : gCoordinator->GetComponent<Node>(currentNode.parentNode).neighbours) {
+			for (Entity const& neighbour : ::gCoordinator->GetComponent<Node>(currentNode.parentNode).neighbours) {
 				for (DijkstraNode& neighbourNode : djikstraGraph) {
           if (neighbourNode.parentNode == neighbour) {
 						if (!neighbourNode.visited) {

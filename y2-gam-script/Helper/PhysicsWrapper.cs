@@ -67,5 +67,12 @@ namespace Image
                 return false;
             }
         }
+
+        // Normalize function
+        public static Vector2 Normalize(Vector2 vector)
+        {
+            float length = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            return new Vector2(vector.X / length, vector.Y / length);
+        }
     }
 }

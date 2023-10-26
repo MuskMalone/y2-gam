@@ -4,7 +4,7 @@
 \file       ScriptCoordinator.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Oct 26, 2023
 
 \brief      Communicates with the C# scripts, allowing for internal calls
 						in which the information from CPP code can be accessed in C#,
@@ -35,21 +35,47 @@ namespace Image {
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
 	// For Pathfinding
-	static void PathfindingComponent_GetPath(uint32_t entityID, Vec2* closestNode, Vec2* nextNode) {
-		::gCoordinator = Coordinator::GetInstance();
-		NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(entityID),
-			NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
+	/*  _________________________________________________________________________ */
+	/*! PathfindingComponent_GetPath
 
-		*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
-      gCoordinator->GetComponent<Transform>(path.front()).position.y };
+	@param entityID
+	The ID of the entity.
 
-		if (path.size() > 1) {
-      *nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
-				gCoordinator->GetComponent<Transform>(path[1]).position.y;
-    }
-    else {
-      *nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
-			gCoordinator->GetComponent<Transform>(path.front()).position.y };
+	@param closestNode
+	The closest node to the entity.
+
+	@param nextNode
+	The next node to the entity.
+
+	@param tag
+	The tag of the entity.
+
+	@return none.
+
+	Calls the pathfinding algorithm in CPP, and returns the closest node and the
+	next node to the entity in C#.
+	*/
+	static void PathfindingComponent_GetPath(uint32_t entityID, Vec2* closestNode, Vec2* nextNode, Vec2* tag) {
+		if (!NodeManager::GetCurrentlyActiveNodes().empty()) {
+			::gCoordinator = Coordinator::GetInstance();
+			NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(entityID),
+				NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
+
+			*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+				gCoordinator->GetComponent<Transform>(path.front()).position.y };
+
+			if (path.size() > 1) {
+				*nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
+					gCoordinator->GetComponent<Transform>(path[1]).position.y;
+				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
+					static_cast<float>(gCoordinator->GetComponent<Node>(path[1]).type) };
+			}
+			else {
+				*nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+				gCoordinator->GetComponent<Transform>(path.front()).position.y };
+				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
+					static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type) };
+			}
     }
 	}
 	

@@ -51,7 +51,7 @@ struct RigidBody
 		this->dimension = dimension;
 		this->mass = mass;
 		this->isLockRotation = rotate;
-		this->friction = 0.2f;
+		this->friction = 0.9f;
 
 		SetMass(mass);
 	}

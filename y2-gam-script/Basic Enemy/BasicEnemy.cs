@@ -24,7 +24,7 @@ namespace Object
     {
         public bool isFacingRight = true;
         public bool directionChanged = false;
-        public readonly float MovementForce = 225.0f;
+        public readonly float MovementForce = 900.0f;
         public readonly float jumpForce = 30000.0f;
 
         // Time in state
@@ -100,6 +100,8 @@ namespace Object
 
             TimeInState += dt;
             currentState.UpdateState(this);
+
+            //Console.WriteLine("Current enemy state: " + currentState.ToString());
         }
 
         /*  _________________________________________________________________________ */

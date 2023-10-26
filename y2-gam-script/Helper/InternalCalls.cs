@@ -26,7 +26,8 @@ namespace Image
     {
         #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, out Vector2 nextNode);
+        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
+            out Vector2 nextNode, out Vector2 nodeType);
         #endregion
 
         #region PhysicsComponent

@@ -50,7 +50,7 @@ namespace Serializer {
 
 		
 		template<typename _type>
-		void PushToArray(std::string const& name, JSONObj& to, _type val) {
+		void PushToArray(JSONObj& to, _type val) {
       if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
       to.PushBack(val, mDocumentMap[path].GetAllocator());
 		}

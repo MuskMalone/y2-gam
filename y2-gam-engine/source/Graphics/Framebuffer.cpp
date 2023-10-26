@@ -110,7 +110,7 @@ object.
 */
 Framebuffer::~Framebuffer() {
 	glDeleteFramebuffers(1, &mFboHdl);
-	glDeleteTextures(mColorAttachments.size(), mColorAttachments.data());
+	glDeleteTextures(static_cast<GLsizei>(mColorAttachments.size()), mColorAttachments.data());
 	glDeleteTextures(1, &mDepthAttachment);
 }
 
@@ -126,7 +126,7 @@ void Framebuffer::Recreate() {
 
 	if (mFboHdl) {
 		glDeleteFramebuffers(1, &mFboHdl);
-		glDeleteTextures(mColorAttachments.size(), mColorAttachments.data());
+		glDeleteTextures(static_cast<GLsizei>(mColorAttachments.size()), mColorAttachments.data());
 		glDeleteTextures(1, &mDepthAttachment);
 
 		mColorAttachments.clear();
@@ -140,16 +140,16 @@ void Framebuffer::Recreate() {
 
 	if (mColorAttachmentProps.size()) {
 		mColorAttachments.resize(mColorAttachmentProps.size());
-		FbUtils::CreateTextures(multisample, mColorAttachments.data(), mColorAttachments.size() );
+		FbUtils::CreateTextures(multisample, mColorAttachments.data(), static_cast<unsigned int>(mColorAttachments.size()) );
 
 		for (size_t i{}; i < mColorAttachments.size(); ++i) {
 			FbUtils::BindTexture(multisample, mColorAttachments[i]);
 			switch (mColorAttachmentProps[i].TexFormat) {
 			case FramebufferTexFormat::RGBA8:
-				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, GL_RGBA, mProps.width, mProps.height, i);
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, GL_RGBA, mProps.width, mProps.height, static_cast<int>(i));
 				break;
 			case FramebufferTexFormat::RED_INTEGER:
-				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, i);
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, static_cast<int>(i));
 				break;
 			}
 		}
@@ -172,7 +172,7 @@ void Framebuffer::Recreate() {
 		}
 
 		GLenum buffers[4] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-		glDrawBuffers(mColorAttachments.size(), buffers);
+		glDrawBuffers(static_cast<GLsizei>(mColorAttachments.size()), buffers);
 	}
 	else if (mColorAttachments.empty()) {
 		glDrawBuffer(GL_NONE); // only depth

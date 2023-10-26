@@ -21,7 +21,7 @@ namespace Image
 {
     public class Entity
     {
-        protected uint entityID;
+        public uint entityID;
 
         /*  _________________________________________________________________________ */
         /*! Entity

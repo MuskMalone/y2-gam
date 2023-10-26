@@ -14,6 +14,8 @@
 #include <Engine/PrefabsManager.hpp>
 #include "Scripting/NodeManager.hpp"
 
+static bool isClicked = false;
+
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 	Image::Sound soundEffect;
@@ -112,16 +114,16 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 10), 1.f);
+	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 10.f), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 50, 5.f)
+			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 50.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 50, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 50.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -220,7 +222,7 @@ void EditorControlSystem::Init()
 	float scale{ 15.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
-		{ Vec2(0.0f, -100.f) });
+		{ Vec2(0.0f, -90.f) });
 	::gCoordinator->AddComponent(
 		player,
 		Collider{
@@ -229,7 +231,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		RigidBody{
-			Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
+			Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -268,17 +270,19 @@ void EditorControlSystem::Init()
 	scale = 15.f;
 	::gCoordinator->AddComponent<Gravity>(
 		Testing::enemy,
-		{ Vec2(0.0f, -100.f) });
+		{ Vec2(0.0f, -90.f) });
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Collider{
 			Vec2(position), 0.f, Vec2(scale, scale)
 		});
+	
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		RigidBody{
-			Vec2(position), 0.f, 10.f, Vec2(scale, scale), false
+			Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
 		});
+	
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Transform{
@@ -437,6 +441,22 @@ void EditorControlSystem::Update(float dt)
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
 		}
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) && !isClicked) {
+		Physics::RayHit rh{};
+
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+
+		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
+			NodeManager::ChangeNodeType(rh.entityID);
+		}
+
+		isClicked = true;
+	}
+	else {
+		isClicked = false;
 	}
 
 	/*

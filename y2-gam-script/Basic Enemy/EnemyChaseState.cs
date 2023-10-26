@@ -17,21 +17,55 @@
 using Image;
 using Object;
 using System;
+using System.Collections.Generic;
+
+enum NodeState
+{
+    WALK,
+    JUMP
+}
 
 public class EnemyChaseState : EnemyBaseState
-{
+{   
+    static List<Vector2> path = new List<Vector2>();
+    static List<NodeState> nodeTypes = new List<NodeState>();
     public override void EnterState(BasicEnemy enemy)
     {
-        Console.WriteLine("Entering chase state");
+        InternalCalls.PathfindingComponent_GetPath(enemy.entityID, out Vector2 close, 
+            out Vector2 next, out Vector2 nodeType);
+
+        if (close == Vector2.Zero || next == Vector2.Zero)
+        {
+            enemy.SwitchState(enemy.IdleState);
+        }
+
+        path.Add(close);
+        path.Add(next);
+
+        nodeTypes.Add((NodeState)nodeType.X);
+        nodeTypes.Add((NodeState)nodeType.Y);
     }
 
     public override void UpdateState(BasicEnemy enemy)
-    {
-        enemy.Force += new Vector2(0, enemy.jumpForce);
+    {   
+        switch (nodeTypes[0])
+        {
+            case NodeState.WALK:
+                // Walk(enemy);
+                Vector2 direction = path[0] - enemy.Translation;
+                direction = PhysicsWrapper.Normalize(direction);
+                enemy.Force += direction * enemy.MovementForce;
+                break;
+
+            case NodeState.JUMP:
+                // Jump(enemy);
+                break;
+        }
+
     }
 
     public override void EnterOnCollision(BasicEnemy enemy)
     {
 
-    }
+    } 
 }

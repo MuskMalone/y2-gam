@@ -18,6 +18,18 @@
 #pragma once
 
 namespace Image {
+  constexpr int NUM_NODE_TYPES = 2;
+
+  enum class NodeType {
+    Walk,
+    Jump
+  };
+
+  // Colors of the nodes, in the same order as the NodeType enum
+constexpr glm::vec4 NODE_COLORS[NUM_NODE_TYPES] = {
+    {0, 0, 0, 0.3f}, // Black
+    {1, 0, 0, 0.3f}  // Red
+  };
 
   struct DijkstraNode {
     Entity parentNode;                // The 'real' node that represents this node
@@ -42,6 +54,7 @@ namespace Image {
     static void AddNeighbour(Entity lhs, Entity rhs);
     static void RemoveNode(Entity node);
     static void ClearAllNodes();
+    static void ChangeNodeType(Entity node);
 
     // Cost Calculation
     static int CalculateCost(Entity lhs, Entity rhs);
@@ -52,6 +65,9 @@ namespace Image {
     // Pathfinding Algorithm
     static Path DjkstraAlgorithm(Entity start, Entity end);
     static void PrintPath(Path const& path);
+
+    // Getters
+    static std::set<Entity> const& GetCurrentlyActiveNodes();
 
   private:
     static void FillCostMap();
