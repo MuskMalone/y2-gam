@@ -51,6 +51,8 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
+    static const std::filesystem::path sAssetsPath {"../assets"};//TODO CHANGE THIS
+    std::filesystem::path currDir {sAssetsPath};
     /*  _________________________________________________________________________ */
     /*! AppRender
 
@@ -87,6 +89,7 @@ namespace Image {
         PropertyWindow();
         BufferWindow();
         LoggingWindow();
+        AssetsBrowserWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
             for (auto& e : mEntities) {
@@ -553,11 +556,8 @@ namespace Image {
         if (ImGui::IsWindowHovered()) {
 
             //mouse picking part:
-
-            //ImVec2 viewportBounds[2];
             ImVec2 contentSize = ImGui::GetContentRegionAvail();
             ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
-            //ImVec2 windowSize = ImGui::GetWindowSize();
             ImVec2 min = ImGui::GetWindowPos();
             min.x += viewportOffset.x;
             min.y += viewportOffset.y;
@@ -578,11 +578,8 @@ namespace Image {
                     framebuffer->Bind();
                     int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
                     framebuffer->Unbind();
-
                     draggedEntity = pixelData;
                     lastMousePos = ImGui::GetMousePos();
-                    std::cout << "Mouse = " << mouseX << " " << mouseY << " | Pixel Data: " << pixelData << std::endl;
-
                 }
             }
             // If dragging an entity and the mouse is moving
@@ -623,9 +620,7 @@ namespace Image {
             else if (ImGui::IsMouseReleased(0)) {
                 draggedEntity = -1;
             }
-
         }
-
 
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
@@ -648,7 +643,6 @@ namespace Image {
                 );
                 gCoordinator->SendEvent(event);
             }
-
         }
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
@@ -683,6 +677,36 @@ namespace Image {
                 ImGui::SetScrollHereY(1.0f);
         }
         ImGui::EndChild();
+        ImGui::End();
+    }
+
+    void AssetsBrowserWindow() {
+
+        ImGui::Begin("Content Browser");
+
+        if (currDir != std::filesystem::path(sAssetsPath)) {
+            if (ImGui::Button("<= Back")) {
+                currDir = currDir.parent_path();
+            }
+        }
+
+        for (auto& dir : std::filesystem::directory_iterator(currDir)) {
+            auto const& path {dir.path()};
+            auto relPath{ std::filesystem::relative(path, sAssetsPath) };
+            std::string filenameStr{ relPath.filename().string()};
+
+            if (dir.is_directory()) {
+                if (ImGui::Button(filenameStr.c_str())) {
+                    currDir /= path.filename();
+                }
+            }
+            else {
+                if (ImGui::Button(filenameStr.c_str())) {
+
+                }
+            }
+        }
+
         ImGui::End();
     }
 }

@@ -56,7 +56,7 @@ namespace Image {
     }
 
     //Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
-    sShaderPgm = std::make_shared<Shader>("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
+    sShaderPgm = std::make_shared<Shader>("../assets/shaders/fontVertex.glsl", "../assets/shaders/fontFragment.glsl");
     //sShaderPgm = &sh;
   }
 

@@ -50,4 +50,5 @@ namespace Image {
     void PropertyWindow();
     void BufferWindow();
     void LoggingWindow();
+    void AssetsBrowserWindow();
 }

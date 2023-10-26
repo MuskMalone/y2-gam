@@ -118,9 +118,9 @@ void Renderer::Init() {
 	for (unsigned int i{}; i < mData.maxTexUnits; ++i)
 		samplers[i] = i;
 
-	mData.lineShader = std::make_shared<Shader>("../Shaders/Line.vert", "../Shaders/Line.frag");
-	mData.texShader = std::make_shared<Shader>("../Shaders/Tex.vert", "../Shaders/Tex.frag");
-	mData.circleShader = std::make_shared<Shader>("../Shaders/Circle.vert", "../Shaders/Circle.frag");
+	mData.lineShader = std::make_shared<Shader>("../assets/shaders/Line.vert", "../assets/shaders/Line.frag");
+	mData.texShader = std::make_shared<Shader>("../assets/shaders/Tex.vert", "../assets/shaders/Tex.frag");
+	mData.circleShader = std::make_shared<Shader>("../assets/shaders/Circle.vert", "../assets/shaders/Circle.frag");
 
 	mData.texShader->Use();
 	mData.texShader->SetUniform("u_Tex", samplers.data(), mData.maxTexUnits);
@@ -150,7 +150,7 @@ void Renderer::Init() {
 	};
 	mData.screen.screenVertexBuffer->SetLayout(screenLayout);
 	mData.screen.screenVertexArray->AddVertexBuffer(mData.screen.screenVertexBuffer);
-	mData.screen.screenShader = std::make_shared<Shader>("../Shaders/FullscreenQuad.vert", "../Shaders/FullscreenQuad.frag");
+	mData.screen.screenShader = std::make_shared<Shader>("../assets/shaders/FullscreenQuad.vert", "../assets/shaders/FullscreenQuad.frag");
 }
 
 /*  _________________________________________________________________________ */

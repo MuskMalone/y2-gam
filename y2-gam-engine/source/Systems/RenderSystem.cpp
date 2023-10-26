@@ -107,7 +107,7 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
-	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );
+	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../assets/textures/blinkbg.png" );
 	mBgSubtex = SubTexture::Create(bgTex, { 0, 0 }, { 3497, 1200 });
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(
