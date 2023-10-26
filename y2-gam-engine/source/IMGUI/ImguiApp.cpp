@@ -539,6 +539,8 @@ namespace Image {
     */
     void BufferWindow() {
         const float scalingFactor = 1.5f;
+        static int draggedEntity = -1;   // -1 means no entity is being dragged.
+        static ImVec2 lastMousePos;      // Store the last position of the mouse.
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
@@ -566,18 +568,62 @@ namespace Image {
             mousePos.y -= min.y;
             Vec2 viewportSize = { max.x - min.x, max.y - min.y };
             mousePos.y = viewportSize.y - mousePos.y;
-
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
             int fbX = static_cast<int>(mouseX * scalingFactor);
             int fbY = static_cast<int>(mouseY * scalingFactor);
 
-            if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
-                framebuffer->Bind();
-                int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
-                framebuffer->Unbind();
-                std::cout << "Mouse = " << mouseX << " " << mouseY << " | Pixel Data: " << pixelData << std::endl;
+            if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
+                if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
+                    framebuffer->Bind();
+                    int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
+                    framebuffer->Unbind();
+
+                    draggedEntity = pixelData;
+                    lastMousePos = ImGui::GetMousePos();
+                    std::cout << "Mouse = " << mouseX << " " << mouseY << " | Pixel Data: " << pixelData << std::endl;
+
+                }
             }
+            // If dragging an entity and the mouse is moving
+            else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
+
+                ImVec2 currentMousePos = ImGui::GetMousePos();
+                ImVec2 delta = {
+                    currentMousePos.x - lastMousePos.x,
+                    currentMousePos.y - lastMousePos.y
+                };
+                Camera const& cam{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+
+                glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
+                // Unproject the initial drag position
+                glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
+                glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
+                worldSpaceInitial /= worldSpaceInitial.w;
+
+                // Unproject the current mouse position
+                glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
+                glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
+                worldSpaceCurrent /= worldSpaceCurrent.w;
+
+                // Calculate the world space delta
+                glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
+
+                Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
+                transform.position += worldDelta;
+
+                if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
+                    Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
+                    collider.position += {worldDelta.x, worldDelta.y};
+                }
+
+                lastMousePos = currentMousePos;
+            }
+            // If left mouse button is released, stop dragging
+            else if (ImGui::IsMouseReleased(0)) {
+                draggedEntity = -1;
+            }
+
         }
 
 
