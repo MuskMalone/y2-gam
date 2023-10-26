@@ -27,6 +27,8 @@
 #include "Graphics/Shader.hpp"
 #include "Core/Globals.hpp"
 #include "Graphics/Renderer.hpp"
+#include "Graphics/FontRenderer.hpp"
+#include "Systems/TextSystem.hpp"
 
 #include "Scripting/NodeManager.hpp"
 
@@ -42,7 +44,7 @@ Retrieves the camera entity used in the rendering context.
 
 \return The camera entity.
 */
-Entity RenderSystem::GetCamera() { return mCamera; }
+Entity RenderSystem::GetCamera() { if (mEditorMode)return mCamera; else return mSceneCamera; }
 
 /*  _________________________________________________________________________ */
 /*!
@@ -97,7 +99,7 @@ void RenderSystem::Init()
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
-		OrthoCamera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
 	gCoordinator->AddComponent(
@@ -185,7 +187,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		sceneCamera.UpdatePosition(playerPosition, playerVel);
 	}
 
-	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera).GetViewProjMtx() :
+	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 										  ::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 
 	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
@@ -211,29 +213,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
+	::gCoordinator->GetSystem<TextSystem>()->Update();
 
 	mFramebuffer->Unbind();
-
-	int width = 1600;
-	int height = 900;
-	unsigned int textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	// Create a buffer for the red color using std::vector
-	std::vector<unsigned char> data(width * height * 4); // 4 for RGBA
-	for (int i = 0; i < width * height * 4; i += 4) {
-		data[i] = 255;     // Red
-		data[i + 1] = 0;   // Green
-		data[i + 2] = 0;   // Blue
-		data[i + 3] = 255; // Alpha
-	}
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	Renderer::RenderFullscreenTexture(textureID);
 }
 
 /*  _________________________________________________________________________ */
