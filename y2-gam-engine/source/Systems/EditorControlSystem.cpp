@@ -18,7 +18,9 @@ static bool isClicked = false;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
-	Image::Sound soundEffect;
+	Image::Sound sampleEffect;
+	Image::Sound jumpEffect;
+	Image::Sound attackEffect;
 	Image::Sound bgm;
 	Image::SoundGroup bgmGroup;
 	Image::SoundGroup effectGroup;
@@ -339,8 +341,10 @@ void EditorControlSystem::Init()
 		});
 
 	// Sound Testing
-	::soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
+	::sampleEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav");
 	::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	::attackEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerAttack.wav");
+	::jumpEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerJump.wav");
 	::bgmGroup = Image::SoundManager::AudioCreateGroup();
 	::effectGroup = Image::SoundManager::AudioCreateGroup();
 
@@ -372,7 +376,15 @@ void EditorControlSystem::Update(float dt)
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-		Image::SoundManager::AudioPlay(::soundEffect, ::effectGroup, 0);
+		Image::SoundManager::AudioPlay(::sampleEffect, ::effectGroup, 0);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_4)) {
+		Image::SoundManager::AudioPlay(::attackEffect, ::effectGroup, 0);
+	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_SPACE)) {
+		Image::SoundManager::AudioPlay(::jumpEffect, ::effectGroup, 0);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {

@@ -188,13 +188,19 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Gravity{
-				{ Vec2(0.0f, -1000.f) }
+				{ Vec2(0.0f, -100.f) }
       });
-
+		/*
 		::gCoordinator->AddComponent(
 			node,
 			Collider{
-				Vec2(position), 0.f, Vec2(scale, scale)
+				Vec2(Vec2{position} + (Vec2{0, -1} *scale * .5f)), 0.f, Vec2(.01f, .01f)
+			});
+		*/
+		::gCoordinator->AddComponent(
+			node,
+			Collider{
+				Vec2(position), 0.f, Vec2(scale)
 			});
 
 		::gCoordinator->AddComponent(
