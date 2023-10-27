@@ -178,13 +178,13 @@ namespace Image {
 				"Node " + std::to_string(node),
 				{1, 1, 0}
 			});
-
+		/*
 		::gCoordinator->AddComponent(
 			node,
 			RigidBody{
 				Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
 			});
-
+		*/
 		::gCoordinator->AddComponent(
 			node,
 			Gravity{

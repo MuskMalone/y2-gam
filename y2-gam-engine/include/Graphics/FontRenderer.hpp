@@ -59,8 +59,8 @@ namespace Image {
     static void Init();
     static void Exit();
     static void LoadFont(const char * filepath, std::string name);
-    static void GenerateBitmap(std::string name, int fontSize);
-    static void SetFontSize(std::string name, int fontSize);
+    static void GenerateBitmap(std::string name, int fontSize = 100);
+    static void SetFontSize(std::string name, int fontSize = 100);
     static void RenderText(std::string fontname, std::string text, 
       float xPos, float yPos, float scale, Vec3 color);
 

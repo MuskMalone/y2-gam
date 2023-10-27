@@ -39,16 +39,16 @@ Initializes the font renderer and loads the fonts, for future use.
 void TextSystem::Init() {
 	Image::FontRenderer::Init();
 	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
-	Image::FontRenderer::SetFontSize("Arial", 100);
-	Image::FontRenderer::GenerateBitmap("Arial", 100);
+	Image::FontRenderer::SetFontSize("Arial");
+	Image::FontRenderer::GenerateBitmap("Arial");
 
 	Image::FontRenderer::LoadFont("../assets/fonts/lato/Lato-Bold.ttf", "Lato");
-	Image::FontRenderer::SetFontSize("Lato", 100);
-	Image::FontRenderer::GenerateBitmap("Lato", 100);
+	Image::FontRenderer::SetFontSize("Lato");
+	Image::FontRenderer::GenerateBitmap("Lato");
 
 	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
-	Image::FontRenderer::SetFontSize("Getho", 100);
-	Image::FontRenderer::GenerateBitmap("Getho", 100);
+	Image::FontRenderer::SetFontSize("Getho");
+	Image::FontRenderer::GenerateBitmap("Getho");
 }
 
 /*  _________________________________________________________________________ */
