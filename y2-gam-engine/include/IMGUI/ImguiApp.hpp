@@ -49,6 +49,7 @@ namespace Image {
     void InspectorWindow();
     void PropertyWindow();
     void BufferWindow();
+    void PrefabWindow();
     void LoggingWindow();
-    void AssetsBrowserWindow();
+    void ContentBrowserWindow();
 }

@@ -53,6 +53,7 @@ namespace {
 namespace Image {
     static const std::filesystem::path sAssetsPath {"../assets"};//TODO CHANGE THIS
     std::filesystem::path currDir {sAssetsPath};
+    const float scalingFactor = 1.5f;
     /*  _________________________________________________________________________ */
     /*! AppRender
 
@@ -88,8 +89,9 @@ namespace Image {
         InspectorWindow();
         PropertyWindow();
         BufferWindow();
+        PrefabWindow();
         LoggingWindow();
-        AssetsBrowserWindow();
+        ContentBrowserWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
             for (auto& e : mEntities) {
@@ -541,7 +543,6 @@ namespace Image {
      This function displays the game engine's framebuffer.
     */
     void BufferWindow() {
-        const float scalingFactor = 1.5f;
         static int draggedEntity = -1;   // -1 means no entity is being dragged.
         static ImVec2 lastMousePos;      // Store the last position of the mouse.
         ImGuiStyle& style = ImGui::GetStyle();
@@ -550,7 +551,7 @@ namespace Image {
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 
         ImGui::Begin("Image Game Engine", nullptr, window_flags);
-        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer();
+        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
 
         if (ImGui::IsWindowHovered()) {
@@ -650,6 +651,15 @@ namespace Image {
         ImGui::End();
     }
 
+    void PrefabWindow() {
+        ImGui::Begin("Prefab Editor");
+        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
+        unsigned int texHdl = framebuffer->GetColorAttachmentID();
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+        ImGui::End();
+    }
+
     /*  _________________________________________________________________________ */
     /*! LoggingWindow
 
@@ -680,7 +690,7 @@ namespace Image {
         ImGui::End();
     }
 
-    void AssetsBrowserWindow() {
+    void ContentBrowserWindow() {
 
         ImGui::Begin("Content Browser");
 
