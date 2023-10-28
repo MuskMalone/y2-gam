@@ -48,9 +48,11 @@ void AnimationSystem::Init() {
 
 	//-------------TEMPORARY-------------------------------------------------------------/
 
-	SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
-	SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
-	SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
+	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
+	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
+	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
+
+	SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png", 0);
 
 	//for (float i{}; i < 8; ++i)
 	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(0), { i, 0 }, { 128, 128 }));
@@ -60,14 +62,16 @@ void AnimationSystem::Init() {
 
 	//for(float i{16}; i <23; ++i)
 	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(2), { i, 0 }, { 128, 128 }));
-	for (float i{}; i < 8; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 0 }, { 128, 128 }, i);
 
-	for (float i{ 8 }; i < 16; ++i)
-		SpriteManager::CreateSubTexture(1, { i, 0 }, { 128, 128 }, i);
+	//TEMP
+	for (float i{}; i < 7; ++i)
+		SpriteManager::CreateSubTexture(0, { i, 1 }, { 256, 256 }, (int)i);
+
+	for (float i{ 7 }; i < 16; ++i)
+		SpriteManager::CreateSubTexture(0, { i, 2 }, { 256, 256 }, (int)i);
 
 	for (float i{ 16 }; i < 23; ++i)
-		SpriteManager::CreateSubTexture(2, { i, 0 }, { 128, 128 }, i);
+		SpriteManager::CreateSubTexture(0, { i, 0 }, { 256, 256 }, (int)i);
 
 	//------------------------------------------------------------------------------------/
 
