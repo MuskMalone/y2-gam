@@ -120,24 +120,24 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 50.f, 5.f)
+			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 80.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 50.f, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 80.f, 5.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
 			{position.x,position.y,position.z},
 			{0.f,0.f,0.f},
-			{WORLD_LIMIT_X + 50, 5.f, 1.f}
+			{WORLD_LIMIT_X + 80, 5.f, 1.f}
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{0, 1, 0, 0.7},
+			{0, 0, 1, 0.7},
 			nullptr
 		});
 	::gCoordinator->AddComponent(
@@ -151,28 +151,28 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(static_cast<float>(-WORLD_LIMIT_X + 90), static_cast<float>(-WORLD_LIMIT_Y + 50), 1.f);
+	position = Vec3(static_cast<float>(-WORLD_LIMIT_X + 90.f), static_cast<float>(-WORLD_LIMIT_Y + 50.f), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(30.f, 5.f)
+			Vec2(position), 0.f, Vec2(20.f, 30.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(30.f, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(20.f, 30.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
 			{position.x,position.y,position.z},
 			{0.f,0.f,0.f},
-			{30.f, 5.f, 1.f}
+			{20.f, 30.f, 1.f}
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{0, 1, 0, 0.7},
+			{1, 1, 0, 0.7},
 			nullptr
 		});
 	::gCoordinator->AddComponent(
@@ -186,28 +186,63 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90), static_cast<float>(-WORLD_LIMIT_Y + 30), 1.f);
+	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90.f), static_cast<float>(-WORLD_LIMIT_Y + 30.f), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(70.f, 5.f)
+			Vec2(position), 0.f, Vec2(90.f, 3.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(70.f, 5.f)
+			Vec2(position), .0f, FLOAT_MAX, Vec2(90.f, 3.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
 			{position.x,position.y,position.z},
 			{0.f,0.f,0.f},
-			{70.f, 5.f, 1.f}
+			{90.f, 3.f, 1.f}
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Sprite{
-			{0, 1, 0, 0.7},
+			{1, 0, 0, 0.7},
+			nullptr
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Tag{
+			"Platform"
+		});
+
+	// Top
+	entity = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent<Gravity>(
+		entity,
+		{ Vec2(0.0f, -10.f) });
+	position = Vec3(static_cast<float>(WORLD_LIMIT_X - 90.f), static_cast<float>(-WORLD_LIMIT_Y + 80.f), 1.f);
+	::gCoordinator->AddComponent(
+		entity,
+		Collider{
+			Vec2(position), 0.f, Vec2(90.f, 3.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		RigidBody{
+			Vec2(position), .0f, FLOAT_MAX, Vec2(90.f, 3.f)
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Transform{
+			{position.x,position.y,position.z},
+			{0.f,0.f,0.f},
+			{90.f, 3.f, 1.f}
+		});
+	::gCoordinator->AddComponent(
+		entity,
+		Sprite{
+			{1, 0, 0, 0.7},
 			nullptr
 		});
 	::gCoordinator->AddComponent(
@@ -228,7 +263,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		Collider{
-			Vec2(position), 0.f, Vec2(scale, scale)
+			Vec2(position), 0.f, Vec2(scale / 2.f, scale)
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -253,7 +288,7 @@ void EditorControlSystem::Init()
 		player,
 		Text{
 			"Lato",
-			0.05f,
+			0.06f,
 			"Player",
 			{1, 1, 0}
 		});
@@ -276,7 +311,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Collider{
-			Vec2(position), 0.f, Vec2(scale, scale)
+			Vec2(position), 0.f, Vec2(scale / 2.f, scale)
 		});
 	
 	::gCoordinator->AddComponent(
@@ -302,8 +337,8 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Text{
-			"Lato",
-			0.05f,
+			"Getho",
+			0.06f,
 			"Enemy",
 			{1, 1, 0}
 		});
@@ -436,7 +471,7 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Physics::RayHit rh{};
 		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh, std::nullopt);
 		if (!::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			NodeManager::AddNode();
 		}
@@ -448,18 +483,19 @@ void EditorControlSystem::Update(float dt)
 		Physics::RayHit rh{};
 
 		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh, std::nullopt);
 		
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
 		}
 	}
-
+	// Temporarily Disabled
+	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) && !isClicked) {
 		Physics::RayHit rh{};
 
 		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh);
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(mousePos, mousePos, rh, std::nullopt);
 
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			NodeManager::ChangeNodeType(rh.entityID);
@@ -470,6 +506,7 @@ void EditorControlSystem::Update(float dt)
 	else {
 		isClicked = false;
 	}
+	*/
 
 	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_RELEASED, static_cast<size_t>(MouseButtons::RB)) &&

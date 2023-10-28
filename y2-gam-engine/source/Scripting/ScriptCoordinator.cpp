@@ -97,11 +97,12 @@ namespace Image {
 	Get the raycast hit information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
-	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, bool* hit, Vec2* normal,
+	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
 		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
-		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh);
+		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
+		
 		*normal = rh.normal;
 		*point = rh.point;
 		*distance = rh.distance;

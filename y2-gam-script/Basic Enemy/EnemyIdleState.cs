@@ -33,27 +33,25 @@ public class EnemyIdleState : EnemyBaseState
             enemy.SwitchState(enemy.PatrolState);
         }
 
-        if (enemy.isFacingRight)
-        {
-            // Raycast for the line of sight
-            Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) + 30, enemy.Translation.Y + (enemy.Scale.Y / 2));
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X + (enemy.Scale.X / 2), enemy.Translation.Y + (enemy.Scale.Y / 2)),
-                losRayEnd, out RaycastHit losRayCast);
+        // Calculate losRayEnd based on isFacingRight
+        float offset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
+        Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + offset, enemy.Translation.Y);
 
-            if (losRayCast.tag == "Player")
+        // Perform the raycast
+        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+
+        // Check the raycast result for "Player" tag
+        if (losRayCast.tag == "Player")
+        {
+            float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+            Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
+            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
+
+            if (attackRayCast.tag == "Player")
             {
-                enemy.SwitchState(enemy.ChaseState);
+                enemy.SwitchState(enemy.AttackState);
             }
-        }
-
-        else
-        {
-            // Raycast for the line of sight
-            Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) - 30, enemy.Translation.Y + (enemy.Scale.Y / 2));
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X + (enemy.Scale.X / 2), enemy.Translation.Y + (enemy.Scale.Y / 2)),
-                losRayEnd, out RaycastHit losRayCast);
-
-            if (losRayCast.tag == "Player")
+            else
             {
                 enemy.SwitchState(enemy.ChaseState);
             }

@@ -15,6 +15,8 @@
 */
 /******************************************************************************/
 
+using System;
+
 namespace Image
 {
     public struct Vector3
@@ -234,5 +236,11 @@ namespace Image
 
         // Vector zero
         public static Vector2 Zero = new Vector2(0.0f, 0.0f);
+
+        // Vector length
+        public float Length()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y);
+        }
     }
 }

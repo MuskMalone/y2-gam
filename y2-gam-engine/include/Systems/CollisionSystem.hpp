@@ -48,7 +48,7 @@ namespace Collision {
 
 		void Debug();
 
-		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh);
+		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore);
 
 	private:
 		using ColliderLookupKey = std::pair<ColliderType, ColliderType>;

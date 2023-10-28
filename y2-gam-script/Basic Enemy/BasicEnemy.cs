@@ -22,16 +22,36 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
-        public bool isFacingRight = true;
-        public bool directionChanged = false;
         public readonly float MovementForce = 900.0f;
-        public readonly float jumpForce = 30000.0f;
+        public readonly float JumpForce = 30000.0f;
+        public readonly float VisionRange = 30.0f;
+        public readonly float AttackRange = 10.0f;
 
         // Time in state
         public float TimeInState = 0.0f;
 
+        // Direction related
+        //public bool directionChanged = false;
+        private bool _isFacingRight = true;
+        public bool isFacingRight
+        {
+            get { return _isFacingRight; }
+            set
+            {
+                if (_isFacingRight != value)
+                {
+                    _isFacingRight = value;
+                    FacingDirectionChanged = true; // Set another flag when isFacingRight changes
+                }
+            }
+        }
+        public bool FacingDirectionChanged { get; private set; }
+
         // State Machines
+        // All states inherit from this
         EnemyBaseState currentState;
+
+        // States
         public EnemyDefaultState DefaultState = new EnemyDefaultState();
         public EnemyPatrolState PatrolState = new EnemyPatrolState();
         public EnemyAttackState AttackState = new EnemyAttackState();
@@ -92,16 +112,16 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (directionChanged)
+            if (FacingDirectionChanged)
             {
                 Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                directionChanged = false;
+                FacingDirectionChanged = false; // Reset the flag
             }
 
             TimeInState += dt;
             currentState.UpdateState(this);
 
-            //Console.WriteLine("Current enemy state: " + currentState.ToString());
+            Console.WriteLine("Current enemy state: " + currentState.ToString());
         }
 
         /*  _________________________________________________________________________ */

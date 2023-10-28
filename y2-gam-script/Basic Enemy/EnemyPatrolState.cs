@@ -27,57 +27,56 @@ public class EnemyPatrolState : EnemyBaseState
 
     public override void UpdateState(BasicEnemy enemy)
     {
+        // Calculate offsets based on isFacingRight
+        float forwardOffset = enemy.isFacingRight ? 10.0f : -10.0f;
+        float visionOffset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
+        // Position that is 10 pixels in front of the enemy
+        Vector2 groundRayPos = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Translation.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
+        PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
 
-        if (enemy.isFacingRight)
+        // Raycast for line of sight
+        Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Translation.Y);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+
+        if (losRayCast.tag == "Player")
         {
-            // Position that is 1 pixel in front of the enemy
-            Vector2 groundRayPos = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) + 10, enemy.Translation.Y - (enemy.Scale.Y / 2) - 1);
-            PhysicsWrapper.Raycast(groundRayPos, groundRayPos, out RaycastHit groundRayCast);
+            float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+            Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
+            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
-            // Raycast for the line of sight
-            Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) + 30, enemy.Translation.Y + (enemy.Scale.Y / 2));
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X + (enemy.Scale.X / 2), enemy.Translation.Y + (enemy.Scale.Y / 2)),
-                losRayEnd, out RaycastHit losRayCast);
-
-            if (losRayCast.tag == "Player")
+            if (attackRayCast.tag == "Player")
+            {
+                enemy.SwitchState(enemy.AttackState);
+            }
+            else
             {
                 enemy.SwitchState(enemy.ChaseState);
-            }
-
-            enemy.MoveRight();
-
-            if (groundRayCast.tag != "Platform")
-            {
-                enemy.directionChanged = true;
-                enemy.MoveLeft();
-                enemy.SwitchState(enemy.IdleState);
             }
         }
 
+        // Perform movement based on the groundRayCast result
+        if (groundRayCast.tag != "Platform")
+        {
+            if (enemy.isFacingRight)
+            {
+                enemy.MoveLeft();
+            }
+            else
+            {
+                enemy.MoveRight();
+            }
+            enemy.SwitchState(enemy.IdleState);
+        }
         else
         {
-            // Position that is 1 pixel in front of the enemy
-            Vector2 groundRayPos = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) - 10, enemy.Translation.Y - (enemy.Scale.Y / 2) - 1);
-            PhysicsWrapper.Raycast(groundRayPos, groundRayPos, out RaycastHit groundRayCast);
-
-            // Raycast for the line of sight
-            Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2) - 30, enemy.Translation.Y + (enemy.Scale.Y / 2));
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X + (enemy.Scale.X / 2), enemy.Translation.Y + (enemy.Scale.Y / 2)),
-                losRayEnd, out RaycastHit losRayCast);
-
-            if (losRayCast.tag == "Player")
+            if (enemy.isFacingRight)
             {
-                enemy.SwitchState(enemy.ChaseState);
-            }
-
-            enemy.MoveLeft();
-
-            if (groundRayCast.tag != "Platform")
-            {
-                enemy.directionChanged = true;
                 enemy.MoveRight();
-                enemy.SwitchState(enemy.IdleState);
+            }
+            else
+            {
+                enemy.MoveLeft();
             }
         }
     }

@@ -16,17 +16,27 @@
 
 using Image;
 using Object;
+using System;
 
 public class EnemyAttackState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-
+        enemy.AnimationState = (int)AnimationCode.ATTACK;
     }
 
     public override void UpdateState(BasicEnemy enemy)
     {
+        enemy.AnimationState = (int)AnimationCode.ATTACK;
 
+        float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+        Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
+
+        if (attackRayCast.tag != "Player")
+        {
+            enemy.SwitchState(enemy.IdleState);
+        }
     }
 
     public override void EnterOnCollision(BasicEnemy enemy)

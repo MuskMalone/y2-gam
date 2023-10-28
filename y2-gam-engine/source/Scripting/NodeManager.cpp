@@ -76,37 +76,39 @@ namespace Image {
 				}
 			}
 		}
-
 //#endif
 		
-		for (Entity const& e : currentlyActiveNodes) {
-			if (::gCoordinator->GetComponent<Node>(e).selected) {
-				::gCoordinator->GetComponent<Text>(e).text = "Selected";
+		for (Entity const& ent : currentlyActiveNodes) {
+			if (::gCoordinator->GetComponent<Node>(ent).selected) {
+				::gCoordinator->GetComponent<Text>(ent).text = "Selected";
 			}
 			else {
-				::gCoordinator->GetComponent<Text>(e).text = "Node " + std::to_string(e);
+				::gCoordinator->GetComponent<Text>(ent).text = "Node " + std::to_string(ent);
 			}
-
-			/*
-			if (::gCoordinator->HasComponent<RigidBody>(e)) {
+			
+			if (::gCoordinator->HasComponent<RigidBody>(ent)) {
 				Physics::RayHit rh{};
-				::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(
-					::gCoordinator->GetComponent<Transform>(e).position.x, 
-					::gCoordinator->GetComponent<Transform>(e).position.y - (::gCoordinator->GetComponent<Transform>(e).scale.y / 2.f) - 1, rh);
+
+				bool hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(
+					Vec2(::gCoordinator->GetComponent<Transform>(ent).position.x, ::gCoordinator->GetComponent<Transform>(ent).position.y),
+					Vec2(::gCoordinator->GetComponent<Transform>(ent).position.x, ::gCoordinator->GetComponent<Transform>(ent).position.y -
+						(::gCoordinator->GetComponent<Transform>(ent).scale.y / 2.f)) - 1.f, rh, ent);
 				
-				if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "Platform") {
-					::gCoordinator->RemoveComponent<RigidBody>(e);
+				if (hit && ::gCoordinator->HasComponent<Tag>(rh.entityID)) {
+					float velocityLowerBound{ 0.0001f };
+					if (::gCoordinator->GetComponent<RigidBody>(ent).velocity.y < velocityLowerBound && ::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "Platform") {
+						::gCoordinator->RemoveComponent<RigidBody>(ent);
+					}
 				}
       }
-			*/
 		}
 		
 		int count{};
 		std::vector<Entity> currentSelection;
 
-		for (Entity const& e : currentlyActiveNodes) {
-			if (::gCoordinator->GetComponent<Node>(e).selected) {
-				currentSelection.push_back(e);
+		for (Entity const& ent : currentlyActiveNodes) {
+			if (::gCoordinator->GetComponent<Node>(ent).selected) {
+				currentSelection.push_back(ent);
 				++count;
 			}
 
@@ -153,7 +155,7 @@ namespace Image {
 		::gCoordinator->AddComponent<Node>(node, Node());
 		Vec3 position = Vec3(inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second, 1.f);
 
-		float scale{ 8.f };
+		float scale{ 15.f };
 
 		::gCoordinator->AddComponent(
 			node,
@@ -178,17 +180,17 @@ namespace Image {
 				"Node " + std::to_string(node),
 				{1, 1, 0}
 			});
-		/*
+		
 		::gCoordinator->AddComponent(
 			node,
 			RigidBody{
 				Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
 			});
-		*/
+		
 		::gCoordinator->AddComponent(
 			node,
 			Gravity{
-				{ Vec2(0.0f, -100.f) }
+				{ Vec2(0.0f, -200.f) }
       });
 		/*
 		::gCoordinator->AddComponent(

@@ -630,21 +630,24 @@ Computes the collision between two entities and returns an arbiter.
         return false;
     }
 
-    bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh) {
+    bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore) {
         float timeMin{ FLOAT_MAX };
         Entity eMin{};
         Vec2 cnMin, cpMin;
         bool out{ false };
         for (auto const& entity : mEntities) {
+            if (entityToIgnore.has_value() && entityToIgnore.value() == entity) continue;
+            //if (entity == 0) continue;
             float time{};
             Vec2 cn{}, cp{};
             if (RaycastBody(origin, end, entity, cn, cp, time)) {
-              out = true;
+              //out = true;
               if (timeMin > time && time <= 1.f) {
                 timeMin = std::move(time);
                 eMin = entity;
                 cnMin = std::move(cn);
                 cpMin = std::move(cp);
+                out = true;
               }
             }
         }

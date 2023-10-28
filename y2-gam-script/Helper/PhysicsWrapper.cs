@@ -31,14 +31,14 @@ namespace Image
     }
     public static class PhysicsWrapper
     {
-        public static bool Raycast(Vector2 origin, Vector2 end, out RaycastHit result)
+        public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
-            InternalCalls.PhysicsComponent_GetRaycast(out origin, out end,
+            InternalCalls.PhysicsComponent_GetRaycast(out origin, out end, out optionalEntityID,
             out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tagString);
             
             if (hit)
             {
-                /*
+                /* Marshal method
                 result = new RaycastHit();
                 IntPtr resultStructPtr = IntPtr.Add(resultPtr, Marshal.SizeOf(typeof(RaycastHit)));
                 RaycastHit resultCpp = Marshal.PtrToStructure<RaycastHit>(resultStructPtr);
