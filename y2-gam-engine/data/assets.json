@@ -1,72 +1,12 @@
-
 {
-	"spritesheet" : {
-		"ninjarun": {
-			"path": "../Textures/Run.png",
-			"framecount" :  8,
-			"sprite": [
-				{
-					"id": 0,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 1,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 2,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 3,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				}
-			]
-		},
-		{
-			"path": "",
-			"sprite": [
-				{
-					"id": 0,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 1,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 2,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				},
-				{
-					"id": 3,
-					"width": 128,
-					"height": 128,
-					"u": 0,
-					"v": 0
-				}
-			]
-		}
-	}
+    "classImage::SoundManager": {
+        "1698506092882384300": {
+            "path": "../assets/audio/teleport.wav",
+            "stream": false
+        },
+        "1698506092882391200": {
+            "path": "../assets/audio/bgm.wav",
+            "stream": false
+        }
+    }
 }

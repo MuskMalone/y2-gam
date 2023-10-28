@@ -24,6 +24,8 @@
 namespace Image {
 
   FMOD::System* SoundManager::sSystem{ nullptr };
+  std::map<uint32_t, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
+
 
   /*  _________________________________________________________________________ */
   /*! AudioInit
@@ -37,7 +39,7 @@ namespace Image {
   bool SoundManager::AudioInit() {
     FMOD_RESULT result;
     sSystem = nullptr;
-
+    _mSoundAssets.clear();
     result = FMOD::System_Create(&sSystem);              // Create the main system object.
 
     if (result != FMOD_OK) {
@@ -380,5 +382,37 @@ namespace Image {
       //std::cout << "Set group pitch to " << pitch << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Set group pitch to " + std::to_string(pitch), __FUNCTION__);
     }
+  }
+
+  //for asset manager
+  ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
+      auto key{ _hash(props.path) };
+      _mSoundAssets[key] =
+          (props.stream) ? (std::make_pair(AudioLoadMusic(props.path.c_str()), SoundProperties{ props.path, true }))
+          : (std::make_pair(AudioLoadSound(props.path.c_str()), SoundProperties{ props.path, false }));
+      return key;
+  }
+  ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
+       return LoadAsset(SoundProperties{obj["path"].GetString(), obj["stream"].GetBool()});
+
+  }
+  void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
+      _mSoundAssets[aid].second.stream = props.stream;
+      Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
+  }
+
+  Sound const& SoundManager::GetAsset(ResourceID aid) {
+      return _mSoundAssets[aid].first;
+  }
+  SoundProperties & SoundManager::GetAssetProperties(ResourceID aid) {
+      return _mSoundAssets[aid].second;
+  }
+
+  //
+  ResourceID SoundManager::AddAsset(rapidjson::Value& obj, std::string const& path) {
+      auto sm{ Serializer::SerializationManager::GetInstance() };
+      sm->InsertValue(obj, "path", path);
+      sm->InsertValue(obj, "stream", false);
+      return _hash(path);
   }
 }

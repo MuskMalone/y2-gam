@@ -18,6 +18,7 @@
 #include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
+#include <Engine/AssetManager.hpp>
 
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
@@ -45,7 +46,13 @@ int main()
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+	
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
+	PrefabsManager::GetInstance()->Init();
+	auto assetManager{ AssetManager::GetInstance() };
+	assetManager->Init();
+
+
 	// Mono Testing
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
@@ -57,6 +64,9 @@ int main()
 	using namespace Collision;
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
+
+	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
+	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
 
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
@@ -164,9 +174,9 @@ int main()
 		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
 	}
 
-	entitySerializationSystem->Init();
+	entitySerializationSystem->Init(); 
 
-	PrefabsManager::GetInstance()->Init();
+
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
@@ -263,6 +273,8 @@ int main()
 		
 		NodeManager::Update();
 	}
+
+	
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
@@ -271,5 +283,6 @@ int main()
 
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::Exit();
+	assetManager->Exit();
 	return 0;
 }

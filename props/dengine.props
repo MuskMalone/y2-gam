@@ -3,13 +3,13 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)lib\fmod\include;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\mono\include;$(SolutionDir)lib\glad\include;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\glm-0.9.9.8;$(ProjectDir)include;$(SolutionDir)lib\rapidjson\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\freetype\lib\Debug;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\fmod\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\rttr\include;$(SolutionDir)lib\fmod\include;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\mono\include;$(SolutionDir)lib\glad\include;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\glm-0.9.9.8;$(ProjectDir)include;$(SolutionDir)lib\rapidjson\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\freetype\lib\Debug;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\rttr\lib;$(SolutionDir)lib\fmod\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SolutionDir)lib\glad\src;$(ProjectDir)source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;fmod_vc.lib;mono-2.0-sgen.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rttr_core.lib;opengl32.lib;glfw3dll.lib;fmod_vc.lib;mono-2.0-sgen.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
@@ -19,6 +19,7 @@ xcopy "$(ProjectDir)data" "$(TargetDir)Data" /e /y /i /r
 xcopy "$(SolutionDir)assets" "$(SolutionDir)x64\assets" /e /y /i /r
 xcopy "$(SolutionDir)lib\fmod\dll\fmod.dll" "$(TargetDir)" /e /y /i /r
 xcopy "$(SolutionDir)lib\fmod\dll\fmodL.dll" "$(TargetDir)" /e /y /i /r
+xcopy "$(SolutionDir)lib\rttr\bin\rttr_core.dll" "$(TargetDir)" /e /y /i /r
 xcopy "$(SolutionDir)lib\freetype\dll\freetype.dll" "$(TargetDir)" /e /y /i /r
 xcopy "$(SolutionDir)lib\mono\dll\mono-2.0-sgen.dll" "$(TargetDir)" /e /y /i /r
 mkdir "$(SolutionDir)x64\lib\mono\4.5"

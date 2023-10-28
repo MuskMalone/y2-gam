@@ -14212,3 +14212,949 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-10-23 21:46:00 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-10-28 22:34:14 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 22:34:14 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 22:34:15 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-28 22:36:53 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 22:36:54 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 22:36:54 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-28 22:37:00 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 22:37:00 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 22:37:01 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-28 22:37:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-28 22:37:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-28 22:37:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-28 22:37:01 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-28 22:37:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-28 22:37:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-28 22:37:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:37:01 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:37:01 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-28 22:37:01 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-28 22:37:01 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-28 22:37:01 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-28 22:37:07 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-28 22:37:48 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 22:37:49 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 22:37:49 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-28 22:37:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-28 22:37:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-28 22:37:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:37:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:37:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-28 22:37:49 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-28 22:37:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-28 22:37:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-28 22:37:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:37:49 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:37:49 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-28 22:37:49 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-28 22:37:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-28 22:37:49 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-28 22:37:58 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-28 22:45:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 22:45:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 22:45:52 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:45:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-28 22:45:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:45:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-28 22:45:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:45:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-28 22:45:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 22:45:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:45:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:45:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 22:45:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-28 22:45:52 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-28 22:45:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-28 22:45:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-28 22:45:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:45:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 22:45:52 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-28 22:45:52 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-28 22:45:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-28 22:45:52 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-28 22:45:53 FN: Image::SoundManager::AudioExit
+
+[ERROR]: Namespace:  2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-28 23:00:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-28 23:00:24 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 23:00:24 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 23:00:25 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-28 23:12:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 23:12:44 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 23:12:44 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-28 23:14:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-28 23:14:52 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-28 23:14:52 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 23:14:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-28 23:14:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 23:14:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-28 23:14:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 23:14:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-28 23:14:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-28 23:14:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 23:14:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 23:14:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-28 23:14:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-28 23:14:52 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-28 23:14:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-28 23:14:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-28 23:14:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 23:14:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-28 23:14:52 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-28 23:14:52 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-28 23:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-28 23:14:52 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-28 23:14:58 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 00:55:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 00:55:32 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 00:55:32 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 00:55:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 00:55:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 00:55:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 00:55:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 00:55:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 00:55:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 00:55:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 00:55:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 00:55:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 00:55:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 00:55:32 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 00:55:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 00:55:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 00:55:32 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 00:55:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 00:55:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 00:55:32 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 00:55:32 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 00:55:32 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 00:55:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 00:55:32 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:34 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:36 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:37 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:37 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:38 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 00:55:39 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 00:55:40 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 00:55:41 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 00:55:41 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 00:55:42 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 00:55:42 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 00:55:43 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 00:55:43 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 00:55:43 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 00:55:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 00:55:47 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:20:00 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:20:01 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:20:01 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:20:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:20:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:20:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:20:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:20:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:20:01 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:20:01 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:20:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:20:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:20:01 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:20:01 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:20:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:20:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:20:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:20:01 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:20:01 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:20:01 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:20:01 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:01 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:01 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:20:01 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:20:04 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:20:05 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:20:06 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:20:06 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:20:06 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:06 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:06 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:08 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:08 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:08 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:08 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:09 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:09 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:10 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:20:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:20:12 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:28:01 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:28:01 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:30:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:30:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:31:45 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:31:45 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:32:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:32:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:32:43 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:32:43 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:32:43 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:32:43 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:32:43 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:32:43 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:32:43 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:32:43 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:32:43 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:32:43 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:32:43 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:32:43 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:32:43 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:32:43 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:32:43 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:32:43 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:32:43 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:32:43 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:32:43 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:32:43 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:32:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:32:43 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 02:32:50 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:33:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:33:16 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:33:16 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:33:16 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:33:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:33:16 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:33:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:33:16 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:33:16 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:33:16 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:33:16 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:33:16 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:33:16 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:33:16 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:33:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:33:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:33:16 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:33:16 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:33:16 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:33:16 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:33:16 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:33:16 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:33:16 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:33:16 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 02:33:26 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:40:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:40:58 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:40:58 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:40:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:40:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:40:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:40:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:40:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:40:58 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:40:58 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:40:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:40:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:40:58 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:40:58 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:40:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:40:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:40:58 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:40:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:40:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:40:58 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:40:58 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:40:58 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:40:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:40:58 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 02:41:11 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:41:47 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:41:48 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:41:49 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:41:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:41:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:41:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:41:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:41:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:41:49 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:41:49 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:41:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:41:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:41:49 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:41:49 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:41:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:41:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:41:49 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:41:49 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:41:49 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:41:49 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:41:49 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:41:49 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:41:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:41:49 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 02:42:02 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:43:10 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:43:11 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:43:11 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:43:11 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:43:11 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:43:11 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:43:11 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:43:11 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:43:11 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:43:11 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:43:11 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:43:11 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:43:11 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:43:11 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:43:11 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:43:11 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:43:11 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:43:11 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:43:11 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:43:11 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:43:11 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:11 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:11 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:19 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:21 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:21 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:22 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:23 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:24 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:24 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:24 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:24 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:25 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:25 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:43:25 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:43:26 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:27 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:27 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:27 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:28 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:31 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:31 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:43:32 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPauseGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-29 02:43:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-10-29 02:44:09 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:44:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:44:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:45:03 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:45:04 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-29 02:46:37 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 02:46:38 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 02:46:39 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:46:39 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-29 02:46:39 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:46:39 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-29 02:46:39 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:46:39 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-29 02:46:39 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-29 02:46:39 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:46:39 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:46:39 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-29 02:46:39 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-29 02:46:39 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-29 02:46:39 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-29 02:46:39 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-29 02:46:39 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-29 02:46:39 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-29 02:46:39 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:46:39 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-29 02:46:39 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-10-29 02:46:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:46:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:46:39 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:46 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:46:47 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:46:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:46:49 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:46:49 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:49 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:46:49 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:49 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:46:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:46:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-10-29 02:46:51 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:46:51 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:46:52 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:46:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:46:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-29 02:47:07 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-29 02:47:07 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-29 02:47:08 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-29 02:47:09 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:09 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:09 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:10 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:10 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:10 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:10 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-29 02:47:11 FN: Image::SoundManager::AudioPlay
+

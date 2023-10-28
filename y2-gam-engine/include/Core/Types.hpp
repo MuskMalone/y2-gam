@@ -140,6 +140,10 @@ using ComponentType = std::uint8_t; // assumes a maximum of 256 components
 const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
 
+// Serialization
+using AssetID = std::uint64_t;
+using ResourceID = std::uint32_t;
+
 // Input
 enum class MouseButtons
 {

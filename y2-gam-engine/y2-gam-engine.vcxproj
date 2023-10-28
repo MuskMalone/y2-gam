@@ -152,6 +152,7 @@
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Core\Raycast.hpp" />
+    <ClInclude Include="include\Engine\AssetManager.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
+    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
@@ -248,6 +250,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="source\Core\Raycast.cpp" />
+    <ClCompile Include="source\Engine\AssetManager.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
     <ClCompile Include="source\Engine\PrefabsManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -273,6 +276,7 @@
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
+    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

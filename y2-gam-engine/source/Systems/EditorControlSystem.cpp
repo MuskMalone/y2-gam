@@ -13,12 +13,13 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
 #include <Engine/PrefabsManager.hpp>
+#include <Engine/AssetManager.hpp>
 #include "Scripting/NodeManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
-	Image::Sound soundEffect;
-	Image::Sound bgm;
+	Sound soundEffect;
+	Sound bgm;
 	Image::SoundGroup bgmGroup;
 	Image::SoundGroup effectGroup;
 }
@@ -259,8 +260,10 @@ void EditorControlSystem::Init()
 	Image::ScriptManager::OnCreateEntity(player);
 
 	// Sound Testing
-	soundEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav") ;
-	bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	//by right this id value should be passed by the imgui asset browser
+	auto am{ AssetManager::GetInstance() };
+	soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882384300)); 
+	bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882391200));
 	bgmGroup = Image::SoundManager::AudioCreateGroup();
 	effectGroup = Image::SoundManager::AudioCreateGroup();
 

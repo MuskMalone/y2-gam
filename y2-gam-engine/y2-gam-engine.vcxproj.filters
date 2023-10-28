@@ -59,6 +59,8 @@
     <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
+    <ClCompile Include="source\Engine\AssetManager.cpp" />
+    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -143,6 +145,8 @@
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
     <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
+    <ClInclude Include="include\Engine\AssetManager.hpp" />
+    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
