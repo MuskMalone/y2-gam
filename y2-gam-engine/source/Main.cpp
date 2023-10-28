@@ -208,11 +208,12 @@ int main()
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-		StateManager::GetInstance()->Update(dt);
 		gGameLoop.CheckToggleKey();
-		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE|| gGameLoop.GetCurrentMode()==DecisionResults::IMGUI_PLAY_MODE) {
-			imguiSystem->Update();
-		}
+		
+			StateManager::GetInstance()->Update(dt);
+			if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
+				imguiSystem->Update();
+			}
 		gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
 

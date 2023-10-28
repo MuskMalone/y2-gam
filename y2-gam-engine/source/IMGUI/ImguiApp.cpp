@@ -538,18 +538,6 @@ namespace Image {
     void BufferWindow() {
         ImGui::Begin("Image Game Engine");
         unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
-        /*if (gGameLoop.GetCurrentMode() != DecisionResults::IMGUI_PLAY_MODE) {
-            if (ImGui::Button("Play")) {
-                std::cout << "Play" << std::endl;
-                gGameLoop.ToggleImGuiMode();
-            }
-        }
-        else {
-            if (ImGui::Button("Stop")) {
-                std::cout << "Stop" << std::endl;
-                gGameLoop.ToggleImGuiMode();
-            }
-        }*/
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
         if (ImGui::Button("Play")) {
 
