@@ -87,6 +87,7 @@ void AnimationSystem::Update(float dt) {
 		AnimationFrame& currFrame { frameList[frameIdx] };
 
 		currFrame.elapsedTime += dt;
+
 		sprite.texture = mSpriteList[currFrame.spriteIdx];
 
 		if (currFrame.elapsedTime >= animation.speed) {

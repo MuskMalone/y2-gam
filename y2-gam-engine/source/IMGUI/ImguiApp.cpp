@@ -51,8 +51,6 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
-    static const std::filesystem::path sAssetsPath {"../assets"};//TODO CHANGE THIS
-    std::filesystem::path currDir {sAssetsPath};
     const float scalingFactor = 1.5f;
     /*  _________________________________________________________________________ */
     /*! AppRender
@@ -91,7 +89,6 @@ namespace Image {
         BufferWindow();
         PrefabWindow();
         LoggingWindow();
-        ContentBrowserWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
             for (auto& e : mEntities) {
@@ -690,33 +687,4 @@ namespace Image {
         ImGui::End();
     }
 
-    void ContentBrowserWindow() {
-
-        ImGui::Begin("Content Browser");
-
-        if (currDir != std::filesystem::path(sAssetsPath)) {
-            if (ImGui::Button("<= Back")) {
-                currDir = currDir.parent_path();
-            }
-        }
-
-        for (auto& dir : std::filesystem::directory_iterator(currDir)) {
-            auto const& path {dir.path()};
-            auto relPath{ std::filesystem::relative(path, sAssetsPath) };
-            std::string filenameStr{ relPath.filename().string()};
-
-            if (dir.is_directory()) {
-                if (ImGui::Button(filenameStr.c_str())) {
-                    currDir /= path.filename();
-                }
-            }
-            else {
-                if (ImGui::Button(filenameStr.c_str())) {
-
-                }
-            }
-        }
-
-        ImGui::End();
-    }
 }

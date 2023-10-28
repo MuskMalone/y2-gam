@@ -29,7 +29,6 @@ class AnimationSystem : public System
 {
 public:
 	void Init();
-
 	void Update(float dt);
 
 private:
