@@ -38,6 +38,7 @@
 #include "Scripting/NodeManager.hpp"
 #include <filesystem>
 
+
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -625,6 +626,7 @@ namespace Image {
                     int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
                     framebuffer->Unbind();
                     draggedEntity = pixelData;
+                    gSelectedEntity = pixelData;
                     lastMousePos = ImGui::GetMousePos();
                 }
             }

@@ -217,7 +217,7 @@ int main()
 		gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
 
-		textSystem->Update();
+		//textSystem->Update();
 
 		//physicsSystem->PreCollisionUpdate(dt);
 
