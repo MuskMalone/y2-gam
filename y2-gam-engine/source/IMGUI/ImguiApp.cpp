@@ -219,28 +219,48 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
-            if (ImGui::TreeNode("Transform")) {
-                if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Transform")) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
-
                     // Position
                     ImGui::Text("Position");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Pos X", &transform.position.x);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Pos Y", &transform.position.y);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
                     // Rotation
                     ImGui::Text("Rotation");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Rot Z", &transform.rotation.z);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
 
                     // Scale
                     ImGui::Text("Scale");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Scale X", &transform.scale.x);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Scale Y", &transform.scale.y);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                    ImGui::TreePop();
                 }
-                ImGui::TreePop();
             }
-            if (ImGui::TreeNode("Sprite")) {
-                if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+            if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Sprite")) {
                     Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
                     //Color
                     ImGui::Text("Color");
@@ -298,78 +318,127 @@ namespace Image {
                         }
                         ImGui::EndDragDropTarget();
                     }
+                    ImGui::TreePop();
                 }
-                ImGui::TreePop();
             }
-        
-            if (ImGui::TreeNode("Collider")) {
-                if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+
+            if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Collider")) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
                     ImGui::Text("Type");
                     const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
                     ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
                     //Pos
                     ImGui::Text("Position");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Collider Pos X", &collider.position.x);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
                     // Rotation
                     ImGui::Text("Rotation");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Collider Rot", &collider.rotation);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Collider Rot", &collider.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
                         ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, 50);
 
                     }
                     else {
                         ImGui::Text("Diameter");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
                         collider.dimension.y = collider.dimension.x;
                     }
-
-
-                    // Mass
-
+                    ImGui::TreePop();
                 }
-                ImGui::TreePop();
             }
-            if (ImGui::TreeNode("RigidBody")) {
-
-                if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+            if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
+                if (ImGui::TreeNode("RigidBody")) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-                    //Pos
-                    ImGui::Text("Position");
-                    ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                    ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                    // Rotation
-                    ImGui::Text("Rotation");
-                    ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
-                    // Scale
-                    ImGui::Text("Dimension");
-                    ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
-                    ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
+                    ////Pos
+                    //ImGui::Text("Position");
+                    //ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    //ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    //// Rotation
+                    //ImGui::Text("Rotation");
+                    //ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    //// Scale
+                    //ImGui::Text("Dimension");
+                    //ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
+                    //ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
                     // Mass
                     ImGui::Text("Mass");
                     ImGui::InputFloat("Mass", &rigidBody.mass);
                     rigidBody.SetMass(rigidBody.mass);
+
+                    // Velocity
+                    ImGui::Text("Velocity");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, 100);
+
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, 100);
+
+                    //Friction
+                    ImGui::Text("Friction");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Friction", &rigidBody.friction);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
+
+
+                    ImGui::TreePop();
                 }
-                /*else {
-                    ImGui::Text("No RigidBody Component");
-                }
-            }*/
-                ImGui::TreePop();
             }
-            if (ImGui::TreeNode("Gravity")) {
-                if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+            if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Gravity")) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
-                    ImGui::Separator();
                     //Force
                     ImGui::Text("Gravity");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Force X", &gravity.force.x);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
+
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Force Y", &gravity.force.y);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
+                    ImGui::TreePop();
                 }
-                ImGui::TreePop();
             }
         }
         ImGui::End();
@@ -626,7 +695,9 @@ namespace Image {
                     int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
                     framebuffer->Unbind();
                     draggedEntity = pixelData;
-                    gSelectedEntity = pixelData;
+                    if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
+                        gSelectedEntity = pixelData;
+                    }
                     lastMousePos = ImGui::GetMousePos();
                 }
             }
