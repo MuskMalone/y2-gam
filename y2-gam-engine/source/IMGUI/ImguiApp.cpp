@@ -73,7 +73,7 @@ namespace Image {
             toDelete = !toDelete;
         }
 
-            ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
         /*if (showDockSpace) {
         }*/
         //ImGui::ShowDemoWindow();
@@ -118,17 +118,17 @@ namespace Image {
             //Read files maybe
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("New","Cltr+N")) {
-                
+                if (ImGui::MenuItem("New", "Cltr+N")) {
+
                 }
                 if (ImGui::MenuItem("Open...", "Ctrl+O")) {
-                        
+
                 }
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
-                
+
                 }
                 if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
-                
+
                 }
                 ImGui::EndMenu();
             }
@@ -180,7 +180,7 @@ namespace Image {
                 });
             gCoordinator->AddComponent(
                 gSelectedEntity,
-                Tag{"Name"});
+                Tag{ "Name" });
         }
 
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
@@ -456,16 +456,16 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag" };
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
             if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
-                static Entity gPreviousEntity = {MAX_ENTITIES}; 
+                static Entity gPreviousEntity = { MAX_ENTITIES };
                 static char tag[256] = "";
                 if (gPreviousEntity != gSelectedEntity) {
                     memset(tag, 0, sizeof(tag));
-                    gPreviousEntity = gSelectedEntity; 
+                    gPreviousEntity = gSelectedEntity;
                 }
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(gSelectedEntity);
                 ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
@@ -575,7 +575,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Tag{"Entity "+std::to_string(gSelectedEntity)});
+                            Tag{ "Entity " + std::to_string(gSelectedEntity) });
                     }
                 }
                       break;
@@ -625,7 +625,7 @@ namespace Image {
                         gCoordinator->RemoveComponent<Gravity>(gSelectedEntity);
                     }
                 }
-                    break;
+                      break;
                 case 6: {
                     // Remove Tag component
                     if (gCoordinator->HasComponent<Tag>(gSelectedEntity)) {
@@ -741,8 +741,8 @@ namespace Image {
             }
         }
 
-       
-            auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+
+        auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
         if (ImGui::Button("Play")) {
 
             if (renderSystem->IsEditorMode()) {
@@ -775,8 +775,8 @@ namespace Image {
             if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
                 Event event(Events::Window::INPUT);
                 event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
-                    static_cast<float>(mousePos.x - paddedTopLeft.x), 
-                    static_cast<float>((mousePos.y - paddedTopLeft.y) )
+                    static_cast<float>(mousePos.x - paddedTopLeft.x),
+                    static_cast<float>((mousePos.y - paddedTopLeft.y))
                 ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
                 );
                 gCoordinator->SendEvent(event);
