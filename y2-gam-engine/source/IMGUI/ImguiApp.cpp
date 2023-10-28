@@ -36,6 +36,7 @@
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
 #include "Scripting/NodeManager.hpp"
+#include <filesystem>
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -79,6 +80,8 @@ namespace Image {
         InspectorWindow();
         PropertyWindow();
         BufferWindow();
+        ContentWindow();
+        TextureHdlWindow(mEntities);
         LoggingWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
@@ -213,8 +216,7 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
-            //if (ImGui::CollapsingHeader("Transform")) {
-
+            if (ImGui::TreeNode("Transform")) {
                 if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
 
@@ -232,27 +234,74 @@ namespace Image {
                     ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
                 }
-            //}
-            //if (ImGui::CollapsingHeader("Sprite")) {
-
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("Sprite")) {
                 if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
                     Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
                     //Color
-                    ImGui::Separator();
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
+
+
+                    // Assuming sprite.texture has a method to get the OpenGL texture ID
+                    if (sprite.texture && sprite.texture->GetTexture()) {
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(sprite.texture->GetTexture()->GetTexHdl()));
+
+                        // Original sprite sheet size
+                        ImVec2 originalSize(static_cast<float>(sprite.texture->GetTexture()->GetWidth()), static_cast<float>(sprite.texture->GetTexture()->GetHeight()));
+
+                        // Calculate aspect ratio
+                        float aspectRatio = originalSize.x / originalSize.y;
+
+                        // Adjust size while maintaining aspect ratio
+                        ImVec2 newSize;
+                        if (aspectRatio > 1.0f) {
+                            // Width is greater than height
+                            newSize = ImVec2(200, 200 / aspectRatio);
+                        }
+                        else {
+                            // Height is greater than or equal to width
+                            newSize = ImVec2(200 * aspectRatio, 200);
+                        }
+
+                        std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
+                    }
+                    else {
+                        //// Display a dummy area for sprites without a texture
+                        ImGui::Text("Drop texture here");
+                        ImVec2 dummySize(150, 150);  // Example size
+                        ImGui::Dummy(dummySize);
+                        //ImGui::Image(0,dummySize);
+                    }
+                    // Highlight the drop area
+                    ImDrawList* drawList = ImGui::GetWindowDrawList();
+                    ImVec2 min = ImGui::GetItemRectMin();
+                    ImVec2 max = ImGui::GetItemRectMax();
+                    drawList->AddRect(min, max, IM_COL32(255, 0, 0, 255));  // Red border
+                    if (ImGui::BeginDragDropTarget()) {
+                        //std::cout << "Began drag-drop target." << std::endl;
+
+                        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+                            //std::cout << "Accepted payload." << std::endl;
+
+                            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                            // Load the new texture from the path and assign to the sprite
+                            std::filesystem::path basePath = "../assets";
+                            std::shared_ptr<Texture> newTexture = Texture::Create((basePath / payLoadPath).string());
+                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 });
+                            sprite.texture = newSubTexture;
+                        }
+                        ImGui::EndDragDropTarget();
+                    }
                 }
-            //    else {
-            //        ImGui::Text("No Sprite Component");
-            //    }
-            //}
-            //if (ImGui::CollapsingHeader("RigidBody")) {
+                ImGui::TreePop();
+            }
+        
+            if (ImGui::TreeNode("Collider")) {
                 if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
-
-                    ImGui::Separator();
-                    ImGui::Text("Collider");
-
                     ImGui::Text("Type");
                     const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
                     ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
@@ -280,11 +329,12 @@ namespace Image {
                     // Mass
 
                 }
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("RigidBody")) {
+
                 if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-
-                    ImGui::Separator();
-                    ImGui::Text("RigidBody");
                     //Pos
                     ImGui::Text("Position");
                     ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
@@ -305,7 +355,9 @@ namespace Image {
                     ImGui::Text("No RigidBody Component");
                 }
             }*/
-            //if (ImGui::CollapsingHeader("Gravity")) {
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("Gravity")) {
                 if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
                     ImGui::Separator();
@@ -314,10 +366,8 @@ namespace Image {
                     ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
                 }
-                /*else {
-                    ImGui::Text("No Gravity Component");
-                }
-            }*/
+                ImGui::TreePop();
+            }
         }
         ImGui::End();
     }
@@ -379,7 +429,7 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Sprite{
-                                {1,0,0, 1},
+                                {1,1,1, 1},
                                 nullptr
                             });
                     }
@@ -626,7 +676,67 @@ namespace Image {
 
         ImGui::End();
     }
+    void ContentWindow() {
+        ImGui::Begin("Content Browser");
+        static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
+        static std::shared_ptr<Texture> fileIcon = Texture::Create("../Icon/FileIcon.png");
+        static std::filesystem::path assetDirectory{ "../assets" };
+        static std::filesystem::path currentDirectory{ assetDirectory };
+        if (currentDirectory != std::filesystem::path(assetDirectory)) {
+            if (ImGui::Button("Back")) {
+                currentDirectory = currentDirectory.parent_path();
+            }
 
+        }
+        static float padding = 15.f;
+        static float size = 125.f;
+        static float iconSize = padding + size;
+        float panelWidth = ImGui::GetContentRegionAvail().x;
+        int columnCount = static_cast<int>(panelWidth / iconSize);
+        if (columnCount < 1) {
+            columnCount = 1;
+        }
+        ImGui::Columns(columnCount, 0, false);
+        for (auto& directoryPath : std::filesystem::directory_iterator(currentDirectory)) {
+            auto const& path = directoryPath.path();
+            auto relativePath = std::filesystem::relative(path, assetDirectory);
+            std::string filenameString = relativePath.filename().string();
+            auto fileName = directoryPath.path().filename().string();
+            ImGui::PushID(filenameString.c_str());
+            std::shared_ptr<Texture> icon = directoryPath.is_directory() ? directroyIcon : fileIcon;
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+            ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+            ImGui::PopStyleColor();
+            if (ImGui::BeginDragDropSource()) {
+                const wchar_t* itemPath = relativePath.c_str();
+                ImGui::SetDragDropPayload("Content Asset Browser", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
+                ImGui::Text("%s", filenameString.c_str());
+                ImGui::EndDragDropSource();
+            }
+            if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
+                if (directoryPath.is_directory()) {
+                    currentDirectory /= path.filename();
+
+                }
+            }
+            ImGui::TextWrapped(filenameString.c_str());
+            ImGui::NextColumn();
+            ImGui::PopID();
+            /*else {
+                if (ImGui::Button(filenameString.c_str())) {
+
+                }
+            }*/
+        }
+
+        ImGui::Columns(1);// go back to default
+        ImGui::End();
+    }
+    void TextureHdlWindow(std::set<Entity>const& mEntities) {
+        ImGui::Begin("Texture HDL");
+
+        ImGui::End();
+    }
     /*  _________________________________________________________________________ */
     /*! LoggingWindow
 

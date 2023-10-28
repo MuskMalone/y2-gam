@@ -39,10 +39,10 @@
                 "dimY": 10.0
             },
             "Sprite": {
-                "r": 0.0,
-                "g": 0.0,
-                "b": 0.0,
-                "a": 0.0,
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
                 "layer": 2
             },
             "Transform": {
@@ -59,18 +59,25 @@
             }
         },
         {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2
+            },
             "Tag": {
                 "Tag": "testingn"
             },
             "Transform": {
                 "posX": 0.0,
-                "posY": 0.0,
+                "posY": 52.941001892089844,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
                 "scaleZ": 5.0,
                 "elipse": false
             }

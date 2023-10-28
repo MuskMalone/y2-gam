@@ -49,5 +49,7 @@ namespace Image {
     void InspectorWindow();
     void PropertyWindow();
     void BufferWindow();
+    void ContentWindow();
+    void TextureHdlWindow(std::set<Entity>const& mEntities);
     void LoggingWindow();
 }
