@@ -579,8 +579,7 @@ namespace Image {
         }
 
 
-        ImGui::Begin("Image Game Engine");
-        unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
+       
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
         if (ImGui::Button("Play")) {
 
