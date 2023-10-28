@@ -23,16 +23,7 @@
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
-#include "Components/Collider.hpp"
-#include "Components/Camera.hpp"
-#include "Components/Gravity.hpp"
-#include "Components/Animation.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/RigidBody.hpp"
-#include "Components/Transform.hpp"
-#include "Components/Tag.hpp"
 
-#include "Components/Editor.hpp"
 #include "Components/Script.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
@@ -65,6 +56,8 @@ namespace Image {
     Pressing the 'c' key to clear the entities
     */
     void AppRender(std::set<Entity>const& mEntities) {
+        ::gCoordinator = Coordinator::GetInstance();
+
         //Press z to change dock space and non dock space
         //static bool showDockSpace{ true };
         static bool toDelete{ false };
@@ -119,14 +112,19 @@ namespace Image {
             //Read files maybe
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("New")) {}
-                if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-                if (ImGui::BeginMenu("Open Recent")) {
-                    ImGui::EndMenu();
+                if (ImGui::MenuItem("New","Cltr+N")) {
+                
                 }
-                if (ImGui::MenuItem("Save", "Ctrl+S")) {}
-                if (ImGui::MenuItem("Save As")) {}
-                ImGui::Separator();
+                if (ImGui::MenuItem("Open...", "Ctrl+O")) {
+                        
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                
+                }
+                if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+                
+                }
+                ImGui::EndMenu();
             }
 
             //EDIT
@@ -161,7 +159,6 @@ namespace Image {
     */
     void HierarchyWindow(std::set<Entity>const& mEntities) {
         // Hierarchy Panel
-        ::gCoordinator = Coordinator::GetInstance();
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
         if (ImGui::Button("Create Entity")) {
@@ -351,8 +348,9 @@ namespace Image {
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(gSelectedEntity);
                 ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
                 //ImGui::SetNextItemWidth(50.0f);
-                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag))) {
+                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
                     tagComponent.tag = tag;
+                    memset(tag, 0, sizeof(tag)); // Clear the input
                 }
             }
             else {
@@ -581,6 +579,26 @@ namespace Image {
         }
 
 
+        ImGui::Begin("Image Game Engine");
+        unsigned int texHdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer()->GetColorAttachmentID();
+            auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+        if (ImGui::Button("Play")) {
+
+            if (renderSystem->IsEditorMode()) {
+                std::cout << "Play to toggle to editer play mode" << std::endl;
+                /*gGameLoop.ToggleImGuiMode();*/
+                renderSystem->ToggleEditorMode();
+            }
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Stop")) {
+            //gGameLoop.ToggleImGuiMode();
+            if (!renderSystem->IsEditorMode()) {
+                std::cout << "Stop to toggle to editer mode" << std::endl;
+                //gGameLoop.ToggleImGuiMode();
+                renderSystem->ToggleEditorMode();
+            }
+        }
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();

@@ -39,6 +39,7 @@ void QuitHandler([[maybe_unused]] Event& event)
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 DecisionTree gGameLoop{};
+
 int main()
 {
 	// Enable run-time memory check for debug builds.
@@ -206,16 +207,18 @@ int main()
 		frameController->StartFrameTime();
 		inputSystem->Update();
 
-
 		windowManager->ProcessEvents();
-		StateManager::GetInstance()->Update(dt);
-		StateManager::GetInstance()->Render(dt);
-		textSystem->Update();
 		gGameLoop.CheckToggleKey();
+		
+			StateManager::GetInstance()->Update(dt);
+			if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
+				imguiSystem->Update();
+			}
 		gGameLoop.Evaluate();
-		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
-			imguiSystem->Update();
-		}
+		StateManager::GetInstance()->Render(dt);
+
+		textSystem->Update();
+
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);

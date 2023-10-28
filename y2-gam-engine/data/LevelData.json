@@ -1,3 +1,79 @@
 {
-    "Entities": []
+    "Entities": [
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -7.890869140625,
+                "posY": -34.270965576171875,
+                "rotation": 0.0,
+                "dimX": 10.0,
+                "dimY": 10.0
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0,
+                "layer": 2
+            },
+            "Transform": {
+                "posX": -7.890869140625,
+                "posY": -34.270965576171875,
+                "posZ": 1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 10.0,
+                "scaleY": 10.0,
+                "scaleZ": 10.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 136.7039337158203,
+                "posY": -21.470962524414063,
+                "rotation": 0.0,
+                "dimX": 10.0,
+                "dimY": 10.0
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0,
+                "layer": 2
+            },
+            "Transform": {
+                "posX": 136.7039337158203,
+                "posY": -21.470962524414063,
+                "posZ": 1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 10.0,
+                "scaleY": 10.0,
+                "scaleZ": 10.0,
+                "elipse": false
+            }
+        },
+        {
+            "Tag": {
+                "Tag": "testingn"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        }
+    ]
 }

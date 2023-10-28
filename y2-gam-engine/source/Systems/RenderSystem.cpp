@@ -70,6 +70,9 @@ Toggles the editor mode to switch from scene camera/editor camera.
 */
 void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
 
+bool RenderSystem::IsEditorMode() const{
+	return mEditorMode==true;
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Init Function
@@ -148,7 +151,9 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
-	mFramebuffer->Bind();
+	if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
+		mFramebuffer->Bind();
+	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -209,9 +214,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		NodeManager::DisplayDebugLines();
 	}
 	glDepthMask(GL_FALSE);
-
 	Renderer::RenderSceneEnd();
-	mFramebuffer->Unbind();
+	if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
+		mFramebuffer->Unbind();
+	}
 }
 
 /*  _________________________________________________________________________ */
