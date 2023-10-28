@@ -46,9 +46,9 @@ void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
 
 	//-------------TEMPORARY-------------------------------------------------------------/
-	mIdle = Texture::Create("../Textures/Idle.png");
-	mRun = Texture::Create("../Textures/Run.png");
-	mAttack = Texture::Create("../Textures/Attack_1.png");
+	mIdle = Texture::Create("../assets/textures/Idle.png");
+	mRun = Texture::Create("../assets/textures/Run.png");
+	mAttack = Texture::Create("../assets/textures/Attack_1.png");
 
 
 	for (float i{}; i < 8; ++i)
@@ -87,6 +87,7 @@ void AnimationSystem::Update(float dt) {
 		AnimationFrame& currFrame { frameList[frameIdx] };
 
 		currFrame.elapsedTime += dt;
+
 		sprite.texture = mSpriteList[currFrame.spriteIdx];
 
 		if (currFrame.elapsedTime >= animation.speed) {

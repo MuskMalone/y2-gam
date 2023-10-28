@@ -53,7 +53,7 @@ void Renderer::Init() {
 		{AttributeType::VEC4, "a_Color"},
 		{AttributeType::VEC2, "a_TexCoord"},
 		{AttributeType::FLOAT, "a_TexIdx"},
-		{AttributeType::INT, "a_E ntity"}
+		{AttributeType::INT, "a_Entity"}
 	};
 
 	mData.quadVertexBuffer->SetLayout(quadLayout); //must set layout before adding vbo
@@ -118,9 +118,9 @@ void Renderer::Init() {
 	for (unsigned int i{}; i < mData.maxTexUnits; ++i)
 		samplers[i] = i;
 
-	mData.lineShader = std::make_shared<Shader>("../Shaders/Line.vert", "../Shaders/Line.frag");
-	mData.texShader = std::make_shared<Shader>("../Shaders/Tex.vert", "../Shaders/Tex.frag");
-	mData.circleShader = std::make_shared<Shader>("../Shaders/Circle.vert", "../Shaders/Circle.frag");
+	mData.lineShader = std::make_shared<Shader>("../assets/shaders/Line.vert", "../assets/shaders/Line.frag");
+	mData.texShader = std::make_shared<Shader>("../assets/shaders/Tex.vert", "../assets/shaders/Tex.frag");
+	mData.circleShader = std::make_shared<Shader>("../assets/shaders/Circle.vert", "../assets/shaders/Circle.frag");
 
 	mData.texShader->Use();
 	mData.texShader->SetUniform("u_Tex", samplers.data(), mData.maxTexUnits);
@@ -130,6 +130,27 @@ void Renderer::Init() {
 	mData.quadVtxPos[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
 	mData.quadVtxPos[2] = { 0.5f,  0.5f, 0.0f, 1.0f };
 	mData.quadVtxPos[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+
+	//Setting up Fullscreen Quad
+	mData.screen.screenVertices[0] = {{-1.0f,  1.0f}, {0.0f, 1.0f}};
+	mData.screen.screenVertices[1] = {{-1.0f, -1.0f}, {0.0f, 0.0f}};
+	mData.screen.screenVertices[2] = {{ 1.0f, -1.0f}, {1.0f, 0.0f}};
+	mData.screen.screenVertices[3] = {{-1.0f,  1.0f}, {0.0f, 1.0f}};
+	mData.screen.screenVertices[4] = {{ 1.0f, -1.0f}, {1.0f, 0.0f}};
+	mData.screen.screenVertices[5] = {{ 1.0f,  1.0f}, {1.0f, 1.0f}};
+	
+	mData.screen.screenVertexArray = VertexArray::Create();
+	mData.screen.screenVertexBuffer = VertexBuffer::Create(sizeof(mData.screen.screenVertices));
+
+	mData.screen.screenVertexBuffer->Bind();
+	mData.screen.screenVertexBuffer->SetData(mData.screen.screenVertices.data(), sizeof(mData.screen.screenVertices));
+	BufferLayout screenLayout = {
+		{AttributeType::VEC3, "a_Position"},
+		{AttributeType::VEC2, "a_TexCoord"},
+	};
+	mData.screen.screenVertexBuffer->SetLayout(screenLayout);
+	mData.screen.screenVertexArray->AddVertexBuffer(mData.screen.screenVertexBuffer);
+	mData.screen.screenShader = std::make_shared<Shader>("../assets/shaders/FullscreenQuad.vert", "../assets/shaders/FullscreenQuad.frag");
 }
 
 /*  _________________________________________________________________________ */
@@ -142,6 +163,30 @@ This method is currently empty and can be used for cleanup if necessary.
 */
 void Renderer::Shutdown() {
 	//TODO SHIFT RENDERER DESTROY HERE
+}
+
+void Renderer::RenderFullscreenTexture(unsigned int tex) {
+	mData.screen.screenShader->Use();
+
+	// Set the active texture unit to 0 (or any other slot you prefer)
+	glActiveTexture(GL_TEXTURE0);
+
+	// Bind the texture you want to render
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	// Set the texture uniform in the shader to the texture unit
+	mData.screen.screenShader->SetUniform("screenTex", 0); // 0 corresponds to GL_TEXTURE0
+
+	// Bind the full-screen quad's vertex array
+	mData.screen.screenVertexArray->Bind();
+
+	// Draw the full-screen quad
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// Optional: Unbind everything after drawing
+	mData.screen.screenVertexArray->Unbind();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	mData.screen.screenShader->Unuse();
 }
 
 /*  _________________________________________________________________________ */
