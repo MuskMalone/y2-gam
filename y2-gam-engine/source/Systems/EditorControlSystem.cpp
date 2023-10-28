@@ -228,6 +228,7 @@ void EditorControlSystem::Init()
 		Sprite{
 			{1,1,1,1},
 			nullptr,
+			-1,
 			Layer::FOREGROUND
 		});
 	::gCoordinator->AddComponent(
@@ -409,6 +410,8 @@ void EditorControlSystem::Update(float dt)
 																		 {ANIM_STATE::RUN, runFrames},
 																		 {ANIM_STATE::ATTACK, attackFrames} };
 
+
+
 		float scale = 10.f;
 		float spacing = 5.f;
 		float offsetX = -250.f / 2;
@@ -431,6 +434,7 @@ void EditorControlSystem::Update(float dt)
 					Sprite{
 						{randColor(generator), randColor(generator), randColor(generator), 1},
 						nullptr,
+						-1,
 						Layer::FOREGROUND
 					}
 				);

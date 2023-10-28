@@ -29,6 +29,7 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Systems/TextSystem.hpp"
+#include "Graphics/SpriteManager.hpp"
 
 #include "Scripting/NodeManager.hpp"
 
@@ -97,8 +98,9 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
-	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../assets/textures/blinkbg.png" );
-	mBgSubtex = SubTexture::Create(bgTex, { 0, 0 }, { 3497, 1200 });
+	int bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png", 100);
+	int bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, { 0, 0 }, { 3497, 1200 }, 100);
+
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(
 		bg,
@@ -112,10 +114,13 @@ void RenderSystem::Init()
 		bg,
 		Sprite{
 			{1.f,1.f,1.f,1.f},
-			mBgSubtex,
+			nullptr,
+			-1,
 			Layer::BACKGROUND
 		}
 	);
+	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
+	bgSprite.spriteID = bgSubTextureID;
 	
 	Renderer::Init();
 
@@ -187,8 +192,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		Renderer::RenderSceneBegin(viewProjMtx);
 		for (auto const& entry : mRenderQueue)
 		{
-			if (entry.sprite->texture) {
-				Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color, entry.entity);
+			if (entry.sprite->spriteID > -1) {
+				Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->spriteID), entry.sprite->color, entry.entity);
 			}
 			else {
 				if (entry.transform->elipse)

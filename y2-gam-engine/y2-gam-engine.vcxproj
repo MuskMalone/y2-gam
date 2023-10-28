@@ -272,6 +272,7 @@
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">

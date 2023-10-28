@@ -30,7 +30,7 @@ enum class ANIM_STATE {
 
 struct AnimationFrame {
 	float elapsedTime;
-	unsigned int spriteIdx;
+	int spriteID;
 };
 
 struct Animation {
