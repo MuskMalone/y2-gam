@@ -83,7 +83,7 @@ public:
 		auto keyStr{ std::to_string(key) };
 
 		//if the asset system has not been added
-		if (!sm->At(cmFileName, sysKey).IsObject()) {
+		if (!sm->GetDoc(cmFileName).HasMember(keyStr.c_str())) {
 			JSONObj obj{ JSON_OBJ_TYPE };
 			obj.SetObject();
 			sm->InsertValue(sysKey, obj);

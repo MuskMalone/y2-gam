@@ -269,8 +269,8 @@ void EditorControlSystem::Init()
 	// Sound Testing
 	//by right this id value should be passed by the imgui asset browser
 	auto am{ AssetManager::GetInstance() };
-	soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882384300)); 
-	bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882391200));
+	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882384300)); 
+	//bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698506092882391200));
 	bgmGroup = Image::SoundManager::AudioCreateGroup();
 	effectGroup = Image::SoundManager::AudioCreateGroup();
 
