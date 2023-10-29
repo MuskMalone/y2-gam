@@ -189,7 +189,7 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Sprite{
-				{0, 0, 0, 0.3f},
+				{1, 0, 0, 0.6f},
 				nullptr
 			});
 		
@@ -208,13 +208,13 @@ namespace Image {
 			Collider{
 			});
 		*/
-
+		/*
 		::gCoordinator->AddComponent(
 			node,
 			RigidBody{
 				Vec2(position), 0.f, 10.f, Vec2(scale / 2.f, scale), true
 			});
-
+		*/
 		::gCoordinator->AddComponent(
 			node,
 			Gravity{
@@ -314,13 +314,22 @@ namespace Image {
 	@return none.
 
 	Clears all nodes from the scene and updates the cost map.
+
+	CAUSING CRASHES, TO FIX LATER
 	*/
 	void NodeManager::ClearAllNodes() {
 		for (Entity const& e : currentlyActiveNodes) {
+			::gCoordinator->RemoveComponent<Node>(e);
 			::gCoordinator->DestroyEntity(e);
 		}
+
+		// Clear currently active nodes
 		currentlyActiveNodes.clear();
-		FillCostMap();
+
+		// Clear the cost map
+		costMap.clear();
+
+		//FillCostMap();
 	}
 
 	/*  _________________________________________________________________________ */
@@ -389,8 +398,10 @@ namespace Image {
 	*/
 	void NodeManager::FillCostMap() {
 		for (Entity const& e : currentlyActiveNodes) {
-			for (Entity const& n : ::gCoordinator->GetComponent<Node>(e).neighbours) {
-				costMap[std::pair(e, n)] = CalculateCost(e, n);
+			if (::gCoordinator->HasComponent<Node>(e)) {
+				for (Entity const& n : ::gCoordinator->GetComponent<Node>(e).neighbours) {
+					costMap[std::pair(e, n)] = CalculateCost(e, n);
+				}
 			}
 		}
 	}

@@ -22,7 +22,7 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
-        public readonly float JumpCooldown = 1.0f;
+        public readonly float JumpCooldown = 0.3f;
         public readonly float MovementForce = 900.0f;
         public readonly float JumpForce = 30000.0f;
         public readonly float VisionRange = 30.0f;
