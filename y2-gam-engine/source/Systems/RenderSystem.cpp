@@ -29,6 +29,7 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Systems/TextSystem.hpp"
+#include "Graphics/SpriteManager.hpp"
 
 #include "Scripting/NodeManager.hpp"
 
@@ -100,8 +101,9 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
-	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../assets/textures/blinkbg.png" );
-	mBgSubtex = SubTexture::Create(bgTex, { 0, 0 }, { 3497, 1200 });
+	int bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png", 100);
+	int bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, { 0, 0 }, { 3497, 1200 }, 100);
+
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(
 		bg,
@@ -115,10 +117,13 @@ void RenderSystem::Init()
 		bg,
 		Sprite{
 			{1.f,1.f,1.f,1.f},
-			mBgSubtex,
+			nullptr,
+			-1,
 			Layer::BACKGROUND
 		}
 	);
+	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
+	bgSprite.spriteID = bgSubTextureID;
 	
 	Renderer::Init();
 
@@ -146,73 +151,97 @@ Updates the rendering system based on the given delta time.
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
-	for (auto const& fb : mFramebuffers) {
-		fb->Bind();
-		Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-		Renderer::ClearColor();
-		Renderer::ClearDepth();
+	mFramebuffers[0]->Bind();
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	Renderer::ClearColor();
+	Renderer::ClearDepth();
 
-		mRenderQueue.clear();
+	mRenderQueue.clear();
 
-		for (auto const& entity : mEntities) {
-			RenderEntry entry{
-				.entity = entity,
-				.transform = &::gCoordinator->GetComponent<Transform>(entity),
-				.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
-			};
-			mRenderQueue.push_back(entry);
-		}
-
-		std::sort(mRenderQueue.begin(), mRenderQueue.end(),
-			[](RenderEntry const& lhs, RenderEntry const& rhs) {
-				// First, sort by layer
-				if (lhs.sprite->layer != rhs.sprite->layer) {
-					return static_cast<int>(lhs.sprite->layer) < static_cast<int>(rhs.sprite->layer);
-				}
-				// If they are in the same layer, sort by z-position
-				return lhs.transform->position.z < rhs.transform->position.z;
-			});
-
-		if (!mEditorMode) {
-			Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
-			RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
-			glm::vec3 playerPosition{ playerTransform.position };
-			Vec2 playerVel{ playerRigidBody.velocity };
-
-			Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
-			sceneCamera.UpdatePosition(playerPosition, playerVel);
-		}
-
-		glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
-			::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
-
-		//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
-		Renderer::RenderSceneBegin(viewProjMtx);
-		for (auto const& entry : mRenderQueue)
-		{
-			if (entry.sprite->texture) {
-				Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color, entry.entity);
-			}
-			else {
-				if (entry.transform->elipse)
-					Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color);
-				else
-					Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
-			}
-		}
-
-		glDepthMask(GL_TRUE);
-		if (mDebugMode) {
-			::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
-			NodeManager::DisplayDebugLines();
-		}
-		glDepthMask(GL_FALSE);
-
-		Renderer::RenderSceneEnd();
-		::gCoordinator->GetSystem<TextSystem>()->Update();
-
-		fb->Unbind();
+	for (auto const& entity : mEntities) {
+		RenderEntry entry{
+			.entity = entity,
+			.transform = &::gCoordinator->GetComponent<Transform>(entity),
+			.sprite = &::gCoordinator->GetComponent<Sprite>(entity)
+		};
+		mRenderQueue.push_back(entry);
 	}
+
+	std::sort(mRenderQueue.begin(), mRenderQueue.end(),
+		[](RenderEntry const& lhs, RenderEntry const& rhs) {
+			// First, sort by layer
+			if (lhs.sprite->layer != rhs.sprite->layer) {
+				return static_cast<int>(lhs.sprite->layer) < static_cast<int>(rhs.sprite->layer);
+			}
+			// If they are in the same layer, sort by z-position
+			return lhs.transform->position.z < rhs.transform->position.z;
+		});
+
+	if (!mEditorMode) {
+		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
+		RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
+		glm::vec3 playerPosition{ playerTransform.position };
+		Vec2 playerVel{ playerRigidBody.velocity };
+
+		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
+		sceneCamera.UpdatePosition(playerPosition, playerVel);
+	}
+
+	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
+		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+
+	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
+	Renderer::RenderSceneBegin(viewProjMtx);
+	for (auto const& entry : mRenderQueue)
+	{
+		if (entry.sprite->spriteID > -1) {
+			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->spriteID), entry.sprite->color, entry.entity);
+		}
+		else {
+			if (entry.transform->elipse)
+				Renderer::DrawCircle(entry.transform->position, entry.transform->scale, entry.sprite->color);
+			else
+				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
+		}
+	}
+
+	glDepthMask(GL_TRUE);
+	if (mDebugMode) {
+		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+		NodeManager::DisplayDebugLines();
+	}
+	glDepthMask(GL_FALSE);
+
+	Renderer::RenderSceneEnd();
+	::gCoordinator->GetSystem<TextSystem>()->Update();
+	mFramebuffers[0]->Unbind();
+
+	//Prefab Editor
+	mFramebuffers[1]->Bind();
+	glDepthMask(GL_TRUE);
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	Renderer::ClearColor();
+	Renderer::ClearDepth();
+
+	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
+
+	for (auto const& entity : mEntities) {
+		auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
+		auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+
+		if (sprite.spriteID > -1) {
+			Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
+		}
+		else {
+			if (transform.elipse)
+				Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+			else
+				Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+		}
+	}
+	glDepthMask(GL_FALSE);
+	Renderer::RenderSceneEnd();
+	mFramebuffers[1]->Unbind();
 }
 
 /*  _________________________________________________________________________ */

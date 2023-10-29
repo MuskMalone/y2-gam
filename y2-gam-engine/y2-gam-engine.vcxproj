@@ -189,6 +189,7 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
+    <ClInclude Include="include\Graphics\SpriteManager.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
@@ -272,6 +273,7 @@
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">

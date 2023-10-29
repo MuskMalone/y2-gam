@@ -36,14 +36,16 @@ enum class Layer {
 
 struct Sprite {
 	glm::vec4 color{};
-	std::shared_ptr<SubTexture> texture{};
+	std::shared_ptr<SubTexture> texture{}; //TODO REMOVE
+	int spriteID{-1}; //-1 invalid ID, means no texture
 	Layer layer{};
 
 	Sprite() = default;
-	Sprite(glm::vec4 color, std::shared_ptr<SubTexture> tex, Layer lyr = Layer::FOREGROUND) : color{ color }, texture{ tex }, layer{lyr} {}
+	Sprite(glm::vec4 color, std::shared_ptr<SubTexture> tex, int id = -1, Layer lyr = Layer::FOREGROUND) : color{ color }, texture{ tex }, spriteID{ id }, layer { lyr } {}
 	Sprite([[maybe_unused]] rapidjson::Value const& obj) {
 		color = { obj["r"].GetFloat(),obj["g"].GetFloat(),obj["b"].GetFloat(),obj["a"].GetFloat() };
 		texture = nullptr;
+		spriteID = -1;
 		layer = static_cast<Layer>(obj["layer"].GetInt());
 	}
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {

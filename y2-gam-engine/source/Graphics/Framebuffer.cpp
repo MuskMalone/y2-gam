@@ -110,7 +110,7 @@ object.
 */
 Framebuffer::~Framebuffer() {
 	glDeleteFramebuffers(1, &mFboHdl);
-	glDeleteTextures(mColorAttachments.size(), mColorAttachments.data());
+	glDeleteTextures(static_cast<GLsizei>(mColorAttachments.size()), mColorAttachments.data());
 	glDeleteTextures(1, &mDepthAttachment);
 }
 
@@ -126,7 +126,7 @@ void Framebuffer::Recreate() {
 
 	if (mFboHdl) {
 		glDeleteFramebuffers(1, &mFboHdl);
-		glDeleteTextures(mColorAttachments.size(), mColorAttachments.data());
+		glDeleteTextures(static_cast<GLsizei>(mColorAttachments.size()), mColorAttachments.data());
 		glDeleteTextures(1, &mDepthAttachment);
 
 		mColorAttachments.clear();
@@ -140,9 +140,9 @@ void Framebuffer::Recreate() {
 
 	if (mColorAttachmentProps.size()) {
 		mColorAttachments.resize(mColorAttachmentProps.size());
-		FbUtils::CreateTextures(multisample, mColorAttachments.data(), mColorAttachments.size() );
+		FbUtils::CreateTextures(multisample, mColorAttachments.data(), static_cast<unsigned int>(mColorAttachments.size()) );
 
-		for (size_t i{}; i < mColorAttachments.size(); ++i) {
+		for (int i{}; i < mColorAttachments.size(); ++i) {
 			FbUtils::BindTexture(multisample, mColorAttachments[i]);
 			switch (mColorAttachmentProps[i].TexFormat) {
 			case FramebufferTexFormat::RGBA8:
@@ -172,7 +172,7 @@ void Framebuffer::Recreate() {
 		}
 
 		GLenum buffers[4] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-		glDrawBuffers(mColorAttachments.size(), buffers);
+		glDrawBuffers(static_cast<GLsizei>(mColorAttachments.size()), buffers);
 	}
 	else if (mColorAttachments.empty()) {
 		glDrawBuffer(GL_NONE); // only depth
@@ -241,7 +241,7 @@ int Framebuffer::ReadPixel(unsigned int attachIdx, int x, int y) {
 }
 
 void Framebuffer::ClearAttachmentInt(unsigned int attachIdx, int val) {
-	FramebufferTexProps& prop { mColorAttachmentProps[attachIdx]};
+	//FramebufferTexProps& prop { mColorAttachmentProps[attachIdx]};
 
 	glClearTexImage(mColorAttachments[attachIdx], 0, GL_RED_INTEGER, GL_INT, &val);
 }
