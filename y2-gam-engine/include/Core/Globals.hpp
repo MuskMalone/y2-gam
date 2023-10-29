@@ -102,4 +102,4 @@ namespace Globals {
 #define ENGINE_SCREEN_HEIGHT GVC_AT(4)//900
 
 
-extern DecisionTree gGameLoop;
+//extern DecisionTree gGameLoop;

@@ -11,7 +11,8 @@
             This file contains functions responsible for rendering different 
             parts of the application's GUI. It includes the main rendering function, 
             as well as functions for displaying various windows such as the main 
-            menu, hierarchy, inspector, property, buffer, and logging windows. 
+            menu, hierarchy, inspector, property, buffer, prefab buffer, texture
+            performance, contet browser and logging windows. 
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -267,8 +268,6 @@ namespace Image {
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
 
-
-                    // Assuming sprite.texture has a method to get the OpenGL texture ID
                     if (sprite.texture && sprite.texture->GetTexture()) {
                         ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(sprite.texture->GetTexture()->GetTexHdl()));
 
@@ -281,11 +280,9 @@ namespace Image {
                         // Adjust size while maintaining aspect ratio
                         ImVec2 newSize;
                         if (aspectRatio > 1.0f) {
-                            // Width is greater than height
                             newSize = ImVec2(200, 200 / aspectRatio);
                         }
                         else {
-                            // Height is greater than or equal to width
                             newSize = ImVec2(200 * aspectRatio, 200);
                         }
 
@@ -293,11 +290,9 @@ namespace Image {
                         ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
-                        //// Display a dummy area for sprites without a texture
                         ImGui::Text("Drop texture here");
-                        ImVec2 dummySize(150, 150);  // Example size
+                        ImVec2 dummySize(150, 150);
                         ImGui::Dummy(dummySize);
-                        //ImGui::Image(0,dummySize);
                     }
                     // Highlight the drop area
                     ImDrawList* drawList = ImGui::GetWindowDrawList();
@@ -380,17 +375,6 @@ namespace Image {
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
                 if (ImGui::TreeNode("RigidBody")) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
-                    ////Pos
-                    //ImGui::Text("Position");
-                    //ImGui::SliderFloat("Pos X", &rigidBody.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
-                    //ImGui::SliderFloat("Pos Y", &rigidBody.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                    //// Rotation
-                    //ImGui::Text("Rotation");
-                    //ImGui::SliderFloat("Rot Z", &rigidBody.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
-                    //// Scale
-                    //ImGui::Text("Dimension");
-                    //ImGui::SliderFloat("Scale X", &rigidBody.dimension.x, 1, 50);
-                    //ImGui::SliderFloat("Scale Y", &rigidBody.dimension.y, 1, 50);
                     // Mass
                     ImGui::Text("Mass");
                     ImGui::InputFloat("Mass", &rigidBody.mass);
@@ -656,7 +640,8 @@ namespace Image {
 
     @return none.
 
-     This function displays the game engine's framebuffer.
+     This function displays the game engine's framebuffer as well as getting the
+     entity ID when mouse is hovered ad allows for picking
     */
     void BufferWindow() {
         static int draggedEntity = -1;   // -1 means no entity is being dragged.
@@ -743,21 +728,17 @@ namespace Image {
             }
         }
 
-
         if (ImGui::Button("Play")) {
 
             if (renderSystem->IsEditorMode()) {
                 std::cout << "Play to toggle to editer play mode" << std::endl;
-                /*gGameLoop.ToggleImGuiMode();*/
                 renderSystem->ToggleEditorMode();
             }
         }
         ImGui::SameLine();
         if (ImGui::Button("Stop")) {
-            //gGameLoop.ToggleImGuiMode();
             if (!renderSystem->IsEditorMode()) {
                 std::cout << "Stop to toggle to editer mode" << std::endl;
-                //gGameLoop.ToggleImGuiMode();
                 renderSystem->ToggleEditorMode();
             }
         }
@@ -789,6 +770,15 @@ namespace Image {
         ImGui::End();
     }
 
+    /*  _________________________________________________________________________ */
+    /*! PrefabWindow
+
+    @param none.
+
+    @return none.
+
+    This function displays the prefab framebuffer window.
+    */
     void PrefabWindow() {
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
@@ -797,6 +787,16 @@ namespace Image {
 
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! TextureHdlWindow
+
+    @param none.
+
+    @return none.
+
+    This function displays all the assets and allows for dragging of the assets.
+    */
     void ContentWindow() {
         ImGui::Begin("Content Browser");
         static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
@@ -843,22 +843,38 @@ namespace Image {
             ImGui::TextWrapped(filenameString.c_str());
             ImGui::NextColumn();
             ImGui::PopID();
-            /*else {
-                if (ImGui::Button(filenameString.c_str())) {
-
-                }
-            }*/
         }
 
         ImGui::Columns(1);// go back to default
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! TextureHdlWindow
+
+    @param std::set<Entity>const& mEntities
+     Set of entities to loop through
+
+    @return none.
+
+    This function change all the texture related to the asset ID
+    */
     void TextureHdlWindow(std::set<Entity>const& mEntities) {
         ImGui::Begin("Texture HDL");
 
         ImGui::End();
     }
 
+    /*  _________________________________________________________________________ */
+    /*! PerformanceWindow
+
+    @param none
+
+    @return none.
+
+    This function displays the fps, total entity and performance of the 
+    various systems
+    */
     void PerformanceWindow() {
         ImGui::Begin("Performance Viewer");
         auto frameController = FrameRateController::GetInstance();
@@ -884,8 +900,6 @@ namespace Image {
         ImGui::ProgressBar(static_cast<float>(entityRatio), ImVec2(-1.0f, 0.0f), std::to_string(gCoordinator->GetEntityCount()).c_str());
         ImGui::Separator();
 
-
-
         // Display Physics Performance
         ImGui::Text("Physics Performance");
         physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100.f;
@@ -894,8 +908,6 @@ namespace Image {
         ImGui::Text("Physics Performance Graph");
         ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
-
-
 
         // Display Collision Performance 
         ImGui::Text("Collision Performance");
@@ -906,7 +918,6 @@ namespace Image {
         ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
 
-
         // Display Render Performance
         ImGui::Text("Render Performance");
         renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100.f;
@@ -915,7 +926,6 @@ namespace Image {
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
-
 
         ImGui::End();
     }

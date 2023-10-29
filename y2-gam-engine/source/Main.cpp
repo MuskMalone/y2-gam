@@ -38,7 +38,7 @@ void QuitHandler([[maybe_unused]] Event& event)
 	quit = true;
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
-DecisionTree gGameLoop{};
+
 
 int main()
 {

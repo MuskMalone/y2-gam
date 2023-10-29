@@ -72,6 +72,12 @@ Toggles the editor mode to switch from scene camera/editor camera.
 */
 void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief IsEditorMode Function
+
+Returns true when editor mode else return false.
+*/
 bool RenderSystem::IsEditorMode() const{
 	return mEditorMode==true;
 }

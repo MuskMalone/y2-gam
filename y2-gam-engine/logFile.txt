@@ -19372,3 +19372,21 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-10-29 16:20:57 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-10-29 16:31:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 16:31:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 16:31:43 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-29 16:34:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 16:34:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 16:34:05 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-29 16:35:22 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-29 16:35:22 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-29 16:35:23 FN: Image::FontRenderer::Init
+
