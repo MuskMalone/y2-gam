@@ -566,7 +566,7 @@ void EditorControlSystem::Update(float dt)
 
 		if (::gCoordinator->HasComponent<Tag>(rh.entityID)) {
       if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "FinishAddingNodes") {
-				::gCoordinator->GetComponent<Text>(rh.entityID).text = "Nodes Set!";
+				//::gCoordinator->GetComponent<Text>(rh.entityID).text = "Nodes Set!";
         NodeManager::FinishAddingNodes();
       }
       else if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "ResetNodes") {
