@@ -63,6 +63,7 @@ namespace Image {
     static void SetFontSize(std::string name, int fontSize = 100);
     static void RenderText(std::string fontname, std::string text, 
       float xPos, float yPos, float scale, Vec3 color);
+    static float GetTextWidth(std::string fontname, std::string text, float scale);
 
   private:
     static void DebugGlyph(std::string name, int width, int height, unsigned char* buffer);

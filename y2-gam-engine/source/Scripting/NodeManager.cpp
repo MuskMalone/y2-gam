@@ -39,6 +39,28 @@ namespace Image {
 	std::map<std::pair<Entity, Entity>, NodeManager::Cost> NodeManager::costMap;
 
 	/*  _________________________________________________________________________ */
+	/*! Initialize
+
+	@return none.
+
+	The main purpose of this function to to refresh the currently active nodes
+	and costMap on start up, so that nodes from the previous load are kept.
+	*/
+	void NodeManager::Initialize() {
+		::gCoordinator = Coordinator::GetInstance();
+    currentlyActiveNodes.clear();
+    costMap.clear();
+		
+    for (Entity const& ent : ::gCoordinator->GetSystem<InputSystem>()->mEntities) {
+      if (::gCoordinator->HasComponent<Node>(ent)) {
+        currentlyActiveNodes.insert(ent);
+      }
+    }
+
+    FillCostMap();
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! Update
 
 	@return none.
@@ -47,7 +69,7 @@ namespace Image {
 	*/
 	void NodeManager::Update() {
 		::gCoordinator = Coordinator::GetInstance();
-
+		FillCostMap();
 //#ifdef _DEBUG
 		//DisplayDebugLines();
 		if (::gCoordinator->GetSystem<RenderSystem>()->GetDebugMode()) {
@@ -127,8 +149,7 @@ namespace Image {
 
 	Draws debug lines between the connected nodes. Seen in debug mode.
 	*/
-  void NodeManager::DisplayDebugLines() {
-    
+  void NodeManager::DisplayDebugLines() { 
     for (Entity const& e : currentlyActiveNodes) {
       for (Entity const& n : ::gCoordinator->GetComponent<Node>(e).neighbours) {
 				Vec2 firstPosition{ ::gCoordinator->GetComponent<Transform>(e).position.x,  
@@ -162,7 +183,7 @@ namespace Image {
 			Transform{
 				{position.x,position.y,position.z},
 				{0.f,0.f,0.f},
-				{scale, scale, scale}
+				{scale / 2.f, scale, scale}
 			});
 
 		::gCoordinator->AddComponent(
@@ -175,34 +196,35 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Text{
-				"Lato",
+				"Arial",
 				0.02f,
 				"Node " + std::to_string(node),
 				{1, 1, 0}
 			});
-		
-		::gCoordinator->AddComponent(
-			node,
-			RigidBody{
-				Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
-			});
-		
-		::gCoordinator->AddComponent(
-			node,
-			Gravity{
-				{ Vec2(0.0f, -200.f) }
-      });
+
 		/*
 		::gCoordinator->AddComponent(
 			node,
 			Collider{
-				Vec2(Vec2{position} + (Vec2{0, -1} *scale * .5f)), 0.f, Vec2(.01f, .01f)
 			});
 		*/
+
+		::gCoordinator->AddComponent(
+			node,
+			RigidBody{
+				Vec2(position), 0.f, 10.f, Vec2(scale / 2.f, scale), true
+			});
+
+		::gCoordinator->AddComponent(
+			node,
+			Gravity{
+				{ Vec2(0.0f, -300.f) }
+			});
+
 		::gCoordinator->AddComponent(
 			node,
 			Collider{
-				Vec2(position), 0.f, Vec2(scale)
+				Vec2(position), 0.f, Vec2(scale / 2.f, scale)
 			});
 
 		::gCoordinator->AddComponent(
@@ -230,7 +252,35 @@ namespace Image {
 	void NodeManager::AddNeighbour(Entity lhs, Entity rhs) {
 		::gCoordinator->GetComponent<Node>(lhs).neighbours.insert(rhs);
 		::gCoordinator->GetComponent<Node>(rhs).neighbours.insert(lhs);
+
 		FillCostMap();
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! FinishAddingNodes
+
+	@return none.
+
+	Removes colliders from nodes and removes nodes with no neighbours.
+	*/
+	void NodeManager::FinishAddingNodes() {
+		for (Entity const& ent : currentlyActiveNodes) {
+			// Remove colliders as they are no longer needed
+			::gCoordinator->GetComponent<Node>(ent).selected = false;
+			::gCoordinator->RemoveComponent<Collider>(ent);
+
+			::gCoordinator->RemoveComponent<Sprite>(ent);
+
+			/* TODO: Remove nodes with no neighbours
+			if (::gCoordinator->GetComponent<Node>(ent).neighbours.size() == 0) {
+				// Remove from currently active nodes
+				currentlyActiveNodes.erase(ent);
+
+				// Delete node if it has no neighbours
+				::gCoordinator->DestroyEntity(ent);
+			}
+			*/
+    }
 	}
 
 	/*  _________________________________________________________________________ */

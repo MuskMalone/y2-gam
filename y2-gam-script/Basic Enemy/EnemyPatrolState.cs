@@ -25,7 +25,7 @@ public class EnemyPatrolState : EnemyBaseState
      
     }
 
-    public override void UpdateState(BasicEnemy enemy)
+    public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Calculate offsets based on isFacingRight
         float forwardOffset = enemy.isFacingRight ? 10.0f : -10.0f;

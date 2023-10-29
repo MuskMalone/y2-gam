@@ -22,13 +22,15 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
+        public readonly float JumpCooldown = 1.0f;
         public readonly float MovementForce = 900.0f;
         public readonly float JumpForce = 30000.0f;
         public readonly float VisionRange = 30.0f;
-        public readonly float AttackRange = 10.0f;
+        public readonly float AttackRange = 15.0f;
 
-        // Time in state
+        // Time related
         public float TimeInState = 0.0f;
+        public float JumpTimer = 0.0f;
 
         // Direction related
         //public bool directionChanged = false;
@@ -68,7 +70,7 @@ namespace Object
         */
         public BasicEnemy() : base()
         {
-            Console.WriteLine("Enemy Default Constructor Called!");
+
         }
 
         /*  _________________________________________________________________________ */
@@ -119,9 +121,9 @@ namespace Object
             }
 
             TimeInState += dt;
-            currentState.UpdateState(this);
+            currentState.UpdateState(this, dt);
 
-            Console.WriteLine("Current enemy state: " + currentState.ToString());
+            //Console.WriteLine("Current enemy state: " + currentState.ToString());
         }
 
         /*  _________________________________________________________________________ */
@@ -153,6 +155,11 @@ namespace Object
             AnimationState = (int)AnimationCode.RUN;
             Force += new Vector2(MovementForce, 0.0f);
             isFacingRight = true;
+        }
+
+        public void Jump()
+        {
+            Force += new Vector2(0, JumpForce);
         }
     }
 }

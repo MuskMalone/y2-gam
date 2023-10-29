@@ -25,7 +25,7 @@ public class EnemyDefaultState : EnemyBaseState
 
     }
 
-    public override void UpdateState(BasicEnemy enemy)
+    public override void UpdateState(BasicEnemy enemy, float dt)
     {
         enemy.SwitchState(enemy.IdleState);
     }

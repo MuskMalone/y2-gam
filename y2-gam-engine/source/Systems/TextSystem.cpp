@@ -63,7 +63,8 @@ void TextSystem::Update() {
 		auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
 		auto const& trans{ Coordinator::GetInstance()->GetComponent<Transform>(entity) };
 		Vec2 screenCoords{ WorldToScreenCoordinates(Vec2(trans.position.x, trans.position.y)) };
-		Image::FontRenderer::RenderText(textToPrint.fontName, textToPrint.text, screenCoords.x, screenCoords.y,
+		float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };
+		Image::FontRenderer::RenderText(textToPrint.fontName, textToPrint.text, screenCoords.x - (lengthOfText / 2.f), screenCoords.y,
 			textToPrint.scale, textToPrint.color);
 	}
 }

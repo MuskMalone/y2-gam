@@ -29,6 +29,9 @@ namespace Testing {
 	std::default_random_engine generator;
 	Entity lastInserted;
 	Entity enemy;
+
+	Vec2 confirmNodesButtonPos{ 50.f, 20.f };
+	Vec2 resetNodesButtonPos{ 90.f, 20.f };
 }
 
 void EditorControlSystem::Init()
@@ -116,23 +119,23 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent<Gravity>(
 		entity,
 		{ Vec2(0.0f, -10.f) });
-	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 10.f), 1.f);
+	position = Vec3(0.f, static_cast<float>(-WORLD_LIMIT_Y + 5.f), 1.f);
 	::gCoordinator->AddComponent(
 		entity,
 		Collider{
-			Vec2(position), 0.f, Vec2(WORLD_LIMIT_X + 80.f, 5.f)
+			Vec2(position), 0.f, Vec2( 2.f * WORLD_LIMIT_X - 5.f, 3.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		RigidBody{
-			Vec2(position), .0f, FLOAT_MAX, Vec2(WORLD_LIMIT_X + 80.f, 5.f)
+			Vec2(position), 0.f, FLOAT_MAX, Vec2(2.f * WORLD_LIMIT_X - 5.f, 3.f)
 		});
 	::gCoordinator->AddComponent(
 		entity,
 		Transform{
 			{position.x,position.y,position.z},
 			{0.f,0.f,0.f},
-			{WORLD_LIMIT_X + 80, 5.f, 1.f}
+			{2.f * WORLD_LIMIT_X - 5.f, 3.f, 1.f}
 		});
 	::gCoordinator->AddComponent(
 		entity,
@@ -348,8 +351,8 @@ void EditorControlSystem::Init()
 			"Enemy"
 		});
 	Image::ScriptManager::OnCreateEntity(Testing::enemy);
-
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
+
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
 	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
 	std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
@@ -373,6 +376,78 @@ void EditorControlSystem::Init()
 			0,
 			ANIM_STATE::IDLE,
 			map
+		});
+
+	// Create a button for FinishAddingNodes
+	Entity button = ::gCoordinator->CreateEntity();
+	float scaleButton{ 5.f };
+	::gCoordinator->AddComponent(
+    button,
+    Transform{
+      {Testing::confirmNodesButtonPos.x, Testing::confirmNodesButtonPos.y, 1.f},
+      {0.f, 0.f, 0.f},
+      {scaleButton * 6, scaleButton, scaleButton}
+    });
+	::gCoordinator->AddComponent(
+		button,
+    Sprite{
+      {1, 1, 1, 1},
+      nullptr,
+    });
+	::gCoordinator->AddComponent(
+		button,
+    Text{
+      "Lato",
+      0.03f,
+      "Finish Adding Nodes",
+      {0, 0, 0}
+    });
+	::gCoordinator->AddComponent(
+		button,
+		Collider{
+		  Vec2(Testing::confirmNodesButtonPos), 0.f, Vec2(scaleButton * 6, scaleButton)
+    });
+
+	::gCoordinator->AddComponent(
+		button,
+		Tag{
+			"FinishAddingNodes"
+		});
+
+	// Create a button for Resetting Nodes
+	button = ::gCoordinator->CreateEntity();
+	scaleButton = 5.f;
+	::gCoordinator->AddComponent(
+		button,
+		Transform{
+			{Testing::resetNodesButtonPos.x, Testing::resetNodesButtonPos.y, 1.f},
+			{0.f, 0.f, 0.f},
+			{scaleButton * 6, scaleButton, scaleButton}
+		});
+	::gCoordinator->AddComponent(
+		button,
+		Sprite{
+			{1, 1, 1, 1},
+			nullptr,
+		});
+	::gCoordinator->AddComponent(
+		button,
+		Text{
+			"Lato",
+			0.03f,
+			"Reset Nodes",
+			{0, 0, 0}
+		});
+	::gCoordinator->AddComponent(
+		button,
+		Collider{
+			Vec2(Testing::resetNodesButtonPos), 0.f, Vec2(scaleButton * 6, scaleButton)
+		});
+
+	::gCoordinator->AddComponent(
+		button,
+		Tag{
+			"ResetNodes"
 		});
 
 	// Sound Testing
@@ -488,6 +563,16 @@ void EditorControlSystem::Update(float dt)
 		if (::gCoordinator->HasComponent<Node>(rh.entityID)) {
 			::gCoordinator->GetComponent<Node>(rh.entityID).selected = !(::gCoordinator->GetComponent<Node>(rh.entityID).selected);
 		}
+
+		if (::gCoordinator->HasComponent<Tag>(rh.entityID)) {
+      if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "FinishAddingNodes") {
+				::gCoordinator->GetComponent<Text>(rh.entityID).text = "Nodes Set!";
+        NodeManager::FinishAddingNodes();
+      }
+      else if (::gCoordinator->GetComponent<Tag>(rh.entityID).tag == "ResetNodes") {
+        NodeManager::ClearAllNodes();
+      }
+    }
 	}
 	// Temporarily Disabled
 	/*

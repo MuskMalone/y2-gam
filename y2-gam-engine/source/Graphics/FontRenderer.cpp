@@ -436,4 +436,15 @@ namespace Image {
     currFace.vbo->Unbind();
     sShaderPgm->Unuse();
   }
+
+  float FontRenderer::GetTextWidth(std::string fontName, std::string text, float scale) {
+    float xPos = 0.0f;
+
+    for (char const& ch : text) {
+      Character currChar{ (sCharacters[fontName])[ch] };
+      xPos += (currChar.advance >> 6) * scale;
+    }
+
+    return xPos;
+  }
 }

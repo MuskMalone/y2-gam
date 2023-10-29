@@ -25,7 +25,7 @@ public class EnemyAttackState : EnemyBaseState
         enemy.AnimationState = (int)AnimationCode.ATTACK;
     }
 
-    public override void UpdateState(BasicEnemy enemy)
+    public override void UpdateState(BasicEnemy enemy, float dt)
     {
         enemy.AnimationState = (int)AnimationCode.ATTACK;
 

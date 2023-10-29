@@ -172,6 +172,7 @@ int main()
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
+	NodeManager::Initialize();
 
 	/*
 	std::vector<std::string> diagnostics{};

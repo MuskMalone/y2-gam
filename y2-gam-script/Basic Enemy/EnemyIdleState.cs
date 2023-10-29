@@ -25,7 +25,7 @@ public class EnemyIdleState : EnemyBaseState
         enemy.AnimationState = (int)AnimationCode.IDLE;
     }
 
-    public override void UpdateState(BasicEnemy enemy)
+    public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Change direction after 2 seconds
         if (enemy.TimeInState >= 2.0f)

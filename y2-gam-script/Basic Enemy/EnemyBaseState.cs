@@ -21,7 +21,7 @@ public abstract class EnemyBaseState
 {
     public abstract void EnterState(BasicEnemy enemy);
 
-    public abstract void UpdateState(BasicEnemy enemy);
+    public abstract void UpdateState(BasicEnemy enemy, float dt);
 
     public abstract void EnterOnCollision(BasicEnemy enemy);
 }

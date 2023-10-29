@@ -49,13 +49,15 @@ constexpr glm::vec4 NODE_COLORS[NUM_NODE_TYPES] = {
     static void DisplayDebugLines();
 
     // Node Management
+    static void Initialize();
     static void Update();
     static void AddNode();
     static void AddNeighbour(Entity lhs, Entity rhs);
+    static void FinishAddingNodes();
     static void RemoveNode(Entity node);
     static void ClearAllNodes();
     static void ChangeNodeType(Entity node);
-
+    
     // Cost Calculation
     static int CalculateCost(Entity lhs, Entity rhs);
     static void PrintCostMap();

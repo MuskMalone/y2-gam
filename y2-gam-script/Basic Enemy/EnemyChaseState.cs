@@ -37,7 +37,7 @@ public class EnemyChaseState : EnemyBaseState
         RecalculatePath(enemy);
     }
 
-    public override void UpdateState(BasicEnemy enemy)
+    public override void UpdateState(BasicEnemy enemy, float dt)
     {
         switch (nodeTypes[0])
         {
@@ -75,14 +75,28 @@ public class EnemyChaseState : EnemyBaseState
                 }
 
                 direction = PhysicsWrapper.Normalize(direction);
-                //enemy.Force += direction * enemy.MovementForce;
-                if (direction.X > 0) // Move right
+                if (direction.X > 0.0f) // Move right
                 {
                     enemy.MoveRight();
                 }
                 else // Move left
                 {
                     enemy.MoveLeft();
+                }
+
+                if (enemy.JumpTimer <= 0.0f)
+                { 
+                    if (direction.Y > 0.0f) // Node is higher than the enemy
+                    {  
+                        enemy.Jump();
+                        enemy.JumpTimer = enemy.JumpCooldown;
+                    }
+                }
+
+                // Update the jump cooldown timer
+                if (enemy.JumpTimer > 0.0f)
+                {
+                    enemy.JumpTimer -= dt;
                 }
 
                 // Calculate losRayEnd based on isFacingRight

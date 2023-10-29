@@ -21,9 +21,25 @@ namespace Object
 {
     public class Player : Entity
     {
-        bool isFacingRight = true;
-        public readonly float jumpForce = 30000.0f;
+        public readonly float JumpForce = 30000.0f;
         public readonly float MovementForce = 1200.0f;
+
+        // Direction related
+        //public bool directionChanged = false;
+        private bool _isFacingRight = true;
+        public bool isFacingRight
+        {
+            get { return _isFacingRight; }
+            set
+            {
+                if (_isFacingRight != value)
+                {
+                    _isFacingRight = value;
+                    FacingDirectionChanged = true; // Set another flag when isFacingRight changes
+                }
+            }
+        }
+        public bool FacingDirectionChanged { get; private set; }
 
         /*  _________________________________________________________________________ */
         /*! Player
@@ -77,41 +93,50 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (FacingDirectionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                FacingDirectionChanged = false; // Reset the flag
+            }
+
             if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
             {
-                Force += new Vector2(0, jumpForce);
+                Jump();
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
             {
-                if (isFacingRight)
-                {
-                    // Only update the scale if the direction changes
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    isFacingRight = false;
-                }
-
-                AnimationState = (int)AnimationCode.RUN;
-                Force -= new Vector2(MovementForce, 0.0f);
+                MoveLeft();
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
             {
-                if (!isFacingRight)
-                {
-                    // Only update the scale if the direction changes
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    isFacingRight = true;
-                }
-
-                AnimationState = (int)AnimationCode.RUN;
-                Force += new Vector2(MovementForce, 0.0f);
+                MoveRight();
             }
 
             else
             {
                 AnimationState = (int)AnimationCode.IDLE;
             }
+        }
+
+        public void MoveLeft()
+        {
+            AnimationState = (int)AnimationCode.RUN;
+            Force -= new Vector2(MovementForce, 0.0f);
+            isFacingRight = false;
+        }
+
+        public void MoveRight()
+        {
+            AnimationState = (int)AnimationCode.RUN;
+            Force += new Vector2(MovementForce, 0.0f);
+            isFacingRight = true;
+        }
+
+        public void Jump()
+        {
+            Force += new Vector2(0, JumpForce);
         }
     }
 }
