@@ -74,6 +74,18 @@ the specified coordinates. The subtexture is associated with the provided ID.
 If a subtexture with the given ID already exists or the main texture ID
 is not found, the function will return an error value.
 */
+//struct SpriteProperties{
+//    int textureID;
+//    glm::vec2& min; 
+//    glm::vec2& max;
+//
+//}
+//ResourceID SpriteManager::CreateSubTexture(std::string const& path, SpriteProperties const& props) {
+//    //if texture cannot be found
+//    //add texture
+//    //use texture
+//}
+
 int SpriteManager::CreateSubTexture(int textureID, const glm::vec2& min, const glm::vec2& max, int id) {
     if (sprites.find(id) != sprites.end()) {
         // handle error: ID already used

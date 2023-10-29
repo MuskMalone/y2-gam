@@ -61,6 +61,7 @@
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
     <ClCompile Include="source\Engine\AssetManager.cpp" />
     <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
+    <ClCompile Include="source\Graphics\SpriteManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
     <ClInclude Include="include\Engine\AssetManager.hpp" />
     <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
+    <ClInclude Include="include\Graphics\SpriteManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

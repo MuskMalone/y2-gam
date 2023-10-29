@@ -65,8 +65,8 @@ int main()
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
-	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
-	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
+	assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
+	assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
 
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);

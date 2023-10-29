@@ -13,6 +13,14 @@ public:
     void static UnloadTexture(int textureID);
     void static UnloadSprite(int spriteID);
 
+    //for assetmanager
+    //static ResourceID LoadAsset(SoundProperties const& props);
+    //static ResourceID LoadAsset(rapidjson::Value const& obj);
+    //static void SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value& obj);
+    //static Sound const& GetAsset(ResourceID);
+    //static SoundProperties& GetAssetProperties(ResourceID);
+    //static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path);
+
 private:
     static std::unordered_map<int, std::shared_ptr<Texture>> textures;
     static std::unordered_map<int, std::shared_ptr<SubTexture>> sprites;
