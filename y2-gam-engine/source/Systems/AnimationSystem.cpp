@@ -46,9 +46,11 @@ void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
 
 	//-------------TEMPORARY-------------------------------------------------------------/
-	mIdle.reset(new Texture{ "../Textures/Idle.png" });
-	mRun.reset(new Texture{ "../Textures/Run.png" });
-	mAttack.reset(new Texture{ "../Textures/Attack_1.png" });
+	mIdle = Texture::Create("../assets/textures/Idle.png");
+	mRun = Texture::Create("../assets/textures/Run.png");
+	mAttack = Texture::Create("../assets/textures/Attack_1.png");
+
+
 	for (float i{}; i < 8; ++i)
 		mSpriteList.push_back(SubTexture::Create(mIdle, { i, 0 }, { 128, 128 }));
 
@@ -85,10 +87,10 @@ void AnimationSystem::Update(float dt) {
 		AnimationFrame& currFrame { frameList[frameIdx] };
 
 		currFrame.elapsedTime += dt;
+
 		sprite.texture = mSpriteList[currFrame.spriteIdx];
 
 		if (currFrame.elapsedTime >= animation.speed) {
-
 			++frameIdx;
 			currFrame.elapsedTime = 0.f;
 		}

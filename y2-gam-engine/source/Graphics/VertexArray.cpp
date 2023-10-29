@@ -105,18 +105,40 @@ according to the layout of the VertexBuffer, and adds the VertexBuffer to the li
 void VertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vbo) {
 	glBindVertexArray(vaoHdl);
 	vbo->Bind();
-	unsigned int attrib_idx{};
-	const auto& layout{ vbo->GetLayout() };
+	unsigned int attribIdx{};
+	auto const& layout{ vbo->GetLayout() };
 	for (auto const& elem : layout) {
-		glEnableVertexAttribArray(attrib_idx);
-		glVertexAttribPointer(attrib_idx,
-			elem.GetComponentCount(),
-			AttributeToGLType(elem.type),
-			elem.isNormalized ? GL_TRUE : GL_FALSE,
-			vbo->GetLayout().GetStride(),
-			reinterpret_cast<const void*>(
-				static_cast<uintptr_t>(elem.offset)));
-		++attrib_idx;
+		switch (elem.type) {
+		case AttributeType::FLOAT:
+		case AttributeType::VEC2:
+		case AttributeType::VEC3:
+		case AttributeType::VEC4:
+			glEnableVertexAttribArray(attribIdx);
+			glVertexAttribPointer(attribIdx,
+				elem.GetComponentCount(),
+				AttributeToGLType(elem.type),
+				elem.isNormalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				reinterpret_cast<const void*>(
+					static_cast<uintptr_t>(elem.offset)));
+			++attribIdx;
+			break;
+		case AttributeType::INT:
+		case AttributeType::IVEC2:
+		case AttributeType::IVEC3:
+		case AttributeType::IVEC4:
+		case AttributeType::BOOL:
+			glEnableVertexAttribArray(attribIdx);
+			glVertexAttribIPointer(attribIdx,
+				elem.GetComponentCount(),
+				AttributeToGLType(elem.type),
+				layout.GetStride(),
+				reinterpret_cast<const void*>(
+					static_cast<uintptr_t>(elem.offset)));
+			++attribIdx;
+			break;
+		}
+
 	}
 	mVbos.push_back(vbo);
 }

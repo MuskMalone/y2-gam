@@ -56,7 +56,7 @@ namespace Image {
     }
 
     //Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
-    sShaderPgm = std::make_shared<Shader>("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
+    sShaderPgm = std::make_shared<Shader>("../assets/shaders/fontVertex.glsl", "../assets/shaders/fontFragment.glsl");
     //sShaderPgm = &sh;
   }
 
@@ -370,7 +370,11 @@ namespace Image {
     FaceObject const& currFace{ sFaces[fontName] };
     std::shared_ptr<Texture>const& currTex{ sBitmap[fontName] };
 
-    auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+    //float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
+    //float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
+    //OrthoCamera cam(16/9, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
+    
+    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
     glm::mat4 projection{ cam.GetProjMtx() };
     glm::mat4 flipY{ glm::mat4(1.0f) };
     flipY[1][1] = -1.0f;
@@ -424,10 +428,10 @@ namespace Image {
     currFace.ebo->Bind();
     size_t eboSizePerChar{ 6 };
 
-    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Bind();
+   // Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Bind();
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(eboSizePerChar * text.length()), 
       GL_UNSIGNED_INT, NULL);
-    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Unbind();
+    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Unbind();
 
     glEnable(GL_DEPTH_TEST);
     //glDisable(GL_BLEND);

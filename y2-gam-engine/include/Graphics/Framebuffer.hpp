@@ -65,6 +65,8 @@ public:
 	void Resize(unsigned int width, unsigned int height);
 	int ReadPixel(unsigned int attachIdx, int x, int y);
 
+	void ClearAttachmentInt(unsigned int attachIdx, int val);
+
 	unsigned int GetColorAttachmentID(unsigned int index = 0) const;
 	FramebufferProps const& GetFramebufferProps() const;
 

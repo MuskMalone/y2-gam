@@ -52,7 +52,8 @@ void Renderer::Init() {
 		{AttributeType::VEC3, "a_Position"},
 		{AttributeType::VEC4, "a_Color"},
 		{AttributeType::VEC2, "a_TexCoord"},
-		{AttributeType::FLOAT, "a_TexIdx"}
+		{AttributeType::FLOAT, "a_TexIdx"},
+		{AttributeType::INT, "a_Entity"}
 	};
 
 	mData.quadVertexBuffer->SetLayout(quadLayout); //must set layout before adding vbo
@@ -117,9 +118,9 @@ void Renderer::Init() {
 	for (unsigned int i{}; i < mData.maxTexUnits; ++i)
 		samplers[i] = i;
 
-	mData.lineShader = std::make_shared<Shader>("../Shaders/Line.vert", "../Shaders/Line.frag");
-	mData.texShader = std::make_shared<Shader>("../Shaders/Tex.vert", "../Shaders/Tex.frag");
-	mData.circleShader = std::make_shared<Shader>("../Shaders/Circle.vert", "../Shaders/Circle.frag");
+	mData.lineShader = std::make_shared<Shader>("../assets/shaders/Line.vert", "../assets/shaders/Line.frag");
+	mData.texShader = std::make_shared<Shader>("../assets/shaders/Tex.vert", "../assets/shaders/Tex.frag");
+	mData.circleShader = std::make_shared<Shader>("../assets/shaders/Circle.vert", "../assets/shaders/Circle.frag");
 
 	mData.texShader->Use();
 	mData.texShader->SetUniform("u_Tex", samplers.data(), mData.maxTexUnits);
@@ -129,6 +130,27 @@ void Renderer::Init() {
 	mData.quadVtxPos[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
 	mData.quadVtxPos[2] = { 0.5f,  0.5f, 0.0f, 1.0f };
 	mData.quadVtxPos[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+
+	//Setting up Fullscreen Quad
+	mData.screen.screenVertices[0] = {{-1.0f,  1.0f}, {0.0f, 1.0f}};
+	mData.screen.screenVertices[1] = {{-1.0f, -1.0f}, {0.0f, 0.0f}};
+	mData.screen.screenVertices[2] = {{ 1.0f, -1.0f}, {1.0f, 0.0f}};
+	mData.screen.screenVertices[3] = {{-1.0f,  1.0f}, {0.0f, 1.0f}};
+	mData.screen.screenVertices[4] = {{ 1.0f, -1.0f}, {1.0f, 0.0f}};
+	mData.screen.screenVertices[5] = {{ 1.0f,  1.0f}, {1.0f, 1.0f}};
+	
+	mData.screen.screenVertexArray = VertexArray::Create();
+	mData.screen.screenVertexBuffer = VertexBuffer::Create(sizeof(mData.screen.screenVertices));
+
+	mData.screen.screenVertexBuffer->Bind();
+	mData.screen.screenVertexBuffer->SetData(mData.screen.screenVertices.data(), sizeof(mData.screen.screenVertices));
+	BufferLayout screenLayout = {
+		{AttributeType::VEC3, "a_Position"},
+		{AttributeType::VEC2, "a_TexCoord"},
+	};
+	mData.screen.screenVertexBuffer->SetLayout(screenLayout);
+	mData.screen.screenVertexArray->AddVertexBuffer(mData.screen.screenVertexBuffer);
+	mData.screen.screenShader = std::make_shared<Shader>("../assets/shaders/FullscreenQuad.vert", "../assets/shaders/FullscreenQuad.frag");
 }
 
 /*  _________________________________________________________________________ */
@@ -141,6 +163,30 @@ This method is currently empty and can be used for cleanup if necessary.
 */
 void Renderer::Shutdown() {
 	//TODO SHIFT RENDERER DESTROY HERE
+}
+
+void Renderer::RenderFullscreenTexture(unsigned int tex) {
+	mData.screen.screenShader->Use();
+
+	// Set the active texture unit to 0 (or any other slot you prefer)
+	glActiveTexture(GL_TEXTURE0);
+
+	// Bind the texture you want to render
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	// Set the texture uniform in the shader to the texture unit
+	mData.screen.screenShader->SetUniform("screenTex", 0); // 0 corresponds to GL_TEXTURE0
+
+	// Bind the full-screen quad's vertex array
+	mData.screen.screenVertexArray->Bind();
+
+	// Draw the full-screen quad
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// Optional: Unbind everything after drawing
+	mData.screen.screenVertexArray->Unbind();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	mData.screen.screenShader->Unuse();
 }
 
 /*  _________________________________________________________________________ */
@@ -216,12 +262,13 @@ unsigned int Renderer::GetMaxTextureUnits() {
   Sets the buffer data for a quad.
   This method populates the quad buffer with vertex data.
   */
-void Renderer::SetQuadBufferData(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, glm::vec2 const& texCoord, float texIdx) {
+void Renderer::SetQuadBufferData(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, glm::vec2 const& texCoord, float texIdx, int entity) {
 	UNREFERENCED_PARAMETER(scale);
 	mData.quadBufferPtr->pos = pos;
 	mData.quadBufferPtr->clr = clr; // Ensure color is set for each vertex
 	mData.quadBufferPtr->texCoord = texCoord;
 	mData.quadBufferPtr->texIdx = texIdx;
+	mData.quadBufferPtr->entity = entity;
 	++mData.quadBufferPtr;
 }
 
@@ -264,7 +311,7 @@ Rotation of the quad. Default is 0.0f.
 
 Draws a flat-colored quad.
 */
-void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
+void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot, int entity) {
 
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
@@ -279,7 +326,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i)
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -309,7 +356,7 @@ Rotation of the quad. Default is 0.0f.
 This overloaded version draws a textured quad.
 */
 void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
-	std::shared_ptr<Texture>const& tex, float rot) {
+	std::shared_ptr<Texture>const& tex, float rot, int entity) {
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
@@ -338,7 +385,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i)
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, clr, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -375,7 +422,7 @@ function increments the quad index count by 6 for each sprite drawn.
 
 */
 //TODO Add duplicated code in function
-void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot) {
+void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot, int entity) {
 
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
@@ -406,7 +453,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
 	for (size_t i{}; i < 4; ++i) 
-		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, tint, texCoords[i], texIdx);
+		SetQuadBufferData(transformMtx * mData.quadVtxPos[i], scale, tint, texCoords[i], texIdx, entity);
 
 	mData.quadIdxCount += 6;
 
@@ -432,8 +479,8 @@ This function is an overloaded version of the DrawSprite function. It uses the
 transform object to extract position, scale, and rotation information and then
 calls the primary DrawSprite function.
 */
-void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint) {
-	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z);
+void Renderer::DrawSprite(Transform const& transform, std::shared_ptr<SubTexture> const& subtex, glm::vec4 const& tint, int entity) {
+	DrawSprite(transform.position, transform.scale, subtex, tint, transform.rotation.z, entity);
 }
 
 /*  _________________________________________________________________________ */
@@ -483,21 +530,26 @@ Color of the rectangle's border.
 This function draws a rectangle using lines. It calculates the four corners of
 the rectangle and then draws lines between them to form the rectangle.
 */
-void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr) {
-	glm::vec3 p0{ glm::vec3(pos.x - scale.x * 0.5f, pos.y - scale.y * 0.5f, pos.z) };
-	glm::vec3 p1{ glm::vec3(pos.x + scale.x * 0.5f, pos.y - scale.y * 0.5f, pos.z) };
-	glm::vec3 p2{ glm::vec3(pos.x + scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
-	glm::vec3 p3{ glm::vec3(pos.x - scale.x * 0.5f, pos.y + scale.y * 0.5f, pos.z) };
-
+void Renderer::DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float rot) {
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
-	//glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
+	glm::mat4 rotateMtx{ glm::rotate(glm::mat4{ 1.f }, glm::radians(rot), {0.f, 0.f, 1.f}) };
 	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
-	glm::mat4 transformMtx{ translateMtx * scaleMtx };
+	glm::mat4 transformMtx{ translateMtx * rotateMtx * scaleMtx };
 
-	DrawLine(p0, p1, clr);
-	DrawLine(p1, p2, clr);
-	DrawLine(p2, p3, clr);
-	DrawLine(p3, p0, clr);
+	//DrawLine(p0, p1, clr);
+	//DrawLine(p1, p2, clr);
+	//DrawLine(p2, p3, clr);
+	//DrawLine(p3, p0, clr);
+
+	glm::vec3 lineVertices[4]{};
+	for (size_t i{}; i < 4; ++i)
+		lineVertices[i] = transformMtx * mData.quadVtxPos[i];
+
+	DrawLine(lineVertices[0], lineVertices[1], clr);
+	DrawLine(lineVertices[1], lineVertices[2], clr);
+	DrawLine(lineVertices[2], lineVertices[3], clr);
+	DrawLine(lineVertices[3], lineVertices[0], clr);
+   
 }
 
 /*  _________________________________________________________________________ */

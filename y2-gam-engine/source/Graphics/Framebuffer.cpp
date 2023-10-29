@@ -233,13 +233,18 @@ void Framebuffer::Resize(unsigned int width, unsigned int height){
 	Recreate();
 }
 
-int ReadPixel(unsigned int attachIdx, int x, int y) {
+int Framebuffer::ReadPixel(unsigned int attachIdx, int x, int y) {
 	glReadBuffer(GL_COLOR_ATTACHMENT0 + attachIdx);
 	int pixels;
 	glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixels);
 	return pixels;
 }
 
+void Framebuffer::ClearAttachmentInt(unsigned int attachIdx, int val) {
+	FramebufferTexProps& prop { mColorAttachmentProps[attachIdx]};
+
+	glClearTexImage(mColorAttachments[attachIdx], 0, GL_RED_INTEGER, GL_INT, &val);
+}
 /*  _________________________________________________________________________ */
 /*! GetColorAttachmentID
 

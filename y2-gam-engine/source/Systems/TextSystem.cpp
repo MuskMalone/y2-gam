@@ -92,7 +92,7 @@ The screen coordinates.
 Calculates the screen coordinates from the world coordinates.
 */
 Vec2 TextSystem::WorldToScreenCoordinates(Vec2 worldCoordinates) {
-	auto& cam{ Coordinator::GetInstance()->GetComponent<OrthoCamera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+	auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 	glm::vec4 screenCoordinates{ cam.GetViewMtx() * glm::vec4(worldCoordinates.x, worldCoordinates.y, 0.f, 1.f) };
 	return Vec2{ screenCoordinates.x, screenCoordinates.y };
 }
