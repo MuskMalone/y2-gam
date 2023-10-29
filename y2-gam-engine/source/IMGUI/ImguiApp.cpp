@@ -83,7 +83,7 @@ namespace Image {
         HierarchyWindow(mEntities);
         InspectorWindow();
         PropertyWindow();
-        PrefabWindow();
+        //PrefabWindow();
         BufferWindow();
         ContentWindow();
         TextureHdlWindow(mEntities);
@@ -149,6 +149,21 @@ namespace Image {
             if (ImGui::BeginMenu("View")) {
                 if (ImGui::MenuItem("Animation Editer")) {}
                 ImGui::EndMenu();
+            }
+            auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+
+            if (ImGui::BeginMenu("Play")) {
+
+                if (renderSystem->IsEditorMode()) {
+                    std::cout << "Play to toggle to editer play mode" << std::endl;
+                    renderSystem->ToggleEditorMode();
+                }
+            }
+            if (ImGui::BeginMenu("Stop")) {
+                if (!renderSystem->IsEditorMode()) {
+                    std::cout << "Stop to toggle to editer mode" << std::endl;
+                    renderSystem->ToggleEditorMode();
+                }
             }
             ImGui::EndMainMenuBar();
         }
@@ -286,7 +301,7 @@ namespace Image {
                             newSize = ImVec2(200 * aspectRatio, 200);
                         }
 
-                        std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
                         ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
@@ -725,21 +740,6 @@ namespace Image {
             // If left mouse button is released, stop dragging
             else if (ImGui::IsMouseReleased(0)) {
                 draggedEntity = -1;
-            }
-        }
-
-        if (ImGui::Button("Play")) {
-
-            if (renderSystem->IsEditorMode()) {
-                std::cout << "Play to toggle to editer play mode" << std::endl;
-                renderSystem->ToggleEditorMode();
-            }
-        }
-        ImGui::SameLine();
-        if (ImGui::Button("Stop")) {
-            if (!renderSystem->IsEditorMode()) {
-                std::cout << "Stop to toggle to editer mode" << std::endl;
-                renderSystem->ToggleEditorMode();
             }
         }
         //tch: hello this is my input part
