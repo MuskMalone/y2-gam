@@ -21,8 +21,8 @@
 #include "../include/pch.hpp"
 #include "Graphics/SpriteManager.hpp"
 
-std::unordered_map<int, std::shared_ptr<Texture>> SpriteManager::textures;
-std::unordered_map<int, std::shared_ptr<SubTexture>> SpriteManager::sprites;
+std::unordered_map<ResourceID, std::shared_ptr<Texture>> SpriteManager::textures;
+std::unordered_map<ResourceID, std::shared_ptr<SubTexture>> SpriteManager::sprites;
 
 /*  _________________________________________________________________________ */
 /*! LoadTexture
@@ -40,10 +40,11 @@ This function loads a texture from the provided path and associates it with
 the given ID. If a texture with the given ID already exists or the texture
 file cannot be loaded, the function will return an error value.
 */
-int SpriteManager::LoadTexture(const std::string& path, int id) {
+ResourceID SpriteManager::LoadTexture(const std::string& path) {
+    ResourceID id{ _hash(path) };
     if (textures.find(id) != textures.end()) {
         // handle error: ID already used
-        return false;
+        return id;
     }
 
     auto texture = Texture::Create(path);
@@ -80,14 +81,8 @@ is not found, the function will return an error value.
 //    glm::vec2& max;
 //
 //}
-//ResourceID SpriteManager::CreateSubTexture(std::string const& path, SpriteProperties const& props) {
-//    //if texture cannot be found
-//    //add texture
-//    //use texture
-//}
-
-int SpriteManager::CreateSubTexture(int textureID, const glm::vec2& min, const glm::vec2& max, int id) {
-    if (sprites.find(id) != sprites.end()) {
+ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, SpriteProperties const& props) {
+    if (sprites.find(props.id) != sprites.end()) {
         // handle error: ID already used
         return false;
     }
@@ -97,10 +92,26 @@ int SpriteManager::CreateSubTexture(int textureID, const glm::vec2& min, const g
         return false;
     }
 
-    auto sprite = SubTexture::Create(textures[textureID], min, max);
-    sprites[id] = sprite;
-    return id;
+    auto sprite = SubTexture::Create(textures[textureID], props.min, props.max, props.id);
+    sprites[props.id] = sprite;
+    return props.id;
 }
+
+//ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, const glm::vec2& min, const glm::vec2& max, ResourceID id) {
+//    if (sprites.find(id) != sprites.end()) {
+//        // handle error: ID already used
+//        return false;
+//    }
+//
+//    if (textures.find(textureID) == textures.end()) {
+//        // handle error: textureID not found
+//        return false;
+//    }
+//
+//    auto sprite = SubTexture::Create(textures[textureID], min, max);
+//    sprites[id] = sprite;
+//    return id;
+//}
 
 /*  _________________________________________________________________________ */
 /*! GetSprite
@@ -114,7 +125,7 @@ A shared pointer to the desired subtexture.
 This function retrieves a shared pointer to the subtexture associated with
 the provided sprite ID.
 */
-std::shared_ptr<SubTexture> SpriteManager::GetSprite(int spriteID) {
+std::shared_ptr<SubTexture> SpriteManager::GetSprite(ResourceID spriteID) {
     return sprites[spriteID];
 }
 
@@ -130,7 +141,7 @@ A shared pointer to the desired texture.
 This function retrieves a shared pointer to the texture associated with
 the provided texture ID.
 */
-std::shared_ptr<Texture> SpriteManager::GetTexture(int textureID) {
+std::shared_ptr<Texture> SpriteManager::GetTexture(ResourceID textureID) {
     return textures[textureID];
 }
 
@@ -143,7 +154,7 @@ The ID of the texture to be unloaded.
 This function removes the texture associated with the provided texture ID
 from the manager's storage, effectively unloading it.
 */
-void SpriteManager::UnloadTexture(int textureID) {
+void SpriteManager::UnloadTexture(ResourceID textureID) {
     textures.erase(textureID);
 }
 
@@ -156,6 +167,38 @@ The ID of the sprite (subtexture) to be unloaded.
 This function removes the sprite associated with the provided sprite ID
 from the manager's storage, effectively unloading it.
 */
-void SpriteManager::UnloadSprite(int spriteID) {
+void SpriteManager::UnloadSprite(ResourceID spriteID) {
     sprites.erase(spriteID);
+}
+
+
+ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
+    ResourceID texrid{ LoadTexture(obj["path"].GetString()) };
+    ResourceID key{ obj["id"].GetUint64() };
+    CreateSubTexture(texrid, SpriteProperties{
+            key,
+            glm::vec2{obj["minX"].GetFloat(), obj["minY"].GetFloat()},
+            glm::vec2{obj["minX"].GetFloat(), obj["minY"].GetFloat()}
+        });
+    return key;
+}
+void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rapidjson::Value& obj) {
+
+}
+std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
+    return sprites[rid];
+}
+SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {
+    return sprites[rid]->GetProperties();
+}
+ResourceID SpriteManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID rid) {
+    auto sm{ Serializer::SerializationManager::GetInstance() };
+
+    sm->InsertValue(obj, "minX", 0.0);
+    sm->InsertValue(obj, "minY", 0.0);
+
+    sm->InsertValue(obj, "maxX", 0.0);
+    sm->InsertValue(obj, "maxY", 0.0);
+
+    return rid;
 }

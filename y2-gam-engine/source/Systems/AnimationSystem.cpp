@@ -52,7 +52,7 @@ void AnimationSystem::Init() {
 	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
 	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
 
-	SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png", 0);
+	ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 
 	//for (float i{}; i < 8; ++i)
 	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(0), { i, 0 }, { 128, 128 }));
@@ -65,13 +65,13 @@ void AnimationSystem::Init() {
 
 	//TEMP
 	for (float i{}; i < 7; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 1 }, { 256, 256 }, (int)i);
+		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256}});
 
 	for (float i{ 7 }; i < 16; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 2 }, { 256, 256 }, (int)i);
+		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
 
 	for (float i{ 16 }; i < 23; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 0 }, { 256, 256 }, (int)i);
+		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
 
 	//------------------------------------------------------------------------------------/
 

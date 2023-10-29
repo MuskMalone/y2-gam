@@ -21,16 +21,21 @@
 
 #pragma once
 #include "Graphics/Texture.hpp"
-
+struct SpriteProperties : public ResProp{
+	glm::vec2 min;
+	glm::vec2 max;
+};
 class SubTexture {
 public:
-	SubTexture(std::shared_ptr<Texture> const& tex, glm::vec2 const& min, glm::vec2 const& max);
+	SubTexture(std::shared_ptr<Texture> const& tex, SpriteProperties const&);
 
 	std::shared_ptr<Texture> const GetTexture() const;
-	glm::vec2 const* GetTexCoords() const;
+	std::array<glm::vec2, 4> GetTexCoords() const;
+	SpriteProperties& GetProperties();
 
-	static std::shared_ptr<SubTexture> Create(std::shared_ptr<Texture> const& tex, glm::vec2 const& idxCoord, glm::vec2 const& size);
+	static std::shared_ptr<SubTexture> Create(std::shared_ptr<Texture> const& tex, glm::vec2 const& idxCoord, glm::vec2 const& size, ResourceID id);
 private:
 	std::shared_ptr<Texture> mTex;
-	glm::vec2 mTexCoords[4];
+	//glm::vec2 mTexCoords[4];
+	SpriteProperties mProps;
 };

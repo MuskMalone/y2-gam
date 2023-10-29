@@ -98,8 +98,8 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
-	int bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png", 100);
-	int bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, { 0, 0 }, { 3497, 1200 }, 100);
+	ResourceID bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
+	ResourceID bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
 
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(

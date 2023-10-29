@@ -3,7 +3,6 @@
 //#include <memory>
 #include <rttr/type>
 
-
 class AssetManager{
 public:
 
@@ -21,10 +20,7 @@ private:
 	//makes the assumption that the id is not called in rapid succession
 	//ie within one loop or in consecutive lines (actions that can fire within less than a nanosecond) 
 	AssetID GetAssetID() {
-		auto now = std::chrono::system_clock::now();
-		auto duration = now.time_since_epoch();
-		auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
-		return static_cast<AssetID>(nanos);
+		return GetTimestampNano();
 	}
 public:
 	//give a system and a assetid. 
@@ -95,9 +91,11 @@ public:
 		JSONObj ast{ JSON_OBJ_TYPE };
 		ast.SetObject();
 		sm->InsertValue(sm->At(cmFileName, sysKey), keyStr, ast);
-		
+		ResourceID rid{ GetTimestampNano() };
+		sm->InsertValue(sm->At(cmFileName, sysKey)[keyStr.c_str()], "id", rid);
+		sm->InsertValue(sm->At(cmFileName, sysKey)[keyStr.c_str()], "path", path);
 		mAssets[key] = { path, sysKey,
-		 _system::AddAsset(sm->At(cmFileName, sysKey)[keyStr.c_str()], path) };
+		 _system::AddAsset(sm->At(cmFileName, sysKey)[keyStr.c_str()], path, rid ) };
 
 		return key;
 	}

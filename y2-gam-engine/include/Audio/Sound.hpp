@@ -20,7 +20,7 @@ namespace Image {
 
   typedef FMOD::Sound* Sound;
   typedef FMOD::ChannelGroup* SoundGroup;
-  struct SoundProperties {
+  struct SoundProperties : public ResProp{
       std::string path;
       bool stream;
   };
@@ -196,11 +196,11 @@ namespace Image {
     static void SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value& obj);
     static Sound const& GetAsset(ResourceID);
     static SoundProperties & GetAssetProperties(ResourceID);
-    static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path);
+    static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id);
 
   private:
     static FMOD::System* sSystem;
-    static std::map<uint32_t, std::pair<Sound, SoundProperties>> _mSoundAssets;
+    static std::map<ResourceID, std::pair<Sound, SoundProperties>> _mSoundAssets;
 
   };
 }

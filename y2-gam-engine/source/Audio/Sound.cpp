@@ -24,7 +24,8 @@
 namespace Image {
 
   FMOD::System* SoundManager::sSystem{ nullptr };
-  std::map<uint32_t, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
+  std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
+  using SoundAssetPair = std::pair<Sound, SoundProperties>;
 
 
   /*  _________________________________________________________________________ */
@@ -386,14 +387,14 @@ namespace Image {
 
   //for asset manager
   ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
-      auto key{ _hash(props.path) };
-      _mSoundAssets[key] =
-          (props.stream) ? (std::make_pair(AudioLoadMusic(props.path.c_str()), SoundProperties{ props.path, true }))
-          : (std::make_pair(AudioLoadSound(props.path.c_str()), SoundProperties{ props.path, false }));
+      ResourceID key{ props.id };
+      _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
+          : (SoundAssetPair{AudioLoadSound(props.path.c_str()), SoundProperties{ props.id, props.path, false }}));
       return key;
   }
+
   ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
-       return LoadAsset(SoundProperties{obj["path"].GetString(), obj["stream"].GetBool()});
+       return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
 
   }
   void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
@@ -409,10 +410,10 @@ namespace Image {
   }
 
   //
-  ResourceID SoundManager::AddAsset(rapidjson::Value& obj, std::string const& path) {
+  ResourceID SoundManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id) {
       auto sm{ Serializer::SerializationManager::GetInstance() };
-      sm->InsertValue(obj, "path", path);
+
       sm->InsertValue(obj, "stream", false);
-      return _hash(path);
+      return id;
   }
 }
