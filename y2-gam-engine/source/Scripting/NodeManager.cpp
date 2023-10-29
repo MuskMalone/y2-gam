@@ -320,6 +320,25 @@ namespace Image {
 	void NodeManager::ClearAllNodes() {
 		for (Entity const& e : currentlyActiveNodes) {
 			::gCoordinator->RemoveComponent<Node>(e);
+			// If have any components, remove them
+			if (::gCoordinator->HasComponent<Collider>(e)) {
+        ::gCoordinator->RemoveComponent<Collider>(e);
+      }
+			if (::gCoordinator->HasComponent<Sprite>(e)) {
+        ::gCoordinator->RemoveComponent<Sprite>(e);
+      }
+			if (::gCoordinator->HasComponent<Text>(e)) {
+        ::gCoordinator->RemoveComponent<Text>(e);
+      }
+			if (::gCoordinator->HasComponent<RigidBody>(e)) {
+        ::gCoordinator->RemoveComponent<RigidBody>(e);
+      }
+			if (::gCoordinator->HasComponent<Gravity>(e)) {
+        ::gCoordinator->RemoveComponent<Gravity>(e);
+      }
+			if (::gCoordinator->HasComponent<Tag>(e)) {
+        ::gCoordinator->RemoveComponent<Tag>(e);
+      }
 			::gCoordinator->DestroyEntity(e);
 		}
 
@@ -328,8 +347,7 @@ namespace Image {
 
 		// Clear the cost map
 		costMap.clear();
-
-		//FillCostMap();
+		FillCostMap();
 	}
 
 	/*  _________________________________________________________________________ */

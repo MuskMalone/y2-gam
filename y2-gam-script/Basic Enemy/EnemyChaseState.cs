@@ -17,6 +17,7 @@
 using Image;
 using Object;
 using System.Collections.Generic;
+using System;
 
 enum NodeState
 {
@@ -46,7 +47,8 @@ public class EnemyChaseState : EnemyBaseState
                 Vector2 direction = new Vector2(path[currentPathIndex].X - enemy.Translation.X, 1.0f);
                 float distanceToClosestNode = direction.Length();
 
-                if (distanceToClosestNode < 2.0f)
+                float thresholdForNodeCloseness = 3.0f;
+                if (distanceToClosestNode < thresholdForNodeCloseness)
                 {
                     currentPathIndex++;
                     if (currentPathIndex >= path.Count)
@@ -63,7 +65,7 @@ public class EnemyChaseState : EnemyBaseState
                     ? (path[currentPathIndex + 1] - enemy.Translation).Length()
                     : float.MaxValue;
 
-                if (distanceToNextNode < 2.0f)
+                if (distanceToNextNode < thresholdForNodeCloseness)
                 {
                     currentPathIndex++;
                     if (currentPathIndex >= path.Count)
@@ -87,7 +89,7 @@ public class EnemyChaseState : EnemyBaseState
                 if (enemy.JumpTimer <= 0.0f)
                 { 
                     float jumpThreshold = 0.9f;
-                    if (direction.Y > jumpThreshold) // Node is higher than the enemy
+                    if (Math.Abs(direction.Y) > jumpThreshold) // Node is higher than the enemy
                     {  
                         enemy.Jump();
                         enemy.JumpTimer = enemy.JumpCooldown;
@@ -116,8 +118,6 @@ public class EnemyChaseState : EnemyBaseState
                 break;
 
             case NodeState.JUMP:
-
-                enemy.Force += new Vector2(0, enemy.JumpForce);
                 break;
         }
     }
