@@ -41,7 +41,7 @@ public:
 
 	Entity GetCamera();
 
-	std::shared_ptr<Framebuffer> const& GetFramebuffer() const;
+	std::shared_ptr<Framebuffer> const& GetFramebuffer(int) const;
 	//for debug
 	void ToggleDebugMode();
 	void ToggleEditorMode();
@@ -51,7 +51,7 @@ private:
 	bool mEditorMode{ true };
 
 	void WindowSizeListener(Event& event);
-	std::shared_ptr<Framebuffer> mFramebuffer; //TEMP
+	std::vector<std::shared_ptr<Framebuffer>> mFramebuffers; //TEMP
 	std::shared_ptr<SubTexture> mBgSubtex; // TEMP
 
 	struct RenderEntry {

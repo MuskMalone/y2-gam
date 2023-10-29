@@ -229,6 +229,7 @@ void EditorControlSystem::Init()
 		Sprite{
 			{1,1,1,1},
 			nullptr,
+			-1,
 			Layer::FOREGROUND
 		});
 	::gCoordinator->AddComponent(
@@ -242,8 +243,14 @@ void EditorControlSystem::Init()
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
-	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
-	std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+	//std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+	//std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+	//std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+	//																 {ANIM_STATE::RUN, runFrames},
+	//																 {ANIM_STATE::ATTACK, attackFrames} };
+	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 } };
+	std::vector<AnimationFrame> runFrames{ {0.f, 7}, {0.f, 8}, { 0.f, 9 }, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
 	std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
 	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
 																	 {ANIM_STATE::RUN, runFrames},
@@ -283,7 +290,7 @@ void EditorControlSystem::Update(float dt)
 	float rotSpeed = 80.f;
 	float zoomSpeed = 100.f;
 
-	auto& camera = ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
@@ -412,6 +419,8 @@ void EditorControlSystem::Update(float dt)
 																		 {ANIM_STATE::RUN, runFrames},
 																		 {ANIM_STATE::ATTACK, attackFrames} };
 
+
+
 		float scale = 10.f;
 		float spacing = 5.f;
 		float offsetX = -250.f / 2;
@@ -434,6 +443,7 @@ void EditorControlSystem::Update(float dt)
 					Sprite{
 						{randColor(generator), randColor(generator), randColor(generator), 1},
 						nullptr,
+						-1,
 						Layer::FOREGROUND
 					}
 				);

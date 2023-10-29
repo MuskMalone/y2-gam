@@ -38,6 +38,19 @@ struct Statistics {
 	unsigned int GetTotalIdxCount() { return quadCount * 6; }
 };
 
+
+struct ScreenVtx {
+	glm::vec2 pos;
+	glm::vec2 texCoord;
+};
+
+struct FullscreenQuad {
+	std::shared_ptr<VertexArray> screenVertexArray;
+	std::shared_ptr<VertexBuffer> screenVertexBuffer;
+	std::shared_ptr<Shader> screenShader;
+	std::array<ScreenVtx, 6> screenVertices;
+};
+
 struct QuadVtx {
 	glm::vec3 pos;
 	glm::vec4 clr;
@@ -98,6 +111,7 @@ struct RendererData {
 	std::vector<std::shared_ptr<Texture>> texUnits; //pointer to an array of Texture pointers (may change to vector)
 	unsigned int texUnitIdx{ 1 }; // 0 = white tex
 
+	FullscreenQuad screen;
 	Statistics stats;
 };
 
@@ -107,6 +121,7 @@ public:
 	static void Init();
 	static void Shutdown();
 
+	static void RenderFullscreenTexture(unsigned int tex);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();
 
@@ -126,7 +141,6 @@ public:
 	//Lines
 	static void DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 const& clr);
 	static void DrawLineRect(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float = 0.f);
-	static void DrawLineRect(glm::mat4 const& transform, glm::vec4 const& clr);
 
 	//Circles
 	static void DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness = 1.f, float fade = 0.005f);

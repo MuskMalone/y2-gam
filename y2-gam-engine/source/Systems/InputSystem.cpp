@@ -44,7 +44,7 @@ MousePosition InputSystem::GetMousePos() const {
 	return mMousePos;
 }
 MousePosition InputSystem::GetWorldMousePos() const {
-	auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
 
 	float screenWidth{ mEditorMousePos.second.first };
 	float screenHeight{ mEditorMousePos.second.second };

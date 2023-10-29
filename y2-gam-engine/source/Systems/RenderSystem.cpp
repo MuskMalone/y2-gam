@@ -27,6 +27,9 @@
 #include "Graphics/Shader.hpp"
 #include "Core/Globals.hpp"
 #include "Graphics/Renderer.hpp"
+#include "Graphics/FontRenderer.hpp"
+#include "Systems/TextSystem.hpp"
+#include "Graphics/SpriteManager.hpp"
 
 #include "Scripting/NodeManager.hpp"
 
@@ -42,7 +45,7 @@ Retrieves the camera entity used in the rendering context.
 
 \return The camera entity.
 */
-Entity RenderSystem::GetCamera() { return mCamera; }
+Entity RenderSystem::GetCamera() { if (mEditorMode)return mCamera; else return mSceneCamera; }
 
 /*  _________________________________________________________________________ */
 /*!
@@ -52,7 +55,7 @@ Retrieves the framebuffer used for rendering.
 
 \return A shared pointer to the framebuffer.
 */
-std::shared_ptr<Framebuffer> const& RenderSystem::GetFramebuffer() const { return mFramebuffer; }
+std::shared_ptr<Framebuffer> const& RenderSystem::GetFramebuffer(int idx) const { return mFramebuffers[idx]; }
 
 /*  _________________________________________________________________________ */
 /*!
@@ -83,21 +86,11 @@ void RenderSystem::Init()
 
 	mCamera = gCoordinator->CreateEntity();
 	mSceneCamera = gCoordinator->CreateEntity();
-	//gCoordinator->AddComponent(
-	//	mCamera,
-	//	Transform{
-	//		{0.f,0.f,0.f},
-	//		{0.f,0.f,0.f},
-	//		{0.f,0.f,0.f}
-	//	});
-	//gCoordinator->AddComponent(
-	//	mCamera,
-	//	Camera{});
 
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
-		OrthoCamera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
 	gCoordinator->AddComponent(
@@ -105,8 +98,9 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
 
-	std::shared_ptr<Texture> bgTex = std::make_shared<Texture>( "../Textures/blinkbg.png" );
-	mBgSubtex = SubTexture::Create(bgTex, { 0, 0 }, { 3497, 1200 });
+	int bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png", 100);
+	int bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, { 0, 0 }, { 3497, 1200 }, 100);
+
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(
 		bg,
@@ -120,21 +114,26 @@ void RenderSystem::Init()
 		bg,
 		Sprite{
 			{1.f,1.f,1.f,1.f},
-			mBgSubtex,
+			nullptr,
+			-1,
 			Layer::BACKGROUND
 		}
 	);
+	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
+	bgSprite.spriteID = bgSubTextureID;
 	
 	Renderer::Init();
 
 	//----------temp------------
-
+	mEditorMode = true;
 	FramebufferProps fbProps;
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
-	mFramebuffer = Framebuffer::Create(fbProps);
-	mEditorMode = true;
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
+
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 	//--------------------------
 }
 
@@ -148,11 +147,11 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
-	mFramebuffer->Bind();
+	mFramebuffers[0]->ClearAttachmentInt(1, -1);
+	mFramebuffers[0]->Bind();
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
-	mFramebuffer->ClearAttachmentInt(1, -1);
 
 	mRenderQueue.clear();
 
@@ -177,23 +176,23 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	if (!mEditorMode) {
 		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
-		RigidBody const& playerRigidBody {gCoordinator->GetComponent<RigidBody>(mPlayer)};
+		RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
 		glm::vec3 playerPosition{ playerTransform.position };
-		Vec2 playerVel { playerRigidBody.velocity };
+		Vec2 playerVel{ playerRigidBody.velocity };
 
 		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
 		sceneCamera.UpdatePosition(playerPosition, playerVel);
 	}
 
-	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera).GetViewProjMtx() :
-										  ::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
+		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 
 	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
-		if (entry.sprite->texture) {
-			Renderer::DrawSprite(*entry.transform, entry.sprite->texture, entry.sprite->color, entry.entity);
+		if (entry.sprite->spriteID > -1) {
+			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->spriteID), entry.sprite->color, entry.entity);
 		}
 		else {
 			if (entry.transform->elipse)
@@ -211,7 +210,35 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
-	mFramebuffer->Unbind();
+	::gCoordinator->GetSystem<TextSystem>()->Update();
+	mFramebuffers[0]->Unbind();
+
+	//Prefab Editor
+	mFramebuffers[1]->Bind();
+	glDepthMask(GL_TRUE);
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	Renderer::ClearColor();
+	Renderer::ClearDepth();
+
+	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
+
+	for (auto const& entity : mEntities) {
+		auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
+		auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+
+		if (sprite.spriteID > -1) {
+			Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
+		}
+		else {
+			if (transform.elipse)
+				Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+			else
+				Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+		}
+	}
+	glDepthMask(GL_FALSE);
+	Renderer::RenderSceneEnd();
+	mFramebuffers[1]->Unbind();
 }
 
 /*  _________________________________________________________________________ */

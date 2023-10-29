@@ -31,6 +31,7 @@
 #include "Components/Animation.hpp"
 #include "Components/Sprite.hpp"
 #include "Systems/InputSystem.hpp"
+#include "Graphics/SpriteManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -46,19 +47,31 @@ void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
 
 	//-------------TEMPORARY-------------------------------------------------------------/
-	mIdle = Texture::Create("../Textures/Idle.png");
-	mRun = Texture::Create("../Textures/Run.png");
-	mAttack = Texture::Create("../Textures/Attack_1.png");
 
+	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
+	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
+	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
 
-	for (float i{}; i < 8; ++i)
-		mSpriteList.push_back(SubTexture::Create(mIdle, { i, 0 }, { 128, 128 }));
+	SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png", 0);
 
-	for(float i{8}; i < 16; ++i)
-		mSpriteList.push_back(SubTexture::Create(mRun, {i, 0}, {128, 128}));
+	//for (float i{}; i < 8; ++i)
+	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(0), { i, 0 }, { 128, 128 }));
 
-	for(float i{16}; i <23; ++i)
-		mSpriteList.push_back(SubTexture::Create(mAttack, { i, 0 }, { 128, 128 }));
+	//for(float i{8}; i < 16; ++i)
+	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(1), {i, 0}, {128, 128}));
+
+	//for(float i{16}; i <23; ++i)
+	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(2), { i, 0 }, { 128, 128 }));
+
+	//TEMP
+	for (float i{}; i < 7; ++i)
+		SpriteManager::CreateSubTexture(0, { i, 1 }, { 256, 256 }, (int)i);
+
+	for (float i{ 7 }; i < 16; ++i)
+		SpriteManager::CreateSubTexture(0, { i, 2 }, { 256, 256 }, (int)i);
+
+	for (float i{ 16 }; i < 23; ++i)
+		SpriteManager::CreateSubTexture(0, { i, 0 }, { 256, 256 }, (int)i);
 
 	//------------------------------------------------------------------------------------/
 
@@ -87,7 +100,8 @@ void AnimationSystem::Update(float dt) {
 		AnimationFrame& currFrame { frameList[frameIdx] };
 
 		currFrame.elapsedTime += dt;
-		sprite.texture = mSpriteList[currFrame.spriteIdx];
+
+		sprite.spriteID = currFrame.spriteID;
 
 		if (currFrame.elapsedTime >= animation.speed) {
 			++frameIdx;

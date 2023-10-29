@@ -220,7 +220,7 @@ int main()
 		windowManager->ProcessEvents();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
-		textSystem->Update();
+		//textSystem->Update();
 		gGameLoop.CheckToggleKey();
 		gGameLoop.Evaluate();
 		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {

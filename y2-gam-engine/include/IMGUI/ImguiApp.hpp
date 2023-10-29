@@ -49,5 +49,6 @@ namespace Image {
     void InspectorWindow();
     void PropertyWindow();
     void BufferWindow();
+    void PrefabWindow();
     void LoggingWindow();
 }
