@@ -52,5 +52,6 @@ namespace Image {
     void PrefabWindow();
     void ContentWindow();
     void TextureHdlWindow(std::set<Entity>const& mEntities);
+    void PerformanceWindow();
     void LoggingWindow();
 }

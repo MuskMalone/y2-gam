@@ -85,6 +85,7 @@ namespace Image {
         PrefabWindow();
         ContentWindow();
         TextureHdlWindow(mEntities);
+        PerformanceWindow();
         LoggingWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
@@ -668,8 +669,9 @@ namespace Image {
         ImGui::Begin("Image Game Engine", nullptr, window_flags);
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+        auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-        if (ImGui::IsWindowHovered()) {
+        if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
 
             //mouse picking part:
             ImVec2 contentSize = ImGui::GetContentRegionAvail();
@@ -742,7 +744,6 @@ namespace Image {
         }
 
 
-        auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
         if (ImGui::Button("Play")) {
 
             if (renderSystem->IsEditorMode()) {
@@ -854,6 +855,71 @@ namespace Image {
     }
     void TextureHdlWindow(std::set<Entity>const& mEntities) {
         ImGui::Begin("Texture HDL");
+
+        ImGui::End();
+    }
+
+    void PerformanceWindow() {
+        ImGui::Begin("Performance Viewer");
+       // auto frameController = ::gCoordinator->GetSystem<FrameRateController>()->GetInstance();
+       // // Display FPS
+       // static const int percent{ 100 };
+       // float fps = frameController->GetFps();
+       // ImGui::Text("FPS: %f", fps);
+       // static float fpsValues[percent] = {};
+       // static float physicsValues[percent] = {};
+       // static float collisionValues[percent] = {};
+       // static float renderValues[percent] = {};
+       // static int valueIndex{};
+       // // Store the value
+       // valueIndex = (valueIndex + 1) % percent; 
+
+       // // Plot FPS over time
+       // ImGui::Text("FPS over Time");
+       // fpsValues[valueIndex] = fps;
+       // ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), valueIndex, nullptr, 0.0f, 144, ImVec2(0, 80));
+       // ImGui::NewLine();
+       // //ImGui::Separator();
+       // 
+       // // Display Entity Count using a ProgressBar
+       // int entityRatio = gCoordinator->GetEntityCount() / MAX_ENTITIES;
+       // ImGui::Text("Entities");
+       // ImGui::ProgressBar(static_cast<float>(entityRatio), ImVec2(-1.0f, 0.0f), std::to_string(gCoordinator->GetEntityCount()).c_str());
+       // ImGui::NewLine();
+       //// ImGui::Separator();
+
+
+       // // Display Physics Performance using a ProgressBar
+       // ImGui::Text("Physics");
+       // physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100.f;
+       // float physicsPerformance = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE);
+       // ImGui::ProgressBar(physicsPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(physicsPerformance * 100.0f) + "%").c_str());
+       // // Plot Physics Performance over time
+       // ImGui::Text("Physics Performance over Time");
+       // ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+       // ImGui::NewLine();
+       //// ImGui::Separator();
+
+       // // Display Collision Performance using a ProgressBar
+       // ImGui::Text("Collision");
+       // collisionValues[valueIndex] = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100.f;
+       // float collisionPerformance = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE);
+       // ImGui::ProgressBar(collisionPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(collisionPerformance * 100.0f) + "%").c_str());
+       // // Plot Collision Performance over time
+       // ImGui::Text("Collision Performance over Time");
+       // ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+       // ImGui::NewLine();
+       // //ImGui::Separator();
+
+       // // Display Render Performance using a ProgressBar
+       // ImGui::Text("Render");
+       // renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100.f;
+       // float renderPerformance = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE);
+       // ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * 100.0f) + "%").c_str());
+       // // Plot Render Performance over time
+       // ImGui::Text("Render Performance over Time");
+       // ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+
 
         ImGui::End();
     }
