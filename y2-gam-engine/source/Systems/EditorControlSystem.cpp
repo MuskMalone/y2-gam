@@ -24,6 +24,9 @@ namespace {
 	Image::Sound bgm;
 	Image::SoundGroup bgmGroup;
 	Image::SoundGroup effectGroup;
+
+	float gravity = -90.f;
+	float massOfPlayer = 10.f;
 }
 namespace Testing {
 	std::default_random_engine generator;
@@ -262,7 +265,7 @@ void EditorControlSystem::Init()
 	float scale{ 15.f };
 	::gCoordinator->AddComponent<Gravity>(
 		player,
-		{ Vec2(0.0f, -90.f) });
+		{ Vec2(0.0f, ::gravity) });
 	::gCoordinator->AddComponent(
 		player,
 		Collider{
@@ -271,7 +274,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		player,
 		RigidBody{
-			Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
+			Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
 		});
 	::gCoordinator->AddComponent(
 		player,
@@ -310,7 +313,7 @@ void EditorControlSystem::Init()
 	scale = 15.f;
 	::gCoordinator->AddComponent<Gravity>(
 		Testing::enemy,
-		{ Vec2(0.0f, -90.f) });
+		{ Vec2(0.0f, ::gravity) });
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		Collider{
@@ -320,7 +323,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		Testing::enemy,
 		RigidBody{
-			Vec2(position), 0.f, 10.f, Vec2(scale, scale), true
+			Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
 		});
 	
 	::gCoordinator->AddComponent(

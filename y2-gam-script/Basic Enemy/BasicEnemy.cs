@@ -27,6 +27,7 @@ namespace Object
         public readonly float JumpForce = 30000.0f;
         public readonly float VisionRange = 30.0f;
         public readonly float AttackRange = 15.0f;
+        public bool isGrounded = true;
 
         // Time related
         public float TimeInState = 0.0f;
@@ -114,6 +115,17 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            // Workaround for now
+            if (Math.Abs(Velocity.Y) > 1.0f)
+            {
+                isGrounded = false;
+            }
+
+            else
+            {
+                isGrounded = true;
+            }
+
             if (FacingDirectionChanged)
             {
                 Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
@@ -145,15 +157,17 @@ namespace Object
 
         public void MoveLeft()
         {
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
             AnimationState = (int)AnimationCode.RUN;
-            Force -= new Vector2(MovementForce, 0.0f);
+            Force -= new Vector2(horizontalMovement, 0.0f);
             isFacingRight = false;
         }
 
         public void MoveRight()
         {
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
             AnimationState = (int)AnimationCode.RUN;
-            Force += new Vector2(MovementForce, 0.0f);
+            Force += new Vector2(horizontalMovement, 0.0f);
             isFacingRight = true;
         }
 

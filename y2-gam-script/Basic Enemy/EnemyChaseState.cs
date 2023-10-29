@@ -86,7 +86,7 @@ public class EnemyChaseState : EnemyBaseState
 
                 if (enemy.JumpTimer <= 0.0f)
                 { 
-                    float jumpThreshold = 0.8f;
+                    float jumpThreshold = 0.9f;
                     if (direction.Y > jumpThreshold) // Node is higher than the enemy
                     {  
                         enemy.Jump();
