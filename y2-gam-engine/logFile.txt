@@ -15350,3 +15350,107 @@
 
 [INFO]: Succesfully Compiled and Linked! 2023-10-30 02:39:13 FN: Shader::CreateShaderFromString
 
+[INFO]: Successful FMOD System Creation 2023-10-30 02:48:18 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 02:48:19 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 02:48:19 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 02:48:19 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-30 02:48:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 02:48:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-30 02:48:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 02:48:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-30 02:48:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 02:48:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 02:48:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 02:48:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 02:48:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 02:48:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful FMOD System Creation 2023-10-30 02:55:54 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 02:55:55 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 02:55:55 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:00:35 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:00:35 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:00:36 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:03:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:03:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:03:41 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 03:03:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-30 03:03:41 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 03:03:41 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-30 03:03:41 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 03:03:41 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-30 03:03:41 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-30 03:03:41 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 03:03:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 03:03:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 03:03:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-30 03:03:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-30 03:03:41 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-30 03:03:41 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-10-30 03:03:41 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:04:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:04:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:04:06 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:06:21 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:06:21 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:06:22 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:09:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:09:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:09:41 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:11:13 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:11:13 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:11:14 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-30 03:12:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-30 03:12:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-30 03:12:28 FN: Image::FontRenderer::Init
+

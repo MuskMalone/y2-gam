@@ -229,7 +229,7 @@ void EditorControlSystem::Init()
 		Sprite{
 			{1,1,1,1},
 			nullptr,
-			-1,
+			0,
 			Layer::FOREGROUND
 		});
 	::gCoordinator->AddComponent(
@@ -443,7 +443,7 @@ void EditorControlSystem::Update(float dt)
 					Sprite{
 						{randColor(generator), randColor(generator), randColor(generator), 1},
 						nullptr,
-						-1,
+						0,
 						Layer::FOREGROUND
 					}
 				);
