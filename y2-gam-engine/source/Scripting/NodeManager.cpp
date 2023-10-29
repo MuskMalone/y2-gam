@@ -92,9 +92,11 @@ namespace Image {
 					Vec2 centerPosition{ (firstScreenPosition.x + secondScreenPosition.x) / 2, 
 						(firstScreenPosition.y + secondScreenPosition.y) / 2 };
 
+					/*
 					Image::FontRenderer::RenderText("Arial", std::to_string(costMap[std::pair(ent, neighbour)]),
 						centerPosition.x, centerPosition.y,
 						0.07f, Vec3(0.f, 1.f, 0.f));
+					*/
 				}
 			}
 		}
