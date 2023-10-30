@@ -249,9 +249,9 @@ void EditorControlSystem::Init()
 	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
 	//																 {ANIM_STATE::RUN, runFrames},
 	//																 {ANIM_STATE::ATTACK, attackFrames} };
-	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 } };
-	std::vector<AnimationFrame> runFrames{ {0.f, 7}, {0.f, 8}, { 0.f, 9 }, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
-	std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+	std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 0}, { 0.f, 0}, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 } };
+	std::vector<AnimationFrame> runFrames{ {0.f, 0}, {0.f, 0}, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 } };
+	std::vector<AnimationFrame> attackFrames{ {0.f, 0}, {0.f, 0}, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 }, { 0.f, 0 } };
 	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
 																	 {ANIM_STATE::RUN, runFrames},
 																	 {ANIM_STATE::ATTACK, attackFrames} };

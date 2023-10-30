@@ -54,18 +54,10 @@ void AnimationSystem::Init() {
 
 	ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 
-	//for (float i{}; i < 8; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(0), { i, 0 }, { 128, 128 }));
-
-	//for(float i{8}; i < 16; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(1), {i, 0}, {128, 128}));
-
-	//for(float i{16}; i <23; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(2), { i, 0 }, { 128, 128 }));
-
 	//TEMP
 	for (float i{}; i < 7; ++i)
-		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256}});
+		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
+	
 
 	for (float i{ 7 }; i < 16; ++i)
 		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });

@@ -161,6 +161,7 @@
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
+    <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
@@ -257,6 +258,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />

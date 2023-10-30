@@ -92,7 +92,7 @@ ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, SpritePropertie
         return false;
     }
 
-    auto sprite = SubTexture::Create(textures[textureID], props.min, props.max, props.id);
+    auto sprite = SubTexture::Create(textures[textureID], props.idx, props.dim);
     sprites[props.id] = sprite;
     return props.id;
 }
@@ -188,9 +188,10 @@ void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rap
 std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
     return sprites[rid];
 }
-SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {
-    return sprites[rid]->GetProperties();
-}
+
+//SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {
+//    return sprites[rid]->GetProperties();
+//}
 ResourceID SpriteManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID rid) {
     auto sm{ Serializer::SerializationManager::GetInstance() };
 
