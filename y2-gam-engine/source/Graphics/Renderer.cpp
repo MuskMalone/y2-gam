@@ -330,7 +330,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 
 
 	mData.quadIdxCount += 6;
 
-	//++mData.stats.quadCount;
+	++mData.stats.quadCount;
 }
 
 /*  _________________________________________________________________________ */
@@ -389,7 +389,7 @@ void Renderer::DrawQuad(glm::vec3 const& pos, glm::vec2 const& scale,
 
 	mData.quadIdxCount += 6;
 
-	//++mData.stats.quadCount;
+	++mData.stats.quadCount;
 }
 
 /*  _________________________________________________________________________ */
@@ -421,7 +421,6 @@ to form a transformation matrix which is then used to set the quad buffer data. 
 function increments the quad index count by 6 for each sprite drawn.
 
 */
-//TODO Add duplicated code in function
 void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::shared_ptr<SubTexture>const& subtex, glm::vec4 const& tint, float rot, int entity) {
 
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
@@ -457,7 +456,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 
 	mData.quadIdxCount += 6;
 
-	//++mData.stats.quadCount;
+	++mData.stats.quadCount;
 }
 
 /*  _________________________________________________________________________ */
@@ -510,7 +509,7 @@ void Renderer::DrawLine(glm::vec3 const& p0, glm::vec3 const& p1, glm::vec4 cons
 
 	mData.lineVtxCount += 2;
 
-	//++mData.stats.lineCount;
+	++mData.stats.lineCount;
 }
 
 /*  _________________________________________________________________________ */
@@ -624,7 +623,7 @@ void Renderer::FlushBatch() {
 		mData.texShader->Use();
 		DrawIndexed(mData.quadVertexArray, mData.quadIdxCount);
 
-		//++mData.stats.drawCalls;
+		++mData.stats.drawCalls;
 	}
 
 	if (mData.lineVtxCount) {
@@ -638,7 +637,7 @@ void Renderer::FlushBatch() {
 		mData.lineShader->Use();
 		DrawLineArray(mData.lineVertexArray, mData.lineVtxCount);
 
-		//++mData.stats.drawCalls;
+		++mData.stats.drawCalls;
 	}
 
 	if (mData.circleIdxCount) {

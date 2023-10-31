@@ -89,6 +89,7 @@ namespace Image {
         BufferWindow();
         PrefabWindow();
         LoggingWindow();
+        RenderStatsWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
             for (auto& e : mEntities) {
@@ -685,6 +686,18 @@ namespace Image {
         }
         ImGui::EndChild();
         ImGui::End();
+    }
+
+    void RenderStatsWindow() {
+
+        ImGui::Begin("Renderer Stats");
+        auto stats = Renderer::GetStats();
+        ImGui::Text("Draw Calls: %d", stats.drawCalls);
+        ImGui::Text("Quads: %d", stats.quadCount);
+        ImGui::Text("Vertices: %d", stats.GetTotalVtxCount());
+        ImGui::Text("Indics: %d", stats.GetTotalIdxCount());
+        ImGui::End();
+        Renderer::ResetStats();
     }
 
 }

@@ -162,7 +162,6 @@ public:
 	static void DrawLineArray(std::shared_ptr<VertexArray> const& vao, unsigned int vtxCount);
 
 	//Stats
-
 	static Statistics GetStats();
 	static void ResetStats();
 

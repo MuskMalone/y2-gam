@@ -51,4 +51,5 @@ namespace Image {
     void BufferWindow();
     void PrefabWindow();
     void LoggingWindow();
+    void RenderStatsWindow();
 }
