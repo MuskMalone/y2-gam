@@ -13,7 +13,7 @@ void AssetManager::Init() {
 		for (auto ass = (sm->At(cmFileName, sysName)).MemberBegin(); ass != (sm->At(cmFileName, sysName)).MemberEnd(); ++ass) {
 			AssetID aid{ std::stoull(ass->name.GetString()) };
 			std::string path{ ass->value["path"].GetString() };
-			ResourceID rid{ ass->value["path"].GetUint64() };
+			ResourceID rid{ ass->value["id"].GetUint64() };
 			mAssets[aid] = { path, sysName, rid };
 			std::cout << "aid, path, sysname: " << aid << " " << path << " " << sysName << std::endl;
 

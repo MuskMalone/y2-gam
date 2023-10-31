@@ -16110,3 +16110,897 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-10-30 21:31:23 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-10-31 14:18:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 14:18:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:05:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:05:30 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:05:31 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:05:31 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:05:31 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:05:31 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:05:31 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:05:31 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:05:31 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:05:31 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:05:31 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:05:31 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:05:31 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:05:31 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:05:31 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:05:31 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:05:31 FN: Framebuffer::Recreate
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/ROBIN_ANIM_Spritesheet.png !  2023-10-31 16:05:31 FN: Texture::Texture
+
+[INFO]: Mono method .ctor created! 2023-10-31 16:05:31 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-31 16:05:31 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-31 16:05:31 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:05:31 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:05:31 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:05:31 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:05:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-31 16:05:31 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-31 16:05:41 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:14:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:14:16 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:14:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:14:52 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:15:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:15:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:15:29 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:15:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:15:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:15:29 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:15:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:15:29 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:15:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:15:29 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:15:29 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:15:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:15:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:15:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:15:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:15:29 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:15:29 FN: Framebuffer::Recreate
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/ROBIN_ANIM_Spritesheet.png !  2023-10-31 16:15:29 FN: Texture::Texture
+
+[INFO]: Mono method .ctor created! 2023-10-31 16:15:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-31 16:15:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-31 16:15:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-31 16:15:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-31 16:15:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:15:29 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:15:29 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:29 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:15:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-31 16:15:29 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-31 16:15:34 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-31 16:15:35 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-31 16:15:36 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-31 16:15:38 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-31 16:15:38 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-31 16:15:38 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-31 16:15:39 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-31 16:15:40 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-10-31 16:15:41 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-31 16:15:41 FN: Image::SoundManager::AudioResumeGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:50 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:15:50 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:15:51 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:15:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:17:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:17:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:17:44 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:19:17 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:19:18 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:19:18 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:19:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:19:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:19:18 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:19:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:19:18 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:19:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:19:18 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:19:18 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:19:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:19:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:19:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:19:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:19:18 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:19:18 FN: Framebuffer::Recreate
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/ROBIN_ANIM_Spritesheet.png !  2023-10-31 16:19:18 FN: Texture::Texture
+
+[INFO]: Mono method .ctor created! 2023-10-31 16:19:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-31 16:19:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-31 16:19:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-31 16:19:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-31 16:19:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:19:19 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:19:19 FN: Image::SoundManager::AudioCreateGroup
+
+[ERROR]: FMOD error! An invalid object handle was used. 2023-10-31 16:19:19 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: FMOD error! An invalid parameter was passed to this function. 2023-10-31 16:19:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-31 16:19:19 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-10-31 16:19:23 FN: Image::SoundManager::AudioExit
+
+[ERROR]: Namespace:  2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:31:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:31:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:31:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:31:44 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:31:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:31:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:31:44 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:31:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:31:44 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:31:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:31:44 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:31:44 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:31:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:31:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:31:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:31:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:31:44 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:31:44 FN: Framebuffer::Recreate
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/ROBIN_ANIM_Spritesheet.png !  2023-10-31 16:31:44 FN: Texture::Texture
+
+[INFO]: Mono method .ctor created! 2023-10-31 16:31:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-31 16:31:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-31 16:31:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-31 16:31:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-31 16:31:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:31:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:31:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-10-31 16:31:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-31 16:31:44 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-31 16:31:48 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-10-31 16:31:49 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-31 16:31:50 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:31:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-10-31 16:31:59 FN: Image::SoundManager::AudioExit
+
+[ERROR]: Namespace:  2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:34:01 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:34:01 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:34:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:34:02 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:03 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:34:03 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:03 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:34:03 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:03 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:34:03 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:03 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:34:03 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:03 FN: Shader::CreateShaderFromString
+
+[ERROR]: Namespace:  2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:34:23 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:34:23 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:34:25 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:34:25 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:25 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:34:25 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:25 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:34:25 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:25 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 16:34:25 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:34:25 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 16:34:25 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:25 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:25 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:25 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:34:25 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:34:25 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-10-31 16:34:25 FN: Framebuffer::Recreate
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/ROBIN_ANIM_Spritesheet.png !  2023-10-31 16:34:25 FN: Texture::Texture
+
+[INFO]: Mono method .ctor created! 2023-10-31 16:34:25 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-10-31 16:34:25 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-10-31 16:34:25 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-10-31 16:34:25 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-10-31 16:34:25 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:34:25 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-10-31 16:34:25 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-10-31 16:34:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-10-31 16:34:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-10-31 16:34:25 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-10-31 16:34:28 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-10-31 16:34:28 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-10-31 16:34:29 FN: Image::SoundManager::AudioPlay
+
+[ERROR]: Namespace:  2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:53:37 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:53:37 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:53:39 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:53:39 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:53:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:53:52 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:53:53 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:53:53 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 16:54:05 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 16:54:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 16:54:06 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 16:54:06 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 16:54:06 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 16:54:06 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 16:54:06 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 16:54:06 FN: Image::FontRenderer::LoadFont
+
+[ERROR]: Namespace:  2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 17:05:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 17:05:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 17:05:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 17:05:32 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-10-31 17:11:29 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-10-31 17:11:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-10-31 17:11:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-10-31 17:11:32 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 17:11:32 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-10-31 17:11:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 17:11:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-10-31 17:11:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 17:11:32 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-10-31 17:11:32 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-10-31 17:11:32 FN: Image::FontRenderer::SetFontSize
+
+[ERROR]: ERROR: Failed to load texture: ../assets/textures/blinkbg.png !  2023-10-31 17:11:32 FN: Texture::Texture
+
+[INFO]: Succesfully Compiled and Linked! 2023-10-31 17:11:46 FN: Shader::CreateShaderFromString
+

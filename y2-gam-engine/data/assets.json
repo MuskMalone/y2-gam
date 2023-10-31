@@ -9,67 +9,6 @@
             "id": 1698648904161079500,
             "path": "../assets/audio/bgm.wav",
             "stream": false
-        },
-        "1698648929692995000": {
-            "id": 1698648929693007200,
-            "path": "../assets/audio/teleport.wav",
-            "stream": false
-        },
-        "1698648929693019500": {
-            "id": 1698648929693027400,
-            "path": "../assets/audio/bgm.wav",
-            "stream": false
-        },
-        "1698650885422264000": {
-            "id": 1698650885422280900,
-            "path": "../assets/audio/teleport.wav",
-            "stream": false
-        },
-        "1698650885422298800": {
-            "id": 1698650885422306700,
-            "path": "../assets/audio/bgm.wav",
-            "stream": false
-        },
-        "1698653886539329800": {
-            "id": 1698653886539352300,
-            "path": "../assets/audio/teleport.wav",
-            "stream": false
-        },
-        "1698653886539375100": {
-            "id": 1698653886539411000,
-            "path": "../assets/audio/bgm.wav",
-            "stream": false
-        },
-        "1698656606673458200": {
-            "id": 1698656606673481900,
-            "path": "../assets/audio/teleport.wav",
-            "stream": false
-        },
-        "1698656606673516000": {
-            "id": 1698656606673527800,
-            "path": "../assets/audio/bgm.wav",
-            "stream": false
-        },
-        "1698672678628856800": {
-            "id": 1698672678628877300,
-            "path": "../assets/audio/teleport.wav",
-            "stream": false
-        },
-        "1698672678628902200": {
-            "id": 1698672678628911700,
-            "path": "../assets/audio/bgm.wav",
-            "stream": false
         }
-    },
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {},
-    "classImage::SoundManager": {}
+    }
 }
