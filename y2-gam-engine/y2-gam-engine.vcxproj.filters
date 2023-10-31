@@ -54,7 +54,6 @@
     <ClCompile Include="source\Engine\PrefabsManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\pch.cpp" />
-    <ClCompile Include="source\Core\Raycast.cpp" />
     <ClCompile Include="source\Systems\TextSystem.cpp" />
     <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
@@ -137,7 +136,6 @@
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
-    <ClInclude Include="include\Core\Raycast.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Systems\TextSystem.hpp" />

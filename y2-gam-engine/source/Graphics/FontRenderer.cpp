@@ -361,12 +361,10 @@ namespace Image {
   void FontRenderer::RenderText(std::string fontName, std::string text, float xPos, float yPos, 
     float scale, Vec3 color) {
     if (sFaces.find(fontName) == sFaces.end()) {
-      //std::cout << "Font " << fontName << " does not exist" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + fontName + " does not exist", __FUNCTION__);
       std::exit(EXIT_FAILURE);
     }
 
-    // Temporary Fix
     yPos = -yPos;
 
     FaceObject const& currFace{ sFaces[fontName] };
@@ -441,5 +439,16 @@ namespace Image {
     currFace.ebo->Unbind();
     currFace.vbo->Unbind();
     sShaderPgm->Unuse();
+  }
+
+  float FontRenderer::GetTextWidth(std::string fontName, std::string text, float scale) {
+    float xPos = 0.0f;
+
+    for (char const& ch : text) {
+      Character currChar{ (sCharacters[fontName])[ch] };
+      xPos += (currChar.advance >> 6) * scale;
+    }
+
+    return xPos;
   }
 }

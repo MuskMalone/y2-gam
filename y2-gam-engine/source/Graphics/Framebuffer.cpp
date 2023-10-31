@@ -146,10 +146,10 @@ void Framebuffer::Recreate() {
 			FbUtils::BindTexture(multisample, mColorAttachments[i]);
 			switch (mColorAttachmentProps[i].TexFormat) {
 			case FramebufferTexFormat::RGBA8:
-				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, GL_RGBA, mProps.width, mProps.height, i);
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_RGBA8, GL_RGBA, mProps.width, mProps.height, static_cast<int>(i));
 				break;
 			case FramebufferTexFormat::RED_INTEGER:
-				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, i);
+				FbUtils::AttachColorTexture(mColorAttachments[i], mProps.samples, GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, static_cast<int>(i));
 				break;
 			}
 		}

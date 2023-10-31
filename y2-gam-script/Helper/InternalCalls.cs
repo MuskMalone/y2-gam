@@ -17,18 +17,26 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Image
 {
     public static class InternalCalls
     {
-        #region PhysicsComponent
+        #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetRaycast(Vector3 origin, Vector3 direction,
-            float maxDistance, out IntPtr raycastHit);
+        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
+            out Vector2 nextNode, out Vector2 nodeType);
         #endregion
 
-        #region AnimationComponent
+        #region PhysicsComponent
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
+        #endregion
+
+        #region GraphicsComponent
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
@@ -60,6 +68,38 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void AnimationComponent_SetAnimationState(uint entityHandle, ref int animationState);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_GetScale
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param scale
+        Current scale of the entity.
+
+        @return none.
+
+        Get the current scale of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_GetScale(uint entityHandle, out Vector3 scale);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetScale
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param scale
+        Updated scale of the entity.
+
+        @return none.
+
+        Set the current scale of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
         #endregion
 
         #region TransformComponent
@@ -77,7 +117,7 @@ namespace Image
         Get the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector3 translation);
+        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector2 translation);
 
         /*  _________________________________________________________________________ */
         /*! TransformComponent_SetTranslation
@@ -93,7 +133,7 @@ namespace Image
         Set the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_SetTranslation(uint entityHandle, ref Vector3 translation);
+        internal extern static void TransformComponent_SetTranslation(uint entityHandle, ref Vector2 translation);
         #endregion
 
         #region ForceComponent

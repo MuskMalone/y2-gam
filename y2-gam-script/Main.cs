@@ -21,7 +21,7 @@ namespace Image
 {
     public class Entity
     {
-        protected uint entityID;
+        public uint entityID;
 
         /*  _________________________________________________________________________ */
         /*! Entity
@@ -53,6 +53,30 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! CalculateAcceleration
+        
+        @param force
+        The force.
+
+        @param mass
+        The mass.
+
+        @return Vector2
+
+        Given force and mass, calculates acceleration using f=ma.
+        */
+        public Vector2 CalculateAcceleration(Vector2 force, float mass)
+        {
+            if (mass == 0.0f)
+            {
+                return new Vector2(0.0f, 0.0f);
+            }
+
+            Vector2 acceleration = force / mass;
+            return acceleration;
+        }
+
+        /*  _________________________________________________________________________ */
         /*! AnimationState
 
         Getter setter for AnimationState.
@@ -71,15 +95,33 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! Scale
+
+        Getter setter for Scale.
+        */
+        public Vector3 Scale
+        {
+            get
+            {
+                InternalCalls.GraphicsComponent_GetScale(entityID, out Vector3 scale);
+                return scale;
+            }
+            set
+            {
+                InternalCalls.GraphicsComponent_SetScale(entityID, ref value);
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! Translation
 
         Getter setter for Translation.
         */
-        public Vector3 Translation
+        public Vector2 Translation
         {
             get
             {
-                InternalCalls.TransformComponent_GetTranslation(entityID, out Vector3 translation);
+                InternalCalls.TransformComponent_GetTranslation(entityID, out Vector2 translation);
                 return translation;
             }
             set

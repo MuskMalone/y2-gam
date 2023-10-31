@@ -58,6 +58,20 @@ bool DecisionTree::IsInGameMode() const {
 }
 
 /*  _________________________________________________________________________ */
+/*! IsInImGuiPlayMode
+
+@param none.
+
+@return bool
+Returns true if in game mode, false otherwise.
+
+Checks if the system is currently in the game mode.
+*/
+bool DecisionTree::IsInImGuiPlayMode() const {
+    return currentMode == DecisionResults::IMGUI_PLAY_MODE;
+}
+
+/*  _________________________________________________________________________ */
 /*! ToggleGameMode
 
 @param none.
@@ -71,9 +85,14 @@ void DecisionTree::ToggleGameMode() {
     if (IsInGameMode()) {
         SetImGuiMode();
     }
+    else if (IsInImGuiPlayMode()) {
+        SetImGuiPlayMode();
+    }
     else {
         SetGameMode();
     }
+    //std::cout<<"toggleGameMode" << (int)currentMode << std::endl;
+
 }
 
 /*  _________________________________________________________________________ */
@@ -87,7 +106,7 @@ Sets the current mode to GAME_MODE and outputs a notification to the console.
 */
 void DecisionTree::SetGameMode() {
     currentMode = DecisionResults::GAME_MODE;
-    std::cout << "Game mode set!" << std::endl;
+    //std::cout << "Game mode set!" << std::endl;
 }
 
 /*  _________________________________________________________________________ */
@@ -101,6 +120,19 @@ Sets the current mode to IMGUI_MODE.
 */
 void DecisionTree::SetImGuiMode() {
     currentMode = DecisionResults::IMGUI_MODE;
+}
+
+/*  _________________________________________________________________________ */
+/*! SetImGuiPlayMode
+
+@param none.
+
+@return none.
+
+Sets the current mode to IMGUI_PLAY_MODE.
+*/
+void DecisionTree::SetImGuiPlayMode() {
+    currentMode = DecisionResults::IMGUI_PLAY_MODE;
 }
 
 /*  _________________________________________________________________________ */
@@ -152,6 +184,30 @@ DecisionTreeNode* DecisionTree::AddNode(DecisionTreeNode* parent, int id) {
     auto newNode = std::make_unique<DecisionTreeNode>(id);
     parent->children.push_back(std::move(newNode));
     return parent->children.back().get();
+}
+
+
+/*  _________________________________________________________________________ */
+/*! ToggleImGuiMode
+
+@return none.
+
+Toggles between IMGUI and IMGUI_PLAY mode
+*/
+void DecisionTree::ToggleImGuiMode(){
+    ::gCoordinator = Coordinator::GetInstance();
+    auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+    if (currentMode == DecisionResults::IMGUI_PLAY_MODE) {
+        currentMode = DecisionResults::IMGUI_MODE;
+        renderSystem->ToggleEditorMode();
+    }
+    else {
+        currentMode = DecisionResults::IMGUI_PLAY_MODE;
+        renderSystem->ToggleEditorMode();
+    }
+    //std::cout << "toggleimguimode" << (int)currentMode << std::endl;
+
+    ToggleGameMode();
 }
 
 /*  _________________________________________________________________________ */
@@ -233,7 +289,7 @@ Sets up the structure of the decision tree by creating nodes and establishing
 their relationships.
 */
 void DecisionTree::BuildDecisionTree() {
-    auto root = CreateRootNode(1);
+    /*auto root = CreateRootNode(1);
     root->decisionFunction = [this]() -> bool {
         return IsInGameMode();
     };
@@ -243,4 +299,26 @@ void DecisionTree::BuildDecisionTree() {
 
     auto childNodeForImGui = AddNode(root, 3);
     childNodeForImGui->actionCallback = [this]() { SetImGuiMode(); };
+
+    auto childNodeForImGuiPlay = AddNode(root, 4);
+    childNodeForImGuiPlay->actionCallback = [this]() { SetImGuiPlayMode(); };*/
+    auto root = CreateRootNode(1);
+    root->decisionFunction = [this]() -> bool {
+        return IsInGameMode();
+    };
+
+    auto childNodeForGame = AddNode(root, 2);
+    childNodeForGame->actionCallback = [this]() { SetGameMode(); };
+
+    auto childNodeForImGui = AddNode(root, 3);
+    childNodeForImGui->decisionFunction = [this]() -> bool {
+        return IsInImGuiPlayMode();
+    };
+
+    auto childNodeForImGuiPlay = AddNode(childNodeForImGui, 4);
+    childNodeForImGuiPlay->actionCallback = [this]() { SetImGuiPlayMode(); };
+
+    auto childNodeForDefaultImGui = AddNode(childNodeForImGui, 5);
+    childNodeForDefaultImGui->actionCallback = [this]() { SetImGuiMode(); };
+
 }

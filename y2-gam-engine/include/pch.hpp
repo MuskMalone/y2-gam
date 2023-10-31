@@ -92,3 +92,6 @@
 #include "Components/Animation.hpp"
 #include "Components/Text.hpp" 
 #include "Components/Node.hpp"
+#include "Components/OrthoCamera.hpp"
+#include "Components/Script.hpp"
+#include "Components/Tag.hpp"

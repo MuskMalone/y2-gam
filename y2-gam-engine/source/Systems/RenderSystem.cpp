@@ -75,6 +75,15 @@ void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
 
 /*  _________________________________________________________________________ */
 /*!
+\brief IsEditorMode Function
+
+Returns true when editor mode else return false.
+*/
+bool RenderSystem::IsEditorMode() const{
+	return mEditorMode==true;
+}
+/*  _________________________________________________________________________ */
+/*!
 \brief Init Function
 
 Initializes the rendering system, setting up necessary resources.

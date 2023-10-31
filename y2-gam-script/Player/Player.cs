@@ -22,6 +22,28 @@ namespace Object
 {
     public class Player : Entity
     {
+        // Force Based
+        public readonly float JumpForce = 30000.0f;
+        public readonly float MovementForce = 1200.0f;
+        public bool isGrounded = true;
+
+        // Direction related
+        //public bool directionChanged = false;
+        private bool _isFacingRight = true;
+        public bool isFacingRight
+        {
+            get { return _isFacingRight; }
+            set
+            {
+                if (_isFacingRight != value)
+                {
+                    _isFacingRight = value;
+                    FacingDirectionChanged = true; // Set another flag when isFacingRight changes
+                }
+            }
+        }
+        public bool FacingDirectionChanged { get; private set; }
+
         /*  _________________________________________________________________________ */
         /*! Player
 
@@ -46,7 +68,6 @@ namespace Object
         */
         public Player(uint entityHandle) : base(entityHandle)
         {
-            //Console.WriteLine("Player Non-Default, Single Parameter Constructor Called!");
             entityID = entityHandle;
         }
 
@@ -60,7 +81,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            //Console.WriteLine($"Player.OnCreate from ID: {entityID}");
+
         }
 
         /*  _________________________________________________________________________ */
@@ -75,70 +96,63 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            float speed = 500.0f;
-            Vector2 forces = new Vector2(0.0f, 0.0f);
+            // Workaround for now
+            if (Math.Abs(Velocity.Y) > 1.0f)
+            {
+                isGrounded = false;
+            }
+
+            else
+            {
+                isGrounded = true;
+            }
+
+            if (FacingDirectionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                FacingDirectionChanged = false; // Reset the flag
+            }
 
             if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
             {
-                Vector2 jumpForce = new Vector2(0.0f, 3000.0f);
-                Force = jumpForce * Mass;
+                Jump();
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
             {
-                AnimationState = (int)AnimationCode.RUN;
-                forces.X = -1.0f;
+                MoveLeft();
             }
 
             else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
             {
-                AnimationState = (int)AnimationCode.RUN;
-                forces.X = 1.0f;
+                MoveRight();
             }
 
             else
             {
                 AnimationState = (int)AnimationCode.IDLE;
             }
-
-            forces *= speed;
-            Vector2 acceleration = CalculateAcceleration(forces, Mass);
-            Vector2 velocity = Velocity;
-            velocity += acceleration * dt;
-            Velocity = velocity;
-
-            // For Debugging Purposes
-            //Vector3 translation = Translation;
-            //Console.WriteLine($"Player.OnUpdate: {translation.X}, {translation.Y}");
-
-            if(!PhysicsWrapper.Raycast(new Vector3(0, 0, 0), new Vector3(0, 0, 0), out RaycastHit ray, 10))
-            {
-
-            }
         }
 
-        /*  _________________________________________________________________________ */
-        /*! CalculateAcceleration
-        
-        @param force
-        The force.
-
-        @param mass
-        The mass.
-
-        @return Vector2
-
-        Given force and mass, calculates acceleration using f=ma.
-        */
-        Vector2 CalculateAcceleration(Vector2 force, float mass)
+        public void MoveLeft()
         {
-            if (mass == 0.0f)
-            {
-                return new Vector2(0.0f, 0.0f);
-            }
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            AnimationState = (int)AnimationCode.RUN;
+            Force -= new Vector2(horizontalMovement, 0.0f);
+            isFacingRight = false;
+        }
 
-            Vector2 acceleration = force / mass;
-            return acceleration;
+        public void MoveRight()
+        {
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            AnimationState = (int)AnimationCode.RUN;
+            Force += new Vector2(horizontalMovement, 0.0f);
+            isFacingRight = true;
+        }
+
+        public void Jump()
+        {
+            Force += new Vector2(0, JumpForce);
         }
     }
 }
