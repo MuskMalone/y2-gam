@@ -27,15 +27,15 @@ struct SpriteProperties : public ResProp{
 };
 class SubTexture {
 public:
-	SubTexture(std::shared_ptr<Texture> const& tex, glm::vec2 const& max, glm::vec2 const& min);
+	SubTexture(std::shared_ptr<Texture> const& tex, glm::vec2 const& max, glm::vec2 const& min, SpriteProperties const& props);
 
 	std::shared_ptr<Texture> const GetTexture() const;
 	std::array<glm::vec2, 4> GetTexCoords() const;
 
-	static std::shared_ptr<SubTexture> Create(std::shared_ptr<Texture> const& tex, glm::vec2 const& idxCoord, glm::vec2 const& size);
+	static std::shared_ptr<SubTexture> Create(std::shared_ptr<Texture> const& tex, glm::vec2 const& idxCoord, glm::vec2 const& size, SpriteProperties const& props);
 private:
 	std::shared_ptr<Texture> mTex;
 	//glm::vec2 mTexCoords[4];
 	std::array<glm::vec2, 4> mTexCoords;
-	//SpriteProperties mProps;
+	SpriteProperties mProps;
 };

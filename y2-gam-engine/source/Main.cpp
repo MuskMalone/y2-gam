@@ -19,6 +19,7 @@
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <Engine/AssetManager.hpp>
+#include <Graphics/SpriteManager.hpp>
 
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
@@ -67,7 +68,7 @@ int main()
 
 	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
 	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
-
+	//assetManager->AddAsset<SpriteManager>("../assets/textures/blinkbg.png");
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};

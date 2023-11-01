@@ -1,23 +1,21 @@
-//#include "../include/pch.hpp"
-//#include "Graphics/SpriteManager.hpp"
-//struct AnimationProperties {
-//	std::string path;
-//	int frameCount;
-//};
-//
-//
-//namespace Image {
-//	class AnimationManager {
-//	public:
-//		static ResourceID LoadAnimation(std::string const& path, int frameCount, float idxCoordy, glm::vec2 const& dim);
-//
-//		static std::vector<AnimationFrame> GetAnimationFrameList(ResourceID textureID);
-//
-//	private:
-//		static std::unordered_map<ResourceID, std::vector<AnimationFrame>> mAnimationFrameLists;
-//	};
-//
-//}
+#include "../include/pch.hpp"
+using AnimationFrames = std::vector<AnimationFrame>;
+struct AnimationProperties : public ResProp{
+	std::string path;
+	AnimationFrames frames;
+	int frameCount;
+	float idxCoordy;
+	glm::vec2 dim;
+	
+};
+class AnimationManager {
+public:
+	static ResourceID LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim);
+	static AnimationFrames& GetAnimationFrameList(ResourceID textureID);
+
+private:
+	static std::unordered_map<ResourceID, AnimationProperties> mAnimationFrameLists;
+};
 
 //ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 //

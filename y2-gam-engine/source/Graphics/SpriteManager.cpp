@@ -92,7 +92,7 @@ ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, SpritePropertie
         return false;
     }
 
-    auto sprite = SubTexture::Create(textures[textureID], props.idx, props.dim);
+    auto sprite = SubTexture::Create(textures[textureID], props.idx, props.dim, props);
     sprites[props.id] = sprite;
     return props.id;
 }
@@ -177,8 +177,8 @@ ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
     ResourceID key{ obj["id"].GetUint64() };
     CreateSubTexture(texrid, SpriteProperties{
             key,
-            glm::vec2{obj["minX"].GetFloat(), obj["minY"].GetFloat()},
-            glm::vec2{obj["minX"].GetFloat(), obj["minY"].GetFloat()}
+            glm::vec2{obj["idxX"].GetFloat(), obj["idxY"].GetFloat()},
+            glm::vec2{obj["dimX"].GetFloat(), obj["dimY"].GetFloat()}
         });
     return key;
 }
@@ -195,11 +195,11 @@ std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
 ResourceID SpriteManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID rid) {
     auto sm{ Serializer::SerializationManager::GetInstance() };
 
-    sm->InsertValue(obj, "minX", 0.0);
-    sm->InsertValue(obj, "minY", 0.0);
+    sm->InsertValue(obj, "idxX", 0.0);
+    sm->InsertValue(obj, "idxY", 0.0);
 
-    sm->InsertValue(obj, "maxX", 0.0);
-    sm->InsertValue(obj, "maxY", 0.0);
+    sm->InsertValue(obj, "dimX", 0.0);
+    sm->InsertValue(obj, "dimY", 0.0);
 
     return rid;
 }

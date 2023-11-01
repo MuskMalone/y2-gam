@@ -32,6 +32,7 @@
 #include "Components/Sprite.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Graphics/SpriteManager.hpp"
+#include "Graphics/AnimationManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -51,19 +52,25 @@ void AnimationSystem::Init() {
 	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
 	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
 	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
+	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+		0, 7, 1, { 256, 256 });
+	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+		1, 16, 2, { 256, 256 });
+	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+		2, 23, 0, { 256, 256 });
 
-	ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
+	//ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 
-	//TEMP
-	for (float i{}; i < 7; ++i)
-		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
-	
+	////TEMP
+	//for (float i{}; i < 7; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
+	//
 
-	for (float i{ 7 }; i < 16; ++i)
-		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
+	//for (float i{ 7 }; i < 16; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
 
-	for (float i{ 16 }; i < 23; ++i)
-		SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
+	//for (float i{ 16 }; i < 23; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
 
 	//------------------------------------------------------------------------------------/
 

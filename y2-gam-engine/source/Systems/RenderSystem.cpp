@@ -32,6 +32,7 @@
 #include "Graphics/SpriteManager.hpp"
 
 #include "Scripting/NodeManager.hpp"
+#include <Engine/AssetManager.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -97,9 +98,11 @@ void RenderSystem::Init()
 		mSceneCamera,
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
-
-	ResourceID bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
-	ResourceID bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
+	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
+	ResourceID bgSubTextureID = AssetManager::GetInstance()->GetResourceID<SpriteManager>(
+		AssetManager::GetInstance()->LoadAsset<SpriteManager>(1698744788359338700)
+	);
+	//SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
 
 	Entity bg = gCoordinator->CreateEntity();
 	::gCoordinator->AddComponent(

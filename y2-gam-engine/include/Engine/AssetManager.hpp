@@ -68,7 +68,10 @@ public:
 	auto& GetAssetProperties(AssetID aid) {
 		return _system::GetAssetProperties(mAssets[aid].resourceId);
 	}
-
+	template <typename _system>
+	ResourceID GetResourceID(AssetID aid) {
+		return mAssets[aid].resourceId;
+	}
 	//returns the AssetID of the asset that was added.
 	//SLOW JSON INVOLVED
 	template <typename _system>

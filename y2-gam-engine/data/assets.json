@@ -10,5 +10,15 @@
             "path": "../assets/audio/bgm.wav",
             "stream": false
         }
+    },
+    "classSpriteManager": {
+        "1698744788359338700": {
+            "id": 1698744788359438600,
+            "path": "../assets/textures/blinkbg.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        }
     }
 }
