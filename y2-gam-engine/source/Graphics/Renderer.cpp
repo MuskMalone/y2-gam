@@ -577,9 +577,8 @@ is further defined by its color, border thickness, and fade effect.
 */
 void Renderer::DrawCircle(glm::vec3 const& pos, glm::vec2 const& scale, glm::vec4 const& clr, float thickness, float fade) {
 
-	//TODO Implement circles
-	//if (mData.quadIdxCount >= RendererData::cMaxIndices)
-	//	NextBatch();
+	if (mData.circleIdxCount >= RendererData::cMaxIndices)
+		NextBatch();
 
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };
 	glm::mat4 scaleMtx{ glm::scale(glm::mat4{ 1.f }, { scale.x, scale.y, 1.f }) };
@@ -685,14 +684,6 @@ beginning a new one. It also provides debug information about the renderer's sta
 void Renderer::NextBatch() {
 	FlushBatch();
 	BeginBatch();
-
-	//auto stats = GetStats();
-	//std::cout << "Renderer Stats:\n"
-	//	<< "Draw Calls: " << stats.drawCalls
-	//	<< "\nQuads: " << stats.quadCount
-	//	<< "\nVertices: " << stats.GetTotalVtxCount()
-	//	<< "\nIndices: " << stats.GetTotalIdxCount();
-	//ResetStats();
 }
 
 //OpenGL Commands

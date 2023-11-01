@@ -222,32 +222,32 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	mFramebuffers[0]->Unbind();
 
-	//Prefab Editor
-	mFramebuffers[1]->Bind();
-	glDepthMask(GL_TRUE);
-	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-	Renderer::ClearColor();
-	Renderer::ClearDepth();
+	////Prefab Editor
+	//mFramebuffers[1]->Bind();
+	//glDepthMask(GL_TRUE);
+	//Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	//Renderer::ClearColor();
+	//Renderer::ClearDepth();
 
-	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
+	//Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
 
-	for (auto const& entity : mEntities) {
-		auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
-		auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+	//for (auto const& entity : mEntities) {
+	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
+	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
 
-		if (sprite.spriteID > -1) {
-			Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
-		}
-		else {
-			if (transform.elipse)
-				Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-			else
-				Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
-		}
-	}
-	glDepthMask(GL_FALSE);
-	Renderer::RenderSceneEnd();
-	mFramebuffers[1]->Unbind();
+	//	if (sprite.spriteID > -1) {
+	//		Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
+	//	}
+	//	else {
+	//		if (transform.elipse)
+	//			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+	//		else
+	//			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+	//	}
+	//}
+	//glDepthMask(GL_FALSE);
+	//Renderer::RenderSceneEnd();
+	//mFramebuffers[1]->Unbind();
 }
 
 /*  _________________________________________________________________________ */

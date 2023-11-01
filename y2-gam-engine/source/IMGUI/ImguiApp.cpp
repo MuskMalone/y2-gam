@@ -960,6 +960,14 @@ namespace Image {
         ImGui::End();
     }
 
+
+    /*  _________________________________________________________________________ */
+    /*!
+    \brief RenderStatsWindow
+
+    Creates an ImGui window displaying rendering statistics, such as draw calls, 
+    quads, vertices, and indices, and then resets the stats for the next frame.
+    */
     void RenderStatsWindow() {
 
         ImGui::Begin("Renderer Stats");
@@ -967,7 +975,7 @@ namespace Image {
         ImGui::Text("Draw Calls: %d", stats.drawCalls);
         ImGui::Text("Quads: %d", stats.quadCount);
         ImGui::Text("Vertices: %d", stats.GetTotalVtxCount());
-        ImGui::Text("Indics: %d", stats.GetTotalIdxCount());
+        ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
         ImGui::End();
         Renderer::ResetStats();
     }
