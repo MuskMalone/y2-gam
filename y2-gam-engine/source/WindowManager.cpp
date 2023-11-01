@@ -21,7 +21,7 @@ void WindowManager::Init(
 	glfwInit();
 	gCoordinator = Coordinator::GetInstance();
 
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 	glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -223,19 +223,17 @@ void WindowManager::ErrorCb(int error, char const* description) {
 #endif
 }
 
-void WindowManager::FbSizeCb(GLFWwindow* pwin, int width1, int height1) {
+void WindowManager::FbSizeCb(GLFWwindow* pwin, int width, int height) {
     UNREFERENCED_PARAMETER(pwin);
-    UNREFERENCED_PARAMETER(width1);
-    UNREFERENCED_PARAMETER(height1);
 #ifdef _DEBUG
     std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif
-    // use the entire framebuffer as drawing region
     
-	
-	
-	(0, 0, width1, height1);
-    // later, if working in 3D, we'll have to set the projection matrix here ...
+	Event event(Events::Window::RESIZED);
+	event.SetParam(Events::Window::Resized::WIDTH, static_cast<unsigned int>(width));
+	event.SetParam(Events::Window::Resized::HEIGHT, static_cast<unsigned int>(height));
+
+	gCoordinator->SendEvent(event);
 }
 
 template <typename _bitset>

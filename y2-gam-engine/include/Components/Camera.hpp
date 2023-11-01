@@ -50,11 +50,13 @@ public:
 	glm::mat4 const& GetViewProjMtx() const;
 	float Lerp(float lhs, float rhs, float t);
 
+	void UpdateProjectionMtx();
 	void ComputeViewProjMtx();
 private:
 	glm::mat4 mProjMtx{};
 	glm::mat4 mViewMtx{};
 	glm::mat4 mViewProjMtx{};
+
 
 public:
 	Entity mTargetEntity;
@@ -72,9 +74,9 @@ public:
 	glm::vec3 mPos{};
 
 	float mRot{ 0.f };
-	float mZoom{};
+	float mZoomLevel{ 1.f };
 	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
-	float mAspectRatio{};
+	float mAspectRatio{1.f};
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;

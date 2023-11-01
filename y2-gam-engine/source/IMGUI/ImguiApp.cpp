@@ -159,12 +159,14 @@ namespace Image {
                     std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
+                ImGui::EndMenu();
             }
             if (ImGui::BeginMenu("Stop")) {
                 if (!renderSystem->IsEditorMode()) {
                     std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
+                ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
         }
@@ -860,7 +862,7 @@ namespace Image {
 
     This function change all the texture related to the asset ID
     */
-    void TextureHdlWindow(std::set<Entity>const& mEntities) {
+    void TextureHdlWindow([[maybe_unused]] std::set<Entity>const& mEntities) {
         ImGui::Begin("Texture HDL");
 
         ImGui::End();

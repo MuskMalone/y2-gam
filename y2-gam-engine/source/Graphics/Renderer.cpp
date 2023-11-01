@@ -689,6 +689,22 @@ void Renderer::NextBatch() {
 //OpenGL Commands
 
 /*  _________________________________________________________________________ */
+/*! SetViewport
+
+@param x The x-coordinate of the lower-left corner of the viewport.
+@param y The y-coordinate of the lower-left corner of the viewport.
+@param width The width of the viewport.
+@param height The height of the viewport.
+
+@return none.
+
+@brief This function sets the viewport for OpenGL, defining the region of the window where rendering will occur.
+*/
+void Renderer::SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
+	glViewport(x, y, width, height);
+}
+
+/*  _________________________________________________________________________ */
 /*! SetClearColor
 
 @param color

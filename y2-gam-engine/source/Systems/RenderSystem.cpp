@@ -114,7 +114,7 @@ void RenderSystem::Init()
 	::gCoordinator->AddComponent(
 		bg,
 		Transform{
-			{0, 0, -40.f},
+			{0, 0, 0.f},
 			{0.f,0.f,0.f},
 			{350.f, 120.f, 0.f}
 		});
@@ -125,7 +125,7 @@ void RenderSystem::Init()
 			{1.f,1.f,1.f,1.f},
 			nullptr,
 			-1,
-			Layer::BACKGROUND
+			Layer::UI
 		}
 	);
 	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
@@ -133,7 +133,6 @@ void RenderSystem::Init()
 	
 	Renderer::Init();
 
-	//----------temp------------
 	mEditorMode = true;
 	FramebufferProps fbProps;
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
@@ -143,7 +142,6 @@ void RenderSystem::Init()
 
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
-	//--------------------------
 }
 
 /*  _________________________________________________________________________ */
@@ -197,6 +195,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 
 	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
+
+	//glDisable(GL_DEPTH_TEST);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
@@ -211,12 +211,11 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 
-	glDepthMask(GL_TRUE);
-	if (mDebugMode) {
+	if (mDebugMode) {	
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
 	}
-	glDepthMask(GL_FALSE);
+	//glEnable(GL_DEPTH_TEST);
 
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<TextSystem>()->Update();
@@ -263,8 +262,19 @@ void RenderSystem::WindowSizeListener(Event& event)
 	[[maybe_unused]] auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
 	[[maybe_unused]] auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
-	//auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
-	//camera.projectionTransform = Camera::MakeProjectionTransform(45.0f, 0.1f, 1000.0f, windowWidth, windowHeight);
-	//camera.projectionTransform = tCamera::MakeProjectionTransform(-50, 50, -50, 50, 0, -100);
+	Renderer::SetViewport(0, 0, windowWidth, windowHeight);
+	std::cout << windowWidth << std::endl;
+
+	//float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	//float left = -WORLD_LIMIT_X * aspectRatio;
+	//float right = WORLD_LIMIT_X * aspectRatio;
+	//float bottom = -WORLD_LIMIT_Y;
+	//float top = WORLD_LIMIT_Y;
+
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+	camera.mAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	camera.UpdateProjectionMtx();
+	//camera.SetProjectionMtx(left, right, bottom, top);
 }
 

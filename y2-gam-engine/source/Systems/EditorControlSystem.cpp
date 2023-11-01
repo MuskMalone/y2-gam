@@ -483,7 +483,7 @@ void EditorControlSystem::Update(float dt)
 	//TODO REMOVE TEMP
 	float moveSpeed = 100.f;
 	float rotSpeed = 80.f;
-	float zoomSpeed = 100.f;
+	float zoomSpeed = 1.f;
 
 	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
@@ -533,18 +533,15 @@ void EditorControlSystem::Update(float dt)
 		camera.SetRotation(camera.mRot);
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-		camera.mZoom += zoomSpeed * dt;
+		camera.mZoomLevel += zoomSpeed * dt;
 		camera.ZoomIn();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-		camera.mZoom -= zoomSpeed * dt;
+		camera.mZoomLevel -= zoomSpeed * dt;
 		camera.ZoomOut();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
 		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M)) {
-		::gCoordinator->GetSystem<RenderSystem>()->ToggleEditorMode();
 	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
@@ -625,8 +622,8 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_L) &&
     inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Entity playerID = ::gCoordinator->GetSystem<RenderSystem>()->mPlayer;
-		std::cout << "Closest node to player: " << NodeManager::FindClosestNodeToEntity(playerID) << std::endl;
-		std::cout << "Closest node to enemy: " << NodeManager::FindClosestNodeToEntity(Testing::enemy) << std::endl;
+		//std::cout << "Closest node to player: " << NodeManager::FindClosestNodeToEntity(playerID) << std::endl;
+		//std::cout << "Closest node to enemy: " << NodeManager::FindClosestNodeToEntity(Testing::enemy) << std::endl;
     NodeManager::Path path = NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(Testing::enemy),
 			NodeManager::FindClosestNodeToEntity(playerID));
 

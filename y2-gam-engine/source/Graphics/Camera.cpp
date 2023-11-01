@@ -46,7 +46,7 @@ This constructor initializes a Camera object with the specified parameters. It s
 Camera::Camera(float ar, float left, float right, float bottom, float top)
 	: mProjMtx{ glm::ortho(left, right, bottom, top, static_cast<float>(-WORLD_LIMIT_DEPTH), static_cast<float>(WORLD_LIMIT_DEPTH)) }, mViewMtx{ 1.f }, mAspectRatio{ ar } {
 
-	mZoom = WORLD_LIMIT_Y;
+	//mZoom = WORLD_LIMIT_Y;
 	glm::mat4 translate{ glm::translate(glm::mat4(1.0f), mPos) };
 	glm::mat4 rotate{ glm::rotate(glm::mat4(1.f), glm::radians(mRot), glm::vec3(0,0,1)) };
 	glm::mat4 transform{ translate * rotate };
@@ -79,6 +79,14 @@ Updates the camera's projection matrix using the given view boundaries.
 void Camera::SetProjectionMtx(float left, float right, float bottom, float top) {
 	mProjMtx = glm::ortho(left, right, bottom, top, static_cast<float>(-WORLD_LIMIT_DEPTH), static_cast<float>(WORLD_LIMIT_DEPTH));
 	ComputeViewProjMtx();
+}
+
+void Camera::UpdateProjectionMtx() {
+	float left = -WORLD_LIMIT_X * mAspectRatio * mZoomLevel;
+	float right = WORLD_LIMIT_X * mAspectRatio * mZoomLevel;
+	float bottom = -WORLD_LIMIT_Y * mZoomLevel;
+	float top = WORLD_LIMIT_Y * mZoomLevel;
+	SetProjectionMtx(left, right, bottom, top);
 }
 
 /*  _________________________________________________________________________ */
@@ -136,9 +144,10 @@ void Camera::SetRotation(float rot) {
 Increases the camera's zoom level within the defined limits and updates the matrices.
 */
 void Camera::ZoomIn() {
-	mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
-	SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
-	ComputeViewProjMtx();
+	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
+	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
+	//ComputeViewProjMtx();
+	UpdateProjectionMtx();
 }
 
 /*  _________________________________________________________________________ */
@@ -148,9 +157,10 @@ void Camera::ZoomIn() {
 Decreases the camera's zoom level within the defined limits and updates the matrices.
 */
 void Camera::ZoomOut() {
-	mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
-	SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
-	ComputeViewProjMtx();
+	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
+	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
+	//ComputeViewProjMtx();
+	UpdateProjectionMtx();
 }
 
 /*  _________________________________________________________________________ */

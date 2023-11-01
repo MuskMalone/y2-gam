@@ -154,6 +154,7 @@ private:
 	static void NextBatch();
 public:
 	//OpenGL Render Commands
+	static void SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 	static void SetClearColor(glm::vec4 const& color);
 	static void ClearColor();
 	static void ClearDepth();
