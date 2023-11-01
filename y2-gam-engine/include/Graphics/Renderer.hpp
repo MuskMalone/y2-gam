@@ -26,7 +26,6 @@
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/VertexBuffer.hpp"
 #include "Graphics/ElementBuffer.hpp"
-#include "Components/OrthoCamera.hpp"
 #include "Components/Transform.hpp"
 
 struct Statistics {

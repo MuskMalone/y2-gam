@@ -73,7 +73,6 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
-	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();

@@ -145,7 +145,6 @@
   <ItemGroup>
     <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
-    <ClInclude Include="include\Components\OrthoCamera.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
@@ -265,7 +264,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />

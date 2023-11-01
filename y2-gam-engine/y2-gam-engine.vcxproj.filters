@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
-    <ClCompile Include="source\Graphics\OrthoCamera.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
@@ -123,7 +122,6 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
-    <ClInclude Include="include\Components\OrthoCamera.hpp" />
     <ClInclude Include="include\pch.hpp" />
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Audio\Sound.hpp" />

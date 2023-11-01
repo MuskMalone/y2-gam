@@ -2,7 +2,6 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/RenderSystem.hpp"
-#include "Components/OrthoCamera.hpp"
 #include "Core/Coordinator.hpp"
 
 #include <Core/Globals.hpp>

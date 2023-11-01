@@ -339,6 +339,7 @@ void EditorControlSystem::Init()
 		Sprite{
 			{1,0,0,1},
 			nullptr,
+			0,
 			Layer::FOREGROUND
 		});
 	::gCoordinator->AddComponent(
