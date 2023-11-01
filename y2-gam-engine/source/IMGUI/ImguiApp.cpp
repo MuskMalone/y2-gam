@@ -152,14 +152,14 @@ namespace Image {
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            if (ImGui::BeginMenu("Play")) {
-
+            if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode()) {
                     std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
             }
-            if (ImGui::BeginMenu("Stop")) {
+            if (ImGui::MenuItem("Stop")) {
+
                 if (!renderSystem->IsEditorMode()) {
                     std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
