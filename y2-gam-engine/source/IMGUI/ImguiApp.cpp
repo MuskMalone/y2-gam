@@ -483,6 +483,7 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
+            ImGui::PopStyleColor(2);
         }
         ImGui::End();
     }
