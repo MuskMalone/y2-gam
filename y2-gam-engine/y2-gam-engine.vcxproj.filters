@@ -311,9 +311,6 @@
     <ClCompile Include="source\Core\FrameRateController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Graphics\OrthoCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializationManager.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />

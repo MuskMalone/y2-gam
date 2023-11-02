@@ -51,7 +51,7 @@ namespace Image {
     void BufferWindow();
     void PrefabWindow();
     void ContentWindow();
-    void TextureHdlWindow(std::set<Entity>const& mEntities);
+    void AssetWindow(std::set<Entity>const& mEntities);
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();

@@ -204,7 +204,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	for (auto const& entry : mRenderQueue)
 	{
 		if (entry.sprite->spriteID) {
-			std::cout << entry.sprite->spriteID << std::endl;
+			//std::cout << entry.sprite->spriteID << std::endl;
 			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->spriteID), entry.sprite->color, entry.entity);
 		}
 		else {

@@ -186,7 +186,7 @@ void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rap
 
 }
 std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
-    return sprites[rid];
+    return GetSprite(rid);
 }
 
 //SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {

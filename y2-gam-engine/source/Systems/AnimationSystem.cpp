@@ -91,7 +91,7 @@ void AnimationSystem::Update(float dt) {
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 
 		size_t& frameIdx { animation.currFrame };
-		std::vector<AnimationFrame>& frameList{ animation.stateMap[animation.currState] };
+		std::vector<AnimationFrame>& frameList{ AnimationManager::GetAnimationFrameList(0) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;
@@ -107,19 +107,19 @@ void AnimationSystem::Update(float dt) {
 			currFrame.elapsedTime = 0.f;
 		}
 
-		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_O)) {
-			switch (animation.currState) {
-			case ANIM_STATE::IDLE:
-				animation.currState = ANIM_STATE::RUN;
-				break;
-			case ANIM_STATE::RUN: 
-				animation.currState = ANIM_STATE::ATTACK;
-				break;
-			case ANIM_STATE::ATTACK:
-				animation.currState = ANIM_STATE::IDLE;
-				break;
-			}
-		}
+		//auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+		//if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_O)) {
+		//	switch (animation.currState) {
+		//	case ANIM_STATE::IDLE:
+		//		animation.currState = ANIM_STATE::RUN;
+		//		break;
+		//	case ANIM_STATE::RUN: 
+		//		animation.currState = ANIM_STATE::ATTACK;
+		//		break;
+		//	case ANIM_STATE::ATTACK:
+		//		animation.currState = ANIM_STATE::IDLE;
+		//		break;
+		//	}
+		//}
 	}
 }

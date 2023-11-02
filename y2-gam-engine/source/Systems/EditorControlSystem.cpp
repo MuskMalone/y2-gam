@@ -471,7 +471,7 @@ void EditorControlSystem::Init()
 	::effectGroup = Image::SoundManager::AudioCreateGroup();
 	//by right this id value should be passed by the imgui asset browser
 	auto am{ AssetManager::GetInstance() };
-	soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
+	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
 	bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161071400));
 	bgmGroup = Image::SoundManager::AudioCreateGroup();
 	effectGroup = Image::SoundManager::AudioCreateGroup();

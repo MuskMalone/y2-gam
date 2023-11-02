@@ -5,13 +5,15 @@ std::unordered_map<ResourceID, AnimationProperties> AnimationManager::mAnimation
 ResourceID AnimationManager::LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim) {
 	ResourceID texID = SpriteManager::LoadTexture(path);
 	AnimationProperties ap{};
+	ap.path = path;
 	ap.id = rid;
 	ap.frameCount = frameCount;
 	ap.idxCoordy = idxCoordy;
 	ap.dim = dim;
-	
+	static uint32_t animframeID = 1;
+
 	for (float i{}; i < frameCount; ++i) {
-		ResourceID frameID = SpriteManager::CreateSubTexture(texID, SpriteProperties{ GetTimestampNano(), {i, idxCoordy}, {dim.x, dim.y} });
+		ResourceID frameID = SpriteManager::CreateSubTexture(texID, SpriteProperties{ animframeID++, {i, idxCoordy}, {dim.x, dim.y} });
 		ap.frames.push_back( AnimationFrame{ 0.f, frameID }); // supposed to be read somewhere... instead of 0.f....
 	}
 
@@ -23,14 +25,32 @@ AnimationFrames& AnimationManager::GetAnimationFrameList(ResourceID rid) {
 	return mAnimationFrameLists[rid].frames;
 }
 
+// asset manager
+ResourceID AnimationManager::LoadAsset(rapidjson::Value const& obj) {
+	ResourceID key{ obj["id"].GetUint64() };
+	LoadAnimation(obj["path"].GetString(), key, obj["frameCount"].GetInt(), obj["idxCoordY"].GetFloat(),
+		glm::vec2{obj["dimX"].GetFloat(), obj["dimY"].GetFloat()});
+	return key;
+}
+void AnimationManager::SaveAsset(ResourceID aid, SpriteProperties const& props, rapidjson::Value& obj) {
 
-////TEMP
-//for (float i{}; i < 7; ++i)
-//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
-//
-//
-//for (float i{ 7 }; i < 16; ++i)
-//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
-//
-//for (float i{ 16 }; i < 23; ++i)
-//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
+}
+AnimationFrames const& AnimationManager::GetAsset(ResourceID rid) {
+	return mAnimationFrameLists[rid].frames;
+}
+AnimationProperties& AnimationManager::AnimationManager::GetAssetProperties(ResourceID rid) {
+	return mAnimationFrameLists[rid];
+}
+ResourceID AnimationManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID rid) {
+	auto sm{ Serializer::SerializationManager::GetInstance() };
+
+	sm->InsertValue(obj, "frameCount", 0);
+	sm->InsertValue(obj, "idxCoordY", 0.0);
+
+	sm->InsertValue(obj, "dimX", 0.0);
+	sm->InsertValue(obj, "dimY", 0.0);
+	
+	return rid;
+
+}
+

@@ -39,6 +39,10 @@
 #include "Scripting/NodeManager.hpp"
 #include <filesystem>
 
+#include <Engine/AssetManager.hpp>
+#include <Graphics/SpriteManager.hpp>
+#include <Graphics/AnimationManager.hpp>
+#include <Audio/Sound.hpp>
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -86,7 +90,7 @@ namespace Image {
         //PrefabWindow();
         BufferWindow();
         ContentWindow();
-        TextureHdlWindow(mEntities);
+        AssetWindow(mEntities);
         LoggingWindow();
         RenderStatsWindow();
         if (toDelete) {
@@ -283,12 +287,13 @@ namespace Image {
                     //Color
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
-
-                    if (sprite.texture && sprite.texture->GetTexture()) {
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(sprite.texture->GetTexture()->GetTexHdl()));
+                    auto am{ AssetManager::GetInstance() };
+                    auto texture{ am->GetAsset<SpriteManager>(sprite.spriteAssetID) };
+                    if (texture && texture->GetTexture()) {
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexture()->GetTexHdl()));
 
                         // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(sprite.texture->GetTexture()->GetWidth()), static_cast<float>(sprite.texture->GetTexture()->GetHeight()));
+                        ImVec2 originalSize(static_cast<float>(texture->GetTexture()->GetWidth()), static_cast<float>(texture->GetTexture()->GetHeight()));
 
                         // Calculate aspect ratio
                         float aspectRatio = originalSize.x / originalSize.y;
@@ -325,8 +330,10 @@ namespace Image {
                             // Load the new texture from the path and assign to the sprite
                             std::filesystem::path basePath = "../assets";
                             std::shared_ptr<Texture> newTexture = Texture::Create((basePath / payLoadPath).string());
-                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 });
-                            sprite.texture = newSubTexture;
+                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 }, {});
+                            
+                            throw std::runtime_error("update new asset here");
+                            //sprite.texture = newSubTexture;
                         }
                         ImGui::EndDragDropTarget();
                     }
@@ -860,8 +867,8 @@ namespace Image {
 
     This function change all the texture related to the asset ID
     */
-    void TextureHdlWindow(std::set<Entity>const& mEntities) {
-        ImGui::Begin("Texture HDL");
+    void AssetWindow(std::set<Entity>const& mEntities) {
+        ImGui::Begin("Assets");
 
         ImGui::End();
     }

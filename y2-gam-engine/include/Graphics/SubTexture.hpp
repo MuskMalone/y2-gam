@@ -31,11 +31,12 @@ public:
 
 	std::shared_ptr<Texture> const GetTexture() const;
 	std::array<glm::vec2, 4> GetTexCoords() const;
-
+	SpriteProperties& GetProperties() { return mProps; }
 	static std::shared_ptr<SubTexture> Create(std::shared_ptr<Texture> const& tex, glm::vec2 const& idxCoord, glm::vec2 const& size, SpriteProperties const& props);
+
 private:
 	std::shared_ptr<Texture> mTex;
 	//glm::vec2 mTexCoords[4];
 	std::array<glm::vec2, 4> mTexCoords;
-	SpriteProperties mProps;
+	SpriteProperties mProps; 
 };
