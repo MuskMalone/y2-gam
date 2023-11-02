@@ -189,9 +189,9 @@ std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
     return GetSprite(rid);
 }
 
-//SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {
-//    return sprites[rid]->GetProperties();
-//}
+SpriteProperties& SpriteManager::GetAssetProperties(ResourceID rid) {
+    return sprites[rid]->GetProperties();
+}
 ResourceID SpriteManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID rid) {
     auto sm{ Serializer::SerializationManager::GetInstance() };
 

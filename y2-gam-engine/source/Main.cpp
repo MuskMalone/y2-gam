@@ -91,6 +91,25 @@ int main()
 	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
+	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
+		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
+	}
+
+	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
+	{
+		Signature signature;
+		//signature.flip();
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
+		//signature.set(coordinator->GetComponentType<Tag>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<ImGuiSystem>(signature);
+	}
+
+	entitySerializationSystem->Init();
+
 	auto textSystem = coordinator->RegisterSystem<TextSystem>();
 	{
 		Signature signature{};
@@ -130,15 +149,7 @@ int main()
 
 	renderSystem->Init();
 
-	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
-	{
-		Signature signature;
-		//signature.flip();
-		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Tag>());
-		//signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<ImGuiSystem>(signature);
-	}
+
 	imguiSystem->Init(windowManager->GetContext());
 
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
@@ -168,16 +179,6 @@ int main()
 	}
 
 	inputSystem->Init();
-
-	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
-		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
-	}
-
-	entitySerializationSystem->Init(); 
-
 
 
 	StateManager::GetInstance()->PushState<MainState>();

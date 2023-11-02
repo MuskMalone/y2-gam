@@ -43,6 +43,7 @@
 #include <Graphics/SpriteManager.hpp>
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
+#include <IMGUI/AssetBrowser.hpp>
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
@@ -90,7 +91,12 @@ namespace Image {
         //PrefabWindow();
         BufferWindow();
         ContentWindow();
-        AssetWindow(mEntities);
+        //AssetWindow(mEntities);
+        AnimationAssetWindow(mEntities);
+        SpriteAssetWindow(mEntities);
+        SoundAssetWindow(mEntities);
+        AssetPropertiesWindow(mEntities);
+
         LoggingWindow();
         RenderStatsWindow();
         if (toDelete) {
@@ -157,14 +163,14 @@ namespace Image {
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            if (ImGui::BeginMenu("Play")) {
+            if (ImGui::MenuItem("Play")) {
 
                 if (renderSystem->IsEditorMode()) {
                     std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
             }
-            if (ImGui::BeginMenu("Stop")) {
+            if (ImGui::MenuItem("Stop")) {
                 if (!renderSystem->IsEditorMode()) {
                     std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
@@ -222,6 +228,28 @@ namespace Image {
             bool isSelected = (gSelectedEntity == entity);
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
+            }
+
+            if (ImGui::BeginDragDropTarget()) {
+                std::cout << "Began drag-drop target." << std::endl;
+
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    std::cout << droppedAid << std::endl;
+                }
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    std::cout << droppedAid << std::endl;
+
+                }
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    std::cout << droppedAid << std::endl;
+                }
+                ImGui::EndDragDropTarget();
             }
         }
         ImGui::End();
@@ -509,8 +537,7 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Sprite{
-                                {1,1,1, 1},
-                                nullptr
+                                {1,1,1, 1}
                             });
                     }
                 }
@@ -553,20 +580,12 @@ namespace Image {
                       break;
                 case 4: {
                     if (!gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
-                        //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
-                        std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
-                        std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
-                        std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
-                        std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
-                                                                                         {ANIM_STATE::RUN, runFrames},
-                                                                                         {ANIM_STATE::ATTACK, attackFrames} };
                         ::gCoordinator->AddComponent(
                             gSelectedEntity,
                             Animation{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE,
-                                map
+                                ANIM_STATE::IDLE
                             });
                     }
                 }
@@ -857,21 +876,7 @@ namespace Image {
         ImGui::End();
     }
 
-    /*  _________________________________________________________________________ */
-    /*! TextureHdlWindow
 
-    @param std::set<Entity>const& mEntities
-     Set of entities to loop through
-
-    @return none.
-
-    This function change all the texture related to the asset ID
-    */
-    void AssetWindow(std::set<Entity>const& mEntities) {
-        ImGui::Begin("Assets");
-
-        ImGui::End();
-    }
 
     /*  _________________________________________________________________________ */
     /*! PerformanceWindow

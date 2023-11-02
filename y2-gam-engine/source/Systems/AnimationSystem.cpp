@@ -91,20 +91,23 @@ void AnimationSystem::Update(float dt) {
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 
 		size_t& frameIdx { animation.currFrame };
-		std::vector<AnimationFrame>& frameList{ AnimationManager::GetAnimationFrameList(0) };
+
+		//quick patch to constcast this
+		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.assetID)) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;
 
-		AnimationFrame& currFrame { frameList[frameIdx] };
+		AnimationFrame & currFrame { frameList[frameIdx] };
 
+		//xavier todo: help me change this to not use elapsed time
 		currFrame.elapsedTime += dt;
 
 		sprite.spriteID = currFrame.spriteID;
 
 		if (currFrame.elapsedTime >= animation.speed) {
 			++frameIdx;
-			currFrame.elapsedTime = 0.f;
+			//currFrame.elapsedTime = 0.f;
 		}
 
 		//auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();

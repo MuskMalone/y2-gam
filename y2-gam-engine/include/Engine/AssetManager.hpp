@@ -23,6 +23,14 @@ private:
 		return GetTimestampNano();
 	}
 public:
+	struct Asset {
+		std::string path;
+		std::string systemType;
+		ResourceID resourceId;
+	};
+	inline Asset const& GetAsset(AssetID aid) { return mAssets[aid]; }
+	inline std::map<AssetID, Asset> const& GetAllAssets() { return mAssets; }
+
 	//give a system and a assetid. 
 	//system will load asset to its own map of assets and return the id of the system
 	//SLOW, INVOLVES JSON
@@ -68,8 +76,8 @@ public:
 	auto& GetAssetProperties(AssetID aid) {
 		return _system::GetAssetProperties(mAssets[aid].resourceId);
 	}
-	template <typename _system>
-	ResourceID GetResourceID(AssetID aid) {
+	
+	inline ResourceID GetResourceID(AssetID aid) {
 		return mAssets[aid].resourceId;
 	}
 	//returns the AssetID of the asset that was added.
@@ -105,14 +113,7 @@ public:
 
 	
 private:
-	struct Asset {
-		std::string path;
-		std::string systemType;
-		ResourceID resourceId;
-	};
 	std::map<AssetID, Asset> mAssets;
 	const char const* cmFileName {"Assets"};
 	static std::shared_ptr<AssetManager> _mSelf;
-	
-	
 };
