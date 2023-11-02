@@ -52,8 +52,6 @@ int main()
 	
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 	PrefabsManager::GetInstance()->Init();
-	auto assetManager{ AssetManager::GetInstance() };
-	assetManager->Init();
 
 
 	// Mono Testing
@@ -90,6 +88,9 @@ int main()
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
+
+	auto assetManager{ AssetManager::GetInstance() };
+	assetManager->Init();
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{

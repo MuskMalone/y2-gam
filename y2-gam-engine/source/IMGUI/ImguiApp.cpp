@@ -233,21 +233,47 @@ namespace Image {
             if (ImGui::BeginDragDropTarget()) {
                 std::cout << "Began drag-drop target." << std::endl;
 
-                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
-                    //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    std::cout << droppedAid << std::endl;
-                }
+                //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                //    //std::cout << "Accepted payload." << std::endl;
+                //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                //    std::cout << droppedAid << std::endl;
+                //}
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
                     AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    std::cout << droppedAid << std::endl;
+                    //std::cout << droppedAid << std::endl;
+                    if (gCoordinator->HasComponent<Sprite>(entity)) {
+                        auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+                        sprite.spriteAssetID = droppedAid;
+                    }
+                    else {
+                        Sprite s{{1,1,1, 1}};
+                        s.spriteAssetID = droppedAid;
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            s);
+                    }
 
                 }
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
                     AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    std::cout << droppedAid << std::endl;
+                    //std::cout << droppedAid << std::endl;
+                    if (gCoordinator->HasComponent<Animation>(entity)) {
+                        auto& anim = gCoordinator->GetComponent<Animation>(entity);
+                        anim.assetID = droppedAid;
+                    }
+                    else {
+                        Animation a{
+                                0.08f,
+                                0,
+                                ANIM_STATE::IDLE
+                        };
+                        a.assetID = droppedAid;
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            a);
+                    }
                 }
                 ImGui::EndDragDropTarget();
             }
@@ -286,6 +312,12 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Pos Z", &transform.position.z);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
@@ -316,8 +348,9 @@ namespace Image {
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
                     auto am{ AssetManager::GetInstance() };
-                    auto texture{ am->GetAsset<SpriteManager>(sprite.spriteAssetID) };
-                    if (texture && texture->GetTexture()) {
+                    if (sprite.spriteAssetID && sprite.spriteAssetID != static_cast<AssetID>(-1)) {
+                        auto texture{ am->GetAsset<SpriteManager>(sprite.spriteAssetID) };
+
                         ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexture()->GetTexHdl()));
 
                         // Original sprite sheet size
@@ -368,7 +401,41 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
+            if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Animation")) {
+                    Animation& anim = gCoordinator->GetComponent<Animation>(gSelectedEntity);
+                    auto am{ AssetManager::GetInstance() };
+                    if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
+                        auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
 
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
+
+                        // Original sprite sheet size
+                        ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
+
+                        // Calculate aspect ratio
+                        float aspectRatio = originalSize.x / originalSize.y;
+
+                        // Adjust size while maintaining aspect ratio
+                        ImVec2 newSize;
+                        if (aspectRatio > 1.0f) {
+                            newSize = ImVec2(200, 200 / aspectRatio);
+                        }
+                        else {
+                            newSize = ImVec2(200 * aspectRatio, 200);
+                        }
+
+                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
+                    }
+                    else {
+                        ImGui::Text("No Animation");
+                        ImVec2 dummySize(150, 150);
+                        ImGui::Dummy(dummySize);
+                    }
+                    ImGui::TreePop();
+                }
+            }
             if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                 if (ImGui::TreeNode("Collider")) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);

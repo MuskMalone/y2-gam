@@ -54,10 +54,10 @@ void AnimationSystem::Init() {
 	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
 	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
 		0, 7, 1, { 256, 256 });
-	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-		1, 16, 2, { 256, 256 });
-	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-		2, 23, 0, { 256, 256 });
+	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+	//	1, 16, 2, { 256, 256 });
+	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+	//	2, 23, 0, { 256, 256 });
 
 	//ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 
@@ -91,7 +91,7 @@ void AnimationSystem::Update(float dt) {
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 
 		size_t& frameIdx { animation.currFrame };
-
+		if (!animation.assetID || animation.assetID == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this
 		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.assetID)) };
 
@@ -107,7 +107,7 @@ void AnimationSystem::Update(float dt) {
 
 		if (currFrame.elapsedTime >= animation.speed) {
 			++frameIdx;
-			//currFrame.elapsedTime = 0.f;
+			currFrame.elapsedTime = 0.f;
 		}
 
 		//auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();

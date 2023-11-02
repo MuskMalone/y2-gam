@@ -26,6 +26,7 @@
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
 #include <Core/Serialization/SerializationManager.hpp>
+#include <Engine/AssetManager.hpp>
 
 enum class Layer {
 	BACKGROUND,
@@ -37,7 +38,7 @@ enum class Layer {
 struct Sprite {
 	glm::vec4 color{};
 	//std::shared_ptr<SubTexture> texture{}; //TODO REMOVE
-	AssetID spriteAssetID;
+	AssetID spriteAssetID{};
 	ResourceID spriteID{};
 	Layer layer{};
 
@@ -60,5 +61,8 @@ struct Sprite {
 		sm->InsertValue(obj, "layer", static_cast<int>(layer));
 		sm->InsertValue(obj, "assetID", spriteAssetID);
 		return true;
+	}
+	ResourceID GetSpriteID() {
+		return (spriteAssetID) ? AssetManager::GetInstance()->GetResourceID(spriteAssetID) : spriteID;
 	}
 };

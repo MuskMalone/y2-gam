@@ -25,6 +25,8 @@ AnimationFrames& AnimationManager::GetAnimationFrameList(ResourceID rid) {
 	return mAnimationFrameLists[rid].frames;
 }
 
+
+
 // asset manager
 ResourceID AnimationManager::LoadAsset(rapidjson::Value const& obj) {
 	ResourceID key{ obj["id"].GetUint64() };
@@ -32,8 +34,14 @@ ResourceID AnimationManager::LoadAsset(rapidjson::Value const& obj) {
 		glm::vec2{obj["dimX"].GetFloat(), obj["dimY"].GetFloat()});
 	return key;
 }
-void AnimationManager::SaveAsset(ResourceID aid, SpriteProperties const& props, rapidjson::Value& obj) {
+void AnimationManager::SaveAsset(ResourceID aid, AnimationProperties const& props, rapidjson::Value& obj) {
+	auto sm{ Serializer::SerializationManager::GetInstance() };
 
+	sm->ModifyValue(obj, "frameCount", props.frameCount);
+	sm->ModifyValue(obj, "idxCoordY", props.idxCoordy);
+
+	sm->ModifyValue(obj, "dimX", props.dim.x);
+	sm->ModifyValue(obj, "dimY", props.dim.y);
 }
 AnimationFrames const& AnimationManager::GetAsset(ResourceID rid) {
 	return mAnimationFrameLists[rid].frames;

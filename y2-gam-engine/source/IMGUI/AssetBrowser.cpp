@@ -189,19 +189,33 @@ void AssetPropertiesWindow(std::set<Entity> const& mEntities){
         ImGui::SetNextItemWidth(width); // Set the width to 100 pixels
 
         ImGui::InputFloat("Height", &(props.dim.y));
+        ImGui::InputFloat("Index Y", &(props.idxCoordy));
     }
 
     // Calculate the remaining space and set the cursor to the bottom right
     float windowWidth = ImGui::GetWindowSize().x;
     float windowHeight = ImGui::GetWindowSize().y;
     float buttonWidth = windowWidth;  // Width of the button
-    float buttonHeight = 50.0f;  // Height of the button
+    float buttonHeight = 30.0f;  // Height of the button
     ImGui::SetCursorPosX(windowWidth - buttonWidth - ImGui::GetStyle().WindowPadding.x); // Subtract the window padding to align it perfectly
     ImGui::SetCursorPosY(windowHeight - buttonHeight - ImGui::GetStyle().WindowPadding.y); // Subtract the window padding to align it perfectly
 
     // Place the button
     if (ImGui::Button("Save", ImVec2(buttonWidth, buttonHeight))) {
-        // Button was clicked
+        if (AssetBrowserFindStr(gSelectedAsset.second.systemType, "Sound")) {
+            auto& props{ am->GetAssetProperties<SoundManager>(gSelectedAsset.first) };
+            am->SaveAsset<SoundManager>(gSelectedAsset.first, props);
+
+        }
+        else if (AssetBrowserFindStr(gSelectedAsset.second.systemType, "Sprite")) {
+            auto& props{ am->GetAssetProperties<SpriteManager>(gSelectedAsset.first) };
+            am->SaveAsset<SpriteManager>(gSelectedAsset.first, props);
+
+        }
+        else if (AssetBrowserFindStr(gSelectedAsset.second.systemType, "Animation")) {
+            auto& props{ am->GetAssetProperties<AnimationManager>(gSelectedAsset.first) };
+            am->SaveAsset<AnimationManager>(gSelectedAsset.first, props);
+        }
     }
 
     ImGui::End();
