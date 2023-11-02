@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       AnimationManager.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Oct 29, 2023
+
+\brief      Header for the AnimationManager class.
+
+			Manages animation, loading and creating of animations from spritesheets.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "../include/pch.hpp"
 using AnimationFrames = std::vector<AnimationFrame>;
 struct AnimationProperties : public ResProp{

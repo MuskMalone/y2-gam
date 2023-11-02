@@ -109,20 +109,5 @@ void AnimationSystem::Update(float dt) {
 			++frameIdx;
 			currFrame.elapsedTime = 0.f;
 		}
-
-		//auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-		//if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_O)) {
-		//	switch (animation.currState) {
-		//	case ANIM_STATE::IDLE:
-		//		animation.currState = ANIM_STATE::RUN;
-		//		break;
-		//	case ANIM_STATE::RUN: 
-		//		animation.currState = ANIM_STATE::ATTACK;
-		//		break;
-		//	case ANIM_STATE::ATTACK:
-		//		animation.currState = ANIM_STATE::IDLE;
-		//		break;
-		//	}
-		//}
 	}
 }

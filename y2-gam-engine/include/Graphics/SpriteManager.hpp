@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       AnimationSystem.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Oct 20, 2023
+
+\brief      Header for the AnimationManager class.
+
+            Manages animation, loading and creating of animations from spritesheets.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "../include/pch.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
