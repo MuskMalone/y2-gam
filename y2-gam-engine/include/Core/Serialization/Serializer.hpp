@@ -12,7 +12,6 @@
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/Node.hpp>
-#include <Components/OrthoCamera.hpp>
 #include <Components/RigidBody.hpp>
 #include <Components/Script.hpp>
 #include <Components/Sprite.hpp>
@@ -37,9 +36,6 @@ Coordinator::GetInstance()->AddComponent(entity, Gravity{ obj });
 }
 static void EntityAddNode(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Node{ obj });
-}
-static void EntityAddOrthoCamera(Entity const& entity, rapidjson::Value const& obj) {
-Coordinator::GetInstance()->AddComponent(entity, OrthoCamera{ obj });
 }
 static void EntityAddRigidBody(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, RigidBody{ obj });
@@ -66,7 +62,6 @@ else if constexpr (std::is_same_v<_type, Collider>) return "Collider";
 else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
 else if constexpr (std::is_same_v<_type, Node>) return "Node";
-else if constexpr (std::is_same_v<_type, OrthoCamera>) return "OrthoCamera";
 else if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
 else if constexpr (std::is_same_v<_type, Script>) return "Script";
 else if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
@@ -116,13 +111,6 @@ JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Node>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Node>(), obj); }
-else { obj.SetNull(); }
-}
-if (Coordinator::GetInstance()->HasComponent<OrthoCamera>(entity)){
-JSONObj obj{ JSON_OBJ_TYPE };
-obj.SetObject();
-bool res = Coordinator::GetInstance()->GetComponent<OrthoCamera>(entity).Serialize(obj);
-if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<OrthoCamera>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<RigidBody>(entity)){
@@ -175,7 +163,6 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
 {"Node", EntityAddNode},
-{"OrthoCamera", EntityAddOrthoCamera},
 {"RigidBody", EntityAddRigidBody},
 {"Script", EntityAddScript},
 {"Sprite", EntityAddSprite},

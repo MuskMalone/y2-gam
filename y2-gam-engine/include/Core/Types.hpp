@@ -109,11 +109,14 @@ constexpr std::uint64_t murmur64_seed(void const* data_, std::size_t len, std::s
     switch (len) {
     case 3:
         h2 ^= ((std::uint8_t const*)data)[2] << 16;
+        break;
     case 2:
         h2 ^= ((std::uint8_t const*)data)[1] << 8;
+        break;
     case 1:
         h2 ^= ((std::uint8_t const*)data)[0] << 0;
         h2 *= m;
+        break;
     };
 
     h1 ^= h2 >> 18;

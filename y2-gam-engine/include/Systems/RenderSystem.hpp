@@ -45,6 +45,8 @@ public:
 	//for debug
 	void ToggleDebugMode();
 	void ToggleEditorMode();
+	bool GetDebugMode() const { return mDebugMode; };
+	bool IsEditorMode()const;
 
 private:
 	bool mDebugMode{ false };

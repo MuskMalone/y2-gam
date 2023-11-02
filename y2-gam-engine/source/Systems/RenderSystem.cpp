@@ -76,6 +76,15 @@ void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
 
 /*  _________________________________________________________________________ */
 /*!
+\brief IsEditorMode Function
+
+Returns true when editor mode else return false.
+*/
+bool RenderSystem::IsEditorMode() const{
+	return mEditorMode==true;
+}
+/*  _________________________________________________________________________ */
+/*!
 \brief Init Function
 
 Initializes the rendering system, setting up necessary resources.
@@ -217,7 +226,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	mFramebuffers[0]->Unbind();
 
-	//Prefab Editor
+	////Prefab Editor
 	//mFramebuffers[1]->Bind();
 	//glDepthMask(GL_TRUE);
 	//Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
@@ -230,7 +239,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
 	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
 
-	//	if (sprite.spriteID) 
+	//	if (sprite.spriteID > -1) {
 	//		Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
 	//	}
 	//	else {

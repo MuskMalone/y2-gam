@@ -42,14 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input.cs" />
-    <Compile Include="InternalCalls.cs" />
-    <Compile Include="KeyCodes.cs" />
+    <Compile Include="Basic Enemy\BasicEnemy.cs" />
+    <Compile Include="Basic Enemy\EnemyAttackState.cs" />
+    <Compile Include="Basic Enemy\EnemyBaseState.cs" />
+    <Compile Include="Basic Enemy\EnemyChaseState.cs" />
+    <Compile Include="Basic Enemy\EnemyDefaultState.cs" />
+    <Compile Include="Basic Enemy\EnemyIdleState.cs" />
+    <Compile Include="Basic Enemy\EnemyPatrolState.cs" />
+    <Compile Include="Helper\Input.cs" />
+    <Compile Include="Helper\InternalCalls.cs" />
+    <Compile Include="Helper\KeyCodes.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="PhysicsWrapper.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Helper\PhysicsWrapper.cs" />
+    <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="Helper\Vector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

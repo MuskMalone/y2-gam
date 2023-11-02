@@ -4,7 +4,7 @@
 \file       ScriptCoordinator.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Oct 26, 2023
 
 \brief      Communicates with the C# scripts, allowing for internal calls
 						in which the information from CPP code can be accessed in C#,
@@ -19,14 +19,12 @@
 #include "../include/pch.hpp"
 
 #include "Scripting/ScriptCoordinator.hpp"
+#include "Scripting/NodeManager.hpp"
+
 #include "Core/Coordinator.hpp"
 
-#include "Components/Transform.hpp"
-#include "Components/Rigidbody.hpp"
-#include "Components/Animation.hpp"
 #include "Systems/InputSystem.hpp"
-
-#include "Core/Raycast.hpp"
+#include "Systems/CollisionSystem.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -36,12 +34,89 @@ namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
-	static void PhysicsComponent_GetRaycast(Vec3 origin, Vec3 direction, float maxDistance, void** raycastHit) {
-		RaycastHit* ret{ Raycast::performRaycast(origin, direction, maxDistance) };
-		*raycastHit = reinterpret_cast<void*>(ret);
+	// For Pathfinding
+	/*  _________________________________________________________________________ */
+	/*! PathfindingComponent_GetPath
+
+	@param entityID
+	The ID of the entity.
+
+	@param closestNode
+	The closest node to the entity.
+
+	@param nextNode
+	The next node to the entity.
+
+	@param tag
+	The tag of the entity.
+
+	@return none.
+
+	Calls the pathfinding algorithm in CPP, and returns the closest node and the
+	next node to the entity in C#.
+	*/
+	static void PathfindingComponent_GetPath(uint32_t entityID, Vec2* closestNode, Vec2* nextNode, Vec2* tag) {
+		if (!NodeManager::GetCurrentlyActiveNodes().empty()) {
+			::gCoordinator = Coordinator::GetInstance();
+			NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(entityID),
+				NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
+
+			*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+				gCoordinator->GetComponent<Transform>(path.front()).position.y };
+
+			if (path.size() > 1) {
+				*nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
+					gCoordinator->GetComponent<Transform>(path[1]).position.y;
+				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
+					static_cast<float>(gCoordinator->GetComponent<Node>(path[1]).type) };
+			}
+			else {
+				*nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+				gCoordinator->GetComponent<Transform>(path.front()).position.y };
+				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
+					static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type) };
+			}
+    }
+	}
+	
+	// For Physics
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetRaycast
+
+	@param origin
+	The origin of the raycast.
+
+	@param end
+	The end of the raycast.
+
+	@param raycastHit
+	The raycast hit information.
+
+	@return none.
+
+	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
+		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag) {
+		::gCoordinator = Coordinator::GetInstance();
+		Physics::RayHit rh{};
+		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
+		
+		*normal = rh.normal;
+		*point = rh.point;
+		*distance = rh.distance;
+		*entityID = rh.entityID;
+		
+		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
+			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+		}
+		else {
+			*tag = mono_string_new(mono_domain_get(), "No Tag");
+		}
 	}
 
-	// For Animation
+	// For Graphics
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -78,6 +153,45 @@ namespace Image {
 		gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<ANIM_STATE>(*animationState);
 	}
 
+	/*  _________________________________________________________________________ */
+/*! GraphicsComponent_GetScale
+
+@param entityID
+The ID of the entity.
+
+@param outScale
+The current scale of the entity.
+
+@return none.
+
+Get the current scale of the entity in C#.
+*/
+	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
+		::gCoordinator = Coordinator::GetInstance();
+		*outScale = Vec3{ gCoordinator->GetComponent<Transform>(entityID).scale.x,
+			gCoordinator->GetComponent<Transform>(entityID).scale.y,
+			gCoordinator->GetComponent<Transform>(entityID).scale.z };
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetScale
+
+	@param entityID
+	The ID of the entity.
+
+	@param scale
+	Updated scale of the entity.
+
+	@return none.
+
+	Set the current scale of the entity in C#.
+	*/
+	static void GraphicsComponent_SetScale(uint32_t entityID, Vec3* scale) {
+		::gCoordinator = Coordinator::GetInstance();
+		gCoordinator->GetComponent<Transform>(entityID).scale = 
+		{ scale->x, scale->y, scale->z };
+	}
+
 	// For Translation
 	/*  _________________________________________________________________________ */
 	/*! TransformComponent_GetTranslation
@@ -92,9 +206,10 @@ namespace Image {
 
 	Get the current position of the entity in C#.
 	*/
-	static void TransformComponent_GetTranslation(uint32_t entityID, Vec3* outTranslation) {
+	static void TransformComponent_GetTranslation(uint32_t entityID, Vec2* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = Vec3{ gCoordinator->GetComponent<Transform>(entityID).position.x,gCoordinator->GetComponent<Transform>(entityID).position.y,gCoordinator->GetComponent<Transform>(entityID).position.z };
+		*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(entityID).position.x,
+			gCoordinator->GetComponent<Transform>(entityID).position.y };
 	}
 
 	/*  _________________________________________________________________________ */
@@ -110,9 +225,11 @@ namespace Image {
 
 	Set the current position of the entity in C#.
 	*/
-	static void TransformComponent_SetTranslation(uint32_t entityID, Vec3* translation) {
+	static void TransformComponent_SetTranslation(uint32_t entityID, Vec2* translation) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,translation->y,translation->z };
+		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
+			translation->y,
+			gCoordinator->GetComponent<Transform>(entityID).position.z };
 	}
 
 	// For Force
@@ -336,10 +453,14 @@ namespace Image {
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
+
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);

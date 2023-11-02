@@ -4,7 +4,7 @@
 \file       Vector.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Oct 26, 2023
 
 \brief      A simplified vector struct, that allows for basic vector 
             functionality and operations in C#.
@@ -14,6 +14,8 @@
             written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
+
+using System;
 
 namespace Image
 {
@@ -126,6 +128,24 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! operator-
+                        
+        @param vector
+        The LHS vector.
+
+        @param vector
+        The RHS vector.
+
+        @return Vector2
+
+        The operator overload for -.
+        */
+        public static Vector2 operator -(Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.X - b.X, a.Y - b.Y);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! operator*
                 
         @param vector
@@ -159,6 +179,68 @@ namespace Image
         public static Vector2 operator /(Vector2 vector, float scalar)
         {
             return new Vector2(vector.X / scalar, vector.Y / scalar);       
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! operator==
+        
+        @param lhs
+        The LHS vector.
+
+        @param rhs
+        The RHS vector.
+
+        @return bool
+
+        The operator overload for ==.
+        */
+        public static bool operator ==(Vector2 lhs, Vector2 rhs)
+        {
+            return lhs.X == rhs.X && lhs.Y == rhs.Y;
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! operator!=
+        
+        @param lhs
+        The LHS vector.
+
+        @param rhs
+        The RHS vector.
+
+        @return bool
+
+        The operator overload for !=.
+        */
+        public static bool operator !=(Vector2 lhs, Vector2 rhs)
+        {
+            return lhs.X != rhs.X || lhs.Y != rhs.Y;
+        }
+
+        // Override Equals method to provide custom equality comparison
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector2))
+                return false;
+
+            Vector2 other = (Vector2)obj;
+
+            return X == other.X && Y == other.Y;
+        }
+
+        // Override GetHashCode method to provide a hash code for the struct
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode();
+        }
+
+        // Vector zero
+        public static Vector2 Zero = new Vector2(0.0f, 0.0f);
+
+        // Vector length
+        public float Length()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y);
         }
     }
 }

@@ -2,7 +2,6 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/RenderSystem.hpp"
-#include "Components/OrthoCamera.hpp"
 #include "Core/Coordinator.hpp"
 
 #include <Core/Globals.hpp>
@@ -56,13 +55,9 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	glm::mat4 inversedMtx { glm::inverse(camera.GetViewProjMtx()) };
 	glm::vec4 worldPos { inversedMtx * screenPos };
 
-	//return mMousePos;
-	//std::cout << worldPos.x << " " << worldPos.y << std::endl;
 	return { worldPos.x, worldPos.y };
 }
 EditorMousePosition InputSystem::GetEditorMousePos() const {
-	//auto const& camera{ ::gCoordinator->GetComponent<OrthoCamera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
-	//camera.
 	return mEditorMousePos;
 }
 void InputSystem::Update()

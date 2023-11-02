@@ -30,7 +30,6 @@
 #include <Core/Coordinator.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
 #include <Graphics/Renderer.hpp>
-#include <Components/OrthoCamera.hpp>
 #include <Math/MathUtils.h>
 namespace DataMgmt {
 

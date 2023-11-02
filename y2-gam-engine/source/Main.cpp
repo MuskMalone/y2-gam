@@ -24,6 +24,7 @@
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
+#include "Graphics/FontRenderer.hpp"
 
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
@@ -40,7 +41,8 @@ void QuitHandler([[maybe_unused]] Event& event)
 	quit = true;
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
-DecisionTree gGameLoop{};
+
+
 int main()
 {
 	// Enable run-time memory check for debug builds.
@@ -82,7 +84,6 @@ int main()
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
-	coordinator->RegisterComponent<OrthoCamera>();
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
@@ -181,6 +182,9 @@ int main()
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
+
+	NodeManager::Initialize();
+
 	/*
 	std::vector<std::string> diagnostics{};
 	diagnostics.emplace_back("FPS");
@@ -217,16 +221,19 @@ int main()
 		frameController->StartFrameTime();
 		inputSystem->Update();
 
-
+		
 		windowManager->ProcessEvents();
+		//gGameLoop.CheckToggleKey();
+		
 		StateManager::GetInstance()->Update(dt);
+			//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
+			//}
+		//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
+		NodeManager::Update();
+
 		//textSystem->Update();
-		gGameLoop.CheckToggleKey();
-		gGameLoop.Evaluate();
-		if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE) {
-			imguiSystem->Update();
-		}
+
 		//physicsSystem->PreCollisionUpdate(dt);
 
 		//collisionSystem->Update(dt);
@@ -242,6 +249,7 @@ int main()
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 		dt = frameController->EndFrameTime();
+				imguiSystem->Update();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
 		/*
@@ -270,9 +278,6 @@ int main()
 			}
 		}
 		*/
-
-		
-		NodeManager::Update();
 	}
 
 	
