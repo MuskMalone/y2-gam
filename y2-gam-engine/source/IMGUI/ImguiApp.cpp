@@ -667,9 +667,8 @@ namespace Image {
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 
-        ImGui::Begin("Image Game Engine", nullptr, window_flags);
+        ImGui::Begin("Image Game Engine");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();

@@ -125,7 +125,7 @@ void RenderSystem::Init()
 			{1.f,1.f,1.f,1.f},
 			nullptr,
 			-1,
-			Layer::UI
+			Layer::BACKGROUND
 		}
 	);
 	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
@@ -194,9 +194,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 
-	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
-
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
@@ -211,14 +209,14 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 
-	if (mDebugMode) {	
+	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
 	}
-	//glEnable(GL_DEPTH_TEST);
 
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<TextSystem>()->Update();
+	glEnable(GL_DEPTH_TEST);
 	mFramebuffers[0]->Unbind();
 
 	////Prefab Editor
