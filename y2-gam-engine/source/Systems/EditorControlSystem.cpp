@@ -149,7 +149,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-      "Platform"
+      "Platform1"
     });
 
 	// Left
@@ -184,7 +184,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-			"Platform"
+			"Platform2"
 		});
 
 	// Right
@@ -219,7 +219,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-			"Platform"
+			"Platform3"
 		});
 
 	// Top
@@ -254,7 +254,7 @@ void EditorControlSystem::Init()
 	::gCoordinator->AddComponent(
 		entity,
 		Tag{
-			"Platform"
+			"Platform4"
 		});
 		
 	// Creating a sample player entity

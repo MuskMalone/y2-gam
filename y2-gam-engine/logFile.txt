@@ -29384,3 +29384,1491 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-11-02 10:24:24 FN: Image::SoundManager::AudioExit
 
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:31:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:31:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:31:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:31:15 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:32:31 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:32:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:32:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:32:31 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:33:24 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:33:24 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:33:24 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:33:25 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:35:27 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:35:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:35:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:35:28 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:37:38 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:37:38 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:37:38 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:37:39 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:38:03 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:38:03 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:38:03 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:38:03 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-02 10:38:03 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-02 10:38:03 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-02 10:38:03 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-02 10:38:03 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-02 10:38:03 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-02 10:38:03 FN: Image::FontRenderer::LoadFont
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:39:04 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:39:04 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:39:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:39:05 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:39:28 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:39:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:39:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:39:29 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:39:50 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:39:50 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:39:50 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:39:51 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:39:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:39:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:39:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:39:56 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:40:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:40:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:40:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:40:43 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:43:02 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:43:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:43:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:43:03 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:43:26 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:43:26 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:43:26 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:43:27 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:45:15 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:45:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:45:15 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:45:15 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:46:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:46:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:46:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:46:56 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:52:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:52:33 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:52:33 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:52:33 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:53:42 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:53:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:53:42 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:53:43 FN: Image::FontRenderer::Init
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-02 10:57:45 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-02 10:57:45 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-02 10:57:46 FN: Image::SoundManager::AudioInit
+
+[INFO]: Succesful init Freetype Library 2023-11-02 10:57:46 FN: Image::FontRenderer::Init
+

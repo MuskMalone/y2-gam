@@ -179,6 +179,24 @@ namespace Image {
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
+        if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
+            if (ImGui::MenuItem("Create Entity")) {
+                Entity newEntity = gCoordinator->CreateEntity();
+                gSelectedEntity = newEntity;
+                ImGuiViewport* vP = ImGui::GetWindowViewport();
+                gCoordinator->AddComponent(
+                    gSelectedEntity,
+                    Transform{
+                        {vP->Pos.x,vP->Pos.y,0},
+                        {0,0,0},
+                        {gScale,gScale,gScale}
+                    });
+                gCoordinator->AddComponent(
+                    gSelectedEntity,
+                    Tag{ "Name" });
+            }
+            ImGui::EndPopup();
+        }
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
@@ -188,13 +206,14 @@ namespace Image {
                 Transform{
                     {vP->Pos.x,vP->Pos.y,0},
                     {0,0,0},
-                    {5,5,5}
+                    {gScale,gScale,gScale}
                 });
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
         }
 
+        //Cant destroy player
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
             if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
@@ -214,6 +233,26 @@ namespace Image {
                 gSelectedEntity = entity;
             }
         }
+        auto input = gCoordinator->GetSystem<InputSystem>();
+        if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
+            if (gSelectedEntity != MAX_ENTITIES) { // Check if an entity is selected
+                if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                    gCoordinator->DestroyEntity(gSelectedEntity);
+                    gSelectedEntity = MAX_ENTITIES; // Deselect the entity after deletion
+                }
+            }
+        }
+            //// Right-click on an item to open the interaction menu
+            //if (ImGui::BeginPopupContextItem()) {
+            //    if (gSelectedEntity != MAX_ENTITIES && ImGui::MenuItem("Destroy Entity")) {
+            //        if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+            //            gCoordinator->DestroyEntity(gSelectedEntity);
+            //            gSelectedEntity = MAX_ENTITIES;
+            //        }
+            //    }
+            //    // Add more entity interaction options here...
+            //    ImGui::EndPopup();
+            //}
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -692,6 +731,7 @@ namespace Image {
             int fbX = static_cast<int>(mouseX * gScalingFactor);
             int fbY = static_cast<int>(mouseY * gScalingFactor);
 
+            
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
