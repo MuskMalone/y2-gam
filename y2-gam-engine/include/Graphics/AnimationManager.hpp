@@ -15,7 +15,7 @@ public:
 
 	//for assetmanager
 	static ResourceID LoadAsset(rapidjson::Value const& obj);
-	static void SaveAsset(ResourceID aid, SpriteProperties const& props, rapidjson::Value& obj);
+	static void SaveAsset(ResourceID aid, AnimationProperties const& props, rapidjson::Value& obj);
 	static AnimationFrames const& GetAsset(ResourceID);
 	static AnimationProperties& GetAssetProperties(ResourceID);
 	static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID);

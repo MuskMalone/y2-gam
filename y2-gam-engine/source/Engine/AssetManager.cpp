@@ -1,7 +1,16 @@
 #include "../include/pch.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Core/Coordinator.hpp>
+#include <Graphics/AnimationManager.hpp>
+#include <Graphics/SpriteManager.hpp>
+#include <Audio/Sound.hpp>
 std::shared_ptr<AssetManager> AssetManager::_mSelf = 0;
+namespace {
+	bool FindStr(std::string const& string, std::string const& substr) {
+		return !(string.find(substr) == std::string::npos);
+	}
+}
+
 void AssetManager::Init() {
 	
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
@@ -16,6 +25,17 @@ void AssetManager::Init() {
 			ResourceID rid{ ass->value["id"].GetUint64() };
 			mAssets[aid] = { path, sysName, rid };
 			std::cout << "aid, path, sysname: " << aid << " " << path << " " << sysName << std::endl;
+
+			//could use type reflection.
+			if (FindStr(sysName, "Sound")) {
+				LoadAsset<SoundManager>(aid);
+			}
+			else if (FindStr(sysName, "Sprite")) {
+				LoadAsset<SpriteManager>(aid);
+			}
+			else if (FindStr(sysName, "Animation")) {
+				LoadAsset<AnimationManager>(aid);
+			}
 
 		}
 	}

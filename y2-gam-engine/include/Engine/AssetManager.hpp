@@ -59,25 +59,28 @@ public:
 		auto type{ rttr::type::get<_system>() };
 		auto const& sysKey{ type.get_name().to_string() }; //gets name of _system type
 		auto key{ std::to_string(aid) };
-		if (!sm->At(cmFileName, sysKey).IsObject()) return static_cast<AssetID>(-1);
-		if (!sm->At(cmFileName, sysKey)[key].IsObject()) return static_cast<AssetID>(-1);
+		if (!sm->At(cmFileName, sysKey).IsObject()) return;
+		if (!sm->At(cmFileName, sysKey)[key.c_str()].IsObject()) return;
 
-		_system::SaveAsset(aid, p, sm->At(cmFileName, sysKey)[key]);
+		_system::SaveAsset(aid, p, sm->At(cmFileName, sysKey)[key.c_str()]);
 	}
 
 	//safe to use in game loop
 	template <typename _system>
 	auto& GetAsset(AssetID aid) {
+		if (mAssets.find(aid) == mAssets.end()) throw std::runtime_error("couldnt find asset");
 		return _system::GetAsset(mAssets[aid].resourceId);
 	}
 
 	//safe to use in game loop
 	template <typename _system>
 	auto& GetAssetProperties(AssetID aid) {
+		if (mAssets.find(aid) == mAssets.end()) throw std::runtime_error("couldnt find assetproperties");
 		return _system::GetAssetProperties(mAssets[aid].resourceId);
 	}
-	
+	//safe to use in game loop
 	inline ResourceID GetResourceID(AssetID aid) {
+		if (mAssets.find(aid) == mAssets.end()) return 0;
 		return mAssets[aid].resourceId;
 	}
 	//returns the AssetID of the asset that was added.
@@ -107,7 +110,7 @@ public:
 		sm->InsertValue(sm->At(cmFileName, sysKey)[keyStr.c_str()], "path", path);
 		mAssets[key] = { path, sysKey,
 		 _system::AddAsset(sm->At(cmFileName, sysKey)[keyStr.c_str()], path, rid ) };
-
+		LoadAsset<_system>(key);
 		return key;
 	}
 

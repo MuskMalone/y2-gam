@@ -183,7 +183,13 @@ ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
     return key;
 }
 void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rapidjson::Value& obj) {
+    auto sm{ Serializer::SerializationManager::GetInstance() };
 
+    sm->ModifyValue(obj, "idxX", props.idx.x);
+    sm->ModifyValue(obj, "idxY", props.idx.y);
+
+    sm->ModifyValue(obj, "dimX", props.dim.x);
+    sm->ModifyValue(obj, "dimY", props.dim.y);
 }
 std::shared_ptr<SubTexture> const& SpriteManager::GetAsset(ResourceID rid) {
     return GetSprite(rid);

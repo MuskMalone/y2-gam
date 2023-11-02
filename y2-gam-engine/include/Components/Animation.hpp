@@ -38,7 +38,7 @@ struct Animation {
 	float speed{};
 	size_t currFrame{};
 	//ResourceID animationID;
-	AssetID assetID;
+	AssetID assetID{};
 	ANIM_STATE currState{};
 	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
 	Animation() = default;

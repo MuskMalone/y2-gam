@@ -1,0 +1,130 @@
+{
+    "Entities": [
+        {
+            "Animation": {
+                "assetID": 0,
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 1
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": -70.0,
+                "posY": -105.0,
+                "rotation": 0.0,
+                "dimX": 7.5,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -90.0
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": -70.0,
+                "posY": -105.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectPlayer"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 14757395258967641292
+            },
+            "Tag": {
+                "Tag": "Player"
+            },
+            "Text": {
+                "fontName": "Lato",
+                "scale": 0.05999999865889549,
+                "text": "Player",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": -70.0,
+                "posY": -105.0,
+                "posZ": -150.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "assetID": 0,
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 1
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 40.0,
+                "posY": -88.0,
+                "rotation": 0.0,
+                "dimX": 7.5,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -90.0
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 40.0,
+                "posY": -88.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectBasicEnemy"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 14757395258967641292
+            },
+            "Tag": {
+                "Tag": "Enemy"
+            },
+            "Text": {
+                "fontName": "Getho",
+                "scale": 0.05999999865889549,
+                "text": "Enemy",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": 40.0,
+                "posY": -88.0,
+                "posZ": -150.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        }
+    ]
+}

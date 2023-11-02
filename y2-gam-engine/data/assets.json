@@ -17,8 +17,18 @@
             "path": "../assets/textures/blinkbg.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 3497.0,
+            "dimY": 1200.0
+        }
+    },
+    "classAnimationManager": {
+        "1698945575867297200": {
+            "id": 1698945575867357500,
+            "path": "../assets\\textures\\ROBIN_ANIM_Spritesheet.png",
+            "frameCount": 7,
+            "idxCoordY": 1.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     }
 }
