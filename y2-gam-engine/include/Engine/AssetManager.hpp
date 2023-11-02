@@ -117,6 +117,6 @@ public:
 	
 private:
 	std::map<AssetID, Asset> mAssets;
-	const char const* cmFileName {"Assets"};
+	char const* const cmFileName {"Assets"};
 	static std::shared_ptr<AssetManager> _mSelf;
 };
