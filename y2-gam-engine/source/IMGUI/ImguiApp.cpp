@@ -41,9 +41,7 @@
 
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
-const float gMass = 10.f;
-const float gScale = 15.f;
-const float gGravity = 10.f;
+
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -189,7 +187,7 @@ namespace Image {
                     Transform{
                         {vP->Pos.x,vP->Pos.y,0},
                         {0,0,0},
-                        {gScale,gScale,gScale}
+                        {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
                     });
                 gCoordinator->AddComponent(
                     gSelectedEntity,
@@ -206,7 +204,7 @@ namespace Image {
                 Transform{
                     {vP->Pos.x,vP->Pos.y,0},
                     {0,0,0},
-                    {gScale,gScale,gScale}
+                    {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
                 });
             gCoordinator->AddComponent(
                 gSelectedEntity,
@@ -235,14 +233,14 @@ namespace Image {
         }
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
-            if (gSelectedEntity != MAX_ENTITIES) { // Check if an entity is selected
+            if (gSelectedEntity != MAX_ENTITIES) {
                 if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     gCoordinator->DestroyEntity(gSelectedEntity);
-                    gSelectedEntity = MAX_ENTITIES; // Deselect the entity after deletion
+                    gSelectedEntity = MAX_ENTITIES;
                 }
             }
         }
-            //// Right-click on an item to open the interaction menu
+ 
             //if (ImGui::BeginPopupContextItem()) {
             //    if (gSelectedEntity != MAX_ENTITIES && ImGui::MenuItem("Destroy Entity")) {
             //        if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
@@ -270,8 +268,13 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
+            ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                if (ImGui::TreeNode("Transform")) {
+                std::string treeNodeLabel = "Transform##" + std::to_string(gSelectedEntity);
+              
+                ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
+                if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
                     // Position
                     ImGui::Text("Position");
@@ -286,12 +289,9 @@ namespace Image {
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-
-                    //ImGui::SetNextItemWidth(50.f);
+                   
+                    ImGui::SetNextItemWidth(158.f);
                     ImGui::InputFloat("Pos Z", &transform.position.z);
-                    //ImGui::SameLine();
-                   // ImGui::SetNextItemWidth(100.f);
-                    //ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
                     // Rotation
                     ImGui::Text("Rotation");
@@ -299,7 +299,7 @@ namespace Image {
                     ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
 
                     // Scale
                     ImGui::Text("Scale");
@@ -307,17 +307,19 @@ namespace Image {
                     ImGui::InputFloat("##Scale X", &transform.scale.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
+                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Scale Y", &transform.scale.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
+                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
-                if (ImGui::TreeNode("Sprite")) {
+                std::string treeNodeLabel = "Sprite##" + std::to_string(gSelectedEntity);
+
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
                     //Color
                     ImGui::Text("Color");
@@ -341,7 +343,6 @@ namespace Image {
                             newSize = ImVec2(200 * aspectRatio, 200);
                         }
 
-                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
                         ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
@@ -355,10 +356,8 @@ namespace Image {
                     ImVec2 max = ImGui::GetItemRectMax();
                     drawList->AddRect(min, max, IM_COL32(255, 0, 0, 255));  // Red border
                     if (ImGui::BeginDragDropTarget()) {
-                        //std::cout << "Began drag-drop target." << std::endl;
 
                         if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
-                            //std::cout << "Accepted payload." << std::endl;
 
                             const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
                             // Load the new texture from the path and assign to the sprite
@@ -374,7 +373,9 @@ namespace Image {
             }
 
             if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
-                if (ImGui::TreeNode("Collider")) {
+                std::string treeNodeLabel = "Collider##" + std::to_string(gSelectedEntity);
+
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
                     ImGui::Text("Type");
                     const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
@@ -385,13 +386,13 @@ namespace Image {
                     ImGui::InputFloat("##Collider Pos X", &collider.position.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
@@ -406,13 +407,13 @@ namespace Image {
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
 
                         ImGui::SetNextItemWidth(50.f);
                         ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, 50);
+                        ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, IMGUI_MAX_SCALE);
 
                     }
                     else {
@@ -421,14 +422,16 @@ namespace Image {
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
                         collider.dimension.y = collider.dimension.x;
                     }
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
-                if (ImGui::TreeNode("RigidBody")) {
+                std::string treeNodeLabel = "RigidBody##" + std::to_string(gSelectedEntity);
+
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
                     // Mass
                     ImGui::Text("Mass");
@@ -441,13 +444,13 @@ namespace Image {
                     ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, 100);
+                    ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, IMGUI_MAX_VELOCITY);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, 100);
+                    ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, IMGUI_MAX_VELOCITY);
 
                     //Friction
                     ImGui::Text("Friction");
@@ -455,14 +458,14 @@ namespace Image {
                     ImGui::InputFloat("##Friction", &rigidBody.friction);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
-
+                    ImGui::SliderFloat("Friction", &rigidBody.friction, 0, IMGUI_MAX_FRICTION);
 
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
-                if (ImGui::TreeNode("Gravity")) {
+                std::string treeNodeLabel = "Gravity##" + std::to_string(gSelectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
                     //Force
                     ImGui::Text("Gravity");
@@ -470,13 +473,13 @@ namespace Image {
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force X", &gravity.force.x, -gGravity, gGravity);
+                    ImGui::SliderFloat("Force X", &gravity.force.x, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force Y", &gravity.force.y, -gGravity, gGravity);
+                    ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
             }
@@ -531,7 +534,7 @@ namespace Image {
                             Transform{
                                 {vP->Pos.x,vP->Pos.y,0},
                                 {0,0,0},
-                                {gScale,gScale,gScale}
+                                {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
                             });
                     }
                 }
@@ -556,7 +559,7 @@ namespace Image {
                                 RigidBody{
                                     Vec2{transform.position.x,transform.position.y},
                                     transform.rotation.z,
-                                    gMass,
+                                    IMGUI_MASS,
                                     Vec2{transform.scale.x,transform.scale.y}
                                 });
                         }
@@ -567,8 +570,8 @@ namespace Image {
                                 RigidBody{
                                     Vec2{vP->Pos.x,vP->Pos.y},
                                     0.f,
-                                    gMass,
-                                    Vec2{gScale,gScale}
+                                    IMGUI_MASS,
+                                    Vec2{IMGUI_SCALE,IMGUI_SCALE}
                                 });
                         }
                     }
@@ -607,7 +610,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Gravity{ Vec2{0.f,-gGravity} });
+                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} });
                     }
                 }
                       break;
@@ -711,10 +714,10 @@ namespace Image {
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
+            ImVec2 contentSize = ImGui::GetContentRegionAvail();
         if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
 
             //mouse picking part:
-            ImVec2 contentSize = ImGui::GetContentRegionAvail();
             ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
             ImVec2 min = ImGui::GetWindowPos();
             min.x += viewportOffset.x;
@@ -789,10 +792,10 @@ namespace Image {
             ImVec2 mousePos = io.MousePos;
 
             ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
             ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
 
             ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
-            ImVec2 windowSize = ImGui::GetWindowSize();
             ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
 
             if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
@@ -806,6 +809,7 @@ namespace Image {
             }
         }
 
+        //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
@@ -824,6 +828,7 @@ namespace Image {
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
