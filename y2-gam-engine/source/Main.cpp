@@ -51,7 +51,6 @@ int main()
 #endif
 	
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
-	PrefabsManager::GetInstance()->Init();
 
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
@@ -91,6 +90,7 @@ int main()
 
 	auto assetManager{ AssetManager::GetInstance() };
 	assetManager->Init();
+	PrefabsManager::GetInstance()->Init();
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -220,66 +220,33 @@ int main()
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
-		frameController->StartFrameTime();
+		
 		inputSystem->Update();
 
-		
 		windowManager->ProcessEvents();
 		//gGameLoop.CheckToggleKey();
-		
-		StateManager::GetInstance()->Update(dt);
-			//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
-			//}
-		//gGameLoop.Evaluate();
-		StateManager::GetInstance()->Render(dt);
+		frameController->StartFrameTime();
+		StateManager::GetInstance()->Update(frameController->GetTargetDT());
+		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
+		//}
+	//gGameLoop.Evaluate();
+		StateManager::GetInstance()->Render(frameController->GetTargetDT());
+
 		NodeManager::Update();
+			
+		
 
-		//textSystem->Update();
-
-		//physicsSystem->PreCollisionUpdate(dt);
-
-		//collisionSystem->Update(dt);
-
-		//physicsSystem->PostCollisionUpdate(dt);
-
-		//animationSystem->Update(dt);
-
-		//renderSystem->Update(dt);
+		dt = frameController->EndFrameTime();
 
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
-		dt = frameController->EndFrameTime();
+
 				imguiSystem->Update();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
-		/*
-		int count{};
-		for (auto& ent : diagnosticsList) {
-			if (diagnosticsList.size() == 5) {
-				switch (count) {
-				case 0:
-					coordinator->GetComponent<Text>(ent).text = "FPS: " + std::to_string(frameController->GetFps());
-					break;
-				case 1:
-					coordinator->GetComponent<Text>(ent).text = "Entities: " + std::to_string(coordinator->GetEntityCount());
-					break;
-				case 2:
-					coordinator->GetComponent<Text>(ent).text = "Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%";
-					break;
-				case 3:
-					coordinator->GetComponent<Text>(ent).text = "Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%";
-					break;
-				case 4:
-					coordinator->GetComponent<Text>(ent).text = "Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%";
-					break;
-				}
 
-				count++;
-			}
-		}
-		*/
 	}
 
 	

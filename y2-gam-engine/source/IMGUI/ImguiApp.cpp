@@ -520,6 +520,14 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
 
+                    const char* items[] = { "False", "True" };
+                    int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
+
+                    // The combo box
+                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
+                    {
+                        rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
+                    }
 
                     ImGui::TreePop();
                 }

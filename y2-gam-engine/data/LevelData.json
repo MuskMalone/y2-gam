@@ -3,14 +3,14 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": -70.0,
-                "posY": -105.0,
+                "posX": -40.596736907958984,
+                "posY": -39.40266418457031,
                 "rotation": 0.0,
                 "dimX": 7.5,
                 "dimY": 15.0
@@ -51,8 +51,8 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": -70.0,
-                "posY": -105.0,
+                "posX": -40.596736907958984,
+                "posY": -39.40266418457031,
                 "posZ": -150.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 3,
+                "currFrame": 4,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -123,6 +123,52 @@
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 5.113609313964844,
+                "posY": -112.87855529785156,
+                "rotation": 0.0,
+                "dimX": 200.0,
+                "dimY": 30.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "RigidBody": {
+                "dimX": 5.0,
+                "dimY": 5.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "block"
+            },
+            "Transform": {
+                "posX": 5.113609313964844,
+                "posY": -112.87855529785156,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "scaleZ": 5.0,
                 "elipse": false
             }
         }

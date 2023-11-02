@@ -40,15 +40,22 @@ void MainState::Update(float dt) {
 		}
 	}
 	else {
-		FrameRateController::GetInstance()->StartSubFrameTime();
-		coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
-		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
-		FrameRateController::GetInstance()->StartSubFrameTime();
-		coordinator->GetSystem<CollisionSystem>()->Update(tdt);
-		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_COLLISION_PROFILE);
-		FrameRateController::GetInstance()->StartSubFrameTime();
-		coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
-		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+		static float accumulatedTime = 0.f;
+		const float maxAccumulation{ 0.1f };
+		accumulatedTime += dt;
+		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+		if (accumulatedTime >= tdt) {
+			FrameRateController::GetInstance()->StartSubFrameTime();
+			coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+			FrameRateController::GetInstance()->StartSubFrameTime();
+			coordinator->GetSystem<CollisionSystem>()->Update(tdt);
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_COLLISION_PROFILE);
+			FrameRateController::GetInstance()->StartSubFrameTime();
+			coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+			accumulatedTime -= tdt;
+		}
 	}
 	}
 	//mCollisionSystem->Debug(); // for debug
