@@ -39,13 +39,16 @@
 #include "Scripting/NodeManager.hpp"
 #include <filesystem>
 
-
+const int   gPercent      = 100;
+const float gScalingFactor = 1.5f;
+const float gMass = 10.f;
+const float gScale = 15.f;
+const float gGravity = 10.f;
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
-    const float scalingFactor = 1.5f;
     /*  _________________________________________________________________________ */
     /*! AppRender
 
@@ -56,27 +59,19 @@ namespace Image {
 
     This function is responsible for rendering the application's UI and
     handling user input.
-    Pressing the 'z' key toggles between dock space and non-dock space.
     Pressing the 'c' key to clear the entities
     */
     void AppRender(std::set<Entity>const& mEntities) {
         ::gCoordinator = Coordinator::GetInstance();
 
-        //Press z to change dock space and non dock space
-        //static bool showDockSpace{ true };
         static bool toDelete{ false };
 
-        /*if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
-            showDockSpace = !showDockSpace;
-        }*/
         if (ImGui::IsKeyReleased(ImGuiKey_C)) {
             NodeManager::ClearAllNodes();
             toDelete = !toDelete;
         }
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-        /*if (showDockSpace) {
-        }*/
         //ImGui::ShowDemoWindow();
         MainMenuWindow();
         PerformanceWindow();
@@ -253,6 +248,12 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
+                    //ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("Pos Z", &transform.position.z);
+                    //ImGui::SameLine();
+                   // ImGui::SetNextItemWidth(100.f);
+                    //ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
@@ -358,7 +359,7 @@ namespace Image {
                     ImGui::InputFloat("##Collider Rot", &collider.rotation);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Rot", &collider.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
+                    ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
@@ -430,13 +431,13 @@ namespace Image {
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
+                    ImGui::SliderFloat("Force X", &gravity.force.x, -gGravity, gGravity);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
+                    ImGui::SliderFloat("Force Y", &gravity.force.y, -gGravity, gGravity);
                     ImGui::TreePop();
                 }
             }
@@ -491,7 +492,7 @@ namespace Image {
                             Transform{
                                 {vP->Pos.x,vP->Pos.y,0},
                                 {0,0,0},
-                                {5,5,5}
+                                {gScale,gScale,gScale}
                             });
                     }
                 }
@@ -516,7 +517,7 @@ namespace Image {
                                 RigidBody{
                                     Vec2{transform.position.x,transform.position.y},
                                     transform.rotation.z,
-                                    50.f,
+                                    gMass,
                                     Vec2{transform.scale.x,transform.scale.y}
                                 });
                         }
@@ -527,8 +528,8 @@ namespace Image {
                                 RigidBody{
                                     Vec2{vP->Pos.x,vP->Pos.y},
                                     0.f,
-                                    50.f,
-                                    Vec2{5.f,5.f}
+                                    gMass,
+                                    Vec2{gScale,gScale}
                                 });
                         }
                     }
@@ -567,7 +568,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Gravity{ Vec2{0.f,0.f} });
+                            Gravity{ Vec2{0.f,-gGravity} });
                     }
                 }
                       break;
@@ -688,8 +689,8 @@ namespace Image {
             mousePos.y = viewportSize.y - mousePos.y;
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
-            int fbX = static_cast<int>(mouseX * scalingFactor);
-            int fbY = static_cast<int>(mouseY * scalingFactor);
+            int fbX = static_cast<int>(mouseX * gScalingFactor);
+            int fbY = static_cast<int>(mouseY * gScalingFactor);
 
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
@@ -765,7 +766,7 @@ namespace Image {
             }
         }
 
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
@@ -783,7 +784,7 @@ namespace Image {
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
@@ -878,20 +879,19 @@ namespace Image {
     void PerformanceWindow() {
         ImGui::Begin("Performance Viewer");
         auto frameController = FrameRateController::GetInstance();
-        static const int percent{ 100 };
-        static float fpsValues[percent] = {};
-        static float physicsValues[percent] = {};
-        static float collisionValues[percent] = {};
-        static float renderValues[percent] = {};
+        static float fpsValues[gPercent] = {};
+        static float physicsValues[gPercent] = {};
+        static float collisionValues[gPercent] = {};
+        static float renderValues[gPercent] = {};
         static int valueIndex{};
-        valueIndex = (valueIndex + 1) % percent; 
+        valueIndex = (valueIndex + 1) % gPercent;
 
         // Display FPS
         float fps = frameController->GetFps();
         ImGui::Text("FPS: %.2f", fps);
         ImGui::Text("FPS Graph");
         fpsValues[valueIndex] = fps;
-        ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), valueIndex, nullptr, 0.0f, 144, ImVec2(0, 80));
+        ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), valueIndex, nullptr, 0.0f, fps, ImVec2(0, gPercent));
         ImGui::Separator();
 
         // Display Entity Count
@@ -902,29 +902,29 @@ namespace Image {
 
         // Display Physics Performance
         ImGui::Text("Physics Performance");
-        physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100.f;
+        physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * static_cast<float>(gPercent);
         float physicsPerformance = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE);
-        ImGui::ProgressBar(physicsPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(physicsPerformance * 100.0f) + "%").c_str());
+        ImGui::ProgressBar(physicsPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(physicsPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Physics Performance Graph");
-        ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+        ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
 
         // Display Collision Performance 
         ImGui::Text("Collision Performance");
-        collisionValues[valueIndex] = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100.f;
+        collisionValues[valueIndex] = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * static_cast<float>(gPercent);
         float collisionPerformance = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE);
-        ImGui::ProgressBar(collisionPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(collisionPerformance * 100.0f) + "%").c_str());
+        ImGui::ProgressBar(collisionPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(collisionPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Collision Performance Graph");
-        ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+        ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
 
         // Display Render Performance
         ImGui::Text("Render Performance");
-        renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100.f;
+        renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * static_cast<float>(gPercent);
         float renderPerformance = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE);
-        ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * 100.0f) + "%").c_str());
+        ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Render Performance Graph");
-        ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
+        ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
 
         ImGui::End();
