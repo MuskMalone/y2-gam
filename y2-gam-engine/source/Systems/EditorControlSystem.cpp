@@ -255,105 +255,105 @@ void EditorControlSystem::Init()
 		});*/
 		
 	// Creating a sample player entity
-	Entity player = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent<Script>(player, { "ObjectPlayer" });
+	//Entity player = ::gCoordinator->CreateEntity();
+	//::gCoordinator->AddComponent<Script>(player, { "ObjectPlayer" });
 
-	position = Vec3(-70.f, -105.f, -150.f);
-	float scale{ 15.f };
-	::gCoordinator->AddComponent<Gravity>(
-		player,
-		{ Vec2(0.0f, ::gravity) });
-	::gCoordinator->AddComponent(
-		player,
-		Collider{
-			Vec2(position), 0.f, Vec2(scale / 2.f, scale)
-		});
-	::gCoordinator->AddComponent(
-		player,
-		RigidBody{
-			Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
-		});
-	::gCoordinator->AddComponent(
-		player,
-		Transform{
-			{position.x,position.y,position.z},
-			{0.f,0.f,0.f},
-			{scale, scale, scale}
-		});
-	::gCoordinator->AddComponent(
-		player,
-		Sprite{
-			{1,1,1,1},
-			0,
-			Layer::FOREGROUND
-		});
-	::gCoordinator->AddComponent(
-		player,
-		Text{
-			"Lato",
-			0.06f,
-			"Player",
-			{1, 1, 0}
-		});
-	::gCoordinator->AddComponent(
-		player,
-		Tag{
-			"Player"
-		});
-	Image::ScriptManager::OnCreateEntity(player);
+	//position = Vec3(-70.f, -105.f, -150.f);
+	//float scale{ 15.f };
+	//::gCoordinator->AddComponent<Gravity>(
+	//	player,
+	//	{ Vec2(0.0f, ::gravity) });
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Collider{
+	//		Vec2(position), 0.f, Vec2(scale / 2.f, scale)
+	//	});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	RigidBody{
+	//		Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
+	//	});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Transform{
+	//		{position.x,position.y,position.z},
+	//		{0.f,0.f,0.f},
+	//		{scale, scale, scale}
+	//	});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Sprite{
+	//		{1,1,1,1},
+	//		0,
+	//		Layer::FOREGROUND
+	//	});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Text{
+	//		"Lato",
+	//		0.06f,
+	//		"Player",
+	//		{1, 1, 0}
+	//	});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Tag{
+	//		"Player"
+	//	});
+	//Image::ScriptManager::OnCreateEntity(player);
 
-	// Creating a sample enemy entity
-	Testing::enemy = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent<Script>(Testing::enemy, { "ObjectBasicEnemy" });
+	//// Creating a sample enemy entity
+	//Testing::enemy = ::gCoordinator->CreateEntity();
+	//::gCoordinator->AddComponent<Script>(Testing::enemy, { "ObjectBasicEnemy" });
 
-	position = Vec3(40.f, -88.f, -150.f);
-	scale = 15.f;
-	::gCoordinator->AddComponent<Gravity>(
-		Testing::enemy,
-		{ Vec2(0.0f, ::gravity) });
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Collider{
-			Vec2(position), 0.f, Vec2(scale / 2.f, scale)
-		});
-	
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		RigidBody{
-			Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
-		});
-	
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Transform{
-			{position.x,position.y,position.z},
-			{0.f,0.f,0.f},
-			{scale, scale, scale}
-		});
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Sprite{
-			{1,0,0,1},
-			0,
-			Layer::FOREGROUND
-		});
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Text{
-			"Getho",
-			0.06f,
-			"Enemy",
-			{1, 1, 0}
-		});
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Tag{
-			"Enemy"
-		});
-	Image::ScriptManager::OnCreateEntity(Testing::enemy);
+	//position = Vec3(40.f, -88.f, -150.f);
+	//scale = 15.f;
+	//::gCoordinator->AddComponent<Gravity>(
+	//	Testing::enemy,
+	//	{ Vec2(0.0f, ::gravity) });
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Collider{
+	//		Vec2(position), 0.f, Vec2(scale / 2.f, scale)
+	//	});
+	//
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	RigidBody{
+	//		Vec2(position), 0.f, ::massOfPlayer, Vec2(scale, scale), true
+	//	});
+	//
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Transform{
+	//		{position.x,position.y,position.z},
+	//		{0.f,0.f,0.f},
+	//		{scale, scale, scale}
+	//	});
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Sprite{
+	//		{1,0,0,1},
+	//		0,
+	//		Layer::FOREGROUND
+	//	});
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Text{
+	//		"Getho",
+	//		0.06f,
+	//		"Enemy",
+	//		{1, 1, 0}
+	//	});
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Tag{
+	//		"Enemy"
+	//	});
+	//Image::ScriptManager::OnCreateEntity(Testing::enemy);
 
 
-	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = player;
+	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = 3; // i think player will always be 3?
 
 	//------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
 	//std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
@@ -369,21 +369,21 @@ void EditorControlSystem::Init()
 	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
 	//																 {ANIM_STATE::RUN, runFrames},
 	//																 {ANIM_STATE::ATTACK, attackFrames} };
-	::gCoordinator->AddComponent(
-		player,
-		Animation{
-			0.08f,
-			0,
-			ANIM_STATE::IDLE
-		});
+	//::gCoordinator->AddComponent(
+	//	player,
+	//	Animation{
+	//		0.08f,
+	//		0,
+	//		ANIM_STATE::IDLE
+	//	});
 
-	::gCoordinator->AddComponent(
-		Testing::enemy,
-		Animation{
-			0.08f,
-			0,
-			ANIM_STATE::IDLE
-		});
+	//::gCoordinator->AddComponent(
+	//	Testing::enemy,
+	//	Animation{
+	//		0.08f,
+	//		0,
+	//		ANIM_STATE::IDLE
+	//	});
 
 	// Create a button for FinishAddingNodes
 	//Entity button = ::gCoordinator->CreateEntity();

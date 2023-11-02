@@ -53,6 +53,8 @@ int main()
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 	PrefabsManager::GetInstance()->Init();
 
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
+	coordinator->Init();
 
 	// Mono Testing
 	Image::ScriptManager::Init();
@@ -63,8 +65,6 @@ int main()
 
 	using namespace Physics;
 	using namespace Collision;
-	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
-	coordinator->Init();
 
 	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
 	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
