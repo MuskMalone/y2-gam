@@ -422,6 +422,12 @@ namespace Image {
             if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
                 if (ImGui::TreeNode("Animation")) {
                     Animation& anim = gCoordinator->GetComponent<Animation>(gSelectedEntity);
+                    ImGui::Text("Speed per frame");
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Speed", &anim.speed);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Speed", &anim.speed, 0, 1);
                     auto am{ AssetManager::GetInstance() };
                     if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
                         auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};

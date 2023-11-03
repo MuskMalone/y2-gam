@@ -3,8 +3,8 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 4,
-                "speed": 0.07999999821186066,
+                "currFrame": 2,
+                "speed": 100.0,
                 "currState": 1
             },
             "Collider": {
@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 6,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
