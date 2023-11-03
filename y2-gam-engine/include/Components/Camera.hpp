@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Camera.hpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 22, 2023
+
+\brief      Header file for the Camera Component.
+
+			The Camera component provides functionalities for managing the view
+			and projection matrices. It includes features for
+			adjusting the camera's position, rotation, zoom level, and for
+			computing the view-projection matrix.
+
+\copyright  Copyright (C) 2023 [Your Company or Institution]. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of [Your Company or Institution] is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "iostream"

@@ -39,6 +39,11 @@
 #include "Scripting/NodeManager.hpp"
 #include <filesystem>
 
+#include <Engine/AssetManager.hpp>
+#include <Graphics/SpriteManager.hpp>
+#include <Graphics/AnimationManager.hpp>
+#include <Audio/Sound.hpp>
+#include <IMGUI/AssetBrowser.hpp>
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
 
@@ -79,8 +84,14 @@ namespace Image {
         //PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
-        TextureHdlWindow(mEntities);
+        //AssetWindow(mEntities);
+        AnimationAssetWindow(mEntities);
+        SpriteAssetWindow(mEntities);
+        SoundAssetWindow(mEntities);
+        AssetPropertiesWindow(mEntities);
+
         LoggingWindow();
+        RenderStatsWindow();
         if (toDelete) {
             std::vector<Entity> deleteEntites{};
             for (auto& e : mEntities) {
@@ -230,6 +241,55 @@ namespace Image {
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
+
+            if (ImGui::BeginDragDropTarget()) {
+                std::cout << "Began drag-drop target." << std::endl;
+
+                //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                //    //std::cout << "Accepted payload." << std::endl;
+                //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                //    std::cout << droppedAid << std::endl;
+                //}
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //std::cout << droppedAid << std::endl;
+                    if (gCoordinator->HasComponent<Sprite>(entity)) {
+                        auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+                        sprite.spriteAssetID = droppedAid;
+                    }
+                    else {
+                        Sprite s{{1,1,1, 1}};
+                        s.spriteAssetID = droppedAid;
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            s);
+                    }
+
+                }
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //std::cout << droppedAid << std::endl;
+                    if (gCoordinator->HasComponent<Animation>(entity)) {
+                        auto& anim = gCoordinator->GetComponent<Animation>(entity);
+                        anim.assetID = droppedAid;
+                    }
+                    else {
+                        Animation a{
+                                0.08f,
+                                0,
+                                ANIM_STATE::IDLE
+                        };
+                        a.assetID = droppedAid;
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            a);
+                    }
+                }
+                ImGui::EndDragDropTarget();
+            }
+        }
         }
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
@@ -289,9 +349,12 @@ namespace Image {
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
-                   
-                    ImGui::SetNextItemWidth(158.f);
-                    ImGui::InputFloat("Pos Z", &transform.position.z);
+
+                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::InputFloat("##Pos Z", &transform.position.z);
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
                     // Rotation
                     ImGui::Text("Rotation");
@@ -324,12 +387,14 @@ namespace Image {
                     //Color
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
+                    auto am{ AssetManager::GetInstance() };
+                    if (sprite.spriteAssetID && sprite.spriteAssetID != static_cast<AssetID>(-1)) {
+                        auto texture{ am->GetAsset<SpriteManager>(sprite.spriteAssetID) };
 
-                    if (sprite.texture && sprite.texture->GetTexture()) {
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(sprite.texture->GetTexture()->GetTexHdl()));
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexture()->GetTexHdl()));
 
                         // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(sprite.texture->GetTexture()->GetWidth()), static_cast<float>(sprite.texture->GetTexture()->GetHeight()));
+                        ImVec2 originalSize(static_cast<float>(texture->GetTexture()->GetWidth()), static_cast<float>(texture->GetTexture()->GetHeight()));
 
                         // Calculate aspect ratio
                         float aspectRatio = originalSize.x / originalSize.y;
@@ -363,15 +428,51 @@ namespace Image {
                             // Load the new texture from the path and assign to the sprite
                             std::filesystem::path basePath = "../assets";
                             std::shared_ptr<Texture> newTexture = Texture::Create((basePath / payLoadPath).string());
-                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 });
-                            sprite.texture = newSubTexture;
+                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 }, {});
+                            
+                            throw std::runtime_error("update new asset here");
+                            //sprite.texture = newSubTexture;
                         }
                         ImGui::EndDragDropTarget();
                     }
                     ImGui::TreePop();
                 }
             }
+            if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Animation")) {
+                    Animation& anim = gCoordinator->GetComponent<Animation>(gSelectedEntity);
+                    auto am{ AssetManager::GetInstance() };
+                    if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
+                        auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
 
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
+
+                        // Original sprite sheet size
+                        ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
+
+                        // Calculate aspect ratio
+                        float aspectRatio = originalSize.x / originalSize.y;
+
+                        // Adjust size while maintaining aspect ratio
+                        ImVec2 newSize;
+                        if (aspectRatio > 1.0f) {
+                            newSize = ImVec2(200, 200 / aspectRatio);
+                        }
+                        else {
+                            newSize = ImVec2(200 * aspectRatio, 200);
+                        }
+
+                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
+                    }
+                    else {
+                        ImGui::Text("No Animation");
+                        ImVec2 dummySize(150, 150);
+                        ImGui::Dummy(dummySize);
+                    }
+                    ImGui::TreePop();
+                }
+            }
             if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
                 std::string treeNodeLabel = "Collider##" + std::to_string(gSelectedEntity);
 
@@ -458,7 +559,16 @@ namespace Image {
                     ImGui::InputFloat("##Friction", &rigidBody.friction);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Friction", &rigidBody.friction, 0, IMGUI_MAX_FRICTION);
+                    ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
+
+                    const char* items[] = { "False", "True" };
+                    int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
+
+                    // The combo box
+                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
+                    {
+                        rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
+                    }
 
                     ImGui::TreePop();
                 }
@@ -545,8 +655,7 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Sprite{
-                                {1,1,1, 1},
-                                nullptr
+                                {1,1,1, 1}
                             });
                     }
                 }
@@ -589,20 +698,12 @@ namespace Image {
                       break;
                 case 4: {
                     if (!gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
-                        //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
-                        std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
-                        std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
-                        std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
-                        std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
-                                                                                         {ANIM_STATE::RUN, runFrames},
-                                                                                         {ANIM_STATE::ATTACK, attackFrames} };
                         ::gCoordinator->AddComponent(
                             gSelectedEntity,
                             Animation{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE,
-                                map
+                                ANIM_STATE::IDLE
                             });
                     }
                 }
@@ -938,21 +1039,7 @@ namespace Image {
         ImGui::End();
     }
 
-    /*  _________________________________________________________________________ */
-    /*! TextureHdlWindow
 
-    @param std::set<Entity>const& mEntities
-     Set of entities to loop through
-
-    @return none.
-
-    This function change all the texture related to the asset ID
-    */
-    void TextureHdlWindow(std::set<Entity>const& mEntities) {
-        ImGui::Begin("Texture HDL");
-
-        ImGui::End();
-    }
 
     /*  _________________________________________________________________________ */
     /*! PerformanceWindow
@@ -1045,6 +1132,26 @@ namespace Image {
         }
         ImGui::EndChild();
         ImGui::End();
+    }
+
+
+    /*  _________________________________________________________________________ */
+    /*!
+    \brief RenderStatsWindow
+
+    Creates an ImGui window displaying rendering statistics, such as draw calls, 
+    quads, vertices, and indices, and then resets the stats for the next frame.
+    */
+    void RenderStatsWindow() {
+
+        ImGui::Begin("Renderer Stats");
+        auto stats = Renderer::GetStats();
+        ImGui::Text("Draw Calls: %d", stats.drawCalls);
+        ImGui::Text("Quads: %d", stats.quadCount);
+        ImGui::Text("Vertices: %d", stats.GetTotalVtxCount());
+        ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
+        ImGui::End();
+        Renderer::ResetStats();
     }
 
 }

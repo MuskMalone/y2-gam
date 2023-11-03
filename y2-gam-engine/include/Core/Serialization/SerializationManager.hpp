@@ -96,6 +96,11 @@ namespace Serializer {
 			mDocumentMap[path].AddMember(keyName, val, mDocumentMap[key].GetAllocator());
 		}
 
+		JSONDoc& GetDoc(std::string const& name) {
+			path = mPath + name + mExt;
+			return mDocumentMap[path];
+		}
+
 		JSONObj& At(std::string const& key) {
 			return mDocumentMap[path][key.c_str()];
 		}

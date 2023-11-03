@@ -86,17 +86,17 @@ Ends the frame time measurement and adjusts the frame rate if necessary.
 
 float FrameRateController::EndFrameTime() {
 	mDeltaTime = std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::high_resolution_clock::now() - mStart).count();
-	if (mDeltaTime < mTargetDeltaTime) {
-		std::this_thread::sleep_for(std::chrono::duration<double>(mTargetDeltaTime - mDeltaTime));
-		mDeltaTime = mTargetDeltaTime;
-	}
+	//if (mDeltaTime < mTargetDeltaTime) {
+	//	std::this_thread::sleep_for(std::chrono::duration<double>(mTargetDeltaTime - mDeltaTime));
+	//	mDeltaTime = mTargetDeltaTime;
+	//}
 	++mFpsCounter;
 
 	//gets the fps
 	if (!(mFpsCounter % static_cast<int>(mTargetFps))) {
 		mFps = 1.f / mDeltaTime;
 	}
-
+	//std::cout << mDeltaTime << " "<<mFps << std::endl;
 	return mDeltaTime;
 }
 /*  _________________________________________________________________________ */

@@ -1,0 +1,218 @@
+{
+    "Entities": [
+        {
+            "Animation": {
+                "assetID": 1698945575867297200,
+                "currFrame": 5,
+                "speed": 0.07999999821186066,
+                "currState": 1
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": -78.93584442138672,
+                "posY": -84.03778839111328,
+                "rotation": 0.0,
+                "dimX": 10.0,
+                "dimY": 25.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -90.0
+            },
+            "RigidBody": {
+                "dimX": 10.0,
+                "dimY": 25.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": -79.59667205810547,
+                "posY": -84.84612274169922,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectPlayer"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Player"
+            },
+            "Text": {
+                "fontName": "Lato",
+                "scale": 0.05999999865889549,
+                "text": "Player",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": -79.1847152709961,
+                "posY": -76.28273010253906,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": -40.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "assetID": 1698954259805573200,
+                "currFrame": 4,
+                "speed": 0.07999999821186066,
+                "currState": 1
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 133.7981414794922,
+                "posY": -82.34612274169922,
+                "rotation": 0.0,
+                "dimX": 18.0,
+                "dimY": 30.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -90.0
+            },
+            "RigidBody": {
+                "dimX": 18.0,
+                "dimY": 30.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 133.7981414794922,
+                "posY": -82.34612274169922,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectBasicEnemy"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Enemy"
+            },
+            "Text": {
+                "fontName": "Getho",
+                "scale": 0.05999999865889549,
+                "text": "Enemy",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": 134.44879150390625,
+                "posY": -77.90161895751953,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 86.37300109863281,
+                "posY": -112.34610748291016,
+                "rotation": 0.0,
+                "dimX": 500.0,
+                "dimY": 30.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "RigidBody": {
+                "dimX": 500.0,
+                "dimY": 30.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 86.37300109863281,
+                "posY": -112.34610748291016,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "block"
+            },
+            "Transform": {
+                "posX": -27.911788940429688,
+                "posY": -112.34610748291016,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698744788359338700
+            },
+            "Tag": {
+                "Tag": "bg"
+            },
+            "Transform": {
+                "posX": 21.82500457763672,
+                "posY": -56.907386779785156,
+                "posZ": -155.35699462890625,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 300.0,
+                "scaleY": 100.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        },
+        {
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        }
+    ]
+}

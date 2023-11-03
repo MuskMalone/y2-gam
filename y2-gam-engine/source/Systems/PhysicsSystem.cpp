@@ -301,7 +301,7 @@ and rotations of the rigid bodies.
 
             //i have to translate to graphics somehow
             transform.position += glm::vec3{vel.x, vel.y, 0.f};
-            transform.rotation += glm::vec3{0, 0, rigidBody.angularVelocity* dt};
+            transform.rotation += glm::vec3{0, 0, Image::Degree(rigidBody.angularVelocity)* dt};
             if (gCoordinator->HasComponent<Collider>(entity)) {
                 auto& collider = gCoordinator->GetComponent<Collider>(entity);
                 collider.position += vel;

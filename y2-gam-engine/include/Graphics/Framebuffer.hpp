@@ -73,8 +73,6 @@ public:
 	static std::shared_ptr<Framebuffer> Create(FramebufferProps const& props);
 private:
 	unsigned int mFboHdl{};
-	//unsigned int mColorAttachment{};
-	//unsigned int mDepthAttachment{};
 	FramebufferProps mProps;
 
 	std::vector<FramebufferTexProps> mColorAttachmentProps;

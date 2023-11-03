@@ -22,13 +22,14 @@
                 "posY": 0.0,
                 "lockRotate": true
             },
-            "Sprite": {
-              "r": 0.0,
-              "g": 0.0,
-              "b": 0.0,
-              "a": 0.0,
-              "layer": 2
-            },
+          "Sprite": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0,
+            "layer": 2,
+            "assetID": 0
+          },
             "Transform": {
                 "posX": 0.0,
                 "posY": 0.0,
@@ -69,7 +70,8 @@
           "g": 0.0,
           "b": 0.0,
           "a": 1.0,
-          "layer": 2
+          "layer": 2,
+          "assetID": 0
         },
         "Transform": {
           "posX": 0.0,
@@ -111,7 +113,8 @@
           "g": 1.0,
           "b": 0.0,
           "a": 1.0,
-          "layer": 2
+          "layer": 2,
+          "assetID": 0
         },
         "Transform": {
           "posX": 0.0,

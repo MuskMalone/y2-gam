@@ -1,7 +1,48 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Camera.cpp
+
+\author     Xavier Choa (k.choa@digipen.edu)
+\date       Sep 22, 2023
+
+\brief      Implementation file for the Camera Component.
+
+			The Camera component provides functionalities for managing the view
+			and projection matrices. It includes features for
+			adjusting the camera's position, rotation, zoom level, and for
+			computing the view-projection matrix.
+
+\copyright  Copyright (C) 2023 [Your Company or Institution]. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of [Your Company or Institution] is prohibited.
+*/
+/******************************************************************************/
+
 #include "../include/pch.hpp"
 #include "Components/Camera.hpp"
 #include "Core/Globals.hpp"
 
+/*  _________________________________________________________________________ */
+/*! Camera
+
+@param ar
+The aspect ratio of the camera.
+
+@param left
+The left clipping plane.
+
+@param right
+The right clipping plane.
+
+@param bottom
+The bottom clipping plane.
+
+@param top
+The top clipping plane.
+
+This constructor initializes a Camera object with the specified parameters. It sets up the projection matrix using an orthographic projection and initializes the view matrix and aspect ratio. The camera's position, rotation, and zoom level are also set, and the view-projection matrix is calculated accordingly.
+*/
 Camera::Camera(float ar, float left, float right, float bottom, float top)
 	: mProjMtx{ glm::ortho(left, right, bottom, top, static_cast<float>(-WORLD_LIMIT_DEPTH), static_cast<float>(WORLD_LIMIT_DEPTH)) }, mViewMtx{ 1.f }, mAspectRatio{ ar } {
 
@@ -16,9 +57,9 @@ Camera::Camera(float ar, float left, float right, float bottom, float top)
 
 /*  _________________________________________________________________________ */
 /*!
-\brief OrthoCamera Constructor (JSON)
+\brief Camera Constructor (JSON)
 
-Constructs an OrthoCamera object using parameters from a JSON object.
+Constructs a Camera object using parameters from a JSON object.
 \param obj JSON object containing camera parameters.
 */
 Camera::Camera([[maybe_unused]] rapidjson::Value const& obj) {
@@ -159,6 +200,23 @@ void Camera::ComputeViewProjMtx() {
 	mViewProjMtx = mProjMtx * mViewMtx;
 }
 
+/*  _________________________________________________________________________ */
+/*! Lerp
+
+@param lhs
+The starting value.
+
+@param rhs
+The ending value.
+
+@param t
+The interpolation factor.
+
+@return
+The linearly interpolated value between lhs and rhs based on the factor t.
+
+This function performs linear interpolation between two values (lhs and rhs) based on the interpolation factor t.
+*/
 float Camera::Lerp(float lhs, float rhs, float t) {
 	return lhs + t * (rhs - lhs);
 }
