@@ -3,17 +3,13 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-<<<<<<< Updated upstream
                 "currFrame": 0,
-=======
-                "currFrame": 5,
->>>>>>> Stashed changes
                 "speed": 100.0,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": -129.75918579101563,
+                "posX": 44.30389404296875,
                 "posY": -84.84612274169922,
                 "rotation": 0.0,
                 "dimX": 10.0,
@@ -28,7 +24,7 @@
                 "dimY": 25.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": -129.75918579101563,
+                "posX": 44.30389404296875,
                 "posY": -84.84612274169922,
                 "lockRotate": true
             },
@@ -55,13 +51,13 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": -130.008056640625,
+                "posX": 44.05500793457031,
                 "posY": -77.0857925415039,
                 "posZ": 1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 40.0,
+                "scaleX": -40.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -70,17 +66,13 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-<<<<<<< Updated upstream
                 "currFrame": 8,
-=======
-                "currFrame": 0,
->>>>>>> Stashed changes
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": -112.82293701171875,
+                "posX": 162.40736389160156,
                 "posY": -82.34612274169922,
                 "rotation": 0.0,
                 "dimX": 18.0,
@@ -95,7 +87,7 @@
                 "dimY": 30.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": -112.82293701171875,
+                "posX": 162.40736389160156,
                 "posY": -82.34612274169922,
                 "lockRotate": true
             },
@@ -116,19 +108,19 @@
             "Text": {
                 "fontName": "Getho",
                 "scale": 0.05999999865889549,
-                "text": "Idle State",
+                "text": "Enemy",
                 "coloX": 1.0,
                 "coloY": 1.0,
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": -112.17228698730469,
+                "posX": 163.05801391601563,
                 "posY": -77.90161895751953,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 40.0,
+                "scaleX": -40.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -165,7 +157,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "PLATFORM"
+                "Tag": "block"
             },
             "Transform": {
                 "posX": 86.0,
@@ -208,9 +200,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 328.7890930175781,
-                "posY": -89.85212707519531,
-                "rotation": -39.27070617675781,
+                "posX": -19.038768768310547,
+                "posY": -89.84616088867188,
+                "rotation": -39.269901275634766,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -221,10 +213,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": -39.270904541015625,
-                "mass": 10000.0,
-                "posX": 328.79058837890625,
-                "posY": -89.8536376953125,
+                "rotation": -39.269901275634766,
+                "mass": 50.0,
+                "posX": -19.038782119750977,
+                "posY": -89.84617614746094,
                 "lockRotate": false
             },
             "Sprite": {
@@ -239,12 +231,12 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": 328.7890930175781,
-                "posY": -89.85212707519531,
+                "posX": -19.038768768310547,
+                "posY": -89.84616088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -2250.165771484375,
+                "rotZ": -2250.1181640625,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 5.0,
@@ -254,13 +246,8 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-<<<<<<< Updated upstream
                 "currFrame": 6,
                 "speed": 0.14300000667572021,
-=======
-                "currFrame": 5,
-                "speed": 0.18000000715255737,
->>>>>>> Stashed changes
                 "currState": 1
             },
             "Sprite": {
@@ -290,13 +277,8 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-<<<<<<< Updated upstream
                 "currFrame": 5,
                 "speed": 0.11999999731779099,
-=======
-                "currFrame": 4,
-                "speed": 0.18000000715255737,
->>>>>>> Stashed changes
                 "currState": 1
             },
             "Sprite": {
@@ -357,13 +339,8 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-<<<<<<< Updated upstream
                 "currFrame": 6,
                 "speed": 0.09700000286102295,
-=======
-                "currFrame": 5,
-                "speed": 0.18000000715255737,
->>>>>>> Stashed changes
                 "currState": 1
             },
             "Sprite": {
@@ -393,13 +370,8 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-<<<<<<< Updated upstream
                 "currFrame": 0,
                 "speed": 0.09700000286102295,
-=======
-                "currFrame": 1,
-                "speed": 0.18000000715255737,
->>>>>>> Stashed changes
                 "currState": 1
             },
             "Sprite": {
@@ -697,52 +669,6 @@
                 "rotZ": 0.0,
                 "scaleX": 20.0,
                 "scaleY": 20.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": -155.5389404296875,
-                "posY": -89.84611511230469,
-                "rotation": -4.057133651258482e-7,
-                "dimX": 15.0,
-                "dimY": 15.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": -10.0
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": -5.708874937226938e-7,
-                "mass": 10000.0,
-                "posX": -155.5389404296875,
-                "posY": -89.84611511230469,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698953104427274700
-            },
-            "Tag": {
-                "Tag": "Box2"
-            },
-            "Transform": {
-                "posX": -155.5389404296875,
-                "posY": -89.84611511230469,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": -0.00002324177694390528,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

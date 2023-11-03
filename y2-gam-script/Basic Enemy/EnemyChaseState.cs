@@ -34,7 +34,6 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void EnterState(BasicEnemy enemy)
     {
-        enemy.SetText("Chase State");
         enemy.AnimationState = (int)AnimationCode.RUN;
         RecalculatePath(enemy);
     }

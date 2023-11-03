@@ -65,16 +65,6 @@ namespace Image
 
 
         /*  _________________________________________________________________________ */
-        /*! SetText
-        
-        Set the text.
-        */
-        public void SetText(string text)
-        {
-            InternalCalls.EngineCore_SetText(entityID, out text);
-        }
-
-        /*  _________________________________________________________________________ */
         /*! CalculateAcceleration
         
         @param force

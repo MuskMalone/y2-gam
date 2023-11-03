@@ -27,9 +27,6 @@ namespace Image
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_SetText(uint entityID, out String text);
         #endregion
 
         #region PathfindingComponent
