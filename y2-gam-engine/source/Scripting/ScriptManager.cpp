@@ -275,6 +275,9 @@ namespace Image {
 #endif
   }
 
+  namespace Hack {
+    std::map<Entity, std::string> entitiesScripted;
+  }
   /*  _________________________________________________________________________ */
   /*! OnCreateEntity
 
@@ -297,6 +300,7 @@ namespace Image {
       sEntityInstances[entity] = si;
       si.CallOnCreate();
 
+
       std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
     }
     else {
@@ -309,6 +313,9 @@ namespace Image {
       Entity entity{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
       if (event.GetFail()) return;
       if (!gCoordinator->HasComponent<Script>(entity)) return;
+
+      if (Hack::entitiesScripted.find(entity) != Hack::entitiesScripted.end()) return;
+      Hack::entitiesScripted[entity] = gCoordinator->GetComponent<Script>(entity).name;
 
       auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
       if (EntityClassExists(scriptComp.name)) {
