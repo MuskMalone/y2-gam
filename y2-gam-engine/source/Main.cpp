@@ -242,9 +242,8 @@ int main()
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 
-				imguiSystem->Update(dt);
-				dt = frameController->EndFrameTime();
-
+		imguiSystem->Update(dt);
+		dt = frameController->EndFrameTime();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
 
