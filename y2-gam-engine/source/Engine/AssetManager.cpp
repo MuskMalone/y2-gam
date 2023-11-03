@@ -24,7 +24,9 @@ void AssetManager::Init() {
 			std::string path{ ass->value["path"].GetString() };
 			ResourceID rid{ ass->value["id"].GetUint64() };
 			mAssets[aid] = { path, sysName, rid };
-			std::cout << "aid, path, sysname: " << aid << " " << path << " " << sysName << std::endl;
+			//std::cout << "aid, path, sysname: " << aid << " " << path << " " << sysName << std::endl;
+			LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Aid, Path, Sysname: " + std::to_string(aid) + 
+				", " + path + ", " + sysName, __FUNCTION__);
 
 			//could use type reflection.
 			if (FindStr(sysName, "Sound")) {
