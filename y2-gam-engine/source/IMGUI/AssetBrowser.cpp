@@ -63,7 +63,7 @@ void AssetContents(std::string const& systemName) {
     for (auto const& asset : AssetManager::GetInstance()->GetAllAssets()) {
         //extremely inefficient for large amounts of assets
         if (asset.second.systemType.find(systemName) != std::string::npos) {
-            ImGui::PushID(asset.first); //assetid
+            ImGui::PushID(static_cast<int>(asset.first)); //assetid
             std::shared_ptr<Texture> icon = fileIcon;
             ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
             ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
@@ -137,7 +137,7 @@ void AssetPropertiesWindow(std::set<Entity> const& mEntities){
     auto am(AssetManager::GetInstance());
 
     bool isSelected{};
-    if (ImGui::Selectable(("Path: " + gSelectedAsset.second.path).c_str(), isSelected));
+    if (ImGui::Selectable(("Path: " + gSelectedAsset.second.path).c_str(), isSelected)) {}
     if (ImGui::BeginDragDropTarget()) {
         std::cout << "Began drag-drop target." << std::endl;
 
