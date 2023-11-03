@@ -3,7 +3,7 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 100.0,
                 "currState": 1
             },
@@ -157,7 +157,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "block"
+                "Tag": "PLATFORM"
             },
             "Transform": {
                 "posX": 86.0,
@@ -200,8 +200,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -19.038768768310547,
-                "posY": -89.84616088867188,
+                "posX": 328.68658447265625,
+                "posY": -88.99424743652344,
                 "rotation": -39.269901275634766,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -214,7 +214,7 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": -39.269901275634766,
-                "mass": 50.0,
+                "mass": 10000.0,
                 "posX": -19.038782119750977,
                 "posY": -89.84617614746094,
                 "lockRotate": false
@@ -231,8 +231,8 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": -19.038768768310547,
-                "posY": -89.84616088867188,
+                "posX": 328.68658447265625,
+                "posY": -88.99424743652344,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 9,
+                "currFrame": 3,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 6,
+                "currFrame": 2,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 3,
+                "currFrame": 4,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
@@ -339,7 +339,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -370,7 +370,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -669,6 +669,52 @@
                 "rotZ": 0.0,
                 "scaleX": 20.0,
                 "scaleY": 20.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -156.81729125976563,
+                "posY": -88.17303466796875,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10000.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953104427274700
+            },
+            "Tag": {
+                "Tag": "Box2"
+            },
+            "Transform": {
+                "posX": -156.81729125976563,
+                "posY": -88.17303466796875,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
