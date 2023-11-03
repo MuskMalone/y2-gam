@@ -1,3 +1,13 @@
+/**
+ * @file AssetManager.cpp
+ * @author tan cheng hian (t.chenghian@digipen.edu)
+ * @brief 
+ * @version 0.1
+ * @date 2023-11-03
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include "../include/pch.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Core/Coordinator.hpp>
