@@ -103,9 +103,10 @@ void RenderSystem::Init()
 		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
+	float const zoomFactor{ 0.4f };
 	gCoordinator->AddComponent(
 		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
 	);
 	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
 
