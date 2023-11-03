@@ -112,5 +112,6 @@ namespace Globals {
 #define CAMERA_MOVESPEED GVC_AT(13)//100
 #define CAMERA_ROTSPEED GVC_AT(14)//80
 #define CAMERA_ZOOMSPEED GVC_AT(15)//100
+#define IMGUI_MAX_SPEED_ANIM GVC_AT(16)//1
 
 //extern DecisionTree gGameLoop;
