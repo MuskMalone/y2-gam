@@ -53,6 +53,18 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! IsEditorMode
+        
+        Get the editor mode.
+        */
+        public bool IsEditorMode()
+        {
+            InternalCalls.EngineCore_IsEditorMode(out bool isEditorMode);
+            return isEditorMode;
+        }
+
+
+        /*  _________________________________________________________________________ */
         /*! CalculateAcceleration
         
         @param force

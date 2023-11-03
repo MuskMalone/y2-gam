@@ -24,6 +24,11 @@ namespace Image
 {
     public static class InternalCalls
     {
+        #region EngineCore
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
+        #endregion
+
         #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
