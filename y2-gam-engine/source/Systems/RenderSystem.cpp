@@ -107,6 +107,30 @@ void RenderSystem::Init()
 		mSceneCamera,
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
 	);
+	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
+
+	//SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
+
+	//Entity bg = gCoordinator->CreateEntity();
+	//::gCoordinator->AddComponent(
+	//	bg,
+	//	Transform{
+	//		{0, 0, -40.f},
+	//		{0.f,0.f,0.f},
+	//		{350.f, 120.f, 0.f}
+	//	});
+	//
+	//::gCoordinator->AddComponent(
+	//	bg,
+	//	Sprite{
+	//		{1.f,1.f,1.f,1.f},
+	//		0,
+	//		Layer::BACKGROUND
+	//	}
+	//);
+	//auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
+	//bgSprite.spriteAssetID = AssetManager::GetInstance()->LoadAsset<SpriteManager>(1698744788359338700);
+	//bgSprite.spriteID = AssetManager::GetInstance()->GetResourceID(bgSprite.spriteAssetID);
 	
 	Renderer::Init();
 
@@ -161,17 +185,15 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			return lhs.transform->position.z < rhs.transform->position.z;
 		});
 
-	for (auto const& e : mEntities) {
-		if (!gCoordinator->HasComponent<Tag>(e)) continue;
-		auto const& tag = gCoordinator->GetComponent<Tag>(e);
-		if (tag.tag == "Player") {
-			mPlayer = e;
-		}
-	}
-	Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
-	sceneCamera.mTargetEntity = mPlayer;
-
 	if (!mEditorMode) {
+		for (auto const& e : mEntities) {
+			if (!gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = gCoordinator->GetComponent<Tag>(e);
+			if (tag.tag == "Player") {
+				mPlayer = e;
+			}
+		}
+
 		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
 		RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
 		glm::vec3 playerPosition{ playerTransform.position };
@@ -179,6 +201,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
 		sceneCamera.UpdatePosition(playerPosition, playerVel);
+		sceneCamera.mTargetEntity = mPlayer;
 	}
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :

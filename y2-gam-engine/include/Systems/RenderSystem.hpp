@@ -53,7 +53,8 @@ private:
 	bool mEditorMode{ true };
 
 	void WindowSizeListener(Event& event);
-	std::vector<std::shared_ptr<Framebuffer>> mFramebuffers; 
+	std::vector<std::shared_ptr<Framebuffer>> mFramebuffers; //TEMP
+	std::shared_ptr<SubTexture> mBgSubtex; // TEMP
 
 	struct RenderEntry {
 		Entity entity;
