@@ -36842,3 +36842,1017 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-11-03 11:12:05 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-11-03 11:12:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 11:12:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 11:12:52 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:12:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 11:12:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:12:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 11:12:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:12:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 11:12:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:12:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:12:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:12:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:12:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:12:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:12:52 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:12:52 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:12:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:12:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:12:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:12:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:12:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 11:12:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:12:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 11:12:52 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:12:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:18 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:18 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:25 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:31 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:34 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:34 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:13:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:13:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:01 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:01 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:03 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:03 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:19 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:22 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:22 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:23 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:23 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:24 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:37 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:41 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:46 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:50 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:58 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:59 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:14:59 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:14:59 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Creation 2023-11-03 11:15:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 11:15:51 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:15:51 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:15:51 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 11:15:52 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 11:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 11:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 11:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:15:52 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:15:52 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:15:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:15:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 11:15:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 11:15:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:15:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:15:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:15:52 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:15:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:15:52 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 11:15:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:15:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 11:15:52 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:15:52 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Resume Group 2023-11-03 11:16:11 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:16:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:16:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 11:16:31 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-11-03 11:16:55 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 11:16:56 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:16:57 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-11-03 11:16:58 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 11:17:00 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:05 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:05 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:05 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:05 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:06 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:06 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 11:17:07 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 11:17:07 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 11:17:08 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 11:17:08 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 11:17:09 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 11:17:09 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:09 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:09 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:17:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:17:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 11:20:18 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:20:18 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:20:19 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:20:27 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:20:28 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:20:28 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:21:53 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:00 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:06 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:06 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:11 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:13 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 11:22:13 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:51 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:23:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 11:23:55 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 11:24:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 11:24:29 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 11:24:30 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:30 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 11:24:30 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:30 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 11:24:30 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:30 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 11:24:30 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:30 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:30 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:30 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:30 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:30 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:24:30 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:24:30 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:30 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:30 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:30 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:30 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:30 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 11:24:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:24:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 11:24:30 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:30 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 11:24:36 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 11:24:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 11:24:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 11:24:57 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:57 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 11:24:57 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:57 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 11:24:57 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:57 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 11:24:57 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 11:24:57 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:57 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:57 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:57 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 11:24:57 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:24:57 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 11:24:57 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:57 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:57 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:24:57 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:57 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 11:24:57 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 11:24:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 11:24:57 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 11:24:57 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 11:24:57 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 11:25:04 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 11:25:09 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 11:25:09 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 11:25:09 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 11:25:09 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 11:25:10 FN: Image::FontRenderer::Init
+

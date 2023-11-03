@@ -200,8 +200,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		Vec2 playerVel{ playerRigidBody.velocity };
 
 		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
-		sceneCamera.UpdatePosition(playerPosition, playerVel);
 		sceneCamera.mTargetEntity = mPlayer;
+		sceneCamera.UpdatePosition(playerPosition, playerVel);
+
 	}
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
