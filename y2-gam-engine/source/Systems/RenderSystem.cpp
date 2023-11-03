@@ -159,8 +159,11 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
+	static bool showEditor{ true };
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
-	mFramebuffers[0]->Bind();
+	if (showEditor) {
+		mFramebuffers[0]->Bind();
+	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -237,8 +240,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glEnable(GL_DEPTH_TEST);
 
 	::gCoordinator->GetSystem<TextSystem>()->Update();
-	mFramebuffers[0]->Unbind();
+	if (showEditor) {
 
+		mFramebuffers[0]->Unbind();
+	}
 	////Prefab Editor
 	//mFramebuffers[1]->Bind();
 	//glDepthMask(GL_TRUE);

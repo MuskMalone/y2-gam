@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 1,
+                "currFrame": 7,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 3,
+                "currFrame": 0,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -268,8 +268,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 40.0,
-                "scaleY": 40.0,
+                "scaleX": 20.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 4,
+                "currFrame": 1,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
@@ -339,7 +339,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -370,7 +370,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -417,7 +417,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
+                "scaleX": 30.0,
                 "scaleY": 20.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -468,7 +468,7 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -486,13 +486,13 @@
                 "Tag": "BUTTON NOT PRESS"
             },
             "Transform": {
-                "posX": -26.846435546875,
-                "posY": 52.392677307128906,
+                "posX": -27.238021850585938,
+                "posY": 44.9649658203125,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
+                "scaleX": 30.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -511,14 +511,14 @@
                 "Tag": "CHECK POINT"
             },
             "Transform": {
-                "posX": 5.113594055175781,
-                "posY": 53.244590759277344,
+                "posX": 26.68079376220703,
+                "posY": 50.59303283691406,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 20.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -536,13 +536,13 @@
                 "Tag": "BUTTON"
             },
             "Transform": {
-                "posX": -27.272613525390625,
-                "posY": 74.54242706298828,
+                "posX": -27.240875244140625,
+                "posY": 63.94450378417969,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
+                "scaleX": 30.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -592,7 +592,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
+                "scaleX": 15.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -611,14 +611,14 @@
                 "Tag": "NOT YET CHECKPOINT"
             },
             "Transform": {
-                "posX": 3.4090652465820313,
-                "posY": 74.1164779663086,
+                "posX": 1.9021530151367188,
+                "posY": 50.86707305908203,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -642,8 +642,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleX": 30.0,
+                "scaleY": 60.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -661,14 +661,14 @@
                 "Tag": "SCAFFODING SHORT"
             },
             "Transform": {
-                "posX": -80.11319732666016,
-                "posY": 96.26622009277344,
+                "posX": -98.96099853515625,
+                "posY": 92.36646270751953,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleX": 30.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
