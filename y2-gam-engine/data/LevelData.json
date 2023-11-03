@@ -3,7 +3,7 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 6,
+                "currFrame": 0,
                 "speed": 100.0,
                 "currState": 1
             },
@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
+                "currFrame": 8,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -246,8 +246,8 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 8,
-                "speed": 0.18000000715255737,
+                "currFrame": 6,
+                "speed": 0.14300000667572021,
                 "currState": 1
             },
             "Sprite": {
@@ -262,8 +262,8 @@
                 "Tag": "ROBIN RUN"
             },
             "Transform": {
-                "posX": 8.948806762695313,
-                "posY": 21.723785400390625,
+                "posX": 15.340812683105469,
+                "posY": 24.279525756835938,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -277,8 +277,8 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 1,
-                "speed": 0.18000000715255737,
+                "currFrame": 5,
+                "speed": 0.11999999731779099,
                 "currState": 1
             },
             "Sprite": {
@@ -309,7 +309,7 @@
             "Animation": {
                 "assetID": 1698954259805573200,
                 "currFrame": 4,
-                "speed": 0.18000000715255737,
+                "speed": 0.13199999928474426,
                 "currState": 1
             },
             "Sprite": {
@@ -339,8 +339,8 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 2,
-                "speed": 0.18000000715255737,
+                "currFrame": 6,
+                "speed": 0.09700000286102295,
                 "currState": 1
             },
             "Sprite": {
@@ -370,8 +370,8 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 5,
-                "speed": 0.18000000715255737,
+                "currFrame": 0,
+                "speed": 0.09700000286102295,
                 "currState": 1
             },
             "Sprite": {

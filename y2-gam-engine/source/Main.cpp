@@ -226,24 +226,25 @@ int main()
 		windowManager->ProcessEvents();
 		//gGameLoop.CheckToggleKey();
 		frameController->StartFrameTime();
-		StateManager::GetInstance()->Update(frameController->GetTargetDT());
+		StateManager::GetInstance()->Update(dt);
 		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
 		//}
 	//gGameLoop.Evaluate();
-		StateManager::GetInstance()->Render(frameController->GetTargetDT());
+		StateManager::GetInstance()->Render(dt);
 
 		NodeManager::Update();
 			
 		
 
-		dt = frameController->EndFrameTime();
 
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 
-				imguiSystem->Update(frameController->GetTargetDT());
+				imguiSystem->Update(dt);
+				dt = frameController->EndFrameTime();
+
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
 
