@@ -160,6 +160,7 @@ namespace Image {
                 if (renderSystem->IsEditorMode()) {
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
+                    ImGui::SetWindowFocus("Image Game Engine");
                 }
             }
             if (ImGui::MenuItem("Stop")) {
@@ -167,6 +168,8 @@ namespace Image {
                 if (!renderSystem->IsEditorMode()) {
                     //std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
+                    ImGui::SetWindowFocus("Image Game Engine");
+
                 }
             }
             ImGui::EndMainMenuBar();
@@ -291,6 +294,7 @@ namespace Image {
             }
         }
         
+        //Cant delete stuff with spcript
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
@@ -342,19 +346,19 @@ namespace Image {
                     ImGui::InputFloat("##Pos X", &transform.position.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
+                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos Y", &transform.position.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos Z", &transform.position.z);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
+                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
                     // Rotation
                     ImGui::Text("Rotation");

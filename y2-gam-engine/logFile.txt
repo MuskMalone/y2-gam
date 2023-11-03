@@ -42884,3 +42884,657 @@
 
 [INFO]: Succesful init Freetype Library 2023-11-03 11:36:49 FN: Image::FontRenderer::Init
 
+[INFO]: Successful FMOD System Creation 2023-11-03 12:41:54 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:41:55 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:41:55 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:41:55 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 12:41:55 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:41:55 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 12:41:55 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:41:55 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 12:41:55 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:41:55 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 12:41:55 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:41:55 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:41:55 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:41:55 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:41:55 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:41:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 12:41:56 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 12:41:56 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:41:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:41:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 12:41:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 12:41:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:41:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:41:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:41:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:41:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:41:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 12:41:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 12:41:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 12:41:56 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:41:56 FN: Image::ScriptClass::GetMethod
+
+[ERROR]: FMOD error! Unsupported file or audio format. 2023-11-03 12:42:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:44:33 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:44:33 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:44:34 FN: Image::SoundManager::AudioLoadSound
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-03 12:45:41 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:45:41 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:45:41 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:45:42 FN: Image::SoundManager::AudioLoadSound
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-03 12:49:12 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:49:12 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:49:12 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:49:13 FN: Image::SoundManager::AudioLoadSound
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-03 12:50:33 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:50:33 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:50:34 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:50:34 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:50:34 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Succesful init Freetype Library 2023-11-03 12:50:35 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:50:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 12:50:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:50:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 12:50:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:50:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 12:50:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 12:50:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:50:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:50:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:50:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 12:50:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 12:50:35 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 12:50:35 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:50:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:50:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 12:50:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 12:50:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:50:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:50:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 12:50:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:50:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 12:50:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 12:50:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 12:50:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 12:50:35 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 12:50:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 12:50:43 FN: Image::SoundManager::AudioExit
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-03 12:50:56 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:50:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:50:56 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:50:56 FN: Image::SoundManager::AudioLoadSound
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: <Module> 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyAttackState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyBaseState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: NodeState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyChaseState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyDefaultState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyIdleState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace:  2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: EnemyPatrolState 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Input 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: InternalCalls 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: AnimationCode 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: KeyCode 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Entity 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: RaycastHit 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: PhysicsWrapper 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector3 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Image 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Vector2 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: BasicEnemy 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Namespace: Object 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[ERROR]: Class Name: Player 2023-11-03 12:53:09 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-03 12:53:09 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 12:53:09 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 12:53:10 FN: Image::SoundManager::AudioLoadSound
+
