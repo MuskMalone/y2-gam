@@ -17,18 +17,19 @@
 using Image;
 using Object;
 using System;
+using System.Runtime.CompilerServices;
 
 public class EnemyPatrolState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-     
+        enemy.SetText("Patrol State");
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Calculate offsets based on isFacingRight
-        float forwardOffset = enemy.isFacingRight ? 10.0f : -10.0f;
+        float forwardOffset = enemy.isFacingRight ? 50.0f : -50.0f;
         float visionOffset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
         // Position that is 10 pixels in front of the enemy
@@ -38,6 +39,7 @@ public class EnemyPatrolState : EnemyBaseState
         // Raycast for line of sight
         Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Translation.Y);
         PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+        //string boxTag = "BOX";
 
         if (losRayCast.tag == "Player")
         {
@@ -54,10 +56,18 @@ public class EnemyPatrolState : EnemyBaseState
                 enemy.SwitchState(enemy.ChaseState);
             }
         }
-
-        // Perform movement based on the groundRayCast result
-        if (groundRayCast.tag != "Platform")
+        /*
+        else if (losRayCast.tag == boxTag)
         {
+
+        }
+        */
+        // Perform movement based on the groundRayCast result
+        String platformTag = "PLATFORM";
+        Console.WriteLine(groundRayCast.tag);
+        if (groundRayCast.tag != platformTag)
+        {
+            Console.WriteLine("No platform detected!");
             if (enemy.isFacingRight)
             {
                 enemy.MoveLeft();

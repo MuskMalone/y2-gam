@@ -49,6 +49,13 @@ namespace Image {
 		*isEditorMode = gCoordinator->GetSystem<RenderSystem>()->IsEditorMode();
 	}
 
+	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Text>(entityID)) {
+			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+		}
+	}
+
 	// For Pathfinding
 	/*  _________________________________________________________________________ */
 	/*! PathfindingComponent_GetPath
@@ -469,6 +476,7 @@ Get the current scale of the entity in C#.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 

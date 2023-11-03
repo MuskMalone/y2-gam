@@ -22,6 +22,7 @@ public class EnemyIdleState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
+        enemy.SetText("Idle State");
         enemy.AnimationState = (int)AnimationCode.IDLE;
     }
 
@@ -43,6 +44,7 @@ public class EnemyIdleState : EnemyBaseState
         // Check the raycast result for "Player" tag
         if (losRayCast.tag == "Player")
         {
+            //Console.WriteLine("Player spotted!");
             float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
             Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
             PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);

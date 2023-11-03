@@ -137,8 +137,6 @@ namespace Object
                 TimeInState += dt;
                 currentState.UpdateState(this, dt);
             }
-
-            //Console.WriteLine("Current enemy state: " + currentState.ToString());
         }
 
         /*  _________________________________________________________________________ */

@@ -22,6 +22,7 @@ public class EnemyAttackState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
+        enemy.SetText("Attack State");
         enemy.AnimationState = (int)AnimationCode.ATTACK;
     }
 
