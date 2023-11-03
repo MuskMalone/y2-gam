@@ -127,14 +127,6 @@
             "dimX": 256.0,
             "dimY": 256.0
         },
-        "1698951420934475600": {
-            "id": 1698951420934555400,
-            "path": "../assets\\Textures\\gam200_anvil.png",
-            "frameCount": 0,
-            "idxCoordY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
-        },
         "1698954259805573200": {
             "id": 1698954259805648300,
             "path": "../assets\\Textures\\ANIM\\ANIM_J_WALK_spritesheet.png",
@@ -163,6 +155,14 @@
             "id": 1698954684954543100,
             "path": "../assets\\Textures\\ROBIN_ANIM_Spritesheet.png",
             "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698992900427510800": {
+            "id": 1698992900427552500,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_RUN.png",
+            "frameCount": 10,
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0

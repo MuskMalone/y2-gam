@@ -450,7 +450,7 @@ namespace Image {
                     ImGui::InputFloat("##Speed", &anim.speed);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Speed", &anim.speed, 0, 1);
+                    ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
                     if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
                         auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
