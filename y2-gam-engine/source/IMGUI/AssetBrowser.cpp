@@ -1,3 +1,13 @@
+/**
+ * @file AssetBrowser.cpp
+ * @author tan cheng hian (t.chenghian@digipen.edu)
+ * @brief 
+ * @version 0.1
+ * @date 2023-11-03
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include "../include/pch.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Graphics/SpriteManager.hpp>
@@ -9,6 +19,13 @@ namespace {
     std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
     
 }
+/**
+ * @brief Fetches the extension of the given file path.
+ *
+ * @param filePath The full file path from which to extract the file extension.
+ * @return The file extension, or an empty string if one was not found.
+ */
+
 std::string GetFileExtension(const std::string& filePath) {
     // Find the last dot character
     std::size_t dotPos = filePath.rfind('.');
@@ -24,6 +41,11 @@ std::string GetFileExtension(const std::string& filePath) {
     }
     return ""; // No extension found
 }
+/**
+ * @brief Generates the contents for a panel displaying assets of a specific system.
+ *
+ * @param systemName The name of the system for which to generate asset content.
+ */
 
 template <typename _system>
 void AssetContents(std::string const& systemName) {
@@ -128,6 +150,14 @@ void SoundAssetWindow(std::set<Entity>const& mEntities) {
     AssetContents<SoundManager>("Sound");
     ImGui::End();
 }
+/**
+ * @brief Checks if a string is found within another string.
+ *
+ * @param string The main string to search within.
+ * @param substr The substring to look for in the main string.
+ * @return true if substr was found in string, false otherwise.
+ */
+
 bool AssetBrowserFindStr(std::string const& string, std::string const& substr) {
     return !(string.find(substr) == std::string::npos);
 }

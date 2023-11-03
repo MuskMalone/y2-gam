@@ -1,3 +1,13 @@
+/**
+ * @file AssetManager.hpp
+ * @author tan cheng hian (t.chenghian@digipen.edu)
+ * @brief 
+ * @version 0.1
+ * @date 2023-11-03
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #pragma once
 //#include <Core/Serialization/SerializationManager.hpp>
 //#include <memory>
@@ -5,6 +15,11 @@
 
 class AssetManager{
 public:
+/**
+ * @brief Fetches the singleton instance of AssetManager.
+ *
+ * @return shared_ptr<AssetManager> The singleton instance.
+ */
 
 	static std::shared_ptr<AssetManager> GetInstance() {
 		if (!_mSelf) return _mSelf = std::make_shared<AssetManager>();
@@ -13,6 +28,13 @@ public:
 	void Init();
 	void Exit();
 private:
+/**
+ * @brief Converts a file path into a unique ResourceID using hash function.
+ *
+ * @param path The file path to be converted.
+ * @return Unique ResourceID.
+ */
+
 	inline static ResourceID PathToKey(std::string const& path) {
 		return _hash(path);
 	}
