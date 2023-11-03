@@ -67,12 +67,12 @@ namespace Image {
     void AppRender(std::set<Entity>const& mEntities,float dt) {
         ::gCoordinator = Coordinator::GetInstance();
 
-        static bool toDelete{ false };
+        //static bool toDelete{ false };
 
-        if (ImGui::IsKeyReleased(ImGuiKey_C)) {
-            NodeManager::ClearAllNodes();
-            toDelete = !toDelete;
-        }
+        //if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+        //    NodeManager::ClearAllNodes();
+        //    toDelete = !toDelete;
+        //}
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
         //ImGui::ShowDemoWindow();
@@ -92,22 +92,22 @@ namespace Image {
 
         LoggingWindow();
         RenderStatsWindow();
-        if (toDelete) {
-            std::vector<Entity> deleteEntites{};
-            for (auto& e : mEntities) {
-                deleteEntites.emplace_back(e);
-            }
-            for (auto const& e : deleteEntites) {
-                //TEMP TO BE DELETED
-                //TODO 
-                if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e) != "2" && std::to_string(e) != "3" && std::to_string(e) != "4") {
-                    gCoordinator->DestroyEntity(e);
-                }
-            }
-            gSelectedEntity = MAX_ENTITIES;
-            toDelete = !toDelete;
+        //if (toDelete) {
+        //    std::vector<Entity> deleteEntites{};
+        //    for (auto& e : mEntities) {
+        //        deleteEntites.emplace_back(e);
+        //    }
+        //    for (auto const& e : deleteEntites) {
+        //        //TEMP TO BE DELETED
+        //        //TODO 
+        //        if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e) != "2" && std::to_string(e) != "3" && std::to_string(e) != "4") {
+        //            gCoordinator->DestroyEntity(e);
+        //        }
+        //    }
+        //    gSelectedEntity = MAX_ENTITIES;
+        //    toDelete = !toDelete;
 
-        }
+        //}
     }
     /*  _________________________________________________________________________ */
     /*! MainMenuWindow
