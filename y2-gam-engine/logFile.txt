@@ -47230,3 +47230,2091 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-11-03 14:55:16 FN: Image::SoundManager::AudioExit
 
+[INFO]: Successful FMOD System Creation 2023-11-03 15:03:58 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:03:59 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:03:59 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:13:17 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:13:17 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:13:18 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:13:18 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:13:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:13:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:13:18 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:13:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:13:18 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:13:18 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:13:18 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:13:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:13:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:13:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:13:18 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:13:18 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:13:18 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:13:18 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:13:18 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:13:18 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:13:18 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:13:18 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:13:18 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:13:18 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:13:18 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Resume Group 2023-11-03 15:15:18 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-11-03 15:15:23 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 15:15:39 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:19:02 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:19:58 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:19:59 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:19:59 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:19:59 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:19:59 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:19:59 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:19:59 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:19:59 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:19:59 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:19:59 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:19:59 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:19:59 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:19:59 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:19:59 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:19:59 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:19:59 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:19:59 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:19:59 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:19:59 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:19:59 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:19:59 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:19:59 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:19:59 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:19:59 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:19:59 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:19:59 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Paused Group 2023-11-03 15:20:28 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:20:28 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 15:20:30 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:20:35 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:20:35 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:36 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:36 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:38 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:52 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:20:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:20:55 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:21:01 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:21:05 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:21:23 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:21:23 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:21:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:21:26 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:21:33 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:22:00 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:22:00 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:22:08 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:22:08 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:22:13 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:22:13 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:22:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:22:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:22:22 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:22:22 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:22:23 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:22:23 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 15:22:24 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 15:22:24 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 15:22:26 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:28:13 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:28:13 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:28:14 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:28:14 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:28:14 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:28:14 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:28:14 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:28:14 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:28:14 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:28:14 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:28:14 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:28:14 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:28:14 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:28:14 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:28:14 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:28:14 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:28:14 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:28:14 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:28:14 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:28:14 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:28:14 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:28:14 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:28:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:14 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:28:14 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:28:14 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:27 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:33 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:36 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:36 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:48 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:28:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:28:49 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 15:29:09 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 15:29:09 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:16 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:16 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 15:29:18 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Resume Group 2023-11-03 15:29:18 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:20 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 15:29:22 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:30 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:32 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:29:33 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:29:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:29:39 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:29:40 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Resume Group 2023-11-03 15:29:54 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:38:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:38:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:38:44 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:38:44 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:38:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:38:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:38:44 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:38:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:38:44 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:38:44 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:38:44 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:38:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:38:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:38:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:38:44 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:38:44 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:38:44 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:38:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:38:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:38:44 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:38:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:38:44 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:38:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:38:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:38:44 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:38:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:38:46 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:42:20 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:42:20 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:42:21 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:42:21 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:21 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:42:21 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:21 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:42:21 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:21 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:42:21 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:21 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:21 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:21 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:21 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:21 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:21 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:21 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:21 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:21 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:21 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:21 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:21 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:42:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:21 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:42:21 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:21 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:42:33 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:42:34 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:42:35 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:42:35 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:42:35 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:42:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:42:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:42:35 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:35 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:35 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:35 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:35 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:35 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:42:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:35 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:42:35 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:35 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:40 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:42 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:44 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:42:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:47 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:42:53 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:42:55 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:42:55 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:55 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:55 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:42:55 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:42:56 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:42:56 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:42:56 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:56 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:42:56 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:56 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:42:56 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:42:56 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:42:56 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:56 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:42:56 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:42:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:42:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:42:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:42:56 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:42:56 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:42:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:42:56 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:42:56 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:42:56 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:02 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:02 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:43:04 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:43:04 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:43:05 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Paused Group 2023-11-03 15:43:05 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:07 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:07 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:11 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 15:43:14 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Paused Group 2023-11-03 15:43:19 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:43:27 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:43:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:43:28 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:43:29 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:43:29 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:43:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:43:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:43:29 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:43:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:43:29 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:43:29 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:43:29 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:43:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:43:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:43:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:43:29 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:43:29 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:43:29 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:43:29 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:43:29 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:43:29 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:43:29 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:43:29 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:43:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:29 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:43:29 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:43:29 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:43 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:45 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:53 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:43:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:43:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Resume Group 2023-11-03 15:43:59 FN: Image::SoundManager::AudioResumeGroup
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:44:02 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:44:03 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:44:04 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:44:04 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:44:04 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:04 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:44:04 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:04 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:44:04 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:04 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:44:04 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:04 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:04 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:04 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:04 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:04 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:04 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:04 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:04 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:04 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:04 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:04 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:04 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:44:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:44:04 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:44:04 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:04 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful set loop count to 0 2023-11-03 15:44:12 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:44:12 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:44:15 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:44:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:44:27 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:44:28 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:44:28 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:28 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:44:28 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:28 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:44:28 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:28 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:44:28 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:28 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:28 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:28 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:28 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:28 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:28 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:28 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:28 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:28 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:28 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:28 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:28 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:44:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:44:28 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:44:28 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:28 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:44:37 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-03 15:44:53 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-03 15:44:54 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-03 15:44:54 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-03 15:44:54 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:54 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-03 15:44:54 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:54 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-03 15:44:54 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:54 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-03 15:44:54 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-03 15:44:54 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:54 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:54 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:54 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-03 15:44:54 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:54 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-03 15:44:54 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:54 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:54 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-03 15:44:54 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:54 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-03 15:44:54 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-03 15:44:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-03 15:44:54 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-03 15:44:54 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-03 15:44:54 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Successful FMOD System Shutdown 2023-11-03 15:44:58 FN: Image::SoundManager::AudioExit
+

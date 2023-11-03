@@ -3,13 +3,13 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 6,
-                "speed": 100.0,
+                "currFrame": 4,
+                "speed": 0.18000000715255737,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": 44.30389404296875,
+                "posX": 74.23146057128906,
                 "posY": -84.84612274169922,
                 "rotation": 0.0,
                 "dimX": 10.0,
@@ -24,7 +24,7 @@
                 "dimY": 25.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": 44.30389404296875,
+                "posX": 74.23146057128906,
                 "posY": -84.84612274169922,
                 "lockRotate": true
             },
@@ -51,7 +51,7 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 44.05500793457031,
+                "posX": 73.98258209228516,
                 "posY": -77.0857925415039,
                 "posZ": 1.0,
                 "rotX": 0.0,
@@ -66,8 +66,8 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
-                "speed": 0.07999999821186066,
+                "currFrame": 4,
+                "speed": 0.20000000298023224,
                 "currState": 1
             },
             "Collider": {
@@ -200,9 +200,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -19.038768768310547,
-                "posY": -89.84616088867188,
-                "rotation": -39.269901275634766,
+                "posX": -19.05353355407715,
+                "posY": -89.84635162353516,
+                "rotation": -39.2698860168457,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -213,10 +213,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": -39.269901275634766,
+                "rotation": -39.26987838745117,
                 "mass": 50.0,
-                "posX": -19.038782119750977,
-                "posY": -89.84617614746094,
+                "posX": -19.05358123779297,
+                "posY": -89.8464126586914,
                 "lockRotate": false
             },
             "Sprite": {
@@ -231,12 +231,12 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": -19.038768768310547,
-                "posY": -89.84616088867188,
+                "posX": -19.05353355407715,
+                "posY": -89.84635162353516,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -2250.1181640625,
+                "rotZ": -2250.11767578125,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 5.0,
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 8,
+                "currFrame": 5,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 4,
+                "currFrame": 5,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -339,7 +339,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -370,7 +370,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 5,
+                "currFrame": 6,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -417,7 +417,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
+                "scaleX": 40.0,
                 "scaleY": 20.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -468,7 +468,7 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -486,13 +486,13 @@
                 "Tag": "BUTTON NOT PRESS"
             },
             "Transform": {
-                "posX": -26.846435546875,
-                "posY": 52.392677307128906,
+                "posX": -28.97710418701172,
+                "posY": 43.87354278564453,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
+                "scaleX": 30.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -511,14 +511,14 @@
                 "Tag": "CHECK POINT"
             },
             "Transform": {
-                "posX": 5.113594055175781,
-                "posY": 53.244590759277344,
+                "posX": 28.55096435546875,
+                "posY": 50.26289367675781,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 20.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -536,13 +536,13 @@
                 "Tag": "BUTTON"
             },
             "Transform": {
-                "posX": -27.272613525390625,
-                "posY": 74.54242706298828,
+                "posX": -29.403282165527344,
+                "posY": 63.89350891113281,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
+                "scaleX": 30.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -592,7 +592,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
+                "scaleX": 15.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -611,14 +611,14 @@
                 "Tag": "NOT YET CHECKPOINT"
             },
             "Transform": {
-                "posX": 3.4090652465820313,
-                "posY": 74.1164779663086,
+                "posX": 2.5568008422851563,
+                "posY": 50.68885803222656,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -636,14 +636,14 @@
                 "Tag": "SCAFFODING TALL"
             },
             "Transform": {
-                "posX": -53.26673889160156,
-                "posY": 96.26622772216797,
+                "posX": -54.9713020324707,
+                "posY": 107.76705932617188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleX": 30.0,
+                "scaleY": 60.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -661,14 +661,14 @@
                 "Tag": "SCAFFODING SHORT"
             },
             "Transform": {
-                "posX": -80.11319732666016,
-                "posY": 96.26622009277344,
+                "posX": -98.01082611083984,
+                "posY": 93.71047973632813,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
-                "scaleY": 20.0,
+                "scaleX": 30.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
