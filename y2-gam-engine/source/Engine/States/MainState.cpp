@@ -31,7 +31,7 @@ void MainState::Update(float dt) {
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
 	//todo tch: hacky way to do this pls change
 	if (!renderSystem->IsEditorMode()) {
-		std::cout << renderSystem->IsEditorMode() << std::endl;
+		//std::cout << renderSystem->IsEditorMode() << std::endl;
 	if (mIsStep) {
 		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
 			coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);

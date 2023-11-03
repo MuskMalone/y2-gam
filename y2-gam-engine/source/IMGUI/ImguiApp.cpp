@@ -158,14 +158,14 @@ namespace Image {
 
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode()) {
-                    std::cout << "Play to toggle to editer play mode" << std::endl;
+                   // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
             }
             if (ImGui::MenuItem("Stop")) {
 
                 if (!renderSystem->IsEditorMode()) {
-                    std::cout << "Stop to toggle to editer mode" << std::endl;
+                    //std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                 }
             }
@@ -243,7 +243,7 @@ namespace Image {
             }
 
             if (ImGui::BeginDragDropTarget()) {
-                std::cout << "Began drag-drop target." << std::endl;
+                //std::cout << "Began drag-drop target." << std::endl;
 
                 //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
                 //    //std::cout << "Accepted payload." << std::endl;
