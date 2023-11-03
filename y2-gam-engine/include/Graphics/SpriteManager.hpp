@@ -27,7 +27,7 @@ public:
 
     static ResourceID CreateSubTexture(ResourceID textureID, SpriteProperties const&);
 
-    static std::shared_ptr<SubTexture> GetSprite(ResourceID spriteID);
+    static std::shared_ptr<SubTexture> const& GetSprite(ResourceID spriteID);
     static std::shared_ptr<Texture> GetTexture(ResourceID textureID);
 
     void static UnloadTexture(ResourceID textureID);

@@ -414,31 +414,8 @@ namespace Image {
 
                         ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
-                    else {
-                        ImGui::Text("Drop texture here");
-                        ImVec2 dummySize(150, 150);
-                        ImGui::Dummy(dummySize);
-                    }
+
                     // Highlight the drop area
-                    ImDrawList* drawList = ImGui::GetWindowDrawList();
-                    ImVec2 min = ImGui::GetItemRectMin();
-                    ImVec2 max = ImGui::GetItemRectMax();
-                    drawList->AddRect(min, max, IM_COL32(255, 0, 0, 255));  // Red border
-                    if (ImGui::BeginDragDropTarget()) {
-
-                        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
-
-                            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
-                            // Load the new texture from the path and assign to the sprite
-                            std::filesystem::path basePath = "../assets";
-                            std::shared_ptr<Texture> newTexture = Texture::Create((basePath / payLoadPath).string());
-                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 }, {});
-                            
-                            throw std::runtime_error("update new asset here");
-                            //sprite.texture = newSubTexture;
-                        }
-                        ImGui::EndDragDropTarget();
-                    }
                     ImGui::TreePop();
                 }
             }

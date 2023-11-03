@@ -104,7 +104,7 @@ A shared pointer to the desired subtexture.
 This function retrieves a shared pointer to the subtexture associated with
 the provided sprite ID.
 */
-std::shared_ptr<SubTexture> SpriteManager::GetSprite(ResourceID spriteID) {
+std::shared_ptr<SubTexture> const& SpriteManager::GetSprite(ResourceID spriteID) {
     return sprites[spriteID];
 }
 
