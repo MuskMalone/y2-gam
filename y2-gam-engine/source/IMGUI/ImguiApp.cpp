@@ -290,7 +290,7 @@ namespace Image {
                 ImGui::EndDragDropTarget();
             }
         }
-        }
+        
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
