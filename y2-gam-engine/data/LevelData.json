@@ -3,14 +3,14 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 2,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": -40.596736907958984,
-                "posY": -39.40266418457031,
+                "posX": -32.07406234741211,
+                "posY": -50.90350341796875,
                 "rotation": 0.0,
                 "dimX": 7.5,
                 "dimY": 15.0
@@ -51,9 +51,9 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": -40.596736907958984,
-                "posY": -39.40266418457031,
-                "posZ": -150.0,
+                "posX": -32.07406234741211,
+                "posY": -50.90350341796875,
+                "posZ": 10.71399974822998,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -66,14 +66,14 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 4,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": 40.0,
-                "posY": -88.0,
+                "posX": 43.40907287597656,
+                "posY": -80.33277893066406,
                 "rotation": 0.0,
                 "dimX": 7.5,
                 "dimY": 15.0
@@ -114,9 +114,9 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 40.0,
-                "posY": -88.0,
-                "posZ": -150.0,
+                "posX": 43.40907287597656,
+                "posY": -80.33277893066406,
+                "posZ": 5.35699987411499,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -168,6 +168,81 @@
                 "rotZ": 0.0,
                 "scaleX": 5.0,
                 "scaleY": 5.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698744788359338700
+            },
+            "Tag": {
+                "Tag": "bg"
+            },
+            "Transform": {
+                "posX": 8.354007720947266,
+                "posY": -66.2451400756836,
+                "posZ": -80.35700225830078,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 200.0,
+                "scaleY": 70.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698744788359338700
+            },
+            "Tag": {
+                "Tag": "bg2"
+            },
+            "Transform": {
+                "posX": -79.26092529296875,
+                "posY": 16.6123046875,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
+                "scaleZ": 5.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698744788359338700
+            },
+            "Tag": {
+                "Tag": "bg3"
+            },
+            "Transform": {
+                "posX": 67.75531768798828,
+                "posY": 22.575714111328125,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
                 "scaleZ": 5.0,
                 "elipse": false
             }
