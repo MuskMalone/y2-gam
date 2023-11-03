@@ -472,12 +472,6 @@ void EditorControlSystem::Update(float dt)
 		Image::ScriptManager::OnUpdateEntity(e.first, dt);
 	}
 
-	//TODO REMOVE TEMP
-	float moveSpeed = 100.f;
-	float rotSpeed = 80.f;
-	float zoomSpeed = 100.f;
-
-	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
@@ -500,44 +494,6 @@ void EditorControlSystem::Update(float dt)
 		Image::SoundManager::AudioPlay(::jumpEffect, ::effectGroup, 0);
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-		camera.mPos.y += moveSpeed * dt;
-		camera.SetPosition(camera.mPos);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
-		camera.mPos.y -= moveSpeed * dt;
-		camera.SetPosition(camera.mPos);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
-		camera.mPos.x -= moveSpeed * dt;
-		camera.SetPosition(camera.mPos);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
-		camera.mPos.x += moveSpeed * dt;
-		camera.SetPosition(camera.mPos);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
-		camera.mRot -= rotSpeed * dt;
-		camera.SetRotation(camera.mRot);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
-		camera.mRot += rotSpeed * dt;
-		camera.SetRotation(camera.mRot);
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-		camera.mZoom += zoomSpeed * dt;
-		camera.ZoomIn();
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-		camera.mZoom -= zoomSpeed * dt;
-		camera.ZoomOut();
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
-		::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M)) {
-		::gCoordinator->GetSystem<RenderSystem>()->ToggleEditorMode();
-	}
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		::gCoordinator->CloneEntity(Testing::lastInserted);

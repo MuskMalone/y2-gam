@@ -59,7 +59,7 @@ namespace Image {
     handling user input.
     Pressing the 'c' key to clear the entities
     */
-    void AppRender(std::set<Entity>const& mEntities) {
+    void AppRender(std::set<Entity>const& mEntities,float dt) {
         ::gCoordinator = Coordinator::GetInstance();
 
         static bool toDelete{ false };
@@ -77,7 +77,7 @@ namespace Image {
         InspectorWindow();
         PropertyWindow();
         //PrefabWindow();
-        BufferWindow();
+        BufferWindow(dt);
         ContentWindow();
         TextureHdlWindow(mEntities);
         LoggingWindow();
@@ -702,7 +702,7 @@ namespace Image {
      This function displays the game engine's framebuffer as well as getting the
      entity ID when mouse is hovered ad allows for picking
     */
-    void BufferWindow() {
+    void BufferWindow(float dt) {
         static int draggedEntity = -1;   // -1 means no entity is being dragged.
         static ImVec2 lastMousePos;      // Store the last position of the mouse.
         ImGuiStyle& style = ImGui::GetStyle();
@@ -786,6 +786,48 @@ namespace Image {
             else if (ImGui::IsMouseReleased(0)) {
                 draggedEntity = -1;
             }
+        }
+
+        auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+        auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
+                
+                camera.mPos.y += CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
+                camera.mPos.y -= CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
+                camera.mPos.x -= CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
+                camera.mPos.x += CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
+                camera.mRot -= CAMERA_ROTSPEED * dt;
+                camera.SetRotation(camera.mRot);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
+                camera.mRot += CAMERA_ROTSPEED * dt;
+                camera.SetRotation(camera.mRot);
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
+                camera.mZoom += CAMERA_ZOOMSPEED * dt;
+                camera.ZoomIn();
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
+                camera.mZoom -= CAMERA_ZOOMSPEED * dt;
+                camera.ZoomOut();
+            }
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
+                ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
+            }
+
         }
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
