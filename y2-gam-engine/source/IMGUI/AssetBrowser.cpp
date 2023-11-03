@@ -68,8 +68,8 @@ void AssetContents(std::string const& systemName) {
             ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
             ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
             ImGui::PopStyleColor();
+            AssetID aid{ asset.first };
             if (ImGui::BeginDragDropSource()) {
-                AssetID aid{asset.first};
                 ImGui::SetDragDropPayload((systemName + " AssetBrowser").c_str(), &aid, sizeof(aid));
                 ImGui::Text("%s", asset.second.path.c_str());
                 ImGui::EndDragDropSource();
@@ -77,6 +77,21 @@ void AssetContents(std::string const& systemName) {
             if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
                 //add actions
                 ::gSelectedAsset = asset;
+            }
+            if (ImGui::BeginDragDropTarget()) {
+                std::cout << "Began drag-drop target." << std::endl;
+
+                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+                    //std::cout << "Accepted payload." << std::endl;
+
+                    const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                    std::filesystem::path basePath {"../assets"};
+                    std::string path{(basePath / payLoadPath).string()};
+                    std::cout << path << std::endl;
+                    AssetManager::GetInstance()->ChangeAssetResource<_system>(aid, path);
+
+                }
+                ImGui::EndDragDropTarget();
             }
 
             ImGui::TextWrapped(asset.second.path.c_str());

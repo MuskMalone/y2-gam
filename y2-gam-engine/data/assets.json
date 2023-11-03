@@ -13,12 +13,13 @@
     },
     "classSpriteManager": {
         "1698744788359338700": {
-            "id": 1698744788359438600,
-            "path": "../assets/textures/blinkbg.png",
+            "id": 1698985226353418500,
+            "path": "../assets\\textures\\blinkbg.png",
             "idxX": 0.0,
             "idxY": 0.0,
             "dimX": 3497.0,
-            "dimY": 1200.0
+            "dimY": 1200.0,
+            "path": "../assets\\textures\\blinkbg.png"
         },
         "1698951115733834800": {
             "id": 1698951115733904900,
@@ -166,22 +167,5 @@
             "dimX": 256.0,
             "dimY": 256.0
         }
-    },
-    "classSpriteManager": {},
-    "classAnimationManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classSpriteManager": {},
-    "classAnimationManager": {},
-    "classAnimationManager": {},
-    "classAnimationManager": {},
-    "classAnimationManager": {}
+    }
 }

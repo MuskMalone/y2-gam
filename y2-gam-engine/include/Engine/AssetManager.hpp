@@ -48,6 +48,29 @@ public:
 		_system::LoadAsset(sm->At(cmFileName, sysKey)[key.c_str()]);
 		return aid;
 	}
+	template <typename _system>
+	AssetID ChangeAssetResource(AssetID aid, std::string const& path) {
+
+		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+		using namespace Serializer;
+
+		auto type{ rttr::type::get<_system>() };
+		auto const& sysKey{ type.get_name().to_string() }; //gets name of _system type
+		AssetID key{ aid };
+		auto keyStr{ std::to_string(key) };
+
+		//if the asset system has not been added
+		if (!sm->GetDoc(cmFileName).HasMember(sysKey.c_str())) { return 0; }
+		if (!sm->At(cmFileName, sysKey)[keyStr.c_str()].IsObject()) return 0;
+		ResourceID rid{ GetTimestampNano() };
+		sm->ModifyValue(sm->At(cmFileName, sysKey)[keyStr.c_str()], "id", rid);
+		
+		sm->ModifyValueString(sm->At(cmFileName, sysKey)[keyStr.c_str()], "path", path);
+		mAssets[key].path = path;
+		mAssets[key].resourceId = rid;
+		LoadAsset<_system>(key);
+		return key;
+	}
 	
 	//gives a system a uint32 id to save back into the json
 	//SLOW INVOLVES JSON
@@ -97,7 +120,7 @@ public:
 		auto keyStr{ std::to_string(key) };
 
 		//if the asset system has not been added
-		if (!sm->GetDoc(cmFileName).HasMember(keyStr.c_str())) {
+		if (!sm->GetDoc(cmFileName).HasMember(sysKey.c_str())) {
 			JSONObj obj{ JSON_OBJ_TYPE };
 			obj.SetObject();
 			sm->InsertValue(sysKey, obj);
