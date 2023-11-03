@@ -3,13 +3,13 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 4,
+                "currFrame": 6,
                 "speed": 100.0,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": 46.29093933105469,
+                "posX": 44.30389404296875,
                 "posY": -84.84612274169922,
                 "rotation": 0.0,
                 "dimX": 10.0,
@@ -24,7 +24,7 @@
                 "dimY": 25.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": 46.29093933105469,
+                "posX": 44.30389404296875,
                 "posY": -84.84612274169922,
                 "lockRotate": true
             },
@@ -51,8 +51,8 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 46.042057037353516,
-                "posY": -77.08578491210938,
+                "posX": 44.05500793457031,
+                "posY": -77.0857925415039,
                 "posZ": 1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -66,13 +66,13 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 2,
+                "currFrame": 7,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": 162.4098663330078,
+                "posX": 162.40736389160156,
                 "posY": -82.34612274169922,
                 "rotation": 0.0,
                 "dimX": 18.0,
@@ -87,7 +87,7 @@
                 "dimY": 30.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": 162.4098663330078,
+                "posX": 162.40736389160156,
                 "posY": -82.34612274169922,
                 "lockRotate": true
             },
@@ -114,13 +114,13 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 163.06051635742188,
+                "posX": 163.05801391601563,
                 "posY": -77.90161895751953,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 40.0,
+                "scaleX": -40.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -200,9 +200,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -19.042715072631836,
-                "posY": -89.8470458984375,
-                "rotation": -39.26981735229492,
+                "posX": -19.038768768310547,
+                "posY": -89.84616088867188,
+                "rotation": -39.269901275634766,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -213,10 +213,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": -39.26979446411133,
+                "rotation": -39.269901275634766,
                 "mass": 50.0,
-                "posX": -19.042888641357422,
-                "posY": -89.84728240966797,
+                "posX": -19.038782119750977,
+                "posY": -89.84617614746094,
                 "lockRotate": false
             },
             "Sprite": {
@@ -231,12 +231,12 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": -19.042715072631836,
-                "posY": -89.8470458984375,
+                "posX": -19.038768768310547,
+                "posY": -89.84616088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -2250.113525390625,
+                "rotZ": -2250.1181640625,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 5.0,
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 0,
+                "currFrame": 8,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 5,
+                "currFrame": 4,
                 "speed": 0.18000000715255737,
                 "currState": 1
             },
@@ -324,8 +324,8 @@
                 "Tag": "JESTER WALK"
             },
             "Transform": {
-                "posX": 32.38617706298828,
-                "posY": 22.149749755859375,
+                "posX": 79.6870346069336,
+                "posY": 20.871871948242188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -355,8 +355,8 @@
                 "Tag": "JESTER JUMP"
             },
             "Transform": {
-                "posX": 65.79962158203125,
-                "posY": 20.44591522216797,
+                "posX": 108.83908081054688,
+                "posY": 24.27948760986328,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -386,14 +386,289 @@
                 "Tag": "JESTER RUN"
             },
             "Transform": {
-                "posX": 97.58468627929688,
-                "posY": 20.871871948242188,
+                "posX": 60.510986328125,
+                "posY": 21.723793029785156,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 40.0,
                 "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951115733834800
+            },
+            "Tag": {
+                "Tag": "ANVIL"
+            },
+            "Transform": {
+                "posX": -94.17556762695313,
+                "posY": 49.410987854003906,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 20.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "FLOOR"
+            },
+            "Transform": {
+                "posX": 4.261314392089844,
+                "posY": 97.5440902709961,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 57.57099914550781,
+                "scaleY": 19.714000701904297,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953104427274700
+            },
+            "Tag": {
+                "Tag": "BARREL"
+            },
+            "Transform": {
+                "posX": -59.232635498046875,
+                "posY": 51.540771484375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 20.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953109425167700
+            },
+            "Tag": {
+                "Tag": "BUTTON NOT PRESS"
+            },
+            "Transform": {
+                "posX": -26.846435546875,
+                "posY": 52.392677307128906,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953111881673300
+            },
+            "Tag": {
+                "Tag": "CHECK POINT"
+            },
+            "Transform": {
+                "posX": 5.113594055175781,
+                "posY": 53.244590759277344,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953113205056600
+            },
+            "Tag": {
+                "Tag": "BUTTON"
+            },
+            "Transform": {
+                "posX": -27.272613525390625,
+                "posY": 74.54242706298828,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953115391509900
+            },
+            "Tag": {
+                "Tag": "DOOR OPEN"
+            },
+            "Transform": {
+                "posX": 124.43115234375,
+                "posY": 91.15474700927734,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953116624829600
+            },
+            "Tag": {
+                "Tag": "DOOR CLOSED"
+            },
+            "Transform": {
+                "posX": 95.88018035888672,
+                "posY": 90.30282592773438,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953117858423800
+            },
+            "Tag": {
+                "Tag": "NOT YET CHECKPOINT"
+            },
+            "Transform": {
+                "posX": 3.4090652465820313,
+                "posY": 74.1164779663086,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953119925065100
+            },
+            "Tag": {
+                "Tag": "SCAFFODING TALL"
+            },
+            "Transform": {
+                "posX": -53.26673889160156,
+                "posY": 96.26622772216797,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 20.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953120958490200
+            },
+            "Tag": {
+                "Tag": "SCAFFODING SHORT"
+            },
+            "Transform": {
+                "posX": -80.11319732666016,
+                "posY": 96.26622009277344,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 20.0,
+                "scaleY": 20.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
