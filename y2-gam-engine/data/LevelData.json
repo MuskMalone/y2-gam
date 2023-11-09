@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -108,7 +108,7 @@
             "Text": {
                 "fontName": "Getho",
                 "scale": 0.05999999865889549,
-                "text": "Enemy",
+                "text": "Idle State",
                 "coloX": 1.0,
                 "coloY": 1.0,
                 "coloZ": 0.0
@@ -200,8 +200,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 328.68658447265625,
-                "posY": -88.99424743652344,
+                "posX": 328.6865539550781,
+                "posY": -89.8463134765625,
                 "rotation": -39.269901275634766,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -213,10 +213,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": -39.269901275634766,
+                "rotation": -39.2698974609375,
                 "mass": 10000.0,
-                "posX": -19.038782119750977,
-                "posY": -89.84617614746094,
+                "posX": 328.6865234375,
+                "posY": -89.84636688232422,
                 "lockRotate": false
             },
             "Sprite": {
@@ -231,12 +231,12 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": 328.68658447265625,
-                "posY": -88.99424743652344,
+                "posX": 328.6865539550781,
+                "posY": -89.8463134765625,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -2250.1181640625,
+                "rotZ": -2250.118896484375,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 5.0,
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 1,
+                "currFrame": 0,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
@@ -339,7 +339,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -370,7 +370,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -676,9 +676,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -156.81729125976563,
-                "posY": -88.17303466796875,
-                "rotation": 0.0,
+                "posX": -44.87042236328125,
+                "posY": -57.462684631347656,
+                "rotation": 4.630875309885596e-7,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -689,10 +689,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": 0.0,
+                "rotation": 4.207885240248288e-7,
                 "mass": 10000.0,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -156.81732177734375,
+                "posY": -89.84619903564453,
                 "lockRotate": false
             },
             "Sprite": {
@@ -707,12 +707,12 @@
                 "Tag": "Box2"
             },
             "Transform": {
-                "posX": -156.81729125976563,
-                "posY": -88.17303466796875,
+                "posX": -44.87042236328125,
+                "posY": -57.462684631347656,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.0,
+                "rotZ": 0.00002653295268828515,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,

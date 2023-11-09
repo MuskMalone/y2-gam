@@ -796,9 +796,8 @@ namespace Image {
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 
-        ImGui::Begin("Image Game Engine", nullptr, window_flags);
+        ImGui::Begin("Image Game Engine");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
@@ -905,11 +904,11 @@ namespace Image {
                 camera.SetRotation(camera.mRot);
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-                camera.mZoom += CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel += CAMERA_ZOOMSPEED * dt;
                 camera.ZoomIn();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-                camera.mZoom -= CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel -= CAMERA_ZOOMSPEED * dt;
                 camera.ZoomOut();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {

@@ -285,8 +285,20 @@ void RenderSystem::WindowSizeListener(Event& event)
 	[[maybe_unused]] auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
 	[[maybe_unused]] auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
-	//auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
-	//camera.projectionTransform = Camera::MakeProjectionTransform(45.0f, 0.1f, 1000.0f, windowWidth, windowHeight);
-	//camera.projectionTransform = tCamera::MakeProjectionTransform(-50, 50, -50, 50, 0, -100);
+	Renderer::SetViewport(0, 0, windowWidth, windowHeight);
+	std::cout << windowWidth << std::endl;
+
+	//float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	//float left = -WORLD_LIMIT_X * aspectRatio;
+	//float right = WORLD_LIMIT_X * aspectRatio;
+	//float bottom = -WORLD_LIMIT_Y;
+	//float top = WORLD_LIMIT_Y;
+
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+	camera.mAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	camera.UpdateProjectionMtx();
+	//camera.SetProjectionMtx(left, right, bottom, top);
 }
+
 
