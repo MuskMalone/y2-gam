@@ -23,7 +23,6 @@ public class EnemyIdleState : EnemyBaseState
     public override void EnterState(BasicEnemy enemy)
     {
         enemy.AnimationState = (int)AnimationCode.IDLE;
-        enemy.SetText("Idle State");
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)

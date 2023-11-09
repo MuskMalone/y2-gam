@@ -191,7 +191,8 @@ namespace Image {
 		::gCoordinator->AddComponent(
 			node,
 			Sprite{
-				{1, 0, 0, 0.6f}
+				{1, 0, 0, 0.6f},
+				nullptr
 			});
 		
 		::gCoordinator->AddComponent(

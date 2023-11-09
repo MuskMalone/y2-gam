@@ -41,7 +41,6 @@ Entity PrefabsManager::SpawnPrefab(const char* key) {
 	Entity entity{ gCoordinator->CreateEntity() };
 	for (auto itr = (sm->At("Prefabs")[key]).MemberBegin(); itr != (sm->At("Prefabs")[key]).MemberEnd(); ++itr) {
 		auto at{ gComponentSerializer.find(itr->name.GetString()) };
-		std::cout << itr->name.GetString() << std::endl;
 		if (at == gComponentSerializer.end()) continue;
 		at->second(entity, itr->value);
 	}

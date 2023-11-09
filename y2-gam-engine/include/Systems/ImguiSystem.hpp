@@ -30,7 +30,7 @@ class ImGuiSystem : public System
 public:
 
     void Init(GLFWwindow* window);
-    void Update(float dt);
+    void Update();
     void Destroy();
 private:
     void ImguiEventListener(Event& event);

@@ -39,19 +39,13 @@
 #include "Scripting/NodeManager.hpp"
 #include <filesystem>
 
-#include <Engine/AssetManager.hpp>
-#include <Graphics/SpriteManager.hpp>
-#include <Graphics/AnimationManager.hpp>
-#include <Audio/Sound.hpp>
-#include <IMGUI/AssetBrowser.hpp>
-const int   gPercent      = 100;
-const float gScalingFactor = 1.5f;
 
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
 }
 namespace Image {
+    const float scalingFactor = 1.5f;
     /*  _________________________________________________________________________ */
     /*! AppRender
 
@@ -62,19 +56,27 @@ namespace Image {
 
     This function is responsible for rendering the application's UI and
     handling user input.
+    Pressing the 'z' key toggles between dock space and non-dock space.
     Pressing the 'c' key to clear the entities
     */
-    void AppRender(std::set<Entity>const& mEntities,float dt) {
+    void AppRender(std::set<Entity>const& mEntities) {
         ::gCoordinator = Coordinator::GetInstance();
 
-        //static bool toDelete{ false };
+        //Press z to change dock space and non dock space
+        //static bool showDockSpace{ true };
+        static bool toDelete{ false };
 
-        //if (ImGui::IsKeyReleased(ImGuiKey_C)) {
-        //    NodeManager::ClearAllNodes();
-        //    toDelete = !toDelete;
-        //}
+        /*if (ImGui::IsKeyReleased(ImGuiKey_Z)) {
+            showDockSpace = !showDockSpace;
+        }*/
+        if (ImGui::IsKeyReleased(ImGuiKey_C)) {
+            NodeManager::ClearAllNodes();
+            toDelete = !toDelete;
+        }
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+        /*if (showDockSpace) {
+        }*/
         //ImGui::ShowDemoWindow();
         MainMenuWindow();
         PerformanceWindow();
@@ -82,32 +84,27 @@ namespace Image {
         InspectorWindow();
         PropertyWindow();
         //PrefabWindow();
-        BufferWindow(dt);
+        BufferWindow();
         ContentWindow();
-        //AssetWindow(mEntities);
-        AnimationAssetWindow(mEntities);
-        SpriteAssetWindow(mEntities);
-        SoundAssetWindow(mEntities);
-        AssetPropertiesWindow(mEntities);
-
+        TextureHdlWindow(mEntities);
         LoggingWindow();
         RenderStatsWindow();
-        //if (toDelete) {
-        //    std::vector<Entity> deleteEntites{};
-        //    for (auto& e : mEntities) {
-        //        deleteEntites.emplace_back(e);
-        //    }
-        //    for (auto const& e : deleteEntites) {
-        //        //TEMP TO BE DELETED
-        //        //TODO 
-        //        if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e) != "2" && std::to_string(e) != "3" && std::to_string(e) != "4") {
-        //            gCoordinator->DestroyEntity(e);
-        //        }
-        //    }
-        //    gSelectedEntity = MAX_ENTITIES;
-        //    toDelete = !toDelete;
+        if (toDelete) {
+            std::vector<Entity> deleteEntites{};
+            for (auto& e : mEntities) {
+                deleteEntites.emplace_back(e);
+            }
+            for (auto const& e : deleteEntites) {
+                //TEMP TO BE DELETED
+                //TODO 
+                if (!gCoordinator->HasComponent<Script>(e) && std::to_string(e) != "2" && std::to_string(e) != "3" && std::to_string(e) != "4") {
+                    gCoordinator->DestroyEntity(e);
+                }
+            }
+            gSelectedEntity = MAX_ENTITIES;
+            toDelete = !toDelete;
 
-        //}
+        }
     }
     /*  _________________________________________________________________________ */
     /*! MainMenuWindow
@@ -156,21 +153,18 @@ namespace Image {
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            if (ImGui::MenuItem("Play")) {
+            if (ImGui::BeginMenu("Play")) {
+
                 if (renderSystem->IsEditorMode()) {
-                   // std::cout << "Play to toggle to editer play mode" << std::endl;
+                    std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
-                    ImGui::SetWindowFocus("Image Game Engine");
                 }
                 ImGui::EndMenu();
             }
-            if (ImGui::MenuItem("Stop")) {
-
+            if (ImGui::BeginMenu("Stop")) {
                 if (!renderSystem->IsEditorMode()) {
-                    //std::cout << "Stop to toggle to editer mode" << std::endl;
+                    std::cout << "Stop to toggle to editer mode" << std::endl;
                     renderSystem->ToggleEditorMode();
-                    ImGui::SetWindowFocus("Image Game Engine");
-
                 }
                 ImGui::EndMenu();
             }
@@ -193,24 +187,6 @@ namespace Image {
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
-        if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
-            if (ImGui::MenuItem("Create Entity")) {
-                Entity newEntity = gCoordinator->CreateEntity();
-                gSelectedEntity = newEntity;
-                ImGuiViewport* vP = ImGui::GetWindowViewport();
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Transform{
-                        {vP->Pos.x,vP->Pos.y,0},
-                        {0,0,0},
-                        {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                    });
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Tag{ "Name" });
-            }
-            ImGui::EndPopup();
-        }
         if (ImGui::Button("Create Entity")) {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
@@ -220,14 +196,13 @@ namespace Image {
                 Transform{
                     {vP->Pos.x,vP->Pos.y,0},
                     {0,0,0},
-                    {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                    {5,5,5}
                 });
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
         }
 
-        //Cant destroy player
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
             if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
@@ -246,77 +221,7 @@ namespace Image {
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
-
-            if (ImGui::BeginDragDropTarget()) {
-                //std::cout << "Began drag-drop target." << std::endl;
-
-                //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
-                //    //std::cout << "Accepted payload." << std::endl;
-                //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                //    std::cout << droppedAid << std::endl;
-                //}
-                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
-                    //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    //std::cout << droppedAid << std::endl;
-                    if (gCoordinator->HasComponent<Sprite>(entity)) {
-                        auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
-                        sprite.spriteAssetID = droppedAid;
-                    }
-                    else {
-                        Sprite s{{1,1,1, 1}};
-                        s.spriteAssetID = droppedAid;
-                        gCoordinator->AddComponent(
-                            gSelectedEntity,
-                            s);
-                    }
-
-                }
-                if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
-                    //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    //std::cout << droppedAid << std::endl;
-                    if (gCoordinator->HasComponent<Animation>(entity)) {
-                        auto& anim = gCoordinator->GetComponent<Animation>(entity);
-                        anim.assetID = droppedAid;
-                    }
-                    else {
-                        Animation a{
-                                0.08f,
-                                0,
-                                ANIM_STATE::IDLE
-                        };
-                        a.assetID = droppedAid;
-                        gCoordinator->AddComponent(
-                            gSelectedEntity,
-                            a);
-                    }
-                }
-                ImGui::EndDragDropTarget();
-            }
         }
-        
-        //Cant delete stuff with spcript
-        auto input = gCoordinator->GetSystem<InputSystem>();
-        if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
-            if (gSelectedEntity != MAX_ENTITIES) {
-                if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-                    gCoordinator->DestroyEntity(gSelectedEntity);
-                    gSelectedEntity = MAX_ENTITIES;
-                }
-            }
-        }
- 
-            //if (ImGui::BeginPopupContextItem()) {
-            //    if (gSelectedEntity != MAX_ENTITIES && ImGui::MenuItem("Destroy Entity")) {
-            //        if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-            //            gCoordinator->DestroyEntity(gSelectedEntity);
-            //            gSelectedEntity = MAX_ENTITIES;
-            //        }
-            //    }
-            //    // Add more entity interaction options here...
-            //    ImGui::EndPopup();
-            //}
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -334,13 +239,8 @@ namespace Image {
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
-            ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
-                std::string treeNodeLabel = "Transform##" + std::to_string(gSelectedEntity);
-              
-                ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
-                if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                if (ImGui::TreeNode("Transform")) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
                     // Position
                     ImGui::Text("Position");
@@ -348,19 +248,13 @@ namespace Image {
                     ImGui::InputFloat("##Pos X", &transform.position.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
+                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos Y", &transform.position.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
-
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Pos Z", &transform.position.z);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
 
                     // Rotation
                     ImGui::Text("Rotation");
@@ -368,7 +262,7 @@ namespace Image {
                     ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
+                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
 
                     // Scale
                     ImGui::Text("Scale");
@@ -376,68 +270,27 @@ namespace Image {
                     ImGui::InputFloat("##Scale X", &transform.scale.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
+                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, 50);
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Scale Y", &transform.scale.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, 50);
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
-                std::string treeNodeLabel = "Sprite##" + std::to_string(gSelectedEntity);
-
-                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                if (ImGui::TreeNode("Sprite")) {
                     Sprite& sprite = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
                     //Color
                     ImGui::Text("Color");
                     ImGui::ColorPicker4("Color Picker", &sprite.color.r);
-                    auto am{ AssetManager::GetInstance() };
-                    if (sprite.spriteAssetID && sprite.spriteAssetID != static_cast<AssetID>(-1)) {
-                        auto texture{ am->GetAsset<SpriteManager>(sprite.spriteAssetID) };
 
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexture()->GetTexHdl()));
+                    if (sprite.texture && sprite.texture->GetTexture()) {
+                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(sprite.texture->GetTexture()->GetTexHdl()));
 
                         // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(texture->GetTexture()->GetWidth()), static_cast<float>(texture->GetTexture()->GetHeight()));
-
-                        // Calculate aspect ratio
-                        float aspectRatio = originalSize.x / originalSize.y;
-
-                        // Adjust size while maintaining aspect ratio
-                        ImVec2 newSize;
-                        if (aspectRatio > 1.0f) {
-                            newSize = ImVec2(200, 200 / aspectRatio);
-                        }
-                        else {
-                            newSize = ImVec2(200 * aspectRatio, 200);
-                        }
-
-                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
-                    }
-
-                    // Highlight the drop area
-                    ImGui::TreePop();
-                }
-            }
-            if (gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
-                if (ImGui::TreeNode("Animation")) {
-                    Animation& anim = gCoordinator->GetComponent<Animation>(gSelectedEntity);
-                    ImGui::Text("Speed per frame");
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Speed", &anim.speed);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
-                    auto am{ AssetManager::GetInstance() };
-                    if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
-                        auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
-
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
-
-                        // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
+                        ImVec2 originalSize(static_cast<float>(sprite.texture->GetTexture()->GetWidth()), static_cast<float>(sprite.texture->GetTexture()->GetHeight()));
 
                         // Calculate aspect ratio
                         float aspectRatio = originalSize.x / originalSize.y;
@@ -455,17 +308,36 @@ namespace Image {
                         ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
-                        ImGui::Text("No Animation");
+                        ImGui::Text("Drop texture here");
                         ImVec2 dummySize(150, 150);
                         ImGui::Dummy(dummySize);
+                    }
+                    // Highlight the drop area
+                    ImDrawList* drawList = ImGui::GetWindowDrawList();
+                    ImVec2 min = ImGui::GetItemRectMin();
+                    ImVec2 max = ImGui::GetItemRectMax();
+                    drawList->AddRect(min, max, IM_COL32(255, 0, 0, 255));  // Red border
+                    if (ImGui::BeginDragDropTarget()) {
+                        //std::cout << "Began drag-drop target." << std::endl;
+
+                        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+                            //std::cout << "Accepted payload." << std::endl;
+
+                            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                            // Load the new texture from the path and assign to the sprite
+                            std::filesystem::path basePath = "../assets";
+                            std::shared_ptr<Texture> newTexture = Texture::Create((basePath / payLoadPath).string());
+                            std::shared_ptr<SubTexture> newSubTexture = SubTexture::Create(newTexture, { 0,0 }, { 256,256 });
+                            sprite.texture = newSubTexture;
+                        }
+                        ImGui::EndDragDropTarget();
                     }
                     ImGui::TreePop();
                 }
             }
-            if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
-                std::string treeNodeLabel = "Collider##" + std::to_string(gSelectedEntity);
 
-                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+            if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                if (ImGui::TreeNode("Collider")) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
                     ImGui::Text("Type");
                     const char* colliderTypes[]{ "BOX", "CIRCLE" };//box, circle;
@@ -476,20 +348,20 @@ namespace Image {
                     ImGui::InputFloat("##Collider Pos X", &collider.position.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
+                    ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH / 4.f, ENGINE_SCREEN_WIDTH / 4.f);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                    ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT / 4.f, ENGINE_SCREEN_HEIGHT / 4.f);
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Collider Rot", &collider.rotation);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
+                    ImGui::SliderFloat("Collider Rot", &collider.rotation, -180, 180); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
@@ -497,13 +369,13 @@ namespace Image {
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
 
                         ImGui::SetNextItemWidth(50.f);
                         ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, IMGUI_MAX_SCALE);
+                        ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, 50);
 
                     }
                     else {
@@ -512,16 +384,14 @@ namespace Image {
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
                         ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
+                        ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, 50);
                         collider.dimension.y = collider.dimension.x;
                     }
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<RigidBody>(gSelectedEntity)) {
-                std::string treeNodeLabel = "RigidBody##" + std::to_string(gSelectedEntity);
-
-                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                if (ImGui::TreeNode("RigidBody")) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(gSelectedEntity);
                     // Mass
                     ImGui::Text("Mass");
@@ -534,13 +404,13 @@ namespace Image {
                     ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, IMGUI_MAX_VELOCITY);
+                    ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, 100);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, IMGUI_MAX_VELOCITY);
+                    ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, 100);
 
                     //Friction
                     ImGui::Text("Friction");
@@ -550,21 +420,12 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
 
-                    const char* items[] = { "False", "True" };
-                    int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
-
-                    // The combo box
-                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
-                    {
-                        rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
-                    }
 
                     ImGui::TreePop();
                 }
             }
             if (gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
-                std::string treeNodeLabel = "Gravity##" + std::to_string(gSelectedEntity);
-                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                if (ImGui::TreeNode("Gravity")) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(gSelectedEntity);
                     //Force
                     ImGui::Text("Gravity");
@@ -572,17 +433,16 @@ namespace Image {
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force X", &gravity.force.x, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
+                    ImGui::SliderFloat("Force X", &gravity.force.x, -10, 10);
 
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
+                    ImGui::SliderFloat("Force Y", &gravity.force.y, -10, 10);
                     ImGui::TreePop();
                 }
             }
-            ImGui::PopStyleColor(2);
         }
         ImGui::End();
     }
@@ -634,7 +494,7 @@ namespace Image {
                             Transform{
                                 {vP->Pos.x,vP->Pos.y,0},
                                 {0,0,0},
-                                {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                                {5,5,5}
                             });
                     }
                 }
@@ -644,7 +504,8 @@ namespace Image {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             Sprite{
-                                {1,1,1, 1}
+                                {1,1,1, 1},
+                                nullptr
                             });
                     }
                 }
@@ -658,7 +519,7 @@ namespace Image {
                                 RigidBody{
                                     Vec2{transform.position.x,transform.position.y},
                                     transform.rotation.z,
-                                    IMGUI_MASS,
+                                    50.f,
                                     Vec2{transform.scale.x,transform.scale.y}
                                 });
                         }
@@ -669,8 +530,8 @@ namespace Image {
                                 RigidBody{
                                     Vec2{vP->Pos.x,vP->Pos.y},
                                     0.f,
-                                    IMGUI_MASS,
-                                    Vec2{IMGUI_SCALE,IMGUI_SCALE}
+                                    50.f,
+                                    Vec2{5.f,5.f}
                                 });
                         }
                     }
@@ -687,12 +548,20 @@ namespace Image {
                       break;
                 case 4: {
                     if (!gCoordinator->HasComponent<Animation>(gSelectedEntity)) {
+                        //------------TEMPORARY TO BE READ FROM JSON FILES------------------------------------------------------------------/
+                        std::vector<AnimationFrame> idleFrames{ {0.f, 0}, {0.f, 1}, { 0.f, 2 }, { 0.f, 3 }, { 0.f, 4 }, { 0.f, 5 }, { 0.f, 6 }, { 0.f, 7} };
+                        std::vector<AnimationFrame> runFrames{ {0.f, 8}, {0.f, 9}, { 0.f, 10 }, { 0.f, 11 }, { 0.f, 12 }, { 0.f, 13 }, { 0.f, 14 }, { 0.f, 15 } };
+                        std::vector<AnimationFrame> attackFrames{ {0.f, 16}, {0.f, 17}, { 0.f, 18 }, { 0.f, 19 }, { 0.f, 20 }, { 0.f, 21 }, { 0.f, 22 } };
+                        std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> map{ {ANIM_STATE::IDLE, idleFrames},
+                                                                                         {ANIM_STATE::RUN, runFrames},
+                                                                                         {ANIM_STATE::ATTACK, attackFrames} };
                         ::gCoordinator->AddComponent(
                             gSelectedEntity,
                             Animation{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE
+                                ANIM_STATE::IDLE,
+                                map
                             });
                     }
                 }
@@ -701,7 +570,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Gravity>(gSelectedEntity)) {
                         gCoordinator->AddComponent(
                             gSelectedEntity,
-                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} });
+                            Gravity{ Vec2{0.f,0.f} });
                     }
                 }
                       break;
@@ -792,7 +661,7 @@ namespace Image {
      This function displays the game engine's framebuffer as well as getting the
      entity ID when mouse is hovered ad allows for picking
     */
-    void BufferWindow(float dt) {
+    void BufferWindow() {
         static int draggedEntity = -1;   // -1 means no entity is being dragged.
         static ImVec2 lastMousePos;      // Store the last position of the mouse.
         ImGuiStyle& style = ImGui::GetStyle();
@@ -804,10 +673,10 @@ namespace Image {
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            ImVec2 contentSize = ImGui::GetContentRegionAvail();
         if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
 
             //mouse picking part:
+            ImVec2 contentSize = ImGui::GetContentRegionAvail();
             ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
             ImVec2 min = ImGui::GetWindowPos();
             min.x += viewportOffset.x;
@@ -821,10 +690,9 @@ namespace Image {
             mousePos.y = viewportSize.y - mousePos.y;
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
-            int fbX = static_cast<int>(mouseX * gScalingFactor);
-            int fbY = static_cast<int>(mouseY * gScalingFactor);
+            int fbX = static_cast<int>(mouseX * scalingFactor);
+            int fbY = static_cast<int>(mouseY * scalingFactor);
 
-            
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
@@ -876,58 +744,16 @@ namespace Image {
                 draggedEntity = -1;
             }
         }
-
-        auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
-        auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-                
-                camera.mPos.y += CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
-                camera.mPos.y -= CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
-                camera.mPos.x -= CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
-                camera.mPos.x += CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
-                camera.mRot -= CAMERA_ROTSPEED * dt;
-                camera.SetRotation(camera.mRot);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
-                camera.mRot += CAMERA_ROTSPEED * dt;
-                camera.SetRotation(camera.mRot);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-                camera.mZoom += CAMERA_ZOOMSPEED * dt;
-                camera.ZoomIn();
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-                camera.mZoom -= CAMERA_ZOOMSPEED * dt;
-                camera.ZoomOut();
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
-                ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
-            }
-
-        }
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();
             ImVec2 mousePos = io.MousePos;
 
             ImVec2 windowPos = ImGui::GetWindowPos();
-            ImVec2 windowSize = ImGui::GetWindowSize();
             ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
 
             ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 windowSize = ImGui::GetWindowSize();
             ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
 
             if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
@@ -941,8 +767,7 @@ namespace Image {
             }
         }
 
-        //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
@@ -960,8 +785,7 @@ namespace Image {
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
-
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / scalingFactor, ENGINE_SCREEN_HEIGHT / scalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
@@ -1027,7 +851,21 @@ namespace Image {
         ImGui::End();
     }
 
+    /*  _________________________________________________________________________ */
+    /*! TextureHdlWindow
 
+    @param std::set<Entity>const& mEntities
+     Set of entities to loop through
+
+    @return none.
+
+    This function change all the texture related to the asset ID
+    */
+    void TextureHdlWindow([[maybe_unused]] std::set<Entity>const& mEntities) {
+        ImGui::Begin("Texture HDL");
+
+        ImGui::End();
+    }
 
     /*  _________________________________________________________________________ */
     /*! PerformanceWindow
@@ -1042,19 +880,20 @@ namespace Image {
     void PerformanceWindow() {
         ImGui::Begin("Performance Viewer");
         auto frameController = FrameRateController::GetInstance();
-        static float fpsValues[gPercent] = {};
-        static float physicsValues[gPercent] = {};
-        static float collisionValues[gPercent] = {};
-        static float renderValues[gPercent] = {};
+        static const int percent{ 100 };
+        static float fpsValues[percent] = {};
+        static float physicsValues[percent] = {};
+        static float collisionValues[percent] = {};
+        static float renderValues[percent] = {};
         static int valueIndex{};
-        valueIndex = (valueIndex + 1) % gPercent;
+        valueIndex = (valueIndex + 1) % percent; 
 
         // Display FPS
         float fps = frameController->GetFps();
         ImGui::Text("FPS: %.2f", fps);
         ImGui::Text("FPS Graph");
         fpsValues[valueIndex] = fps;
-        ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), valueIndex, nullptr, 0.0f, fps, ImVec2(0, gPercent));
+        ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), valueIndex, nullptr, 0.0f, 144, ImVec2(0, 80));
         ImGui::Separator();
 
         // Display Entity Count
@@ -1065,29 +904,29 @@ namespace Image {
 
         // Display Physics Performance
         ImGui::Text("Physics Performance");
-        physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * static_cast<float>(gPercent);
+        physicsValues[valueIndex] = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100.f;
         float physicsPerformance = frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE);
-        ImGui::ProgressBar(physicsPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(physicsPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::ProgressBar(physicsPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(physicsPerformance * 100.0f) + "%").c_str());
         ImGui::Text("Physics Performance Graph");
-        ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::PlotLines("Physics", physicsValues, IM_ARRAYSIZE(physicsValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
 
         // Display Collision Performance 
         ImGui::Text("Collision Performance");
-        collisionValues[valueIndex] = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * static_cast<float>(gPercent);
+        collisionValues[valueIndex] = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100.f;
         float collisionPerformance = frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE);
-        ImGui::ProgressBar(collisionPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(collisionPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::ProgressBar(collisionPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(collisionPerformance * 100.0f) + "%").c_str());
         ImGui::Text("Collision Performance Graph");
-        ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::PlotLines("Collision", collisionValues, IM_ARRAYSIZE(collisionValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
 
         // Display Render Performance
         ImGui::Text("Render Performance");
-        renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * static_cast<float>(gPercent);
+        renderValues[valueIndex] = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100.f;
         float renderPerformance = frameController->GetProfilerValue(ENGINE_RENDER_PROFILE);
-        ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * 100.0f) + "%").c_str());
         ImGui::Text("Render Performance Graph");
-        ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, 100.0f, ImVec2(0, 80));
         ImGui::Separator();
 
         ImGui::End();

@@ -34,29 +34,6 @@ namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
-	// For Engine Core
-	/*  _________________________________________________________________________ */
-	/*! EngineCore_IsEditorMode
-
-	@param isEditorMode
-
-	@return none.
-
-	Get the editor mode flage of the engine in C#.
-  */
-	static void EngineCore_IsEditorMode(bool* isEditorMode) {
-		::gCoordinator = Coordinator::GetInstance();
-		*isEditorMode = gCoordinator->GetSystem<RenderSystem>()->IsEditorMode();
-	}
-
-	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Text>(entityID)) {
-			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
-		}
-	}
-
-
 	// For Pathfinding
 	/*  _________________________________________________________________________ */
 	/*! PathfindingComponent_GetPath
@@ -476,10 +453,8 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
-		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
-		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
-
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
+
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);

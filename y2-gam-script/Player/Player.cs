@@ -96,44 +96,41 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            // Workaround for now
+            if (Math.Abs(Velocity.Y) > 1.0f)
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
-                {
-                    isGrounded = false;
-                }
+                isGrounded = false;
+            }
 
-                else
-                {
-                    isGrounded = true;
-                }
+            else
+            {
+                isGrounded = true;
+            }
 
-                if (FacingDirectionChanged)
-                {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                }
+            if (FacingDirectionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                FacingDirectionChanged = false; // Reset the flag
+            }
 
-                if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
-                {
-                    Jump();
-                }
+            if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+            {
+                Jump();
+            }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
-                {
-                    MoveLeft();
-                }
+            else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
+            {
+                MoveLeft();
+            }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
-                {
-                    MoveRight();
-                }
+            else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
+            {
+                MoveRight();
+            }
 
-                else
-                {
-                    AnimationState = (int)AnimationCode.IDLE;
-                }
+            else
+            {
+                AnimationState = (int)AnimationCode.IDLE;
             }
         }
 

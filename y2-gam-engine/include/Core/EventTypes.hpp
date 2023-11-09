@@ -27,10 +27,6 @@ constexpr std::uint32_t operator "" _hash(char const* s, size_t count)
 {
 	return fnv1a_32(s, count);
 }
-inline std::uint32_t _hash(std::string const& s)
-{
-	return fnv1a_32(s.c_str(), s.size());
-}
 using EventId = std::uint32_t;
 
 using ParamId = std::uint32_t;

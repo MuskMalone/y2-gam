@@ -63,13 +63,12 @@ struct RigidBody
 	} {}
 	void SetMass(float m) {
 		mass = m;
-		if (mass < FLOAT_MAX && mass > FLT_EPSILON) {
+		if (mass < FLOAT_MAX) {
 			invMass = 1.0f / mass;
 			inertia = mass * (dimension.x * dimension.x + dimension.y * dimension.y) / 12.0f;
 			invInertia = 1.0f / inertia;
 		}
 		else {
-			mass = FLOAT_MAX;
 			inertia = FLOAT_MAX;
 		}
 	}

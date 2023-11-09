@@ -135,12 +135,6 @@ constexpr std::uint64_t murmur64_seed(void const* data_, std::size_t len, std::s
 #endif
 }
 constexpr std::uint64_t murmur64(void const* data, std::size_t len) { return murmur64_seed(data, len, 0x9747b28c); }
-inline uint64_t GetTimestampNano() {
-    auto now = std::chrono::system_clock::now();
-    auto duration = now.time_since_epoch();
-    auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
-    return static_cast<uint64_t>(nanos);
-}
 
 // ECS
 using Entity = std::uint32_t;
@@ -148,13 +142,6 @@ const Entity MAX_ENTITIES = 10000;
 using ComponentType = std::uint8_t; // assumes a maximum of 256 components
 const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
-
-// Serialization
-using AssetID = std::uint64_t;
-using ResourceID = std::uint64_t;
-struct ResProp { // Resource properties
-    ResourceID id;
-};
 
 // Input
 enum class MouseButtons

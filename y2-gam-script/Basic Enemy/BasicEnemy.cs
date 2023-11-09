@@ -115,28 +115,25 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            // Workaround for now
+            if (Math.Abs(Velocity.Y) > 1.0f)
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
-                {
-                    isGrounded = false;
-                }
-
-                else
-                {
-                    isGrounded = true;
-                }
-
-                if (FacingDirectionChanged)
-                {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                }
-
-                TimeInState += dt;
-                currentState.UpdateState(this, dt);
+                isGrounded = false;
             }
+
+            else
+            {
+                isGrounded = true;
+            }
+
+            if (FacingDirectionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                FacingDirectionChanged = false; // Reset the flag
+            }
+
+            TimeInState += dt;
+            currentState.UpdateState(this, dt);
 
             //Console.WriteLine("Current enemy state: " + currentState.ToString());
         }

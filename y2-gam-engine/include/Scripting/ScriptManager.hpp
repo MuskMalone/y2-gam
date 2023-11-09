@@ -33,7 +33,6 @@ namespace Image {
     static void PrintMonoAssemblyTypes(MonoAssembly* assembly);
     static void PopulateEntityClassesFromAssembly(MonoAssembly* assembly);
     static void OnCreateEntity(Entity const& entity);
-    static void OnCreateEntityEvent(Event& event);
     static void OnUpdateEntity(Entity const& entity, float dt);
 
     static bool EntityClassExists(std::string const& className);

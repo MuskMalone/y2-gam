@@ -20,7 +20,6 @@
 #pragma once
 #include <unordered_map>
 #include <rapidjson/document.h>
-#include <Engine/AssetManager.hpp>
 
 enum class ANIM_STATE {
 	NONE = 0,
@@ -31,36 +30,21 @@ enum class ANIM_STATE {
 
 struct AnimationFrame {
 	float elapsedTime;
-	ResourceID spriteID;
+	int spriteID;
 };
 
 struct Animation {
 	float speed{};
 	size_t currFrame{};
-	//ResourceID animationID;
-	AssetID assetID{};
 	ANIM_STATE currState{};
-	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
+	std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
 	Animation() = default;
-	Animation(float s, size_t cf, ANIM_STATE cs)
-		: speed{ s }, currFrame{ cf }, currState{ cs } {}//, stateMap{ sm } {}
+	Animation(float s, size_t cf, ANIM_STATE cs, std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> sm)
+		: speed{ s }, currFrame{ cf }, currState{ cs }, stateMap{ sm } {}
 	Animation([[maybe_unused]] rapidjson::Value const& obj) {
-		assetID = { obj["assetID"].GetUint64() };
-		//texture = nullptr;
-		currState = static_cast<ANIM_STATE>(obj["currState"].GetInt());
-		speed = { obj["speed"].GetFloat() };
-		currFrame = { obj["currFrame"].GetUint64() };
+
 	}
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
-		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
-
-		sm->InsertValue(obj, "assetID", assetID);
-		sm->InsertValue(obj, "currFrame", currFrame);
-		sm->InsertValue(obj, "speed", speed);
-		sm->InsertValue(obj, "currState", static_cast<int>(currState));
-		return true;
-	}
-	ResourceID GetAnimationID() {
-		return AssetManager::GetInstance()->GetResourceID(assetID);
+		return false;
 	}
 };

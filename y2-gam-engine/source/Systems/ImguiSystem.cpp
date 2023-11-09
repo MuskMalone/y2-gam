@@ -100,13 +100,13 @@ namespace {
     This function handles input events, starts the ImGui frame, renders the 
     application GUI, and updates platform windows.
     */
-    void ImGuiSystem::Update(float dt){
+    void ImGuiSystem::Update(){
         ImGuiIO& io = ImGui::GetIO();
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        Image::AppRender(mEntities,dt);
+        Image::AppRender(mEntities);
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

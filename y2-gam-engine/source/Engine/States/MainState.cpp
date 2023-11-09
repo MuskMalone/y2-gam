@@ -31,7 +31,7 @@ void MainState::Update(float dt) {
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
 	//todo tch: hacky way to do this pls change
 	if (!renderSystem->IsEditorMode()) {
-		//std::cout << renderSystem->IsEditorMode() << std::endl;
+		std::cout << renderSystem->IsEditorMode() << std::endl;
 	if (mIsStep) {
 		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
 			coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
@@ -40,22 +40,15 @@ void MainState::Update(float dt) {
 		}
 	}
 	else {
-		static float accumulatedTime = 0.f;
-		const float maxAccumulation{ 0.1f };
-		accumulatedTime += dt;
-		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
-		if (accumulatedTime >= tdt) {
-			FrameRateController::GetInstance()->StartSubFrameTime();
-			coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
-			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
-			FrameRateController::GetInstance()->StartSubFrameTime();
-			coordinator->GetSystem<CollisionSystem>()->Update(tdt);
-			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_COLLISION_PROFILE);
-			FrameRateController::GetInstance()->StartSubFrameTime();
-			coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
-			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
-			accumulatedTime -= tdt;
-		}
+		FrameRateController::GetInstance()->StartSubFrameTime();
+		coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+		FrameRateController::GetInstance()->StartSubFrameTime();
+		coordinator->GetSystem<CollisionSystem>()->Update(tdt);
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_COLLISION_PROFILE);
+		FrameRateController::GetInstance()->StartSubFrameTime();
+		coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
 	}
 	}
 	//mCollisionSystem->Debug(); // for debug

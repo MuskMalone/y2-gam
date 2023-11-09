@@ -113,7 +113,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
@@ -131,7 +131,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
@@ -150,7 +150,6 @@
     <ClInclude Include="include\Components\Tag.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
-    <ClInclude Include="include\Engine\AssetManager.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
@@ -159,7 +158,6 @@
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
-    <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
@@ -190,7 +188,6 @@
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
     <ClInclude Include="include\Graphics\Shader.hpp" />
     <ClInclude Include="include\Graphics\SpriteManager.hpp" />
-    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
@@ -249,13 +246,11 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../include/pch.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="source\Engine\AssetManager.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
     <ClCompile Include="source\Engine\PrefabsManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="source\Graphics\Framebuffer.cpp" />
@@ -276,7 +271,6 @@
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
-    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
