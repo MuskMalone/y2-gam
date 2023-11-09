@@ -64,13 +64,13 @@ public:
 	struct CameraSettings{
 		float offsetX{30.f};
 		float offsetY{20.f};
-		float velocityThreshold{0.2f};
+		float velocityThreshold{0.5f};
 		float cameraSpeed{0.1f};
 
 		//function to Load settings TODO IMPLEMENT
 	} mSettings;
 
-	glm::vec3 mOffset{};
+	glm::vec3 mOffset{ mSettings.offsetX, mSettings.offsetY, 0.f };
 	glm::vec3 mPos{};
 
 	float mRot{ 0.f };

@@ -70,6 +70,14 @@ namespace Serializer {
 			if (!obj.HasMember(key)) return;
 			obj[key] = val;
 		}
+		void ModifyValueString(JSONObj& obj, std::string key, std::string val) {
+			if (!obj.HasMember(key.c_str())) return;
+			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
+
+			//JSONObj valName(val.c_str(), static_cast<rapidjson::SizeType>(val.size()), mDocumentMap[key].GetAllocator());
+			obj[key.c_str()].SetString(val.c_str(), mDocumentMap[path.c_str()].GetAllocator());
+		}
+
 
 		//doesnt verify type of value you write!!!!
 		//pls verify it urself/
@@ -79,21 +87,26 @@ namespace Serializer {
 			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
 			JSONObj keyName( key.c_str(), static_cast<rapidjson::SizeType>(key.size()), mDocumentMap[key].GetAllocator() );
 			//JSONObj valName( val, mDocumentMap[key].GetAllocator() );
-			obj.AddMember(keyName, std::forward<_type>(val), mDocumentMap[key].GetAllocator());
+			obj.AddMember(keyName, std::forward<_type>(val), mDocumentMap[path.c_str()].GetAllocator());
 		}
 
 		void InsertValue(JSONObj& obj, std::string key, JSONObj& val) {
 			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
 			JSONObj keyName(key.c_str(), static_cast<rapidjson::SizeType>(key.size()), mDocumentMap[key].GetAllocator());
 			//JSONObj valName( val, mDocumentMap[key].GetAllocator() );
-			obj.AddMember(keyName, val, mDocumentMap[key].GetAllocator());
+			obj.AddMember(keyName, val, mDocumentMap[path.c_str()].GetAllocator());
 		}
 
 		void InsertValue(std::string key, JSONObj& val) {
 			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
 			JSONObj keyName(key.c_str(), static_cast<rapidjson::SizeType>(key.size()), mDocumentMap[key].GetAllocator());
 			//JSONObj valName( val, mDocumentMap[key].GetAllocator() );
-			mDocumentMap[path].AddMember(keyName, val, mDocumentMap[key].GetAllocator());
+			mDocumentMap[path].AddMember(keyName, val, mDocumentMap[path.c_str()].GetAllocator());
+		}
+
+		JSONDoc& GetDoc(std::string const& name) {
+			path = mPath + name + mExt;
+			return mDocumentMap[path];
 		}
 
 		JSONObj& At(std::string const& key) {

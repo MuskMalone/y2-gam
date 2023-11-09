@@ -91,6 +91,7 @@ namespace Image {
     sAppDomain = appDomain;
 
     mono_domain_set(sAppDomain, true);
+    Coordinator::GetInstance()->AddEventListener(FUNCTION_LISTENER(Events::System::ENTITY, ScriptManager::OnCreateEntityEvent));
   }
 
   void ScriptManager::ExitMono() {
@@ -274,6 +275,9 @@ namespace Image {
 #endif
   }
 
+  namespace Hack {
+    std::map<Entity, std::string> entitiesScripted;
+  }
   /*  _________________________________________________________________________ */
   /*! OnCreateEntity
 
@@ -286,7 +290,9 @@ namespace Image {
   Creates a script instance and maps it to the entity ID, then calls its
   own create function.
   */
-  void ScriptManager::OnCreateEntity(Entity const& entity) {
+  void ScriptManager::OnCreateEntity(Entity const& entity) { // u do not need this func anymore
+                                                             // see the other OnCreateEntity for ref
+                                                             // turned this into a subscriber callback
     ::gCoordinator = Coordinator::GetInstance();
     auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
     if (EntityClassExists(scriptComp.name)) {
@@ -294,11 +300,37 @@ namespace Image {
       sEntityInstances[entity] = si;
       si.CallOnCreate();
 
+
       std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
     }
     else {
       std::cout << "Entity Script does not exist!" << "\n";
     }
+  }
+
+  void ScriptManager::OnCreateEntityEvent(Event & event) {
+      ::gCoordinator = Coordinator::GetInstance();
+      Entity entity{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
+      if (event.GetFail()) return;
+      if (!gCoordinator->HasComponent<Script>(entity)) return;
+
+      if (Hack::entitiesScripted.find(entity) != Hack::entitiesScripted.end()) return;
+      Hack::entitiesScripted[entity] = gCoordinator->GetComponent<Script>(entity).name;
+
+      auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
+      if (EntityClassExists(scriptComp.name)) {
+          ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
+          sEntityInstances[entity] = si;
+          si.CallOnCreate();
+
+          std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+      }
+      else {
+          std::cout << "Entity Script does not exist!" << "\n";
+      }
+
+      //every item added to the ecs will be marked as an entity to serialize
+
   }
 
   /*  _________________________________________________________________________ */

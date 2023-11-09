@@ -17,18 +17,19 @@
 using Image;
 using Object;
 using System;
+using System.Runtime.CompilerServices;
 
 public class EnemyPatrolState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-     
+        enemy.SetText("Patrol State");
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Calculate offsets based on isFacingRight
-        float forwardOffset = enemy.isFacingRight ? 10.0f : -10.0f;
+        float forwardOffset = enemy.isFacingRight ? 50.0f : -50.0f;
         float visionOffset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
         // Position that is 10 pixels in front of the enemy
@@ -56,7 +57,8 @@ public class EnemyPatrolState : EnemyBaseState
         }
 
         // Perform movement based on the groundRayCast result
-        if (groundRayCast.tag != "Platform")
+        String platformTag = "PLATFORM";
+        if (groundRayCast.tag != platformTag)
         {
             if (enemy.isFacingRight)
             {

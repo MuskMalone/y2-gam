@@ -26,6 +26,7 @@
 #include "Graphics/Texture.hpp"
 #include "Graphics/SubTexture.hpp"
 #include <Core/Serialization/SerializationManager.hpp>
+#include <Engine/AssetManager.hpp>
 
 enum class Layer {
 	BACKGROUND,
@@ -36,16 +37,18 @@ enum class Layer {
 
 struct Sprite {
 	glm::vec4 color{};
-	std::shared_ptr<SubTexture> texture{}; //TODO REMOVE
-	int spriteID{-1}; //-1 invalid ID, means no texture
+	//std::shared_ptr<SubTexture> texture{}; //TODO REMOVE
+	AssetID spriteAssetID{};
+	ResourceID spriteID{};
 	Layer layer{};
 
 	Sprite() = default;
-	Sprite(glm::vec4 color, std::shared_ptr<SubTexture> tex, int id = -1, Layer lyr = Layer::FOREGROUND) : color{ color }, texture{ tex }, spriteID{ id }, layer { lyr } {}
+	Sprite(glm::vec4 color, ResourceID id = 0, Layer lyr = Layer::FOREGROUND) : color{ color }, spriteID{ id }, layer { lyr } {}
 	Sprite([[maybe_unused]] rapidjson::Value const& obj) {
 		color = { obj["r"].GetFloat(),obj["g"].GetFloat(),obj["b"].GetFloat(),obj["a"].GetFloat() };
-		texture = nullptr;
-		spriteID = -1;
+		spriteAssetID = { obj["assetID"].GetUint64() };
+		//texture = nullptr;
+		spriteID = 0;
 		layer = static_cast<Layer>(obj["layer"].GetInt());
 	}
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
@@ -54,8 +57,12 @@ struct Sprite {
 		sm->InsertValue(obj, "r", color.x);
 		sm->InsertValue(obj, "g", color.y);
 		sm->InsertValue(obj, "b", color.z);
-		sm->InsertValue(obj, "a", color.z);
+		sm->InsertValue(obj, "a", color.w);
 		sm->InsertValue(obj, "layer", static_cast<int>(layer));
+		sm->InsertValue(obj, "assetID", spriteAssetID);
 		return true;
+	}
+	ResourceID GetSpriteID() {
+		return (spriteAssetID) ? AssetManager::GetInstance()->GetResourceID(spriteAssetID) : spriteID;
 	}
 };

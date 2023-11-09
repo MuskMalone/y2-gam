@@ -425,7 +425,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 	if (mData.quadIdxCount >= RendererData::cMaxIndices)
 		NextBatch();
 
-	glm::vec2 const* texCoords{ subtex->GetTexCoords() };
+	std::array<glm::vec2, 4> texCoords{ subtex->GetTexCoords() };
 	std::shared_ptr<Texture> tex = subtex->GetTexture();
 
 	float texIdx = 0.f;

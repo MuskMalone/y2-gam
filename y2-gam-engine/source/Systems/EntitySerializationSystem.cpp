@@ -84,8 +84,10 @@ namespace Serializer {
 		for (auto const& entity : mEntities) {
 			JSONObj obj{ JSON_OBJ_TYPE };
 			SerializeEntity(entity, obj);
-			sm->PushToArray(name, entArr, obj);
+			if (!obj.ObjectEmpty())
+				sm->PushToArray(name, entArr, obj);
 		}
+
 		sm->InsertValue("Entities", entArr);
 		SerializationManager::GetInstance()->FlushJSON(name);
 

@@ -43,15 +43,14 @@
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
 namespace Image {
-    void AppRender(std::set<Entity>const& mEntities);
+    void AppRender(std::set<Entity>const& mEntities,float dt);
     void MainMenuWindow();
     void HierarchyWindow(std::set<Entity>const& mEntities);
     void InspectorWindow();
     void PropertyWindow();
-    void BufferWindow();
+    void BufferWindow(float dt);
     void PrefabWindow();
     void ContentWindow();
-    void TextureHdlWindow(std::set<Entity>const& mEntities);
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();

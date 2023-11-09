@@ -32,6 +32,7 @@
 #include "Graphics/SpriteManager.hpp"
 
 #include "Scripting/NodeManager.hpp"
+#include <Engine/AssetManager.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -102,34 +103,35 @@ void RenderSystem::Init()
 		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
+	float const zoomFactor{ 0.4f };
 	gCoordinator->AddComponent(
 		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * 0.6f, static_cast<float>(-WORLD_LIMIT_Y) * 0.6f, static_cast<float>(WORLD_LIMIT_Y) * 0.6f }
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
 	);
+	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
 
-	int bgTextureID = SpriteManager::LoadTexture("../assets/textures/blinkbg.png", 100);
-	int bgSubTextureID = SpriteManager::CreateSubTexture(bgTextureID, { 0, 0 }, { 3497, 1200 }, 100);
+	//SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
 
-	Entity bg = gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent(
-		bg,
-		Transform{
-			{0, 0, 0.f},
-			{0.f,0.f,0.f},
-			{350.f, 120.f, 0.f}
-		});
-	
-	::gCoordinator->AddComponent(
-		bg,
-		Sprite{
-			{1.f,1.f,1.f,1.f},
-			nullptr,
-			-1,
-			Layer::BACKGROUND
-		}
-	);
-	auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
-	bgSprite.spriteID = bgSubTextureID;
+	//Entity bg = gCoordinator->CreateEntity();
+	//::gCoordinator->AddComponent(
+	//	bg,
+	//	Transform{
+	//		{0, 0, -40.f},
+	//		{0.f,0.f,0.f},
+	//		{350.f, 120.f, 0.f}
+	//	});
+	//
+	//::gCoordinator->AddComponent(
+	//	bg,
+	//	Sprite{
+	//		{1.f,1.f,1.f,1.f},
+	//		0,
+	//		Layer::BACKGROUND
+	//	}
+	//);
+	//auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
+	//bgSprite.spriteAssetID = AssetManager::GetInstance()->LoadAsset<SpriteManager>(1698744788359338700);
+	//bgSprite.spriteID = AssetManager::GetInstance()->GetResourceID(bgSprite.spriteAssetID);
 	
 	Renderer::Init();
 
@@ -142,6 +144,8 @@ void RenderSystem::Init()
 
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
+	//--------------------------
+
 }
 
 /*  _________________________________________________________________________ */
@@ -154,8 +158,11 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
+	static bool showEditor{ true };
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
-	mFramebuffers[0]->Bind();
+	if (showEditor) {
+		mFramebuffers[0]->Bind();
+	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -182,24 +189,36 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		});
 
 	if (!mEditorMode) {
+		for (auto const& e : mEntities) {
+			if (!gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = gCoordinator->GetComponent<Tag>(e);
+			if (tag.tag == "Player") {
+				mPlayer = e;
+			}
+		}
+
 		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
 		RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
 		glm::vec3 playerPosition{ playerTransform.position };
 		Vec2 playerVel{ playerRigidBody.velocity };
 
 		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
+		sceneCamera.mTargetEntity = mPlayer;
 		sceneCamera.UpdatePosition(playerPosition, playerVel);
+
 	}
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+	glDisable (GL_DEPTH_TEST);
 
 	glDisable(GL_DEPTH_TEST);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
-		if (entry.sprite->spriteID > -1) {
-			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->spriteID), entry.sprite->color, entry.entity);
+		if (entry.sprite->GetSpriteID()) {
+			//std::cout << entry.sprite->spriteID << std::endl;
+			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->GetSpriteID()), entry.sprite->color, entry.entity);
 		}
 		else {
 			if (entry.transform->elipse)
@@ -209,16 +228,21 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 
+	//glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
 	}
+	//glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
-	::gCoordinator->GetSystem<TextSystem>()->Update();
 	glEnable(GL_DEPTH_TEST);
-	mFramebuffers[0]->Unbind();
 
+	::gCoordinator->GetSystem<TextSystem>()->Update();
+	if (showEditor) {
+
+		mFramebuffers[0]->Unbind();
+	}
 	////Prefab Editor
 	//mFramebuffers[1]->Bind();
 	//glDepthMask(GL_TRUE);

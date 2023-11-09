@@ -57,7 +57,10 @@
     <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
+    <ClCompile Include="source\Engine\AssetManager.cpp" />
+    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
+    <ClCompile Include="source\Graphics\AnimationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -140,7 +143,10 @@
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
     <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
+    <ClInclude Include="include\Engine\AssetManager.hpp" />
+    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
     <ClInclude Include="include\Graphics\SpriteManager.hpp" />
+    <ClInclude Include="include\Graphics\AnimationManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -303,9 +309,6 @@
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\FrameRateController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\OrthoCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />

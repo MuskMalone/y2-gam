@@ -32,6 +32,7 @@
 #include "Components/Sprite.hpp"
 #include "Systems/InputSystem.hpp"
 #include "Graphics/SpriteManager.hpp"
+#include "Graphics/AnimationManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -51,27 +52,25 @@ void AnimationSystem::Init() {
 	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
 	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
 	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
+	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+		0, 7, 1, { 256, 256 });
+	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+	//	1, 16, 2, { 256, 256 });
+	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+	//	2, 23, 0, { 256, 256 });
 
-	SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png", 0);
+	//ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
 
-	//for (float i{}; i < 8; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(0), { i, 0 }, { 128, 128 }));
+	////TEMP
+	//for (float i{}; i < 7; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
+	//
 
-	//for(float i{8}; i < 16; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(1), {i, 0}, {128, 128}));
+	//for (float i{ 7 }; i < 16; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
 
-	//for(float i{16}; i <23; ++i)
-	//	mSpriteList.push_back(SubTexture::Create(SpriteManager::GetTexture(2), { i, 0 }, { 128, 128 }));
-
-	//TEMP
-	for (float i{}; i < 7; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 1 }, { 256, 256 }, (int)i);
-
-	for (float i{ 7 }; i < 16; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 2 }, { 256, 256 }, (int)i);
-
-	for (float i{ 16 }; i < 23; ++i)
-		SpriteManager::CreateSubTexture(0, { i, 0 }, { 256, 256 }, (int)i);
+	//for (float i{ 16 }; i < 23; ++i)
+	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
 
 	//------------------------------------------------------------------------------------/
 
@@ -92,13 +91,16 @@ void AnimationSystem::Update(float dt) {
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 
 		size_t& frameIdx { animation.currFrame };
-		std::vector<AnimationFrame>& frameList{ animation.stateMap[animation.currState] };
+		if (!animation.assetID || animation.assetID == static_cast<AssetID>(-1)) continue;
+		//quick patch to constcast this
+		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.assetID)) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;
 
-		AnimationFrame& currFrame { frameList[frameIdx] };
+		AnimationFrame & currFrame { frameList[frameIdx] };
 
+		//xavier todo: help me change this to not use elapsed time
 		currFrame.elapsedTime += dt;
 
 		sprite.spriteID = currFrame.spriteID;
@@ -106,21 +108,6 @@ void AnimationSystem::Update(float dt) {
 		if (currFrame.elapsedTime >= animation.speed) {
 			++frameIdx;
 			currFrame.elapsedTime = 0.f;
-		}
-
-		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_O)) {
-			switch (animation.currState) {
-			case ANIM_STATE::IDLE:
-				animation.currState = ANIM_STATE::RUN;
-				break;
-			case ANIM_STATE::RUN: 
-				animation.currState = ANIM_STATE::ATTACK;
-				break;
-			case ANIM_STATE::ATTACK:
-				animation.currState = ANIM_STATE::IDLE;
-				break;
-			}
 		}
 	}
 }

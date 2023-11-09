@@ -18,6 +18,8 @@
 #include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
+#include <Engine/AssetManager.hpp>
+#include <Graphics/SpriteManager.hpp>
 
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
@@ -47,8 +49,13 @@ int main()
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+	
 	Globals::GlobalValContainer::GetInstance()->ReadGlobalInts();
 
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
+	coordinator->Init();
+
+	// Mono Testing
 	Image::ScriptManager::Init();
 	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
 	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
@@ -57,9 +64,10 @@ int main()
 
 	using namespace Physics;
 	using namespace Collision;
-	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
-	coordinator->Init();
 
+	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
+	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
+	//assetManager->AddAsset<SpriteManager>("../assets/textures/blinkbg.png");
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
@@ -79,6 +87,29 @@ int main()
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
+
+	auto assetManager{ AssetManager::GetInstance() };
+	assetManager->Init();
+	PrefabsManager::GetInstance()->Init();
+
+	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
+		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
+	}
+
+	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
+	{
+		Signature signature;
+		//signature.flip();
+		signature.set(coordinator->GetComponentType<ImguiComponent>());
+		//signature.set(coordinator->GetComponentType<Tag>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<ImGuiSystem>(signature);
+	}
+
+	entitySerializationSystem->Init();
 
 	auto textSystem = coordinator->RegisterSystem<TextSystem>();
 	{
@@ -119,15 +150,7 @@ int main()
 
 	renderSystem->Init();
 
-	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
-	{
-		Signature signature;
-		//signature.flip();
-		signature.set(coordinator->GetComponentType<ImguiComponent>());
-		//signature.set(coordinator->GetComponentType<Tag>());
-		//signature.set(coordinator->GetComponentType<Transform>());
-		coordinator->SetSystemSignature<ImGuiSystem>(signature);
-	}
+
 	imguiSystem->Init(windowManager->GetContext());
 
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
@@ -158,16 +181,6 @@ int main()
 
 	inputSystem->Init();
 
-	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
-	{
-		Signature signature;
-		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
-		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
-	}
-
-	entitySerializationSystem->Init();
-
-	PrefabsManager::GetInstance()->Init();
 
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
@@ -207,67 +220,36 @@ int main()
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
-		frameController->StartFrameTime();
+		
 		inputSystem->Update();
 
-		
 		windowManager->ProcessEvents();
 		//gGameLoop.CheckToggleKey();
-		
+		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
-			//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
-			//}
-		//gGameLoop.Evaluate();
+		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
+		//}
+	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
+
 		NodeManager::Update();
+			
+		
 
-		//textSystem->Update();
-
-		//physicsSystem->PreCollisionUpdate(dt);
-
-		//collisionSystem->Update(dt);
-
-		//physicsSystem->PostCollisionUpdate(dt);
-
-		//animationSystem->Update(dt);
-
-		//renderSystem->Update(dt);
 
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
+
+		imguiSystem->Update(dt);
 		dt = frameController->EndFrameTime();
-				imguiSystem->Update();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
-		/*
-		int count{};
-		for (auto& ent : diagnosticsList) {
-			if (diagnosticsList.size() == 5) {
-				switch (count) {
-				case 0:
-					coordinator->GetComponent<Text>(ent).text = "FPS: " + std::to_string(frameController->GetFps());
-					break;
-				case 1:
-					coordinator->GetComponent<Text>(ent).text = "Entities: " + std::to_string(coordinator->GetEntityCount());
-					break;
-				case 2:
-					coordinator->GetComponent<Text>(ent).text = "Physics: " + std::to_string(frameController->GetProfilerValue(ENGINE_PHYSICS_PROFILE) * 100) + "%";
-					break;
-				case 3:
-					coordinator->GetComponent<Text>(ent).text = "Collision: " + std::to_string(frameController->GetProfilerValue(ENGINE_COLLISION_PROFILE) * 100) + "%";
-					break;
-				case 4:
-					coordinator->GetComponent<Text>(ent).text = "Render: " + std::to_string(frameController->GetProfilerValue(ENGINE_RENDER_PROFILE) * 100) + "%";
-					break;
-				}
 
-				count++;
-			}
-		}
-		*/
 	}
+
+	
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();
 	Renderer::Shutdown();
@@ -276,5 +258,6 @@ int main()
 
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::Exit();
+	assetManager->Exit();
 	return 0;
 }
