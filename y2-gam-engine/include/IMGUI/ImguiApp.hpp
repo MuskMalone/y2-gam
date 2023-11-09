@@ -54,4 +54,6 @@ namespace Image {
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();
+
+    static ImVec2 mViewportDim{};
 }

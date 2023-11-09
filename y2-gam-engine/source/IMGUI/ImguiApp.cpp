@@ -802,7 +802,13 @@ namespace Image {
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            ImVec2 contentSize = ImGui::GetContentRegionAvail();
+        ImVec2 contentSize = ImGui::GetContentRegionAvail();
+        
+        if ((mViewportDim.x != contentSize.x) || (mViewportDim.y != contentSize.y)) {
+            framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
+            mViewportDim = contentSize;
+        }
+
         if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
 
             //mouse picking part:
@@ -940,7 +946,7 @@ namespace Image {
         }
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
