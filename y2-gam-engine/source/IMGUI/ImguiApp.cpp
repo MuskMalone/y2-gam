@@ -37,7 +37,7 @@
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
 #include "Scripting/NodeManager.hpp"
-#include <filesystem>
+#include "Scripting/ScriptManager.hpp"
 
 #include <Engine/AssetManager.hpp>
 #include <Graphics/SpriteManager.hpp>
@@ -579,6 +579,39 @@ namespace Image {
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
+            }
+            if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+              std::string treeNodeLabel = "Script##" + std::to_string(gSelectedEntity);
+              if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                  Script& script = gCoordinator->GetComponent<Script>(gSelectedEntity);
+                  ImGui::Text("Assigned Script");
+                  ImGui::Text(script.name.c_str());
+
+                  static int selectedOption = -1;
+
+                  // Find the initial index for selectedOption based on the name of the script
+                  for (int i{}; i < ScriptManager::GetAssignableScriptNames().size(); ++i) {
+                    if (script.name == ScriptManager::GetAssignableScriptNames()[i]) {
+                      selectedOption = i;
+                      break;
+                    }
+                  }
+
+                  static int previousOption = selectedOption; // Store the previous option
+
+                  ImGui::Combo("Name", 
+                    &selectedOption, 
+                    ScriptManager::GetAssignableScriptNames().data(), 
+                    static_cast<int>(ScriptManager::GetAssignableScriptNames().size()));
+                  
+                  if (selectedOption != previousOption) {
+                    previousOption = selectedOption;
+                    script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
+                    ScriptManager::OnCreateEntity(gSelectedEntity);
+                  }
+                                
+                  ImGui::TreePop();
+              }
             }
             ImGui::PopStyleColor(2);
         }

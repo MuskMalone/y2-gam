@@ -257,7 +257,7 @@ int main()
 	textSystem->Exit();
 
 	Image::SoundManager::AudioExit();
-	Image::ScriptManager::Exit();
+	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
 	return 0;
 }
