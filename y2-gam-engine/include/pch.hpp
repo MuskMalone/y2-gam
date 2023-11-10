@@ -94,3 +94,4 @@
 #include "Components/Node.hpp"
 #include "Components/Script.hpp"
 #include "Components/Tag.hpp"
+#include "Components/Layering.hpp"

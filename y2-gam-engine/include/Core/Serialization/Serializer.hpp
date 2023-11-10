@@ -11,6 +11,7 @@
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
+#include <Components/Layering.hpp>
 #include <Components/Node.hpp>
 #include <Components/RigidBody.hpp>
 #include <Components/Script.hpp>
@@ -33,6 +34,9 @@ Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
 }
 static void EntityAddGravity(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Gravity{ obj });
+}
+static void EntityAddLayering(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Layering{ obj });
 }
 static void EntityAddNode(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Node{ obj });
@@ -61,6 +65,7 @@ else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
 else if constexpr (std::is_same_v<_type, Collider>) return "Collider";
 else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
+else if constexpr (std::is_same_v<_type, Layering>) return "Layering";
 else if constexpr (std::is_same_v<_type, Node>) return "Node";
 else if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
 else if constexpr (std::is_same_v<_type, Script>) return "Script";
@@ -104,6 +109,13 @@ JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Gravity>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Gravity>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Layering>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Layering>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Layering>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<Node>(entity)){
@@ -162,6 +174,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Collider", EntityAddCollider},
 {"Editor", EntityAddEditor},
 {"Gravity", EntityAddGravity},
+{"Layering", EntityAddLayering},
 {"Node", EntityAddNode},
 {"RigidBody", EntityAddRigidBody},
 {"Script", EntityAddScript},

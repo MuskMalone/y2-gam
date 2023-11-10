@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Audio\Sound.hpp" />
+    <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />

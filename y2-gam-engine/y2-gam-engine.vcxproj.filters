@@ -147,6 +147,7 @@
     <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
     <ClInclude Include="include\Graphics\SpriteManager.hpp" />
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
+    <ClInclude Include="include\Components\Layering.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

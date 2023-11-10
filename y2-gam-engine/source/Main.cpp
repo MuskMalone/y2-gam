@@ -86,6 +86,7 @@ int main()
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<ImguiComponent>();
 	coordinator->RegisterComponent<Tag>();
+	coordinator->RegisterComponent<Layering>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
 	auto assetManager{ AssetManager::GetInstance() };
