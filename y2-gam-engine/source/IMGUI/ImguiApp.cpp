@@ -226,11 +226,15 @@ namespace Image {
         }
 
         //Cant destroy player
+        // Ernest: Can delete now
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
-            if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+            //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
                 gSelectedEntity = MAX_ENTITIES;
-            }
+            //}
+                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                  //ScriptManager::RemoveEntity(gSelectedEntity);
+                //}
         }
 
         for (auto const& entity : mEntities) {
@@ -295,13 +299,17 @@ namespace Image {
         }
         
         //Cant delete stuff with spcript
+        // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
-                if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     gCoordinator->DestroyEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
-                }
+                //}
+                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                  //ScriptManager::RemoveEntity(gSelectedEntity);
+                //}
             }
         }
  
@@ -630,7 +638,7 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
@@ -744,6 +752,16 @@ namespace Image {
                     }
                 }
                       break;
+                case 7: {
+
+                    if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Script{ "No Script Assigned" });
+                        ScriptManager::OnCreateEntity(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -798,10 +816,18 @@ namespace Image {
                     }
                 }
                       break;
+                case 7: {
+                    // Remove Script component
+                    if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                      gCoordinator->RemoveComponent<Script>(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
             ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");

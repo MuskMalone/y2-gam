@@ -382,6 +382,20 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+  /*! RemoveEntity
+
+  @param entity
+  The entity handle for the created entity with a script component.
+
+  @return none.
+
+  Removes the entity from the map.
+  */
+  void ScriptManager::RemoveEntity(Entity const& entity) {
+    sEntityInstances.erase(entity);
+  }
+
+  /*  _________________________________________________________________________ */
   /*! EntityClassExists
 
   @param className

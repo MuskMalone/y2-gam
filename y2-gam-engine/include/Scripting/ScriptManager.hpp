@@ -35,6 +35,7 @@ namespace Image {
     static void OnCreateEntity(Entity const& entity);
     static void OnCreateEntityEvent(Event& event);
     static void OnUpdateEntity(Entity const& entity, float dt);
+    static void RemoveEntity(Entity const& entity);
     
     static bool EntityClassExists(std::string const& className);
 
