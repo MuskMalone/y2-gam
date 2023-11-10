@@ -51,8 +51,8 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 14.975055694580078,
-                "posY": -77.085693359375,
+                "posX": -103.36883544921875,
+                "posY": -46.14567565917969,
                 "posZ": 1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 2
             },
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 7,
+                "currFrame": 6,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },

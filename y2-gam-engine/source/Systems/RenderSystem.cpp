@@ -33,6 +33,7 @@
 
 #include "Scripting/NodeManager.hpp"
 #include <Engine/AssetManager.hpp>
+#include <Systems/InputSystem.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -161,6 +162,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 {
 	static bool showEditor{ true };
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
+	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+		showEditor = !showEditor;
+	}
 	if (showEditor) {
 		mFramebuffers[0]->Bind();
 	}
