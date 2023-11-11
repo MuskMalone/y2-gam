@@ -23,6 +23,7 @@
 
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
 #include "Core/Globals.hpp"
@@ -217,6 +218,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
+		// Added this flag for toggle visibility
+		if (!LayeringSystem::IsLayerVisible(gCoordinator->GetComponent<Layering>(entry.entity).assignedLayer)) continue;
+
 		if (entry.sprite->GetSpriteID()) {
 			//std::cout << entry.sprite->spriteID << std::endl;
 			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->GetSpriteID()), entry.sprite->color, entry.entity);

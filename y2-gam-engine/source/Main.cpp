@@ -198,36 +198,6 @@ int main()
 
 	NodeManager::Initialize();
 
-	/*
-	std::vector<std::string> diagnostics{};
-	diagnostics.emplace_back("FPS");
-	diagnostics.emplace_back("Entities");
-	diagnostics.emplace_back("Physics");
-	diagnostics.emplace_back("Collision");
-	diagnostics.emplace_back("Render");
-	std::vector<Entity> diagnosticsList{};
-
-	for (int i{}; i < diagnostics.size(); ++i) {
-		Entity textEnt = coordinator->CreateEntity();
-		Vec2 position = Vec2(-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))));
-		coordinator->AddComponent(
-			textEnt,
-			Transform{
-				{position.x,position.y,0},
-				{0.f,0.f,0.f},
-				{0, 0, 0}
-			});
-		coordinator->AddComponent(
-			textEnt,
-			Text{
-				"Lato",
-				0.05f,
-				"",
-				{1, 1, 0}
-			});
-		diagnosticsList.push_back(textEnt);
-	}
-	*/
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
@@ -244,9 +214,6 @@ int main()
 		StateManager::GetInstance()->Render(dt);
 
 		NodeManager::Update();
-			
-		
-
 
 		windowManager->Update();
 
@@ -259,7 +226,6 @@ int main()
 		windowManager->UpdateWindowTitle(title);
 
 	}
-
 	
 	StateManager::GetInstance()->Clear();
 	imguiSystem->Destroy();

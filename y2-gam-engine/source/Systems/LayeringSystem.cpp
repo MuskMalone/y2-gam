@@ -15,49 +15,60 @@
 /******************************************************************************/
 
 #include "../include/pch.hpp"
+
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Core/Serialization/SerializationManager.hpp"
+
+// Static Initialization
+std::vector<std::string> LayeringSystem::mLayerNames;
+std::vector<int> LayeringSystem::mLayerVisibility;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*! Init
+
+@return none.
+
+Initializes the layering system.
+*/
 void LayeringSystem::Init() {
-  // Read from serialized data
   ReadFromJson(NAME_OF_FILE);
 }
 
-void LayeringSystem::ReadFromJson(std::string const& filename) {
-  std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
-  if (!sm->OpenJSON(filename)) { // JSON file does not exist
-    mLayerNames.reserve(MAX_LAYERS);
-    for (int i{}; i < MAX_LAYERS; ++i) {
-      mLayerNames.emplace_back("");
-    }
-    mLayerNames[0] = "Default";
-    return;
-  }
+/*  _________________________________________________________________________ */
+/*! Update
 
-  if (!sm->At("Layers").IsArray()) return;
+@return none.
 
-  for (auto const& item : sm->At("Layers").GetArray()) {
-    const auto arr = item[NAME_OF_SERIALIZED_ARRAY].GetArray();
-    mLayerNames.reserve(MAX_LAYERS);
-    for (auto const& v : arr) {
-      mLayerNames.emplace_back(v.GetString());
-    }
-  }
-}
-
+The update function for the layering system.
+*/
 void LayeringSystem::Update() {
 
 }
 
+/*  _________________________________________________________________________ */
+/*! Exit
+
+@return none.
+
+The exit function for the layering system. Called when the program is exiting.
+*/
 void LayeringSystem::Exit() {
   SerializeToFile(NAME_OF_FILE);
 }
 
+/*  _________________________________________________________________________ */
+/*! ImguiLayeringWindow
+
+@return none.
+
+This function is called to display the layering window in ImGui. It is called
+in ImguiApp.cpp.
+*/
 void LayeringSystem::ImguiLayeringWindow() {
   ImGui::Begin("Layers");
   std::string treeNodeLabel = "Define Layers##";
@@ -80,8 +91,32 @@ void LayeringSystem::ImguiLayeringWindow() {
       tempLayerName[sizeof(tempLayerName) - 1] = '\0';
 
       if (ImGui::InputText(("##readonly" + std::to_string(i)).c_str(), tempLayerName, sizeof(tempLayerName), ImGuiInputTextFlags_EnterReturnsTrue)) {
+        // If an entity was using that layer name, change it to the new name
+        for (auto const& ent : mEntities) {
+          if (Coordinator::GetInstance()->HasComponent<Layering>(ent)) {
+            auto& layerComponent = Coordinator::GetInstance()->GetComponent<Layering>(ent);
+            if (layerComponent.assignedLayer == mLayerNames[i]) {
+              layerComponent.assignedLayer = tempLayerName;
+            }
+          }
+        }
+     
         mLayerNames[i] = tempLayerName;
       }
+    }
+
+    ImGui::TreePop();
+  }
+
+  treeNodeLabel = "Visibility Toggle##";
+
+  if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+    for (int i{}; i < MAX_LAYERS; ++i) {
+      if (mLayerNames[i] == "") continue;
+      ImGui::Text("%s", (mLayerNames[i] != "") ? mLayerNames[i].c_str() : "Unnamed");
+      ImGui::SameLine();
+      ImGui::SetCursorPosX(SAME_LINE_SPACING);
+      ImGui::Checkbox(("##readonly" + std::to_string(i)).c_str(), reinterpret_cast<bool *>(&mLayerVisibility[i]));
     }
 
     ImGui::TreePop();
@@ -90,6 +125,59 @@ void LayeringSystem::ImguiLayeringWindow() {
   ImGui::End();
 }
 
+/*  _________________________________________________________________________ */
+/*! ReadFromJson
+
+@param filename
+The name of the file to read from.
+
+@return none.
+
+Reads the layering system data from a JSON file.
+*/
+void LayeringSystem::ReadFromJson(std::string const& filename) {
+  std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+  if (!sm->OpenJSON(filename)) {
+    // JSON file does not exist, use default values
+    mLayerNames.reserve(MAX_LAYERS);
+    mLayerVisibility.reserve(MAX_LAYERS);
+    for (int i{}; i < MAX_LAYERS; ++i) {
+      mLayerNames.emplace_back("");
+      mLayerVisibility.emplace_back(true);
+    }
+    mLayerNames[0] = "Default";
+
+    return;
+  }
+
+  if (!sm->At("Layers").IsArray()) return;
+
+  for (auto const& item : sm->At("Layers").GetArray()) {
+    const auto arr = item[NAME_OF_SERIALIZED_LAYER_NAMES].GetArray();
+    mLayerNames.reserve(MAX_LAYERS);
+    for (auto const& v : arr) {
+      mLayerNames.emplace_back(v.GetString());
+    }
+
+    const auto flagArr = item[NAME_OF_SERIALIZED_VISIBILITY_FLAGS].GetArray();
+    mLayerVisibility.reserve(MAX_LAYERS);
+    for (auto const& v : flagArr) {
+      mLayerVisibility.emplace_back(v.GetInt());
+    }
+  }
+}
+
+/*  _________________________________________________________________________ */
+/*! SerializeToFile
+
+@param filename
+The name of the file to write to.
+
+@return bool
+Returns true if the file is successfully written to, false otherwise.
+
+This function is called to write the layering system data to a JSON file.
+*/
 bool LayeringSystem::SerializeToFile(std::string const& filename) {
   std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 
@@ -112,7 +200,17 @@ bool LayeringSystem::SerializeToFile(std::string const& filename) {
   return true;
 }
 
-bool LayeringSystem::Serialize(rapidjson::Value& obj) {
+/*  _________________________________________________________________________ */
+/*! Serialize
+
+@param obj
+The JSON object to write to.
+
+@return none.
+
+Serializes the layering system data to a JSON object.
+*/
+void LayeringSystem::Serialize(rapidjson::Value& obj) {
   std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 
   rapidjson::Value objArr{ rapidjson::kArrayType };
@@ -122,7 +220,38 @@ bool LayeringSystem::Serialize(rapidjson::Value& obj) {
     sm->PushToArray(objArr, layerNames);
   }
 
-  sm->InsertValue(obj, NAME_OF_SERIALIZED_ARRAY, objArr);
+  sm->InsertValue(obj, NAME_OF_SERIALIZED_LAYER_NAMES, objArr);
 
-  return true;
+  rapidjson::Value flagArr{ rapidjson::kArrayType };
+  flagArr.SetArray();
+  // Push each layer name to the array
+  for (int visibilityFlag : mLayerVisibility) {
+    sm->PushToArray(flagArr, visibilityFlag);
+  }
+
+  sm->InsertValue(obj, NAME_OF_SERIALIZED_VISIBILITY_FLAGS, flagArr);
+}
+
+/*  _________________________________________________________________________ */
+/*! IsLayerVisible
+
+@param layerName
+The name of the layer to check.
+
+@return bool
+'false' if the layer is not visible, 'true' otherwise.
+
+Returns whether the layer is visible or not, by cross checking the 
+two vectors.
+*/
+bool LayeringSystem::IsLayerVisible(std::string const& layerName) {
+  int index{};
+  for (auto const& name : mLayerNames) {
+    if (name == layerName) {
+      break;
+    }
+    ++index;
+  }
+
+  return mLayerVisibility[index];
 }

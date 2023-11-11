@@ -25,20 +25,29 @@ constexpr float SAME_LINE_SPACING = 150.f;
 constexpr float TEXT_BOX_WIDTH = 100.f;
 
 constexpr const char* NAME_OF_FILE = "Layers";
-constexpr const char* NAME_OF_SERIALIZED_ARRAY = "layerNames";
+constexpr const char* NAME_OF_SERIALIZED_LAYER_NAMES = "layerNames";
+constexpr const char* NAME_OF_SERIALIZED_VISIBILITY_FLAGS = "layerVisibility";
 
 class LayeringSystem : public System {
 public:
 	void Init();
-	void ReadFromJson(std::string const& filename);
 	void Update();
 	void Exit();
-	void ImguiLayeringWindow();
-	bool SerializeToFile(std::string const& filename);
-	bool Serialize(rapidjson::Value& obj);
 
-	std::vector<std::string>const& GetLayerNames() const { return mLayerNames; }
+	void ImguiLayeringWindow();
+
+	// Serialization Related
+	void ReadFromJson(std::string const& filename);
+	bool SerializeToFile(std::string const& filename);
+	void Serialize(rapidjson::Value& obj);
+
+	// Getters
+	static std::vector<std::string>const& GetLayerNames() { return mLayerNames; }
+	static std::vector<int>const& GetLayerVisibility() { return mLayerVisibility; }
+
+	static bool IsLayerVisible(std::string const& layerName);
 
 private:
-	std::vector<std::string> mLayerNames;
+	static std::vector<std::string> mLayerNames;
+	static std::vector<int> mLayerVisibility;
 };

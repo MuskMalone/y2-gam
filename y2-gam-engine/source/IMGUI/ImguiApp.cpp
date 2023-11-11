@@ -371,9 +371,6 @@ namespace Image {
               if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                 Layering& layer = gCoordinator->GetComponent<Layering>(gSelectedEntity);
 
-                //ImGui::Text("Current Layer");
-                //ImGui::Text(layer.assignedLayer.c_str());
-
                 static int selectedOption = -1;
                 
                 auto const& layerSystem{ gCoordinator->GetSystem<LayeringSystem>() };
@@ -384,7 +381,7 @@ namespace Image {
                   }
                 }
 
-                static int previousOption = selectedOption; // Store the previous option
+                static int previousOption = selectedOption;
 
                 std::vector<const char*> tmp;
                 for (const auto& name : layerSystem->GetLayerNames()) {
