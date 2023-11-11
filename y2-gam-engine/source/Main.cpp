@@ -266,9 +266,9 @@ int main()
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 	textSystem->Exit();
-
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
+	layeringSystem->Exit();
 	return 0;
 }

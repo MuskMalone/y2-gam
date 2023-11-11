@@ -24,12 +24,18 @@ constexpr size_t MAX_LAYERS = MAX_USER_DEFINED_LAYERS + MAX_BUILTIN_LAYERS;
 constexpr float SAME_LINE_SPACING = 150.f;
 constexpr float TEXT_BOX_WIDTH = 100.f;
 
+constexpr const char* NAME_OF_FILE = "Layers";
+constexpr const char* NAME_OF_SERIALIZED_ARRAY = "layerNames";
+
 class LayeringSystem : public System {
 public:
 	void Init();
+	void ReadFromJson(std::string const& filename);
 	void Update();
 	void Exit();
 	void ImguiLayeringWindow();
+	bool SerializeToFile(std::string const& filename);
+	bool Serialize(rapidjson::Value& obj);
 
 	std::vector<std::string>const& GetLayerNames() const { return mLayerNames; }
 
