@@ -61,6 +61,7 @@
     <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
+    <ClCompile Include="source\Systems\LayeringSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="include\Graphics\SpriteManager.hpp" />
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
+    <ClInclude Include="include\Systems\LayeringSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

@@ -79,6 +79,7 @@ namespace Image {
         MainMenuWindow();
         PerformanceWindow();
         HierarchyWindow(mEntities);
+        LayerWindow();
         InspectorWindow();
         PropertyWindow();
         //PrefabWindow();
@@ -197,6 +198,9 @@ namespace Image {
                 gSelectedEntity = newEntity;
                 ImGuiViewport* vP = ImGui::GetWindowViewport();
                 gCoordinator->AddComponent(
+                  gSelectedEntity,
+                  Layering{ "Default" });
+                gCoordinator->AddComponent(
                     gSelectedEntity,
                     Transform{
                         {vP->Pos.x,vP->Pos.y,0},
@@ -213,6 +217,9 @@ namespace Image {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
             ImGuiViewport* vP = ImGui::GetWindowViewport();
+            gCoordinator->AddComponent(
+              gSelectedEntity,
+              Layering{ "Default" });
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Transform{
@@ -298,7 +305,7 @@ namespace Image {
             }
         }
         
-        //Cant delete stuff with spcript
+        //Cant delete stuff with script
         // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
@@ -325,6 +332,20 @@ namespace Image {
             //}
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! LayerWindow
+
+    @param none
+
+    @return none.
+
+    This function allows for editing user defined layers.
+    */
+    void LayerWindow() {
+      gCoordinator->GetSystem<LayeringSystem>()->ImguiLayeringWindow();
+    }
+
     /*  _________________________________________________________________________ */
     /*! InspectorWindow
 
@@ -342,6 +363,48 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
+
+            if (gCoordinator->HasComponent<Layering>(gSelectedEntity)) {
+              std::string treeNodeLabel = "Layer##" + std::to_string(gSelectedEntity);
+              
+              ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
+              if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                Layering& layer = gCoordinator->GetComponent<Layering>(gSelectedEntity);
+
+                //ImGui::Text("Current Layer");
+                //ImGui::Text(layer.assignedLayer.c_str());
+
+                static int selectedOption = -1;
+                
+                auto const& layerSystem{ gCoordinator->GetSystem<LayeringSystem>() };
+                for (int i{}; i < layerSystem->GetLayerNames().size(); ++i) {
+                  if (layer.assignedLayer == layerSystem->GetLayerNames()[i]) {
+                    selectedOption = i;
+                    break;
+                  }
+                }
+
+                static int previousOption = selectedOption; // Store the previous option
+
+                std::vector<const char*> tmp;
+                for (const auto& name : layerSystem->GetLayerNames()) {
+                  if (name != "")
+                    tmp.push_back(name.c_str());
+                }
+
+                ImGui::Combo("Current",
+                  &selectedOption,
+                  tmp.data(),
+                  static_cast<int>(tmp.size()));
+
+                if (selectedOption != previousOption) {
+                  previousOption = selectedOption;
+                  layer.assignedLayer = layerSystem->GetLayerNames()[selectedOption];
+                }
+
+                ImGui::TreePop();
+              }
+            }
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(gSelectedEntity);
               

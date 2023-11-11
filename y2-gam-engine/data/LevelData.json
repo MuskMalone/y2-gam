@@ -3,7 +3,7 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 1,
+                "currFrame": 3,
                 "speed": 100.0,
                 "currState": 1
             },
@@ -18,6 +18,9 @@
             "Gravity": {
                 "x": 0.0,
                 "y": -90.0
+            },
+            "Layering": {
+                "layering": "Default"
             },
             "RigidBody": {
                 "dimX": 10.0,
@@ -66,7 +69,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -81,6 +84,9 @@
             "Gravity": {
                 "x": 0.0,
                 "y": -90.0
+            },
+            "Layering": {
+                "layering": "Default"
             },
             "RigidBody": {
                 "dimX": 18.0,
@@ -139,6 +145,9 @@
                 "x": 0.0,
                 "y": 0.0
             },
+            "Layering": {
+                "layering": "Default"
+            },
             "RigidBody": {
                 "dimX": 500.0,
                 "dimY": 30.0,
@@ -173,6 +182,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -210,6 +222,9 @@
                 "x": 0.0,
                 "y": -90.0
             },
+            "Layering": {
+                "layering": "Default"
+            },
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
@@ -246,9 +261,12 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 0,
+                "currFrame": 9,
                 "speed": 0.14300000667572021,
                 "currState": 1
+            },
+            "Layering": {
+                "layering": "Default"
             },
             "Sprite": {
                 "r": 1.0,
@@ -281,6 +299,9 @@
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -308,9 +329,12 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 1,
+                "currFrame": 6,
                 "speed": 0.13199999928474426,
                 "currState": 1
+            },
+            "Layering": {
+                "layering": "Default"
             },
             "Sprite": {
                 "r": 1.0,
@@ -343,6 +367,9 @@
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -374,6 +401,9 @@
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -399,6 +429,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -424,6 +457,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -449,6 +485,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -474,6 +513,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -499,6 +541,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -524,6 +569,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -549,6 +597,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -574,6 +625,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -599,6 +653,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -624,6 +681,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -649,6 +709,9 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -685,6 +748,9 @@
             "Gravity": {
                 "x": 0.0,
                 "y": -10.0
+            },
+            "Layering": {
+                "layering": "Default"
             },
             "RigidBody": {
                 "dimX": 15.0,

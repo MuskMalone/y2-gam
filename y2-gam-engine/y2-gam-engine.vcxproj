@@ -246,6 +246,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClInclude Include="include\Systems\LayeringSystem.hpp" />
     <ClCompile Include="source\Audio\Sound.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../include/pch.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
@@ -330,6 +331,7 @@
     <ClCompile Include="source\Systems\ImguiSystem.cpp" />
     <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
     <ClCompile Include="source\Systems\InputSystem.cpp" />
+    <ClCompile Include="source\Systems\LayeringSystem.cpp" />
     <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="source\Systems\RenderSystem.cpp" />
     <ClCompile Include="source\Systems\TextSystem.cpp" />

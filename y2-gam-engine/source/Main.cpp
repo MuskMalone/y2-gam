@@ -10,6 +10,7 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -111,6 +112,15 @@ int main()
 	}
 
 	entitySerializationSystem->Init();
+
+	auto layeringSystem = coordinator->RegisterSystem<LayeringSystem>();
+  {
+    Signature signature;
+    signature.set(coordinator->GetComponentType<Layering>());
+    coordinator->SetSystemSignature<LayeringSystem>(signature);
+  }
+
+	layeringSystem->Init();
 
 	auto textSystem = coordinator->RegisterSystem<TextSystem>();
 	{
