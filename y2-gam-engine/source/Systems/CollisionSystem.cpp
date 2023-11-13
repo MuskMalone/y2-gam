@@ -692,6 +692,7 @@ Updates the CollisionSystem, checking for collisions between entities and sendin
 
 
         //}
+        mCollidedEntities.clear();
 
         mQuadtree.Update(mEntities, [](Entity const& e, DataMgmt::Rect const& r) {
             auto const& rigidBody{ Coordinator::GetInstance()->GetComponent<Collider>(e) };
@@ -721,6 +722,8 @@ Updates the CollisionSystem, checking for collisions between entities and sendin
                         event.SetParam(Events::Physics::Collision::COLLIDED, ArbiterPair {hashTableKey, arbiter});
                         gCoordinator->SendEvent(event);
 
+                        //updates 
+                        mCollidedEntities[arbiter.b1].emplace_back(std::move(arbiter));
                     }
 
 
@@ -769,7 +772,49 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
 
         }
+        //2 is the id of the player
+        //ArbiterVec av{ Physics::IsCollided(2) };
+        ArbiterVec av{ Physics::IsIntersected(2) };
+        for (auto const& a : av) {
+            for (uint64_t i{}; i < a.contactsCount; ++i) {
+                Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 1,1 }, { 1,0,1,1 });
+            }
+        }
+        ArbiterVec av2{ Physics::IsCollided(2) };
+        for (auto const& a : av2) {
+            for (uint64_t i{}; i < a.contactsCount; ++i) {
+                Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 1,1 }, { 1,0,1,1 });
+                Renderer::DrawLine({ a.contacts[i].position.x, a.contacts[i].position.y, 10 },
+                    {
+                        a.contacts[i].position.x + a.contacts[i].normal.x * 5.f,
+                        a.contacts[i].position.y + a.contacts[i].normal.y * 5.f,
+                        10
+                    }, { 1,1,0,1 });
+            }
+        }
         //Renderer::RenderSceneEnd();
 
+    }
+    bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2) {
+        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) return false;
+        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+            return a.b2 == e2;
+        }) };
+        if (it == mCollidedEntities[e1].end()) return false;
+        return true;
+    }
+    bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2, Arbiter& a) {
+        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) return false;
+        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+            return a.b2 == e2;
+        }) };
+        if (it == mCollidedEntities[e1].end()) return false;
+        a = *it;
+        return true;
+    }
+
+    ArbiterVec CollisionSystem::IsIntersected(Entity const& e1) {
+        if (mCollidedEntities.find(e1) == mCollidedEntities.end()) return ArbiterVec{};
+        return mCollidedEntities[e1];
     }
 }

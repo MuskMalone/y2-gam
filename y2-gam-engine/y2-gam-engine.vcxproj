@@ -180,7 +180,7 @@
     <ClInclude Include="include\Core\EventManager.hpp" />
     <ClInclude Include="include\Core\FrameRateController.hpp" />
     <ClInclude Include="include\Core\Globals.hpp" />
-    <ClInclude Include="include\Core\Physics.hpp" />
+    <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
     <ClInclude Include="include\Core\Types.hpp" />
@@ -292,6 +292,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="source\Physics\Physics.cpp" />
     <ClCompile Include="source\Scripting\NodeManager.cpp" />
     <ClCompile Include="source\Scripting\ScriptClass.cpp" />
     <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
