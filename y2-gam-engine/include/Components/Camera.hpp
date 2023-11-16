@@ -64,8 +64,8 @@ public:
 	struct CameraSettings {
 		float offsetX{ 30.f };
 		float offsetY{ 20.f };
-		float velocityThreshold{ 0.5f };
-		float cameraSpeed{ 0.1f };
+		float velocityThreshold{ 0.2f };
+		float cameraSpeed{ 0.05f };
 
 		//function to Load settings TODO IMPLEMENT
 	} mSettings;

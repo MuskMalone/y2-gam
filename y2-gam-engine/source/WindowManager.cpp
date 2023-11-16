@@ -50,6 +50,7 @@ void WindowManager::Init(
 	// this is the default setting ...
 	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
+	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::TOGGLE_FULLSCREEN, WindowManager::FullscreenListener));
 }
 
 void WindowManager::Update()
@@ -95,6 +96,7 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 	KeyState const& prevButtons {GetInstance()->mPrevButtons};
 	KeyState& currButtons {GetInstance()->mButtons};
 	Event event(Events::Window::INPUT);
+
     if (GLFW_PRESS == action) {
         if (GLFW_KEY_ESCAPE == key) {
             glfwSetWindowShouldClose(pwin, GLFW_TRUE);
@@ -107,6 +109,10 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 			std::cout << "key click\n";
 #endif
 			gCoordinator->SendEvent(event);
+		}
+		if (GLFW_KEY_F11 == key) {
+			Event e {Events::Window::TOGGLE_FULLSCREEN};
+			gCoordinator->SendEvent(e);
 		}
 	}
     else if (GLFW_RELEASE == action) {
@@ -240,4 +246,20 @@ template <typename _bitset>
 void WindowManager::SetKey(_bitset & bs, GLenum key, bool state) {
 	(state) ? bs.set(static_cast<std::size_t>(key)) : 
 		bs.reset(static_cast<std::size_t>(key));
+}
+
+void WindowManager::FullscreenListener(Event const& event) {
+	if (!mIsFullscreen) {
+		glfwGetWindowPos(mWindow, &mWindowedPosX, &mWindowedPosY);
+		glfwGetWindowSize(mWindow, &mWindowedWidth, &mWindowedHeight);
+
+		// Get the primary monitor's video mode and switch to fullscreen
+		GLFWvidmode const* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
+		mIsFullscreen = true;
+	}
+	else {
+		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, mWindowedPosY, mWindowedWidth, mWindowedHeight, 0);
+		mIsFullscreen = false;
+	}
 }
