@@ -786,8 +786,8 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
                 Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 1,1 }, { 1,0,1,1 });
                 Renderer::DrawLine({ a.contacts[i].position.x, a.contacts[i].position.y, 10 },
                     {
-                        a.contacts[i].position.x + a.contacts[i].normal.x * 5.f,
-                        a.contacts[i].position.y + a.contacts[i].normal.y * 5.f,
+                        a.contacts[i].position.x + a.contacts[i].normal.x * 2.f,
+                        a.contacts[i].position.y + a.contacts[i].normal.y * 2.f,
                         10
                     }, { 1,1,0,1 });
             }

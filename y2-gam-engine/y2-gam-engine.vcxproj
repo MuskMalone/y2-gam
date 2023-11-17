@@ -146,6 +146,7 @@
     <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
+    <ClInclude Include="include\Components\Prefab.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="include\Core\EventManager.hpp" />
     <ClInclude Include="include\Core\FrameRateController.hpp" />
     <ClInclude Include="include\Core\Globals.hpp" />
+    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
@@ -280,6 +282,7 @@
     <ClCompile Include="source\Graphics\VertexArray.cpp" />
     <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

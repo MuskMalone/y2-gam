@@ -3,7 +3,7 @@
         {
             "Animation": {
                 "assetID": 1698945575867297200,
-                "currFrame": 0,
+                "currFrame": 5,
                 "speed": 100.0,
                 "currState": 1
             },
@@ -261,7 +261,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -295,7 +295,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 0,
+                "currFrame": 2,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -329,7 +329,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
+                "currFrame": 1,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
@@ -363,7 +363,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 7,
+                "currFrame": 4,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -397,7 +397,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 1,
+                "currFrame": 5,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -781,42 +781,6 @@
                 "rotZ": 0.000032991803891491145,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": -103.12438201904297,
-                "posY": -38.33610534667969,
-                "rotation": 0.0,
-                "dimX": 50.0,
-                "dimY": 100.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Tag": {
-                "Tag": "collider1"
-            },
-            "Transform": {
-                "posX": -103.12438201904297,
-                "posY": -38.33610534667969,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 50.0,
-                "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

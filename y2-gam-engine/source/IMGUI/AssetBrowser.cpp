@@ -14,6 +14,8 @@
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include "IMGUI/AssetBrowser.hpp"
+#include <Core/Coordinator.hpp>
+#include <Systems/InputSystem.hpp>
 
 namespace {
     std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
@@ -46,10 +48,8 @@ std::string GetFileExtension(const std::string& filePath) {
  *
  * @param systemName The name of the system for which to generate asset content.
  */
-
 template <typename _system>
 void AssetContents(std::string const& systemName) {
-
     static float padding = 15.f;
     static float size = 95.f;
     static float iconSize = padding + size;
@@ -60,27 +60,8 @@ void AssetContents(std::string const& systemName) {
     if (columnCount < 1) {
         columnCount = 1;
     }
+
     ImGui::Columns(columnCount, 0, false);
-
-    ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(addIcon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
-
-    ImGui::NextColumn();
-    if (ImGui::BeginDragDropTarget()) {
-        std::cout << "Began drag-drop target." << std::endl;
-
-        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
-            //std::cout << "Accepted payload." << std::endl;
-
-            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
-            std::filesystem::path basePath {"../assets"};
-            std::string path{(basePath / payLoadPath).string()};
-            std::cout << path << std::endl;
-            AssetManager::GetInstance()->AddAsset<_system>(path);
-
-        }
-        ImGui::EndDragDropTarget();
-    }
-
 
     for (auto const& asset : AssetManager::GetInstance()->GetAllAssets()) {
         //extremely inefficient for large amounts of assets
@@ -122,8 +103,25 @@ void AssetContents(std::string const& systemName) {
             // ImGui::SameLine();
         }
     }
+    ImGui::EndChild();
 
+    if (ImGui::BeginDragDropTarget()) {
+        std::cout << "Began drag-drop target." << std::endl;
+
+        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+            //std::cout << "Accepted payload." << std::endl;
+
+            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+            std::filesystem::path basePath {"../assets"};
+            std::string path{(basePath / payLoadPath).string()};
+            std::cout << path << std::endl;
+            AssetManager::GetInstance()->AddAsset<_system>(path);
+
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
+
 /*  _________________________________________________________________________ */
 /*! AssetWindow
 
@@ -135,20 +133,59 @@ void AssetContents(std::string const& systemName) {
 This function change all the texture related to the asset ID
 */
 void AnimationAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Animation Assets");
-    AssetContents<AnimationManager>("Animation");
 
-    ImGui::End();
+    ImGui::BeginChild("Animation Assets");
+    AssetContents<AnimationManager>("Animation");
 }
 void SpriteAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Sprite Assets");
+    ImGui::BeginChild("Sprite Assets");
     AssetContents<SpriteManager>("Sprite");
-    ImGui::End();
 }
 void SoundAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Sound Assets");
+    ImGui::BeginChild("Sound Assets");
     AssetContents<SoundManager>("Sound");
+}
+void AssetWindow(std::set<Entity>const& mEntities) {
+    // Global or static variable
+    static int activeChild = 1;
+
+    // Inside your rendering loop
+    ImGui::Begin("Asset");
+    // Get the available width of the window
+    float totalWidth = ImGui::GetContentRegionAvail().x;
+
+    // Create 2 columns
+    ImGui::Columns(2, nullptr, false);
+
+    // Set the width of the first column to be 20% of the total width
+    ImGui::SetColumnWidth(0, totalWidth * 0.15f);
+
+    // Buttons to switch between children
+    if (ImGui::Button("Animations", {totalWidth * 0.12f, 20 })) {
+        activeChild = 1;
+    }
+    if (ImGui::Button("Sprites", { totalWidth * 0.12f, 20 })) {
+        activeChild = 2;
+    }
+    if (ImGui::Button("Sounds", { totalWidth * 0.12f, 20 })) {
+        activeChild = 3;
+    }
+    ImGui::NextColumn();
+
+    switch (activeChild) {
+    case 1: 
+        AnimationAssetWindow(mEntities);
+        break;
+    case 2:
+        SpriteAssetWindow(mEntities);
+        break;
+    case 3:
+        SoundAssetWindow(mEntities);
+        break;
+    }
+    ImGui::Columns(1);
     ImGui::End();
+
 }
 /**
  * @brief Checks if a string is found within another string.

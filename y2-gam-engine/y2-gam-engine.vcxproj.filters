@@ -63,6 +63,7 @@
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Systems\LayeringSystem.cpp" />
     <ClCompile Include="source\Physics\Physics.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -151,6 +152,8 @@
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Systems\LayeringSystem.hpp" />
+    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
+    <ClInclude Include="include\Components\Prefab.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -239,9 +242,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Systems\InputSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Physics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\FrameRateController.hpp">

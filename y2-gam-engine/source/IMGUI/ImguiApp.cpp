@@ -44,6 +44,7 @@
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
+#include <IMGUI/PrefabsBrowser.hpp>
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
 
@@ -86,9 +87,8 @@ namespace Image {
         BufferWindow(dt);
         ContentWindow();
         //AssetWindow(mEntities);
-        AnimationAssetWindow(mEntities);
-        SpriteAssetWindow(mEntities);
-        SoundAssetWindow(mEntities);
+        AssetWindow(mEntities);
+        PrefabsWindow();
         AssetPropertiesWindow(mEntities);
 
         LoggingWindow();
