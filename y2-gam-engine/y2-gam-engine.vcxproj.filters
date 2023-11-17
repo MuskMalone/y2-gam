@@ -62,6 +62,7 @@
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Systems\LayeringSystem.cpp" />
+    <ClCompile Include="source\Physics\Physics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -84,7 +85,7 @@
     <ClInclude Include="include\Core\EventManager.hpp" />
     <ClInclude Include="include\Core\FrameRateController.hpp" />
     <ClInclude Include="include\Core\Globals.hpp" />
-    <ClInclude Include="include\Core\Physics.hpp" />
+    <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
     <ClInclude Include="include\Core\Types.hpp" />

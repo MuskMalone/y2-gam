@@ -363,7 +363,8 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
-
+            std::string entityidstring{"Entity ID: " + std::to_string(gSelectedEntity)};
+            ImGui::Text(entityidstring.c_str());
             if (gCoordinator->HasComponent<Layering>(gSelectedEntity)) {
               std::string treeNodeLabel = "Layer##" + std::to_string(gSelectedEntity);
               

@@ -21,7 +21,7 @@
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include <Components/Collider.hpp>
-#include <Core/Physics.hpp>
+#include <Physics/Physics.hpp>
 #include <Core/Types.hpp>
 #include "Math/MathUtils.h"
 
@@ -355,5 +355,28 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
         else {
             ArbiterMergeContacts(iter->second, ap.second);
         }
+    }
+
+    bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2) {
+        ArbiterKey arbiterKey{ e1, e2 };
+        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
+        return true;
+    }
+    bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2, Arbiter& a) {
+        ArbiterKey arbiterKey{ e1, e2 };
+        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
+        return true;
+    }
+    
+    ArbiterVec PhysicsSystem::IsCollided(Entity const& e1) {
+        ArbiterVec av{};
+        for (auto const& e2 : mEntities) {
+            ArbiterKey arbiterKey{ e1, e2 };
+            size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+            if (mArbiterTable.find(id) != mArbiterTable.end()) av.emplace_back(mArbiterTable[id]);
+        }
+        return av;
     }
 }
