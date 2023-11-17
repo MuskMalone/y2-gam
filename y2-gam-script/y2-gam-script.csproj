@@ -71,12 +71,8 @@
   <PropertyGroup>
     <PostBuildEvent>IF "$(ConfigurationName)" == "Debug" (
 xcopy "$(SolutionDir)y2-gam-script\bin\debug\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
-) 
-IF "$(ConfigurationName)" == "Release" (
+) ELSE (
 xcopy "$(SolutionDir)y2-gam-script\bin\release\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
-)
-IF "$(ConfigurationName)" == "Installer" (
-xcopy "$(SolutionDir)y2-gam-script\bin\installer\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
 )</PostBuildEvent>
   </PropertyGroup>
 </Project>
