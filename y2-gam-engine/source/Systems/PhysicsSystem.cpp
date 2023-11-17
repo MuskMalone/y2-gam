@@ -16,6 +16,7 @@
 #include "../include/pch.hpp"
 
 #include "Systems/PhysicsSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
@@ -328,7 +329,13 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
         auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
         if (mEntities.find(ap.second.b1) == mEntities.end() || mEntities.find(ap.second.b2) == mEntities.end())
             return;
+        /*
+        auto const& layer1 = gCoordinator->GetComponent<Layering>(ap.second.b1).assignedLayer;
+        auto const& layer2 = gCoordinator->GetComponent<Layering>(ap.second.b2).assignedLayer;
 
+        if (!LayeringSystem::IsCollidable(layer1, layer2))
+          return;
+        */
         auto const& c1{ gCoordinator->GetComponent<Collider>(ap.second.b1) };
         auto const& c2{ gCoordinator->GetComponent<Collider>(ap.second.b2) };
 

@@ -21,7 +21,7 @@
 constexpr size_t MAX_USER_DEFINED_LAYERS = 10;
 constexpr size_t MAX_BUILTIN_LAYERS = 1;
 constexpr size_t MAX_LAYERS = MAX_USER_DEFINED_LAYERS + MAX_BUILTIN_LAYERS;
-constexpr float SAME_LINE_SPACING = 150.f;
+constexpr float SAME_LINE_SPACING = 125.f;
 constexpr float TEXT_BOX_WIDTH = 100.f;
 
 constexpr const char* NAME_OF_FILE = "Layers";
@@ -45,9 +45,12 @@ public:
 	static std::vector<std::string>const& GetLayerNames() { return mLayerNames; }
 	static std::vector<int>const& GetLayerVisibility() { return mLayerVisibility; }
 
+	// Additional Functionality
 	static bool IsLayerVisible(std::string const& layerName);
+	static bool IsCollidable(std::string const& lhsName, std::string const& rhsName);
 
 private:
 	static std::vector<std::string> mLayerNames;
 	static std::vector<int> mLayerVisibility;
+	static std::vector<std::vector<int>> mCollisionMatrix;
 };

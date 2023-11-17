@@ -25,7 +25,6 @@
     <ClCompile Include="source\Engine\StateManager.cpp" />
     <ClCompile Include="source\Engine\States\MainState.cpp" />
     <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
-    <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
     <ClCompile Include="source\Math\Mat3.cpp" />
     <ClCompile Include="source\Math\Mat4.cpp" />
@@ -58,11 +57,12 @@
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
     <ClCompile Include="source\Engine\AssetManager.cpp" />
-    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Systems\LayeringSystem.cpp" />
     <ClCompile Include="source\Physics\Physics.cpp" />
+    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
+    <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -108,7 +108,6 @@
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Graphics\SubTexture.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
-    <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
     <ClInclude Include="include\Math\Mat4.h" />
@@ -116,7 +115,6 @@
     <ClInclude Include="include\Math\Vec2.h" />
     <ClInclude Include="include\Math\Vec3.h" />
     <ClInclude Include="include\Math\Vec4.h" />
-    <ClInclude Include="include\Systems\ImguiSystem.hpp" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
@@ -135,7 +133,6 @@
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
     <ClInclude Include="include\Scripting\ScriptManager.hpp" />
-    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
@@ -151,6 +148,9 @@
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Systems\LayeringSystem.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
+    <ClInclude Include="include\Systems\ImguiSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
@@ -239,9 +239,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Systems\InputSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Physics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\FrameRateController.hpp">

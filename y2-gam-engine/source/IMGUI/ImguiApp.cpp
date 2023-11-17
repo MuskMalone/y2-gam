@@ -373,10 +373,16 @@ namespace Image {
                 Layering& layer = gCoordinator->GetComponent<Layering>(gSelectedEntity);
 
                 static int selectedOption = -1;
-                
+
                 auto const& layerSystem{ gCoordinator->GetSystem<LayeringSystem>() };
-                for (int i{}; i < layerSystem->GetLayerNames().size(); ++i) {
-                  if (layer.assignedLayer == layerSystem->GetLayerNames()[i]) {
+                std::vector<const char*> tmp;
+                for (std::string const& name : layerSystem->GetLayerNames()) {
+                  if (name != "")
+                    tmp.push_back(name.c_str());
+                }
+
+                for (int i{}; i < tmp.size(); ++i) {
+                  if (layer.assignedLayer == tmp[i]) {
                     selectedOption = i;
                     break;
                   }
@@ -384,11 +390,7 @@ namespace Image {
 
                 static int previousOption = selectedOption;
 
-                std::vector<const char*> tmp;
-                for (const auto& name : layerSystem->GetLayerNames()) {
-                  if (name != "")
-                    tmp.push_back(name.c_str());
-                }
+
 
                 ImGui::Combo("Current",
                   &selectedOption,
@@ -397,9 +399,9 @@ namespace Image {
 
                 if (selectedOption != previousOption) {
                   previousOption = selectedOption;
-                  layer.assignedLayer = layerSystem->GetLayerNames()[selectedOption];
+                  layer.assignedLayer = std::string(tmp[selectedOption]);
                 }
-
+                tmp.clear();
                 ImGui::TreePop();
               }
             }
