@@ -806,6 +806,7 @@ namespace Image {
         
         if ((mViewportDim.x != contentSize.x) || (mViewportDim.y != contentSize.y)) {
             framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
+
             mViewportDim = contentSize;
         }
 
@@ -960,9 +961,17 @@ namespace Image {
     This function displays the prefab framebuffer window.
     */
     void PrefabWindow() {
+        static ImVec2 prefabVp {};
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+
+        ImVec2 contentSize = ImGui::GetContentRegionAvail();
+
+        if ((prefabVp.x != contentSize.x) || (prefabVp.y != contentSize.y)) {
+            framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
+            prefabVp = contentSize;
+        }
 
         Entity selectedPrefab = 9;
         gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);

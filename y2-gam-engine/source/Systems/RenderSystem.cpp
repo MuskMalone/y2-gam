@@ -111,10 +111,12 @@ void RenderSystem::Init()
 	);
 
 	//Create prefab editor camera
+	const float pfHeight{50};
+
 	mPrefabEditorCamera = gCoordinator->CreateEntity();
 	gCoordinator->AddComponent(
 		mPrefabEditorCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
+		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
 	);
 	auto& pbCam = gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
 	
@@ -218,12 +220,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 
-	//glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
 	}
-	//glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
 	glEnable(GL_DEPTH_TEST);
@@ -239,27 +239,23 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
 
-	Renderer::SetClearColor({ 0.5f, 0.1f, 0.2f, 1.f });
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
 
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
-	//for (auto const& entity : mEntities) {
-	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
-	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+	const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
+	const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
 
-	//	if (sprite.spriteID) {
-	//		Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
-	//	}
-	//	else {
-	//		if (transform.elipse)
-	//			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-	//		else
-	//			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
-	//	}
-	//}
-	Renderer::DrawCircle({}, { 10, 10 }, { 0.8,0.8,0.9,1.f });
+	if(sprite.spriteID)
+		Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
+	else {
+		if (transform.elipse)
+			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+		else
+			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, prefab);
+	}
 
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
@@ -278,7 +274,6 @@ void RenderSystem::WindowSizeListener(Event& event)
 	[[maybe_unused]] auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
 	Renderer::SetViewport(0, 0, windowWidth, windowHeight);
-	std::cout << windowWidth << std::endl;
 
 	//float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
 	//float left = -WORLD_LIMIT_X * aspectRatio;
