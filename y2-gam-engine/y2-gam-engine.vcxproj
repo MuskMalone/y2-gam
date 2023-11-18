@@ -204,7 +204,7 @@
       <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -256,6 +256,9 @@
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="include\Logging\backward.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
@@ -270,8 +273,9 @@
     <ClInclude Include="include\IMGUI\AssetBrowser.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="include\Logging\backward.hpp" />
-    <ClInclude Include="include\Logging\LoggingSystem.hpp" />
+    <ClInclude Include="include\Logging\LoggingSystem.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
@@ -394,8 +398,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\Logging\LoggingSystem.cpp" />
+    <ClCompile Include="source\Logging\LoggingSystem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

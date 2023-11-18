@@ -79,7 +79,9 @@ namespace Image {
     MonoDomain* rootDomain{ mono_jit_init("ScriptRuntime") };
 
     if (rootDomain == nullptr) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Root Domain Initialization Failed!", __FUNCTION__);
+#endif
       return;
     }
     sRootDomain = rootDomain;
@@ -88,7 +90,9 @@ namespace Image {
     // An app domain is a C# language feature
     MonoDomain* appDomain = mono_domain_create_appdomain(appDomainName, nullptr);
     if (appDomain == nullptr) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "App Domain Initialization Failed!", __FUNCTION__);
+#endif
       return;
     }
     sAppDomain = appDomain;
@@ -123,7 +127,9 @@ namespace Image {
   char* ScriptManager::LoadFile(std::string const& filePath, size_t& fileSize) {
     std::fstream ifs(filePath, std::ios::in | std::ios::binary);
     if (!ifs) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File " + filePath + " could not be opened", __FUNCTION__);
+#endif
       return nullptr;
     }
 
@@ -133,14 +139,18 @@ namespace Image {
     ifs.seekg(0, ifs.beg);
 
     if (fileSize == 0) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File being read is empty!", __FUNCTION__);
+#endif
       return nullptr;
     }
 
     char* fileBuffer = new char[fileSize];
     ifs.read(fileBuffer, fileSize);
     if (!ifs) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File reading error!", __FUNCTION__);
+#endif
       return nullptr;
     }
     ifs.close();
@@ -218,8 +228,10 @@ namespace Image {
 
       //std::cout << "Namespace: " << nsName << "\n";
       //std::cout << "Class Name: " << className << "\n";
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Namespace: " + nsName, __FUNCTION__);
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Class Name: " + className, __FUNCTION__);
+#endif
 
       if (nsName == "Object") {
         std::string combinedName{ nsName + className };
@@ -310,13 +322,18 @@ namespace Image {
       si.CallOnCreate();
 
       //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " + 
         scriptComp.name + " created!", __FUNCTION__);
+#endif
+
     }
     else {
       //std::cout << "Entity Script does not exist!" << "\n";
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
         , __FUNCTION__);
+#endif
     }
   }
 
@@ -353,13 +370,17 @@ namespace Image {
         si.CallOnCreate();
 
         //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+#ifndef _INSTALLER
         LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
           scriptComp.name + " created!", __FUNCTION__);
+#endif
       }
       else {
         //std::cout << "Entity Script does not exist!" << "\n";
+#ifndef _INSTALLER
         LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
           , __FUNCTION__);
+#endif
       }
 
       //every item added to the ecs will be marked as an entity to serialize

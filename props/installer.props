@@ -6,6 +6,7 @@
     <IncludePath>$(SolutionDir)lib\rttr\include;$(SolutionDir)lib\fmod\include;$(SolutionDir)lib\mono\include;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\rapidjson\include;$(SolutionDir)lib\glad\include;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\glm-0.9.9.8;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\rttr\lib;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\fmod\lib;$(SolutionDir)lib\mono\lib\Release;$(SolutionDir)lib\freetype\lib\Release;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SolutionDir)lib\glad\src;$(ProjectDir)source;$(SourcePath)</SourcePath>
+    <TargetName>Blink</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>

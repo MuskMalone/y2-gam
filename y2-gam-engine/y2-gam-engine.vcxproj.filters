@@ -134,7 +134,6 @@
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
     <ClInclude Include="include\Scripting\ScriptManager.hpp" />
     <ClInclude Include="include\Logging\LoggingSystem.hpp" />
-    <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
@@ -151,6 +150,7 @@
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Systems\ImguiSystem.hpp" />
+    <ClInclude Include="include\Logging\backward.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

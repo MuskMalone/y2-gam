@@ -23,14 +23,15 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Graphics/FontRenderer.hpp"
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
 
 #ifndef _INSTALLER
 #include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
+
+#else
+#include <Windows.h>
 #endif
 
 namespace {
@@ -44,9 +45,15 @@ void QuitHandler([[maybe_unused]] Event& event)
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
-
-int main()
+#ifndef _INSTALLER
+int main() 
 {
+
+#else
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+#endif
+
 	// Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

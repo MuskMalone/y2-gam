@@ -219,7 +219,9 @@ void Framebuffer::Recreate() {
 
 	if (mColorAttachments.size() > 1) {
 		if (mColorAttachments.size() > 4) {
+#ifndef _INSTALLER
 			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "TOO MANY ATTACHMENTS!", __FUNCTION__);
+#endif
 			throw std::runtime_error("TOO MANY ATTACHMENTS");
 		}
 
@@ -230,9 +232,11 @@ void Framebuffer::Recreate() {
 		glDrawBuffer(GL_NONE); // only depth
 	}
 
+#ifndef _INSTALLER
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Framebuffer is INCOMPLETE!", __FUNCTION__);
 	else LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Framebuffer is complete!", __FUNCTION__);
+#endif
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
