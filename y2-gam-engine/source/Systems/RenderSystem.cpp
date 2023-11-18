@@ -101,38 +101,22 @@ void RenderSystem::Init()
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
-		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
 	float const zoomFactor{ 0.4f };
 	gCoordinator->AddComponent(
 		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
 	);
-	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
 
-	//SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
-
-	//Entity bg = gCoordinator->CreateEntity();
-	//::gCoordinator->AddComponent(
-	//	bg,
-	//	Transform{
-	//		{0, 0, -40.f},
-	//		{0.f,0.f,0.f},
-	//		{350.f, 120.f, 0.f}
-	//	});
-	//
-	//::gCoordinator->AddComponent(
-	//	bg,
-	//	Sprite{
-	//		{1.f,1.f,1.f,1.f},
-	//		0,
-	//		Layer::BACKGROUND
-	//	}
-	//);
-	//auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
-	//bgSprite.spriteAssetID = AssetManager::GetInstance()->LoadAsset<SpriteManager>(1698744788359338700);
-	//bgSprite.spriteID = AssetManager::GetInstance()->GetResourceID(bgSprite.spriteAssetID);
+	//Create prefab editor camera
+	mPrefabEditorCamera = gCoordinator->CreateEntity();
+	gCoordinator->AddComponent(
+		mPrefabEditorCamera,
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
+	);
+	auto& pbCam = gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
 	
 	Renderer::Init();
 
@@ -249,20 +233,23 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		mFramebuffers[0]->Unbind();
 	}
-	////Prefab Editor
-	//mFramebuffers[1]->Bind();
-	//glDepthMask(GL_TRUE);
-	//Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-	//Renderer::ClearColor();
-	//Renderer::ClearDepth();
+}
 
-	//Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
+void RenderSystem::RenderPrefab(Entity prefab) {
+	//Prefab Editor
+	mFramebuffers[1]->Bind();
+
+	Renderer::SetClearColor({ 0.5f, 0.1f, 0.2f, 1.f });
+	Renderer::ClearColor();
+	Renderer::ClearDepth();
+
+	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
 	//for (auto const& entity : mEntities) {
 	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
 	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
 
-	//	if (sprite.spriteID > -1) {
+	//	if (sprite.spriteID) {
 	//		Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
 	//	}
 	//	else {
@@ -272,11 +259,11 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	//			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
 	//	}
 	//}
-	//glDepthMask(GL_FALSE);
-	//Renderer::RenderSceneEnd();
-	//mFramebuffers[1]->Unbind();
-}
+	Renderer::DrawCircle({}, { 10, 10 }, { 0.8,0.8,0.9,1.f });
 
+	Renderer::RenderSceneEnd();
+	mFramebuffers[1]->Unbind();
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief WindowSizeListener Function

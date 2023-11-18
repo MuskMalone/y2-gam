@@ -81,7 +81,7 @@ namespace Image {
         HierarchyWindow(mEntities);
         InspectorWindow();
         PropertyWindow();
-        //PrefabWindow();
+        PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
         //AssetWindow(mEntities);
@@ -818,21 +818,20 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
+            std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
             Vec2 viewportSize = { max.x - min.x, max.y - min.y };
             mousePos.y = viewportSize.y - mousePos.y;
+
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
-            int fbX = static_cast<int>(mouseX * gScalingFactor);
-            int fbY = static_cast<int>(mouseY * gScalingFactor);
 
-            
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
-                    int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
+                    int pixelData = framebuffer->ReadPixel(1, mouseX, mouseY);
                     framebuffer->Unbind();
                     draggedEntity = pixelData;
                     if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
@@ -964,6 +963,9 @@ namespace Image {
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+
+        Entity selectedPrefab = 9;
+        gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
