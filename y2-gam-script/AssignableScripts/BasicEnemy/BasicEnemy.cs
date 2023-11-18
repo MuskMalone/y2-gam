@@ -35,7 +35,7 @@ namespace Object
 
         // Direction related
         //public bool directionChanged = false;
-        private bool _isFacingRight = true;
+        private bool _isFacingRight;
         public bool isFacingRight
         {
             get { return _isFacingRight; }
@@ -99,6 +99,8 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
+            isFacingRight = FacingDirection;
+            FacingDirectionChanged = false;
             currentState = DefaultState;
             currentState.EnterState(this);
         }
@@ -139,6 +141,10 @@ namespace Object
             }
 
             //Console.WriteLine("Current enemy state: " + currentState.ToString());
+        }
+        void OnExit()
+        {
+            FacingDirection = isFacingRight;
         }
 
         /*  _________________________________________________________________________ */

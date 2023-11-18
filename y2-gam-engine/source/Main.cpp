@@ -235,7 +235,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		windowManager->UpdateWindowTitle(title);
 
 	}
-	
+	Image::ScriptManager::ExitMono();
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
 	imguiSystem->Destroy();
@@ -244,7 +244,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	windowManager->Shutdown();
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();
-	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
 	layeringSystem->Exit();
 	return 0;

@@ -33,6 +33,17 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
+	
+	// For Serialization
+	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
+		::gCoordinator = Coordinator::GetInstance();
+		*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
+	}
+
+	static void SerializationComponent_SetIsFacingRight(uint32_t entityID, bool* facingDirection) {
+		::gCoordinator = Coordinator::GetInstance();
+		gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
+	}
 
 	// For Engine Core
 	/*  _________________________________________________________________________ */
@@ -498,6 +509,9 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
+		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
+
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 

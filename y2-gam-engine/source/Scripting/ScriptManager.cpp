@@ -53,8 +53,6 @@ namespace Image {
   The main exit.
   */
   void ScriptManager::Exit() {
-    // Apparently mono cleans up after itself, empty for now
-
     mono_domain_set(mono_get_root_domain(), false);
 
     mono_domain_unload(sAppDomain);
@@ -102,6 +100,10 @@ namespace Image {
   }
 
   void ScriptManager::ExitMono() {
+    for (auto const& e : GetEntityInstances()) {
+      Image::ScriptManager::OnExitEntity(e.first);
+    }
+
     for (const char* str : sAssignableScriptNames) {
       free((void*)str); // Free the duplicated strings
     }
@@ -401,6 +403,20 @@ namespace Image {
   */
   void ScriptManager::OnUpdateEntity(Entity const& entity, float dt) {
     sEntityInstances[entity].CallOnUpdate(dt);
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! OnExitEntity
+
+  @param entity
+  The entity handle for the created entity with a script component.
+
+  @return none.
+
+  This function is called on exit for the entity.
+  */
+  void ScriptManager::OnExitEntity(Entity const& entity) {
+    sEntityInstances[entity].CallOnExit();
   }
 
   /*  _________________________________________________________________________ */
