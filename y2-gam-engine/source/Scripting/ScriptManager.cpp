@@ -41,7 +41,8 @@ namespace Image {
   void ScriptManager::Init() {
     InitMono();
     ScriptCoordinator::RegisterFunctions();
-    //FillAssignableScriptNames();
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
+    Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
   }
 
   /*  _________________________________________________________________________ */

@@ -138,7 +138,12 @@ void RenderSystem::Init()
 	Renderer::Init();
 
 	//----------temp------------
+#ifndef _INSTALLER
 	mEditorMode = true;
+#else
+	mEditorMode = false;
+#endif
+	
 	FramebufferProps fbProps;
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
@@ -161,12 +166,19 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
+#ifndef _INSTALLER
 	static bool showEditor{ true };
-	mFramebuffers[0]->ClearAttachmentInt(1, -1);
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
 		showEditor = !showEditor;
 	}
+
+#else 
+	static bool showEditor{ false };
+#endif
+
+	mFramebuffers[0]->ClearAttachmentInt(1, -1);
+
 	if (showEditor) {
 		mFramebuffers[0]->Bind();
 	}

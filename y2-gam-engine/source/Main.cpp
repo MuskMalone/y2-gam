@@ -26,9 +26,9 @@
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
-#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 
 #ifndef _INSTALLER
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
 #endif
@@ -57,19 +57,12 @@ int main()
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
-	// Mono Testing
 	Image::ScriptManager::Init();
-	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
-	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
-
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
 	using namespace Collision;
 
-	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
-	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
-	//assetManager->AddAsset<SpriteManager>("../assets/textures/blinkbg.png");
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
@@ -227,7 +220,11 @@ int main()
 #endif
 
 		dt = frameController->EndFrameTime();
+#ifndef _INSTALLER
 		std::string title = "Image Engine";
+#else
+		std::string title = "Blink";
+#endif
 		windowManager->UpdateWindowTitle(title);
 
 	}

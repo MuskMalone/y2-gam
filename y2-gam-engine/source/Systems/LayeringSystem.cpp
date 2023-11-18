@@ -39,7 +39,7 @@ Initializes the layering system.
 void LayeringSystem::Init() {
   ReadFromJson(NAME_OF_FILE);
 
-  mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, false));
+  mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, true));
 }
 
 /*  _________________________________________________________________________ */
