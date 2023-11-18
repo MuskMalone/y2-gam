@@ -34,7 +34,6 @@ namespace Image {
   std::map<std::string, FaceObject> FontRenderer::sFaces{};
   std::map<std::string, std::map<char, Character>> FontRenderer::sCharacters{};
   std::map<std::string, std::shared_ptr<Texture>> FontRenderer::sBitmap{};
-  //Shader* FontRenderer::sShaderPgm{nullptr};
   std::shared_ptr<Shader> FontRenderer::sShaderPgm{ nullptr };
 
   /*  _________________________________________________________________________ */
@@ -46,18 +45,14 @@ namespace Image {
   */
   void FontRenderer::Init() {
     if (FT_Init_FreeType(&sLib)) {
-      //std::cout << "Could not init FreeType Library" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Could not init FreeType Library", __FUNCTION__);
       return;
     }
     else {
-      //std::cout << "Successful init FreeType Library" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Succesful init Freetype Library", __FUNCTION__);
     }
 
-    //Shader sh("../Shaders/fontVertex.glsl", "../Shaders/fontFragment.glsl");
-    sShaderPgm = std::make_shared<Shader>("../assets/shaders/fontVertex.glsl", "../assets/shaders/fontFragment.glsl");
-    //sShaderPgm = &sh;
+    sShaderPgm = std::make_shared<Shader>("../assets/shaders/Font.vert", "../assets/shaders/Font.frag");
   }
 
   /*  _________________________________________________________________________ */
@@ -96,12 +91,10 @@ namespace Image {
     FT_Error result{ FT_New_Face(sLib, filepath, 0, &addFace) };
 
     if (result) {
-      //std::cout << "Failed to add font face for " << name << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Failed to add font face for " + name, __FUNCTION__);
       return;
     }
     else {
-      //std::cout << "Successful init FreeType Face " << name << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful init FreeType Face " + name, __FUNCTION__);
     }
 
@@ -441,6 +434,23 @@ namespace Image {
     sShaderPgm->Unuse();
   }
 
+  /*  _________________________________________________________________________ */
+  /*! GetTextWidth
+
+  @param fontname
+  Name of the font.
+
+  @param text
+  The text that is being displayed.
+
+  @param scale
+  Scale for the font.
+
+  @return float
+  The width of the text.
+
+  Calculates the width the text to be rendered will be.
+  */
   float FontRenderer::GetTextWidth(std::string fontName, std::string text, float scale) {
     float xPos = 0.0f;
 

@@ -230,6 +230,11 @@ namespace Image {
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
+            gCoordinator->AddComponent(
+              gSelectedEntity,
+              Sprite{
+                  {1,1,1, 1}
+              });
         }
 
         //Cant destroy player
@@ -373,10 +378,8 @@ namespace Image {
                 Layering& layer = gCoordinator->GetComponent<Layering>(gSelectedEntity);
 
                 static int selectedOption = -1;
-
-                auto const& layerSystem{ gCoordinator->GetSystem<LayeringSystem>() };
                 std::vector<const char*> tmp;
-                for (std::string const& name : layerSystem->GetLayerNames()) {
+                for (std::string const& name : gCoordinator->GetSystem<LayeringSystem>()->GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());
                 }
