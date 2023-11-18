@@ -223,7 +223,9 @@
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
-    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
+    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
@@ -351,7 +353,9 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="source\Engine\AssetManager.cpp" />
-    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
+    <ClCompile Include="source\DataMgmt\DecisionTree.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Engine\PrefabsManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>

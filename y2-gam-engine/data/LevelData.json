@@ -69,7 +69,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 1,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 2
             },
@@ -261,7 +261,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 8,
+                "currFrame": 6,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -295,7 +295,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 5,
+                "currFrame": 6,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -329,7 +329,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 3,
+                "currFrame": 7,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
