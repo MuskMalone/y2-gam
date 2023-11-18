@@ -21,7 +21,7 @@ void WindowManager::Init(
 	glfwInit();
 	gCoordinator = Coordinator::GetInstance();
 
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 	glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -50,6 +50,7 @@ void WindowManager::Init(
 	// this is the default setting ...
 	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
+	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::TOGGLE_FULLSCREEN, WindowManager::FullscreenListener));
 }
 
 void WindowManager::Update()
@@ -95,6 +96,7 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 	KeyState const& prevButtons {GetInstance()->mPrevButtons};
 	KeyState& currButtons {GetInstance()->mButtons};
 	Event event(Events::Window::INPUT);
+
     if (GLFW_PRESS == action) {
         if (GLFW_KEY_ESCAPE == key) {
             glfwSetWindowShouldClose(pwin, GLFW_TRUE);
@@ -107,6 +109,10 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 			std::cout << "key click\n";
 #endif
 			gCoordinator->SendEvent(event);
+		}
+		if (GLFW_KEY_F11 == key) {
+			Event e {Events::Window::TOGGLE_FULLSCREEN};
+			gCoordinator->SendEvent(e);
 		}
 	}
     else if (GLFW_RELEASE == action) {
@@ -223,23 +229,37 @@ void WindowManager::ErrorCb(int error, char const* description) {
 #endif
 }
 
-void WindowManager::FbSizeCb(GLFWwindow* pwin, int width1, int height1) {
-    UNREFERENCED_PARAMETER(pwin);
-    UNREFERENCED_PARAMETER(width1);
-    UNREFERENCED_PARAMETER(height1);
+void WindowManager::FbSizeCb(GLFWwindow* pwin, int width, int height) {
+	UNREFERENCED_PARAMETER(pwin);
 #ifdef _DEBUG
-    std::cout << "fbsize_cb getting called!!!" << std::endl;
+	std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif
-    // use the entire framebuffer as drawing region
-    
-	
-	
-	(0, 0, width1, height1);
-    // later, if working in 3D, we'll have to set the projection matrix here ...
+
+	Event event(Events::Window::RESIZED);
+	event.SetParam(Events::Window::Resized::WIDTH, static_cast<unsigned int>(width));
+	event.SetParam(Events::Window::Resized::HEIGHT, static_cast<unsigned int>(height));
+
+	gCoordinator->SendEvent(event);
 }
 
 template <typename _bitset>
 void WindowManager::SetKey(_bitset & bs, GLenum key, bool state) {
 	(state) ? bs.set(static_cast<std::size_t>(key)) : 
 		bs.reset(static_cast<std::size_t>(key));
+}
+
+void WindowManager::FullscreenListener(Event const& event) {
+	if (!mIsFullscreen) {
+		glfwGetWindowPos(mWindow, &mWindowedPosX, &mWindowedPosY);
+		glfwGetWindowSize(mWindow, &mWindowedWidth, &mWindowedHeight);
+
+		// Get the primary monitor's video mode and switch to fullscreen
+		GLFWvidmode const* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
+		mIsFullscreen = true;
+	}
+	else {
+		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, mWindowedPosY, mWindowedWidth, mWindowedHeight, 0);
+		mIsFullscreen = false;
+	}
 }
