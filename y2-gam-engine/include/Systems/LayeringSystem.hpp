@@ -27,6 +27,7 @@ constexpr float TEXT_BOX_WIDTH = 100.f;
 constexpr const char* NAME_OF_FILE = "Layers";
 constexpr const char* NAME_OF_SERIALIZED_LAYER_NAMES = "layerNames";
 constexpr const char* NAME_OF_SERIALIZED_VISIBILITY_FLAGS = "layerVisibility";
+constexpr const char* NAME_OF_SERIALIZED_COLLISION_MATRIX = "layerMatrix";
 
 class LayeringSystem : public System {
 public:
