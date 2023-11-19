@@ -62,11 +62,11 @@ public class EnemyPatrolState : EnemyBaseState
         {
             if (enemy.isFacingRight)
             {
-                enemy.MoveLeft();
+                enemy.MoveLeft(dt);
             }
             else
             {
-                enemy.MoveRight();
+                enemy.MoveRight(dt);
             }
             enemy.SwitchState(enemy.IdleState);
         }
@@ -74,11 +74,11 @@ public class EnemyPatrolState : EnemyBaseState
         {
             if (enemy.isFacingRight)
             {
-                enemy.MoveRight();
+                enemy.MoveRight(dt);
             }
             else
             {
-                enemy.MoveLeft();
+                enemy.MoveLeft(dt);
             }
         }
     }

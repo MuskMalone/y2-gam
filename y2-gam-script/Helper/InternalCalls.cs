@@ -55,6 +55,38 @@ namespace Image
 
         #region GraphicsComponent
         /*  _________________________________________________________________________ */
+        /*! AnimationComponent_GetAssetID
+
+        @param entityID
+        The ID of the entity.
+
+        @param outAssetID
+        The current asset ID of the entity.
+
+        @return none.
+
+        Get the current asset ID of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
+
+        /*  _________________________________________________________________________ */
+        /*! AnimationComponent_SetAssetID
+
+        @param entityID
+        The ID of the entity.
+
+        @param assetID
+        Updated asset ID of the entity.
+
+        @return none.
+
+        Set the current asset ID of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
+
+        /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
         @param entityHandle

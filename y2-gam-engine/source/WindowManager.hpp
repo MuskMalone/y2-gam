@@ -47,6 +47,7 @@ private:
 
 	int mWindowedWidth{ENGINE_SCREEN_WIDTH}, mWindowedHeight{ENGINE_SCREEN_HEIGHT};
 	int mWindowedPosX{}, mWindowedPosY{};
+
 #ifndef _INSTALLER
 	bool mIsFullscreen{ false };
 #else 

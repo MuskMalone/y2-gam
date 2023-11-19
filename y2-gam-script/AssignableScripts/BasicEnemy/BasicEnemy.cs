@@ -23,8 +23,8 @@ namespace Object
     public class BasicEnemy : Entity
     {
         public readonly float JumpCooldown = 0.2f;
-        public readonly float MovementForce = 900.0f;
-        public readonly float JumpForce = 35000.0f;
+        public readonly float MovementForce = 90000.0f;
+        public readonly float JumpForce = 3500000.0f;
         public readonly float VisionRange = 35.0f;
         public readonly float AttackRange = 15.0f;
         public bool isGrounded = true;
@@ -164,25 +164,25 @@ namespace Object
             state.EnterState(this);
         }
 
-        public void MoveLeft()
+        public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
             AnimationState = (int)AnimationCode.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f);
+            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
 
-        public void MoveRight()
+        public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
             AnimationState = (int)AnimationCode.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f);
+            Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
-        public void Jump()
+        public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce);
+            Force += new Vector2(0, JumpForce) * dt;
         }
     }
 }

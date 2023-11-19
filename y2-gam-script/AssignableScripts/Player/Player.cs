@@ -23,8 +23,8 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 30000.0f;
-        public readonly float MovementForce = 1200.0f;
+        public readonly float JumpForce = 3000000.0f;
+        public readonly float MovementForce = 100000.0f;
         public bool isGrounded = true;
 
         // Direction related
@@ -117,22 +117,24 @@ namespace Object
 
                 if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
                 {
-                    Jump();
+                    Jump(dt);
                 }
 
                 else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
                 {
-                    MoveLeft();
+                    MoveLeft(dt);
                 }
 
                 else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
                 {
-                    MoveRight();
+                    MoveRight(dt);
                 }
 
                 else
                 {
-                    AnimationState = (int)AnimationCode.IDLE;
+                    //AnimationState = (int)AnimationCode.IDLE;
+                    if (isGrounded)
+                        AssetID = 1698945575867297200;
                 }
             }
         }
@@ -142,25 +144,28 @@ namespace Object
             FacingDirection = isFacingRight;
         }
 
-        public void MoveLeft()
+        public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f);
+            //AnimationState = (int)AnimationCode.RUN;
+            AssetID = 1698992900427510800;
+            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
 
-        public void MoveRight()
+        public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f);
+            //AnimationState = (int)AnimationCode.RUN;
+            AssetID = 1698992900427510800;
+            Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
-        public void Jump()
+        public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce);
+            AssetID = 1698954684954475800;
+            Force += new Vector2(0, JumpForce) * dt;
         }
     }
 }

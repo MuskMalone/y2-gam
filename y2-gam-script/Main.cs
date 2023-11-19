@@ -111,6 +111,24 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! AssetID
+
+        Getter setter for AssetID.
+        */
+        public long AssetID
+        {
+            get
+            {
+                InternalCalls.AnimationComponent_GetAssetID(entityID, out long assetID);
+                return AssetID;
+            }
+            set
+            {
+                InternalCalls.AnimationComponent_SetAssetID(entityID, ref value);
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! AnimationState
 
         Getter setter for AnimationState.

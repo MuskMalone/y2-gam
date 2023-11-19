@@ -35,11 +35,37 @@ namespace Image {
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 	
 	// For Serialization
+	/*  _________________________________________________________________________ */
+	/*! SerializationComponent_GetIsFacingRight
+
+	@param entityID
+	The ID of the entity.
+
+	@param outFacingDirection
+	Flag for if the entity is facing right or not.
+
+	@return none.
+
+	Gets the facing right flag in C#.
+	*/
 	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
 		*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! SerializationComponent_SetIsFacingRight
+
+	@param entityID
+	The ID of the entity.
+
+	@param facingDirection
+	Flag for if the entity is facing right or not.
+
+	@return none.
+
+	Sets the facing right flag in C#.
+	*/
 	static void SerializationComponent_SetIsFacingRight(uint32_t entityID, bool* facingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
 		gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
@@ -53,20 +79,32 @@ namespace Image {
 
 	@return none.
 
-	Get the editor mode flage of the engine in C#.
+	Get the editor mode flag of the engine in C#.
   */
 	static void EngineCore_IsEditorMode(bool* isEditorMode) {
 		::gCoordinator = Coordinator::GetInstance();
 		*isEditorMode = gCoordinator->GetSystem<RenderSystem>()->IsEditorMode();
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_SetText
+
+	@param entityID
+	The ID of the entity.
+
+	@param tag
+	The text to change the entity's text component to.
+
+	@return none.
+
+	Sets text for the entity.
+	*/
 	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Text>(entityID)) {
 			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
 		}
 	}
-
 
 	// For Pathfinding
 	/*  _________________________________________________________________________ */
@@ -151,6 +189,44 @@ namespace Image {
 	}
 
 	// For Graphics
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_GetAssetID
+
+	@param entityID
+	The ID of the entity.
+
+	@param outAssetID
+	The current asset ID of the entity.
+
+	@return none.
+
+	Get the current asset ID of the entity in C#.
+	*/
+	static void AnimationComponent_GetAssetID(uint32_t entityID, int64_t* outAssetID) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			*outAssetID = gCoordinator->GetComponent<Animation>(entityID).assetID;
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_SetAssetID
+
+	@param entityID
+	The ID of the entity.
+
+	@param assetID
+	Updated asset ID of the entity.
+
+	@return none.
+
+	Set the current asset ID of the entity in C#.
+	*/
+	static void AnimationComponent_SetAssetID(uint32_t entityID, int64_t* assetID) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			gCoordinator->GetComponent<Animation>(entityID).assetID = *assetID;
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -518,6 +594,8 @@ Get the current scale of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAssetID);
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAssetID);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);

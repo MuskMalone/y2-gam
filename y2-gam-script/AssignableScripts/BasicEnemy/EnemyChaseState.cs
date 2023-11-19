@@ -80,11 +80,11 @@ public class EnemyChaseState : EnemyBaseState
                 direction = PhysicsWrapper.Normalize(direction);
                 if (direction.X > 0.0f) // Move right
                 {
-                    enemy.MoveRight();
+                    enemy.MoveRight(dt);
                 }
                 else // Move left
                 {
-                    enemy.MoveLeft();
+                    enemy.MoveLeft(dt);
                 }
 
                 if (enemy.JumpTimer <= 0.0f)
@@ -92,7 +92,7 @@ public class EnemyChaseState : EnemyBaseState
                     float jumpThreshold = 0.9f;
                     if (Math.Abs(direction.Y) > jumpThreshold) // Node is higher than the enemy
                     {  
-                        enemy.Jump();
+                        enemy.Jump(dt);
                         enemy.JumpTimer = enemy.JumpCooldown;
                     }
                 }
