@@ -175,7 +175,7 @@ namespace Image {
 	static void AnimationComponent_SetAnimationState(uint32_t entityID, int* animationState) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Animation>(entityID))
-			gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<ANIM_STATE>(*animationState);
+			gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<uint64_t>(*animationState);
 	}
 
 	/*  _________________________________________________________________________ */

@@ -87,6 +87,7 @@ int main()
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
+	coordinator->RegisterComponent<Prefab>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif

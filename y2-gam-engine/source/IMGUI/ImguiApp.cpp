@@ -290,7 +290,7 @@ namespace Image {
                             gSelectedEntity,
                             s);
                     }
-
+                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
@@ -298,19 +298,22 @@ namespace Image {
                     //std::cout << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
-                        anim.assetID = droppedAid;
+                        //anim.assetID = droppedAid;
+                        anim.states.emplace_back(droppedAid);
                     }
                     else {
                         Animation a{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE
+                                0
                         };
-                        a.assetID = droppedAid;
+                        //a.assetID = droppedAid;
+                        a.states.emplace_back(droppedAid);
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             a);
                     }
+                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
                 SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 ImGui::EndDragDropTarget();
@@ -513,28 +516,58 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
-                    if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
-                        auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
+                    //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
+                    ImGui::Text("States:");
+                    if (anim.states.size()>0){
+                        for (size_t i{}; i < anim.states.size(); ++i) {
+                            ImGui::Text(std::to_string(i).c_str());
+                            auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.states[i])[1].spriteID)->GetTexture()};
+                            ImGui::SameLine();
+                            if (anim.states.size() > 1) {
+                                if (i != anim.states.size() - 1) {
+                                    if (ImGui::Button(("Move Down##" + std::to_string(i)).c_str())) {
+                                        std::swap(anim.states[i], anim.states[i + 1]);
+                                    }
+                                }
+                                ImGui::SameLine();
+                                if (i != 0) {
+                                    if (ImGui::Button(("Move Up##" + std::to_string(i)).c_str())) {
+                                        std::swap(anim.states[i], anim.states[i - 1]);
+                                    }
+                                }
+                            }
+                            ImGui::SameLine();
+                            if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
+                                anim.states.erase(anim.states.begin() + i);
+                                if (anim.currState >= i && anim.states.size() > 0)
+                                    anim.currState--;
+                                if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                                    Sprite& anim = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
+                                    anim.spriteID = InvalidAsset;
+                                }
+                            }
 
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
+                            ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
 
-                        // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
+                            // Original sprite sheet size
+                            ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
 
-                        // Calculate aspect ratio
-                        float aspectRatio = originalSize.x / originalSize.y;
+                            // Calculate aspect ratio
+                            float aspectRatio = originalSize.x / originalSize.y;
 
-                        // Adjust size while maintaining aspect ratio
-                        ImVec2 newSize;
-                        if (aspectRatio > 1.0f) {
-                            newSize = ImVec2(200, 200 / aspectRatio);
+                            // Adjust size while maintaining aspect ratio
+                            ImVec2 newSize;
+                            if (aspectRatio > 1.0f) {
+                                newSize = ImVec2(200, 200 / aspectRatio);
+                            }
+                            else {
+                                newSize = ImVec2(200 * aspectRatio, 200);
+                            }
+
+                            //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                            ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                         }
-                        else {
-                            newSize = ImVec2(200 * aspectRatio, 200);
-                        }
 
-                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
-                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
                         ImGui::Text("No Animation");
@@ -807,7 +840,7 @@ namespace Image {
                             Animation{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE
+                                0
                             });
                     }
                 }
