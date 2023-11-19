@@ -176,7 +176,7 @@ void SceneAssetWindow(std::set<Entity> const& mEntities) {
         if (directoryPath.is_regular_file()) {
             if (ImGui::BeginDragDropSource()) {
                 const wchar_t* itemPath = relativePath.c_str();
-                ImGui::SetDragDropPayload("Scenes", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
+                ImGui::SetDragDropPayload("SceneBrowser", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
                 ImGui::Text("%s", filenameString.c_str());
                 ImGui::EndDragDropSource();
             }

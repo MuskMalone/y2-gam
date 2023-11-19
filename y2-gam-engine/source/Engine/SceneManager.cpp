@@ -110,6 +110,6 @@ void SceneManager::OnEntityEvent(Event& event) {
 	}
 	e = event.GetParam<Entity>(Events::System::Entity::DESTROYED);
 	if (!event.GetFail()) {
-		mEntities.insert(e);
+		mEntities.erase(e);
 	}
 }

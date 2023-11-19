@@ -40,17 +40,20 @@
 #include "Scripting/ScriptManager.hpp"
 
 #include <Engine/AssetManager.hpp>
+#include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
-const int   gPercent      = 100;
-const float gScalingFactor = 1.5f;
 
-Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
+    const int   gPercent = 100;
+    const float gScalingFactor = 1.5f;
+
+    Entity gSelectedEntity = MAX_ENTITIES;
+    std::string gCurrentScene = "";
 }
 namespace Image {
     /*  _________________________________________________________________________ */
@@ -172,6 +175,7 @@ namespace Image {
                     ImGui::SetWindowFocus("Image Game Engine");
 
                 }
+                SceneManager::GetInstance()->ResetScene(gCurrentScene);
             }
             ImGui::EndMainMenuBar();
         }
@@ -920,6 +924,7 @@ namespace Image {
         style.WindowPadding = ImVec2(0.0f, 0.0f);
 
         ImGui::Begin("Image Game Engine");
+        ImGui::BeginChild("LevelEditor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
@@ -941,7 +946,7 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
-            std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
+            //std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
@@ -1069,7 +1074,21 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::EndChild();
+        //tch: for scene to drag drop
+        if (ImGui::BeginDragDropTarget()) {
+            //std::cout << "Began drag-drop target." << std::endl;
 
+            if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("SceneBrowser")) {
+
+                const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                std::filesystem::path basePath {""};
+                //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
+                gCurrentScene = (basePath / payLoadPath).stem().string();
+                SceneManager::GetInstance()->LoadScene(gCurrentScene);
+            }
+            ImGui::EndDragDropTarget();
+        }
         ImGui::End();
     }
 
