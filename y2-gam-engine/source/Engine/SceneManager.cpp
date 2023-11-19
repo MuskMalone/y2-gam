@@ -56,7 +56,7 @@ void SceneManager::SaveScene(std::string const& scnpath) {
 	std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 	sm->GetDoc(filename).RemoveMember(lvlKey);
 	JSONObj entArr{ JSON_ARR_TYPE };
-	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities(entArr);
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities(entArr);
 	sm->InsertValue(lvlKey, entArr);
 	SerializationManager::GetInstance()->FlushJSON(filename);
 }

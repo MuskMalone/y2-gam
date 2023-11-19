@@ -128,7 +128,7 @@ namespace Serializer {
 		for (auto const& entity : mEntities) {
 			JSONObj entityObj{ JSON_OBJ_TYPE };
 			SerializeEntity(entity, entityObj);
-			if (!obj.ObjectEmpty())
+			if (!entityObj.ObjectEmpty())
 				sm->PushToArray(obj, entityObj);
 		}
 	}

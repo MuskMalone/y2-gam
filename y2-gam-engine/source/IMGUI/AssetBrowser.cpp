@@ -107,7 +107,6 @@ void AssetContents(std::string const& systemName) {
     ImGui::EndChild();
 
     if (ImGui::BeginDragDropTarget()) {
-        std::cout << "Began drag-drop target." << std::endl;
 
         if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
             //std::cout << "Accepted payload." << std::endl;
@@ -153,6 +152,16 @@ void SceneAssetWindow(std::set<Entity> const& mEntities) {
             currentDirectory = currentDirectory.parent_path();
         }
 
+    }
+    static char namebuffer[2048] = "";
+    ImGui::InputText("##unique_id", namebuffer, IM_ARRAYSIZE(namebuffer));
+    ImGui::SameLine();
+    if (ImGui::Button("New Scene")) {
+        std::string sceneName{namebuffer};
+        std::ofstream newScene{(assetDirectory / sceneName).string() + ".json"};
+        if (newScene) {
+            newScene.close();
+        }
     }
     static float padding = 15.f;
     static float size = 95.f;

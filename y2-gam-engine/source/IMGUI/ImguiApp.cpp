@@ -128,18 +128,18 @@ namespace Image {
             //Read files maybe
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("New", "Cltr+N")) {
+                //if (ImGui::MenuItem("New", "Cltr+N")) {
 
-                }
-                if (ImGui::MenuItem("Open...", "Ctrl+O")) {
+                //}
+                //if (ImGui::MenuItem("Open...", "Ctrl+O")) {
 
-                }
+                //}
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
-
+                    SceneManager::GetInstance()->SaveScene(gCurrentScene);
                 }
-                if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+                //if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
 
-                }
+                //}
                 ImGui::EndMenu();
             }
 
@@ -159,7 +159,6 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode()) {
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
@@ -198,26 +197,30 @@ namespace Image {
         //Create entity and destory first
         if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
             if (ImGui::MenuItem("Create Entity")) {
-                Entity newEntity = gCoordinator->CreateEntity();
-                gSelectedEntity = newEntity;
-                ImGuiViewport* vP = ImGui::GetWindowViewport();
-                gCoordinator->AddComponent(
-                  gSelectedEntity,
-                  Layering{ "Default" });
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Transform{
-                        {vP->Pos.x,vP->Pos.y,0},
-                        {0,0,0},
-                        {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                    });
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Tag{ "Name" });
+
+                if (gCurrentScene != "") {
+                    Entity newEntity = gCoordinator->CreateEntity();
+                    gSelectedEntity = newEntity;
+                    ImGuiViewport* vP = ImGui::GetWindowViewport();
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Layering{ "Default" });
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Transform{
+                            {vP->Pos.x,vP->Pos.y,0},
+                            {0,0,0},
+                            {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                        });
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Tag{ "Name" });
+                }
             }
             ImGui::EndPopup();
         }
         if (ImGui::Button("Create Entity")) {
+            if (gCurrentScene != "") {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
             ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -234,6 +237,7 @@ namespace Image {
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
+            }
         }
 
         //Cant destroy player
@@ -1084,7 +1088,11 @@ namespace Image {
                 const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
                 std::filesystem::path basePath {""};
                 //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
+                if (gCurrentScene != "") {
+                    SceneManager::GetInstance()->ExitScene(gCurrentScene);
+                }
                 gCurrentScene = (basePath / payLoadPath).stem().string();
+
                 SceneManager::GetInstance()->LoadScene(gCurrentScene);
             }
             ImGui::EndDragDropTarget();
