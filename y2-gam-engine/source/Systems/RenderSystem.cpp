@@ -240,13 +240,15 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 }
 
 void RenderSystem::RenderPrefab(Entity prefab) {
+	//tch: hack to check if its a valid entity for drawing
+	//xavier todo: pls change this to a more ecs implementation in the future!!!
+	if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
 
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.f });
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
-
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
 	const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);

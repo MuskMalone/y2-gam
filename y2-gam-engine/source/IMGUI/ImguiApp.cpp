@@ -195,6 +195,8 @@ namespace Image {
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
+        std::string scenestring{"Current Scene: " + ((gCurrentScene.empty()) ? std::string{"No Scene Selected"} : gCurrentScene)};
+        ImGui::Text(scenestring.c_str());
         if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
             if (ImGui::MenuItem("Create Entity")) {
 
@@ -272,9 +274,10 @@ namespace Image {
                 //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                 //    std::cout << droppedAid << std::endl;
                 //}
+                AssetID droppedAid{ static_cast<AssetID>(-1) };
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                     //std::cout << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Sprite>(entity)) {
                         auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
@@ -291,7 +294,7 @@ namespace Image {
                 }
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                     //std::cout << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
@@ -309,6 +312,7 @@ namespace Image {
                             a);
                     }
                 }
+                SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 ImGui::EndDragDropTarget();
             }
         }
@@ -367,6 +371,7 @@ namespace Image {
     void InspectorWindow() {
         // Inspector Panel
         ImGui::Begin("Inspector");
+
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
@@ -927,7 +932,7 @@ namespace Image {
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
 
-        ImGui::Begin("Image Game Engine");
+        ImGui::Begin("Image Game Engin");
         ImGui::BeginChild("LevelEditor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
