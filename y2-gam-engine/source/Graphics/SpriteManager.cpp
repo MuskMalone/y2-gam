@@ -78,12 +78,12 @@ is not found, the function will return an error value.
 ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, SpriteProperties const& props) {
     if (sprites.find(props.id) != sprites.end()) {
         // handle error: ID already used
-        return false;
+        return props.id;
     }
 
     if (textures.find(textureID) == textures.end()) {
         // handle error: textureID not found
-        return false;
+        return -1;
     }
 
     auto sprite = SubTexture::Create(textures[textureID], props.idx, props.dim, props);

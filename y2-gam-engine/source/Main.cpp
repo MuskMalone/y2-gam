@@ -15,22 +15,24 @@
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include "IMGUI/ImguiComponent.hpp"
-#include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <Engine/AssetManager.hpp>
+#include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
-
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Graphics/FontRenderer.hpp"
-
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
 #include "DataMgmt/DecisionTree/DecisionTree.hpp"
+
+#ifndef _INSTALLER
+#include "IMGUI/ImguiComponent.hpp"
+#include "Systems/ImguiSystem.hpp"
+#endif
 
 namespace {
 	static bool quit = false;
@@ -85,7 +87,9 @@ int main()
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
+#ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
+#endif
 	coordinator->RegisterComponent<Tag>();
 	coordinator->RegisterComponent<Layering>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
@@ -93,6 +97,7 @@ int main()
 	auto assetManager{ AssetManager::GetInstance() };
 	assetManager->Init();
 	PrefabsManager::GetInstance()->Init();
+	SceneManager::GetInstance()->Init();
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -100,7 +105,7 @@ int main()
 		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
 		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
 	}
-
+#ifndef _INSTALLER
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -110,7 +115,7 @@ int main()
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}
-
+#endif
 	entitySerializationSystem->Init();
 
 	auto layeringSystem = coordinator->RegisterSystem<LayeringSystem>();
@@ -161,9 +166,9 @@ int main()
 
 	renderSystem->Init();
 
-
+#ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
-
+#endif
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;
@@ -219,8 +224,10 @@ int main()
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
-
+#ifndef _INSTALLER
 		imguiSystem->Update(dt);
+#endif
+
 		dt = frameController->EndFrameTime();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
@@ -228,7 +235,9 @@ int main()
 	}
 	
 	StateManager::GetInstance()->Clear();
+#ifndef _INSTALLER
 	imguiSystem->Destroy();
+#endif
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 	textSystem->Exit();

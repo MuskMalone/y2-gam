@@ -23,6 +23,7 @@
 // Static Initialization
 std::vector<std::string> LayeringSystem::mLayerNames;
 std::vector<int> LayeringSystem::mLayerVisibility;
+std::vector<std::vector<int>> LayeringSystem::mCollisionMatrix;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -37,6 +38,8 @@ Initializes the layering system.
 */
 void LayeringSystem::Init() {
   ReadFromJson(NAME_OF_FILE);
+
+  mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, false));
 }
 
 /*  _________________________________________________________________________ */
@@ -70,6 +73,7 @@ This function is called to display the layering window in ImGui. It is called
 in ImguiApp.cpp.
 */
 void LayeringSystem::ImguiLayeringWindow() {
+#ifndef _INSTALLER
   ImGui::Begin("Layers");
   std::string treeNodeLabel = "Define Layers##";
 
@@ -122,7 +126,35 @@ void LayeringSystem::ImguiLayeringWindow() {
     ImGui::TreePop();
   }
 
+  treeNodeLabel = "Collision Matrix##";
+
+  if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+    for (int i{}; i < MAX_LAYERS; ++i) {
+      if (mLayerNames[i] == "") continue;
+      ImGui::Text("%s", mLayerNames[i].c_str());
+      ImGui::SameLine();
+      ImGui::SetCursorPosX(SAME_LINE_SPACING);
+
+      for (int j{}; j < MAX_LAYERS; ++j) {
+        if (mLayerNames[j] == "") continue;
+        if (i >= j) continue;
+
+        ImGui::Checkbox(
+          ("##Checkbox" + std::to_string(i) + "_" + std::to_string(j)).c_str(),
+          reinterpret_cast<bool*>(&mCollisionMatrix[i][j])
+        );
+        ImGui::SameLine(0,3);
+        ImGui::Text("%d", j);
+        ImGui::SameLine(0,3);
+      }
+      ImGui::NewLine();
+    }
+
+    ImGui::TreePop();
+  }
+
   ImGui::End();
+#endif
 }
 
 /*  _________________________________________________________________________ */
@@ -254,4 +286,46 @@ bool LayeringSystem::IsLayerVisible(std::string const& layerName) {
   }
 
   return mLayerVisibility[index];
+}
+
+/*  _________________________________________________________________________ */
+/*! IsCollidable
+
+@param lhsName
+The lhs layer name to check.
+
+@param rhsName
+The rhs layer name to check.
+
+@return bool
+'false' if layers are not collidable, 'true' otherwise.
+
+Returns whether two layers are collidable or not.
+*/
+bool LayeringSystem::IsCollidable(std::string const& lhsName, std::string const& rhsName) {
+  int idxLhs{};
+  int idxRhs{};
+  int idx{};
+
+  // For now, assume same layer collides with same layer
+  if (lhsName == rhsName)
+    return true;
+
+  for (auto const& str : mLayerNames) {
+    if (lhsName == str) {
+      idxLhs = idx;
+    }
+
+    if (rhsName == str) {
+      idxRhs = idx;
+    }
+
+    ++idx;
+  }
+
+  // As lower layer takes priority
+  if (idxRhs < idxLhs)
+    std::swap(idxLhs, idxRhs);
+  
+  return mCollisionMatrix[idxLhs][idxRhs];
 }

@@ -388,6 +388,7 @@ namespace Image {
   //for asset manager
   ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
       ResourceID key{ props.id };
+      if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
       _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
           : (SoundAssetPair{AudioLoadSound(props.path.c_str()), SoundProperties{ props.id, props.path, false }}));
       return key;

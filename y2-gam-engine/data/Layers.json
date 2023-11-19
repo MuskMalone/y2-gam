@@ -3,10 +3,10 @@
         {
             "layerNames": [
                 "Default",
-                "Player",
+                "Platform",
                 "Enemy",
                 "",
-                "",
+                "Player",
                 "",
                 "",
                 "",

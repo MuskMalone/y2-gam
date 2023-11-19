@@ -50,6 +50,7 @@ std::string GetFileExtension(const std::string& filePath) {
  */
 template <typename _system>
 void AssetContents(std::string const& systemName) {
+    ImGui::BeginChild(systemName.c_str());
     static float padding = 15.f;
     static float size = 95.f;
     static float iconSize = padding + size;
@@ -133,21 +134,79 @@ void AssetContents(std::string const& systemName) {
 This function change all the texture related to the asset ID
 */
 void AnimationAssetWindow(std::set<Entity>const& mEntities) {
-
-    ImGui::BeginChild("Animation Assets");
     AssetContents<AnimationManager>("Animation");
 }
 void SpriteAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::BeginChild("Sprite Assets");
     AssetContents<SpriteManager>("Sprite");
 }
 void SoundAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::BeginChild("Sound Assets");
     AssetContents<SoundManager>("Sound");
 }
+void SceneAssetWindow(std::set<Entity> const& mEntities) {
+    ImGui::BeginChild("SceneBrowser");
+    static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
+    static std::shared_ptr<Texture> fileIcon = Texture::Create("../Icon/FileIcon.png");
+    static std::filesystem::path assetDirectory{ "Data/scenes" };
+    static std::filesystem::path currentDirectory{ assetDirectory };
+    if (currentDirectory != std::filesystem::path(assetDirectory)) {
+        if (ImGui::Button("Back")) {
+            currentDirectory = currentDirectory.parent_path();
+        }
+
+    }
+    static float padding = 15.f;
+    static float size = 95.f;
+    static float iconSize = padding + size;
+    float panelWidth = ImGui::GetContentRegionAvail().x;
+    int columnCount = static_cast<int>(panelWidth / iconSize);
+    if (columnCount < 1) {
+        columnCount = 1;
+    }
+    ImGui::Columns(columnCount, 0, false);
+    for (auto& directoryPath : std::filesystem::directory_iterator(currentDirectory)) {
+        auto const& path = directoryPath.path();
+        auto relativePath = std::filesystem::relative(path, assetDirectory);
+        std::string filenameString = relativePath.filename().string();
+        auto fileName = directoryPath.path().filename().string();
+        ImGui::PushID(filenameString.c_str());
+        std::shared_ptr<Texture> icon = directoryPath.is_directory() ? directroyIcon : fileIcon;
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+        ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+        ImGui::PopStyleColor();
+        if (directoryPath.is_regular_file()) {
+            if (ImGui::BeginDragDropSource()) {
+                const wchar_t* itemPath = relativePath.c_str();
+                ImGui::SetDragDropPayload("Scenes", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
+                ImGui::Text("%s", filenameString.c_str());
+                ImGui::EndDragDropSource();
+            }
+        }
+        if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
+            if (directoryPath.is_directory()) {
+                currentDirectory /= path.filename();
+
+            }
+        }
+        ImGui::TextWrapped(filenameString.c_str());
+        ImGui::NextColumn();
+        ImGui::PopID();
+    }
+
+    ImGui::Columns(1);// go back to default
+    ImGui::EndChild();
+}
+namespace {
+    std::vector< std::pair<std::string, std::function<void(std::set<Entity>const&)>>> gAssetwindows{
+        {"Animations", AnimationAssetWindow}, 
+        { "Sprites", SpriteAssetWindow }, 
+        { "Sounds", SoundAssetWindow }, 
+        { "Scenes", SceneAssetWindow }
+    };
+}
+
 void AssetWindow(std::set<Entity>const& mEntities) {
     // Global or static variable
-    static int activeChild = 1;
+    static int activeChild = 0;
 
     // Inside your rendering loop
     ImGui::Begin("Asset");
@@ -159,30 +218,27 @@ void AssetWindow(std::set<Entity>const& mEntities) {
 
     // Set the width of the first column to be 20% of the total width
     ImGui::SetColumnWidth(0, totalWidth * 0.15f);
+    for (int i{}; i < gAssetwindows.size(); ++i) {
+        // Check if the button is the active one and push the style color
+        bool isButtonActive = i == activeChild;
+        if (isButtonActive) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Example: Orange color for active button
+        }
 
-    // Buttons to switch between children
-    if (ImGui::Button("Animations", {totalWidth * 0.12f, 20 })) {
-        activeChild = 1;
+        // Create the button
+        if (ImGui::Button(gAssetwindows[i].first.c_str(), ImVec2(totalWidth * 0.12f, 20))) {
+            activeChild = i;
+        }
+
+        // Only pop the style color if it was pushed
+        if (isButtonActive) {
+            ImGui::PopStyleColor();
+        }
     }
-    if (ImGui::Button("Sprites", { totalWidth * 0.12f, 20 })) {
-        activeChild = 2;
-    }
-    if (ImGui::Button("Sounds", { totalWidth * 0.12f, 20 })) {
-        activeChild = 3;
-    }
+
     ImGui::NextColumn();
 
-    switch (activeChild) {
-    case 1: 
-        AnimationAssetWindow(mEntities);
-        break;
-    case 2:
-        SpriteAssetWindow(mEntities);
-        break;
-    case 3:
-        SoundAssetWindow(mEntities);
-        break;
-    }
+    gAssetwindows[activeChild].second(mEntities);
     ImGui::Columns(1);
     ImGui::End();
 

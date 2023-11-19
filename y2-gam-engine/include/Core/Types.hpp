@@ -153,6 +153,8 @@ using Signature = std::bitset<MAX_COMPONENTS>;
 // Serialization
 using AssetID = std::uint64_t;
 using ResourceID = std::uint64_t;
+constexpr AssetID InvalidAsset{ static_cast<AssetID>(- 1)};
+constexpr ResourceID InvalidResource{ static_cast<ResourceID>( - 1)};
 struct ResProp { // Resource properties
     ResourceID id;
 };
