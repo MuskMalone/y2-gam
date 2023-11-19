@@ -23,6 +23,8 @@
 #include "Systems/ImguiSystem.hpp"
 #include "IMGUI/ImguiApp.hpp"
 #include <Core/Globals.hpp>
+#include "../WindowManager.hpp"
+
 #include "ImGuizmo.h"
 #define GL_SILENCE_DEPRECATION
 
@@ -108,6 +110,10 @@ namespace {
         ImGui::NewFrame();
         ImGuizmo::BeginFrame();
         Image::AppRender(mEntities,dt);
+
+        int width, height;
+        glfwGetFramebufferSize(glfwGetCurrentContext(), &width, &height);
+        glViewport(0,0, width, height);
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

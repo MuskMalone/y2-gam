@@ -244,6 +244,7 @@ Binds the framebuffer, making it the current target for rendering operations.
 */
 void Framebuffer::Bind() const {
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHdl);
+	glViewport(0, 0, mProps.width, mProps.height);
 }
 
 /*  _________________________________________________________________________ */

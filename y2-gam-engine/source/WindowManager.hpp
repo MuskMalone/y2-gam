@@ -5,6 +5,7 @@
 #include <string>
 #include <Core/Types.hpp>
 #include <memory>
+#include <Core/Event.hpp>
 
 
 class WindowManager
@@ -35,12 +36,18 @@ public:
 	static void MouseButtonCb(GLFWwindow* pwin, int button, int action, int mod);
 	static void MouseScrollCb(GLFWwindow* pwin, double xoffset, double yoffset);
 	static void MousePosCb(GLFWwindow* pwin, double xpos, double ypos);
+
+	void FullscreenListener(Event const& event);
 	GLFWwindow* GetContext();
 
 private:
 	static std::shared_ptr<WindowManager> _mSelf;
 
 	GLFWwindow* mWindow{};
+
+	int mWindowedWidth{}, mWindowedHeight{};
+	int mWindowedPosX{}, mWindowedPosY{};
+	bool mIsFullscreen{ false };
 
 	KeyState mButtons{};
 	KeyState mPrevButtons{};

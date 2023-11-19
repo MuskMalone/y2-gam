@@ -39,6 +39,8 @@ public:
 
 	void Update(float dt);
 
+	void RenderPrefab(Entity prefab);
+
 	Entity GetCamera();
 
 	std::shared_ptr<Framebuffer> const& GetFramebuffer(int) const;
@@ -66,6 +68,7 @@ private:
 
 	Entity mCamera{}; //Editor Camera TOOD Change name
 	Entity mSceneCamera{};
+	Entity mPrefabEditorCamera{};
 public:
 	Entity mPlayer{}; // TEMP TO BE REMOVED
 
