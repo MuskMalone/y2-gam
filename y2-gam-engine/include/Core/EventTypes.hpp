@@ -45,6 +45,7 @@ namespace Events::Window {
 	const EventId QUIT = "Events::Window::QUIT"_hash;
 	const EventId RESIZED = "Events::Window::RESIZED"_hash;
 	const EventId INPUT = "Events::Window::INPUT"_hash;
+	const EventId TOGGLE_FULLSCREEN = "Events::Window::TOGGLE_FULLSCREEN"_hash;
 }
 
 namespace Events::Window::Input {

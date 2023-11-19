@@ -83,7 +83,7 @@ namespace Image {
         LayerWindow();
         InspectorWindow();
         PropertyWindow();
-        //PrefabWindow();
+        PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
         //AssetWindow(mEntities);
@@ -918,14 +918,20 @@ namespace Image {
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 
-        ImGui::Begin("Image Game Engine", nullptr, window_flags);
+        ImGui::Begin("Image Game Engine");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
-            ImVec2 contentSize = ImGui::GetContentRegionAvail();
+        ImVec2 contentSize = ImGui::GetContentRegionAvail();
+        
+        if ((mViewportDim.x != contentSize.x) || (mViewportDim.y != contentSize.y)) {
+            framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
+
+            mViewportDim = contentSize;
+        }
+
         if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
 
             //mouse picking part:
@@ -935,21 +941,20 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
+            std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
             Vec2 viewportSize = { max.x - min.x, max.y - min.y };
             mousePos.y = viewportSize.y - mousePos.y;
+
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
-            int fbX = static_cast<int>(mouseX * gScalingFactor);
-            int fbY = static_cast<int>(mouseY * gScalingFactor);
 
-            
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
-                    int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
+                    int pixelData = framebuffer->ReadPixel(1, mouseX, mouseY);
                     framebuffer->Unbind();
                     draggedEntity = pixelData;
                     if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
@@ -1027,11 +1032,11 @@ namespace Image {
                 camera.SetRotation(camera.mRot);
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-                camera.mZoom += CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel += CAMERA_ZOOMSPEED * dt;
                 camera.ZoomIn();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-                camera.mZoom -= CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel -= CAMERA_ZOOMSPEED * dt;
                 camera.ZoomOut();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
@@ -1063,7 +1068,7 @@ namespace Image {
         }
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
         ImGui::End();
     }
@@ -1078,9 +1083,20 @@ namespace Image {
     This function displays the prefab framebuffer window.
     */
     void PrefabWindow() {
+        static ImVec2 prefabVp {};
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+
+        ImVec2 contentSize = ImGui::GetContentRegionAvail();
+
+        if ((prefabVp.x != contentSize.x) || (prefabVp.y != contentSize.y)) {
+            framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
+            prefabVp = contentSize;
+        }
+
+        Entity selectedPrefab = 9;
+        gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 

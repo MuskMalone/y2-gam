@@ -34,6 +34,7 @@
 
 #include "Scripting/NodeManager.hpp"
 #include <Engine/AssetManager.hpp>
+#include <Systems/InputSystem.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -101,38 +102,24 @@ void RenderSystem::Init()
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
 	gCoordinator->AddComponent(
 		mCamera,
-		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio, static_cast<float>(WORLD_LIMIT_X) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
 	);
 
 	float const zoomFactor{ 0.4f };
 	gCoordinator->AddComponent(
 		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_X) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
 	);
-	//ResourceID bgTextureID = 0;//SpriteManager::LoadTexture("../assets/textures/blinkbg.png");
 
-	//SpriteManager::CreateSubTexture(bgTextureID, SpriteProperties{ GetTimestampNano(), { 0, 0 }, { 3497, 1200 } });
+	//Create prefab editor camera
+	const float pfHeight{50};
 
-	//Entity bg = gCoordinator->CreateEntity();
-	//::gCoordinator->AddComponent(
-	//	bg,
-	//	Transform{
-	//		{0, 0, -40.f},
-	//		{0.f,0.f,0.f},
-	//		{350.f, 120.f, 0.f}
-	//	});
-	//
-	//::gCoordinator->AddComponent(
-	//	bg,
-	//	Sprite{
-	//		{1.f,1.f,1.f,1.f},
-	//		0,
-	//		Layer::BACKGROUND
-	//	}
-	//);
-	//auto& bgSprite = ::gCoordinator->GetComponent<Sprite>(bg);
-	//bgSprite.spriteAssetID = AssetManager::GetInstance()->LoadAsset<SpriteManager>(1698744788359338700);
-	//bgSprite.spriteID = AssetManager::GetInstance()->GetResourceID(bgSprite.spriteAssetID);
+	mPrefabEditorCamera = gCoordinator->CreateEntity();
+	gCoordinator->AddComponent(
+		mPrefabEditorCamera,
+		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
+	);
+	auto& pbCam = gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
 	
 	Renderer::Init();
 
@@ -162,6 +149,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 {
 	static bool showEditor{ true };
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
+	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+		showEditor = !showEditor;
+	}
 	if (showEditor) {
 		mFramebuffers[0]->Bind();
 	}
@@ -233,12 +224,10 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 
-	//glDepthMask(GL_TRUE);
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
 	}
-	//glDepthMask(GL_FALSE);
 
 	Renderer::RenderSceneEnd();
 	glEnable(GL_DEPTH_TEST);
@@ -248,34 +237,33 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		mFramebuffers[0]->Unbind();
 	}
-	////Prefab Editor
-	//mFramebuffers[1]->Bind();
-	//glDepthMask(GL_TRUE);
-	//Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-	//Renderer::ClearColor();
-	//Renderer::ClearDepth();
-
-	//Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx());
-
-	//for (auto const& entity : mEntities) {
-	//	auto const& transform = ::gCoordinator->GetComponent<Transform>(entity);
-	//	auto const& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
-
-	//	if (sprite.spriteID > -1) {
-	//		Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.spriteID), sprite.color, entity);
-	//	}
-	//	else {
-	//		if (transform.elipse)
-	//			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-	//		else
-	//			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
-	//	}
-	//}
-	//glDepthMask(GL_FALSE);
-	//Renderer::RenderSceneEnd();
-	//mFramebuffers[1]->Unbind();
 }
 
+void RenderSystem::RenderPrefab(Entity prefab) {
+	//Prefab Editor
+	mFramebuffers[1]->Bind();
+
+	Renderer::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.f });
+	Renderer::ClearColor();
+	Renderer::ClearDepth();
+
+	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
+
+	const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
+	const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
+
+	if(sprite.spriteID)
+		Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
+	else {
+		if (transform.elipse)
+			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+		else
+			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, prefab);
+	}
+
+	Renderer::RenderSceneEnd();
+	mFramebuffers[1]->Unbind();
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief WindowSizeListener Function
@@ -289,8 +277,19 @@ void RenderSystem::WindowSizeListener(Event& event)
 	[[maybe_unused]] auto windowWidth = event.GetParam<unsigned int>(Events::Window::Resized::WIDTH);
 	[[maybe_unused]] auto windowHeight = event.GetParam<unsigned int>(Events::Window::Resized::HEIGHT);
 
-	//auto& camera = gCoordinator->GetComponent<tCamera>(mCamera);
-	//camera.projectionTransform = Camera::MakeProjectionTransform(45.0f, 0.1f, 1000.0f, windowWidth, windowHeight);
-	//camera.projectionTransform = tCamera::MakeProjectionTransform(-50, 50, -50, 50, 0, -100);
+	Renderer::SetViewport(0, 0, windowWidth, windowHeight);
+
+	//float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	//float left = -WORLD_LIMIT_X * aspectRatio;
+	//float right = WORLD_LIMIT_X * aspectRatio;
+	//float bottom = -WORLD_LIMIT_Y;
+	//float top = WORLD_LIMIT_Y;
+
+	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+
+	camera.mAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+	camera.UpdateProjectionMtx();
+	//camera.SetProjectionMtx(left, right, bottom, top);
 }
+
 

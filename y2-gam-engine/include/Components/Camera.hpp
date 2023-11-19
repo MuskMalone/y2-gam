@@ -50,20 +50,22 @@ public:
 	glm::mat4 const& GetViewProjMtx() const;
 	float Lerp(float lhs, float rhs, float t);
 
+	void UpdateProjectionMtx();
 	void ComputeViewProjMtx();
 private:
 	glm::mat4 mProjMtx{};
 	glm::mat4 mViewMtx{};
 	glm::mat4 mViewProjMtx{};
 
+
 public:
 	Entity mTargetEntity;
 
-	struct CameraSettings{
-		float offsetX{30.f};
-		float offsetY{20.f};
-		float velocityThreshold{0.5f};
-		float cameraSpeed{0.1f};
+	struct CameraSettings {
+		float offsetX{ 30.f };
+		float offsetY{ 20.f };
+		float velocityThreshold{ 0.2f };
+		float cameraSpeed{ 0.05f };
 
 		//function to Load settings TODO IMPLEMENT
 	} mSettings;
@@ -72,9 +74,9 @@ public:
 	glm::vec3 mPos{};
 
 	float mRot{ 0.f };
-	float mZoom{};
+	float mZoomLevel{ 1.f };
 	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
-	float mAspectRatio{};
+	float mAspectRatio{ 1.f };
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		return false;
