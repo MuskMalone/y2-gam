@@ -9,8 +9,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 44.30389404296875,
-                "posY": -84.84612274169922,
+                "posX": -129.00599670410156,
+                "posY": -3.9324588775634766,
                 "rotation": 0.0,
                 "dimX": 10.0,
                 "dimY": 25.0
@@ -51,13 +51,13 @@
                 "coloZ": 0.0
             },
             "Transform": {
-                "posX": 44.05500793457031,
-                "posY": -77.0857925415039,
+                "posX": -129.25486755371094,
+                "posY": 3.8278732299804688,
                 "posZ": 1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": -40.0,
+                "rotZ": -3.141592264175415,
+                "scaleX": 40.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -66,7 +66,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 7,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 1
             },
@@ -246,7 +246,7 @@
         {
             "Animation": {
                 "assetID": 1698992900427510800,
-                "currFrame": 0,
+                "currFrame": 9,
                 "speed": 0.14300000667572021,
                 "currState": 1
             },
@@ -277,7 +277,7 @@
         {
             "Animation": {
                 "assetID": 1698954684954475800,
-                "currFrame": 1,
+                "currFrame": 4,
                 "speed": 0.11999999731779099,
                 "currState": 1
             },
@@ -308,7 +308,7 @@
         {
             "Animation": {
                 "assetID": 1698954259805573200,
-                "currFrame": 1,
+                "currFrame": 4,
                 "speed": 0.13199999928474426,
                 "currState": 1
             },
@@ -339,7 +339,7 @@
         {
             "Animation": {
                 "assetID": 1698954487533620100,
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -370,7 +370,7 @@
         {
             "Animation": {
                 "assetID": 1698954489840002900,
-                "currFrame": 3,
+                "currFrame": 4,
                 "speed": 0.09700000286102295,
                 "currState": 1
             },
@@ -676,8 +676,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -156.81729125976563,
-                "posY": -88.17303466796875,
+                "posX": -156.45108032226563,
+                "posY": -89.23793029785156,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -707,8 +707,8 @@
                 "Tag": "Box2"
             },
             "Transform": {
-                "posX": -156.81729125976563,
-                "posY": -88.17303466796875,
+                "posX": -156.45108032226563,
+                "posY": -89.23793029785156,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

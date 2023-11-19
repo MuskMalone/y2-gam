@@ -24,7 +24,14 @@
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
+#include "ImGuizmo.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>        // For glm::quat and related quaternion functions
+#include <glm/gtx/quaternion.hpp>        
 #include "Components/Script.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
@@ -46,7 +53,8 @@
 #include <IMGUI/AssetBrowser.hpp>
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
-
+ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
+ImGuizmo::MODE gCurrentGizmoMode(ImGuizmo::LOCAL);
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -89,7 +97,7 @@ namespace Image {
         SpriteAssetWindow(mEntities);
         SoundAssetWindow(mEntities);
         AssetPropertiesWindow(mEntities);
-
+        GuizmoWindow();
         LoggingWindow();
         RenderStatsWindow();
         //if (toDelete) {
@@ -380,6 +388,7 @@ namespace Image {
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+
                     ImGui::TreePop();
                 }
             }
@@ -780,6 +789,97 @@ namespace Image {
         ImGui::End();
     }
 
+    //void UpdateTransformFromMatrix(Transform& transform, const glm::mat4& matrix) {
+    //    // Decompose the matrix back into position, rotation, and scale
+    //    glm::vec3 scale;
+    //    glm::quat rotation;
+    //    glm::vec3 translation;
+    //    glm::vec3 skew;
+    //    glm::vec4 perspective;
+    //    //glm::decompose(matrix, scale, rotation, translation, skew, perspective);
+
+    //    transform.position = translation;
+    //    transform.rotation.z = glm::eulerAngles(rotation).z; // Assuming rotation is about Z-axis
+    //    transform.scale = scale;
+    //}
+
+    bool DecomposeTransform(const glm::mat4& transform, glm::vec3& translation, glm::vec3& rotation, glm::vec3& scale)
+    {
+        // From glm::decompose in matrix_decompose.inl
+
+        using namespace glm;
+        using T = float;
+
+        mat4 LocalMatrix(transform);
+
+        // Normalize the matrix.
+        if (epsilonEqual(LocalMatrix[3][3], static_cast<float>(0), epsilon<T>()))
+            return false;
+
+        // First, isolate perspective.  This is the messiest.
+        if (
+            epsilonNotEqual(LocalMatrix[0][3], static_cast<T>(0), epsilon<T>()) ||
+            epsilonNotEqual(LocalMatrix[1][3], static_cast<T>(0), epsilon<T>()) ||
+            epsilonNotEqual(LocalMatrix[2][3], static_cast<T>(0), epsilon<T>()))
+        {
+            // Clear the perspective partition
+            LocalMatrix[0][3] = LocalMatrix[1][3] = LocalMatrix[2][3] = static_cast<T>(0);
+            LocalMatrix[3][3] = static_cast<T>(1);
+        }
+
+        // Next take care of translation (easy).
+        translation = vec3(LocalMatrix[3]);
+        LocalMatrix[3] = vec4(0, 0, 0, LocalMatrix[3].w);
+
+        vec3 Row[3], Pdum3;
+
+        // Now get scale and shear.
+        for (length_t i = 0; i < 3; ++i)
+            for (length_t j = 0; j < 3; ++j)
+                Row[i][j] = LocalMatrix[i][j];
+
+        // Compute X scale factor and normalize first row.
+        scale.x = length(Row[0]);
+        Row[0] = detail::scale(Row[0], static_cast<T>(1));
+        scale.y = length(Row[1]);
+        Row[1] = detail::scale(Row[1], static_cast<T>(1));
+        scale.z = length(Row[2]);
+        Row[2] = detail::scale(Row[2], static_cast<T>(1));
+
+        // At this point, the matrix (in rows[]) is orthonormal.
+        // Check for a coordinate system flip.  If the determinant
+        // is -1, then negate the matrix and the scaling factors.
+#if 0
+        Pdum3 = cross(Row[1], Row[2]); // v3Cross(row[1], row[2], Pdum3);
+        if (dot(Row[0], Pdum3) < 0)
+        {
+            for (length_t i = 0; i < 3; i++)
+            {
+                scale[i] *= static_cast<T>(-1);
+                Row[i] *= static_cast<T>(-1);
+            }
+        }
+#endif
+
+        rotation.y = asin(-Row[0][2]);
+        if (cos(rotation.y) != 0) {
+            rotation.x = atan2(Row[1][2], Row[2][2]);
+            rotation.z = atan2(Row[0][1], Row[0][0]);
+        }
+        else {
+            rotation.x = atan2(-Row[2][0], Row[1][1]);
+            rotation.z = 0;
+        }
+
+
+        return true;
+    }
+    float NormalizeAngle(float angle) {
+        while (angle > 180.0f) angle -= 360.0f;
+        while (angle < -180.0f) angle += 360.0f;
+        return angle;
+    }
+
     /*  _________________________________________________________________________ */
     /*! BufferWindow
 
@@ -820,14 +920,12 @@ namespace Image {
             mousePos.y = viewportSize.y - mousePos.y;
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
-            int fbX = static_cast<int>(mouseX * gScalingFactor);
-            int fbY = static_cast<int>(mouseY * gScalingFactor);
 
             
             if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
-                    int pixelData = framebuffer->ReadPixel(1, fbX, fbY);
+                    int pixelData = framebuffer->ReadPixel(1, mouseX, mouseY);
                     framebuffer->Unbind();
                     draggedEntity = pixelData;
                     if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
@@ -917,6 +1015,53 @@ namespace Image {
             }
 
         }
+
+        //guizmo
+        //guizmo here
+       // float* view = camera.GetViewMtx();
+        if (gSelectedEntity != MAX_ENTITIES) {
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_BLEND);
+            //glClear(GL_DEPTH_BUFFER_BIT);
+            //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            ImGuizmo::SetOrthographic(true);
+            //ImGuizmo::SetGizmoSizeClipSpace(200.f);
+            ImGuizmo::SetDrawlist();
+            ImVec2 windowPos = ImGui::GetWindowPos();
+
+            float windowWidth = ImGui::GetWindowWidth();
+            float windowHeight = ImGui::GetWindowHeight();
+            //std::cout << "window posx :" << windowPos.x << " y: " << windowPos.y << std::endl;
+            //std::cout << "window width :" << windowWidth << " height: " << windowHeight << std::endl;
+
+            ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
+            glm::mat4 const& cameraProj = camera.GetProjMtx();
+            glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
+            Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+            // Create a transformation matrix from position, rotation, and scale
+            
+            glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
+            glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), transform.rotation.z, glm::vec3(0, 0, 1));
+            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
+            glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+          
+            ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
+                gCurrentGuizmoOperation, gCurrentGizmoMode,
+                glm::value_ptr(transformMatrix),nullptr,nullptr);
+            if (ImGuizmo::IsUsing()) {
+                glm::vec3 position, rotation, scale;
+                DecomposeTransform(transformMatrix, position, rotation, scale);
+                //std::cout << "Rot.z" << rotation.z << "transform z" << transform.rotation.z << std::endl;
+                float deltaRotationZ = rotation.z - transform.rotation.z;
+                transform.position = position;
+                transform.rotation.z += deltaRotationZ;
+                transform.scale = scale;
+            }
+            //glEnable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
+        }
+
+
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();
@@ -1139,6 +1284,45 @@ namespace Image {
         ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
         ImGui::End();
         Renderer::ResetStats();
+    }
+
+    void GuizmoWindow() {
+        ImGui::Begin("Guizmo editor");
+
+        if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
+            gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
+
+        }
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Rotate", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+
+        }
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+        }
+        if (gSelectedEntity != MAX_ENTITIES) {
+            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+                float matrixTranslation[3]{ transform.position.x,transform.position.y,transform.position.z },
+                    matrixRotation[3]{ transform.rotation.x,transform.rotation.y,transform.rotation.z },
+                    matrixScale[3]{ transform.scale.x,transform.scale.y,transform.scale.z };
+
+                ImGui::InputFloat3("Tr", matrixTranslation);
+                ImGui::InputFloat3("Rt", matrixRotation);
+                ImGui::InputFloat3("Sc", matrixScale);
+            }
+        }
+        if (gCurrentGuizmoOperation != ImGuizmo::SCALE){
+            if (ImGui::RadioButton("Local", gCurrentGizmoMode == ImGuizmo::LOCAL))
+                gCurrentGizmoMode = ImGuizmo::LOCAL;
+            ImGui::SameLine();
+            if (ImGui::RadioButton("World", gCurrentGizmoMode == ImGuizmo::WORLD))
+                gCurrentGizmoMode = ImGuizmo::WORLD;
+        }
+        ImGui::End();
+
     }
 
 }

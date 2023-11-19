@@ -23,7 +23,7 @@
 #include "Systems/ImguiSystem.hpp"
 #include "IMGUI/ImguiApp.hpp"
 #include <Core/Globals.hpp>
-
+#include "ImGuizmo.h"
 #define GL_SILENCE_DEPRECATION
 
 namespace {
@@ -106,6 +106,7 @@ namespace {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+        ImGuizmo::BeginFrame();
         Image::AppRender(mEntities,dt);
         // Rendering
         ImGui::Render();

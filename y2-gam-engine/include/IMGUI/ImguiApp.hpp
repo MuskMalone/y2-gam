@@ -54,4 +54,5 @@ namespace Image {
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();
+    void GuizmoWindow();
 }

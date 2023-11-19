@@ -61,6 +61,11 @@
     <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\Graphics\SpriteManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -147,6 +152,12 @@
     <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
     <ClInclude Include="include\Graphics\SpriteManager.hpp" />
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
+    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

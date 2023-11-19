@@ -159,12 +159,15 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
+	//std::cout << "1"<<std::endl;
 	static bool showEditor{ true };
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
 	if (showEditor) {
 		mFramebuffers[0]->Bind();
 	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	//Renderer::SetClearColor({ 1.f, 0.f, 0.f, 1.f });
+
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
 

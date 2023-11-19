@@ -73,10 +73,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\ImGuizmo-master;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\ImGuizmo-master;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -235,6 +235,12 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c">
@@ -365,6 +371,26 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
