@@ -944,7 +944,6 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
-            std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;

@@ -115,7 +115,7 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 #endif
 			gCoordinator->SendEvent(event);
 		}
-		if (GLFW_KEY_F11 == key) {
+		if (GLFW_KEY_0 == key) {
 			Event e {Events::Window::TOGGLE_FULLSCREEN};
 			gCoordinator->SendEvent(e);
 		}
@@ -264,7 +264,9 @@ void WindowManager::FullscreenListener(Event const& event) {
 		mIsFullscreen = true;
 	}
 	else {
-		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, mWindowedPosY, mWindowedWidth, mWindowedHeight, 0);
+		int safePosY = std::max(mWindowedPosY, 30); // Adjust 30 or to a suitable offset
+		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, safePosY, mWindowedWidth, mWindowedHeight, 0);
+
 		mIsFullscreen = false;
 	}
 }
