@@ -52,7 +52,7 @@
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
-ImGuizmo::MODE gCurrentGizmoMode(ImGuizmo::LOCAL);
+ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
 Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
@@ -810,14 +810,14 @@ namespace Image {
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
         ImVec2 contentSize = ImGui::GetContentRegionAvail();
-        
+
         if ((mViewportDim.x != contentSize.x) || (mViewportDim.y != contentSize.y)) {
             framebuffer->Resize(static_cast<unsigned int>(contentSize.x), static_cast<unsigned int>(contentSize.y));
 
             mViewportDim = contentSize;
         }
 
-        if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
+        if (ImGui::IsWindowHovered() && renderSystem->IsEditorMode()) {
 
             //mouse picking part:
             ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
@@ -892,7 +892,7 @@ namespace Image {
         auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-                
+
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
             }
@@ -953,18 +953,18 @@ namespace Image {
             glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
             Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
             // Create a transformation matrix from position, rotation, and scale
-            
+
             glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
             glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), transform.rotation.z, glm::vec3(0, 0, 1));
             glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
             glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-          
+
             ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
                 gCurrentGuizmoOperation, gCurrentGizmoMode,
-                glm::value_ptr(transformMatrix),nullptr,nullptr);
+                glm::value_ptr(transformMatrix), nullptr, nullptr);
             if (ImGuizmo::IsUsing()) {
                 glm::vec3 position, rotation, scale;
-               Image::DecomposeTransform(transformMatrix, position, rotation, scale);
+                Image::DecomposeTransform(transformMatrix, position, rotation, scale);
                 //std::cout << "Rot.z" << rotation.z << "transform z" << transform.rotation.z << std::endl;
                 float deltaRotationZ = rotation.z - transform.rotation.z;
                 transform.position = position;
@@ -972,7 +972,7 @@ namespace Image {
                 transform.scale = scale;
             }
             //glEnable(GL_BLEND);
-        glEnable(GL_DEPTH_TEST);
+            glEnable(GL_DEPTH_TEST);
         }
 
 
