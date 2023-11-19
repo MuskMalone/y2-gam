@@ -37,7 +37,7 @@
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
 #include "Scripting/NodeManager.hpp"
-#include <filesystem>
+#include "Scripting/ScriptManager.hpp"
 
 #include <Engine/AssetManager.hpp>
 #include <Graphics/SpriteManager.hpp>
@@ -79,6 +79,7 @@ namespace Image {
         MainMenuWindow();
         PerformanceWindow();
         HierarchyWindow(mEntities);
+        LayerWindow();
         InspectorWindow();
         PropertyWindow();
         PrefabWindow();
@@ -197,6 +198,9 @@ namespace Image {
                 gSelectedEntity = newEntity;
                 ImGuiViewport* vP = ImGui::GetWindowViewport();
                 gCoordinator->AddComponent(
+                  gSelectedEntity,
+                  Layering{ "Default" });
+                gCoordinator->AddComponent(
                     gSelectedEntity,
                     Transform{
                         {vP->Pos.x,vP->Pos.y,0},
@@ -214,6 +218,9 @@ namespace Image {
             gSelectedEntity = newEntity;
             ImGuiViewport* vP = ImGui::GetWindowViewport();
             gCoordinator->AddComponent(
+              gSelectedEntity,
+              Layering{ "Default" });
+            gCoordinator->AddComponent(
                 gSelectedEntity,
                 Transform{
                     {vP->Pos.x,vP->Pos.y,0},
@@ -223,14 +230,23 @@ namespace Image {
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
+            gCoordinator->AddComponent(
+              gSelectedEntity,
+              Sprite{
+                  {1,1,1, 1}
+              });
         }
 
         //Cant destroy player
+        // Ernest: Can delete now
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
-            if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+            //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
                 gSelectedEntity = MAX_ENTITIES;
-            }
+            //}
+                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                  //ScriptManager::RemoveEntity(gSelectedEntity);
+                //}
         }
 
         for (auto const& entity : mEntities) {
@@ -294,14 +310,18 @@ namespace Image {
             }
         }
         
-        //Cant delete stuff with spcript
+        //Cant delete stuff with script
+        // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
-                if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     gCoordinator->DestroyEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
-                }
+                //}
+                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                  //ScriptManager::RemoveEntity(gSelectedEntity);
+                //}
             }
         }
  
@@ -317,6 +337,20 @@ namespace Image {
             //}
         ImGui::End();
     }
+
+    /*  _________________________________________________________________________ */
+    /*! LayerWindow
+
+    @param none
+
+    @return none.
+
+    This function allows for editing user defined layers.
+    */
+    void LayerWindow() {
+      gCoordinator->GetSystem<LayeringSystem>()->ImguiLayeringWindow();
+    }
+
     /*  _________________________________________________________________________ */
     /*! InspectorWindow
 
@@ -334,6 +368,46 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
+            std::string entityidstring{"Entity ID: " + std::to_string(gSelectedEntity)};
+            ImGui::Text(entityidstring.c_str());
+            if (gCoordinator->HasComponent<Layering>(gSelectedEntity)) {
+              std::string treeNodeLabel = "Layer##" + std::to_string(gSelectedEntity);
+              
+              ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
+              if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                Layering& layer = gCoordinator->GetComponent<Layering>(gSelectedEntity);
+
+                static int selectedOption = -1;
+                std::vector<const char*> tmp;
+                for (std::string const& name : gCoordinator->GetSystem<LayeringSystem>()->GetLayerNames()) {
+                  if (name != "")
+                    tmp.push_back(name.c_str());
+                }
+
+                for (int i{}; i < tmp.size(); ++i) {
+                  if (layer.assignedLayer == tmp[i]) {
+                    selectedOption = i;
+                    break;
+                  }
+                }
+
+                static int previousOption = selectedOption;
+
+
+
+                ImGui::Combo("Current",
+                  &selectedOption,
+                  tmp.data(),
+                  static_cast<int>(tmp.size()));
+
+                if (selectedOption != previousOption) {
+                  previousOption = selectedOption;
+                  layer.assignedLayer = std::string(tmp[selectedOption]);
+                }
+                tmp.clear();
+                ImGui::TreePop();
+              }
+            }
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(gSelectedEntity);
               
@@ -580,6 +654,39 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
+            if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+              std::string treeNodeLabel = "Script##" + std::to_string(gSelectedEntity);
+              if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                  Script& script = gCoordinator->GetComponent<Script>(gSelectedEntity);
+                  ImGui::Text("Assigned Script");
+                  ImGui::Text(script.name.c_str());
+
+                  static int selectedOption = -1;
+
+                  // Find the initial index for selectedOption based on the name of the script
+                  for (int i{}; i < ScriptManager::GetAssignableScriptNames().size(); ++i) {
+                    if (script.name == ScriptManager::GetAssignableScriptNames()[i]) {
+                      selectedOption = i;
+                      break;
+                    }
+                  }
+
+                  static int previousOption = selectedOption; // Store the previous option
+
+                  ImGui::Combo("Name", 
+                    &selectedOption, 
+                    ScriptManager::GetAssignableScriptNames().data(), 
+                    static_cast<int>(ScriptManager::GetAssignableScriptNames().size()));
+                  
+                  if (selectedOption != previousOption) {
+                    previousOption = selectedOption;
+                    script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
+                    ScriptManager::OnCreateEntity(gSelectedEntity);
+                  }
+                                
+                  ImGui::TreePop();
+              }
+            }
             ImGui::PopStyleColor(2);
         }
         ImGui::End();
@@ -597,7 +704,7 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
@@ -711,6 +818,16 @@ namespace Image {
                     }
                 }
                       break;
+                case 7: {
+
+                    if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            Script{ "No Script Assigned" });
+                        ScriptManager::OnCreateEntity(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -765,10 +882,18 @@ namespace Image {
                     }
                 }
                       break;
+                case 7: {
+                    // Remove Script component
+                    if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                      gCoordinator->RemoveComponent<Script>(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
             ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");

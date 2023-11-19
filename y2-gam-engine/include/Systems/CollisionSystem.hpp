@@ -19,7 +19,7 @@
 #include "Math/MathUtils.h"
 #include "Core/System.hpp"
 #include "DataMgmt/QuadTree/Quadtree.hpp"
-#include "Core/Physics.hpp"
+#include "Physics/Physics.hpp"
 #include <Components/Collider.hpp>
 #include <functional>
 namespace Collision {
@@ -50,6 +50,11 @@ namespace Collision {
 
 		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore);
 
+		bool IsIntersected(Entity const& e1, Entity const& e2);
+		bool IsIntersected(Entity const& e1, Entity const& e2, Arbiter &);
+
+		ArbiterVec IsIntersected(Entity const& e1);
+
 	private:
 		using ColliderLookupKey = std::pair<ColliderType, ColliderType>;
 
@@ -57,5 +62,6 @@ namespace Collision {
 		Arbiter Collide(Entity b1, Entity b2);
 		DataMgmt::Quadtree<Entity> mQuadtree;
 		std::map <ColliderLookupKey, std::function<uint32_t(Contact*, Collider&, Collider&)>> mLookupTable;
+		std::map <Entity, ArbiterVec> mCollidedEntities;
 	};
 }

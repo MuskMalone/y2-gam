@@ -24,6 +24,14 @@ namespace Image
 {
     public static class InternalCalls
     {
+        #region Serialization
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void SerializationComponent_SetIsFacingRight(uint entityID, ref bool facingDirection);
+        #endregion
+
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
@@ -32,7 +40,6 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetText(uint entityID, out String text);
         #endregion
-
 
         #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

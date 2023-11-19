@@ -28,30 +28,35 @@ namespace Image {
   class ScriptManager {
   public:
     static void Init();
-    static void Exit();
+    static void ExitMono();
     static MonoAssembly* LoadCSharpAssembly(std::string const& assemblyFilePath);
     static void PrintMonoAssemblyTypes(MonoAssembly* assembly);
     static void PopulateEntityClassesFromAssembly(MonoAssembly* assembly);
     static void OnCreateEntity(Entity const& entity);
     static void OnCreateEntityEvent(Event& event);
     static void OnUpdateEntity(Entity const& entity, float dt);
-
+    static void OnExitEntity(Entity const& entity);
+    static void RemoveEntity(Entity const& entity);
+    
     static bool EntityClassExists(std::string const& className);
 
     // Getters
     static MonoDomain* GetAppDomain() { return sAppDomain; }
     static std::unordered_map<std::string, ScriptClass> const& GetEntityClasses() { return sEntityClasses; };
     static std::unordered_map<Entity, ScriptInstance> const& GetEntityInstances() { return sEntityInstances; };
+    static std::vector<const char *> const& GetAssignableScriptNames() { return sAssignableScriptNames; }
 
   private:
     static char* LoadFile(std::string const& filePath, size_t& fileSize);
     static void InitMono();
-    static void ExitMono();
+    static void Exit();
+    //static void FillAssignableScriptNames();
 
   private:
     static MonoDomain* sRootDomain;
     static MonoDomain* sAppDomain;
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
     static std::unordered_map<Entity, ScriptInstance> sEntityInstances;
+    static std::vector<const char*> sAssignableScriptNames;
   };
 }

@@ -29,6 +29,7 @@ namespace Image {
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
   std::unordered_map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
+  std::vector<const char*> ScriptManager::sAssignableScriptNames{};
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -40,6 +41,8 @@ namespace Image {
   void ScriptManager::Init() {
     InitMono();
     ScriptCoordinator::RegisterFunctions();
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
+    Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
   }
 
   /*  _________________________________________________________________________ */
@@ -50,8 +53,6 @@ namespace Image {
   The main exit.
   */
   void ScriptManager::Exit() {
-    // Apparently mono cleans up after itself, empty for now
-
     mono_domain_set(mono_get_root_domain(), false);
 
     mono_domain_unload(sAppDomain);
@@ -76,7 +77,9 @@ namespace Image {
     MonoDomain* rootDomain{ mono_jit_init("ScriptRuntime") };
 
     if (rootDomain == nullptr) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Root Domain Initialization Failed!", __FUNCTION__);
+#endif
       return;
     }
     sRootDomain = rootDomain;
@@ -85,7 +88,9 @@ namespace Image {
     // An app domain is a C# language feature
     MonoDomain* appDomain = mono_domain_create_appdomain(appDomainName, nullptr);
     if (appDomain == nullptr) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "App Domain Initialization Failed!", __FUNCTION__);
+#endif
       return;
     }
     sAppDomain = appDomain;
@@ -95,7 +100,16 @@ namespace Image {
   }
 
   void ScriptManager::ExitMono() {
+    for (auto const& e : GetEntityInstances()) {
+      Image::ScriptManager::OnExitEntity(e.first);
+    }
 
+    for (const char* str : sAssignableScriptNames) {
+      free((void*)str); // Free the duplicated strings
+    }
+    sAssignableScriptNames.clear(); // Clear the vector
+
+    Exit();
   }
 
   /*  _________________________________________________________________________ */
@@ -115,7 +129,9 @@ namespace Image {
   char* ScriptManager::LoadFile(std::string const& filePath, size_t& fileSize) {
     std::fstream ifs(filePath, std::ios::in | std::ios::binary);
     if (!ifs) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File " + filePath + " could not be opened", __FUNCTION__);
+#endif
       return nullptr;
     }
 
@@ -125,14 +141,18 @@ namespace Image {
     ifs.seekg(0, ifs.beg);
 
     if (fileSize == 0) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File being read is empty!", __FUNCTION__);
+#endif
       return nullptr;
     }
 
     char* fileBuffer = new char[fileSize];
     ifs.read(fileBuffer, fileSize);
     if (!ifs) {
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "File reading error!", __FUNCTION__);
+#endif
       return nullptr;
     }
     ifs.close();
@@ -178,9 +198,9 @@ namespace Image {
     mono_image_close(monoImage);
     delete[] fileData;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
     PrintMonoAssemblyTypes(monoAssembly);
-#endif
+//#endif
 
     return monoAssembly;
   }
@@ -205,15 +225,20 @@ namespace Image {
       uint32_t cols[MONO_TYPEDEF_SIZE];
       mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
 
-      const char* nsName{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]) };
-      const char* className{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]) };
+      std::string nsName{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]) };
+      std::string className{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]) };
 
       //std::cout << "Namespace: " << nsName << "\n";
-      std::string str(nsName);
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Namespace: " + str, __FUNCTION__);
       //std::cout << "Class Name: " << className << "\n";
-      std::string str1(className);
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Class Name: " + str1, __FUNCTION__);
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Namespace: " + nsName, __FUNCTION__);
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Class Name: " + className, __FUNCTION__);
+#endif
+
+      if (nsName == "Object") {
+        std::string combinedName{ nsName + className };
+        sAssignableScriptNames.push_back(_strdup(combinedName.c_str()));
+      }
     }
   }
 
@@ -275,9 +300,6 @@ namespace Image {
 #endif
   }
 
-  namespace Hack {
-    std::map<Entity, std::string> entitiesScripted;
-  }
   /*  _________________________________________________________________________ */
   /*! OnCreateEntity
 
@@ -289,10 +311,11 @@ namespace Image {
   Function to be called after creating an entity with script component.
   Creates a script instance and maps it to the entity ID, then calls its
   own create function.
+
+  Function is deprecated for the OnCreateEntityEvent function which uses
+  subscriber callback instead.
   */
-  void ScriptManager::OnCreateEntity(Entity const& entity) { // u do not need this func anymore
-                                                             // see the other OnCreateEntity for ref
-                                                             // turned this into a subscriber callback
+  void ScriptManager::OnCreateEntity(Entity const& entity) {
     ::gCoordinator = Coordinator::GetInstance();
     auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
     if (EntityClassExists(scriptComp.name)) {
@@ -300,15 +323,40 @@ namespace Image {
       sEntityInstances[entity] = si;
       si.CallOnCreate();
 
+      //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " + 
+        scriptComp.name + " created!", __FUNCTION__);
+#endif
 
-      std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
     }
     else {
-      std::cout << "Entity Script does not exist!" << "\n";
+      //std::cout << "Entity Script does not exist!" << "\n";
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
+        , __FUNCTION__);
+#endif
     }
   }
 
-  void ScriptManager::OnCreateEntityEvent(Event & event) {
+
+  namespace Hack {
+    std::map<Entity, std::string> entitiesScripted;
+  }
+  /*  _________________________________________________________________________ */
+  /*! OnCreateEntityEvent
+
+  @param event
+  The event that contains the entity handle for the created entity with a 
+  script component.
+
+  @return none.
+
+  Function to be called after creating an entity with script component.
+  Creates a script instance and maps it to the entity ID, then calls its
+  own create function.
+  */
+  void ScriptManager::OnCreateEntityEvent(Event& event) {
       ::gCoordinator = Coordinator::GetInstance();
       Entity entity{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
       if (event.GetFail()) return;
@@ -319,18 +367,25 @@ namespace Image {
 
       auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
       if (EntityClassExists(scriptComp.name)) {
-          ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
-          sEntityInstances[entity] = si;
-          si.CallOnCreate();
+        ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
+        sEntityInstances[entity] = si;
+        si.CallOnCreate();
 
-          std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+        //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+#ifndef _INSTALLER
+        LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
+          scriptComp.name + " created!", __FUNCTION__);
+#endif
       }
       else {
-          std::cout << "Entity Script does not exist!" << "\n";
+        //std::cout << "Entity Script does not exist!" << "\n";
+#ifndef _INSTALLER
+        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
+          , __FUNCTION__);
+#endif
       }
 
       //every item added to the ecs will be marked as an entity to serialize
-
   }
 
   /*  _________________________________________________________________________ */
@@ -351,6 +406,34 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+  /*! OnExitEntity
+
+  @param entity
+  The entity handle for the created entity with a script component.
+
+  @return none.
+
+  This function is called on exit for the entity.
+  */
+  void ScriptManager::OnExitEntity(Entity const& entity) {
+    sEntityInstances[entity].CallOnExit();
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! RemoveEntity
+
+  @param entity
+  The entity handle for the created entity with a script component.
+
+  @return none.
+
+  Removes the entity from the map.
+  */
+  void ScriptManager::RemoveEntity(Entity const& entity) {
+    sEntityInstances.erase(entity);
+  }
+
+  /*  _________________________________________________________________________ */
   /*! EntityClassExists
 
   @param className
@@ -364,4 +447,17 @@ namespace Image {
   bool ScriptManager::EntityClassExists(std::string const& className) {
     return (sEntityClasses.find(className) != sEntityClasses.end()) ? true : false;
   }
+
+  /*  _________________________________________________________________________ */
+  /*! FillAssignableScriptNames
+
+  @return none.
+
+  Fills the vector of assignable script names.
+  */
+  /*
+  void ScriptManager::FillAssignableScriptNames() {
+    
+  }
+  */
 }

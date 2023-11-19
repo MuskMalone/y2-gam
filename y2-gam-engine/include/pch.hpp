@@ -60,9 +60,14 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Math/MathUtils.h"
 
+#ifndef _INSTALLER
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+
+#include <Logging/backward.hpp>
+#include "Logging/LoggingSystem.hpp"
+#endif
 
 #include "mono/jit/jit.h"
 #include "mono/metadata/assembly.h"
@@ -74,9 +79,6 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/prettywriter.h>
-
-#include <Logging/backward.hpp>
-#include "Logging/LoggingSystem.hpp"
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
@@ -94,3 +96,4 @@
 #include "Components/Node.hpp"
 #include "Components/Script.hpp"
 #include "Components/Tag.hpp"
+#include "Components/Layering.hpp"

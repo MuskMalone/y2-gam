@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Installer|AnyCPU'">
+    <OutputPath>bin\Installer\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,19 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic Enemy\BasicEnemy.cs" />
-    <Compile Include="Basic Enemy\EnemyAttackState.cs" />
-    <Compile Include="Basic Enemy\EnemyBaseState.cs" />
-    <Compile Include="Basic Enemy\EnemyChaseState.cs" />
-    <Compile Include="Basic Enemy\EnemyDefaultState.cs" />
-    <Compile Include="Basic Enemy\EnemyIdleState.cs" />
-    <Compile Include="Basic Enemy\EnemyPatrolState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyBaseState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyChaseState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyDefaultState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
+    <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
     <Compile Include="Helper\KeyCodes.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Helper\PhysicsWrapper.cs" />
-    <Compile Include="Player\Player.cs" />
+    <Compile Include="AssignableScripts\Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\Vector.cs" />
   </ItemGroup>

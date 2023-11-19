@@ -28,12 +28,14 @@ namespace Image {
 
     void CallOnCreate();
     void CallOnUpdate(float dt);
+    void CallOnExit();
 
   private:
     MonoObject* mInstance{ nullptr };
     MonoMethod* mConstructor{ nullptr };
     MonoMethod* mOnCreateMethod{ nullptr };
     MonoMethod* mOnUpdateMethod{ nullptr };
+    MonoMethod* mOnExitMethod{ nullptr };
     ScriptClass mScriptClass{};
   };
 }

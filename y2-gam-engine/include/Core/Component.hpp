@@ -3,6 +3,7 @@
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
 #include <Components/Gravity.hpp>
+#include <Components/Layering.hpp>
 #include <Components/Node.hpp>
 #include <Components/RigidBody.hpp>
 #include <Components/Script.hpp>

@@ -72,8 +72,20 @@ namespace Image
         {
             InternalCalls.EngineCore_SetText(entityID, out text);
         }
-
-
+        
+        public bool FacingDirection
+        {
+            get
+            {
+                InternalCalls.SerializationComponent_GetIsFacingRight(entityID, out bool facingDirection);
+                return facingDirection;
+            }
+            set
+            {
+                InternalCalls.SerializationComponent_SetIsFacingRight(entityID, ref value);
+            }
+        }
+        
         /*  _________________________________________________________________________ */
         /*! CalculateAcceleration
         

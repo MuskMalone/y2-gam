@@ -34,7 +34,7 @@
 
 #include <Components/RigidBody.hpp>
 #include "Math/MathUtils.h"
-#include <Core/Physics.hpp>
+#include <Physics/Physics.hpp>
 #include <Core/Types.hpp>
 #include <Core/Event.hpp>
 namespace Physics {
@@ -46,7 +46,9 @@ namespace Physics {
 
 		void PreCollisionUpdate(float dt);
 		void PostCollisionUpdate(float dt);
-
+		bool IsCollided(Entity const& e1, Entity const& e2);
+		bool IsCollided(Entity const& e1, Entity const& e2, Arbiter& a);
+		ArbiterVec IsCollided(Entity const& e1);
 	private:
 		const size_t iterations {10}; // iterations for sequential impulse
 		ArbiterHashTable mArbiterTable;

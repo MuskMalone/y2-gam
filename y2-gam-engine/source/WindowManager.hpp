@@ -47,7 +47,11 @@ private:
 
 	int mWindowedWidth{}, mWindowedHeight{};
 	int mWindowedPosX{}, mWindowedPosY{};
+#ifndef _INSTALLER
 	bool mIsFullscreen{ false };
+#else 
+	bool mIsFullscreen{ true };
+#endif
 
 	KeyState mButtons{};
 	KeyState mPrevButtons{};

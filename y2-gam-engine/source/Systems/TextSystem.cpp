@@ -24,6 +24,7 @@
 #include "Core/Coordinator.hpp"
 #include "Graphics/FontRenderer.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -64,8 +65,12 @@ void TextSystem::Update() {
 		auto const& trans{ Coordinator::GetInstance()->GetComponent<Transform>(entity) };
 		Vec2 screenCoords{ WorldToScreenCoordinates(Vec2(trans.position.x, trans.position.y)) };
 		float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };
-		Image::FontRenderer::RenderText(textToPrint.fontName, textToPrint.text, screenCoords.x - (lengthOfText / 2.f), screenCoords.y,
-			textToPrint.scale, textToPrint.color);
+		//if (gCoordinator->HasComponent<Layering>(entity)) {
+			//if (LayeringSystem::IsLayerVisible(gCoordinator->GetComponent<Layering>(entity).assignedLayer)) {
+				Image::FontRenderer::RenderText(textToPrint.fontName, textToPrint.text, screenCoords.x - (lengthOfText / 2.f), screenCoords.y,
+					textToPrint.scale, textToPrint.color);
+			//}
+		//}
 	}
 }
 

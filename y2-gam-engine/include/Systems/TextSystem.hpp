@@ -18,8 +18,7 @@
 
 #include "Core/System.hpp"
 
-class TextSystem : public System
-{
+class TextSystem : public System {
 public:
 	void Init();
 	void Update();
