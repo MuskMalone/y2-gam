@@ -86,6 +86,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
+	coordinator->RegisterComponent<UIImage>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif

@@ -151,6 +151,7 @@
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Systems\ImguiSystem.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
+    <ClInclude Include="include\Components\UIImage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

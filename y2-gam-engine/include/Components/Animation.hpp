@@ -37,7 +37,6 @@ struct AnimationFrame {
 struct Animation {
 	float speed{};
 	size_t currFrame{};
-	//ResourceID animationID;
 	AssetID assetID{};
 	ANIM_STATE currState{};
 	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
@@ -46,7 +45,6 @@ struct Animation {
 		: speed{ s }, currFrame{ cf }, currState{ cs } {}//, stateMap{ sm } {}
 	Animation([[maybe_unused]] rapidjson::Value const& obj) {
 		assetID = { obj["assetID"].GetUint64() };
-		//texture = nullptr;
 		currState = static_cast<ANIM_STATE>(obj["currState"].GetInt());
 		speed = { obj["speed"].GetFloat() };
 		currFrame = { obj["currFrame"].GetUint64() };

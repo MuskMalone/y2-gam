@@ -26,6 +26,7 @@
 #include "Math/MathUtils.h"
 
 #include "Components/Script.hpp"
+#include "Components/UIImage.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
@@ -704,7 +705,7 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage"};
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
@@ -828,6 +829,15 @@ namespace Image {
                     }
                 }
                       break;
+                case 8: {
+
+                    if (!gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
+                        gCoordinator->AddComponent(
+                            gSelectedEntity,
+                            UIImage{ true });
+                    }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -889,6 +899,13 @@ namespace Image {
                     }
                 }
                       break;
+                case 8: {
+                    // Remove UIImage component
+                    if (gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
+                        gCoordinator->RemoveComponent<UIImage>(gSelectedEntity);
+                    }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
@@ -900,6 +917,7 @@ namespace Image {
             ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(gSelectedEntity) ? "True" : "False");
 
         }
         ImGui::End();
@@ -968,37 +986,45 @@ namespace Image {
             // If dragging an entity and the mouse is moving
             else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
 
-                ImVec2 currentMousePos = ImGui::GetMousePos();
-                ImVec2 delta = {
-                    currentMousePos.x - lastMousePos.x,
-                    currentMousePos.y - lastMousePos.y
-                };
-                Camera const& cam{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+                //if (!gCoordinator->HasComponent<UIImage>(draggedEntity)) {
+                    ImVec2 currentMousePos = ImGui::GetMousePos();
+                    ImVec2 delta = {
+                        currentMousePos.x - lastMousePos.x,
+                        currentMousePos.y - lastMousePos.y
+                    };
 
-                glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
-                // Unproject the initial drag position
-                glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
-                worldSpaceInitial /= worldSpaceInitial.w;
+                    Camera cam;
+                    if (!gCoordinator->HasComponent<UIImage>(draggedEntity))
+                        cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+                    else
+                        cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
 
-                // Unproject the current mouse position
-                glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
-                worldSpaceCurrent /= worldSpaceCurrent.w;
+                    glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
+                    // Unproject the initial drag position
+                    glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
+                    glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
+                    worldSpaceInitial /= worldSpaceInitial.w;
 
-                // Calculate the world space delta
-                glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
+                    // Unproject the current mouse position
+                    glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
+                    glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
+                    worldSpaceCurrent /= worldSpaceCurrent.w;
 
-                Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
-                transform.position += worldDelta;
+                    // Calculate the world space delta
+                    glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
 
-                if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
-                    Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
-                    collider.position += {worldDelta.x, worldDelta.y};
+                    Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
+                    transform.position += worldDelta;
+
+                    if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
+                        Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
+                        collider.position += {worldDelta.x, worldDelta.y};
+                    }
+
+                    lastMousePos = currentMousePos;
                 }
-
-                lastMousePos = currentMousePos;
-            }
+               
+            //}
             // If left mouse button is released, stop dragging
             else if (ImGui::IsMouseReleased(0)) {
                 draggedEntity = -1;

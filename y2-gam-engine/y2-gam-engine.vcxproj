@@ -217,6 +217,7 @@
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
+    <ClInclude Include="include\Components\UIImage.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Engine\AssetManager.hpp" />
