@@ -1,0 +1,170 @@
+{
+    "classImage::SoundManager": {
+        "1698648904161047500": {
+            "id": 1698648904161059700,
+            "path": "../assets/audio/teleport.wav",
+            "stream": false
+        },
+        "1698648904161071400": {
+            "id": 1698648904161079500,
+            "path": "../assets/audio/bgm.wav",
+            "stream": false
+        }
+    },
+    "classSpriteManager": {
+        "1698744788359338700": {
+            "id": 1698985226353418500,
+            "path": "../assets\\textures\\blinkbg.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3497.0,
+            "dimY": 1200.0
+        },
+        "1698951115733834800": {
+            "id": 1698951115733904900,
+            "path": "../assets\\Textures\\gam200_anvil.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 206.0,
+            "dimY": 132.0
+        },
+        "1698951648982145500": {
+            "id": 1698951648982177600,
+            "path": "../assets\\Textures\\gam200_floorspikes.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 382.0,
+            "dimY": 137.0
+        },
+        "1698953104427274700": {
+            "id": 1698953104427346500,
+            "path": "../assets\\Textures\\gam200_barrel.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 104.0,
+            "dimY": 141.0
+        },
+        "1698953109425167700": {
+            "id": 1698953109425196700,
+            "path": "../assets\\Textures\\gam200_button_unpressed.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 155.0,
+            "dimY": 68.0
+        },
+        "1698953111881673300": {
+            "id": 1698953111881707600,
+            "path": "../assets\\Textures\\gam200_checkpoint_activated.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 121.0,
+            "dimY": 177.0
+        },
+        "1698953113205056600": {
+            "id": 1698953113205089300,
+            "path": "../assets\\Textures\\gam200_button_midway.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 155.0,
+            "dimY": 64.0
+        },
+        "1698953115391509900": {
+            "id": 1698953115391543300,
+            "path": "../assets\\Textures\\gam200_door_open.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 220.0,
+            "dimY": 473.0
+        },
+        "1698953116624829600": {
+            "id": 1698953116624865200,
+            "path": "../assets\\Textures\\gam200_door_closed.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 104.0,
+            "dimY": 476.0
+        },
+        "1698953117858423800": {
+            "id": 1698953117858454400,
+            "path": "../assets\\Textures\\gam200_checkpoint_noflag.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 85.0,
+            "dimY": 177.0
+        },
+        "1698953119925065100": {
+            "id": 1698953119925097600,
+            "path": "../assets\\Textures\\gam200_scaffolding_tall.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 316.0,
+            "dimY": 559.0
+        },
+        "1698953120958490200": {
+            "id": 1698953120958546800,
+            "path": "../assets\\Textures\\gam200_scaffolding_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 316.0,
+            "dimY": 318.0
+        },
+        "1698953133123376400": {
+            "id": 1698953133123409500,
+            "path": "../assets\\Textures\\gam200_swappable_box.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 180.0,
+            "dimY": 178.0
+        }
+    },
+    "classAnimationManager": {
+        "1698945575867297200": {
+            "id": 1698945575867357500,
+            "path": "../assets\\textures\\ROBIN_ANIM_Spritesheet.png",
+            "frameCount": 7,
+            "idxCoordY": 1.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698954259805573200": {
+            "id": 1698954259805648300,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_WALK_spritesheet.png",
+            "frameCount": 8,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698954487533620100": {
+            "id": 1698954487533691000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_BITE_Spritesheet.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698954489840002900": {
+            "id": 1698954489840035900,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_RUN_Spritesheet.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698954684954475800": {
+            "id": 1698954684954543100,
+            "path": "../assets\\Textures\\ROBIN_ANIM_Spritesheet.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1698992900427510800": {
+            "id": 1698992900427552500,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_RUN.png",
+            "frameCount": 10,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        }
+    }
+}

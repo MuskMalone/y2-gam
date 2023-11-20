@@ -1,0 +1,30 @@
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\Yuki\MyCodeProjects\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\ernes\OneDrive - DigiPen Institute of Technology\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb

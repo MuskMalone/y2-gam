@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y2-gam-engine", "y2-gam-engine\y2-gam-engine.vcxproj", "{0998660A-65C8-4ECC-B55B-4A7BD7B47199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "y2-gam-script", "y2-gam-script\y2-gam-script.csproj", "{53EA1DF0-253B-4408-84C7-1367378F9F5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Installer|Any CPU = Installer|Any CPU
+		Installer|x64 = Installer|x64
+		Installer|x86 = Installer|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|Any CPU.Build.0 = Debug|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|x64.ActiveCfg = Debug|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|x64.Build.0 = Debug|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|x86.ActiveCfg = Debug|Win32
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Debug|x86.Build.0 = Debug|Win32
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|Any CPU.ActiveCfg = Installer|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|Any CPU.Build.0 = Installer|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|x64.ActiveCfg = Installer|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|x64.Build.0 = Installer|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|x86.ActiveCfg = Installer|Win32
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Installer|x86.Build.0 = Installer|Win32
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|Any CPU.ActiveCfg = Release|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|Any CPU.Build.0 = Release|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|x64.ActiveCfg = Release|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|x64.Build.0 = Release|x64
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|x86.ActiveCfg = Release|Win32
+		{0998660A-65C8-4ECC-B55B-4A7BD7B47199}.Release|x86.Build.0 = Release|Win32
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|x64.Build.0 = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Debug|x86.Build.0 = Debug|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|Any CPU.ActiveCfg = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|Any CPU.Build.0 = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|x64.ActiveCfg = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|x64.Build.0 = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|x86.ActiveCfg = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Installer|x86.Build.0 = Installer|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|x64.ActiveCfg = Release|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|x64.Build.0 = Release|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|x86.ActiveCfg = Release|Any CPU
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61E70BB8-F396-44F8-BBCD-72BD3F1DAAC9}
+	EndGlobalSection
+EndGlobal

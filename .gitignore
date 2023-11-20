@@ -1,0 +1,6 @@
+.vs/
+x64/
+y2-gam-engine/x64/
+y2-gam-engine/*.json
+y2-gam-engine/*.txt
+y2-gam-script/bin/
