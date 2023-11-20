@@ -16,12 +16,13 @@
 #include "../include/pch.hpp"
 
 #include "Systems/PhysicsSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include "Components/Gravity.hpp"
 #include "Components/RigidBody.hpp"
 #include "Components/Transform.hpp"
 #include "Core/Coordinator.hpp"
 #include <Components/Collider.hpp>
-#include <Core/Physics.hpp>
+#include <Physics/Physics.hpp>
 #include <Core/Types.hpp>
 #include "Math/MathUtils.h"
 
@@ -242,11 +243,11 @@ arbiter table and resets the `isGrounded` flag for all rigid bodies.
     {
         UNREFERENCED_PARAMETER(dt);
         mArbiterTable.clear();
-        for (auto const& entity : mEntities)
-        {
-            auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            rigidBody.isGrounded = false;
-        }
+        //for (auto const& entity : mEntities)
+        //{
+        //    auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
+        //    rigidBody.isGrounded = false;
+        //}
     }
     /*  _________________________________________________________________________ */
 /*! PhysicsSystem::PostCollisionUpdate
@@ -328,7 +329,13 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
         auto const& ap{ event.GetParam<ArbiterPair>(Events::Physics::Collision::COLLIDED) };
         if (mEntities.find(ap.second.b1) == mEntities.end() || mEntities.find(ap.second.b2) == mEntities.end())
             return;
+        /*
+        auto const& layer1 = gCoordinator->GetComponent<Layering>(ap.second.b1).assignedLayer;
+        auto const& layer2 = gCoordinator->GetComponent<Layering>(ap.second.b2).assignedLayer;
 
+        if (!LayeringSystem::IsCollidable(layer1, layer2))
+          return;
+        */
         auto const& c1{ gCoordinator->GetComponent<Collider>(ap.second.b1) };
         auto const& c2{ gCoordinator->GetComponent<Collider>(ap.second.b2) };
 
@@ -355,5 +362,28 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
         else {
             ArbiterMergeContacts(iter->second, ap.second);
         }
+    }
+
+    bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2) {
+        ArbiterKey arbiterKey{ e1, e2 };
+        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
+        return true;
+    }
+    bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2, Arbiter& a) {
+        ArbiterKey arbiterKey{ e1, e2 };
+        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
+        return true;
+    }
+    
+    ArbiterVec PhysicsSystem::IsCollided(Entity const& e1) {
+        ArbiterVec av{};
+        for (auto const& e2 : mEntities) {
+            ArbiterKey arbiterKey{ e1, e2 };
+            size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
+            if (mArbiterTable.find(id) != mArbiterTable.end()) av.emplace_back(mArbiterTable[id]);
+        }
+        return av;
     }
 }

@@ -60,9 +60,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Math/MathUtils.h"
 
+#ifndef _INSTALLER
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#endif
 
 #include "mono/jit/jit.h"
 #include "mono/metadata/assembly.h"
@@ -94,3 +96,4 @@
 #include "Components/Node.hpp"
 #include "Components/Script.hpp"
 #include "Components/Tag.hpp"
+#include "Components/Layering.hpp"

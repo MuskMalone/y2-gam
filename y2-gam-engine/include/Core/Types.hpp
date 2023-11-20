@@ -145,6 +145,7 @@ inline uint64_t GetTimestampNano() {
 // ECS
 using Entity = std::uint32_t;
 const Entity MAX_ENTITIES = 10000;
+using Entities = std::vector<Entity>;
 using ComponentType = std::uint8_t; // assumes a maximum of 256 components
 const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
@@ -152,6 +153,8 @@ using Signature = std::bitset<MAX_COMPONENTS>;
 // Serialization
 using AssetID = std::uint64_t;
 using ResourceID = std::uint64_t;
+constexpr AssetID InvalidAsset{ static_cast<AssetID>(0)};
+constexpr ResourceID InvalidResource{ static_cast<ResourceID>( - 1)};
 struct ResProp { // Resource properties
     ResourceID id;
 };

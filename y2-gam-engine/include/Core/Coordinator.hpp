@@ -141,7 +141,7 @@ Destroys the specified entity and notifies all systems of its destruction.
 
 		Event event(Events::System::ENTITY);
 #undef DELETE
-		event.SetParam(Events::System::Entity::DELETE, entity);
+		event.SetParam(Events::System::Entity::DESTROYED, entity);
 #define DELETE                           (0x00010000L)
 		SendEvent(event);
 	}

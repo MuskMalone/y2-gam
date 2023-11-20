@@ -45,6 +45,7 @@ namespace Events::Window {
 	const EventId QUIT = "Events::Window::QUIT"_hash;
 	const EventId RESIZED = "Events::Window::RESIZED"_hash;
 	const EventId INPUT = "Events::Window::INPUT"_hash;
+	const EventId TOGGLE_FULLSCREEN = "Events::Window::TOGGLE_FULLSCREEN"_hash;
 }
 
 namespace Events::Window::Input {
@@ -73,7 +74,7 @@ namespace Events::System::Entity {
 
 	const EventId CREATE = "Events::System::Entity::CREATE"_hash;
 #undef DELETE
-	const EventId DELETE = "Events::System::Entity::DELETE"_hash;
+	const EventId DESTROYED = "Events::System::Entity::DESTROYED"_hash;
 #define DELETE                           (0x00010000L)
 	const EventId COMPONENT_ADD = "Events::System::Entity::COMPONENT_ADD"_hash;
 	const EventId COMPONENT_REMOVE = "Events::System::Entity::COMPONENT_REMOVE"_hash;

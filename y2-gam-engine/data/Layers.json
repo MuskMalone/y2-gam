@@ -1,0 +1,32 @@
+{
+    "Layers": [
+        {
+            "layerNames": [
+                "Default",
+                "Platform",
+                "Enemy",
+                "",
+                "Player",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "layerVisibility": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        }
+    ]
+}

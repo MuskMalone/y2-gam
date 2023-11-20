@@ -155,7 +155,8 @@ namespace Image {
 	*/
 	static void AnimationComponent_GetAnimationState(uint32_t entityID, int* outAnimationState) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outAnimationState = static_cast<int>(gCoordinator->GetComponent<Animation>(entityID).currState);
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			*outAnimationState = static_cast<int>(gCoordinator->GetComponent<Animation>(entityID).currState);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -173,7 +174,8 @@ namespace Image {
 	*/
 	static void AnimationComponent_SetAnimationState(uint32_t entityID, int* animationState) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<ANIM_STATE>(*animationState);
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<uint64_t>(*animationState);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -191,9 +193,11 @@ Get the current scale of the entity in C#.
 */
 	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outScale = Vec3{ gCoordinator->GetComponent<Transform>(entityID).scale.x,
+		if (gCoordinator->HasComponent<Transform>(entityID)) {
+			*outScale = Vec3{ gCoordinator->GetComponent<Transform>(entityID).scale.x,
 			gCoordinator->GetComponent<Transform>(entityID).scale.y,
 			gCoordinator->GetComponent<Transform>(entityID).scale.z };
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -211,8 +215,10 @@ Get the current scale of the entity in C#.
 	*/
 	static void GraphicsComponent_SetScale(uint32_t entityID, Vec3* scale) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).scale = 
-		{ scale->x, scale->y, scale->z };
+		if (gCoordinator->HasComponent<Transform>(entityID)) {
+			gCoordinator->GetComponent<Transform>(entityID).scale =
+			{ scale->x, scale->y, scale->z };
+		}
 	}
 
 	// For Translation
@@ -231,8 +237,10 @@ Get the current scale of the entity in C#.
 	*/
 	static void TransformComponent_GetTranslation(uint32_t entityID, Vec2* outTranslation) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(entityID).position.x,
-			gCoordinator->GetComponent<Transform>(entityID).position.y };
+		if (gCoordinator->HasComponent<Transform>(entityID)) {
+			*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(entityID).position.x,
+				gCoordinator->GetComponent<Transform>(entityID).position.y };
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -250,9 +258,11 @@ Get the current scale of the entity in C#.
 	*/
 	static void TransformComponent_SetTranslation(uint32_t entityID, Vec2* translation) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
-			translation->y,
-			gCoordinator->GetComponent<Transform>(entityID).position.z };
+		if (gCoordinator->HasComponent<Transform>(entityID)) {
+			gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
+				translation->y,
+				gCoordinator->GetComponent<Transform>(entityID).position.z };
+		}
 	}
 
 	// For Force
@@ -271,7 +281,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_GetForce(uint32_t entityID, Vec2* outForce) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outForce = gCoordinator->GetComponent<RigidBody>(entityID).force;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			*outForce = gCoordinator->GetComponent<RigidBody>(entityID).force;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -289,7 +301,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_SetForce(uint32_t entityID, Vec2* force) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<RigidBody>(entityID).force = *force;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			gCoordinator->GetComponent<RigidBody>(entityID).force = *force;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -307,7 +321,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_GetMass(uint32_t entityID, float* outMass) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outMass = gCoordinator->GetComponent<RigidBody>(entityID).mass;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			*outMass = gCoordinator->GetComponent<RigidBody>(entityID).mass;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -325,7 +341,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_SetMass(uint32_t entityID, float* mass) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<RigidBody>(entityID).mass = *mass;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			gCoordinator->GetComponent<RigidBody>(entityID).mass = *mass;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -343,7 +361,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_GetVelocity(uint32_t entityID, Vec2* outVelocity) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outVelocity = gCoordinator->GetComponent<RigidBody>(entityID).velocity;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			*outVelocity = gCoordinator->GetComponent<RigidBody>(entityID).velocity;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -361,7 +381,9 @@ Get the current scale of the entity in C#.
 	*/
 	static void ForceComponent_SetVelocity(uint32_t entityID, Vec2* velocity) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<RigidBody>(entityID).velocity = *velocity;
+		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+			gCoordinator->GetComponent<RigidBody>(entityID).velocity = *velocity;
+		}
 	}
 
 	// For Input

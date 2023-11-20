@@ -38,29 +38,38 @@ struct Animation {
 	float speed{};
 	size_t currFrame{};
 	//ResourceID animationID;
-	AssetID assetID{};
-	ANIM_STATE currState{};
-	//std::unordered_map<ANIM_STATE, std::vector<AnimationFrame>> stateMap;
+	//AssetID assetID{};
+	uint64_t currState{};
+	std::vector<AssetID> states;
 	Animation() = default;
-	Animation(float s, size_t cf, ANIM_STATE cs)
+	Animation(float s, size_t cf, uint64_t cs)
 		: speed{ s }, currFrame{ cf }, currState{ cs } {}//, stateMap{ sm } {}
 	Animation([[maybe_unused]] rapidjson::Value const& obj) {
-		assetID = { obj["assetID"].GetUint64() };
+		//assetID = { obj["assetID"].GetUint64() };
 		//texture = nullptr;
-		currState = static_cast<ANIM_STATE>(obj["currState"].GetInt());
+		currState = obj["currState"].GetUint64();
 		speed = { obj["speed"].GetFloat() };
 		currFrame = { obj["currFrame"].GetUint64() };
+
+		for (size_t i{}; i < obj["states"].Size(); ++i) {
+			states.emplace_back(obj["states"][i].GetUint64());
+		}
 	}
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 
-		sm->InsertValue(obj, "assetID", assetID);
+		//sm->InsertValue(obj, "assetID", assetID);
+		Serializer::JSONObj animationStates{JSON_ARR_TYPE};
+		for (auto const& aid : states) {
+			sm->PushToArray(animationStates, aid);
+		}
+		sm->InsertValue(obj, "states", animationStates);
 		sm->InsertValue(obj, "currFrame", currFrame);
 		sm->InsertValue(obj, "speed", speed);
 		sm->InsertValue(obj, "currState", static_cast<int>(currState));
 		return true;
 	}
 	ResourceID GetAnimationID() {
-		return AssetManager::GetInstance()->GetResourceID(assetID);
+		return AssetManager::GetInstance()->GetResourceID(states[currState]);
 	}
 };

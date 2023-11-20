@@ -52,8 +52,8 @@ void AnimationSystem::Init() {
 	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
 	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
 	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
-	AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-		0, 7, 1, { 256, 256 });
+	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
+	//	0, 7, 1, { 256, 256 });
 	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
 	//	1, 16, 2, { 256, 256 });
 	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
@@ -89,11 +89,12 @@ void AnimationSystem::Update(float dt) {
 	{
 		auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
-
+		if (animation.states.empty()) continue;
+		if (animation.currState >= animation.states.size()) animation.currState = animation.states.size() - 1;
 		size_t& frameIdx { animation.currFrame };
-		if (!animation.assetID || animation.assetID == static_cast<AssetID>(-1)) continue;
+		//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this
-		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.assetID)) };
+		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;

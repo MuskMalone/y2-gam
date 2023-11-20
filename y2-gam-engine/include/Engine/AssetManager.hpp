@@ -12,7 +12,6 @@
 //#include <Core/Serialization/SerializationManager.hpp>
 //#include <memory>
 #include <rttr/type>
-
 class AssetManager{
 public:
 /**
@@ -26,8 +25,15 @@ public:
 		return _mSelf;
 	}
 	void Init();
+	//loads a set of asset ids
+	void LoadAssetChunk(std::set<AssetID> const&);
+
+	//just clears the asset map. the asset data will be deleted via its own managers
+	void ClearAssetChunk(std::set<AssetID> const&);
 	void Exit();
+
 private:
+	void LoadAID(AssetID aid);
 /**
  * @brief Converts a file path into a unique ResourceID using hash function.
  *

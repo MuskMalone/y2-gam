@@ -30,8 +30,17 @@ namespace Serializer {
 	public:
 
 		void Init();
+		//this is for loading it from file
 		void LoadEntities(std::string const& name);
+
+		//this is for loading from a json obj
+		void LoadEntities(Serializer::JSONObj& obj);
+
+		//this flushes to a file under data/
 		void FlushEntities(std::string const& name);
+
+		//this flushes to a json object
+		void FlushEntities(Serializer::JSONObj& obj);
 	private:
 		void EntityEventListener(Event& event);
 	};

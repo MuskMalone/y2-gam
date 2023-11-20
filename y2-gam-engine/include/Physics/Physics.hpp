@@ -62,10 +62,11 @@ namespace Physics {
         Entity b2{};
     };
     struct Arbiter {
+        //entity that is querying the collision
         Entity b1{};
+
+        //entity that has been collided with;
         Entity b2{};
-        //RigidBody* b1; //use of pointers are unfortunate but.....idc
-        //RigidBody* b2;
         float combinedFriction{};
 
         Contact contacts[MAX_CONTACT_POINTS];
@@ -78,7 +79,19 @@ namespace Physics {
         Entity entityID;
     };
 
+    using ArbiterVec = std::vector<Arbiter>;
     using ArbiterHashTable = std::unordered_map<size_t, Arbiter>;
     using ArbiterPair = std::pair<size_t, Arbiter>;
 
+    //for phys system. returns entities that are collided and resolved by physics
+    bool IsCollided(Entity const& e1, Entity const& e2);
+    bool IsCollided(Entity const& e1, Entity const& e2, Arbiter &a);
+    //this is kinda inefficient
+    ArbiterVec IsCollided(Entity const& e1);
+
+    //for collisionsystem. returns entities whose colliders intersect.
+    // physics resolution not guaranteed for this method
+    bool IsIntersected(Entity const& e1, Entity const& e2);
+    bool IsIntersected(Entity const& e1, Entity const& e2, Arbiter &a);
+    ArbiterVec IsIntersected(Entity const& e1);
 }

@@ -50,9 +50,16 @@ namespace Serializer {
 
 		
 		template<typename _type>
-		void PushToArray(JSONObj& to, _type val) {
-      if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{"couldnt find json document" };
-      to.PushBack(val, mDocumentMap[path].GetAllocator());
+		void PushToArray(JSONObj& to, _type& val) {
+			if (mDocumentMap.find(path) == mDocumentMap.end()) throw std::runtime_error{ "couldnt find json document" };
+
+			if constexpr (std::is_same_v<_type, std::string>) {
+				rapidjson::Value value(val.c_str(), static_cast<rapidjson::SizeType>(val.size()), mDocumentMap[path].GetAllocator());
+				to.PushBack(value, mDocumentMap[path].GetAllocator());
+			}
+			else {
+				to.PushBack(val, mDocumentMap[path].GetAllocator());
+			}
 		}
 
 		//only can be used if u used SetArray before when creating the document

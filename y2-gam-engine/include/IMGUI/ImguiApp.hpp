@@ -38,6 +38,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
@@ -46,6 +47,7 @@ namespace Image {
     void AppRender(std::set<Entity>const& mEntities,float dt);
     void MainMenuWindow();
     void HierarchyWindow(std::set<Entity>const& mEntities);
+    void LayerWindow();
     void InspectorWindow();
     void PropertyWindow();
     void BufferWindow(float dt);
@@ -54,4 +56,6 @@ namespace Image {
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();
+
+    static ImVec2 mViewportDim{};
 }

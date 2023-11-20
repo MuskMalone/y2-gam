@@ -24,7 +24,9 @@ xcopy "$(SolutionDir)lib\mono\dll\mono-2.0-sgen.dll" "$(TargetDir)" /e /y /i /r
 mkdir "$(SolutionDir)x64\lib\mono\4.5"
 xcopy "$(SolutionDir)lib\mono\4.5" "$(SolutionDir)x64\lib\mono\4.5" /e /y /i /r
 xcopy "$(SolutionDir)lib\rttr\bin\rttr_core_d.pdb" "$(TargetDir)" /e /y /i /r
-xcopy "$(SolutionDir)lib\rttr\bin\rttr_core_d.dll" "$(TargetDir)" /e /y /i /r</Command>
+xcopy "$(SolutionDir)lib\rttr\bin\rttr_core_d.dll" "$(TargetDir)" /e /y /i /r
+xcopy "$(SolutionDir)y2-gam-engine\imgui.ini" "$(TargetDir)" /e /y /i /r
+xcopy "$(SolutionDir)Icon" "$(SolutionDir)x64\Icon" /e /y /i /r</Command>
     </PostBuildEvent>
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>

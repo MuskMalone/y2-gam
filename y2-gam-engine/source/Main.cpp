@@ -10,26 +10,29 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
+#include "Systems/LayeringSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
 #include <Core/FrameRateController.hpp>
-#include "IMGUI/ImguiComponent.hpp"
-#include "Systems/ImguiSystem.hpp"
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <Engine/AssetManager.hpp>
+#include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
-
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Graphics/FontRenderer.hpp"
-
 #include "Logging/LoggingSystem.hpp"
 #include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
 #include "DataMgmt/DecisionTree/DecisionTree.hpp"
+
+#ifndef _INSTALLER
+#include "IMGUI/ImguiComponent.hpp"
+#include "Systems/ImguiSystem.hpp"
+#endif
 
 namespace {
 	static bool quit = false;
@@ -84,13 +87,18 @@ int main()
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
+	coordinator->RegisterComponent<Prefab>();
+#ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
+#endif
 	coordinator->RegisterComponent<Tag>();
+	coordinator->RegisterComponent<Layering>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
 	auto assetManager{ AssetManager::GetInstance() };
 	assetManager->Init();
 	PrefabsManager::GetInstance()->Init();
+	SceneManager::GetInstance()->Init();
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -98,7 +106,7 @@ int main()
 		signature.set(coordinator->GetComponentType<Serializer::SerializerComponent>());
 		coordinator->SetSystemSignature<Serializer::EntitySerializationSystem>(signature);
 	}
-
+#ifndef _INSTALLER
 	auto imguiSystem = coordinator->RegisterSystem<ImGuiSystem>();
 	{
 		Signature signature;
@@ -108,8 +116,17 @@ int main()
 		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<ImGuiSystem>(signature);
 	}
-
+#endif
 	entitySerializationSystem->Init();
+
+	auto layeringSystem = coordinator->RegisterSystem<LayeringSystem>();
+  {
+    Signature signature;
+    signature.set(coordinator->GetComponentType<Layering>());
+    coordinator->SetSystemSignature<LayeringSystem>(signature);
+  }
+
+	layeringSystem->Init();
 
 	auto textSystem = coordinator->RegisterSystem<TextSystem>();
 	{
@@ -150,9 +167,9 @@ int main()
 
 	renderSystem->Init();
 
-
+#ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
-
+#endif
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;
@@ -187,36 +204,6 @@ int main()
 
 	NodeManager::Initialize();
 
-	/*
-	std::vector<std::string> diagnostics{};
-	diagnostics.emplace_back("FPS");
-	diagnostics.emplace_back("Entities");
-	diagnostics.emplace_back("Physics");
-	diagnostics.emplace_back("Collision");
-	diagnostics.emplace_back("Render");
-	std::vector<Entity> diagnosticsList{};
-
-	for (int i{}; i < diagnostics.size(); ++i) {
-		Entity textEnt = coordinator->CreateEntity();
-		Vec2 position = Vec2(-WORLD_LIMIT_X, WORLD_LIMIT_Y - static_cast<float>((10 + (i * 5))));
-		coordinator->AddComponent(
-			textEnt,
-			Transform{
-				{position.x,position.y,0},
-				{0.f,0.f,0.f},
-				{0, 0, 0}
-			});
-		coordinator->AddComponent(
-			textEnt,
-			Text{
-				"Lato",
-				0.05f,
-				"",
-				{1, 1, 0}
-			});
-		diagnosticsList.push_back(textEnt);
-	}
-	*/
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
@@ -233,31 +220,31 @@ int main()
 		StateManager::GetInstance()->Render(dt);
 
 		NodeManager::Update();
-			
-		
-
 
 		windowManager->Update();
 
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
-
+#ifndef _INSTALLER
 		imguiSystem->Update(dt);
+#endif
+
 		dt = frameController->EndFrameTime();
 		std::string title = "Image Engine";
 		windowManager->UpdateWindowTitle(title);
 
 	}
-
 	
 	StateManager::GetInstance()->Clear();
+#ifndef _INSTALLER
 	imguiSystem->Destroy();
+#endif
 	Renderer::Shutdown();
 	windowManager->Shutdown();
 	textSystem->Exit();
-
 	Image::SoundManager::AudioExit();
-	Image::ScriptManager::Exit();
+	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
+	layeringSystem->Exit();
 	return 0;
 }
