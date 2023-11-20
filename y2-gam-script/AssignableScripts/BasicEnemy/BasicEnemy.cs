@@ -167,7 +167,6 @@ namespace Object
         public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
@@ -175,7 +174,6 @@ namespace Object
         public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }

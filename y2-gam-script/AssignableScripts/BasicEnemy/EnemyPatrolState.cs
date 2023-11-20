@@ -62,10 +62,12 @@ public class EnemyPatrolState : EnemyBaseState
         {
             if (enemy.isFacingRight)
             {
+                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
                 enemy.MoveLeft(dt);
             }
             else
             {
+                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
                 enemy.MoveRight(dt);
             }
             enemy.SwitchState(enemy.IdleState);

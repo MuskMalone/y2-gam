@@ -22,14 +22,14 @@ public class EnemyIdleState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-        enemy.AnimationState = (int)AnimationCode.IDLE;
+        enemy.AnimationState = (int)AnimationCodeEnemy.WALK;
         enemy.SetText("Idle State");
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
-        // Change direction after 2 seconds
-        if (enemy.TimeInState >= 2.0f)
+        // Change direction after 4 seconds
+        if (enemy.TimeInState >= 4.0f)
         {
             enemy.SwitchState(enemy.PatrolState);
         }

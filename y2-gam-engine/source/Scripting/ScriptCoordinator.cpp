@@ -50,7 +50,8 @@ namespace Image {
 	*/
 	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
-		*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
+		if (gCoordinator->HasComponent<Script>(entityID))
+			*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -68,7 +69,8 @@ namespace Image {
 	*/
 	static void SerializationComponent_SetIsFacingRight(uint32_t entityID, bool* facingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
-		gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
+		if (gCoordinator->HasComponent<Script>(entityID))
+			gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
 	}
 
 	// For Engine Core

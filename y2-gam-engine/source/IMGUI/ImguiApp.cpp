@@ -226,6 +226,11 @@ namespace Image {
                     gCoordinator->AddComponent(
                         gSelectedEntity,
                         Tag{ "Name" });
+                    gCoordinator->AddComponent(
+                      gSelectedEntity,
+                      Sprite{
+                          {1,1,1, 1}
+                      });
                 }
             }
             ImGui::EndPopup();
@@ -995,7 +1000,7 @@ namespace Image {
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
 
-        ImGui::Begin("Image Game Engin");
+        ImGui::Begin("Image Game Engine");
         ImGui::BeginChild("LevelEditor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();

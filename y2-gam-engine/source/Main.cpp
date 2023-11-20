@@ -205,8 +205,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	NodeManager::Initialize();
 
-	// TEMP
+#ifdef _INSTALLER
 	SceneManager::GetInstance()->LoadScene("Scene1");
+#endif
 
 	while (!quit && !windowManager->ShouldClose())
 	{

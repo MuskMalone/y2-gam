@@ -18,12 +18,17 @@
 namespace Image
 {
     // These are the animation state codes
-    public enum AnimationCode
+    public enum AnimationCodeEnemy
     {
-        NONE = 0,
-        IDLE,
+        WALK,
         RUN,
         ATTACK
+    }
+    public enum AnimationCodePlayer
+    {
+        IDLE,
+        RUN,
+        JUMP
     }
 
     // These key codes are pulled from GLFW
