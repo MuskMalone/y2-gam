@@ -18,6 +18,7 @@
 #include <Engine/StateManager.hpp>
 #include <Engine/States/MainState.hpp>
 #include <Engine/AssetManager.hpp>
+#include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
 #include "Audio/Sound.hpp"
 #include "Scripting/ScriptManager.hpp"
@@ -86,6 +87,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
+	coordinator->RegisterComponent<Prefab>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -96,6 +98,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	auto assetManager{ AssetManager::GetInstance() };
 	assetManager->Init();
 	PrefabsManager::GetInstance()->Init();
+	SceneManager::GetInstance()->Init();
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{

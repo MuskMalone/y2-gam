@@ -214,6 +214,7 @@
     <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
+    <ClInclude Include="include\Components\Prefab.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
@@ -227,6 +228,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
+    <ClInclude Include="include\Engine\SceneManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
@@ -259,6 +261,7 @@
     <ClInclude Include="include\Logging\backward.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
@@ -365,6 +368,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\Engine\SceneManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
     <ClCompile Include="source\Graphics\Camera.cpp" />
     <ClCompile Include="source\Graphics\FontRenderer.cpp" />
@@ -394,6 +398,7 @@
     <ClCompile Include="source\IMGUI\ImguiApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

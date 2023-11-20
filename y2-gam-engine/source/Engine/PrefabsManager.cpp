@@ -25,10 +25,50 @@ std::shared_ptr<PrefabsManager> PrefabsManager::_mSelf = nullptr;
 void PrefabsManager::Init() {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
-	if (!sm->OpenJSON("Prefabs")) return;
+	if (!sm->OpenJSON(cmPrefabsFilename)) return;
+	if (!sm->At(cmPrefabsFilename, cmPrefabsFilename).IsObject()) return;
+	for (rapidjson::Value::ConstMemberIterator itr = sm->At(cmPrefabsFilename, cmPrefabsFilename).MemberBegin(); itr != sm->At(cmPrefabsFilename, cmPrefabsFilename).MemberEnd(); ++itr) {
+		std::cout << "Key: " << itr->name.GetString() << ", Value: ";
+		Entity entity{ gCoordinator->CreateEntity() };
+		if (itr->value.IsObject()) {
+			for (rapidjson::Value::ConstMemberIterator innerItr = itr->value.MemberBegin(); innerItr != itr->value.MemberEnd(); ++innerItr) {
+				auto at{ Serializer::gComponentSerializer.find(innerItr->name.GetString()) };
+				std::cout << innerItr->name.GetString() << std::endl;
+				if (at == Serializer::gComponentSerializer.end()) continue;
+				at->second(entity, innerItr->value);
+			}
+		}
+		PrefabID pid = _hash(itr->name.GetString());
+		mPrefabsFactory[pid] = PrefabEntry{ itr->name.GetString(), pid, false, entity };
+	}
+}
+void PrefabsManager::Exit() {
+	
+	std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+	sm->ClearJSON(cmPrefabsFilename);
+	sm->SetObject(cmPrefabsFilename);
+	using namespace Serializer;
+	JSONObj prefabsObj{ JSON_OBJ_TYPE };
+	for (auto const& prefab : mPrefabsFactory) {
+		JSONObj obj{ JSON_OBJ_TYPE };
+		SerializeEntity(prefab.second.entity, obj);
+		if (!obj.ObjectEmpty())
+			sm->InsertValue(prefabsObj, prefab.second.name.c_str(), obj);
+	}
+
+	sm->InsertValue(cmPrefabsFilename, prefabsObj);
+	SerializationManager::GetInstance()->FlushJSON(cmPrefabsFilename);
 
 }
 
+Entity PrefabsManager::AddPrefab(std::string name, Entity entity) {
+	PrefabID id{ _hash(name) };
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) return mPrefabsFactory[id].entity;
+	mPrefabsFactory[id] = std::move(PrefabEntry{
+		name, id, false, entity
+	});
+	return entity;
+}
 
 //DO NOT USE IT REPEATEDLY IN FOR LOOP 
 // IT IS SLOW AS HELL
@@ -36,14 +76,12 @@ Entity PrefabsManager::SpawnPrefab(const char* key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
 	using namespace Serializer;
-	if (!sm->At("Prefabs", "Prefabs").IsObject()) return static_cast<Entity>(-1);
-	if (!sm->At("Prefabs", "Prefabs")[key].IsObject()) return static_cast<Entity>( -1);
-	Entity entity{ gCoordinator->CreateEntity() };
-	for (auto itr = (sm->At("Prefabs")[key]).MemberBegin(); itr != (sm->At("Prefabs")[key]).MemberEnd(); ++itr) {
-		auto at{ gComponentSerializer.find(itr->name.GetString()) };
-		std::cout << itr->name.GetString() << std::endl;
-		if (at == gComponentSerializer.end()) continue;
-		at->second(entity, itr->value);
-	}
-	return entity;
+	return gCoordinator->CloneEntity(mPrefabsFactory[_hash(key)].entity);
+}
+
+Entity PrefabsManager::SpawnPrefab(PrefabID key) {
+	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
+	using namespace Serializer;
+	return gCoordinator->CloneEntity(mPrefabsFactory[key].entity);
 }

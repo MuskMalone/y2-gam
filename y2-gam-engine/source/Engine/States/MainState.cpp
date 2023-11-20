@@ -5,17 +5,19 @@
 #include <Core/Serialization/SerializationManager.hpp>
 #include <Core/FrameRateController.hpp>
 #include <Systems/InputSystem.hpp>
-
+#include <Engine/SceneManager.hpp>
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	mIsStep = false;
 	using namespace Serializer;
-	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities("LevelData");
+	//coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities("LevelData");
+	//SceneManager::GetInstance()->LoadScene("Scene1");
 }
 void MainState::Exit() {
 	using namespace Serializer;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities("LevelData");
+	//coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities("LevelData");
+	//SceneManager::GetInstance()->ExitScene("Scene1");
 }
 
 void MainState::Update(float dt) {

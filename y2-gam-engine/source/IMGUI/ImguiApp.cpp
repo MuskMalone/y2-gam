@@ -40,16 +40,20 @@
 #include "Scripting/ScriptManager.hpp"
 
 #include <Engine/AssetManager.hpp>
+#include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
-const int   gPercent      = 100;
-const float gScalingFactor = 1.5f;
+#include <IMGUI/PrefabsBrowser.hpp>
 
-Entity gSelectedEntity=MAX_ENTITIES;
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
+    const int   gPercent = 100;
+    const float gScalingFactor = 1.5f;
+
+    Entity gSelectedEntity = MAX_ENTITIES;
+    std::string gCurrentScene = "";
 }
 namespace Image {
     /*  _________________________________________________________________________ */
@@ -86,9 +90,8 @@ namespace Image {
         BufferWindow(dt);
         ContentWindow();
         //AssetWindow(mEntities);
-        AnimationAssetWindow(mEntities);
-        SpriteAssetWindow(mEntities);
-        SoundAssetWindow(mEntities);
+        AssetWindow(mEntities);
+        PrefabsWindow();
         AssetPropertiesWindow(mEntities);
 
         LoggingWindow();
@@ -125,18 +128,18 @@ namespace Image {
             //Read files maybe
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("New", "Cltr+N")) {
+                //if (ImGui::MenuItem("New", "Cltr+N")) {
 
-                }
-                if (ImGui::MenuItem("Open...", "Ctrl+O")) {
+                //}
+                //if (ImGui::MenuItem("Open...", "Ctrl+O")) {
 
-                }
+                //}
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
-
+                    SceneManager::GetInstance()->SaveScene(gCurrentScene);
                 }
-                if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+                //if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
 
-                }
+                //}
                 ImGui::EndMenu();
             }
 
@@ -156,7 +159,6 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode()) {
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
@@ -172,6 +174,7 @@ namespace Image {
                     ImGui::SetWindowFocus("Image Game Engine");
 
                 }
+                SceneManager::GetInstance()->ResetScene(gCurrentScene);
             }
             ImGui::EndMainMenuBar();
         }
@@ -192,28 +195,34 @@ namespace Image {
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
+        std::string scenestring{"Current Scene: " + ((gCurrentScene.empty()) ? std::string{"No Scene Selected"} : gCurrentScene)};
+        ImGui::Text(scenestring.c_str());
         if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
             if (ImGui::MenuItem("Create Entity")) {
-                Entity newEntity = gCoordinator->CreateEntity();
-                gSelectedEntity = newEntity;
-                ImGuiViewport* vP = ImGui::GetWindowViewport();
-                gCoordinator->AddComponent(
-                  gSelectedEntity,
-                  Layering{ "Default" });
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Transform{
-                        {vP->Pos.x,vP->Pos.y,0},
-                        {0,0,0},
-                        {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                    });
-                gCoordinator->AddComponent(
-                    gSelectedEntity,
-                    Tag{ "Name" });
+
+                if (gCurrentScene != "") {
+                    Entity newEntity = gCoordinator->CreateEntity();
+                    gSelectedEntity = newEntity;
+                    ImGuiViewport* vP = ImGui::GetWindowViewport();
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Layering{ "Default" });
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Transform{
+                            {vP->Pos.x,vP->Pos.y,0},
+                            {0,0,0},
+                            {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                        });
+                    gCoordinator->AddComponent(
+                        gSelectedEntity,
+                        Tag{ "Name" });
+                }
             }
             ImGui::EndPopup();
         }
         if (ImGui::Button("Create Entity")) {
+            if (gCurrentScene != "") {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
             ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -235,6 +244,7 @@ namespace Image {
               Sprite{
                   {1,1,1, 1}
               });
+            }
         }
 
         //Cant destroy player
@@ -269,9 +279,10 @@ namespace Image {
                 //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                 //    std::cout << droppedAid << std::endl;
                 //}
+                AssetID droppedAid{ static_cast<AssetID>(-1) };
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                     //std::cout << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Sprite>(entity)) {
                         auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
@@ -284,28 +295,32 @@ namespace Image {
                             gSelectedEntity,
                             s);
                     }
-
+                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
-                    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    droppedAid = *(const AssetID*)dragDropPayLoad->Data;
                     //std::cout << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
-                        anim.assetID = droppedAid;
+                        //anim.assetID = droppedAid;
+                        anim.states.emplace_back(droppedAid);
                     }
                     else {
                         Animation a{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE
+                                0
                         };
-                        a.assetID = droppedAid;
+                        //a.assetID = droppedAid;
+                        a.states.emplace_back(droppedAid);
                         gCoordinator->AddComponent(
                             gSelectedEntity,
                             a);
                     }
+                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
+                SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 ImGui::EndDragDropTarget();
             }
         }
@@ -364,6 +379,7 @@ namespace Image {
     void InspectorWindow() {
         // Inspector Panel
         ImGui::Begin("Inspector");
+
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
@@ -503,28 +519,58 @@ namespace Image {
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
-                    if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
-                        auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.assetID)[1].spriteID)->GetTexture()};
+                    //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
+                    ImGui::Text("States:");
+                    if (anim.states.size()>0){
+                        for (size_t i{}; i < anim.states.size(); ++i) {
+                            ImGui::Text(std::to_string(i).c_str());
+                            auto texture{ SpriteManager::GetSprite(am->GetAsset<AnimationManager>(anim.states[i])[1].spriteID)->GetTexture()};
+                            ImGui::SameLine();
+                            if (anim.states.size() > 1) {
+                                if (i != anim.states.size() - 1) {
+                                    if (ImGui::Button(("Move Down##" + std::to_string(i)).c_str())) {
+                                        std::swap(anim.states[i], anim.states[i + 1]);
+                                    }
+                                }
+                                ImGui::SameLine();
+                                if (i != 0) {
+                                    if (ImGui::Button(("Move Up##" + std::to_string(i)).c_str())) {
+                                        std::swap(anim.states[i], anim.states[i - 1]);
+                                    }
+                                }
+                            }
+                            ImGui::SameLine();
+                            if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
+                                anim.states.erase(anim.states.begin() + i);
+                                if (anim.currState >= i && anim.states.size() > 0)
+                                    anim.currState--;
+                                if (gCoordinator->HasComponent<Sprite>(gSelectedEntity)) {
+                                    Sprite& anim = gCoordinator->GetComponent<Sprite>(gSelectedEntity);
+                                    anim.spriteID = InvalidAsset;
+                                }
+                            }
 
-                        ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
+                            ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexHdl()));
 
-                        // Original sprite sheet size
-                        ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
+                            // Original sprite sheet size
+                            ImVec2 originalSize(static_cast<float>(texture->GetWidth()), static_cast<float>(texture->GetHeight()));
 
-                        // Calculate aspect ratio
-                        float aspectRatio = originalSize.x / originalSize.y;
+                            // Calculate aspect ratio
+                            float aspectRatio = originalSize.x / originalSize.y;
 
-                        // Adjust size while maintaining aspect ratio
-                        ImVec2 newSize;
-                        if (aspectRatio > 1.0f) {
-                            newSize = ImVec2(200, 200 / aspectRatio);
+                            // Adjust size while maintaining aspect ratio
+                            ImVec2 newSize;
+                            if (aspectRatio > 1.0f) {
+                                newSize = ImVec2(200, 200 / aspectRatio);
+                            }
+                            else {
+                                newSize = ImVec2(200 * aspectRatio, 200);
+                            }
+
+                            //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
+                            ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                         }
-                        else {
-                            newSize = ImVec2(200 * aspectRatio, 200);
-                        }
 
-                        //std::cout << "x:" << newSize.x << "y:" << newSize.y << std::endl;
-                        ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
                     }
                     else {
                         ImGui::Text("No Animation");
@@ -797,7 +843,7 @@ namespace Image {
                             Animation{
                                 0.08f,
                                 0,
-                                ANIM_STATE::IDLE
+                                0
                             });
                     }
                 }
@@ -922,7 +968,8 @@ namespace Image {
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
 
-        ImGui::Begin("Image Game Engine");
+        ImGui::Begin("Image Game Engin");
+        ImGui::BeginChild("LevelEditor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
@@ -944,6 +991,7 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
+            //std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
@@ -1071,7 +1119,25 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        ImGui::EndChild();
+        //tch: for scene to drag drop
+        if (ImGui::BeginDragDropTarget()) {
+            //std::cout << "Began drag-drop target." << std::endl;
 
+            if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("SceneBrowser")) {
+
+                const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                std::filesystem::path basePath {""};
+                //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
+                if (gCurrentScene != "") {
+                    SceneManager::GetInstance()->ExitScene(gCurrentScene);
+                }
+                gCurrentScene = (basePath / payLoadPath).stem().string();
+
+                SceneManager::GetInstance()->LoadScene(gCurrentScene);
+            }
+            ImGui::EndDragDropTarget();
+        }
         ImGui::End();
     }
 

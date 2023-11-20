@@ -14,6 +14,8 @@
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include "IMGUI/AssetBrowser.hpp"
+#include <Core/Coordinator.hpp>
+#include <Systems/InputSystem.hpp>
 
 namespace {
     std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
@@ -46,10 +48,9 @@ std::string GetFileExtension(const std::string& filePath) {
  *
  * @param systemName The name of the system for which to generate asset content.
  */
-
 template <typename _system>
 void AssetContents(std::string const& systemName) {
-
+    ImGui::BeginChild(systemName.c_str());
     static float padding = 15.f;
     static float size = 95.f;
     static float iconSize = padding + size;
@@ -60,27 +61,8 @@ void AssetContents(std::string const& systemName) {
     if (columnCount < 1) {
         columnCount = 1;
     }
+
     ImGui::Columns(columnCount, 0, false);
-
-    ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(addIcon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
-
-    ImGui::NextColumn();
-    if (ImGui::BeginDragDropTarget()) {
-        std::cout << "Began drag-drop target." << std::endl;
-
-        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
-            //std::cout << "Accepted payload." << std::endl;
-
-            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
-            std::filesystem::path basePath {"../assets"};
-            std::string path{(basePath / payLoadPath).string()};
-            std::cout << path << std::endl;
-            AssetManager::GetInstance()->AddAsset<_system>(path);
-
-        }
-        ImGui::EndDragDropTarget();
-    }
-
 
     for (auto const& asset : AssetManager::GetInstance()->GetAllAssets()) {
         //extremely inefficient for large amounts of assets
@@ -122,8 +104,24 @@ void AssetContents(std::string const& systemName) {
             // ImGui::SameLine();
         }
     }
+    ImGui::EndChild();
 
+    if (ImGui::BeginDragDropTarget()) {
+
+        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+            //std::cout << "Accepted payload." << std::endl;
+
+            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+            std::filesystem::path basePath {"../assets"};
+            std::string path{(basePath / payLoadPath).string()};
+            std::cout << path << std::endl;
+            AssetManager::GetInstance()->AddAsset<_system>(path);
+
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
+
 /*  _________________________________________________________________________ */
 /*! AssetWindow
 
@@ -135,20 +133,124 @@ void AssetContents(std::string const& systemName) {
 This function change all the texture related to the asset ID
 */
 void AnimationAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Animation Assets");
     AssetContents<AnimationManager>("Animation");
-
-    ImGui::End();
 }
 void SpriteAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Sprite Assets");
     AssetContents<SpriteManager>("Sprite");
-    ImGui::End();
 }
 void SoundAssetWindow(std::set<Entity>const& mEntities) {
-    ImGui::Begin("Sound Assets");
     AssetContents<SoundManager>("Sound");
+}
+void SceneAssetWindow(std::set<Entity> const& mEntities) {
+    ImGui::BeginChild("SceneBrowser");
+    static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
+    static std::shared_ptr<Texture> fileIcon = Texture::Create("../Icon/FileIcon.png");
+    static std::filesystem::path assetDirectory{ "Data/scenes" };
+    static std::filesystem::path currentDirectory{ assetDirectory };
+    if (currentDirectory != std::filesystem::path(assetDirectory)) {
+        if (ImGui::Button("Back")) {
+            currentDirectory = currentDirectory.parent_path();
+        }
+
+    }
+    static char namebuffer[2048] = "";
+    ImGui::InputText("##unique_id", namebuffer, IM_ARRAYSIZE(namebuffer));
+    ImGui::SameLine();
+    if (ImGui::Button("New Scene")) {
+        std::string sceneName{namebuffer};
+        std::ofstream newScene{(assetDirectory / sceneName).string() + ".json"};
+        if (newScene) {
+            newScene.close();
+        }
+    }
+    static float padding = 15.f;
+    static float size = 95.f;
+    static float iconSize = padding + size;
+    float panelWidth = ImGui::GetContentRegionAvail().x;
+    int columnCount = static_cast<int>(panelWidth / iconSize);
+    if (columnCount < 1) {
+        columnCount = 1;
+    }
+    ImGui::Columns(columnCount, 0, false);
+    for (auto& directoryPath : std::filesystem::directory_iterator(currentDirectory)) {
+        auto const& path = directoryPath.path();
+        auto relativePath = std::filesystem::relative(path, assetDirectory);
+        std::string filenameString = relativePath.filename().string();
+        auto fileName = directoryPath.path().filename().string();
+        ImGui::PushID(filenameString.c_str());
+        std::shared_ptr<Texture> icon = directoryPath.is_directory() ? directroyIcon : fileIcon;
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+        ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+        ImGui::PopStyleColor();
+        if (directoryPath.is_regular_file()) {
+            if (ImGui::BeginDragDropSource()) {
+                const wchar_t* itemPath = relativePath.c_str();
+                ImGui::SetDragDropPayload("SceneBrowser", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
+                ImGui::Text("%s", filenameString.c_str());
+                ImGui::EndDragDropSource();
+            }
+        }
+        if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
+            if (directoryPath.is_directory()) {
+                currentDirectory /= path.filename();
+
+            }
+        }
+        ImGui::TextWrapped(filenameString.c_str());
+        ImGui::NextColumn();
+        ImGui::PopID();
+    }
+
+    ImGui::Columns(1);// go back to default
+    ImGui::EndChild();
+}
+namespace {
+    std::vector< std::pair<std::string, std::function<void(std::set<Entity>const&)>>> gAssetwindows{
+        {"Animations", AnimationAssetWindow}, 
+        { "Sprites", SpriteAssetWindow }, 
+        { "Sounds", SoundAssetWindow }, 
+        { "Scenes", SceneAssetWindow }
+    };
+}
+
+void AssetWindow(std::set<Entity>const& mEntities) {
+    // Global or static variable
+    static int activeChild = 0;
+
+    // Inside your rendering loop
+    ImGui::Begin("Asset");
+    // Get the available width of the window
+    float totalWidth = ImGui::GetContentRegionAvail().x;
+
+    // Create 2 columns
+    ImGui::Columns(2, nullptr, false);
+
+    // Set the width of the first column to be 20% of the total width
+    ImGui::SetColumnWidth(0, totalWidth * 0.15f);
+    for (int i{}; i < gAssetwindows.size(); ++i) {
+        // Check if the button is the active one and push the style color
+        bool isButtonActive = i == activeChild;
+        if (isButtonActive) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Example: Orange color for active button
+        }
+
+        // Create the button
+        if (ImGui::Button(gAssetwindows[i].first.c_str(), ImVec2(totalWidth * 0.12f, 20))) {
+            activeChild = i;
+        }
+
+        // Only pop the style color if it was pushed
+        if (isButtonActive) {
+            ImGui::PopStyleColor();
+        }
+    }
+
+    ImGui::NextColumn();
+
+    gAssetwindows[activeChild].second(mEntities);
+    ImGui::Columns(1);
     ImGui::End();
+
 }
 /**
  * @brief Checks if a string is found within another string.

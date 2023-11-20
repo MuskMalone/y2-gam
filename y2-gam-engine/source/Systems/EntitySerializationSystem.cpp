@@ -66,7 +66,28 @@ namespace Serializer {
 			}
 		}
 	}
+	/*  _________________________________________________________________________ */
+/*! LoadEntities
 
+   @param name
+   The name of the JSON file to load entities from.
+
+   This function loads entities from a specified JSON file.
+*/
+	void EntitySerializationSystem::LoadEntities(Serializer::JSONObj& obj) {
+		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+
+		if (!obj.IsArray()) return;
+		for (auto const& item : obj.GetArray()) {
+			if (!item.IsObject()) continue;
+			Entity entity{ gCoordinator->CreateEntity() };
+			for (auto itr = item.MemberBegin(); itr != item.MemberEnd(); ++itr) {
+				auto at{ gComponentSerializer.find(itr->name.GetString()) };
+				if (at == gComponentSerializer.end()) continue;
+				at->second(entity, itr->value);
+			}
+		}
+	}
 	/*  _________________________________________________________________________ */
 	/*! FlushEntities
 
@@ -91,6 +112,25 @@ namespace Serializer {
 		sm->InsertValue("Entities", entArr);
 		SerializationManager::GetInstance()->FlushJSON(name);
 
+	}
+	/*  _________________________________________________________________________ */
+/*! FlushEntities
+
+   @param name
+   The name of the JSON file to flush entities to.
+
+   This function writes the current state of entities to a specified JSON file.
+   It serializes the entities and their components, then saves the data to the file.
+*/
+	void EntitySerializationSystem::FlushEntities(Serializer::JSONObj& obj) {
+		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		if (!obj.IsArray()) return;
+		for (auto const& entity : mEntities) {
+			JSONObj entityObj{ JSON_OBJ_TYPE };
+			SerializeEntity(entity, entityObj);
+			if (!entityObj.ObjectEmpty())
+				sm->PushToArray(obj, entityObj);
+		}
 	}
 	/*  _________________________________________________________________________ */
 	/*! EntityEventListener

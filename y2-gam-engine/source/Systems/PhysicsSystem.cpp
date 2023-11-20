@@ -243,11 +243,11 @@ arbiter table and resets the `isGrounded` flag for all rigid bodies.
     {
         UNREFERENCED_PARAMETER(dt);
         mArbiterTable.clear();
-        for (auto const& entity : mEntities)
-        {
-            auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
-            rigidBody.isGrounded = false;
-        }
+        //for (auto const& entity : mEntities)
+        //{
+        //    auto& rigidBody = gCoordinator->GetComponent<RigidBody>(entity);
+        //    rigidBody.isGrounded = false;
+        //}
     }
     /*  _________________________________________________________________________ */
 /*! PhysicsSystem::PostCollisionUpdate

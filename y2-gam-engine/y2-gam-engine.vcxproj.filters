@@ -63,6 +63,8 @@
     <ClCompile Include="source\Physics\Physics.cpp" />
     <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
+    <ClCompile Include="source\Engine\SceneManager.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -150,6 +152,9 @@
     <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
     <ClInclude Include="include\Systems\ImguiSystem.hpp" />
+    <ClInclude Include="include\Engine\SceneManager.hpp" />
+    <ClInclude Include="include\Components\Prefab.hpp" />
+    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
   </ItemGroup>
   <ItemGroup>

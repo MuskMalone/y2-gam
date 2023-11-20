@@ -46,6 +46,7 @@ Returns the ResourceID of the loaded animation.
 This function loads a texture from the specified path, creates animation frames based on the given parameters, and stores the animation properties in the manager.
 */
 ResourceID AnimationManager::LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim) {
+	if (mAnimationFrameLists.find(rid) != mAnimationFrameLists.end()) return rid;
 	ResourceID texID = SpriteManager::LoadTexture(path);
 	AnimationProperties ap{};
 	ap.path = path;
