@@ -24,6 +24,7 @@ public class EnemyPatrolState : EnemyBaseState
     public override void EnterState(BasicEnemy enemy)
     {
         enemy.SetText("Patrol State");
+        enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)

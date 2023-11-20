@@ -132,7 +132,7 @@
             },
             "Script": {
                 "script": "ObjectBasicEnemy",
-                "isFacingRight": true
+                "isFacingRight": false
             },
             "Sprite": {
                 "r": 1.0,
