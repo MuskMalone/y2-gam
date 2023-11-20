@@ -7,6 +7,9 @@ public:
 	static std::shared_ptr<SceneManager> GetInstance();
 	void Init();
 	void LoadScene(std::string const&);
+
+	//updates the json data, not every frame;
+	void ModifyScene(std::string const&);
 	void SaveScene(std::string const&);
 	void ExitScene(std::string const&);
 	void ResetScene(std::string const&);

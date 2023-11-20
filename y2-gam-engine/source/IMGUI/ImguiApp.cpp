@@ -135,7 +135,8 @@ namespace Image {
 
                 //}
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
-                    SceneManager::GetInstance()->SaveScene(gCurrentScene);
+                    if (gCurrentScene != "")
+                        SceneManager::GetInstance()->SaveScene(gCurrentScene);
                 }
                 //if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
 
@@ -160,21 +161,24 @@ namespace Image {
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
             if (ImGui::MenuItem("Play")) {
-                if (renderSystem->IsEditorMode()) {
+                if (renderSystem->IsEditorMode() && gCurrentScene != "") {
+                    SceneManager::GetInstance()->ModifyScene(gCurrentScene);
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
                 }
             }
             if (ImGui::MenuItem("Stop")) {
+                if (gCurrentScene != "") {
+                    //if (!renderSystem->IsEditorMode()) {
+                    //    //std::cout << "Stop to toggle to editer mode" << std::endl;
+                    //    renderSystem->ToggleEditorMode();
+                        ImGui::SetWindowFocus("Image Game Engine");
 
-                if (!renderSystem->IsEditorMode()) {
-                    //std::cout << "Stop to toggle to editer mode" << std::endl;
-                    renderSystem->ToggleEditorMode();
-                    ImGui::SetWindowFocus("Image Game Engine");
+                    //}
+                    SceneManager::GetInstance()->ResetScene(gCurrentScene);
 
                 }
-                SceneManager::GetInstance()->ResetScene(gCurrentScene);
             }
             ImGui::EndMainMenuBar();
         }
@@ -287,7 +291,7 @@ namespace Image {
                         Sprite s{{1,1,1, 1}};
                         s.spriteAssetID = droppedAid;
                         gCoordinator->AddComponent(
-                            gSelectedEntity,
+                            entity,
                             s);
                     }
                     SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
@@ -310,7 +314,7 @@ namespace Image {
                         //a.assetID = droppedAid;
                         a.states.emplace_back(droppedAid);
                         gCoordinator->AddComponent(
-                            gSelectedEntity,
+                            entity,
                             a);
                     }
                     SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
@@ -1160,7 +1164,7 @@ namespace Image {
             prefabVp = contentSize;
         }
 
-        Entity selectedPrefab = 9;
+        Entity selectedPrefab = 6;
         gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });

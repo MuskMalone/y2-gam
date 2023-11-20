@@ -1,7 +1,15 @@
 #include "../include/pch.hpp"
 #include <Engine/PrefabsManager.hpp>
+
 namespace {
-    PrefabEntry gSelectedPrefab;
+    bool gSelected = false;
+    PrefabsManager::PrefabID gSelectedPrefab{static_cast<PrefabsManager::PrefabID>(-1)};
+}
+Entity const& GetSelectedPrefabEntryEntity() {
+    if (gSelectedPrefab == static_cast<PrefabsManager::PrefabID>(-1)) {
+        return PrefabsManager::GetInstance()->GetEntityFactory().begin()->second.entity;
+    }
+    return PrefabsManager::GetInstance()->GetEntityFactory().at(gSelectedPrefab).entity;
 }
 void PrefabsWindow() {
     ImGui::Begin("Prefabs");
@@ -27,7 +35,7 @@ void PrefabsWindow() {
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
             //add actions
-            ::gSelectedPrefab = prefab.second;
+            ::gSelectedPrefab = prefab.first;
         }
 
 

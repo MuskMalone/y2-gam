@@ -117,6 +117,8 @@ namespace Serializer {
 	*/
 	bool SerializationManager::OpenJSON(std::string const& name) {
 		path = mPath + name + mExt;
+		if (mDocumentMap.find(path) != mDocumentMap.end()) 
+			return (mDocumentMap[path].IsObject());
 		std::ifstream jsonFile{};
 		CreateJSON(jsonFile, path);
 		std::stringstream buffer;
