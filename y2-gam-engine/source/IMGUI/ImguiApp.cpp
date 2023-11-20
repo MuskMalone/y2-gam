@@ -32,6 +32,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/ImguiSystem.hpp"
 #include "Logging/LoggingSystem.hpp"
 #include <Core/Globals.hpp>
 #include <Core/FrameRateController.hpp>
@@ -44,6 +45,7 @@
 #include <Graphics/AnimationManager.hpp>
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
+
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
 
@@ -66,7 +68,7 @@ namespace Image {
     */
     void AppRender(std::set<Entity>const& mEntities,float dt) {
         ::gCoordinator = Coordinator::GetInstance();
-
+        ImGui::PushFont(mainfont);
         //static bool toDelete{ false };
 
         //if (ImGui::IsKeyReleased(ImGuiKey_C)) {
@@ -108,6 +110,7 @@ namespace Image {
         //    toDelete = !toDelete;
 
         //}
+        ImGui::PopFont();
     }
     /*  _________________________________________________________________________ */
     /*! MainMenuWindow
@@ -119,6 +122,7 @@ namespace Image {
     Displaying the menu bar.
     */
     void MainMenuWindow() {
+        ImGui::PushFont(mainfont);
         if (ImGui::BeginMainMenuBar())
         {
             //Read files maybe
@@ -172,6 +176,7 @@ namespace Image {
 
                 }
             }
+            ImGui::PopFont();
             ImGui::EndMainMenuBar();
         }
     }
@@ -188,6 +193,7 @@ namespace Image {
     listen from.
     */
     void HierarchyWindow(std::set<Entity>const& mEntities) {
+        ImGui::PushFont(mainfont);
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
@@ -315,6 +321,7 @@ namespace Image {
             //    // Add more entity interaction options here...
             //    ImGui::EndPopup();
             //}
+        ImGui::PopFont();
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -328,18 +335,21 @@ namespace Image {
     modification to its components.
     */
     void InspectorWindow() {
+        ImGui::PushFont(mainfont);
         // Inspector Panel
         ImGui::Begin("Inspector");
         //TransformComponent
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
+
             if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(gSelectedEntity);
               
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+                    
                     // Position
                     ImGui::Text("Position");
                     ImGui::SetNextItemWidth(50.f);
@@ -582,6 +592,7 @@ namespace Image {
             }
             ImGui::PopStyleColor(2);
         }
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -596,6 +607,7 @@ namespace Image {
     adding or removing components.
     */
     void PropertyWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Property");
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag" };
         static int selectedComponent{ -1 };
@@ -777,6 +789,7 @@ namespace Image {
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
 
         }
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -942,7 +955,6 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
         ImGui::End();
     }
 
@@ -956,12 +968,13 @@ namespace Image {
     This function displays the prefab framebuffer window.
     */
     void PrefabWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Prefab Editor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(1);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -975,6 +988,7 @@ namespace Image {
     This function displays all the assets and allows for dragging of the assets.
     */
     void ContentWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Content Browser");
         static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
         static std::shared_ptr<Texture> fileIcon = Texture::Create("../Icon/FileIcon.png");
@@ -1023,6 +1037,7 @@ namespace Image {
         }
 
         ImGui::Columns(1);// go back to default
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -1039,6 +1054,7 @@ namespace Image {
     various systems
     */
     void PerformanceWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Performance Viewer");
         auto frameController = FrameRateController::GetInstance();
         static float fpsValues[gPercent] = {};
@@ -1088,7 +1104,7 @@ namespace Image {
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
-
+        ImGui::PopFont();
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -1102,6 +1118,7 @@ namespace Image {
     bottom.
     */
     void LoggingWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Log");
         // Retrieve logs from LoggingSystem
         LoggingSystem& logger = LoggingSystem::GetInstance();
@@ -1117,6 +1134,7 @@ namespace Image {
             if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                 ImGui::SetScrollHereY(1.0f);
         }
+        ImGui::PopFont();
         ImGui::EndChild();
         ImGui::End();
     }
@@ -1130,13 +1148,14 @@ namespace Image {
     quads, vertices, and indices, and then resets the stats for the next frame.
     */
     void RenderStatsWindow() {
-
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Renderer Stats");
         auto stats = Renderer::GetStats();
         ImGui::Text("Draw Calls: %d", stats.drawCalls);
         ImGui::Text("Quads: %d", stats.quadCount);
         ImGui::Text("Vertices: %d", stats.GetTotalVtxCount());
         ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
+        ImGui::PopFont();
         ImGui::End();
         Renderer::ResetStats();
     }
