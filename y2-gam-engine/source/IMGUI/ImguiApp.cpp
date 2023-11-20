@@ -51,6 +51,8 @@
 #include <IMGUI/AssetBrowser.hpp>
 const int   gPercent      = 100;
 const float gScalingFactor = 1.5f;
+bool gSnap = false;
+float gSnapVal = 1.f;
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
 Entity gSelectedEntity=MAX_ENTITIES;
@@ -986,10 +988,11 @@ namespace Image {
             glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
             glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
             glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-
+            float snapArr[3] = { gSnapVal, gSnapVal, gSnapVal };
             ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
                 gCurrentGuizmoOperation, gCurrentGizmoMode,
-                glm::value_ptr(transformMatrix), nullptr, nullptr);
+                glm::value_ptr(transformMatrix), nullptr, 
+                gSnap ? snapArr : nullptr);
             if (ImGuizmo::IsUsing()) {
                 glm::vec3 position, rotation, scale;
                 Image::DecomposeTransform(transformMatrix, position, rotation, scale);
@@ -1214,7 +1217,7 @@ namespace Image {
     }
 
     void GuizmoWindow() {
-        ImGui::Begin("Guizmo editor");
+        ImGui::Begin("Gizmo Editor");
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
@@ -1248,6 +1251,20 @@ namespace Image {
             if (ImGui::RadioButton("World", gCurrentGizmoMode == ImGuizmo::WORLD))
                 gCurrentGizmoMode = ImGuizmo::WORLD;
         }
+        ImGui::Checkbox("Enable Snapping", &gSnap);
+        //std::cout << gSnap;
+        //ImGui::SameLine();
+        if (gSnap) {
+            if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                ImGui::InputFloat("Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                ImGui::InputFloat("Angle Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                ImGui::InputFloat("Scale Snap", &gSnapVal);
+            }
+       }
         ImGui::End();
 
     }

@@ -8606,3 +8606,635 @@
 
 [INFO]: Framebuffer is complete! 2023-11-20 15:00:09 FN: Framebuffer::Recreate
 
+[INFO]: Successful FMOD System Creation 2023-11-21 05:20:20 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:20:20 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:20:20 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:20:20 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:20:20 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:21:07 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:21:07 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-21 05:21:08 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-21 05:21:08 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:21:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-21 05:21:08 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-21 05:21:08 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-21 05:21:08 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-21 05:21:08 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-21 05:21:08 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-21 05:21:08 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:21:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:21:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:21:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:21:08 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-21 05:21:08 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-21 05:21:08 FN: Framebuffer::Recreate
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerAttack.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successfully loaded sound file../assets/audio/playerJump.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-21 05:21:08 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-21 05:21:08 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:21:08 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-21 05:21:08 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-21 05:21:08 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful set loop count to -1 2023-11-21 05:21:08 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Now playing 2023-11-21 05:21:08 FN: Image::SoundManager::AudioPlay
+
+[INFO]: Paused Group 2023-11-21 05:21:08 FN: Image::SoundManager::AudioPauseGroup
+
+[INFO]: Mono method .ctor created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method .ctor created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-21 05:21:08 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Framebuffer is complete! 2023-11-21 05:21:08 FN: Framebuffer::Recreate
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:21:23 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:21:23 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:21:24 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:21:24 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:21:24 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:24:35 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:24:35 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:24:35 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:24:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:24:35 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:24:35 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:24:35 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:24:35 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:24:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:24:57 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:24:58 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:24:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:24:58 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:24:58 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:24:58 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:24:58 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:26:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:26:05 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:26:06 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:26:06 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:26:06 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:26:45 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:26:45 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:26:45 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:26:45 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:26:45 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:26:45 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:26:45 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:26:45 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:27:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:27:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:27:02 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:27:02 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:27:02 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:27:03 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:27:03 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:28:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:28:02 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:28:02 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:29:48 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:29:49 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:29:49 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:29:49 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-21 05:29:49 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:30:36 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:30:36 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:30:36 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:30:36 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:30:36 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:30:36 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:30:36 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:30:37 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:34:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:34:43 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:34:43 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:34:43 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:34:43 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:34:43 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:34:43 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:34:43 FN: AssetManager::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:37:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:37:31 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:37:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:37:32 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-21 05:37:32 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-21 05:37:32 FN: Image::FontRenderer::Init
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:38:19 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:38:19 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:38:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:38:19 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-21 05:38:19 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-21 05:38:19 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:38:19 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-21 05:38:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-21 05:38:19 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-21 05:38:19 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful FMOD System Creation 2023-11-21 05:38:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-21 05:38:40 FN: Image::SoundManager::AudioInit
+
+[INFO]: Aid, Path, Sysname: 1698648904161047500, ../assets/audio/teleport.wav, classImage::SoundManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/teleport.wav 2023-11-21 05:38:41 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698648904161071400, ../assets/audio/bgm.wav, classImage::SoundManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets/audio/bgm.wav 2023-11-21 05:38:41 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-21 05:38:41 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-21 05:38:41 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-21 05:38:41 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-21 05:38:41 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-21 05:38:41 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-21 05:38:41 FN: Image::FontRenderer::LoadFont
+
