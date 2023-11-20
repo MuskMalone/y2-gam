@@ -115,6 +115,14 @@
             "idxY": 0.0,
             "dimX": 180.0,
             "dimY": 178.0
+        },
+        "1700464448871150500": {
+            "id": 1700464448871277000,
+            "path": "../assets\\Textures\\gam200_scaffolding_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 316.0,
+            "dimY": 318.0
         }
     },
     "classAnimationManager": {

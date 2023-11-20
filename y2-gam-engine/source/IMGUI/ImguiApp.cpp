@@ -48,10 +48,6 @@
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
 
-const int   gPercent      = 100;
-const float gScalingFactor = 1.5f;
-
-
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
