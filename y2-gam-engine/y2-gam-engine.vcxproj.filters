@@ -65,6 +65,11 @@
     <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
     <ClCompile Include="source\Engine\SceneManager.cpp" />
     <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -156,6 +161,12 @@
     <ClInclude Include="include\Components\Prefab.hpp" />
     <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Logging\backward.hpp" />
+    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

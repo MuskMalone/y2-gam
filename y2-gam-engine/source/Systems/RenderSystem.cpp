@@ -169,6 +169,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		mFramebuffers[0]->Bind();
 	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
+	//Renderer::SetClearColor({ 1.f, 0.f, 0.f, 1.f });
+
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
 

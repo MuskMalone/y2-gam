@@ -24,7 +24,11 @@
 #include "Mat2.h"
 #include "Mat3.h"
 #include "Mat4.h"
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>   
 using namespace Image;
 namespace Image {
 	constexpr float gPI{ 3.141592653589793238462643383279502884197169399375105f };
@@ -32,4 +36,5 @@ namespace Image {
 	float Degree(float rad);
 
 	float Radian(float degree);
+	bool DecomposeTransform(const glm::mat4& transform, glm::vec3& translation, glm::vec3& rotation, glm::vec3& scale);
 }
