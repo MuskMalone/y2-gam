@@ -57,7 +57,8 @@
                 "lockRotate": true
             },
             "Script": {
-                "script": "ObjectPlayer"
+                "script": "ObjectPlayer",
+                "isFacingRight": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -125,7 +126,8 @@
                 "lockRotate": true
             },
             "Script": {
-                "script": "ObjectBasicEnemy"
+                "script": "ObjectBasicEnemy",
+                "isFacingRight": true
             },
             "Sprite": {
                 "r": 1.0,
