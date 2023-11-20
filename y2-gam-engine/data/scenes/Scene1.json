@@ -31,8 +31,8 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 1,
-                "speed": 100.0,
+                "currFrame": 4,
+                "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Collider": {
@@ -102,7 +102,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 3,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -297,7 +297,7 @@
                 "states": [
                     1698992900427510800
                 ],
-                "currFrame": 8,
+                "currFrame": 2,
                 "speed": 0.14300000667572021,
                 "currState": 0
             },
@@ -333,7 +333,7 @@
                 "states": [
                     1698954684954475800
                 ],
-                "currFrame": 4,
+                "currFrame": 5,
                 "speed": 0.11999999731779099,
                 "currState": 0
             },
@@ -369,7 +369,7 @@
                 "states": [
                     1698954259805573200
                 ],
-                "currFrame": 7,
+                "currFrame": 3,
                 "speed": 0.13199999928474426,
                 "currState": 0
             },
@@ -405,7 +405,7 @@
                 "states": [
                     1698954487533620100
                 ],
-                "currFrame": 2,
+                "currFrame": 6,
                 "speed": 0.09700000286102295,
                 "currState": 0
             },
@@ -441,7 +441,7 @@
                 "states": [
                     1698954489840002900
                 ],
-                "currFrame": 2,
+                "currFrame": 6,
                 "speed": 0.09700000286102295,
                 "currState": 0
             },
