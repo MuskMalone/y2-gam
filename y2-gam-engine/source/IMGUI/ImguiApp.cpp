@@ -52,11 +52,9 @@
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
 
-const int   gPercent      = 100;
-const float gScalingFactor = 1.5f;
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
-Entity gSelectedEntity=MAX_ENTITIES;
+
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
@@ -1137,26 +1135,6 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        ImGui::EndChild();
-        //tch: for scene to drag drop
-        if (ImGui::BeginDragDropTarget()) {
-            //std::cout << "Began drag-drop target." << std::endl;
-
-            if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("SceneBrowser")) {
-
-                const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
-                std::filesystem::path basePath {""};
-                //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
-                if (gCurrentScene != "") {
-                    SceneManager::GetInstance()->ExitScene(gCurrentScene);
-                }
-                gCurrentScene = (basePath / payLoadPath).stem().string();
-
-                SceneManager::GetInstance()->LoadScene(gCurrentScene);
-            }
-            ImGui::EndDragDropTarget();
-        }
-
         if (gSelectedEntity != MAX_ENTITIES) {
           //glDisable(GL_DEPTH_TEST);
           //glDisable(GL_BLEND);
@@ -1200,6 +1178,26 @@ namespace Image {
           //glEnable(GL_BLEND);
           //glEnable(GL_DEPTH_TEST);
         }
+        ImGui::EndChild();
+        //tch: for scene to drag drop
+        if (ImGui::BeginDragDropTarget()) {
+            //std::cout << "Began drag-drop target." << std::endl;
+
+            if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("SceneBrowser")) {
+
+                const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+                std::filesystem::path basePath {""};
+                //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
+                if (gCurrentScene != "") {
+                    SceneManager::GetInstance()->ExitScene(gCurrentScene);
+                }
+                gCurrentScene = (basePath / payLoadPath).stem().string();
+
+                SceneManager::GetInstance()->LoadScene(gCurrentScene);
+            }
+            ImGui::EndDragDropTarget();
+        }
+
         ImGui::End();
     }
 
