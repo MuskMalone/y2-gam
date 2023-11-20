@@ -826,7 +826,7 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
-            std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
+            //std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
@@ -933,47 +933,7 @@ namespace Image {
         //guizmo
         //guizmo here
        // float* view = camera.GetViewMtx();
-        if (gSelectedEntity != MAX_ENTITIES) {
-            glDisable(GL_DEPTH_TEST);
-            glDisable(GL_BLEND);
-            //glClear(GL_DEPTH_BUFFER_BIT);
-            //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            ImGuizmo::SetOrthographic(true);
-            //ImGuizmo::SetGizmoSizeClipSpace(200.f);
-            ImGuizmo::SetDrawlist();
-            ImVec2 windowPos = ImGui::GetWindowPos();
-
-            float windowWidth = ImGui::GetWindowWidth();
-            float windowHeight = ImGui::GetWindowHeight();
-            //std::cout << "window posx :" << windowPos.x << " y: " << windowPos.y << std::endl;
-            //std::cout << "window width :" << windowWidth << " height: " << windowHeight << std::endl;
-
-            ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
-            glm::mat4 const& cameraProj = camera.GetProjMtx();
-            glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
-            Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
-            // Create a transformation matrix from position, rotation, and scale
-
-            glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
-            glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), transform.rotation.z, glm::vec3(0, 0, 1));
-            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
-            glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-
-            ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
-                gCurrentGuizmoOperation, gCurrentGizmoMode,
-                glm::value_ptr(transformMatrix), nullptr, nullptr);
-            if (ImGuizmo::IsUsing()) {
-                glm::vec3 position, rotation, scale;
-                Image::DecomposeTransform(transformMatrix, position, rotation, scale);
-                //std::cout << "Rot.z" << rotation.z << "transform z" << transform.rotation.z << std::endl;
-                float deltaRotationZ = rotation.z - transform.rotation.z;
-                transform.position = position;
-                transform.rotation.z += deltaRotationZ;
-                transform.scale = scale;
-            }
-            //glEnable(GL_BLEND);
-            glEnable(GL_DEPTH_TEST);
-        }
+        
 
 
         //tch: hello this is my input part
@@ -1001,7 +961,49 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        if (gSelectedEntity != MAX_ENTITIES) {
+            //glDisable(GL_DEPTH_TEST);
+            //glDisable(GL_BLEND);
+            //glClear(GL_DEPTH_BUFFER_BIT);
+            //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            ImGuizmo::SetOrthographic(true);
+            //ImGuizmo::SetGizmoSizeClipSpace(200.f);
+            ImGuizmo::SetDrawlist();
+            ImVec2 windowPos = ImGui::GetWindowPos();
 
+            float windowWidth = ImGui::GetWindowWidth();
+            float windowHeight = ImGui::GetWindowHeight();
+            //std::cout << "window posx :" << windowPos.x << " y: " << windowPos.y << std::endl;
+            //std::cout << "window width :" << windowWidth << " height: " << windowHeight << std::endl;
+
+            ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
+            glm::mat4 const& cameraProj = camera.GetProjMtx();
+            glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
+            Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+            // Create a transformation matrix from position, rotation, and scale
+
+            glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
+            glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
+            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
+            glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+
+            ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
+                gCurrentGuizmoOperation, gCurrentGizmoMode,
+                glm::value_ptr(transformMatrix), nullptr, nullptr);
+            if (ImGuizmo::IsUsing()) {
+                glm::vec3 position, rotation, scale;
+                Image::DecomposeTransform(transformMatrix, position, rotation, scale);
+                std::cout << "Rot.z" << rotation.z << "transform z" << transform.rotation.z << std::endl;
+                float deltaRotationZ = glm::degrees(rotation.z) - transform.rotation.z;
+                transform.position = position;
+
+                transform.rotation.z = glm::degrees(rotation.z);
+
+                transform.scale = scale;
+            }
+            //glEnable(GL_BLEND);
+            //glEnable(GL_DEPTH_TEST);
+        }
         ImGui::End();
     }
 
