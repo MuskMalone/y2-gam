@@ -235,12 +235,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 		dt = frameController->EndFrameTime();
-#ifndef _INSTALLER
-		std::string title = "Image Engine";
-#else
-		std::string title = "Blink";
-#endif
-		windowManager->UpdateWindowTitle(title);
+		windowManager->UpdateWindowTitle(WINDOW_TITLE);
 
 	}
 	Image::ScriptManager::ExitMono();

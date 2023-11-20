@@ -570,17 +570,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Shaders\fragment.glsl" />
-    <None Include="..\Shaders\Line.frag" />
-    <None Include="..\Shaders\Line.vert" />
-    <None Include="..\Shaders\Tex.frag" />
-    <None Include="..\Shaders\Tex.vert" />
-    <None Include="..\Shaders\vertex.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Textures\Attack_1.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

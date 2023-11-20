@@ -18,12 +18,18 @@
 /******************************************************************************/
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
+#include <Windows.h>
 
 namespace Image {
 
   FMOD::System* SoundManager::sSystem{ nullptr };
   std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
   using SoundAssetPair = std::pair<Sound, SoundProperties>;
+
+  namespace {
+    HWND gameWindowHandle;
+    HWND foregroundWindow;
+  }
 
 
   /*  _________________________________________________________________________ */
@@ -81,9 +87,24 @@ namespace Image {
   Should be called somewhere in the engine's main update loop.
   */
   void SoundManager::AudioUpdate() {
-    FMOD_RESULT result;
-    result = sSystem->update();
+    FMOD_RESULT result{};
 
+    FMOD::ChannelGroup* masterGroup;
+    sSystem->getMasterChannelGroup(&masterGroup);
+
+    ::gameWindowHandle = FindWindowA(NULL, WINDOW_TITLE);
+    ::foregroundWindow = GetForegroundWindow();
+
+    if (::gameWindowHandle == ::foregroundWindow) {
+      masterGroup->setPaused(false);
+    }
+
+    else {
+      masterGroup->setPaused(true);
+    }
+    
+    result = sSystem->update();
+    
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
         std::string str(FMOD_ErrorString(result));

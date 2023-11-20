@@ -49,7 +49,7 @@ void EditorControlSystem::Init()
 
 	// Sound Testing
 	::sampleEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav");
-	::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	//::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
 	::attackEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerAttack.wav");
 	::jumpEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerJump.wav");
 	::bgmGroup = Image::SoundManager::AudioCreateGroup();
@@ -76,7 +76,7 @@ void EditorControlSystem::Update(float dt)
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	// Audio Testing
-	/*
+	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
 		Image::SoundManager::AudioResumeGroup(::bgmGroup);
 	}
@@ -84,7 +84,7 @@ void EditorControlSystem::Update(float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
 		Image::SoundManager::AudioPauseGroup(::bgmGroup);
 	}
-
+	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
 		Image::SoundManager::AudioPlay(::sampleEffect, ::effectGroup, 0);
 	}
@@ -105,7 +105,8 @@ void EditorControlSystem::Update(float dt)
 	}
 
 	// NODE RELATED START
-
+	// Temporarily Disabled
+	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Physics::RayHit rh{};
@@ -138,8 +139,7 @@ void EditorControlSystem::Update(float dt)
       }
     }
 	}
-	// Temporarily Disabled
-	/*
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) && !isClicked) {
 		Physics::RayHit rh{};
 
@@ -168,7 +168,7 @@ void EditorControlSystem::Update(float dt)
 			//NodeManager::RemoveNode(rh.entityID);
 		}
   }
-	*/
+
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
@@ -187,7 +187,7 @@ void EditorControlSystem::Update(float dt)
 		// Print the shortest path
     NodeManager::PrintPath(path);
   }
-
+	*/
 	// NODE RELATED END
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&

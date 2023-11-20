@@ -170,7 +170,6 @@
     <ClInclude Include="include\Components\UIImage.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Textures\Attack_1.png" />
     <ClInclude Include="include\Graphics\Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -340,13 +339,5 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Shaders\fragment.glsl" />
-    <None Include="..\Shaders\Line.frag" />
-    <None Include="..\Shaders\Line.vert" />
-    <None Include="..\Shaders\Tex.frag" />
-    <None Include="..\Shaders\Tex.vert" />
-    <None Include="..\Shaders\vertex.glsl" />
   </ItemGroup>
 </Project>
