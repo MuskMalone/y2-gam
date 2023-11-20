@@ -90,6 +90,7 @@ void AnimationSystem::Update(float dt) {
 		auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
 		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 		if (animation.states.empty()) continue;
+		if (animation.currState >= animation.states.size()) animation.currState = animation.states.size() - 1;
 		size_t& frameIdx { animation.currFrame };
 		//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this

@@ -42,6 +42,7 @@ maximum number of entities is not exceeded.
 */
 	Entity CreateEntity()
 	{
+		std::cout << mLivingEntityCount << "mLivingENtityCountCreate\n";
 		assert(mLivingEntityCount < MAX_ENTITIES && "Too many entities in existence.");
 		if (mLivingEntityCount >= MAX_ENTITIES) throw std::out_of_range{"too many entities	"};
 		Entity id = mAvailableEntities.front();
@@ -62,6 +63,7 @@ available for future entities.
 */
 	void DestroyEntity(Entity entity)
 	{
+		std::cout << mLivingEntityCount << "mLivingENtityCountDestory-------\n";
 		assert(entity < MAX_ENTITIES && "Entity out of range.");
 
 		mSignatures[entity].reset();

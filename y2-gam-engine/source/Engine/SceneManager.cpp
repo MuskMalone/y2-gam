@@ -61,12 +61,14 @@ void SceneManager::SaveScene(std::string const& scnpath) {
 	SerializationManager::GetInstance()->FlushJSON(filename);
 }
 void SceneManager::ExitScene(std::string const& scnpath) {
+	mSceneListenerStart = false;
+
 	auto coordinator{ Coordinator::GetInstance() };
 
 	for (auto const& e : mEntities) {
 		coordinator->DestroyEntity(e);
 	}
-	mSceneListenerStart = false;
+	mEntities.clear();
 }
 void SceneManager::ResetScene(std::string const& scnpath) {
 	ExitScene(scnpath);
