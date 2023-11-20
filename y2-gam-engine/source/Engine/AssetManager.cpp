@@ -61,8 +61,10 @@ void AssetManager::LoadAssetChunk(std::set<AssetID> const& assetChunk) {
 			ResourceID rid{ ass->value["id"].GetUint64() };
 			mAssets[aid] = { path, sysName, rid };
 			//std::cout << "aid, path, sysname: " << aid << " " << path << " " << sysName << std::endl;
+#ifndef _INSTALLER
 			LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Aid, Path, Sysname: " + std::to_string(aid) +
 				", " + path + ", " + sysName, __FUNCTION__);
+#endif
 
 			//could use type reflection.
 			LoadAID(aid);

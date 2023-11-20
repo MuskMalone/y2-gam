@@ -46,6 +46,7 @@ private:
 	GLFWwindow* mWindow{};
 
 	int mWindowedWidth{ENGINE_SCREEN_WIDTH}, mWindowedHeight{ENGINE_SCREEN_HEIGHT};
+	//int mWindowedWidth{}, mWindowedHeight{};
 	int mWindowedPosX{}, mWindowedPosY{};
 
 #ifndef _INSTALLER

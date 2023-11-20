@@ -342,12 +342,24 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h" />
-    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h" />
-    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h" />
-    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
-    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
-    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
+    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c">
@@ -374,6 +386,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">Use</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="source\Engine\SceneManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
@@ -405,7 +418,9 @@
     <ClCompile Include="source\IMGUI\ImguiApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -532,22 +547,27 @@
     <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

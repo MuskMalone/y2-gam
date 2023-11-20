@@ -205,6 +205,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	NodeManager::Initialize();
 
+	// TEMP
+	SceneManager::GetInstance()->LoadScene("Scene1");
+
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
