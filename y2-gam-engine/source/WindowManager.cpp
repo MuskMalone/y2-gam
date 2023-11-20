@@ -30,10 +30,11 @@ void WindowManager::Init(
 
 	mWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
 
+#ifdef _INSTALLER
 	//start in fullscreen mode
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
-	mIsFullscreen = true;
+#endif
 
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
