@@ -132,9 +132,9 @@ namespace Object
 
                 else
                 {
-                    //AnimationState = (int)AnimationCode.IDLE;
-                    if (isGrounded)
-                        AssetID = 1698945575867297200;
+                    AnimationState = (int)AnimationCode.IDLE;
+                    //if (isGrounded)
+                        //AssetID = 1698945575867297200;
                 }
             }
         }
@@ -147,8 +147,8 @@ namespace Object
         public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            //AnimationState = (int)AnimationCode.RUN;
-            AssetID = 1698992900427510800;
+            AnimationState = (int)AnimationCode.RUN;
+            //AssetID = 1698992900427510800;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
@@ -156,15 +156,15 @@ namespace Object
         public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            //AnimationState = (int)AnimationCode.RUN;
-            AssetID = 1698992900427510800;
+            AnimationState = (int)AnimationCode.RUN;
+            //AssetID = 1698992900427510800;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            AssetID = 1698954684954475800;
+            //AssetID = 1698954684954475800;
             Force += new Vector2(0, JumpForce) * dt;
         }
     }

@@ -115,6 +115,7 @@ namespace Image
 
         Getter setter for AssetID.
         */
+        /*
         public long AssetID
         {
             get
@@ -127,6 +128,7 @@ namespace Image
                 InternalCalls.AnimationComponent_SetAssetID(entityID, ref value);
             }
         }
+        */
 
         /*  _________________________________________________________________________ */
         /*! AnimationState

@@ -202,11 +202,13 @@ namespace Image {
 
 	Get the current asset ID of the entity in C#.
 	*/
+	/*
 	static void AnimationComponent_GetAssetID(uint32_t entityID, int64_t* outAssetID) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Animation>(entityID))
 			*outAssetID = gCoordinator->GetComponent<Animation>(entityID).assetID;
 	}
+	*/
 
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_SetAssetID
@@ -221,11 +223,13 @@ namespace Image {
 
 	Set the current asset ID of the entity in C#.
 	*/
+	/*
 	static void AnimationComponent_SetAssetID(uint32_t entityID, int64_t* assetID) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Animation>(entityID))
 			gCoordinator->GetComponent<Animation>(entityID).assetID = *assetID;
 	}
+	*/
 
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
@@ -594,8 +598,8 @@ Get the current scale of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
-		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAssetID);
-		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAssetID);
+		//IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAssetID);
+		//IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAssetID);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);

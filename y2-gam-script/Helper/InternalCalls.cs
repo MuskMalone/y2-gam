@@ -67,8 +67,8 @@ namespace Image
 
         Get the current asset ID of the entity in C#.
         */
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
+        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        //internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
 
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_SetAssetID
@@ -83,8 +83,8 @@ namespace Image
 
         Set the current asset ID of the entity in C#.
         */
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
+        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        //internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
 
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
