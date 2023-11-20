@@ -167,6 +167,7 @@
     <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
+    <ClInclude Include="include\Components\UIImage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\Attack_1.png" />

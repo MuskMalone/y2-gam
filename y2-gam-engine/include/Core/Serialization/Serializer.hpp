@@ -20,6 +20,7 @@
 #include <Components/Tag.hpp>
 #include <Components/Text.hpp>
 #include <Components/Transform.hpp>
+#include <Components/UIImage.hpp>
 namespace Serializer{
 static void EntityAddAnimation(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Animation{ obj });
@@ -63,6 +64,9 @@ Coordinator::GetInstance()->AddComponent(entity, Text{ obj });
 static void EntityAddTransform(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Transform{ obj });
 }
+static void EntityAddUIImage(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, UIImage{ obj });
+}
 template <typename _type> std::string TypeToString() {
 if constexpr (std::is_same_v<_type, Animation>) return "Animation";
 else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
@@ -78,6 +82,7 @@ else if constexpr (std::is_same_v<_type, Sprite>) return "Sprite";
 else if constexpr (std::is_same_v<_type, Tag>) return "Tag";
 else if constexpr (std::is_same_v<_type, Text>) return "Text";
 else if constexpr (std::is_same_v<_type, Transform>) return "Transform";
+else if constexpr (std::is_same_v<_type, UIImage>) return "UIImage";
 else return "NULL";
 }
 static void SerializeEntity(Entity const& entity, JSONObj& ent) {
@@ -179,6 +184,13 @@ bool res = Coordinator::GetInstance()->GetComponent<Transform>(entity).Serialize
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Transform>(), obj); }
 else { obj.SetNull(); }
 }
+if (Coordinator::GetInstance()->HasComponent<UIImage>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<UIImage>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<UIImage>(), obj); }
+else { obj.SetNull(); }
+}
 }
 static const std::map<std::string, std::function<void(Entity const&, rapidjson::Value const&)>> gComponentSerializer{
 {"Animation", EntityAddAnimation},
@@ -194,6 +206,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Sprite", EntityAddSprite},
 {"Tag", EntityAddTag},
 {"Text", EntityAddText},
-{"Transform", EntityAddTransform}
+{"Transform", EntityAddTransform},
+{"UIImage", EntityAddUIImage}
 };
 }

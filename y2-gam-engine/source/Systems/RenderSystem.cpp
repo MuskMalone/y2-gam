@@ -31,6 +31,7 @@
 #include "Graphics/FontRenderer.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Graphics/SpriteManager.hpp"
+#include "Components/UIImage.hpp"
 
 #include "Scripting/NodeManager.hpp"
 #include <Engine/AssetManager.hpp>
@@ -48,7 +49,17 @@ Retrieves the camera entity used in the rendering context.
 
 \return The camera entity.
 */
-Entity RenderSystem::GetCamera() { if (mEditorMode)return mCamera; else return mSceneCamera; }
+Entity RenderSystem::GetCamera() const { if (mEditorMode)return mCamera; else return mSceneCamera; }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief GetUICamera Function
+
+Retrieves the UI camera entity used in the rendering context.
+
+\return The UI camera entity.
+*/
+Entity RenderSystem::GetUICamera() const { return mUICamera; }
 
 /*  _________________________________________________________________________ */
 /*!
@@ -82,8 +93,8 @@ void RenderSystem::ToggleEditorMode() { mEditorMode = !mEditorMode; }
 
 Returns true when editor mode else return false.
 */
-bool RenderSystem::IsEditorMode() const{
-	return mEditorMode==true;
+bool RenderSystem::IsEditorMode() const {
+	return mEditorMode == true;
 }
 /*  _________________________________________________________________________ */
 /*!
@@ -93,34 +104,41 @@ Initializes the rendering system, setting up necessary resources.
 */
 void RenderSystem::Init()
 {
-	gCoordinator = Coordinator::GetInstance();
-	gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
+	::gCoordinator = Coordinator::GetInstance();
+	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	mCamera = gCoordinator->CreateEntity();
-	mSceneCamera = gCoordinator->CreateEntity();
+	mCamera = ::gCoordinator->CreateEntity();
+	mSceneCamera = ::gCoordinator->CreateEntity();
 
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
-	gCoordinator->AddComponent(
+	::gCoordinator->AddComponent(
 		mCamera,
-		Camera{aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y)}
+		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
 	);
 
 	float const zoomFactor{ 0.4f };
-	gCoordinator->AddComponent(
+	::gCoordinator->AddComponent(
 		mSceneCamera,
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
 	);
 
 	//Create prefab editor camera
-	const float pfHeight{50};
+	const float pfHeight{ 50 };
 
-	mPrefabEditorCamera = gCoordinator->CreateEntity();
-	gCoordinator->AddComponent(
+	mPrefabEditorCamera = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent(
 		mPrefabEditorCamera,
 		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
 	);
-	auto& pbCam = gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
-	
+	auto& pbCam = ::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
+
+	//create UI camera
+	mUICamera = ::gCoordinator->CreateEntity();
+	::gCoordinator->AddComponent(
+		mUICamera,
+		Camera{ aspectRatio, 0.f, ENGINE_SCREEN_WIDTH, 0.f, ENGINE_SCREEN_HEIGHT }
+	);
+
 	Renderer::Init();
 
 	//----------temp------------
@@ -129,7 +147,7 @@ void RenderSystem::Init()
 #else
 	mEditorMode = false;
 #endif
-	
+
 	FramebufferProps fbProps;
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
@@ -177,6 +195,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	mRenderQueue.clear();
 
 	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<UIImage>(entity)) continue;
 		RenderEntry entry{
 			.entity = entity,
 			.transform = &::gCoordinator->GetComponent<Transform>(entity),
@@ -197,19 +216,19 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	if (!mEditorMode) {
 		for (auto const& e : mEntities) {
-			if (!gCoordinator->HasComponent<Tag>(e)) continue;
-			auto const& tag = gCoordinator->GetComponent<Tag>(e);
+			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
 			if (tag.tag == "Player") {
 				mPlayer = e;
 			}
 		}
 
-		Transform const& playerTransform{ gCoordinator->GetComponent<Transform>(mPlayer) };
-		RigidBody const& playerRigidBody{ gCoordinator->GetComponent<RigidBody>(mPlayer) };
+		Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
+		RigidBody const& playerRigidBody{ ::gCoordinator->GetComponent<RigidBody>(mPlayer) };
 		glm::vec3 playerPosition{ playerTransform.position };
 		Vec2 playerVel{ playerRigidBody.velocity };
 
-		Camera& sceneCamera{ gCoordinator->GetComponent<Camera>(mSceneCamera) };
+		Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 		sceneCamera.mTargetEntity = mPlayer;
 		sceneCamera.UpdatePosition(playerPosition, playerVel);
 
@@ -217,14 +236,16 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
-	glDisable (GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 
 	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
 		// Added this flag for toggle visibility
-		if (!LayeringSystem::IsLayerVisible(gCoordinator->GetComponent<Layering>(entry.entity).assignedLayer)) continue;
+		if (::gCoordinator->HasComponent<Layering>(entry.entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entry.entity).assignedLayer)) continue;
+		}
 
 		if (entry.sprite->GetSpriteID()) {
 			//std::cout << entry.sprite->spriteID << std::endl;
@@ -244,11 +265,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 
 	Renderer::RenderSceneEnd();
+
+	RenderUI();
+
 	glEnable(GL_DEPTH_TEST);
 
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {
-
 		mFramebuffers[0]->Unbind();
 	}
 }
@@ -265,10 +288,10 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	Renderer::ClearDepth();
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
-	const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
-	const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
+	const auto& sprite = ::gCoordinator->GetComponent<Sprite>(prefab);
+	const auto& transform = ::gCoordinator->GetComponent<Transform>(prefab);
 
-	if(sprite.spriteID)
+	if (sprite.spriteID)
 		Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
 	else {
 		if (transform.elipse)
@@ -279,6 +302,42 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
+}
+
+void RenderSystem::RenderUI() {
+	//UI
+	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
+
+	for (auto const& entity : mEntities) {
+
+		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
+		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };
+		auto& sprite{ ::gCoordinator->GetComponent<Sprite>(entity) };
+		auto& transform{ ::gCoordinator->GetComponent<Transform>(entity) };
+
+		if (ui.enabled) {
+			// Constrain position within screen bounds
+			float minX = 0 + transform.scale.x / 2.0f; // Left boundary
+			float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
+			float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
+			float maxY = ENGINE_SCREEN_HEIGHT - transform.scale.y / 2.0f; // Top boundary
+
+			transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
+			transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
+
+			if (sprite.GetSpriteID())
+				Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
+			else {
+				if (transform.elipse)
+					Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+				else
+					Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+			}
+		}
+
+	}
+
+	Renderer::RenderSceneEnd();
 }
 /*  _________________________________________________________________________ */
 /*!
@@ -295,17 +354,9 @@ void RenderSystem::WindowSizeListener(Event& event)
 
 	Renderer::SetViewport(0, 0, windowWidth, windowHeight);
 
-	//float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
-	//float left = -WORLD_LIMIT_X * aspectRatio;
-	//float right = WORLD_LIMIT_X * aspectRatio;
-	//float bottom = -WORLD_LIMIT_Y;
-	//float top = WORLD_LIMIT_Y;
-
-	auto& camera = gCoordinator->GetComponent<Camera>(mCamera);
+	auto& camera = ::gCoordinator->GetComponent<Camera>(mCamera);
 
 	camera.mAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
 	camera.UpdateProjectionMtx();
 	//camera.SetProjectionMtx(left, right, bottom, top);
 }
-
-
