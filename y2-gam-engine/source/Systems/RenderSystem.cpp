@@ -130,7 +130,6 @@ void RenderSystem::Init()
 		mPrefabEditorCamera,
 		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
 	);
-	auto& pbCam = ::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera);
 
 	//create UI camera
 	mUICamera = ::gCoordinator->CreateEntity();
@@ -214,23 +213,29 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			return lhs.transform->position.z < rhs.transform->position.z;
 		});
 
+	//quick patch TODO REFACTOR CAMERA
+	bool playerFound{ false };
 	if (!mEditorMode) {
 		for (auto const& e : mEntities) {
 			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
 			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
 			if (tag.tag == "Player") {
 				mPlayer = e;
+				playerFound = true;
 			}
 		}
 
-		Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
-		RigidBody const& playerRigidBody{ ::gCoordinator->GetComponent<RigidBody>(mPlayer) };
-		glm::vec3 playerPosition{ playerTransform.position };
-		Vec2 playerVel{ playerRigidBody.velocity };
+		if (playerFound) {
+			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
+			RigidBody const& playerRigidBody{ ::gCoordinator->GetComponent<RigidBody>(mPlayer) };
+			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
+			glm::vec3 playerPosition{ playerTransform.position };
+			Vec2 playerVel{ playerRigidBody.velocity };
 
-		Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
-		sceneCamera.mTargetEntity = mPlayer;
-		sceneCamera.UpdatePosition(playerPosition, playerVel);
+			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
+			sceneCamera.mTargetEntity = mPlayer;
+			sceneCamera.UpdatePosition(playerPosition, playerVel);
+		}
 
 	}
 
@@ -238,7 +243,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 	glDisable(GL_DEPTH_TEST);
 
-	//auto const& camera = mEditorMode ? ::gCoordinator->GetComponent<OrthoCamera>(mCamera) : ::gCoordinator->GetComponent<Camera>(mSceneCamera);
 	Renderer::RenderSceneBegin(viewProjMtx);
 	for (auto const& entry : mRenderQueue)
 	{
@@ -248,7 +252,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 
 		if (entry.sprite->GetSpriteID()) {
-			//std::cout << entry.sprite->spriteID << std::endl;
 			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->GetSpriteID()), entry.sprite->color, entry.entity);
 		}
 		else {
