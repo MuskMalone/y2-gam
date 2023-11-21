@@ -54,13 +54,14 @@ namespace Image {
     static SoundProperties & GetAssetProperties(ResourceID);
     static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id);
 
+  public:
+    static SoundGroup musicGroup;
+    static SoundGroup sfxGroup;
+
   private:
     static FMOD::System* sSystem;
     static std::map<ResourceID, std::pair<Sound, SoundProperties>> _mSoundAssets;
     static std::map<std::string, ResourceID> sSoundResourceMap;
     static std::map<Sound, std::string> sGroupMap;
-
-    static SoundGroup musicGroup;
-    static SoundGroup sfxGroup;
   };
 }

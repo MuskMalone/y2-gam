@@ -53,6 +53,16 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! PlayAudio
+
+        Loads the specified scene.
+        */
+        public void PlayAudio(string audioFileName, int loopCount)
+        {
+            InternalCalls.EngineCore_PlayAudio(out audioFileName, out loopCount);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! LoadScene
 
         Loads the specified scene.

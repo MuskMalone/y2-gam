@@ -25,7 +25,8 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
-#include <Engine/SceneManager.hpp>
+#include "Engine/SceneManager.hpp"
+#include "Audio/Sound.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -75,6 +76,19 @@ namespace Image {
 	}
 
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PlayAudio
+
+	@param audioFileName
+
+	@return none.
+
+	Plays audio.
+	*/
+	static void EngineCore_PlayAudio(MonoString** audioFileName, int* loopCount) {
+		SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_LoadScene
 
@@ -609,14 +623,14 @@ Get the current scale of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 
-		//IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAssetID);
-		//IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAssetID);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);

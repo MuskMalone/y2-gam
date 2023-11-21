@@ -77,20 +77,12 @@ void EditorControlSystem::Update(float dt)
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
 		//Image::SoundManager::AudioPauseGroup(::bgmGroup);
+		//Image::SoundManager::AudioPauseGroup(Image::SoundManager::musicGroup);
 	}
-	/*
+	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-		Image::SoundManager::AudioPlay(::sampleEffect, ::effectGroup, 0);
+		//Image::SoundManager::AudioResumeGroup(Image::SoundManager::musicGroup);
 	}
-
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_4)) {
-		Image::SoundManager::AudioPlay(::attackEffect, ::effectGroup, 0);
-	}
-
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_SPACE)) {
-		Image::SoundManager::AudioPlay(::jumpEffect, ::effectGroup, 0);
-	}
-	*/ 
 
 #ifndef _INSTALLER
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
