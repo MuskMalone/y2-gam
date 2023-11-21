@@ -34,6 +34,9 @@ namespace Image
 
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_LoadScene(out String sceneName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
 
 

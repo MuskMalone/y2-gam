@@ -25,6 +25,7 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include <Engine/SceneManager.hpp>
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -74,6 +75,20 @@ namespace Image {
 	}
 
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_LoadScene
+
+	@param sceneName
+
+	@return none.
+
+	Loads the specified scene.
+	*/
+	static void EngineCore_LoadScene(MonoString** sceneName) {
+		::gCoordinator = Coordinator::GetInstance();
+		SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_IsEditorMode
 

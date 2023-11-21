@@ -53,6 +53,16 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! LoadScene
+
+        Loads the specified scene.
+        */
+        public void LoadScene(string sceneName)
+        {
+            InternalCalls.EngineCore_LoadScene(out sceneName);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! IsEditorMode
         
         Get the editor mode.
