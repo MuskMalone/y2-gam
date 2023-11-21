@@ -91,7 +91,6 @@ namespace Image {
         ContentWindow();
         //AssetWindow(mEntities);
         AssetWindow(mEntities);
-        PrefabsWindow();
         AssetPropertiesWindow(mEntities);
 
         LoggingWindow();
@@ -170,12 +169,12 @@ namespace Image {
             }
             if (ImGui::MenuItem("Stop")) {
                 if (gCurrentScene != "") {
-                    //if (!renderSystem->IsEditorMode()) {
-                    //    //std::cout << "Stop to toggle to editer mode" << std::endl;
-                    //    renderSystem->ToggleEditorMode();
+                    if (!renderSystem->IsEditorMode()) {
+                        //std::cout << "Stop to toggle to editer mode" << std::endl;
+                        renderSystem->ToggleEditorMode();
                         ImGui::SetWindowFocus("Image Game Engine");
 
-                    //}
+                    }
                     SceneManager::GetInstance()->ResetScene(gCurrentScene);
 
                 }
@@ -1164,7 +1163,7 @@ namespace Image {
             prefabVp = contentSize;
         }
 
-        Entity selectedPrefab = 6;
+        Entity selectedPrefab = GetSelectedPrefabEntryEntity();
         gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });

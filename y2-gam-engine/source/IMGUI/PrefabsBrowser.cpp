@@ -11,8 +11,8 @@ Entity const& GetSelectedPrefabEntryEntity() {
     }
     return PrefabsManager::GetInstance()->GetEntityFactory().at(gSelectedPrefab).entity;
 }
-void PrefabsWindow() {
-    ImGui::Begin("Prefabs");
+void PrefabsAssetWindow(std::set<Entity> const&) {
+    ImGui::BeginChild("Prefabs");
     static float padding = 15.f;
     static float size = 95.f;
     static float iconSize = padding + size;
@@ -44,5 +44,5 @@ void PrefabsWindow() {
         ImGui::PopID();
         // ImGui::SameLine();
     }
-    ImGui::End();
+    ImGui::EndChild();
 }

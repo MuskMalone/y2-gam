@@ -245,6 +245,7 @@ int main()
 	Image::SoundManager::AudioExit();
 	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
+	PrefabsManager::GetInstance()->Exit();
 	layeringSystem->Exit();
 	return 0;
 }
