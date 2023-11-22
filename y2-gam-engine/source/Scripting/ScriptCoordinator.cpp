@@ -201,7 +201,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
-		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag) {
+		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
 		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
@@ -215,7 +215,14 @@ namespace Image {
 			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
 		}
 		else {
-			*tag = mono_string_new(mono_domain_get(), "No Tag");
+			*tag = mono_string_new(mono_domain_get(), std::string("No Tag").c_str());
+		}
+
+		if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
+			*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+		}
+		else {
+			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
 		}
 	}
 

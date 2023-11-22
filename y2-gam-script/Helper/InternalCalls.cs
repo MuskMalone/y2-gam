@@ -56,7 +56,7 @@ namespace Image
         #region PhysicsComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag, out String layer);
         #endregion
 
         #region GraphicsComponent

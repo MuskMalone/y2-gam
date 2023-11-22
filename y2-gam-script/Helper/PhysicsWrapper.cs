@@ -28,13 +28,15 @@ namespace Image
         public float distance;
         public uint entityID;
         public string tag;
+        public string layer;
     }
     public static class PhysicsWrapper
     {
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             InternalCalls.PhysicsComponent_GetRaycast(out origin, out end, out optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tagString);
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tagString,
+            out String layerString);
             
             if (hit)
             {
@@ -55,7 +57,8 @@ namespace Image
                     normal = normal,
                     point = point,
                     distance = distance,
-                    tag = tagString
+                    tag = tagString,
+                    layer = layerString
                 };
 
                 return true;

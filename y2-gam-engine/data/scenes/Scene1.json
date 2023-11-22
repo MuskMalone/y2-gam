@@ -102,7 +102,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 5,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -180,7 +180,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 500.0,
@@ -297,7 +297,7 @@
                 "states": [
                     1698992900427510800
                 ],
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.14300000667572021,
                 "currState": 0
             },
@@ -333,7 +333,7 @@
                 "states": [
                     1698954684954475800
                 ],
-                "currFrame": 5,
+                "currFrame": 1,
                 "speed": 0.11999999731779099,
                 "currState": 0
             },
@@ -369,7 +369,7 @@
                 "states": [
                     1698954259805573200
                 ],
-                "currFrame": 3,
+                "currFrame": 4,
                 "speed": 0.13199999928474426,
                 "currState": 0
             },
@@ -832,8 +832,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -106.19647979736328,
-                "posY": -48.1822509765625,
+                "posX": -105.75759887695313,
+                "posY": -46.469879150390625,
                 "rotation": 0.0,
                 "dimX": 50.0,
                 "dimY": 100.0
@@ -853,8 +853,8 @@
                 "Tag": "collider1"
             },
             "Transform": {
-                "posX": -106.19648742675781,
-                "posY": -48.1822509765625,
+                "posX": -105.75760650634766,
+                "posY": -46.469879150390625,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

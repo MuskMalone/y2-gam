@@ -23,7 +23,7 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 3000000.0f;
+        public readonly float JumpForce = 4000000.0f;
         public readonly float MovementForce = 100000.0f;
         public bool isGrounded = true;
 
@@ -98,16 +98,23 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
+                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f),
+                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f), entityID, out RaycastHit groundedRayCast);
+                
+
+                if (groundedRayCast.layer == "Platform")
                 {
-                    isGrounded = false;
+                    isGrounded = true;
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
 
                 else
                 {
-                    isGrounded = true;
+                    isGrounded = false;
+                    AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
+
+                //Console.WriteLine("Layer Status: " + groundedRayCast.layer);
 
                 if (FacingDirectionChanged)
                 {
@@ -117,7 +124,11 @@ namespace Object
 
                 if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
                 {
-                    Jump(dt);
+
+                    if (isGrounded)
+                    {
+                        Jump(dt);
+                    }
                 }
 
                 else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
@@ -128,12 +139,6 @@ namespace Object
                 else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
                 {
                     MoveRight(dt);
-                }
-
-                else
-                {
-                    if (isGrounded)
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
             }
         }
@@ -161,7 +166,6 @@ namespace Object
 
         public void Jump(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.JUMP;
             Force += new Vector2(0, JumpForce) * dt;
         }
     }
