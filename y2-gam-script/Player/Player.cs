@@ -115,7 +115,8 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+                if (Input.IsKey
+                    ed((KeyCode.KEY_SPACE)))
                 {
                     Jump();
                 }
