@@ -48,8 +48,10 @@ namespace Image {
     void MainMenuWindow();
     void HierarchyWindow(std::set<Entity>const& mEntities);
     void LayerWindow();
-    void InspectorWindow();
-    void PropertyWindow();
+    void InspectorWindow(Entity selectedEntity);
+    void PropertyWindow(Entity selectedEntity);
+    void PrefabPropertyWindow();
+    void GameObjectPropertyWindow();
     void BufferWindow(float dt);
     void PrefabWindow();
     void ContentWindow();

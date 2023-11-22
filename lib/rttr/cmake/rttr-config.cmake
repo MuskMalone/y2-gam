@@ -47,7 +47,7 @@ unset(_cmake_expected_targets)
 
 
 # The installation prefix configured by this project.
-set(_IMPORT_PREFIX "C:/Users/terra/Downloads/rttr-0.9.6-src/build/install")
+set(_IMPORT_PREFIX "C:/Users/terra/OneDrive/Documents/rttr/install")
 
 # Create imported target RTTR::Core
 add_library(RTTR::Core SHARED IMPORTED)

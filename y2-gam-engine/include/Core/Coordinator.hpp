@@ -86,6 +86,13 @@ Sends an event with a specific ID to all registered listeners.
 	{
 		mEventManager->SendEvent(eventId);
 	}
+
+	void BlockEvent(EventId eventId) {
+		mEventManager->BlockEvent(eventId);
+	}
+	void UnblockEvent(EventId eventId) {
+		mEventManager->UnblockEvent(eventId);
+	}
 	/*  _________________________________________________________________________ */
 /*! CreateEntity
 

@@ -25,9 +25,11 @@ public:
 
 	void Init();
 	void Exit();
-	Entity AddPrefab(std::string name, Entity e);
-	Entity SpawnPrefab(const char* key);
+	Entity AddPrefab(std::string name);
 	Entity SpawnPrefab(PrefabID id);
+	Entity SpawnPrefab(const char* key);
+	Entity SpawnPrefab(PrefabID, Vec2 const& pos);
+	Entity SpawnPrefab(const char* key, Vec2 const& pos);
 	static std::shared_ptr<PrefabsManager> GetInstance() {
 		if (!_mSelf) return _mSelf = std::make_shared<PrefabsManager>();
 		return _mSelf;
