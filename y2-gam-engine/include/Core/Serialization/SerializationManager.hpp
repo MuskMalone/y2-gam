@@ -139,6 +139,30 @@ namespace Serializer {
 			obj.AddMember(keyName, valName, mDocumentMap[key].GetAllocator());
 		}
 
+		//recursive search func for uint64
+		inline bool FindUint64(const rapidjson::Value& value, uint64_t target) {
+			if (value.IsUint64() && value.GetUint64() == target) {
+				return true;  // Found the target value
+			}
+
+			if (value.IsObject()) {
+				for (auto it = value.MemberBegin(); it != value.MemberEnd(); ++it) {
+					if (FindUint64(it->value, target)) {
+						return true;  // Found in nested object
+					}
+				}
+			}
+
+			if (value.IsArray()) {
+				for (auto& item : value.GetArray()) {
+					if (FindUint64(item, target)) {
+						return true;  // Found in array
+					}
+				}
+			}
+
+			return false;  // Not found in this value
+		}
 
 	private:
 		std::string path{}; //saves the last key used

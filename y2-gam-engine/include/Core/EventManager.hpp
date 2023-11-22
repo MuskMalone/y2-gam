@@ -72,6 +72,8 @@ Each listener function is called with the event as an argument.
 	*/
 	void SendEvent(EventId eventId)
 	{
+		//if it is blocked dont fire
+		if (eventInterrupt.find(eventId) != eventInterrupt.end() && eventInterrupt.at(eventId)) return;
 		Event event(eventId);
 
 		for (auto const& listener : listeners[eventId])
@@ -80,6 +82,16 @@ Each listener function is called with the event as an argument.
 		}
 	}
 
+	void BlockEvent(EventId eventId) {
+		eventInterrupt[eventId] = true;
+	}
+	void UnblockEvent(EventId eventId) {
+		eventInterrupt[eventId] = false;
+	}
+
 private:
 	std::unordered_map<EventId, std::list<std::function<void(Event&)>>> listeners;
+
+	//the event with [EventId] == true will not fire
+	std::map<EventId, bool> eventInterrupt;
 };

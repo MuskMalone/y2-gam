@@ -12,6 +12,7 @@
 //#include <Core/Serialization/SerializationManager.hpp>
 //#include <memory>
 #include <rttr/type>
+#include <rttr/registration>
 class AssetManager{
 public:
 /**

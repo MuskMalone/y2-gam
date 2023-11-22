@@ -176,23 +176,23 @@ void EditorControlSystem::Update(float dt)
 	*/
 	// NODE RELATED END
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
-		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
-		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
-		for (int i{}; i < 10; ++i) {
-			//std::cout << i << std::endl;
-			Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
+	//if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+	//	inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+	//	Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Circle");
+	//	for (int i{}; i < 10; ++i) {
+	//		//std::cout << i << std::endl;
+	//		Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
 
-		}
+	//	}
 
-	}
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
-		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+	//}
+	//if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
+	//	inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 
-		Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Box");
-		for (int i{}; i < 10; ++i) {
-			//std::cout << i << std::endl;
-			Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
+	//	Testing::lastInserted = PrefabsManager::GetInstance()->SpawnPrefab("Box");
+	//	for (int i{}; i < 10; ++i) {
+	//		//std::cout << i << std::endl;
+	//		Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
 
 		}
 	}

@@ -16,6 +16,7 @@
 #include "IMGUI/AssetBrowser.hpp"
 #include <Core/Coordinator.hpp>
 #include <Systems/InputSystem.hpp>
+#include <IMGUI/PrefabsBrowser.hpp>
 
 namespace {
     std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
@@ -209,7 +210,8 @@ namespace {
         {"Animations", AnimationAssetWindow}, 
         { "Sprites", SpriteAssetWindow }, 
         { "Sounds", SoundAssetWindow }, 
-        { "Scenes", SceneAssetWindow }
+        { "Scenes", SceneAssetWindow },
+        { "Prefabs", PrefabsAssetWindow }
     };
 }
 

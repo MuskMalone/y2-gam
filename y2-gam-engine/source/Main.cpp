@@ -260,6 +260,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();
 	assetManager->Exit();
+	PrefabsManager::GetInstance()->Exit();
 	layeringSystem->Exit();
 	return 0;
 }

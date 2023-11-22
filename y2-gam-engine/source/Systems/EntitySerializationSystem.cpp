@@ -147,5 +147,5 @@ namespace Serializer {
 		if (event.GetFail()) return;
 		gCoordinator->AddComponent<SerializerComponent>(e, {});
 
-	}
+		}
 }

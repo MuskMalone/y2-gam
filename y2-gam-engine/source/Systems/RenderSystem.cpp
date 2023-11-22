@@ -279,10 +279,11 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 }
 
+//this is super hacky
 void RenderSystem::RenderPrefab(Entity prefab) {
 	//tch: hack to check if its a valid entity for drawing
 	//xavier todo: pls change this to a more ecs implementation in the future!!!
-	if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
+	//if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
 
@@ -291,17 +292,36 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	Renderer::ClearDepth();
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
-	const auto& sprite = ::gCoordinator->GetComponent<Sprite>(prefab);
-	const auto& transform = ::gCoordinator->GetComponent<Transform>(prefab);
 
-	if (sprite.spriteID)
-		Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
-	else {
-		if (transform.elipse)
-			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-		else
-			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, prefab);
+	if (gCoordinator->HasComponent<Transform>(prefab)) {
+		const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
+		decltype(transform.position) drawnPos{0, 0, 0};
+		if (gCoordinator->HasComponent<Sprite>(prefab)) {
+			const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
+
+			if (sprite.spriteID)
+				Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
+			else {
+				if (transform.elipse)
+					Renderer::DrawCircle(drawnPos, transform.scale, sprite.color);
+				else
+					Renderer::DrawQuad(drawnPos, transform.scale, sprite.color, transform.rotation.z, prefab);
+			}
+		}
+		if (gCoordinator->HasComponent<Collider>(prefab)) {
+			const auto& c = gCoordinator->GetComponent<Collider>(prefab);
+			decltype(transform.position) colliderPos{ c.position.x, c.position.y, 1.f };
+			auto relativePos{ colliderPos - transform.position };
+			if (c.type == ColliderType::BOX) {
+				Renderer::DrawLineRect(relativePos, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(c.rotation));
+			}
+			else {
+				Renderer::DrawCircle(relativePos, { c.dimension.x, c.dimension.x }, { 1.f,1.f,1.f, 1.f }, .1f);
+			}
+		}
 	}
+
+
 
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
