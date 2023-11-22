@@ -49,7 +49,7 @@ void EditorControlSystem::Init()
 	//::effectGroup = Image::SoundManager::AudioCreateGroup();
 
 	//by right this id value should be passed by the imgui asset browser
-	auto am{ AssetManager::GetInstance() };
+	//auto am{ AssetManager::GetInstance() };
 	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
 	//bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161071400));
 	//bgmGroup = Image::SoundManager::AudioCreateGroup();
@@ -89,7 +89,7 @@ void EditorControlSystem::Update(float dt)
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		::gCoordinator->CloneEntity(Testing::lastInserted);
 	}
-
+#endif
 	// NODE RELATED START
 	// Temporarily Disabled
 	/*
@@ -193,8 +193,4 @@ void EditorControlSystem::Update(float dt)
 	//	for (int i{}; i < 10; ++i) {
 	//		//std::cout << i << std::endl;
 	//		Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
-
-		}
-	}
-#endif
 }
