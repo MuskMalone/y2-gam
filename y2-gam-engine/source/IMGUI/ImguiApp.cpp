@@ -995,8 +995,6 @@ namespace Image {
      entity ID when mouse is hovered ad allows for picking
     */
     void BufferWindow(float dt) {
-        static int draggedEntity = -1;   // -1 means no entity is being dragged.
-        static ImVec2 lastMousePos;      // Store the last position of the mouse.
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
@@ -1024,7 +1022,6 @@ namespace Image {
             min.y += viewportOffset.y;
             ImVec2 max{ min.x + contentSize.x, min.y + contentSize.y };
             ImVec2 mousePos = ImGui::GetMousePos();
-            //std::cout << "Mouse X: " << mousePos.x << ", Mouse Y:" << mousePos.y << std::endl;
 
             mousePos.x -= min.x;
             mousePos.y -= min.y;
@@ -1034,64 +1031,62 @@ namespace Image {
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
 
-            if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
+            if (ImGui::IsMouseClicked(0) ) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
                     int pixelData = framebuffer->ReadPixel(1, mouseX, mouseY);
                     framebuffer->Unbind();
-                    draggedEntity = pixelData;
                     if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
                         gSelectedEntity = pixelData;
                     }
-                    lastMousePos = ImGui::GetMousePos();
                 }
             }
             // If dragging an entity and the mouse is moving
-            else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
+            //else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
 
-                //if (!gCoordinator->HasComponent<UIImage>(draggedEntity)) {
-                    ImVec2 currentMousePos = ImGui::GetMousePos();
-                    ImVec2 delta = {
-                        currentMousePos.x - lastMousePos.x,
-                        currentMousePos.y - lastMousePos.y
-                    };
+            //    //if (!gCoordinator->HasComponent<UIImage>(draggedEntity)) {
+            //        ImVec2 currentMousePos = ImGui::GetMousePos();
+            //        ImVec2 delta = {
+            //            currentMousePos.x - lastMousePos.x,
+            //            currentMousePos.y - lastMousePos.y
+            //        };
 
-                    Camera cam;
-                    if (!gCoordinator->HasComponent<UIImage>(draggedEntity))
-                        cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera());
-                    else
-                        cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
+            //        Camera cam;
+            //        if (!gCoordinator->HasComponent<UIImage>(draggedEntity))
+            //            cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+            //        else
+            //            cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
 
-                    glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
-                    // Unproject the initial drag position
-                    glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                    glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
-                    worldSpaceInitial /= worldSpaceInitial.w;
+            //        glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
+            //        // Unproject the initial drag position
+            //        glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
+            //        glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
+            //        worldSpaceInitial /= worldSpaceInitial.w;
 
-                    // Unproject the current mouse position
-                    glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                    glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
-                    worldSpaceCurrent /= worldSpaceCurrent.w;
+            //        // Unproject the current mouse position
+            //        glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
+            //        glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
+            //        worldSpaceCurrent /= worldSpaceCurrent.w;
 
-                    // Calculate the world space delta
-                    glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
+            //        // Calculate the world space delta
+            //        glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
 
-                    Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
-                    transform.position += worldDelta;
+            //        Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
+            //        transform.position += worldDelta;
 
-                    if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
-                        Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
-                        collider.position += {worldDelta.x, worldDelta.y};
-                    }
+            //        if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
+            //            Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
+            //            collider.position += {worldDelta.x, worldDelta.y};
+            //        }
 
-                    lastMousePos = currentMousePos;
-                }
-               
+            //        lastMousePos = currentMousePos;
+            //    }
+            //   
+            ////}
+            //// If left mouse button is released, stop dragging
+            //else if (ImGui::IsMouseReleased(0)) {
+            //    draggedEntity = -1;
             //}
-            // If left mouse button is released, stop dragging
-            else if (ImGui::IsMouseReleased(0)) {
-                draggedEntity = -1;
-            }
         }
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
@@ -1189,9 +1184,21 @@ namespace Image {
               if (ImGuizmo::IsUsing()) {
                   glm::vec3 position, rotation, scale;
                   Image::DecomposeTransform(transformMatrix, position, rotation, scale);
+                  glm::vec3 deltaPosition = position - transform.position;
+                  //float deltaRotationZ = glm::degrees(rotation.z) - transform.rotation.z;
+                  glm::vec3 deltaScale = scale - transform.scale;
                   transform.position = position;
                   transform.rotation.z = glm::degrees(rotation.z);
                   transform.scale = scale;
+                  // Update collider position if the entity has a collider component
+                  if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                      Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
+                      collider.position.x += deltaPosition.x ;
+                      collider.position.y += deltaPosition.y;
+                      collider.rotation = glm::degrees(rotation.z);
+                      collider.dimension.x += deltaScale.x ;
+                      collider.dimension.y += deltaScale.y;
+                  }
               }
           }
         }
