@@ -35,7 +35,44 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
-	
+
+	// For UI
+	/*  _________________________________________________________________________ */
+	/*! UIComponent_GetIsUIButtonClicked
+
+	@param entityID
+	The ID of the entity.
+
+	@param outIsClicked
+
+	@return none.
+
+	Gets if the UI button is clicked or not.
+	*/
+	static void UIComponent_GetIsUIButtonClicked(uint32_t entityID, bool* outIsClicked) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<UIImage>(entityID))
+			*outIsClicked = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isClicked);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! UIComponent_GetIsUIButtonHover
+
+	@param entityID
+	The ID of the entity.
+
+	@param outIsHover
+
+	@return none.
+
+	Gets if the UI button is hovered over or not.
+	*/
+	static void UIComponent_GetIsUIButtonHover(uint32_t entityID, bool* outIsHover) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<UIImage>(entityID))
+			*outIsHover = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isHover);
+	}
+
 	// For Serialization
 	/*  _________________________________________________________________________ */
 	/*! SerializationComponent_GetIsFacingRight
@@ -350,6 +387,14 @@ Get the current scale of the entity in C#.
 		}
 	}
 
+	static void GraphicsComponent_SetColour(uint32_t entityID, Vec4* colour) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Sprite>(entityID)) {
+			gCoordinator->GetComponent<Sprite>(entityID).color =
+			{ colour->x, colour->y, colour->z, colour->w };
+		}
+	}
+
 	// For Translation
 	/*  _________________________________________________________________________ */
 	/*! TransformComponent_GetTranslation
@@ -627,6 +672,9 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
+		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
+
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
@@ -640,6 +688,7 @@ Get the current scale of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetColour);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 

@@ -105,7 +105,24 @@ namespace Image
                 InternalCalls.SerializationComponent_SetIsFacingRight(entityID, ref value);
             }
         }
-        
+        public bool UIClicked
+        {
+            get
+            {
+                InternalCalls.UIComponent_GetIsUIButtonClicked(entityID, out bool outIsClicked);
+                return outIsClicked;
+            }
+        }
+
+        public bool UIHover
+        {
+            get
+            {
+                InternalCalls.UIComponent_GetIsUIButtonHover(entityID, out bool outIsHover);
+                return outIsHover;
+            }
+        }
+
         /*  _________________________________________________________________________ */
         /*! CalculateAcceleration
         
@@ -183,6 +200,14 @@ namespace Image
             set
             {
                 InternalCalls.GraphicsComponent_SetScale(entityID, ref value);
+            }
+        }
+
+        public Vector4 Colour
+        {
+            set
+            {
+                InternalCalls.GraphicsComponent_SetColour(entityID, ref value);
             }
         }
 

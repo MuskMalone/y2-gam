@@ -19,6 +19,43 @@ using System;
 
 namespace Image
 {
+    public struct Vector4
+    {
+        public float X, Y, Z, W;
+
+        /*  _________________________________________________________________________ */
+        /*! Vector3
+
+        @return *this
+
+        Default constructor for Vector3.
+        */
+        public Vector4(float x, float y, float z, float w)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! operator+
+                        
+        @param vector
+        The LHS vector.
+
+        @param vector
+        The RHS vector.
+
+        @return Vector3
+
+        The operator overload for +.
+        */
+        public static Vector4 operator +(Vector4 a, Vector4 b)
+        {
+            return new Vector4(a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+        }
+    }
     public struct Vector3
     {
         public float X, Y, Z;

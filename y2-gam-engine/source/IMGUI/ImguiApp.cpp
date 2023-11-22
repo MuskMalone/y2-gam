@@ -716,6 +716,26 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
+            if (gCoordinator->HasComponent<Text>(gSelectedEntity)) {
+              std::string treeNodeLabel = "Text##" + std::to_string(gSelectedEntity);
+              if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                Text& text = gCoordinator->GetComponent<Text>(gSelectedEntity);
+                ImGui::Text("Text to Display");
+                ImGui::SameLine();
+                ImGui::SetCursorPosX(SAME_LINE_SPACING);
+                ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                char tempLayerName[256]; // Temp Buffer
+                strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
+                tempLayerName[sizeof(tempLayerName) - 1] = '\0';
+
+                if (ImGui::InputText(("##readonly" + std::to_string(gSelectedEntity)).c_str(), tempLayerName, sizeof(tempLayerName), 
+                  ImGuiInputTextFlags_EnterReturnsTrue)) {
+                  text.text = tempLayerName;
+                }
+
+                ImGui::TreePop();
+              }
+            }
             if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
               std::string treeNodeLabel = "Script##" + std::to_string(gSelectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
@@ -766,7 +786,7 @@ namespace Image {
     */
     void PropertyWindow() {
         ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage", "Text"};
         static int selectedComponent{ -1 };
         if (gSelectedEntity != MAX_ENTITIES) {
             ImGui::Text("Entity ID: %d", gSelectedEntity);
@@ -899,6 +919,20 @@ namespace Image {
                     }
                 }
                       break;
+
+                case 9: {
+
+                  if (!gCoordinator->HasComponent<Text>(gSelectedEntity)) {
+                    gCoordinator->AddComponent(
+                      gSelectedEntity,
+                      Text{"Arial", 0.05f,
+                            "Your Text Here", Vec3(
+                            1.0,
+                            1.0,
+                            1.0) });
+                  }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -967,6 +1001,14 @@ namespace Image {
                     }
                 }
                       break;
+
+                case 9: {
+                  // Remove UIImage component
+                  if (gCoordinator->HasComponent<Text>(gSelectedEntity)) {
+                    gCoordinator->RemoveComponent<Text>(gSelectedEntity);
+                  }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
@@ -979,7 +1021,7 @@ namespace Image {
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
             ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(gSelectedEntity) ? "True" : "False");
-
+            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(gSelectedEntity) ? "True" : "False");
         }
         ImGui::End();
     }

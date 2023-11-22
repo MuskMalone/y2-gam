@@ -143,6 +143,13 @@ namespace Object
             }
         }
 
+        /*  _________________________________________________________________________ */
+        /*! OnExit
+
+        @return none
+
+        Called on exit.
+        */
         void OnExit()
         {
             FacingDirection = isFacingRight;
