@@ -60,7 +60,8 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
-
+    bool gSnap = false;
+    float gSnapVal = 1.f;
     Entity gSelectedEntity = MAX_ENTITIES;
     std::string gCurrentScene = "";
 }
@@ -1134,13 +1135,6 @@ namespace Image {
             }
 
         }
-
-        //guizmo
-        //guizmo here
-       // float* view = camera.GetViewMtx();
-        
-
-
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();
@@ -1166,13 +1160,8 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        if (gSelectedEntity != MAX_ENTITIES) {
-          //glDisable(GL_DEPTH_TEST);
-          //glDisable(GL_BLEND);
-          //glClear(GL_DEPTH_BUFFER_BIT);
-          //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        if (gSelectedEntity != MAX_ENTITIES && renderSystem->IsEditorMode() && gCurrentGuizmoOperation!=-1) {
           ImGuizmo::SetOrthographic(true);
-          //ImGuizmo::SetGizmoSizeClipSpace(200.f);
           ImGuizmo::SetDrawlist();
           ImVec2 windowPos = ImGui::GetWindowPos();
 
@@ -1184,30 +1173,27 @@ namespace Image {
           ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
           glm::mat4 const& cameraProj = camera.GetProjMtx();
           glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
-          Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
-          // Create a transformation matrix from position, rotation, and scale
+          if (gCoordinator->HasComponent< Transform>(gSelectedEntity)) {
+              Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+              // Create a transformation matrix from position, rotation, and scale
+              glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
+              glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
+              glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
+              glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+              float snapArr[3] = { gSnapVal,gSnapVal ,gSnapVal };
 
-          glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
-          glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
-          glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
-          glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-
-          ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
-            gCurrentGuizmoOperation, gCurrentGizmoMode,
-            glm::value_ptr(transformMatrix), nullptr, nullptr);
-          if (ImGuizmo::IsUsing()) {
-            glm::vec3 position, rotation, scale;
-            Image::DecomposeTransform(transformMatrix, position, rotation, scale);
-            std::cout << "Rot.z" << rotation.z << "transform z" << transform.rotation.z << std::endl;
-            float deltaRotationZ = glm::degrees(rotation.z) - transform.rotation.z;
-            transform.position = position;
-
-            transform.rotation.z = glm::degrees(rotation.z);
-
-            transform.scale = scale;
+              ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
+                  gCurrentGuizmoOperation, gCurrentGizmoMode,
+                  glm::value_ptr(transformMatrix), nullptr,
+                  gSnap ? snapArr : nullptr);
+              if (ImGuizmo::IsUsing()) {
+                  glm::vec3 position, rotation, scale;
+                  Image::DecomposeTransform(transformMatrix, position, rotation, scale);
+                  transform.position = position;
+                  transform.rotation.z = glm::degrees(rotation.z);
+                  transform.scale = scale;
+              }
           }
-          //glEnable(GL_BLEND);
-          //glEnable(GL_DEPTH_TEST);
         }
         ImGui::EndChild();
         //tch: for scene to drag drop
@@ -1472,6 +1458,18 @@ namespace Image {
             ImGui::SameLine();
             if (ImGui::RadioButton("World", gCurrentGizmoMode == ImGuizmo::WORLD))
                 gCurrentGizmoMode = ImGuizmo::WORLD;
+        }
+        ImGui::Checkbox("Enable Snapping", &gSnap);
+        if (gSnap) {
+            if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                ImGui::InputFloat("Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                ImGui::InputFloat("Angle Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                ImGui::InputFloat("Scale Snap", &gSnapVal);
+            }
         }
         ImGui::End();
 

@@ -8,6 +8,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/UISystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
@@ -168,6 +169,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	renderSystem->Init();
 
+	auto uiSystem = coordinator->RegisterSystem<UISystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<UIImage>());
+		coordinator->SetSystemSignature<UISystem>(signature);
+	}
+
+	uiSystem->Init();
+
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
@@ -223,6 +233,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//}
 	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
+
+		uiSystem->Update();
 
 		NodeManager::Update();
 

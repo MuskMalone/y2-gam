@@ -29,9 +29,13 @@ struct UIImage
 
 	UIImage() = default;
 	UIImage(bool en) : enabled{en} {}
-	UIImage([[maybe_unused]] rapidjson::Value const& obj) {}
+	UIImage([[maybe_unused]] rapidjson::Value const& obj) {
+		enabled = obj["enabled"].GetBool();
+	}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
-		return false;
+		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "enabled", enabled);
+
+		return true;
 	}
 };

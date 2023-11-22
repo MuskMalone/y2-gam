@@ -70,6 +70,7 @@
     <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
+    <ClCompile Include="source\Systems\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
     <ClInclude Include="include\Components\UIImage.hpp" />
+    <ClInclude Include="include\Systems\UISystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics\Shader.hpp">
@@ -336,8 +338,5 @@
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
     <ClInclude Include="include\Systems\EntitySerializationSystem.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Textures\Attack_1.png" />
   </ItemGroup>
 </Project>

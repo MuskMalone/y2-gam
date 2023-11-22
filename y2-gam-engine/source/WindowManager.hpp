@@ -40,6 +40,28 @@ public:
 	void FullscreenListener(Event const& event);
 	GLFWwindow* GetContext();
 
+	    int GetWidth() const {
+        if (mIsFullscreen) {
+            const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            return mode ? mode->width : 0;
+        } else {
+			int width, height;
+			glfwGetWindowSize(mWindow, &width, &height);
+			return width;
+        }
+    }
+
+    int GetHeight() const {
+        if (mIsFullscreen) {
+            const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            return mode ? mode->height : 0;
+        } else {
+			int width, height;
+			glfwGetWindowSize(mWindow, &width, &height);
+			return height;
+        }
+    }
+
 private:
 	static std::shared_ptr<WindowManager> _mSelf;
 
