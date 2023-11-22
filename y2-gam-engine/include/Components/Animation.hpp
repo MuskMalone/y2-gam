@@ -52,7 +52,7 @@ struct Animation {
 		currFrame = { obj["currFrame"].GetUint64() };
 
 		for (size_t i{}; i < obj["states"].Size(); ++i) {
-			states.emplace_back(obj["states"][i].GetUint64());
+			states.emplace_back(obj["states"][static_cast<rapidjson::SizeType>(i)].GetUint64());
 		}
 	}
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {

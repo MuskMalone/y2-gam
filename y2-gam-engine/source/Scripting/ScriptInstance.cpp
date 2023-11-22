@@ -37,6 +37,7 @@ namespace Image {
     mConstructor{ scriptClass.GetMethod(".ctor", 1) },
     mOnCreateMethod{ scriptClass.GetMethod("OnCreate", 0) },
     mOnUpdateMethod{ scriptClass.GetMethod("OnUpdate", 1) },
+    mOnExitMethod{ scriptClass.GetMethod("OnExit", 0) },
     mScriptClass{ scriptClass } {
 
     // Call the non-default, single parameter constructor from C#
@@ -69,5 +70,16 @@ namespace Image {
   void ScriptInstance::CallOnUpdate(float dt) {
     void* dtParam{ &dt };
     mScriptClass.CallMethod(mInstance, mOnUpdateMethod, &dtParam);
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! CallOnExit
+
+  @return none.
+
+  Calls the on exit function from C#.
+  */
+  void ScriptInstance::CallOnExit() {
+    mScriptClass.CallMethod(mInstance, mOnExitMethod);
   }
 }

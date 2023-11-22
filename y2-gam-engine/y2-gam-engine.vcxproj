@@ -98,14 +98,14 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Installer|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\props\engine.props" />
+    <Import Project="..\props\installer.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\ImGuizmo-master;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\ImGuizmo-master;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">
     <IncludePath>$(SolutionDir)lib\rapidjson\include;$(ProjectDir)Vendor\imgui-docking\backends;$(ProjectDir)Vendor\imgui-docking;$(SolutionDir)lib\stb;$(IncludePath)</IncludePath>
@@ -204,7 +204,7 @@
       <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -218,13 +218,16 @@
     <ClInclude Include="include\Components\Script.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
+    <ClInclude Include="include\Components\UIImage.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
     <ClInclude Include="include\Engine\AssetManager.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
-    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
+    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\Engine\PrefabsManager.hpp" />
     <ClInclude Include="include\Engine\SceneManager.hpp" />
     <ClInclude Include="include\Engine\StateManager.hpp" />
@@ -256,6 +259,9 @@
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="include\Logging\backward.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
@@ -271,8 +277,9 @@
     <ClInclude Include="include\IMGUI\AssetBrowser.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="include\Logging\backward.hpp" />
-    <ClInclude Include="include\Logging\LoggingSystem.hpp" />
+    <ClInclude Include="include\Logging\LoggingSystem.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
@@ -300,15 +307,24 @@
     <ClInclude Include="include\Graphics\Renderer.hpp" />
     <ClInclude Include="include\Core\Serialization\SerializationManager.hpp" />
     <ClInclude Include="include\Systems\TextSystem.hpp" />
+    <ClInclude Include="include\Systems\UISystem.hpp" />
     <ClInclude Include="source\WindowManager.hpp" />
     <ClInclude Include="include\Graphics\Texture.hpp" />
     <ClInclude Include="include\Graphics\VertexArray.hpp" />
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Graphics\SubTexture.hpp" />
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_win32.h" />
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_win32.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Vendor\imgui-docking\imconfig.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -325,6 +341,24 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>
@@ -346,11 +380,14 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">../include/pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="source\Engine\AssetManager.cpp" />
-    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
+    <ClCompile Include="source\DataMgmt\DecisionTree.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Engine\PrefabsManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">Use</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="source\Engine\SceneManager.cpp" />
     <ClCompile Include="source\Graphics\AnimationManager.cpp" />
@@ -382,13 +419,18 @@
     <ClCompile Include="source\IMGUI\ImguiApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Logging\backward.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\Logging\LoggingSystem.cpp" />
+    <ClCompile Include="source\Logging\LoggingSystem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -451,6 +493,7 @@
     <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="source\Systems\RenderSystem.cpp" />
     <ClCompile Include="source\Systems\TextSystem.cpp" />
+    <ClCompile Include="source\Systems\UISystem.cpp" />
     <ClCompile Include="source\WindowManager.cpp" />
     <ClCompile Include="source\Graphics\Texture.cpp" />
     <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
@@ -459,16 +502,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Vendor\imgui-docking\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -500,17 +546,31 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">NotUsing</PrecompiledHeader>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Shaders\fragment.glsl" />
-    <None Include="..\Shaders\Line.frag" />
-    <None Include="..\Shaders\Line.vert" />
-    <None Include="..\Shaders\Tex.frag" />
-    <None Include="..\Shaders\Tex.vert" />
-    <None Include="..\Shaders\vertex.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Textures\Attack_1.png" />
+    <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

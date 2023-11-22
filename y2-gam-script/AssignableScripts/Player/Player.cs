@@ -23,13 +23,12 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 30000.0f;
-        public readonly float MovementForce = 1200.0f;
+        public readonly float JumpForce = 3000000.0f;
+        public readonly float MovementForce = 100000.0f;
         public bool isGrounded = true;
 
         // Direction related
-        //public bool directionChanged = false;
-        private bool _isFacingRight = true;
+        private bool _isFacingRight;
         public bool isFacingRight
         {
             get { return _isFacingRight; }
@@ -81,7 +80,8 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            isFacingRight = FacingDirection;
+            FacingDirectionChanged = false;
         }
 
         /*  _________________________________________________________________________ */
@@ -117,45 +117,52 @@ namespace Object
 
                 if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
                 {
-                    Jump();
+                    Jump(dt);
                 }
 
                 else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
                 {
-                    MoveLeft();
+                    MoveLeft(dt);
                 }
 
                 else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
                 {
-                    MoveRight();
+                    MoveRight(dt);
                 }
 
                 else
                 {
-                    AnimationState = (int)AnimationCode.IDLE;
+                    if (isGrounded)
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
             }
         }
 
-        public void MoveLeft()
+        void OnExit()
+        {
+            FacingDirection = isFacingRight;
+        }
+
+        public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f);
+            AnimationState = (int)AnimationCodePlayer.RUN;
+            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
 
-        public void MoveRight()
+        public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f);
+            AnimationState = (int)AnimationCodePlayer.RUN;
+            Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
-        public void Jump()
+        public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce);
+            AnimationState = (int)AnimationCodePlayer.JUMP;
+            Force += new Vector2(0, JumpForce) * dt;
         }
     }
 }

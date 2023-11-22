@@ -25,6 +25,7 @@
 #include <Core/Globals.hpp>
 #include "../WindowManager.hpp"
 
+#include "ImGuizmo.h"
 #define GL_SILENCE_DEPRECATION
 
 namespace {
@@ -113,7 +114,8 @@ ImFont* mainfont = nullptr;
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();  
+        ImGui::NewFrame();
+        ImGuizmo::BeginFrame();
         Image::AppRender(mEntities,dt);
 
         int width, height;

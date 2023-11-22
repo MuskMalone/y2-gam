@@ -23,12 +23,12 @@ public class EnemyAttackState : EnemyBaseState
     public override void EnterState(BasicEnemy enemy)
     {
         enemy.SetText("Attack State");
-        enemy.AnimationState = (int)AnimationCode.ATTACK;
+        enemy.AnimationState = (int)AnimationCodeEnemy.ATTACK;
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
-        enemy.AnimationState = (int)AnimationCode.ATTACK;
+        enemy.AnimationState = (int)AnimationCodeEnemy.ATTACK;
 
         float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
         Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);

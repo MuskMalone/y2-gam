@@ -80,6 +80,12 @@ namespace Globals {
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
+#ifndef _INSTALLER
+  #define WINDOW_TITLE "Image Engine"
+#else
+  #define WINDOW_TITLE "Blink"
+#endif
+
 //i saw in glfw3.h that the max GLenum goes up to ~380ish
 //hence this is gonna be for a bitset
 //each key enum will be the bitshift for a bitset<ENGINE_KEYS_COUNT>

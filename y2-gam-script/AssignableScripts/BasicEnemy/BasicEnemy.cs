@@ -23,8 +23,8 @@ namespace Object
     public class BasicEnemy : Entity
     {
         public readonly float JumpCooldown = 0.2f;
-        public readonly float MovementForce = 900.0f;
-        public readonly float JumpForce = 35000.0f;
+        public readonly float MovementForce = 90000.0f;
+        public readonly float JumpForce = 3500000.0f;
         public readonly float VisionRange = 35.0f;
         public readonly float AttackRange = 15.0f;
         public bool isGrounded = true;
@@ -35,7 +35,7 @@ namespace Object
 
         // Direction related
         //public bool directionChanged = false;
-        private bool _isFacingRight = true;
+        private bool _isFacingRight;
         public bool isFacingRight
         {
             get { return _isFacingRight; }
@@ -99,6 +99,8 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
+            isFacingRight = FacingDirection;
+            FacingDirectionChanged = false;
             currentState = DefaultState;
             currentState.EnterState(this);
         }
@@ -140,6 +142,10 @@ namespace Object
 
             //Console.WriteLine("Current enemy state: " + currentState.ToString());
         }
+        void OnExit()
+        {
+            FacingDirection = isFacingRight;
+        }
 
         /*  _________________________________________________________________________ */
         /*! SwitchState
@@ -158,25 +164,23 @@ namespace Object
             state.EnterState(this);
         }
 
-        public void MoveLeft()
+        public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f);
+            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
 
-        public void MoveRight()
+        public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            AnimationState = (int)AnimationCode.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f);
+            Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
-        public void Jump()
+        public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce);
+            Force += new Vector2(0, JumpForce) * dt;
         }
     }
 }

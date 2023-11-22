@@ -45,9 +45,11 @@ Texture::Texture(std::string const& path)
 	int width, height, channels;
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+#ifndef _INSTALLER
 	if (!data) {
 		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ERROR: Failed to load texture: " + path + " ! ", __FUNCTION__);
 	}
+#endif
 
 	mWidth = static_cast<unsigned int>(width);
 	mHeight = static_cast<unsigned int>(height);

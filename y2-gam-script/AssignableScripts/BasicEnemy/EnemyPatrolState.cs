@@ -24,6 +24,7 @@ public class EnemyPatrolState : EnemyBaseState
     public override void EnterState(BasicEnemy enemy)
     {
         enemy.SetText("Patrol State");
+        enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
@@ -62,11 +63,13 @@ public class EnemyPatrolState : EnemyBaseState
         {
             if (enemy.isFacingRight)
             {
-                enemy.MoveLeft();
+                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
+                enemy.MoveLeft(dt);
             }
             else
             {
-                enemy.MoveRight();
+                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
+                enemy.MoveRight(dt);
             }
             enemy.SwitchState(enemy.IdleState);
         }
@@ -74,11 +77,11 @@ public class EnemyPatrolState : EnemyBaseState
         {
             if (enemy.isFacingRight)
             {
-                enemy.MoveRight();
+                enemy.MoveRight(dt);
             }
             else
             {
-                enemy.MoveLeft();
+                enemy.MoveLeft(dt);
             }
         }
     }

@@ -8,6 +8,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/UISystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
@@ -24,14 +25,15 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Graphics/FontRenderer.hpp"
-#include "Logging/LoggingSystem.hpp"
-#include "Logging/backward.hpp"
 #include "Engine/PrefabsManager.hpp"
-#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 
 #ifndef _INSTALLER
+#include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Systems/ImguiSystem.hpp"
+
+#else
+#include <Windows.h>
 #endif
 
 namespace {
@@ -45,9 +47,15 @@ void QuitHandler([[maybe_unused]] Event& event)
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
-
-int main()
+#ifndef _INSTALLER
+int main() 
 {
+
+#else
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+#endif
+
 	// Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -58,19 +66,12 @@ int main()
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
-	// Mono Testing
 	Image::ScriptManager::Init();
-	MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
-	Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
-
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
 	using namespace Collision;
 
-	//assetManager->AddAsset<SoundManager>("../assets/audio/teleport.wav");
-	//assetManager->AddAsset<SoundManager>("../assets/audio/bgm.wav");
-	//assetManager->AddAsset<SpriteManager>("../assets/textures/blinkbg.png");
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
@@ -88,6 +89,7 @@ int main()
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<Prefab>();
+	coordinator->RegisterComponent<UIImage>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -167,6 +169,15 @@ int main()
 
 	renderSystem->Init();
 
+	auto uiSystem = coordinator->RegisterSystem<UISystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<UIImage>());
+		coordinator->SetSystemSignature<UISystem>(signature);
+	}
+
+	uiSystem->Init();
+
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
@@ -204,6 +215,10 @@ int main()
 
 	NodeManager::Initialize();
 
+#ifdef _INSTALLER
+	SceneManager::GetInstance()->LoadScene("Scene1");
+#endif
+
 	while (!quit && !windowManager->ShouldClose())
 	{
 		Image::SoundManager::AudioUpdate();
@@ -219,6 +234,8 @@ int main()
 	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
 
+		uiSystem->Update();
+
 		NodeManager::Update();
 
 		windowManager->Update();
@@ -230,11 +247,10 @@ int main()
 #endif
 
 		dt = frameController->EndFrameTime();
-		std::string title = "Image Engine";
-		windowManager->UpdateWindowTitle(title);
+		windowManager->UpdateWindowTitle(WINDOW_TITLE);
 
 	}
-	
+	Image::ScriptManager::ExitMono();
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
 	imguiSystem->Destroy();
@@ -243,7 +259,6 @@ int main()
 	windowManager->Shutdown();
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();
-	Image::ScriptManager::ExitMono();
 	assetManager->Exit();
 	layeringSystem->Exit();
 	return 0;

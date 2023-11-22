@@ -53,7 +53,9 @@ namespace Image {
 
     if (classInstance == nullptr) {
       //std::cout << "Mono Exception: Failed to create instance of class" << "\n";
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: Failed to create instance of class", __FUNCTION__);
+#endif
       std::exit(0);
     }
 
@@ -78,15 +80,15 @@ namespace Image {
     MonoMethod* ret{ mono_class_get_method_from_name(mMonoClass, name.c_str(), numParameters) };
 
     if (ret == nullptr) {
-      /*std::cout << "Mono Exception: method does not exist!" << "\n";
-      std::cout << name << "\n";
-      std::cout << numParameters << "\n";*/
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: method does not exist!" + name + std::to_string(numParameters), __FUNCTION__);
+#endif
       std::exit(0);
     }
     else {
-      //std::cout << "Mono method " << name << " created!" << "\n";
+#ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Mono method " + name + " created!", __FUNCTION__);
+#endif
     }
 
     return ret;

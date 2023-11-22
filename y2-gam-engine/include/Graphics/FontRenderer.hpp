@@ -74,7 +74,6 @@ namespace Image {
     static std::map<std::string, FaceObject> sFaces;
     static std::map<std::string, std::map<char, Character>> sCharacters;
     static std::map<std::string, std::shared_ptr<Texture>> sBitmap;
-    //static Shader* sShaderPgm;
     static std::shared_ptr<Shader> sShaderPgm;
   };
 }

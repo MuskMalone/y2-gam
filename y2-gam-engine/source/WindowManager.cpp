@@ -30,10 +30,19 @@ void WindowManager::Init(
 
 	mWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
 
+#ifdef _INSTALLER
+	//start in fullscreen mode
+const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+	glViewport(0, 0, mode->width, mode->height);
+#else
+	glfwMakeContextCurrent(mWindow);
+	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glViewport(0, 0, windowWidth, windowHeight);
+#endif
 
 	// Configure OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -55,7 +64,6 @@ void WindowManager::Init(
 
 void WindowManager::Update()
 {
-
 	glfwSwapBuffers(mWindow);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // NOLINT (hicpp-signed-bitwise)
@@ -259,7 +267,9 @@ void WindowManager::FullscreenListener(Event const& event) {
 		mIsFullscreen = true;
 	}
 	else {
-		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, mWindowedPosY, mWindowedWidth, mWindowedHeight, 0);
+		int safePosY = std::max(mWindowedPosY, 30); //ensures titlebar doesnt go offscreen
+		glfwSetWindowMonitor(mWindow, nullptr, mWindowedPosX, safePosY, mWindowedWidth, mWindowedHeight, 0);
+
 		mIsFullscreen = false;
 	}
 }

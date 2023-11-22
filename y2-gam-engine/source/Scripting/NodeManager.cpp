@@ -675,7 +675,9 @@ namespace Image {
       }
 
 			if (GetLowestScoreNode(djikstraGraph).score == INT_MAX) {
+#ifndef _INSTALLER
 				LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "No path could be found!", __FUNCTION__);
+#endif
         break;
       }
 		}
