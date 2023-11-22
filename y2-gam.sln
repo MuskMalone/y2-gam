@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y2-gam-engine", "y2-gam-engine\y2-gam-engine.vcxproj", "{0998660A-65C8-4ECC-B55B-4A7BD7B47199}"
+	ProjectSection(ProjectDependencies) = postProject
+		{53EA1DF0-253B-4408-84C7-1367378F9F5C} = {53EA1DF0-253B-4408-84C7-1367378F9F5C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "y2-gam-script", "y2-gam-script\y2-gam-script.csproj", "{53EA1DF0-253B-4408-84C7-1367378F9F5C}"
 EndProject
