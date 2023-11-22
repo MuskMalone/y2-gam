@@ -1090,6 +1090,7 @@ namespace Image {
         }
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+        auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
@@ -1164,11 +1165,18 @@ namespace Image {
           float windowHeight = ImGui::GetWindowHeight();
           //std::cout << "window posx :" << windowPos.x << " y: " << windowPos.y << std::endl;
           //std::cout << "window width :" << windowWidth << " height: " << windowHeight << std::endl;
-
           ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
-          glm::mat4 const& cameraProj = camera.GetProjMtx();
-          glm::mat4 cameraView = camera.GetViewMtx();//or view mtx
-          if (gCoordinator->HasComponent< Transform>(gSelectedEntity)) {
+          glm::mat4 cameraProj{};
+          glm::mat4 cameraView{};//or view mtx
+          if (gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
+              cameraProj = cameraUI.GetProjMtx();
+              cameraView = cameraUI.GetViewMtx();
+          }
+          else {
+              cameraProj = camera.GetProjMtx();
+              cameraView = camera.GetViewMtx();
+          }
+            if (gCoordinator->HasComponent< Transform>(gSelectedEntity)) {
               Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
               // Create a transformation matrix from position, rotation, and scale
               glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
