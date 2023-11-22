@@ -25,6 +25,10 @@ void SceneManager::Init() {
 
 void SceneManager::LoadScene(std::string const& scnpath) {
 	using namespace Serializer;
+	if (!mCurrentScene.empty()) {
+		ExitScene(mCurrentScene);
+	}
+	mCurrentScene = scnpath;
 	const auto filename{ prefix + scnpath };
 	mSceneListenerStart = true;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
@@ -69,7 +73,7 @@ void SceneManager::SaveScene(std::string const& scnpath) {
 }
 void SceneManager::ExitScene(std::string const& scnpath) {
 	mSceneListenerStart = false;
-
+	mCurrentScene.clear();
 	auto coordinator{ Coordinator::GetInstance() };
 
 	for (auto const& e : mEntities) {

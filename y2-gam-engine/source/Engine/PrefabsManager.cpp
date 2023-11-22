@@ -65,7 +65,12 @@ Entity PrefabsManager::AddPrefab(std::string name) {
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	Entity entity{ Coordinator::GetInstance()->CreateEntity() };
 	PrefabID id{ _hash(name) };
-	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) return mPrefabsFactory[id].entity;
+
+	//tch: if name copied then make  anew one + copy at the end
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) {
+		name += " Copy";
+		id = _hash(name);
+	}
 	mPrefabsFactory[id] = std::move(PrefabEntry{
 		name, id, false, entity
 	});
@@ -74,7 +79,7 @@ Entity PrefabsManager::AddPrefab(std::string name) {
 }
 
 //DO NOT USE IT REPEATEDLY IN FOR LOOP 
-// IT IS SLOW AS HELL
+// IT IS SLOW AS FUCK I WILL FUCKING SLAP YOU
 Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};

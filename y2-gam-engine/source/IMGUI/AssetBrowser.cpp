@@ -159,6 +159,7 @@ void SceneAssetWindow(std::set<Entity> const& mEntities) {
     ImGui::SameLine();
     if (ImGui::Button("New Scene")) {
         std::string sceneName{namebuffer};
+        if (sceneName.empty()) sceneName = "NewScene";
         std::ofstream newScene{(assetDirectory / sceneName).string() + ".json"};
         if (newScene) {
             newScene.close();

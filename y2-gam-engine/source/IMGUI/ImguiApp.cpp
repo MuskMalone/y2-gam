@@ -606,7 +606,9 @@ namespace Image {
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Collider Rot", &collider.rotation);
+                    decltype(collider.rotation) crotDeg{Degree(collider.rotation)};
+                    ImGui::InputFloat("##Collider Rot", &crotDeg);
+                    collider.rotation = glm::radians(crotDeg);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
@@ -992,24 +994,25 @@ namespace Image {
 
         ImVec2 contentSize = ImGui::GetContentRegionAvail();
 
-        ImGuiIO& io = ImGui::GetIO();
-        ImVec2 mousePos = io.MousePos;
+        { //tch: my part
+            ImVec2 mousePos = {inputSystem->GetMousePos().first, inputSystem->GetMousePos().second };
 
-        ImVec2 windowPos = ImGui::GetWindowPos();
-        ImVec2 windowSize = ImGui::GetWindowSize();
-        ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            ImVec2 windowPadding = ImGui::GetStyle().WindowPadding;
 
-        ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
-        ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
+            ImVec2 paddedTopLeft = ImVec2(windowPos.x + windowPadding.x, windowPos.y + windowPadding.y);
+            ImVec2 paddedBottomRight = ImVec2(windowPos.x + windowSize.x - windowPadding.x, windowPos.y + windowSize.y - windowPadding.y);
 
-        if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
-            Event event(Events::Window::INPUT);
-            event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
-                static_cast<float>(mousePos.x - paddedTopLeft.x),
-                static_cast<float>((mousePos.y - paddedTopLeft.y))
-            ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
-            );
-            gCoordinator->SendEvent(event);
+            if (ImGui::IsMouseHoveringRect(paddedTopLeft, paddedBottomRight)) {
+                Event event(Events::Window::INPUT);
+                event.SetParam(Events::Window::Input::EDITOR_MOUSE_MOVE, EditorMousePosition(MousePosition(
+                    static_cast<float>(mousePos.x - paddedTopLeft.x),
+                    static_cast<float>((mousePos.y - paddedTopLeft.y))
+                ), MousePosition(paddedBottomRight.x - paddedTopLeft.x, paddedBottomRight.y - paddedTopLeft.y))
+                );
+                gCoordinator->SendEvent(event);
+            }
         }
 
         if ((mViewportDim.x != contentSize.x) || (mViewportDim.y != contentSize.y)) {
@@ -1137,7 +1140,7 @@ namespace Image {
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::EndChild();
-        std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
+        //std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
 
         //tch: for scene to drag drop
         if (ImGui::BeginDragDropTarget()) {
@@ -1148,9 +1151,9 @@ namespace Image {
                 const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
                 std::filesystem::path basePath {""};
                 //std::cout  << (basePath / payLoadPath).stem().string() << std::endl;
-                if (gCurrentScene != "") {
-                    SceneManager::GetInstance()->ExitScene(gCurrentScene);
-                }
+                //if (gCurrentScene != "") {
+                //    SceneManager::GetInstance()->ExitScene(gCurrentScene);
+                //}
                 gCurrentScene = (basePath / payLoadPath).stem().string();
 
                 SceneManager::GetInstance()->LoadScene(gCurrentScene);
@@ -1160,7 +1163,7 @@ namespace Image {
                     PrefabsManager::PrefabID droppedPid = *(const PrefabsManager::PrefabID*)dragDropPayLoad->Data;
 
                     PrefabsManager::GetInstance()->SpawnPrefab(droppedPid, { mpos.first, mpos.second });
-                    std::cout << "Mouse X: " << mpos.first << ", Mouse Y:-----------------------------------------------" << mpos.second << std::endl;
+                    //std::cout << "Mouse X: " << mpos.first << ", Mouse Y:-----------------------------------------------" << mpos.second << std::endl;
 
                 }
 
