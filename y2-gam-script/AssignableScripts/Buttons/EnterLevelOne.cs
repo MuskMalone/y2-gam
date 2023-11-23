@@ -87,7 +87,7 @@ namespace Object
                 }
                 else
                 {
-                    Colour = new Vector4(1, 0, 1, 1);
+                    Colour = new Vector4(1, 0, 1, 0);
                 }
             }
         }
