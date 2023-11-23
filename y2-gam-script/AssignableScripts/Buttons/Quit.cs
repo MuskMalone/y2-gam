@@ -61,7 +61,7 @@ namespace Object
             {
                 if (UIClicked && firstTime)
                 {
-                    LoadScene("Scene1");
+                    QuitGame();
                     firstTime = false;
                 }
 

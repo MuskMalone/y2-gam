@@ -99,7 +99,7 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectEnterLevelOne",
+                "script": "ObjectQuit",
                 "isFacingRight": true
             },
             "Sprite": {
@@ -115,12 +115,12 @@
             },
             "Transform": {
                 "posX": 800.0,
-                "posY": 505.0,
+                "posY": 310.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 230.0,
+                "scaleX": 400.0,
                 "scaleY": 63.459999084472656,
                 "scaleZ": 15.0,
                 "elipse": false
