@@ -71,6 +71,7 @@
     <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
     <ClCompile Include="source\Systems\UISystem.cpp" />
+    <ClCompile Include="source\Engine\CommandManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
     <ClInclude Include="include\Components\UIImage.hpp" />
     <ClInclude Include="include\Systems\UISystem.hpp" />
+    <ClInclude Include="include\IMGUI\CommandManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics\Shader.hpp">

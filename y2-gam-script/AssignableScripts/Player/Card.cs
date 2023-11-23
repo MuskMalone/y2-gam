@@ -82,7 +82,6 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                Console.WriteLine("Hello");
                 timeAlive += dt;
                 Velocity += direction * speed * dt;
 
