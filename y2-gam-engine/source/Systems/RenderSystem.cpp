@@ -36,7 +36,8 @@
 #include "Scripting/NodeManager.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Systems/InputSystem.hpp>
-
+#include <Core/FrameRateController.hpp>
+#include <Graphics/AnimationManager.hpp>
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -299,6 +300,32 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 		if (gCoordinator->HasComponent<Sprite>(prefab)) {
 			auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
 
+			if (gCoordinator->HasComponent<Animation>(prefab)) {
+				auto& animation = gCoordinator->GetComponent<Animation>(prefab);
+				if (!animation.states.empty()) {
+					float dt = FrameRateController::GetInstance()->GetDeltaTime();
+					if (animation.currState >= animation.states.size()) animation.currState = animation.states.size() - 1;
+					size_t& frameIdx{ animation.currFrame };
+					//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
+					//quick patch to constcast this
+					std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
+
+					if (frameIdx >= frameList.size())
+						frameIdx = 0;
+
+					AnimationFrame& currFrame{ frameList[frameIdx] };
+
+					//xavier todo: help me change this to not use elapsed time
+					currFrame.elapsedTime += dt;
+
+					sprite.spriteID = currFrame.spriteID;
+
+					if (currFrame.elapsedTime >= animation.speed) {
+						++frameIdx;
+						currFrame.elapsedTime = 0.f;
+					}
+				}
+			}
 			if (sprite.GetSpriteID())
 				Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, transform.rotation.z, prefab);
 			else {
@@ -307,6 +334,8 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 				else
 					Renderer::DrawQuad(drawnPos, transform.scale, sprite.color, transform.rotation.z, prefab);
 			}
+
+
 		}
 		if (gCoordinator->HasComponent<Collider>(prefab)) {
 			const auto& c = gCoordinator->GetComponent<Collider>(prefab);
