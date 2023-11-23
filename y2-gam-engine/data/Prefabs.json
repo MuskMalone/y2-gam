@@ -1,5 +1,37 @@
 {
     "Prefabs": {
+        "TestingPrefab": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Script": {
+                "script": "ObjectEnterLevelOne",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698744788359338700
+            },
+            "Tag": {
+                "Tag": "Hello"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 38.7140007019043,
+                "scaleZ": 0.0,
+                "elipse": false
+            }
+        },
         "Box": {
             "Collider": {
                 "collider": 0,
@@ -43,6 +75,43 @@
                 "scaleX": 5.0,
                 "scaleY": 5.0,
                 "scaleZ": 1.0,
+                "elipse": false
+            }
+        },
+        "NewPrefab": {
+            "Animation": {
+                "states": [
+                    1698954259805573200
+                ],
+                "currFrame": 3,
+                "speed": 0.25,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectPlayer",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 62.2859992980957,
+                "scaleY": 51.67900085449219,
+                "scaleZ": 0.0,
                 "elipse": false
             }
         },
