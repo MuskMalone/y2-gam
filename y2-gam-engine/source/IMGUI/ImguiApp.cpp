@@ -96,9 +96,11 @@ namespace Image {
         HierarchyWindow(mEntities);
         LayerWindow();
         //InspectorWindow();
-        PropertyWindow(gSelectedEntity);
+        //PropertyWindow(gSelectedEntity);
         PrefabPropertyWindow();
         GameObjectPropertyWindow();
+        PrefabInspectorWindow();
+        GameObjectInspectorWindow();
         PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
@@ -341,7 +343,6 @@ namespace Image {
                     }
                     SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
-                SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 ImGui::EndDragDropTarget();
             }
         }
@@ -530,6 +531,27 @@ namespace Image {
                     // Highlight the drop area
                     ImGui::TreePop();
                 }
+                if (ImGui::BeginDragDropTarget()) {
+                    //std::cout << "Began drag-drop target." << std::endl;
+
+                    //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                    //    //std::cout << "Accepted payload." << std::endl;
+                    //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //    std::cout << droppedAid << std::endl;
+                    //}
+                    AssetID droppedAid{ static_cast<AssetID>(-1) };
+                    if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
+                        //std::cout << "Accepted payload." << std::endl;
+                        droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                        //std::cout << droppedAid << std::endl;
+                        auto& sprite = gCoordinator->GetComponent<Sprite>(selectedEntity);
+                        sprite.spriteAssetID = droppedAid;
+                        //SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    }
+
+                    ImGui::EndDragDropTarget();
+                }
+
             }
             if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
                 if (ImGui::TreeNode("Animation")) {
@@ -600,6 +622,27 @@ namespace Image {
                         ImGui::Dummy(dummySize);
                     }
                     ImGui::TreePop();
+                }
+                if (ImGui::BeginDragDropTarget()) {
+                    //std::cout << "Began drag-drop target." << std::endl;
+
+                    //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                    //    //std::cout << "Accepted payload." << std::endl;
+                    //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //    std::cout << droppedAid << std::endl;
+                    //}
+                    AssetID droppedAid{ static_cast<AssetID>(-1) };
+
+                    if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
+                        //std::cout << "Accepted payload." << std::endl;
+                        droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                        //std::cout << droppedAid << std::endl;
+                        auto& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
+                        //anim.assetID = droppedAid;
+                        anim.states.emplace_back(droppedAid);
+                        //SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    }
+                    ImGui::EndDragDropTarget();
                 }
             }
             if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
@@ -785,13 +828,13 @@ namespace Image {
         }
         //ImGui::End();
     }
-    void PrefabPropertyWindow() {
+    void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
         InspectorWindow(gSelectedPrefab);
         ImGui::End();
         
     }
-    void GameObjectPropertyWindow() {
+    void GameObjectInspectorWindow() {
         ImGui::Begin("Game Object Inspector");
         InspectorWindow(gSelectedEntity);
         ImGui::End();
@@ -806,9 +849,8 @@ namespace Image {
     This function displays the properties of the selected entity and allows for
     adding or removing components.
     */
-    void PropertyWindow(Entity selectedEntity) {
-        ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage", "Text"};
+    void PropertyWindow(Entity selectedEntity, bool ignore) {
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -845,7 +887,7 @@ namespace Image {
                                 {vP->Pos.x,vP->Pos.y,0},
                                 {0,0,0},
                                 {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -855,7 +897,7 @@ namespace Image {
                             selectedEntity,
                             Sprite{
                                 {1,1,1, 1}
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -870,7 +912,7 @@ namespace Image {
                                     transform.rotation.z,
                                     IMGUI_MASS,
                                     Vec2{transform.scale.x,transform.scale.y}
-                                });
+                                }, ignore);
                         }
                         else {
                             ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -881,7 +923,7 @@ namespace Image {
                                     0.f,
                                     IMGUI_MASS,
                                     Vec2{IMGUI_SCALE,IMGUI_SCALE}
-                                });
+                                }, ignore);
                         }
                     }
                 }
@@ -890,7 +932,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Collider{ Vec2{},0,Vec2{} });
+                            Collider{ Vec2{},0,Vec2{} }, ignore);
                     }
 
                 }
@@ -903,7 +945,7 @@ namespace Image {
                                 0.08f,
                                 0,
                                 0
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -911,7 +953,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} });
+                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
                     }
                 }
                       break;
@@ -919,7 +961,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Tag{ "Entity " + std::to_string(selectedEntity) });
+                            Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
                     }
                 }
                       break;
@@ -928,7 +970,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Script{ "No Script Assigned" });
+                            Script{ "No Script Assigned" }, ignore);
                         ScriptManager::OnCreateEntity(selectedEntity);
                     }
                 }
@@ -938,7 +980,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
                         gCoordinator->AddComponent(
                           selectedEntity,
-                            UIImage{ true });
+                            UIImage{ true }, ignore);
                     }
                 }
                       break;
@@ -952,7 +994,7 @@ namespace Image {
                             "Your Text Here", Vec3(
                             1.0,
                             1.0,
-                            1.0) });
+                            1.0) }, ignore);
                   }
                 }
                       break;
@@ -1046,9 +1088,18 @@ namespace Image {
             ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
             ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
         }
+
+    }
+    void PrefabPropertyWindow() {
+        ImGui::Begin("Prefab Property");
+        PropertyWindow(gSelectedPrefab, false);
         ImGui::End();
     }
-
+    void GameObjectPropertyWindow() {
+        ImGui::Begin("Property");
+        PropertyWindow(gSelectedEntity);
+        ImGui::End();
+    }
     /*  _________________________________________________________________________ */
     /*! BufferWindow
 

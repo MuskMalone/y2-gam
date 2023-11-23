@@ -139,6 +139,7 @@ associated signature.
 			}
 			else
 			{
+
 				system->mEntities.erase(entity);
 			}
 		}

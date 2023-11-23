@@ -74,16 +74,17 @@ void InputSystem::Update()
 void InputSystem::InputListener(Event& event)
 {
 	KeyState press {event.GetParam<KeyState>(Events::Window::Input::KEY_PRESS)};
-	if(!event.GetFail()) mButtonsPressed = press;
+	if(!event.GetFail()) mButtonsPressed |= press;
 	KeyState click {event.GetParam<KeyState>(Events::Window::Input::KEY_CLICK)};
-	if (!event.GetFail()) mButtonsClicked = click;
+	if (!event.GetFail()) 
+		mButtonsClicked |= click;
 	KeyState release {event.GetParam<KeyState>(Events::Window::Input::KEY_RELEASE)};
 	if (!event.GetFail()) mButtonsReleased |= release;
 
 	MouseKeyState mspress {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_PRESS)};
-	if (!event.GetFail())	mMouseButtonsPressed = mspress;
+	if (!event.GetFail())	mMouseButtonsPressed |= mspress;
 	MouseKeyState msclick {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_CLICK)};
-	if (!event.GetFail()) mMouseButtonsClicked = msclick;
+	if (!event.GetFail()) mMouseButtonsClicked |= msclick;
 	MouseKeyState msrelease {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_RELEASE)};
 	if (!event.GetFail()) mMouseButtonsReleased |= msrelease;
 

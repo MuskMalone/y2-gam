@@ -1,6 +1,7 @@
 #include "../include/pch.hpp"
 #include <Engine/PrefabsManager.hpp>
-
+#include <Core/Coordinator.hpp>
+#include <Systems/InputSystem.hpp>
 namespace {
     bool gSelected = false;
     PrefabsManager::PrefabID gSelectedPrefab{static_cast<PrefabsManager::PrefabID>(-1)};
@@ -12,6 +13,7 @@ Entity const& GetSelectedPrefabEntryEntity() {
     return PrefabsManager::GetInstance()->GetEntityFactory().at(gSelectedPrefab).entity;
 }
 void PrefabsAssetWindow(std::set<Entity> const&) {
+    auto inputSystem{ Coordinator::GetInstance()->GetSystem<InputSystem>() };
     ImGui::BeginChild("Prefabs");
     static float padding = 15.f;
     static float size = 95.f;
@@ -64,4 +66,8 @@ void PrefabsAssetWindow(std::set<Entity> const&) {
         // ImGui::SameLine();
     }
     ImGui::EndChild();
+    if (ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_DELETE)) {
+        PrefabsManager::GetInstance()->DeletePrefab(gSelectedPrefab);
+        gSelectedPrefab = static_cast<PrefabsManager::PrefabID>(-1);
+    }
 }

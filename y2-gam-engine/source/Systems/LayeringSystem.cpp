@@ -19,7 +19,6 @@
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Core/Serialization/SerializationManager.hpp"
-
 // Static Initialization
 std::vector<std::string> LayeringSystem::mLayerNames;
 std::vector<int> LayeringSystem::mLayerVisibility;
@@ -27,6 +26,7 @@ std::vector<std::vector<int>> LayeringSystem::mCollisionMatrix;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
+
 }
 
 /*  _________________________________________________________________________ */
@@ -296,6 +296,7 @@ Returns whether the layer is visible or not, by cross checking the
 two vectors.
 */
 bool LayeringSystem::IsLayerVisible(std::string const& layerName) {
+  if (layerName == LAYER_SENTINEL) return false;
   if (layerName == "NONE")
     return true;
 
