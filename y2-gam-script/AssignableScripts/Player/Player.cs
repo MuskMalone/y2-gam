@@ -101,8 +101,8 @@ namespace Object
                 PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f),
                     new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f), entityID, out RaycastHit groundedRayCast);
 
-                Console.WriteLine(groundedRayCast.layer);
-                if (groundedRayCast.layer == "Platform")
+                //Console.WriteLine(groundedRayCast.layer);
+                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy")
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
