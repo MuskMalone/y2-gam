@@ -25,6 +25,9 @@ namespace Object
         // Force Based
         public readonly float JumpForce = 30000.0f;
         public readonly float MovementForce = 1200.0f;
+
+        public int Health { get; set; } = 1;
+
         public bool isGrounded = true;
 
         // Direction related
@@ -157,6 +160,15 @@ namespace Object
         public void Jump()
         {
             Force += new Vector2(0, JumpForce);
+        }
+
+        public void PlayerTakeDamage()
+        {
+            Health -= 1;
+            if(Health <= 0)
+            {
+                Console.WriteLine("Player died");
+            }
         }
     }
 }
