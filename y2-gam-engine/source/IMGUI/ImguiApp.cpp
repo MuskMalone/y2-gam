@@ -415,7 +415,7 @@ namespace Image {
 
                 static int selectedOption = -1;
                 std::vector<const char*> tmp;
-                for (std::string const& name : gCoordinator->GetSystem<LayeringSystem>()->GetLayerNames()) {
+                for (std::string const& name : LayeringSystem::GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());
                 }
@@ -668,6 +668,10 @@ namespace Image {
                     ImGui::Text("Mass");
                     ImGui::InputFloat("Mass", &rigidBody.mass);
                     rigidBody.SetMass(rigidBody.mass);
+                    ImGui::SameLine();
+                    bool isRbMassMax{std::fabs(rigidBody.mass - FLT_MAX) < FLT_EPSILON};
+                    ImGui::Checkbox("##readonlymaxmassrgbd", reinterpret_cast<bool*>(&isRbMassMax));
+                    if (isRbMassMax) rigidBody.SetMass(FLT_MAX);
 
                     // Velocity
                     ImGui::Text("Velocity");
@@ -695,7 +699,7 @@ namespace Image {
                     int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
 
                     // The combo box
-                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
+                    if (ImGui::Combo("Fixed Rotation", &currentItem, items, IM_ARRAYSIZE(items)))
                     {
                         rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
                     }
@@ -1271,7 +1275,7 @@ namespace Image {
                       Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
                       collider.position.x += deltaPosition.x ;
                       collider.position.y += deltaPosition.y;
-                      collider.rotation = glm::degrees(rotation.z);
+                      collider.rotation = rotation.z;
                       collider.dimension.x += deltaScale.x ;
                       collider.dimension.y += deltaScale.y;
                   }
