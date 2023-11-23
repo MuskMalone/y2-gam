@@ -28,3 +28,9 @@ C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+D:\repos\Year 2 GAM\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb

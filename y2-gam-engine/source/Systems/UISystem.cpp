@@ -47,6 +47,7 @@ void UISystem::Update() {
         1.0f - (2.0f * mp.second / static_cast<float>(windowHeight))
     };
 
+
     // Transform mouse position using the UI camera
     Camera const& uiCamera = Coordinator::GetInstance()->GetComponent<Camera>(renderSystem->GetUICamera());
     glm::mat4 inverseViewProj = glm::inverse(uiCamera.GetViewProjMtx());
@@ -64,6 +65,7 @@ void UISystem::Update() {
             auto& transform = Coordinator::GetInstance()->GetComponent<Transform>(entity);
             if (IsMouseOverButton(mousePos, transform)) {
                 if (isLeftMouseClicked) {
+ 
                     std::cout << "Button clicked" << std::endl;
                 }
                 // You can also handle hover state here, if needed
