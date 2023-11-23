@@ -24,6 +24,14 @@ namespace Image
 {
     public static class InternalCalls
     {
+        #region UI
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonClicked(uint entityID, out bool outIsClicked);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonHover(uint entityID, out bool outIsHover);
+        #endregion
+
         #region Serialization
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
@@ -56,7 +64,7 @@ namespace Image
         #region PhysicsComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag, out String layer);
         #endregion
 
         #region GraphicsComponent
@@ -155,6 +163,9 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetColour(uint entityHandle, ref Vector4 colour);
         #endregion
 
         #region TransformComponent

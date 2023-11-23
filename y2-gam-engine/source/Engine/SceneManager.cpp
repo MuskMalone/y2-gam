@@ -25,6 +25,10 @@ void SceneManager::Init() {
 
 void SceneManager::LoadScene(std::string const& scnpath) {
 	using namespace Serializer;
+	if (!mCurrentScene.empty()) {
+		ExitScene(mCurrentScene);
+	}
+	mCurrentScene = scnpath;
 	const auto filename{ prefix + scnpath };
 	mSceneListenerStart = true;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
@@ -49,7 +53,8 @@ void SceneManager::LoadScene(std::string const& scnpath) {
 	}
 }
 
-void SceneManager::SaveScene(std::string const& scnpath) {
+void SceneManager::ModifyScene(std::string const& scnpath) {
+	//im just updateing the entities for now.
 	const auto filename{ prefix + scnpath };
 	using namespace Serializer;
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
@@ -58,11 +63,17 @@ void SceneManager::SaveScene(std::string const& scnpath) {
 	JSONObj entArr{ JSON_ARR_TYPE };
 	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities(entArr);
 	sm->InsertValue(lvlKey, entArr);
-	SerializationManager::GetInstance()->FlushJSON(filename);
+
+}
+
+void SceneManager::SaveScene(std::string const& scnpath) {
+	const auto filename{ prefix + scnpath };
+	ModifyScene(scnpath);
+	Serializer::SerializationManager::GetInstance()->FlushJSON(filename);
 }
 void SceneManager::ExitScene(std::string const& scnpath) {
 	mSceneListenerStart = false;
-
+	mCurrentScene.clear();
 	auto coordinator{ Coordinator::GetInstance() };
 
 	for (auto const& e : mEntities) {

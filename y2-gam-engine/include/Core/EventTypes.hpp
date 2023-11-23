@@ -72,12 +72,12 @@ namespace Events::System {
 }
 namespace Events::System::Entity {
 
-	const EventId CREATE = "Events::System::Entity::CREATE"_hash;
+	const ParamId CREATE = "Events::System::Entity::CREATE"_hash;
 #undef DELETE
-	const EventId DESTROYED = "Events::System::Entity::DESTROYED"_hash;
+	const ParamId DESTROYED = "Events::System::Entity::DESTROYED"_hash;
 #define DELETE                           (0x00010000L)
-	const EventId COMPONENT_ADD = "Events::System::Entity::COMPONENT_ADD"_hash;
-	const EventId COMPONENT_REMOVE = "Events::System::Entity::COMPONENT_REMOVE"_hash;
+	const ParamId COMPONENT_ADD = "Events::System::Entity::COMPONENT_ADD"_hash;
+	const ParamId COMPONENT_REMOVE = "Events::System::Entity::COMPONENT_REMOVE"_hash;
 }
 
 namespace Events::Physics {
