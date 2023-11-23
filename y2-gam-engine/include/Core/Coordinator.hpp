@@ -86,6 +86,13 @@ Sends an event with a specific ID to all registered listeners.
 	{
 		mEventManager->SendEvent(eventId);
 	}
+
+	void BlockEvent(EventId eventId) {
+		mEventManager->BlockEvent(eventId);
+	}
+	void UnblockEvent(EventId eventId) {
+		mEventManager->UnblockEvent(eventId);
+	}
 	/*  _________________________________________________________________________ */
 /*! CreateEntity
 
@@ -119,6 +126,10 @@ Creates a clone of the specified entity, including all its components.
 		auto signature = mEntityManager->GetSignature(entity);
 		mEntityManager->SetSignature(clone, signature);
 		mSystemManager->EntitySignatureChanged(clone, signature);
+
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::CREATE, clone);
+		SendEvent(event);
 		return clone;
 	}
 	/*  _________________________________________________________________________ */
@@ -183,6 +194,7 @@ Adds a component of type T to the specified entity and updates its signature.
 	template<typename T>
 	void AddComponent(Entity entity, T component)
 	{
+		if (HasComponent<T>(entity)) return;
 		mComponentManager->AddComponent<T>(entity, component);
 
 		auto signature = mEntityManager->GetSignature(entity);

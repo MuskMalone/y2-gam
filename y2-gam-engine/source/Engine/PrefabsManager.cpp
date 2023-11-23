@@ -61,27 +61,51 @@ void PrefabsManager::Exit() {
 
 }
 
-Entity PrefabsManager::AddPrefab(std::string name, Entity entity) {
+Entity PrefabsManager::AddPrefab(std::string name) {
+	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
+	Entity entity{ Coordinator::GetInstance()->CreateEntity() };
 	PrefabID id{ _hash(name) };
-	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) return mPrefabsFactory[id].entity;
+
+	//tch: if name copied then make  anew one + copy at the end
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) {
+		name += " Copy";
+		id = _hash(name);
+	}
 	mPrefabsFactory[id] = std::move(PrefabEntry{
 		name, id, false, entity
 	});
+	Coordinator::GetInstance()->UnblockEvent(Events::System::ENTITY);
 	return entity;
 }
 
 //DO NOT USE IT REPEATEDLY IN FOR LOOP 
-// IT IS SLOW AS HELL
-Entity PrefabsManager::SpawnPrefab(const char* key) {
-	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
-	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
-	using namespace Serializer;
-	return gCoordinator->CloneEntity(mPrefabsFactory[_hash(key)].entity);
-}
-
+// IT IS SLOW AS FUCK I WILL FUCKING SLAP YOU
 Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
 	using namespace Serializer;
 	return gCoordinator->CloneEntity(mPrefabsFactory[key].entity);
 }
+Entity PrefabsManager::SpawnPrefab(const char* key) {
+	return SpawnPrefab(_hash(key));
+}
+
+Entity PrefabsManager::SpawnPrefab(PrefabID key, Vec2 const& pos) {
+	Entity e{ SpawnPrefab(key) };
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	if (coordinator->HasComponent<Transform>(e)) {
+		auto& xfm{ coordinator->GetComponent<Transform>(e) };
+		xfm.position.x = pos.x;
+		xfm.position.y = pos.y;
+	}
+	if (coordinator->HasComponent<Collider>(e)) {
+		auto& c{ coordinator->GetComponent<Collider>(e) };
+		c.position += pos;
+	}
+	return e;
+}
+
+Entity PrefabsManager::SpawnPrefab(const char* key, Vec2 const& pos) {
+	return (SpawnPrefab(_hash(key), pos));
+}
+

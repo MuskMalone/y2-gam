@@ -25,16 +25,27 @@
 
 struct UIImage
 {
-	bool enabled{true};
+	bool enabled{ true };
+	bool isClicked{ false };
+	bool isHover{ false };
 
 	UIImage() = default;
 	UIImage(bool en) : enabled{en} {}
 	UIImage([[maybe_unused]] rapidjson::Value const& obj) {
 		enabled = obj["enabled"].GetBool();
+		/*
+		isClicked = obj["isClicked"].GetBool();
+		isHover = obj["isHover"].GetBool();
+		*/
+		isClicked = false;
+		isHover = false;
 	}
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
-		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "enabled", enabled);
+		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		sm->InsertValue(obj, "enabled", enabled);
+		sm->InsertValue(obj, "isClicked", isClicked);
+		sm->InsertValue(obj, "isHover", isHover);
 
 		return true;
 	}
