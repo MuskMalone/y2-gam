@@ -1209,11 +1209,11 @@ namespace Image {
                 camera.SetRotation(camera.mRot);
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-                camera.mZoomLevel += CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel = std::min(camera.mZoomLevel + CAMERA_ZOOMSPEED * dt, camera.mMaxZoom);
                 camera.ZoomIn();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-                camera.mZoomLevel -= CAMERA_ZOOMSPEED * dt;
+                camera.mZoomLevel = std::max(camera.mZoomLevel - CAMERA_ZOOMSPEED * dt, camera.mMinZoom);
                 camera.ZoomOut();
             }
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {

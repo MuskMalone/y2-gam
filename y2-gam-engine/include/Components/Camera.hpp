@@ -75,7 +75,7 @@ public:
 
 	float mRot{ 0.f };
 	float mZoomLevel{ 1.f };
-	float mMinZoom{ 10.f }, mMaxZoom{ 300.f };
+	float mMinZoom{ 0.1f }, mMaxZoom{ 3.f };
 	float mAspectRatio{ 1.f };
 
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {

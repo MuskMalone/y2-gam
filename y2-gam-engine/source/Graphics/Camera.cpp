@@ -147,6 +147,7 @@ void Camera::ZoomIn() {
 	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
 	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
 	//ComputeViewProjMtx();
+	mZoomLevel = std::min(mZoomLevel, mMaxZoom);
 	UpdateProjectionMtx();
 }
 
@@ -160,6 +161,7 @@ void Camera::ZoomOut() {
 	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
 	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
 	//ComputeViewProjMtx();
+	mZoomLevel = std::max(mZoomLevel, mMinZoom);
 	UpdateProjectionMtx();
 }
 
