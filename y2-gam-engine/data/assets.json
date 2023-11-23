@@ -131,6 +131,14 @@
             "idxY": 0.0,
             "dimX": 0.0,
             "dimY": 0.0
+        },
+        "1700722673936655200": {
+            "id": 1700722673936705000,
+            "path": "../assets\\Textures\\gam200_mainmenu_text_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 551.0,
+            "dimY": 463.0
         }
     },
     "classAnimationManager": {

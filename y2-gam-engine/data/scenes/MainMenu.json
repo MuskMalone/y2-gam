@@ -1,7 +1,5 @@
 {
-    "Assets": [
-        18446744073709551615
-    ],
+    "Assets": [],
     "Entities": [
         {
             "Layering": {
@@ -25,10 +23,75 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 165.0,
-                "scaleY": 92.81199645996094,
+                "scaleX": 182.0,
+                "scaleY": 107.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700722673936655200
+            },
+            "Tag": {
+                "Tag": "button"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectEnterLevelOne",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "strt"
+            },
+            "Transform": {
+                "posX": 765.8009033203125,
+                "posY": 636.8095092773438,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 88.21399688720703,
+                "scaleY": 46.9640007019043,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

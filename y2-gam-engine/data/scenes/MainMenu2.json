@@ -1,0 +1,42 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectEnterLevelOne",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 855.3762817382813,
+                "posY": 506.0072326660156,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        }
+    ]
+}
