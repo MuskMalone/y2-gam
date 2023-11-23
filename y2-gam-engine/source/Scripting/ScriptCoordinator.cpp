@@ -23,12 +23,15 @@
 
 #include "Core/Coordinator.hpp"
 
+#include "Graphics/SpriteManager.hpp"
+
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Audio/Sound.hpp"
+
 using namespace Physics;
 
 namespace {
@@ -190,6 +193,18 @@ namespace Image {
 	}
 
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_Quit
+
+	@return none.
+
+	Quits the application.
+	*/
+	static void EngineCore_Quit() {
+		Event e{ Events::Window::QUIT };
+		gCoordinator->SendEvent(e);
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetMousePos
 
@@ -454,18 +469,38 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
-/*! GraphicsComponent_GetScale
+	/*! GraphicsComponent_SetSprite
 
-@param entityID
-The ID of the entity.
+	@param entityID
+	The ID of the entity.
 
-@param outScale
-The current scale of the entity.
+	@param fileName
+	The name of the file the sprite asset is at.
 
-@return none.
+	@return none.
 
-Get the current scale of the entity in C#.
-*/
+	Sets the sprite for the entity.
+	*/
+	static void GraphicsComponent_SetSprite(uint32_t entityID, MonoString** fileName) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Sprite>(entityID)) {
+			gCoordinator->GetComponent<Sprite>(entityID).spriteID = SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_GetScale
+
+	@param entityID
+	The ID of the entity.
+
+	@param outScale
+	The current scale of the entity.
+
+	@return none.
+
+	Get the current scale of the entity in C#.
+	*/
 	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Transform>(entityID)) {
@@ -795,6 +830,7 @@ Get the current scale of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 
@@ -803,6 +839,7 @@ Get the current scale of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetSprite);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetColour);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);

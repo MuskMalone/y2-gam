@@ -61,6 +61,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetText(uint entityID, out String text);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_Quit();
         #endregion
 
         #region Pathfinding
@@ -142,6 +145,22 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void AnimationComponent_SetAnimationState(uint entityHandle, ref int animationState);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetSprite
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param fileName
+        Name of the file.
+
+        @return none.
+
+        Set the current sprite of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetSprite(uint entityHandle, out String fileName);
 
         /*  _________________________________________________________________________ */
         /*! GraphicsComponent_GetScale

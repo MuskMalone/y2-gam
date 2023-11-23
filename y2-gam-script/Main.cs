@@ -115,6 +115,16 @@ namespace Image
         {
             InternalCalls.EngineCore_SetText(entityID, out text);
         }
+
+        /*  _________________________________________________________________________ */
+        /*! Quit
+        
+        Quits the game.
+        */
+        public void QuitGame()
+        {
+            InternalCalls.EngineCore_Quit();
+        }
         #endregion
 
         #region Serialization
@@ -169,6 +179,11 @@ namespace Image
             {
                 InternalCalls.AnimationComponent_SetAnimationState(entityID, ref value);
             }
+        }
+
+        public void SetSprite(string fileName)
+        {
+            InternalCalls.GraphicsComponent_SetSprite(entityID, out fileName);
         }
 
         /*  _________________________________________________________________________ */
