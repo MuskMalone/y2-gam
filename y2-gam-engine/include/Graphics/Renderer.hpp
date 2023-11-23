@@ -55,7 +55,6 @@ struct QuadVtx {
 	glm::vec4 clr;
 	glm::vec2 texCoord;
 	float texIdx; //float as it is passed to shader
-	//TODO test if unsigned int works
 	int entity {};
 
 };

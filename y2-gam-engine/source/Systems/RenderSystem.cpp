@@ -325,6 +325,15 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	mFramebuffers[1]->Unbind();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief RenderUI Function
+
+Handles the rendering of UI elements in the RenderSystem class. It iterates through each entity in mEntities,
+checks for necessary components like Layering and UIImage, and renders them if conditions are met.
+This function also ensures UI elements are constrained within screen bounds and handles rendering of both sprite and non-sprite UI elements.
+
+*/
 void RenderSystem::RenderUI() {
 	//UI
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());

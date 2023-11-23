@@ -20,7 +20,7 @@
 #include "Core/Coordinator.hpp"
 #include "Components/Collider.hpp"
 #include "Systems/LayeringSystem.hpp"
-//#include "Components/RigidBody.hpp"
+
 #include <Core/Globals.hpp>
 #include <Math/Collision.hpp>
 #include <Core/Types.hpp>

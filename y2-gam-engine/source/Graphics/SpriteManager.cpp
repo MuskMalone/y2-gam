@@ -21,7 +21,6 @@
 #include "../include/pch.hpp"
 #include "Graphics/SpriteManager.hpp"
 
-#include <filesystem>
 std::unordered_map<ResourceID, std::shared_ptr<Texture>> SpriteManager::textures;
 std::unordered_map<ResourceID, std::shared_ptr<SubTexture>> SpriteManager::sprites;
 std::map<std::string, ResourceID> SpriteManager::sSpriteResourceMap;

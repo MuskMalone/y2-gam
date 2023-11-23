@@ -6,7 +6,6 @@
 #include "Core/Coordinator.hpp"
 #include "Systems/UISystem.hpp"
 #include "Systems/RenderSystem.hpp"
-//#include "Systems/LayeringSystem.hpp"
 
 #include "Components/UIImage.hpp"
 #include "../WindowManager.hpp"
@@ -16,20 +15,28 @@ namespace {
 }
 
 /*  _________________________________________________________________________ */
-/*! Init
+/*!
+\brief Init Function
+
+Initializes the UISystem. This function is designed to set up any necessary components or state
+required by the UISystem. Currently, the function body is empty, indicating no initialization logic is present.
 
 @return none.
-
 */
 void UISystem::Init() {
 
 }
 
 /*  _________________________________________________________________________ */
-/*! Update
+/*!
+\brief Update Function
+
+Performs the update logic for the UISystem. It involves processing user input,
+updating the state of UI elements, and handling interactions like mouse hover and clicks on UI buttons.
+The function calculates the mouse position in world space and checks if the mouse is over any UI button,
+updating their hover and click status accordingly.
 
 @return none.
-
 */
 void UISystem::Update() {
     auto const& inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
@@ -82,15 +89,31 @@ void UISystem::Update() {
 }
 
 /*  _________________________________________________________________________ */
-/*! Exit
+/*!
+\brief Exit Function
+
+Handles the cleanup or shutdown procedures for the UISystem.
+This function is intended for deallocating resources or performing any necessary cleanup operations
+when the UISystem is no longer needed. Currently, the function body is empty, indicating no exit logic is present.
 
 @return none.
-
 */
 void UISystem::Exit() {
 
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief IsMouseOverButton Function
+
+Determines if the mouse is hovering over a given UI button.
+The function calculates the bounding box of the button and checks if the mouse position falls within this area.
+
+\param mousePos A Vec2 structure representing the current mouse position.
+\param transform A Transform structure representing the transform of the UI button.
+
+@return A boolean value indicating whether the mouse is over the button.
+*/
 bool UISystem::IsMouseOverButton(Vec2 const& mousePos, Transform const& transform) {
     Vec2 halfSize = Vec2(transform.scale.x / 2, transform.scale.y / 2);
     Vec2 topLeft = Vec2(transform.position.x - halfSize.x, transform.position.y - halfSize.y);
