@@ -21,8 +21,10 @@
 #include "../include/pch.hpp"
 #include "Graphics/SpriteManager.hpp"
 
+#include <filesystem>
 std::unordered_map<ResourceID, std::shared_ptr<Texture>> SpriteManager::textures;
 std::unordered_map<ResourceID, std::shared_ptr<SubTexture>> SpriteManager::sprites;
+std::map<std::string, ResourceID> SpriteManager::sSpriteResourceMap;
 
 /*  _________________________________________________________________________ */
 /*! LoadTexture
@@ -165,11 +167,17 @@ This function reads sprite properties such as path, index coordinates, and dimen
 ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
     ResourceID texrid{ LoadTexture(obj["path"].GetString()) };
     ResourceID key{ obj["id"].GetUint64() };
-    CreateSubTexture(texrid, SpriteProperties{
+
+    std::string pathString{ obj["path"].GetString() };
+    std::filesystem::path pathObj(pathString);
+    std::string filename = pathObj.stem().string();
+
+    sSpriteResourceMap[filename] = CreateSubTexture(texrid, SpriteProperties{
             key,
             glm::vec2{obj["idxX"].GetFloat(), obj["idxY"].GetFloat()},
             glm::vec2{obj["dimX"].GetFloat(), obj["dimY"].GetFloat()}
         });
+
     return key;
 }
 
@@ -259,4 +267,17 @@ ResourceID SpriteManager::AddAsset(rapidjson::Value& obj, std::string const& pat
     sm->InsertValue(obj, "dimY", 0.0);
 
     return rid;
+}
+
+/*  _________________________________________________________________________ */
+/*! GetResourceID
+
+@param filename (not the full path)
+
+@return ResourceID
+
+Gets the ResourceID.
+*/
+ResourceID SpriteManager::GetResourceID(std::string const& filename) {
+    return sSpriteResourceMap[filename];
 }

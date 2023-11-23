@@ -321,8 +321,6 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 		}
 	}
 
-
-
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
 }
@@ -332,6 +330,9 @@ void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
 	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
 
 		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
 		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };

@@ -40,9 +40,11 @@ public:
     static std::shared_ptr<SubTexture> const& GetAsset(ResourceID);
     static SpriteProperties& GetAssetProperties(ResourceID);
     static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID);
+    static ResourceID GetResourceID(std::string const& filename);
 
 private:
 
     static std::unordered_map<ResourceID, std::shared_ptr<Texture>> textures;
     static std::unordered_map<ResourceID, std::shared_ptr<SubTexture>> sprites;
+    static std::map<std::string, ResourceID> sSpriteResourceMap;
 };
