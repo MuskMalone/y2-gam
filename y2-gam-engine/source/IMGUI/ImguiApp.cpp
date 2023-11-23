@@ -1176,7 +1176,7 @@ namespace Image {
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
-        auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+        //auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 
