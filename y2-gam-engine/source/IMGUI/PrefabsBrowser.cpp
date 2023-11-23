@@ -22,7 +22,14 @@ void PrefabsAssetWindow(std::set<Entity> const&) {
     if (columnCount < 1) {
         columnCount = 1;
     }
-
+    static char namebuffer[2048] = "";
+    ImGui::InputText("##unique_id", namebuffer, IM_ARRAYSIZE(namebuffer));
+    ImGui::SameLine();
+    if (ImGui::Button("New Prefab")) {
+        std::string prefabName{namebuffer};
+        if (prefabName.empty()) prefabName = "NewPrefab";
+        PrefabsManager::GetInstance()->AddPrefab(prefabName);
+    }
     ImGui::Columns(columnCount, 0, false);
 
     for (auto const& prefab : PrefabsManager::GetInstance()->GetEntityFactory()) {

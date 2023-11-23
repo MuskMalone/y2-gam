@@ -19,6 +19,7 @@ public:
 private:
 	static std::shared_ptr<SceneManager> _mSelf;
 	std::set<Entity> mEntities;
+	std::string mCurrentScene;
 	bool mSceneListenerStart;
 	//listens after all the other scene entities are done
 	void OnEntityEvent(Event&);

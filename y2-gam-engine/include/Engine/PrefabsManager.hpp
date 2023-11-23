@@ -25,6 +25,7 @@ public:
 
 	void Init();
 	void Exit();
+	//tch: string is pbv cuz im already gonna make a copy inside the implementation
 	Entity AddPrefab(std::string name);
 	Entity SpawnPrefab(PrefabID id);
 	Entity SpawnPrefab(const char* key);

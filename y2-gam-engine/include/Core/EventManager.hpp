@@ -53,6 +53,7 @@ Each listener function is called with the event as an argument.
 	void SendEvent(Event& event)
 	{
 		uint32_t type = event.GetType();
+		if (eventInterrupt.find(event.GetType()) != eventInterrupt.end() && eventInterrupt.at(event.GetType())) return;
 
 		for (auto const& listener : listeners[type])
 		{
