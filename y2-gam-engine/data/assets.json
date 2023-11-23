@@ -1,13 +1,13 @@
 {
     "classImage::SoundManager": {
-        "1698648904161047500": {
-            "id": 1698648904161059700,
-            "path": "../assets/audio/teleport.wav",
+        "1700582535325873000": {
+            "id": 1700582535325952400,
+            "path": "../assets\\audio\\music\\PM_Menu_Music_Loop.wav",
             "stream": false
         },
-        "1698648904161071400": {
-            "id": 1698648904161079500,
-            "path": "../assets/audio/bgm.wav",
+        "1700582537521462100": {
+            "id": 1700582537521524600,
+            "path": "../assets\\audio\\music\\Poltergeist'sMansionTheme_BGM_Loop.wav",
             "stream": false
         }
     },
@@ -162,6 +162,22 @@
             "id": 1698992900427552500,
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_RUN.png",
             "frameCount": 10,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1700480657025096500": {
+            "id": 1700480657025132700,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_idle.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1700480697547170400": {
+            "id": 1700480697547250300,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_jump.png",
+            "frameCount": 7,
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0

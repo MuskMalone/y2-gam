@@ -24,7 +24,29 @@ namespace Image
 {
     public static class InternalCalls
     {
+        #region UI
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonClicked(uint entityID, out bool outIsClicked);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonHover(uint entityID, out bool outIsHover);
+        #endregion
+
+        #region Serialization
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void SerializationComponent_SetIsFacingRight(uint entityID, ref bool facingDirection);
+        #endregion
+
         #region EngineCore
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PlayAudio(out String audioFileName, out int loopCount);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_LoadScene(out String sceneName);
+
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
 
@@ -32,7 +54,6 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetText(uint entityID, out String text);
         #endregion
-
 
         #region PathfindingComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -43,10 +64,42 @@ namespace Image
         #region PhysicsComponent
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag, out String layer);
         #endregion
 
         #region GraphicsComponent
+        /*  _________________________________________________________________________ */
+        /*! AnimationComponent_GetAssetID
+
+        @param entityID
+        The ID of the entity.
+
+        @param outAssetID
+        The current asset ID of the entity.
+
+        @return none.
+
+        Get the current asset ID of the entity in C#.
+        */
+        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        //internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
+
+        /*  _________________________________________________________________________ */
+        /*! AnimationComponent_SetAssetID
+
+        @param entityID
+        The ID of the entity.
+
+        @param assetID
+        Updated asset ID of the entity.
+
+        @return none.
+
+        Set the current asset ID of the entity in C#.
+        */
+        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        //internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
+
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
@@ -110,6 +163,9 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetColour(uint entityHandle, ref Vector4 colour);
         #endregion
 
         #region TransformComponent

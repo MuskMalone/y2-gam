@@ -38,7 +38,7 @@ void SceneManager::LoadScene(std::string const& scnpath) {
 			std::set<AssetID> aids{};
 			if (aidsJson.IsArray()) {
 				for (size_t i{}; i < aidsJson.Size(); ++i) {
-					aids.insert(aidsJson[i].GetUint64());
+					aids.insert(aidsJson[static_cast<rapidjson::SizeType>(i)].GetUint64());
 				}
 			}
 		AssetManager::GetInstance()->LoadAssetChunk(aids);

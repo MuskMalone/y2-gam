@@ -37,7 +37,6 @@ enum class Layer {
 
 struct Sprite {
 	glm::vec4 color{};
-	//std::shared_ptr<SubTexture> texture{}; //TODO REMOVE
 	AssetID spriteAssetID{};
 	ResourceID spriteID{};
 	Layer layer{};
@@ -47,7 +46,6 @@ struct Sprite {
 	Sprite([[maybe_unused]] rapidjson::Value const& obj) {
 		color = { obj["r"].GetFloat(),obj["g"].GetFloat(),obj["b"].GetFloat(),obj["a"].GetFloat() };
 		spriteAssetID = { obj["assetID"].GetUint64() };
-		//texture = nullptr;
 		spriteID = 0;
 		layer = static_cast<Layer>(obj["layer"].GetInt());
 	}

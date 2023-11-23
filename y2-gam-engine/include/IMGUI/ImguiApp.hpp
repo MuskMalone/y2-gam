@@ -62,4 +62,5 @@ namespace Image {
     void RenderStatsWindow();
 
     static ImVec2 mViewportDim{};
+    void GuizmoWindow();
 }

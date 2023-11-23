@@ -24,8 +24,14 @@
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
-
+#include "ImGuizmo.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>       
 #include "Components/Script.hpp"
+#include "Components/UIImage.hpp"
 #include "Core/Coordinator.hpp"
 #include "Systems/EditorControlSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
@@ -47,11 +53,15 @@
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
 
+ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
+ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
+
 namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
-
+    bool gSnap = false;
+    float gSnapVal = 1.f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
     std::string gCurrentScene = "";
@@ -97,7 +107,7 @@ namespace Image {
         //AssetWindow(mEntities);
         AssetWindow(mEntities);
         AssetPropertiesWindow(mEntities);
-
+        GuizmoWindow();
         LoggingWindow();
         RenderStatsWindow();
         //if (toDelete) {
@@ -225,6 +235,11 @@ namespace Image {
                     gCoordinator->AddComponent(
                         gSelectedEntity,
                         Tag{ "Name" });
+                    gCoordinator->AddComponent(
+                      gSelectedEntity,
+                      Sprite{
+                          {1,1,1, 1}
+                      });
                 }
             }
             ImGui::EndPopup();
@@ -247,6 +262,11 @@ namespace Image {
             gCoordinator->AddComponent(
                 gSelectedEntity,
                 Tag{ "Name" });
+            gCoordinator->AddComponent(
+              gSelectedEntity,
+              Sprite{
+                  {1,1,1, 1}
+              });
             }
         }
 
@@ -396,10 +416,8 @@ namespace Image {
                 Layering& layer = gCoordinator->GetComponent<Layering>(selectedEntity);
 
                 static int selectedOption = -1;
-
-                auto const& layerSystem{ gCoordinator->GetSystem<LayeringSystem>() };
                 std::vector<const char*> tmp;
-                for (std::string const& name : layerSystem->GetLayerNames()) {
+                for (std::string const& name : LayeringSystem::GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());
                 }
@@ -474,6 +492,7 @@ namespace Image {
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+
                     ImGui::TreePop();
                 }
             }
@@ -651,6 +670,10 @@ namespace Image {
                     ImGui::Text("Mass");
                     ImGui::InputFloat("Mass", &rigidBody.mass);
                     rigidBody.SetMass(rigidBody.mass);
+                    ImGui::SameLine();
+                    bool isRbMassMax{std::fabs(rigidBody.mass - FLT_MAX) < FLT_EPSILON};
+                    ImGui::Checkbox("##readonlymaxmassrgbd", reinterpret_cast<bool*>(&isRbMassMax));
+                    if (isRbMassMax) rigidBody.SetMass(FLT_MAX);
 
                     // Velocity
                     ImGui::Text("Velocity");
@@ -678,7 +701,7 @@ namespace Image {
                     int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
 
                     // The combo box
-                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
+                    if (ImGui::Combo("Fixed Rotation", &currentItem, items, IM_ARRAYSIZE(items)))
                     {
                         rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
                     }
@@ -705,6 +728,26 @@ namespace Image {
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
+            }
+            if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+              std::string treeNodeLabel = "Text##" + std::to_string(selectedEntity);
+              if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                Text& text = gCoordinator->GetComponent<Text>(selectedEntity);
+                ImGui::Text("Text to Display");
+                ImGui::SameLine();
+                ImGui::SetCursorPosX(SAME_LINE_SPACING);
+                ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                char tempLayerName[256]; // Temp Buffer
+                strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
+                tempLayerName[sizeof(tempLayerName) - 1] = '\0';
+
+                if (ImGui::InputText(("##readonly" + std::to_string(selectedEntity)).c_str(), tempLayerName, sizeof(tempLayerName),
+                  ImGuiInputTextFlags_EnterReturnsTrue)) {
+                  text.text = tempLayerName;
+                }
+
+                ImGui::TreePop();
+              }
             }
             if (gCoordinator->HasComponent<Script>(selectedEntity)) {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
@@ -890,6 +933,29 @@ namespace Image {
                     }
                 }
                       break;
+                case 8: {
+
+                    if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                        gCoordinator->AddComponent(
+                          selectedEntity,
+                            UIImage{ true });
+                    }
+                }
+                      break;
+
+                case 9: {
+
+                  if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
+                    gCoordinator->AddComponent(
+                      selectedEntity,
+                      Text{"Arial", 0.05f,
+                            "Your Text Here", Vec3(
+                            1.0,
+                            1.0,
+                            1.0) });
+                  }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -951,6 +1017,21 @@ namespace Image {
                     }
                 }
                       break;
+                case 8: {
+                    // Remove UIImage component
+                    if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                        gCoordinator->RemoveComponent<UIImage>(selectedEntity);
+                    }
+                }
+                      break;
+
+                case 9: {
+                  // Remove UIImage component
+                  if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Text>(selectedEntity);
+                  }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
@@ -962,7 +1043,8 @@ namespace Image {
             ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
             ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
-
+            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
         }
 
     }
@@ -989,8 +1071,7 @@ namespace Image {
     void BufferWindow(float dt) {
         auto inputSystem{ Coordinator::GetInstance()->GetSystem<InputSystem>() };
         auto mpos{ inputSystem->GetWorldMousePos() };
-        static int draggedEntity = -1;   // -1 means no entity is being dragged.
-        static ImVec2 lastMousePos;      // Store the last position of the mouse.
+
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 originalPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0.0f, 0.0f);
@@ -1031,7 +1112,7 @@ namespace Image {
             mViewportDim = contentSize;
         }
 
-        if (ImGui::IsWindowHovered()&&renderSystem->IsEditorMode()) {
+        if (ImGui::IsWindowHovered() && renderSystem->IsEditorMode()) {
 
             //mouse picking part:
             ImVec2 viewportOffset = ImGui::GetCursorPos(); //tab bar included
@@ -1049,63 +1130,71 @@ namespace Image {
             int mouseX = static_cast<int>(mousePos.x);
             int mouseY = static_cast<int>(mousePos.y);
 
-            if (ImGui::IsMouseClicked(0) && draggedEntity == -1) {
+            if (ImGui::IsMouseClicked(0) ) {
                 if (mouseX >= 0 && mouseX < static_cast<int>(viewportSize.x) && mouseY >= 0 && mouseY < static_cast<int>(viewportSize.y)) {
                     framebuffer->Bind();
                     int pixelData = framebuffer->ReadPixel(1, mouseX, mouseY);
                     framebuffer->Unbind();
-                    draggedEntity = pixelData;
                     if (pixelData >= 0 && pixelData <= MAX_ENTITIES) {
                         gSelectedEntity = pixelData;
                     }
-                    lastMousePos = ImGui::GetMousePos();
                 }
             }
             // If dragging an entity and the mouse is moving
-            else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
+            //else if (draggedEntity != -1 && draggedEntity <= MAX_ENTITIES && ImGui::IsMouseDragging(0)) {
 
-                ImVec2 currentMousePos = ImGui::GetMousePos();
-                ImVec2 delta = {
-                    currentMousePos.x - lastMousePos.x,
-                    currentMousePos.y - lastMousePos.y
-                };
-                Camera const& cam{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+            //    //if (!gCoordinator->HasComponent<UIImage>(draggedEntity)) {
+            //        ImVec2 currentMousePos = ImGui::GetMousePos();
+            //        ImVec2 delta = {
+            //            currentMousePos.x - lastMousePos.x,
+            //            currentMousePos.y - lastMousePos.y
+            //        };
 
-                glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
-                // Unproject the initial drag position
-                glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
-                worldSpaceInitial /= worldSpaceInitial.w;
+            //        Camera cam;
+            //        if (!gCoordinator->HasComponent<UIImage>(draggedEntity))
+            //            cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+            //        else
+            //            cam = gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
 
-                // Unproject the current mouse position
-                glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
-                glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
-                worldSpaceCurrent /= worldSpaceCurrent.w;
+            //        glm::mat4 invViewProjMtx{ glm::inverse(cam.GetViewProjMtx()) };
+            //        // Unproject the initial drag position
+            //        glm::vec4 clipSpaceInitial = glm::vec4(2.0f * (lastMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (lastMousePos.y / viewportSize.y), 0.0f, 1.0f);
+            //        glm::vec4 worldSpaceInitial = invViewProjMtx * clipSpaceInitial;
+            //        worldSpaceInitial /= worldSpaceInitial.w;
 
-                // Calculate the world space delta
-                glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
+            //        // Unproject the current mouse position
+            //        glm::vec4 clipSpaceCurrent = glm::vec4(2.0f * (currentMousePos.x / viewportSize.x) - 1.0f, 1.0f - 2.0f * (currentMousePos.y / viewportSize.y), 0.0f, 1.0f);
+            //        glm::vec4 worldSpaceCurrent = invViewProjMtx * clipSpaceCurrent;
+            //        worldSpaceCurrent /= worldSpaceCurrent.w;
 
-                Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
-                transform.position += worldDelta;
+            //        // Calculate the world space delta
+            //        glm::vec3 worldDelta = glm::vec3(worldSpaceCurrent - worldSpaceInitial);
 
-                if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
-                    Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
-                    collider.position += {worldDelta.x, worldDelta.y};
-                }
+            //        Transform& transform = gCoordinator->GetComponent<Transform>(draggedEntity);
+            //        transform.position += worldDelta;
 
-                lastMousePos = currentMousePos;
-            }
-            // If left mouse button is released, stop dragging
-            else if (ImGui::IsMouseReleased(0)) {
-                draggedEntity = -1;
-            }
+            //        if (gCoordinator->HasComponent<Collider>(draggedEntity)) {
+            //            Collider& collider = gCoordinator->GetComponent<Collider>(draggedEntity);
+            //            collider.position += {worldDelta.x, worldDelta.y};
+            //        }
+
+            //        lastMousePos = currentMousePos;
+            //    }
+            //   
+            ////}
+            //// If left mouse button is released, stop dragging
+            //else if (ImGui::IsMouseReleased(0)) {
+            //    draggedEntity = -1;
+            //}
         }
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+        auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         //auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+          //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-                
+
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
             }
@@ -1149,6 +1238,60 @@ namespace Image {
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        if (gSelectedEntity != MAX_ENTITIES && renderSystem->IsEditorMode() && gCurrentGuizmoOperation!=-1) {
+          ImGuizmo::SetOrthographic(true);
+          ImGuizmo::SetDrawlist();
+          ImVec2 windowPos = ImGui::GetWindowPos();
+
+          float windowWidth = ImGui::GetWindowWidth();
+          float windowHeight = ImGui::GetWindowHeight();
+          //std::cout << "window posx :" << windowPos.x << " y: " << windowPos.y << std::endl;
+          //std::cout << "window width :" << windowWidth << " height: " << windowHeight << std::endl;
+          ImGuizmo::SetRect(windowPos.x, windowPos.y, windowWidth, windowHeight);
+          glm::mat4 cameraProj{};
+          glm::mat4 cameraView{};//or view mtx
+          if (gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
+              cameraProj = cameraUI.GetProjMtx();
+              cameraView = cameraUI.GetViewMtx();
+          }
+          else {
+              cameraProj = camera.GetProjMtx();
+              cameraView = camera.GetViewMtx();
+          }
+            if (gCoordinator->HasComponent< Transform>(gSelectedEntity)) {
+              Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+              // Create a transformation matrix from position, rotation, and scale
+              glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
+              glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
+              glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
+              glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+              float snapArr[3] = { gSnapVal,gSnapVal ,gSnapVal };
+
+              ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProj),
+                  gCurrentGuizmoOperation, gCurrentGizmoMode,
+                  glm::value_ptr(transformMatrix), nullptr,
+                  gSnap ? snapArr : nullptr);
+              if (ImGuizmo::IsUsing()) {
+                  glm::vec3 position, rotation, scale;
+                  Image::DecomposeTransform(transformMatrix, position, rotation, scale);
+                  glm::vec3 deltaPosition = position - transform.position;
+                  //float deltaRotationZ = glm::degrees(rotation.z) - transform.rotation.z;
+                  glm::vec3 deltaScale = scale - transform.scale;
+                  transform.position = position;
+                  transform.rotation.z = glm::degrees(rotation.z);
+                  transform.scale = scale;
+                  // Update collider position if the entity has a collider component
+                  if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                      Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
+                      collider.position.x += deltaPosition.x ;
+                      collider.position.y += deltaPosition.y;
+                      collider.rotation = rotation.z;
+                      collider.dimension.x += deltaScale.x ;
+                      collider.dimension.y += deltaScale.y;
+                  }
+              }
+          }
+        }
         ImGui::EndChild();
         //std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
 
@@ -1181,6 +1324,7 @@ namespace Image {
             }
             ImGui::EndDragDropTarget();
         }
+
         ImGui::End();
     }
 
@@ -1391,6 +1535,57 @@ namespace Image {
         ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
         ImGui::End();
         Renderer::ResetStats();
+    }
+
+    void GuizmoWindow() {
+        ImGui::Begin("Guizmo editor");
+
+        if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
+            gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
+
+        }
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Rotate", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+
+        }
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+        }
+        if (gSelectedEntity != MAX_ENTITIES) {
+            if (gCoordinator->HasComponent<Transform>(gSelectedEntity)) {
+                Transform& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+                float matrixTranslation[3]{ transform.position.x,transform.position.y,transform.position.z },
+                    matrixRotation[3]{ transform.rotation.x,transform.rotation.y,transform.rotation.z },
+                    matrixScale[3]{ transform.scale.x,transform.scale.y,transform.scale.z };
+
+                ImGui::InputFloat3("Tr", matrixTranslation);
+                ImGui::InputFloat3("Rt", matrixRotation);
+                ImGui::InputFloat3("Sc", matrixScale);
+            }
+        }
+        if (gCurrentGuizmoOperation != ImGuizmo::SCALE){
+            if (ImGui::RadioButton("Local", gCurrentGizmoMode == ImGuizmo::LOCAL))
+                gCurrentGizmoMode = ImGuizmo::LOCAL;
+            ImGui::SameLine();
+            if (ImGui::RadioButton("World", gCurrentGizmoMode == ImGuizmo::WORLD))
+                gCurrentGizmoMode = ImGuizmo::WORLD;
+        }
+        ImGui::Checkbox("Enable Snapping", &gSnap);
+        if (gSnap) {
+            if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                ImGui::InputFloat("Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                ImGui::InputFloat("Angle Snap", &gSnapVal);
+            }
+            else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                ImGui::InputFloat("Scale Snap", &gSnapVal);
+            }
+        }
+        ImGui::End();
+
     }
 
 }

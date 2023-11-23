@@ -53,6 +53,26 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! PlayAudio
+
+        Loads the specified scene.
+        */
+        public void PlayAudio(string audioFileName, int loopCount)
+        {
+            InternalCalls.EngineCore_PlayAudio(out audioFileName, out loopCount);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! LoadScene
+
+        Loads the specified scene.
+        */
+        public void LoadScene(string sceneName)
+        {
+            InternalCalls.EngineCore_LoadScene(out sceneName);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! IsEditorMode
         
         Get the editor mode.
@@ -72,7 +92,36 @@ namespace Image
         {
             InternalCalls.EngineCore_SetText(entityID, out text);
         }
+        
+        public bool FacingDirection
+        {
+            get
+            {
+                InternalCalls.SerializationComponent_GetIsFacingRight(entityID, out bool facingDirection);
+                return facingDirection;
+            }
+            set
+            {
+                InternalCalls.SerializationComponent_SetIsFacingRight(entityID, ref value);
+            }
+        }
+        public bool UIClicked
+        {
+            get
+            {
+                InternalCalls.UIComponent_GetIsUIButtonClicked(entityID, out bool outIsClicked);
+                return outIsClicked;
+            }
+        }
 
+        public bool UIHover
+        {
+            get
+            {
+                InternalCalls.UIComponent_GetIsUIButtonHover(entityID, out bool outIsHover);
+                return outIsHover;
+            }
+        }
 
         /*  _________________________________________________________________________ */
         /*! CalculateAcceleration
@@ -97,6 +146,26 @@ namespace Image
             Vector2 acceleration = force / mass;
             return acceleration;
         }
+
+        /*  _________________________________________________________________________ */
+        /*! AssetID
+
+        Getter setter for AssetID.
+        */
+        /*
+        public long AssetID
+        {
+            get
+            {
+                InternalCalls.AnimationComponent_GetAssetID(entityID, out long assetID);
+                return AssetID;
+            }
+            set
+            {
+                InternalCalls.AnimationComponent_SetAssetID(entityID, ref value);
+            }
+        }
+        */
 
         /*  _________________________________________________________________________ */
         /*! AnimationState
@@ -131,6 +200,14 @@ namespace Image
             set
             {
                 InternalCalls.GraphicsComponent_SetScale(entityID, ref value);
+            }
+        }
+
+        public Vector4 Colour
+        {
+            set
+            {
+                InternalCalls.GraphicsComponent_SetColour(entityID, ref value);
             }
         }
 

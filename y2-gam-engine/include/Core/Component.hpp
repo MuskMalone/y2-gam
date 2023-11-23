@@ -12,3 +12,4 @@
 #include <Components/Tag.hpp>
 #include <Components/Text.hpp>
 #include <Components/Transform.hpp>
+#include <Components/UIImage.hpp>

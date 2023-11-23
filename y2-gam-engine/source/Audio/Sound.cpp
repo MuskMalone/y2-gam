@@ -4,12 +4,9 @@
 \file       Sound.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Aug 30, 2023
+\date       Nov 21, 2023
 
 \brief      Source file for Audio library that wraps around FMOD. 
-            Remember to download,
-            and install FMOD core (developer version), then setup paths for
-            library and linker before using.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -18,15 +15,22 @@
 /******************************************************************************/
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
-
-#include "Logging/LoggingSystem.hpp"
+#include <Windows.h>
 
 namespace Image {
 
+  // Static Initialization
   FMOD::System* SoundManager::sSystem{ nullptr };
   std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
-  using SoundAssetPair = std::pair<Sound, SoundProperties>;
-
+  std::map<std::string, ResourceID> SoundManager::sSoundResourceMap;
+  std::map<Sound, std::string> SoundManager::sGroupMap;
+  SoundGroup SoundManager::musicGroup;
+  SoundGroup SoundManager::sfxGroup;
+  
+  namespace {
+    HWND gameWindowHandle;
+    HWND foregroundWindow;
+  }
 
   /*  _________________________________________________________________________ */
   /*! AudioInit
@@ -41,31 +45,41 @@ namespace Image {
     FMOD_RESULT result;
     sSystem = nullptr;
     _mSoundAssets.clear();
-    result = FMOD::System_Create(&sSystem);              // Create the main system object.
+    result = FMOD::System_Create(&sSystem);
 
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+#ifndef _INSTALLER
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
       return false;
     }
+#ifndef _INSTALLER
     else {
-      //std::cout << "Successful FMOD System Creation" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Creation", __FUNCTION__);
     }
+#endif
 
-    result = sSystem->init(512, FMOD_INIT_NORMAL, 0);    // Initialize FMOD.
+    result = sSystem->init(512, FMOD_INIT_NORMAL, 0);
 
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
+#ifndef _INSTALLER
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
       return false;
     }
+#ifndef _INSTALLER
     else {
-      //std::cout << "Successful FMOD System Initialization" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Initialization", __FUNCTION__);
     }
+#endif
+
+    musicGroup = Image::SoundManager::AudioCreateGroup();
+    sfxGroup = Image::SoundManager::AudioCreateGroup();
+
+    //Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
+    //Image::SoundManager::AudioPauseGroup(::bgmGroup);
 
     return true;
   }
@@ -79,14 +93,30 @@ namespace Image {
   Should be called somewhere in the engine's main update loop.
   */
   void SoundManager::AudioUpdate() {
-    FMOD_RESULT result;
-    result = sSystem->update();
+    FMOD_RESULT result{};
 
+    FMOD::ChannelGroup* masterGroup;
+    sSystem->getMasterChannelGroup(&masterGroup);
+
+    ::gameWindowHandle = FindWindowA(NULL, WINDOW_TITLE);
+    ::foregroundWindow = GetForegroundWindow();
+
+    if (::gameWindowHandle == ::foregroundWindow) {
+      masterGroup->setPaused(false);
+    }
+
+    else {
+      masterGroup->setPaused(true);
+    }
+    
+    result = sSystem->update();
+    
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
         std::string str(FMOD_ErrorString(result));
         LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -101,15 +131,15 @@ namespace Image {
     FMOD_RESULT result;
     result = sSystem->release();
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Successful FMOD System Shutdown" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD System Shutdown", __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -126,15 +156,15 @@ namespace Image {
     SoundGroup sg = nullptr;
 
     result = sSystem->createChannelGroup(NULL, &sg);
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Successful FMOD Channel Group Creation" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful FMOD Channel Group Creation", __FUNCTION__);
     }
+#endif
     return sg;
   }
 
@@ -157,16 +187,16 @@ namespace Image {
     Sound ret;
 
     result = sSystem->createSound(filepath, FMOD_LOOP_NORMAL, NULL, &ret);
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Successfully loaded sound file " << filepath << "\n";
       std::string str(filepath);
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successfully loaded sound file" + str, __FUNCTION__);
     }
+#endif
 
     return ret;
   }
@@ -190,16 +220,16 @@ namespace Image {
     Sound ret;
 
     result = sSystem->createSound(filepath, FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, NULL, &ret);
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
         std::string str(FMOD_ErrorString(result));
         LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Successfully loaded music file " << filepath << "\n";
       std::string str(filepath);
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successfully loaded music file" + str, __FUNCTION__);
     }
+#endif
 
     return ret;
   }
@@ -227,27 +257,123 @@ namespace Image {
     FMOD_RESULT result;
     result = audio->setLoopCount(loops);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Successfully set loop count to " << loops << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
     }
+#endif
 
     result = sSystem->playSound(audio, group, false, NULL);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
         std::string str(FMOD_ErrorString(result));
         LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Now playing" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
     }
+#endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPlay
+
+  @param audio
+  The sound to play.
+
+  @param loops
+  The number of times the sound is to be looped.
+  -1 means it will be looped indefinetely.
+  0 means it will not be looped.
+
+  @return none
+
+  Plays the sound for a specific sound and group. Can specify the number of times
+  it is looped as well.
+
+  Simplified version of AudioPlay that auto detects the group the audio should be in.
+  */
+  void SoundManager::AudioPlay(Sound const& audio, int loops) {
+    FMOD_RESULT result;
+    result = audio->setLoopCount(loops);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
+    }
+#endif
+    auto am{ AssetManager::GetInstance() };
+    SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
+    result = sSystem->playSound(audio, group, false, NULL);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
+    }
+#endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPlay
+
+  @param audio
+  The sound to play.
+
+  @param loops
+  The number of times the sound is to be looped.
+  -1 means it will be looped indefinetely.
+  0 means it will not be looped.
+
+  @return none
+
+  Plays the sound for a specific sound and group. Can specify the number of times
+  it is looped as well.
+
+  Extremely simplified version of AudioPlay that auto detects the group the audio 
+  should be in from just the filename.
+  */
+  void SoundManager::AudioPlay(std::string filename, int loops) {
+
+    Sound const& audio{ GetAsset(GetResourceID(filename)) };
+
+    FMOD_RESULT result;
+    result = audio->setLoopCount(loops);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
+    }
+#endif
+    auto am{ AssetManager::GetInstance() };
+    SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
+    result = sSystem->playSound(audio, group, false, NULL);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
+    }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -264,15 +390,15 @@ namespace Image {
     FMOD_RESULT result;
     result = group->setPaused(false);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
         std::string str(FMOD_ErrorString(result));
         LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-     // std::cout << "Resume Group" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Resume Group", __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -290,15 +416,15 @@ namespace Image {
     FMOD_RESULT result;
     result = group->stop();
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Group Stopped" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Group Stopped", __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -315,15 +441,15 @@ namespace Image {
     FMOD_RESULT result;
     result = group->setPaused(true);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Paused Group" << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Paused Group", __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -344,15 +470,15 @@ namespace Image {
     FMOD_RESULT result;
     result = group->setVolume(volume);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Set group volume to " << volume << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Set group volume to " + std::to_string(volume), __FUNCTION__);
     }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -374,47 +500,136 @@ namespace Image {
     FMOD_RESULT result;
     result = group->setPitch(pitch);
 
+#ifndef _INSTALLER
     if (result != FMOD_OK) {
-      //std::cout << "FMOD error! " << FMOD_ErrorString(result) << "\n";
       std::string str(FMOD_ErrorString(result));
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
     }
     else {
-      //std::cout << "Set group pitch to " << pitch << "\n";
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Set group pitch to " + std::to_string(pitch), __FUNCTION__);
     }
+#endif
   }
 
-  //for asset manager
+  /*  _________________________________________________________________________ */
+  /*! LoadAsset
+
+  @param props
+
+  @return ResourceID
+
+  Loads the sound asset.
+  */
   ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
-      ResourceID key{ props.id };
-      if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
-      _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
-          : (SoundAssetPair{AudioLoadSound(props.path.c_str()), SoundProperties{ props.id, props.path, false }}));
-      return key;
+    ResourceID key{ props.id };
+    if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
+    _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
+        : (SoundAssetPair{AudioLoadSound(props.path.c_str()), SoundProperties{ props.id, props.path, false }}));
+
+    // Populate filename to resource ID map
+    std::string path{ props.path };
+    std::size_t pos{ path.find_last_of("\\") };
+
+    std::string sub{ path.substr(pos + 1) };
+    sSoundResourceMap[sub] = key;
+
+    // Add to groups
+    path = path.substr(0, pos);
+    pos = path.find_last_of("\\");
+    sub = path.substr(pos + 1);
+
+    sGroupMap[_mSoundAssets[key].first] = sub;
+
+    return key;
   }
 
+  /*  _________________________________________________________________________ */
+  /*! LoadAsset
+
+  @param obj
+  The rapidjson object.
+
+  @return ResourceID
+
+  Loads the sound asset on app open.
+  */
   ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
-       return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
-
+    return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
   }
+
+  /*  _________________________________________________________________________ */
+  /*! SaveAsset
+
+  @param aid
+
+  @param props
+
+  @param obj
+  The rapidjson object.
+
+  @return none.
+
+  Serializes asset.
+  */
   void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
-      _mSoundAssets[aid].second.stream = props.stream;
-      Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
+    _mSoundAssets[aid].second.stream = props.stream;
+    Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
   }
 
+  /*  _________________________________________________________________________ */
+  /*! GetAsset
+
+  @param aid
+
+  @return Sound
+
+  Gets the sound from the asset map.
+  */
   Sound const& SoundManager::GetAsset(ResourceID aid) {
-      return _mSoundAssets[aid].first;
-  }
-  SoundProperties & SoundManager::GetAssetProperties(ResourceID aid) {
-      return _mSoundAssets[aid].second;
+    return _mSoundAssets[aid].first;
   }
 
-  //
+  /*  _________________________________________________________________________ */
+  /*! GetResourceID
+
+  @param filename (not the full path)
+
+  @return ResourceID
+
+  Gets the ResourceID.
+  */
+  ResourceID SoundManager::GetResourceID(std::string filename) {
+    return sSoundResourceMap[filename];
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! GetAssetProperties
+
+  @param aid
+
+  @return SoundProperties
+
+  Gets the sound property from the asset map.
+  */
+  SoundProperties& SoundManager::GetAssetProperties(ResourceID aid) {
+    return _mSoundAssets[aid].second;
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AddAsset
+
+  @param obj
+
+  @param id
+
+  @return ResourceID
+
+  Adds asset.
+  */
   ResourceID SoundManager::AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id) {
-      auto sm{ Serializer::SerializationManager::GetInstance() };
+    auto sm{ Serializer::SerializationManager::GetInstance() };
 
-      sm->InsertValue(obj, "stream", false);
-      return id;
+    sm->InsertValue(obj, "stream", false);
+    return id;
   }
 }

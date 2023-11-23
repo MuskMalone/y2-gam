@@ -40,8 +40,10 @@ public:
 	void Update(float dt);
 
 	void RenderPrefab(Entity prefab);
+	void RenderUI();
 
-	Entity GetCamera();
+	Entity GetCamera() const;
+	Entity GetUICamera() const;
 
 	std::shared_ptr<Framebuffer> const& GetFramebuffer(int) const;
 	//for debug
@@ -66,9 +68,11 @@ private:
 
 	std::vector<RenderEntry> mRenderQueue;
 
-	Entity mCamera{}; //Editor Camera TOOD Change name
+	Entity mCamera{}; //Editor Camera
 	Entity mSceneCamera{};
 	Entity mPrefabEditorCamera{};
+	Entity mUICamera{};
+
 public:
 	Entity mPlayer{}; // TEMP TO BE REMOVED
 

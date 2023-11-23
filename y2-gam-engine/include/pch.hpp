@@ -64,6 +64,9 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+
+#include <Logging/backward.hpp>
+#include "Logging/LoggingSystem.hpp"
 #endif
 
 #include "mono/jit/jit.h"
@@ -76,9 +79,6 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/prettywriter.h>
-
-#include <Logging/backward.hpp>
-#include "Logging/LoggingSystem.hpp"
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
@@ -97,3 +97,4 @@
 #include "Components/Script.hpp"
 #include "Components/Tag.hpp"
 #include "Components/Layering.hpp"
+#include "Components/UIImage.hpp"

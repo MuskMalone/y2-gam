@@ -22,17 +22,20 @@
 
 struct Script {
   std::string name;
+	bool isFacingRight{ true };
 
 	Script() = default;
 	Script(std::string n) : name{ n } {}
 	Script(rapidjson::Value const& obj) {
 		name = obj["script"].GetString();
+		isFacingRight = obj["isFacingRight"].GetBool();
 	}
 
 	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 
 		sm->InsertValue(obj, "script", name);
+		sm->InsertValue(obj, "isFacingRight", isFacingRight);
 
 		return true;
 	}

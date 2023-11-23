@@ -2,7 +2,7 @@
 
 #include "Systems/EditorControlSystem.hpp"
 #include "Core/Coordinator.hpp"
-#include <Systems/InputSystem.hpp>
+#include "Systems/InputSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 
@@ -11,68 +11,52 @@
 #include "DataMgmt/DecisionTree/DecisionTree.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include "Audio/Sound.hpp"
-#include <Engine/PrefabsManager.hpp>
-#include <Engine/AssetManager.hpp>
+#include "Engine/PrefabsManager.hpp"
+#include "Engine/AssetManager.hpp"
 #include "Scripting/NodeManager.hpp"
 
 static bool isClicked = false;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
-	Image::Sound sampleEffect;
-	Image::Sound jumpEffect;
-	Image::Sound attackEffect;
 	Image::Sound bgm;
 	Image::SoundGroup bgmGroup;
 	Image::SoundGroup effectGroup;
-
-	float gravity = -90.f;
-	float massOfPlayer = 10.f;
 }
 namespace Testing {
 	std::default_random_engine generator;
 	Entity lastInserted;
-	Entity enemy;
-
-	Vec2 confirmNodesButtonPos{ 50.f, 20.f };
-	Vec2 resetNodesButtonPos{ 90.f, 20.f };
 }
 
 void EditorControlSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
 
-	// TO DELETE
 	using namespace std::chrono;
 	Testing::generator.seed(static_cast<unsigned int>(duration_cast<milliseconds>(
 		system_clock::now().time_since_epoch()
 	).count()));
-	//Entity entity = ::gCoordinator->CreateEntity();
-	//::gCoordinator->AddComponent<Gravity>(
-	//	entity,
-	//	{ Vec2(0.0f, -10.f) });
 	Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
-
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = 3; // i think player will always be 3?
 
-
 	// Sound Testing
-	::sampleEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav");
-	::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
-	::attackEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerAttack.wav");
-	::jumpEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerJump.wav");
-	::bgmGroup = Image::SoundManager::AudioCreateGroup();
-	::effectGroup = Image::SoundManager::AudioCreateGroup();
-	//by right this id value should be passed by the imgui asset browser
-	auto am{ AssetManager::GetInstance() };
-	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
-	bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161071400));
-	bgmGroup = Image::SoundManager::AudioCreateGroup();
-	effectGroup = Image::SoundManager::AudioCreateGroup();
+	//::sampleEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav");
+	//::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
+	//::attackEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerAttack.wav");
+	//::jumpEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerJump.wav");
+	//::bgmGroup = Image::SoundManager::AudioCreateGroup();
+	//::effectGroup = Image::SoundManager::AudioCreateGroup();
 
-	Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
-	Image::SoundManager::AudioPauseGroup(::bgmGroup);
+	//by right this id value should be passed by the imgui asset browser
+	//auto am{ AssetManager::GetInstance() };
+	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
+	//bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161071400));
+	//bgmGroup = Image::SoundManager::AudioCreateGroup();
+	//effectGroup = Image::SoundManager::AudioCreateGroup();
+
+	//Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
+	//Image::SoundManager::AudioPauseGroup(::bgmGroup);
 }
 
 void EditorControlSystem::Update(float dt)
@@ -84,33 +68,31 @@ void EditorControlSystem::Update(float dt)
 
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
+	// Audio Testing
+	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		Image::SoundManager::AudioResumeGroup(::bgmGroup);
+		//Image::SoundManager::AudioResumeGroup(::bgmGroup);
+		//Image::SoundManager::AudioPlay("PM_Menu_Music_Loop.wav", -1);
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
-		Image::SoundManager::AudioPauseGroup(::bgmGroup);
+		//Image::SoundManager::AudioPauseGroup(::bgmGroup);
+		//Image::SoundManager::AudioPauseGroup(Image::SoundManager::musicGroup);
 	}
-
+	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-		Image::SoundManager::AudioPlay(::sampleEffect, ::effectGroup, 0);
+		//Image::SoundManager::AudioResumeGroup(Image::SoundManager::musicGroup);
 	}
 
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_4)) {
-		Image::SoundManager::AudioPlay(::attackEffect, ::effectGroup, 0);
-	}
-
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_SPACE)) {
-		Image::SoundManager::AudioPlay(::jumpEffect, ::effectGroup, 0);
-	}
-
+#ifndef _INSTALLER
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
 		::gCoordinator->CloneEntity(Testing::lastInserted);
 	}
-
+#endif
 	// NODE RELATED START
-
+	// Temporarily Disabled
+	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
 		Physics::RayHit rh{};
@@ -143,8 +125,7 @@ void EditorControlSystem::Update(float dt)
       }
     }
 	}
-	// Temporarily Disabled
-	/*
+
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) && !isClicked) {
 		Physics::RayHit rh{};
 
@@ -173,10 +154,11 @@ void EditorControlSystem::Update(float dt)
 			//NodeManager::RemoveNode(rh.entityID);
 		}
   }
-	*/
+
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_M) &&
 		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_ALT))) {
+		//gCoordinator->GetComponent<Animation>(3).assetID = 1698954259805648300;
 		NodeManager::ClearAllNodes();
 	}
 
@@ -191,7 +173,7 @@ void EditorControlSystem::Update(float dt)
 		// Print the shortest path
     NodeManager::PrintPath(path);
   }
-
+	*/
 	// NODE RELATED END
 
 	//if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB)) &&
@@ -211,8 +193,4 @@ void EditorControlSystem::Update(float dt)
 	//	for (int i{}; i < 10; ++i) {
 	//		//std::cout << i << std::endl;
 	//		Testing::lastInserted = ::gCoordinator->CloneEntity(Testing::lastInserted);
-
-	//	}
-	//}
-
 }

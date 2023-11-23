@@ -38,8 +38,6 @@ Initializes the layering system.
 */
 void LayeringSystem::Init() {
   ReadFromJson(NAME_OF_FILE);
-
-  mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, false));
 }
 
 /*  _________________________________________________________________________ */
@@ -173,11 +171,13 @@ void LayeringSystem::ReadFromJson(std::string const& filename) {
     // JSON file does not exist, use default values
     mLayerNames.reserve(MAX_LAYERS);
     mLayerVisibility.reserve(MAX_LAYERS);
+
     for (int i{}; i < MAX_LAYERS; ++i) {
       mLayerNames.emplace_back("");
       mLayerVisibility.emplace_back(true);
     }
     mLayerNames[0] = "Default";
+    mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, true));
 
     return;
   }
@@ -185,16 +185,25 @@ void LayeringSystem::ReadFromJson(std::string const& filename) {
   if (!sm->At("Layers").IsArray()) return;
 
   for (auto const& item : sm->At("Layers").GetArray()) {
-    const auto arr = item[NAME_OF_SERIALIZED_LAYER_NAMES].GetArray();
+    const auto arr{ item[NAME_OF_SERIALIZED_LAYER_NAMES].GetArray() };
     mLayerNames.reserve(MAX_LAYERS);
     for (auto const& v : arr) {
       mLayerNames.emplace_back(v.GetString());
     }
 
-    const auto flagArr = item[NAME_OF_SERIALIZED_VISIBILITY_FLAGS].GetArray();
+    const auto flagArr{ item[NAME_OF_SERIALIZED_VISIBILITY_FLAGS].GetArray() };
     mLayerVisibility.reserve(MAX_LAYERS);
     for (auto const& v : flagArr) {
       mLayerVisibility.emplace_back(v.GetInt());
+    }
+
+    mCollisionMatrix.resize(MAX_LAYERS, std::vector<int>(MAX_LAYERS, true));
+    for (int i{}; i < MAX_LAYERS; ++i) {
+      std::string combinedStr{ std::string(NAME_OF_SERIALIZED_COLLISION_MATRIX) + std::to_string(i) };
+      const auto matrixArr{ item[combinedStr.c_str()].GetArray() };
+      for (int j{}; j < MAX_LAYERS; ++j) {
+        mCollisionMatrix[i][j] = matrixArr[j].GetInt();
+      }
     }
   }
 }
@@ -262,6 +271,16 @@ void LayeringSystem::Serialize(rapidjson::Value& obj) {
   }
 
   sm->InsertValue(obj, NAME_OF_SERIALIZED_VISIBILITY_FLAGS, flagArr);
+
+  for (int i{}; i < MAX_LAYERS; ++i) {
+    rapidjson::Value collisionArr{ rapidjson::kArrayType };
+    collisionArr.SetArray();
+
+    for (int j{}; j < MAX_LAYERS; ++j) {
+      sm->PushToArray(collisionArr, mCollisionMatrix[i][j]);
+    }
+    sm->InsertValue(obj, NAME_OF_SERIALIZED_COLLISION_MATRIX + std::to_string(i), collisionArr);
+  }
 }
 
 /*  _________________________________________________________________________ */

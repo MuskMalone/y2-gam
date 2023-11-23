@@ -25,6 +25,8 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Engine/SceneManager.hpp"
+#include "Audio/Sound.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -34,7 +36,110 @@ namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
 
+	// For UI
+	/*  _________________________________________________________________________ */
+	/*! UIComponent_GetIsUIButtonClicked
+
+	@param entityID
+	The ID of the entity.
+
+	@param outIsClicked
+
+	@return none.
+
+	Gets if the UI button is clicked or not.
+	*/
+	static void UIComponent_GetIsUIButtonClicked(uint32_t entityID, bool* outIsClicked) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<UIImage>(entityID))
+			*outIsClicked = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isClicked);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! UIComponent_GetIsUIButtonHover
+
+	@param entityID
+	The ID of the entity.
+
+	@param outIsHover
+
+	@return none.
+
+	Gets if the UI button is hovered over or not.
+	*/
+	static void UIComponent_GetIsUIButtonHover(uint32_t entityID, bool* outIsHover) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<UIImage>(entityID))
+			*outIsHover = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isHover);
+	}
+
+	// For Serialization
+	/*  _________________________________________________________________________ */
+	/*! SerializationComponent_GetIsFacingRight
+
+	@param entityID
+	The ID of the entity.
+
+	@param outFacingDirection
+	Flag for if the entity is facing right or not.
+
+	@return none.
+
+	Gets the facing right flag in C#.
+	*/
+	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Script>(entityID))
+			*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! SerializationComponent_SetIsFacingRight
+
+	@param entityID
+	The ID of the entity.
+
+	@param facingDirection
+	Flag for if the entity is facing right or not.
+
+	@return none.
+
+	Sets the facing right flag in C#.
+	*/
+	static void SerializationComponent_SetIsFacingRight(uint32_t entityID, bool* facingDirection) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Script>(entityID))
+			gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
+	}
+
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PlayAudio
+
+	@param audioFileName
+
+	@return none.
+
+	Plays audio.
+	*/
+	static void EngineCore_PlayAudio(MonoString** audioFileName, int* loopCount) {
+		SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_LoadScene
+
+	@param sceneName
+
+	@return none.
+
+	Loads the specified scene.
+	*/
+	static void EngineCore_LoadScene(MonoString** sceneName) {
+		::gCoordinator = Coordinator::GetInstance();
+		SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_IsEditorMode
 
@@ -42,20 +147,32 @@ namespace Image {
 
 	@return none.
 
-	Get the editor mode flage of the engine in C#.
+	Get the editor mode flag of the engine in C#.
   */
 	static void EngineCore_IsEditorMode(bool* isEditorMode) {
 		::gCoordinator = Coordinator::GetInstance();
 		*isEditorMode = gCoordinator->GetSystem<RenderSystem>()->IsEditorMode();
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_SetText
+
+	@param entityID
+	The ID of the entity.
+
+	@param tag
+	The text to change the entity's text component to.
+
+	@return none.
+
+	Sets text for the entity.
+	*/
 	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Text>(entityID)) {
 			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
 		}
 	}
-
 
 	// For Pathfinding
 	/*  _________________________________________________________________________ */
@@ -121,7 +238,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
-		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag) {
+		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
 		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
@@ -135,11 +252,60 @@ namespace Image {
 			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
 		}
 		else {
-			*tag = mono_string_new(mono_domain_get(), "No Tag");
+			*tag = mono_string_new(mono_domain_get(), std::string("No Tag").c_str());
+		}
+
+		if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
+			*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+		}
+		else {
+			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
 		}
 	}
 
 	// For Graphics
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_GetAssetID
+
+	@param entityID
+	The ID of the entity.
+
+	@param outAssetID
+	The current asset ID of the entity.
+
+	@return none.
+
+	Get the current asset ID of the entity in C#.
+	*/
+	/*
+	static void AnimationComponent_GetAssetID(uint32_t entityID, int64_t* outAssetID) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			*outAssetID = gCoordinator->GetComponent<Animation>(entityID).assetID;
+	}
+	*/
+
+	/*  _________________________________________________________________________ */
+	/*! AnimationComponent_SetAssetID
+
+	@param entityID
+	The ID of the entity.
+
+	@param assetID
+	Updated asset ID of the entity.
+
+	@return none.
+
+	Set the current asset ID of the entity in C#.
+	*/
+	/*
+	static void AnimationComponent_SetAssetID(uint32_t entityID, int64_t* assetID) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Animation>(entityID))
+			gCoordinator->GetComponent<Animation>(entityID).assetID = *assetID;
+	}
+	*/
+
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -218,6 +384,14 @@ Get the current scale of the entity in C#.
 		if (gCoordinator->HasComponent<Transform>(entityID)) {
 			gCoordinator->GetComponent<Transform>(entityID).scale =
 			{ scale->x, scale->y, scale->z };
+		}
+	}
+
+	static void GraphicsComponent_SetColour(uint32_t entityID, Vec4* colour) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Sprite>(entityID)) {
+			gCoordinator->GetComponent<Sprite>(entityID).color =
+			{ colour->x, colour->y, colour->z, colour->w };
 		}
 	}
 
@@ -498,6 +672,14 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
+		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
+
+		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
+		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
+
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 
@@ -506,6 +688,7 @@ Get the current scale of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetColour);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 
