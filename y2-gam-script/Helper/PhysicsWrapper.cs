@@ -32,6 +32,11 @@ namespace Image
     }
     public static class PhysicsWrapper
     {
+        public static bool IsCollidedWithAnything(uint entityID)
+        {
+            InternalCalls.PhysicsComponent_Collided(ref entityID, out bool isCollided);
+            return isCollided;
+        }
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             InternalCalls.PhysicsComponent_GetRaycast(out origin, out end, out optionalEntityID,

@@ -115,6 +115,14 @@
             "idxY": 0.0,
             "dimX": 180.0,
             "dimY": 178.0
+        },
+        "1700748496875464600": {
+            "id": 1700748496875502600,
+            "path": "../assets\\Textures\\ANIM\\card.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 64.0,
+            "dimY": 89.0
         }
     },
     "classAnimationManager": {

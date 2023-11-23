@@ -415,6 +415,7 @@ namespace Image {
 
                 static int selectedOption = -1;
                 std::vector<const char*> tmp;
+                tmp.push_back("NONE");
                 for (std::string const& name : LayeringSystem::GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());

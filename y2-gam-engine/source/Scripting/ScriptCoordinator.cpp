@@ -25,8 +25,11 @@
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/PhysicsSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Audio/Sound.hpp"
+using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -35,6 +38,80 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
+	// For Gameplay
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_FireCard
+
+	@param startPos
+	The starting position the card will be fired at.
+
+	@return none.
+
+	Fires an entity with the Card.cs script attached.
+	*/
+	static void GameplayComponent_FireCard(Vec2* startPos) {
+		const float cardSize{ 5.f };
+		Entity newEntity = gCoordinator->CreateEntity();
+		gCoordinator->AddComponent(
+			newEntity,
+			Layering{ "Card" });
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Transform{
+					{startPos->x,startPos->y,0},
+					{0,0,0},
+					{cardSize,cardSize,cardSize}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Gravity{
+				Vec2{0.f, 0.f}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			RigidBody{
+					Vec2{startPos->x,startPos->y},
+					0.f,
+					0.f,
+					Vec2{cardSize,cardSize}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Collider{ Vec2{startPos->x,startPos->y},0,Vec2{} });
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Tag{ "Card" });
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Sprite{
+					{1,1,1,1}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Script{ "ObjectCard" }
+			);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_Destroy
+
+	@param entityID
+	The entity to destroy.
+
+	@return none.
+
+	Destroys entity.
+	*/
+	static void GameplayComponent_Destroy(uint32_t* entityID) {
+		gCoordinator->DestroyEntity(*entityID);
+	}
 
 	// For UI
 	/*  _________________________________________________________________________ */
@@ -113,6 +190,22 @@ namespace Image {
 	}
 
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetMousePos
+
+	@param outMousePos
+
+	@return none.
+
+	Gets the mouse pos in C#.
+	*/
+	static void EngineCore_GetMousePos(Vec2* outMousePos) {
+		::gCoordinator = Coordinator::GetInstance();
+		auto inputSystem{ ::gCoordinator->GetSystem<InputSystem>() };
+		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		*outMousePos = mousePos;
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_PlayAudio
 
@@ -220,6 +313,22 @@ namespace Image {
 	}
 	
 	// For Physics
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_Collided
+
+	@param 
+
+	@return none.
+
+	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_Collided(uint32_t* entityID, bool* collidedOrNot) {
+		::gCoordinator = Coordinator::GetInstance();
+		bool collided{ gCoordinator->GetSystem<PhysicsSystem>()->IsCollided(*entityID).empty() };
+		*collidedOrNot = collided;
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_GetRaycast
 
@@ -672,19 +781,25 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_FireCard);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
+
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
 
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
+
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);

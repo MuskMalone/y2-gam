@@ -39,6 +39,11 @@ Initializes the font renderer and loads the fonts, for future use.
 */
 void TextSystem::Init() {
 	Image::FontRenderer::Init();
+	/*
+	Image::FontRenderer::LoadFont("../assets/fonts/alegreya/AlegreyaSansSC-ThinItalic.ttf", "AlegreyaThin");
+	Image::FontRenderer::SetFontSize("AlegreyaThin");
+	Image::FontRenderer::GenerateBitmap("AlegreyaThin");
+	*/
 	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
 	Image::FontRenderer::SetFontSize("Arial");
 	Image::FontRenderer::GenerateBitmap("Arial");
@@ -50,6 +55,7 @@ void TextSystem::Init() {
 	Image::FontRenderer::LoadFont("../assets/fonts/getho/GethoLight-7Gal.ttf", "Getho");
 	Image::FontRenderer::SetFontSize("Getho");
 	Image::FontRenderer::GenerateBitmap("Getho");
+
 }
 
 /*  _________________________________________________________________________ */

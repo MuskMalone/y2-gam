@@ -296,6 +296,9 @@ Returns whether the layer is visible or not, by cross checking the
 two vectors.
 */
 bool LayeringSystem::IsLayerVisible(std::string const& layerName) {
+  if (layerName == "NONE")
+    return true;
+
   int index{};
   for (auto const& name : mLayerNames) {
     if (name == layerName) {
@@ -322,6 +325,10 @@ The rhs layer name to check.
 Returns whether two layers are collidable or not.
 */
 bool LayeringSystem::IsCollidable(std::string const& lhsName, std::string const& rhsName) {
+  if (lhsName == "NONE" || rhsName == "NONE") {
+    return true;
+  }
+
   int idxLhs{};
   int idxRhs{};
   int idx{};
