@@ -86,9 +86,11 @@ namespace Image {
         HierarchyWindow(mEntities);
         LayerWindow();
         //InspectorWindow();
-        PropertyWindow(gSelectedEntity);
+        //PropertyWindow(gSelectedEntity);
         PrefabPropertyWindow();
         GameObjectPropertyWindow();
+        PrefabInspectorWindow();
+        GameObjectInspectorWindow();
         PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
@@ -741,13 +743,13 @@ namespace Image {
         }
         //ImGui::End();
     }
-    void PrefabPropertyWindow() {
+    void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
         InspectorWindow(gSelectedPrefab);
         ImGui::End();
         
     }
-    void GameObjectPropertyWindow() {
+    void GameObjectInspectorWindow() {
         ImGui::Begin("Game Object Inspector");
         InspectorWindow(gSelectedEntity);
         ImGui::End();
@@ -763,7 +765,6 @@ namespace Image {
     adding or removing components.
     */
     void PropertyWindow(Entity selectedEntity) {
-        ImGui::Begin("Property");
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
@@ -963,9 +964,18 @@ namespace Image {
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
 
         }
+
+    }
+    void PrefabPropertyWindow() {
+        ImGui::Begin("Prefab Property");
+        PropertyWindow(gSelectedPrefab);
         ImGui::End();
     }
-
+    void GameObjectPropertyWindow() {
+        ImGui::Begin("Property");
+        PropertyWindow(gSelectedEntity);
+        ImGui::End();
+    }
     /*  _________________________________________________________________________ */
     /*! BufferWindow
 

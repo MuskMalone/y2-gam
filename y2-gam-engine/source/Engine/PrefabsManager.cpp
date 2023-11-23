@@ -62,15 +62,18 @@ void PrefabsManager::Exit() {
 }
 
 Entity PrefabsManager::AddPrefab(std::string name) {
+	PrefabID id{ _hash(name) };
+	//tch: if name copied then make  anew one + copy at the end
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) 
+		return MAX_ENTITIES;
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	Entity entity{ Coordinator::GetInstance()->CreateEntity() };
-	PrefabID id{ _hash(name) };
+	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 
-	//tch: if name copied then make  anew one + copy at the end
-	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) {
-		name += " Copy";
-		id = _hash(name);
-	}
+	//Create the default components
+	coordinator->AddComponent<Transform>(entity, Transform{});
+	coordinator->AddComponent<Layering>(entity, Layering{ "" });
+
 	mPrefabsFactory[id] = std::move(PrefabEntry{
 		name, id, false, entity
 	});

@@ -52,6 +52,8 @@ namespace Image {
     void PropertyWindow(Entity selectedEntity);
     void PrefabPropertyWindow();
     void GameObjectPropertyWindow();
+    void PrefabInspectorWindow();
+    void GameObjectInspectorWindow();
     void BufferWindow(float dt);
     void PrefabWindow();
     void ContentWindow();
