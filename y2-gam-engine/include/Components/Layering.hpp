@@ -19,7 +19,7 @@
 
 #include <string>
 #include <Core/Serialization/SerializationManager.hpp>
-
+const std::string LAYER_SENTINEL { "#####" };
 struct Layering {
 	std::string assignedLayer;
 
