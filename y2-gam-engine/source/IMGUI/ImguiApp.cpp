@@ -1223,10 +1223,6 @@ namespace Image {
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
         }*/
-        /// ////tch: hello this is my input part
-        //if (ImGui::IsWindowHovered()) {
-
-        //}
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
