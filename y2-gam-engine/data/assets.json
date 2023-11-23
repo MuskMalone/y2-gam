@@ -115,6 +115,22 @@
             "idxY": 0.0,
             "dimX": 180.0,
             "dimY": 178.0
+        },
+        "1700712327935657900": {
+            "id": 1700712327935709200,
+            "path": "../assets\\Textures\\main menu 1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1700712331350629700": {
+            "id": 1700712331350686200,
+            "path": "../assets\\Textures\\main menu 2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     },
     "classAnimationManager": {
