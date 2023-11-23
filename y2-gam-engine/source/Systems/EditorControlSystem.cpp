@@ -5,6 +5,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Engine/SceneManager.hpp"
 
 #include <Core/Globals.hpp>
 #include "Math/MathUtils.h"
@@ -41,8 +42,10 @@ void EditorControlSystem::Init()
 void EditorControlSystem::Update(float dt)
 {
 	// Code to run the 'on update' function on entities with script components
-	for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-		Image::ScriptManager::OnUpdateEntity(e.first, dt);
+	if (SceneManager::GetInstance()->IsSceneActive()) {
+		for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+			Image::ScriptManager::OnUpdateEntity(e.first, dt);
+		}
 	}
 
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();

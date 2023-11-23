@@ -189,6 +189,14 @@
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1700753762549760800": {
+            "id": 1700753762549820200,
+            "path": "../assets\\Textures\\ANIM\\gam200_spinning_card.png",
+            "frameCount": 4,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     }
 }

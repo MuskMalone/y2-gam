@@ -25,8 +25,8 @@ namespace Object
         private float timeAlive = 0.0f;
         private bool firstTime = true;
 
-        private readonly float MAX_TIME_ALIVE = 3.0f;
-        private readonly float speed = 25.0f;
+        private readonly float MAX_TIME_ALIVE = 2.0f;
+        private readonly float speed = 20.0f;
 
         /*  _________________________________________________________________________ */
         /*! Card
@@ -82,6 +82,7 @@ namespace Object
         {
             if (!IsEditorMode())
             {
+                Console.WriteLine("Hello");
                 timeAlive += dt;
                 Velocity += direction * speed * dt;
 

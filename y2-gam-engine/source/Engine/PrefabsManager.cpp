@@ -95,7 +95,6 @@ Entity PrefabsManager::AddPrefab(std::string name) {
 }
 
 //DO NOT USE IT REPEATEDLY IN FOR LOOP 
-// IT IS SLOW AS FUCK I WILL FUCKING SLAP YOU
 Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};

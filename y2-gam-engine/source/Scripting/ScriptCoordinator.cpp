@@ -29,6 +29,8 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+
+#include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Audio/Sound.hpp"
 
@@ -53,6 +55,7 @@ namespace Image {
 	Fires an entity with the Card.cs script attached.
 	*/
 	static void GameplayComponent_FireCard(Vec2* startPos) {
+		/*
 		const float cardSize{ 5.f };
 		Entity newEntity = gCoordinator->CreateEntity();
 		gCoordinator->AddComponent(
@@ -89,17 +92,15 @@ namespace Image {
 		gCoordinator->AddComponent(
 			newEntity,
 			Tag{ "Card" });
+		//gCoordinator->AddComponent(
 
-		gCoordinator->AddComponent(
-			newEntity,
-			Sprite{
-					{1,1,1,1}
-			});
-
+			//);
 		gCoordinator->AddComponent(
 			newEntity,
 			Script{ "ObjectCard" }
 			);
+		*/
+		PrefabsManager::GetInstance()->SpawnPrefab("Box", *startPos);
 	}
 
 	/*  _________________________________________________________________________ */
