@@ -252,7 +252,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 
 		if (entry.sprite->GetSpriteID()) {
-			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(SpriteManager::GetResourceID("gam200_swappable_box")), entry.sprite->color, entry.entity);
+			Renderer::DrawSprite(*entry.transform, SpriteManager::GetSprite(entry.sprite->GetSpriteID()), entry.sprite->color, entry.entity);
 		}
 		else {
 			if (entry.transform->elipse)
