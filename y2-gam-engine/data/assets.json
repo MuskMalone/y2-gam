@@ -139,6 +139,78 @@
             "idxY": 0.0,
             "dimX": 551.0,
             "dimY": 463.0
+        },
+        "1700753029114891400": {
+            "id": 1700753029114920900,
+            "path": "../assets\\Textures\\Y2_menu.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2750.0,
+            "dimY": 1200.0
+        },
+        "1700754634838988900": {
+            "id": 1700754634839032700,
+            "path": "../assets\\Textures\\y2_pause menu_ words_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 698.0,
+            "dimY": 924.0
+        },
+        "1700755559541091100": {
+            "id": 1700755559541122100,
+            "path": "../assets\\Textures\\y2_pause menu_ PAUSED_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 697.0,
+            "dimY": 284.0
+        },
+        "1700755562526839000": {
+            "id": 1700755562526870800,
+            "path": "../assets\\Textures\\y2_pause menu_ BUTTONS_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700756885152458300": {
+            "id": 1700756885152527700,
+            "path": "../assets\\Textures\\y2_pause menu_ SETTINGS_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 289.0,
+            "dimY": 88.0
+        },
+        "1700756888403567100": {
+            "id": 1700756888403609500,
+            "path": "../assets\\Textures\\y2_pause menu_ RESUMEGAME_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700756892272022000": {
+            "id": 1700756892272062800,
+            "path": "../assets\\Textures\\y2_pause menu_ QUITGAME_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700756896520626400": {
+            "id": 1700756896520662600,
+            "path": "../assets\\Textures\\y2_pause menu_ MENU_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700756899751994000": {
+            "id": 1700756899752025300,
+            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     },
     "classAnimationManager": {
