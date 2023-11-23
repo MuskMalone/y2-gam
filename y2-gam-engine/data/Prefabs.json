@@ -46,52 +46,6 @@
                 "elipse": false
             }
         },
-        "Platform": {
-            "Collider": {
-                "collider": 0,
-                "posX": 0.0,
-                "posY": 0.0,
-                "rotation": 0.0,
-                "dimX": 50.0,
-                "dimY": 5.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 50.0,
-                "dimY": 5.0,
-                "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
-                "lockRotate": true
-            },
-            "Sprite": {
-                "r": 0.0,
-                "g": 0.0,
-                "b": 0.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 50.0,
-                "scaleY": 5.0,
-                "scaleZ": 5.0,
-                "elipse": false
-            }
-        },
         "Circle": {
             "Collider": {
                 "collider": 1,
