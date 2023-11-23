@@ -185,32 +185,40 @@
             "path": "../assets\\Textures\\y2_pause menu_ RESUMEGAME_noglow.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 384.0,
+            "dimY": 73.0
         },
         "1700756892272022000": {
             "id": 1700756892272062800,
             "path": "../assets\\Textures\\y2_pause menu_ QUITGAME_noglow.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 310.0,
+            "dimY": 71.0
         },
         "1700756896520626400": {
             "id": 1700756896520662600,
             "path": "../assets\\Textures\\y2_pause menu_ MENU_noglow.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 257.0,
+            "dimY": 69.0
         },
         "1700756899751994000": {
             "id": 1700756899752025300,
             "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 358.0,
+            "dimY": 66.0
+        },
+        "1700772694795002100": {
+            "id": 1700772694795039300,
+            "path": "../assets\\Textures\\gam200_confirmation_quit game.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 812.0,
+            "dimY": 340.0
         }
     },
     "classAnimationManager": {
