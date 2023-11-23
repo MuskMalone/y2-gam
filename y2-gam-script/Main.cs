@@ -4,18 +4,17 @@
 \file       Main.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Nov 23, 2023
 
 \brief      The main entity class is located here and has the getter setters 
-            for all the required rigid body variables.
+            for all the required rigid body variables. Helper functions also
+            located here.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
             written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-
-using System;
 
 namespace Image
 {
@@ -36,7 +35,6 @@ namespace Image
         public Entity(uint entityHandle)
         {     
             entityID = entityHandle;
-            //Console.WriteLine("Entity Non-Default, Single Parameter Constructor Called!");
         }
 
         /*  _________________________________________________________________________ */
@@ -49,7 +47,32 @@ namespace Image
         public Entity()
         {
             entityID = 0;
-            //Console.WriteLine("Entity Parameterless Default Constructor Called!");
+        }
+
+        #region Gameplay
+        public void FireCard(Vector2 startPos)
+        {
+            InternalCalls.GameplayComponent_FireCard(ref startPos);
+        }
+        public void DestroyEntity(uint entID)
+        {
+            InternalCalls.GameplayComponent_Destroy(ref entID);
+        }
+        #endregion
+
+        #region EngineCore
+        /*  _________________________________________________________________________ */
+        /*! MousePos
+
+        Gets the current mouse pos.
+        */
+        public Vector2 MousePos
+        {
+            get
+            {
+                InternalCalls.EngineCore_GetMousePos(out Vector2 mousePos);
+                return mousePos;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -92,7 +115,19 @@ namespace Image
         {
             InternalCalls.EngineCore_SetText(entityID, out text);
         }
+
+        /*  _________________________________________________________________________ */
+        /*! Quit
         
+        Quits the game.
+        */
+        public void QuitGame()
+        {
+            InternalCalls.EngineCore_Quit();
+        }
+        #endregion
+
+        #region Serialization
         public bool FacingDirection
         {
             get
@@ -105,6 +140,9 @@ namespace Image
                 InternalCalls.SerializationComponent_SetIsFacingRight(entityID, ref value);
             }
         }
+        #endregion
+
+        #region UI
         public bool UIClicked
         {
             get
@@ -122,51 +160,9 @@ namespace Image
                 return outIsHover;
             }
         }
+        #endregion
 
-        /*  _________________________________________________________________________ */
-        /*! CalculateAcceleration
-        
-        @param force
-        The force.
-
-        @param mass
-        The mass.
-
-        @return Vector2
-
-        Given force and mass, calculates acceleration using f=ma.
-        */
-        public Vector2 CalculateAcceleration(Vector2 force, float mass)
-        {
-            if (mass == 0.0f)
-            {
-                return new Vector2(0.0f, 0.0f);
-            }
-
-            Vector2 acceleration = force / mass;
-            return acceleration;
-        }
-
-        /*  _________________________________________________________________________ */
-        /*! AssetID
-
-        Getter setter for AssetID.
-        */
-        /*
-        public long AssetID
-        {
-            get
-            {
-                InternalCalls.AnimationComponent_GetAssetID(entityID, out long assetID);
-                return AssetID;
-            }
-            set
-            {
-                InternalCalls.AnimationComponent_SetAssetID(entityID, ref value);
-            }
-        }
-        */
-
+        #region Graphics
         /*  _________________________________________________________________________ */
         /*! AnimationState
 
@@ -183,6 +179,11 @@ namespace Image
             {
                 InternalCalls.AnimationComponent_SetAnimationState(entityID, ref value);
             }
+        }
+
+        public void SetSprite(string fileName)
+        {
+            InternalCalls.GraphicsComponent_SetSprite(entityID, out fileName);
         }
 
         /*  _________________________________________________________________________ */
@@ -210,7 +211,9 @@ namespace Image
                 InternalCalls.GraphicsComponent_SetColour(entityID, ref value);
             }
         }
+        #endregion
 
+        #region Physics
         /*  _________________________________________________________________________ */
         /*! Translation
 
@@ -227,6 +230,30 @@ namespace Image
             {
                 InternalCalls.TransformComponent_SetTranslation(entityID, ref value);
             }
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! CalculateAcceleration
+        
+        @param force
+        The force.
+
+        @param mass
+        The mass.
+
+        @return Vector2
+
+        Given force and mass, calculates acceleration using f=ma.
+        */
+        public Vector2 CalculateAcceleration(Vector2 force, float mass)
+        {
+            if (mass == 0.0f)
+            {
+                return new Vector2(0.0f, 0.0f);
+            }
+
+            Vector2 acceleration = force / mass;
+            return acceleration;
         }
 
         /*  _________________________________________________________________________ */
@@ -282,5 +309,6 @@ namespace Image
                 InternalCalls.ForceComponent_SetVelocity(entityID, ref value);
             }
         }
+        #endregion
     }
 }

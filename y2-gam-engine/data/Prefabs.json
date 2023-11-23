@@ -3,8 +3,8 @@
         "Box": {
             "Collider": {
                 "collider": 0,
-                "posX": -8.578887939453125,
-                "posY": -1.9452972412109375,
+                "posX": 0.0,
+                "posY": 0.0,
                 "rotation": 0.0,
                 "dimX": 5.0,
                 "dimY": 5.0
@@ -34,8 +34,8 @@
                 "assetID": 0
             },
             "Transform": {
-                "posX": -8.578887939453125,
-                "posY": -1.9452972412109375,
+                "posX": 0.0,
+                "posY": 0.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -46,38 +46,53 @@
                 "elipse": false
             }
         },
-        "Platform": {
+        "Card": {
+            "Animation": {
+                "states": [
+                    1700753762549760800
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "rotation": 0.0,
-                "dimX": 50.0,
-                "dimY": 5.0
+                "dimX": 15.142999649047852,
+                "dimY": 15.144000053405762
             },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Card"
             },
             "RigidBody": {
-                "dimX": 50.0,
-                "dimY": 5.0,
+                "dimX": 0.0,
+                "dimY": 0.0,
                 "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
+                "mass": 10.0,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": true
+                "lockRotate": false
+            },
+            "Script": {
+                "script": "ObjectCard",
+                "isFacingRight": true
             },
             "Sprite": {
-                "r": 0.0,
-                "g": 0.0,
-                "b": 0.0,
-                "a": 0.0,
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
                 "layer": 2,
                 "assetID": 0
+            },
+            "Tag": {
+                "Tag": "CardPrefab"
             },
             "Transform": {
                 "posX": 0.0,
@@ -86,9 +101,9 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 50.0,
-                "scaleY": 5.0,
-                "scaleZ": 5.0,
+                "scaleX": 37.5359992980957,
+                "scaleY": 38.71500015258789,
+                "scaleZ": 0.0,
                 "elipse": false
             }
         },

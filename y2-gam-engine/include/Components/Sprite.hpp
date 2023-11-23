@@ -37,8 +37,8 @@ enum class Layer {
 
 struct Sprite {
 	glm::vec4 color{};
-	AssetID spriteAssetID{};
-	ResourceID spriteID{};
+	AssetID spriteAssetID{}; //this is for drawing a sprite
+	ResourceID spriteID{};	//this is for drawing a frame in an animation
 	Layer layer{};
 
 	Sprite() = default;
@@ -61,6 +61,7 @@ struct Sprite {
 		return true;
 	}
 	ResourceID GetSpriteID() {
+		//if tehre is no sprite to be drawn, drawnt he spriteId
 		return (spriteAssetID) ? AssetManager::GetInstance()->GetResourceID(spriteAssetID) : spriteID;
 	}
 };

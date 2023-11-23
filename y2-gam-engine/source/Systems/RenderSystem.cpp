@@ -297,10 +297,10 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 		const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
 		decltype(transform.position) drawnPos{0, 0, 0};
 		if (gCoordinator->HasComponent<Sprite>(prefab)) {
-			const auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
+			auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
 
-			if (sprite.spriteID)
-				Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
+			if (sprite.GetSpriteID())
+				Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, transform.rotation.z, prefab);
 			else {
 				if (transform.elipse)
 					Renderer::DrawCircle(drawnPos, transform.scale, sprite.color);
@@ -321,8 +321,6 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 		}
 	}
 
-
-
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
 }
@@ -332,6 +330,9 @@ void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
 	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
 
 		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
 		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };

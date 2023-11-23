@@ -714,11 +714,11 @@ Updates the CollisionSystem, checking for collisions between entities and sendin
             for (int i{}; i < entityVec.size(); ++i) {
                 for (int j{i + 1}; j < entityVec.size(); ++j) {
                     //if (entityVec[i] == entityVec[j]) continue;
-
+                    
                     auto const& layer1 = gCoordinator->GetComponent<Layering>(entityVec[i]).assignedLayer;
                     auto const& layer2 = gCoordinator->GetComponent<Layering>(entityVec[j]).assignedLayer;
                     if (!LayeringSystem::IsCollidable(layer1, layer2)) continue;
-
+                    
                     Arbiter arbiter = Collide(entityVec[i], entityVec[j]);
                     ArbiterKey arbiterKey{ entityVec[i], entityVec[j] };
                     uint64_t hashTableKey = murmur64((void*)&arbiterKey, sizeof(ArbiterKey));

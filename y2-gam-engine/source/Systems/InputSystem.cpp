@@ -74,18 +74,19 @@ void InputSystem::Update()
 void InputSystem::InputListener(Event& event)
 {
 	KeyState press {event.GetParam<KeyState>(Events::Window::Input::KEY_PRESS)};
+	if(!event.GetFail()) mButtonsPressed |= press;
 	KeyState click {event.GetParam<KeyState>(Events::Window::Input::KEY_CLICK)};
+	if (!event.GetFail()) 
+		mButtonsClicked |= click;
 	KeyState release {event.GetParam<KeyState>(Events::Window::Input::KEY_RELEASE)};
-	mButtonsPressed = press;
-	if (click.any()) mButtonsClicked = click;
-	if (release.any()) mButtonsReleased |= release;
+	if (!event.GetFail()) mButtonsReleased |= release;
 
 	MouseKeyState mspress {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_PRESS)};
+	if (!event.GetFail())	mMouseButtonsPressed |= mspress;
 	MouseKeyState msclick {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_CLICK)};
+	if (!event.GetFail()) mMouseButtonsClicked |= msclick;
 	MouseKeyState msrelease {event.GetParam<MouseKeyState>(Events::Window::Input::MOUSE_RELEASE)};
-	mMouseButtonsPressed = mspress;
-	if (msclick.any()) mMouseButtonsClicked = msclick;
-	if (msrelease.any()) mMouseButtonsReleased |= msrelease;
+	if (!event.GetFail()) mMouseButtonsReleased |= msrelease;
 
 	MousePosition mp = event.GetParam<MousePosition>(Events::Window::Input::MOUSE_MOVE);
 	if (!event.GetFail()) {

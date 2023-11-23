@@ -5,6 +5,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Engine/SceneManager.hpp"
 
 #include <Core/Globals.hpp>
 #include "Math/MathUtils.h"
@@ -19,9 +20,6 @@ static bool isClicked = false;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
-	Image::Sound bgm;
-	Image::SoundGroup bgmGroup;
-	Image::SoundGroup effectGroup;
 }
 namespace Testing {
 	std::default_random_engine generator;
@@ -39,49 +37,30 @@ void EditorControlSystem::Init()
 	Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
 
 	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = 3; // i think player will always be 3?
-
-	// Sound Testing
-	//::sampleEffect = Image::SoundManager::AudioLoadSound("../assets/audio/teleport.wav");
-	//::bgm = Image::SoundManager::AudioLoadSound("../assets/audio/bgm.wav");
-	//::attackEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerAttack.wav");
-	//::jumpEffect = Image::SoundManager::AudioLoadSound("../assets/audio/playerJump.wav");
-	//::bgmGroup = Image::SoundManager::AudioCreateGroup();
-	//::effectGroup = Image::SoundManager::AudioCreateGroup();
-
-	//by right this id value should be passed by the imgui asset browser
-	//auto am{ AssetManager::GetInstance() };
-	//soundEffect = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161047500));
-	//bgm = am->GetAsset<Image::SoundManager>(am->LoadAsset<Image::SoundManager>(1698648904161071400));
-	//bgmGroup = Image::SoundManager::AudioCreateGroup();
-	//effectGroup = Image::SoundManager::AudioCreateGroup();
-
-	//Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
-	//Image::SoundManager::AudioPauseGroup(::bgmGroup);
 }
 
 void EditorControlSystem::Update(float dt)
 {
 	// Code to run the 'on update' function on entities with script components
-	for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-		Image::ScriptManager::OnUpdateEntity(e.first, dt);
+	if (SceneManager::GetInstance()->IsSceneActive()) {
+		for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+			Image::ScriptManager::OnUpdateEntity(e.first, dt);
+		}
 	}
 
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	// Audio Testing
-	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		//Image::SoundManager::AudioResumeGroup(::bgmGroup);
-		//Image::SoundManager::AudioPlay("PM_Menu_Music_Loop.wav", -1);
+
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
-		//Image::SoundManager::AudioPauseGroup(::bgmGroup);
-		//Image::SoundManager::AudioPauseGroup(Image::SoundManager::musicGroup);
+
 	}
 	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-		//Image::SoundManager::AudioResumeGroup(Image::SoundManager::musicGroup);
+
 	}
 
 #ifndef _INSTALLER

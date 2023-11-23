@@ -96,9 +96,11 @@ namespace Image {
         HierarchyWindow(mEntities);
         LayerWindow();
         //InspectorWindow();
-        PropertyWindow(gSelectedEntity);
+        //PropertyWindow(gSelectedEntity);
         PrefabPropertyWindow();
         GameObjectPropertyWindow();
+        PrefabInspectorWindow();
+        GameObjectInspectorWindow();
         PrefabWindow();
         BufferWindow(dt);
         ContentWindow();
@@ -341,7 +343,6 @@ namespace Image {
                     }
                     SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 }
-                SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
                 ImGui::EndDragDropTarget();
             }
         }
@@ -415,7 +416,8 @@ namespace Image {
 
                 static int selectedOption = -1;
                 std::vector<const char*> tmp;
-                for (std::string const& name : gCoordinator->GetSystem<LayeringSystem>()->GetLayerNames()) {
+                tmp.push_back("NONE");
+                for (std::string const& name : LayeringSystem::GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());
                 }
@@ -529,6 +531,27 @@ namespace Image {
                     // Highlight the drop area
                     ImGui::TreePop();
                 }
+                if (ImGui::BeginDragDropTarget()) {
+                    //std::cout << "Began drag-drop target." << std::endl;
+
+                    //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                    //    //std::cout << "Accepted payload." << std::endl;
+                    //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //    std::cout << droppedAid << std::endl;
+                    //}
+                    AssetID droppedAid{ static_cast<AssetID>(-1) };
+                    if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
+                        //std::cout << "Accepted payload." << std::endl;
+                        droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                        //std::cout << droppedAid << std::endl;
+                        auto& sprite = gCoordinator->GetComponent<Sprite>(selectedEntity);
+                        sprite.spriteAssetID = droppedAid;
+                        //SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    }
+
+                    ImGui::EndDragDropTarget();
+                }
+
             }
             if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
                 if (ImGui::TreeNode("Animation")) {
@@ -600,6 +623,27 @@ namespace Image {
                     }
                     ImGui::TreePop();
                 }
+                if (ImGui::BeginDragDropTarget()) {
+                    //std::cout << "Began drag-drop target." << std::endl;
+
+                    //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                    //    //std::cout << "Accepted payload." << std::endl;
+                    //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                    //    std::cout << droppedAid << std::endl;
+                    //}
+                    AssetID droppedAid{ static_cast<AssetID>(-1) };
+
+                    if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
+                        //std::cout << "Accepted payload." << std::endl;
+                        droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                        //std::cout << droppedAid << std::endl;
+                        auto& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
+                        //anim.assetID = droppedAid;
+                        anim.states.emplace_back(droppedAid);
+                        //SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    }
+                    ImGui::EndDragDropTarget();
+                }
             }
             if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
                 std::string treeNodeLabel = "Collider##" + std::to_string(selectedEntity);
@@ -668,6 +712,10 @@ namespace Image {
                     ImGui::Text("Mass");
                     ImGui::InputFloat("Mass", &rigidBody.mass);
                     rigidBody.SetMass(rigidBody.mass);
+                    ImGui::SameLine();
+                    bool isRbMassMax{std::fabs(rigidBody.mass - FLT_MAX) < FLT_EPSILON};
+                    ImGui::Checkbox("##readonlymaxmassrgbd", reinterpret_cast<bool*>(&isRbMassMax));
+                    if (isRbMassMax) rigidBody.SetMass(FLT_MAX);
 
                     // Velocity
                     ImGui::Text("Velocity");
@@ -695,7 +743,7 @@ namespace Image {
                     int currentItem = rigidBody.isLockRotation ? 1 : 0; // Convert bool to int for selection
 
                     // The combo box
-                    if (ImGui::Combo("SoundStream", &currentItem, items, IM_ARRAYSIZE(items)))
+                    if (ImGui::Combo("Fixed Rotation", &currentItem, items, IM_ARRAYSIZE(items)))
                     {
                         rigidBody.isLockRotation = currentItem == 1; // Convert int back to bool
                     }
@@ -723,10 +771,10 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
-            if (gCoordinator->HasComponent<Text>(gSelectedEntity)) {
-              std::string treeNodeLabel = "Text##" + std::to_string(gSelectedEntity);
+            if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+              std::string treeNodeLabel = "Text##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
-                Text& text = gCoordinator->GetComponent<Text>(gSelectedEntity);
+                Text& text = gCoordinator->GetComponent<Text>(selectedEntity);
                 ImGui::Text("Text to Display");
                 ImGui::SameLine();
                 ImGui::SetCursorPosX(SAME_LINE_SPACING);
@@ -735,7 +783,7 @@ namespace Image {
                 strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
                 tempLayerName[sizeof(tempLayerName) - 1] = '\0';
 
-                if (ImGui::InputText(("##readonly" + std::to_string(gSelectedEntity)).c_str(), tempLayerName, sizeof(tempLayerName), 
+                if (ImGui::InputText(("##readonly" + std::to_string(selectedEntity)).c_str(), tempLayerName, sizeof(tempLayerName),
                   ImGuiInputTextFlags_EnterReturnsTrue)) {
                   text.text = tempLayerName;
                 }
@@ -743,8 +791,8 @@ namespace Image {
                 ImGui::TreePop();
               }
             }
-            if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-              std::string treeNodeLabel = "Script##" + std::to_string(gSelectedEntity);
+            if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+              std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
                   ImGui::Text("Assigned Script");
@@ -780,13 +828,13 @@ namespace Image {
         }
         //ImGui::End();
     }
-    void PrefabPropertyWindow() {
+    void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
         InspectorWindow(gSelectedPrefab);
         ImGui::End();
         
     }
-    void GameObjectPropertyWindow() {
+    void GameObjectInspectorWindow() {
         ImGui::Begin("Game Object Inspector");
         InspectorWindow(gSelectedEntity);
         ImGui::End();
@@ -801,9 +849,8 @@ namespace Image {
     This function displays the properties of the selected entity and allows for
     adding or removing components.
     */
-    void PropertyWindow(Entity selectedEntity) {
-        ImGui::Begin("Property");
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage", "Text"};
+    void PropertyWindow(Entity selectedEntity, bool ignore) {
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -840,7 +887,7 @@ namespace Image {
                                 {vP->Pos.x,vP->Pos.y,0},
                                 {0,0,0},
                                 {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -850,7 +897,7 @@ namespace Image {
                             selectedEntity,
                             Sprite{
                                 {1,1,1, 1}
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -865,7 +912,7 @@ namespace Image {
                                     transform.rotation.z,
                                     IMGUI_MASS,
                                     Vec2{transform.scale.x,transform.scale.y}
-                                });
+                                }, ignore);
                         }
                         else {
                             ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -876,7 +923,7 @@ namespace Image {
                                     0.f,
                                     IMGUI_MASS,
                                     Vec2{IMGUI_SCALE,IMGUI_SCALE}
-                                });
+                                }, ignore);
                         }
                     }
                 }
@@ -885,7 +932,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Collider{ Vec2{},0,Vec2{} });
+                            Collider{ Vec2{},0,Vec2{} }, ignore);
                     }
 
                 }
@@ -898,7 +945,7 @@ namespace Image {
                                 0.08f,
                                 0,
                                 0
-                            });
+                            }, ignore);
                     }
                 }
                       break;
@@ -906,7 +953,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} });
+                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
                     }
                 }
                       break;
@@ -914,7 +961,7 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Tag{ "Entity " + std::to_string(selectedEntity) });
+                            Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
                     }
                 }
                       break;
@@ -923,31 +970,31 @@ namespace Image {
                     if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
                         gCoordinator->AddComponent(
                             selectedEntity,
-                            Script{ "No Script Assigned" });
+                            Script{ "No Script Assigned" }, ignore);
                         ScriptManager::OnCreateEntity(selectedEntity);
                     }
                 }
                       break;
                 case 8: {
 
-                    if (!gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
+                    if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
                         gCoordinator->AddComponent(
-                            gSelectedEntity,
-                            UIImage{ true });
+                          selectedEntity,
+                            UIImage{ true }, ignore);
                     }
                 }
                       break;
 
                 case 9: {
 
-                  if (!gCoordinator->HasComponent<Text>(gSelectedEntity)) {
+                  if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
                     gCoordinator->AddComponent(
-                      gSelectedEntity,
+                      selectedEntity,
                       Text{"Arial", 0.05f,
                             "Your Text Here", Vec3(
                             1.0,
                             1.0,
-                            1.0) });
+                            1.0) }, ignore);
                   }
                 }
                       break;
@@ -1014,36 +1061,45 @@ namespace Image {
                       break;
                 case 8: {
                     // Remove UIImage component
-                    if (gCoordinator->HasComponent<UIImage>(gSelectedEntity)) {
-                        gCoordinator->RemoveComponent<UIImage>(gSelectedEntity);
+                    if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                        gCoordinator->RemoveComponent<UIImage>(selectedEntity);
                     }
                 }
                       break;
 
                 case 9: {
                   // Remove UIImage component
-                  if (gCoordinator->HasComponent<Text>(gSelectedEntity)) {
-                    gCoordinator->RemoveComponent<Text>(gSelectedEntity);
+                  if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Text>(selectedEntity);
                   }
                 }
                       break;
                 }
             }
             ImGui::Separator();
-            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(gSelectedEntity) ? "True" : "False");
-            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(gSelectedEntity) ? "True" : "False");
+            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
+            ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
+            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
         }
+
+    }
+    void PrefabPropertyWindow() {
+        ImGui::Begin("Prefab Property");
+        PropertyWindow(gSelectedPrefab, false);
         ImGui::End();
     }
-
+    void GameObjectPropertyWindow() {
+        ImGui::Begin("Property");
+        PropertyWindow(gSelectedEntity);
+        ImGui::End();
+    }
     /*  _________________________________________________________________________ */
     /*! BufferWindow
 
@@ -1178,6 +1234,7 @@ namespace Image {
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         //auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+          //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
 
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
@@ -1270,7 +1327,7 @@ namespace Image {
                       Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
                       collider.position.x += deltaPosition.x ;
                       collider.position.y += deltaPosition.y;
-                      collider.rotation = glm::degrees(rotation.z);
+                      collider.rotation = rotation.z;
                       collider.dimension.x += deltaScale.x ;
                       collider.dimension.y += deltaScale.y;
                   }

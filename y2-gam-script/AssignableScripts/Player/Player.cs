@@ -52,7 +52,7 @@ namespace Object
         */
         public Player() : base()
         {
-            //Console.WriteLine("Player Default Constructor Called!");
+
         }
 
         /*  _________________________________________________________________________ */
@@ -98,11 +98,11 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f),
-                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f), entityID, out RaycastHit groundedRayCast);
-                
+                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f),
+                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f), entityID, out RaycastHit groundedRayCast);
 
-                if (groundedRayCast.layer == "Platform")
+                //Console.WriteLine(groundedRayCast.layer);
+                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy")
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
@@ -114,29 +114,31 @@ namespace Object
                     AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
 
-                //Console.WriteLine("Layer Status: " + groundedRayCast.layer);
-
                 if (FacingDirectionChanged)
                 {
                     Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                 {
+                    FireCard(Translation);
+                }
 
+                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                {
                     if (isGrounded)
                     {
                         Jump(dt);
                     }
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
+                else if (Input.IsKeyPressed(KeyCode.KEY_A))
                 {
                     MoveLeft(dt);
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
+                else if (Input.IsKeyPressed(KeyCode.KEY_D))
                 {
                     MoveRight(dt);
                 }

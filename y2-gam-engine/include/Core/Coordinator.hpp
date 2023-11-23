@@ -192,7 +192,7 @@ Registers a new component type with the ComponentManager.
 Adds a component of type T to the specified entity and updates its signature.
 */
 	template<typename T>
-	void AddComponent(Entity entity, T component)
+	void AddComponent(Entity entity, T component, bool ignore = false)
 	{
 		if (HasComponent<T>(entity)) return;
 		mComponentManager->AddComponent<T>(entity, component);
@@ -200,7 +200,8 @@ Adds a component of type T to the specified entity and updates its signature.
 		auto signature = mEntityManager->GetSignature(entity);
 		signature.set(mComponentManager->GetComponentType<T>(), true);
 		mEntityManager->SetSignature(entity, signature);
-		mSystemManager->EntitySignatureChanged(entity, signature);
+		if (!ignore)
+			mSystemManager->EntitySignatureChanged(entity, signature);
 
 		Event event(Events::System::ENTITY);
 		event.SetParam(Events::System::Entity::COMPONENT_ADD, entity);

@@ -49,9 +49,11 @@ namespace Image {
     void HierarchyWindow(std::set<Entity>const& mEntities);
     void LayerWindow();
     void InspectorWindow(Entity selectedEntity);
-    void PropertyWindow(Entity selectedEntity);
+    void PropertyWindow(Entity selectedEntity, bool ignore = false);
     void PrefabPropertyWindow();
     void GameObjectPropertyWindow();
+    void PrefabInspectorWindow();
+    void GameObjectInspectorWindow();
     void BufferWindow(float dt);
     void PrefabWindow();
     void ContentWindow();
