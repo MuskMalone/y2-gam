@@ -1092,9 +1092,9 @@ namespace Image {
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+        auto frameController = FrameRateController::GetInstance();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
             }
@@ -1129,8 +1129,12 @@ namespace Image {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
                 ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
             }
-
+            
         }
+        /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
+            frameController->ScaleDeltaTime(0.5f); 
+        }*/
+
         //tch: hello this is my input part
         if (ImGui::IsWindowHovered()) {
             ImGuiIO& io = ImGui::GetIO();

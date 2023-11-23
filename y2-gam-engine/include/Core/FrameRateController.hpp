@@ -39,7 +39,7 @@ public:
 	void StartSubFrameTime();
 	float EndSubFrameTime(size_t key);
 	float GetProfilerValue(size_t key);
-
+	void ScaleDeltaTime(float factor);
 	inline float GetFps() { return mFps;  }
 	inline float GetDeltaTime() { return mDeltaTime; }
 	inline float GetTargetDT() { return mTargetDeltaTime; }
@@ -56,4 +56,6 @@ private:
 	float mAccumulator{};
 	std::map<size_t, float> mProfiler{};
 	std::queue<std::chrono::steady_clock::time_point> mSubDelta{};
+	bool isGameSlow;
+	float slowFactor;
 };
