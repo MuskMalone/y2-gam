@@ -23,7 +23,7 @@
             },
             "Transform": {
                 "posX": -108.0,
-                "posY": 10.0,
+                "posY": 7.452728271484375,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -51,13 +51,13 @@
             },
             "Transform": {
                 "posX": 789.4015502929688,
-                "posY": 759.8515014648438,
+                "posY": 757.3890380859375,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 600.0,
-                "scaleY": 244.4759979248047,
+                "scaleX": 700.0,
+                "scaleY": 285.22198486328125,
                 "scaleZ": 15.0,
                 "elipse": false
             },
@@ -87,8 +87,8 @@
                 "Tag": "settings"
             },
             "Transform": {
-                "posX": 809.0442504882813,
-                "posY": 608.9925537109375,
+                "posX": 812.1329956054688,
+                "posY": 497.0523376464844,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -120,16 +120,21 @@
                 "Tag": "menu"
             },
             "Transform": {
-                "posX": 3.0750732421875,
-                "posY": 13.160858154296875,
+                "posX": 813.2609252929688,
+                "posY": 411.1937255859375,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 39.893001556396484,
+                "scaleX": 372.4670104980469,
+                "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -148,16 +153,21 @@
                 "Tag": "quitgame"
             },
             "Transform": {
-                "posX": -6.589451313018799,
-                "posY": -9.3399658203125,
-                "posZ": 0.0,
+                "posX": 814.47900390625,
+                "posY": 313.11181640625,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 35.17900085449219,
+                "scaleX": 436.6239929199219,
+                "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -176,16 +186,21 @@
                 "Tag": "resumegame"
             },
             "Transform": {
-                "posX": -2.1964924335479736,
-                "posY": -30.142623901367188,
+                "posX": 820.9458618164063,
+                "posY": 222.46255493164063,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 33.856998443603516,
+                "scaleX": 526.0390014648438,
+                "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -204,16 +219,21 @@
                 "Tag": "howtoplay"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 818.38134765625,
+                "posY": 132.08958435058594,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 488.17498779296875,
+                "scaleY": 90.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]
