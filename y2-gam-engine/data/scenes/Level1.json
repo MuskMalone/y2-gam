@@ -34,7 +34,7 @@
                 "states": [
                     1700480657025096500
                 ],
-                "currFrame": 0,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -956,7 +956,7 @@
                 "states": [
                     1698954259805573200
                 ],
-                "currFrame": 2,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -979,7 +979,7 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 50.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false

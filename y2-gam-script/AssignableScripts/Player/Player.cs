@@ -102,6 +102,7 @@ namespace Object
                     new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f), entityID, out RaycastHit groundedRayCast);
 
                 //Console.WriteLine(groundedRayCast.layer);
+                /*
                 if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy")
                 {
                     isGrounded = true;
@@ -113,7 +114,7 @@ namespace Object
                     isGrounded = false;
                     AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
-
+                */
                 if (FacingDirectionChanged)
                 {
                     Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
@@ -127,10 +128,10 @@ namespace Object
 
                 if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
                 {
-                    if (isGrounded)
-                    {
+                    //if (isGrounded)
+                    //{
                         Jump(dt);
-                    }
+                    //}
                 }
 
                 else if (Input.IsKeyPressed(KeyCode.KEY_A))

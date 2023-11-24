@@ -42184,3 +42184,577 @@
 
 [INFO]: Successful FMOD System Shutdown 2023-11-24 11:12:17 FN: Image::SoundManager::AudioExit
 
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: <Module> 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyAttackState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyBaseState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: NodeState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyChaseState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyDefaultState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyIdleState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyPatrolState 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Input 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: InternalCalls 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: AnimationCodeEnemy 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: AnimationCodePlayer 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: KeyCode 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Entity 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: RaycastHit 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: PhysicsWrapper 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector4 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector3 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector2 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: BasicEnemy 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnterLevelOne 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Quit 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Player 2023-11-24 12:13:17 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Successful FMOD System Creation 2023-11-24 12:13:17 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-24 12:13:17 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-24 12:13:17 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-24 12:13:17 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Aid, Path, Sysname: 1700582535325873000, ../assets\audio\music\PM_Menu_Music_Loop.wav, classImage::SoundManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets\audio\music\PM_Menu_Music_Loop.wav 2023-11-24 12:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1700582537521462100, ../assets\audio\music\Poltergeist'sMansionTheme_BGM_Loop.wav, classImage::SoundManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets\audio\music\Poltergeist'sMansionTheme_BGM_Loop.wav 2023-11-24 12:13:18 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700464448871150500, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700668929720510100, ../assets\Textures\gam200_backstage_background_tint.png, classSpriteManager 2023-11-24 12:13:18 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700728664825034900, ../assets\Textures\gam200_backstage_wall.png, classSpriteManager 2023-11-24 12:13:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700712327935657900, ../assets\Textures\main menu 1.png, classSpriteManager 2023-11-24 12:13:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700712331350629700, ../assets\Textures\main menu 2.png, classSpriteManager 2023-11-24 12:13:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700722673936655200, ../assets\Textures\gam200_mainmenu_text_noglow.png, classSpriteManager 2023-11-24 12:13:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700753029114891400, ../assets\Textures\Y2_menu.png, classSpriteManager 2023-11-24 12:13:19 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700754634838988900, ../assets\Textures\y2_pause menu_ words_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700755559541091100, ../assets\Textures\y2_pause menu_ PAUSED_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700755562526839000, ../assets\Textures\y2_pause menu_ BUTTONS_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756885152458300, ../assets\Textures\y2_pause menu_ SETTINGS_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756888403567100, ../assets\Textures\y2_pause menu_ RESUMEGAME_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756892272022000, ../assets\Textures\y2_pause menu_ QUITGAME_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756896520626400, ../assets\Textures\y2_pause menu_ MENU_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756899751994000, ../assets\Textures\y2_pause menu_ HOWTOPLAY_noglow.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700772694795002100, ../assets\Textures\gam200_confirmation_quit game.png, classSpriteManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700480657025096500, ../assets\Textures\ANIM\DAA2402_ROBIN_idle.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700480697547170400, ../assets\Textures\ANIM\DAA2402_ROBIN_jump.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700790935381564100, ../assets\Textures\ANIM\gam200_spinning_card.png, classAnimationManager 2023-11-24 12:13:20 FN: AssetManager::Init
+
+[ERROR]: Entity Script does not exist! 2023-11-24 12:13:20 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Succesful init Freetype Library 2023-11-24 12:13:20 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:13:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-24 12:13:20 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:13:20 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-24 12:13:20 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:13:20 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-24 12:13:20 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:13:20 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:13:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:13:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:13:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:13:20 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:13:20 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectPlayer created! 2023-11-24 12:13:26 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:13:26 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectBasicEnemy created! 2023-11-24 12:13:26 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Successful FMOD System Shutdown 2023-11-24 12:13:47 FN: Image::SoundManager::AudioExit
+
+[INFO]: Successful FMOD System Creation 2023-11-24 12:15:50 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD System Initialization 2023-11-24 12:15:50 FN: Image::SoundManager::AudioInit
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-24 12:15:50 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Successful FMOD Channel Group Creation 2023-11-24 12:15:50 FN: Image::SoundManager::AudioCreateGroup
+
+[INFO]: Aid, Path, Sysname: 1700582535325873000, ../assets\audio\music\PM_Menu_Music_Loop.wav, classImage::SoundManager 2023-11-24 12:15:50 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets\audio\music\PM_Menu_Music_Loop.wav 2023-11-24 12:15:50 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1700582537521462100, ../assets\audio\music\Poltergeist'sMansionTheme_BGM_Loop.wav, classImage::SoundManager 2023-11-24 12:15:50 FN: AssetManager::Init
+
+[INFO]: Successfully loaded sound file../assets\audio\music\Poltergeist'sMansionTheme_BGM_Loop.wav 2023-11-24 12:15:50 FN: Image::SoundManager::AudioLoadSound
+
+[INFO]: Aid, Path, Sysname: 1698744788359338700, ../assets\textures\blinkbg.png, classSpriteManager 2023-11-24 12:15:50 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951115733834800, ../assets\Textures\gam200_anvil.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698951648982145500, ../assets\Textures\gam200_floorspikes.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953104427274700, ../assets\Textures\gam200_barrel.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953109425167700, ../assets\Textures\gam200_button_unpressed.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953111881673300, ../assets\Textures\gam200_checkpoint_activated.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953113205056600, ../assets\Textures\gam200_button_midway.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953115391509900, ../assets\Textures\gam200_door_open.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953116624829600, ../assets\Textures\gam200_door_closed.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953117858423800, ../assets\Textures\gam200_checkpoint_noflag.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953119925065100, ../assets\Textures\gam200_scaffolding_tall.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953120958490200, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698953133123376400, ../assets\Textures\gam200_swappable_box.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700464448871150500, ../assets\Textures\gam200_scaffolding_short.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700668929720510100, ../assets\Textures\gam200_backstage_background_tint.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700728664825034900, ../assets\Textures\gam200_backstage_wall.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700712327935657900, ../assets\Textures\main menu 1.png, classSpriteManager 2023-11-24 12:15:51 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700712331350629700, ../assets\Textures\main menu 2.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700722673936655200, ../assets\Textures\gam200_mainmenu_text_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700753029114891400, ../assets\Textures\Y2_menu.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700754634838988900, ../assets\Textures\y2_pause menu_ words_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700755559541091100, ../assets\Textures\y2_pause menu_ PAUSED_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700755562526839000, ../assets\Textures\y2_pause menu_ BUTTONS_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756885152458300, ../assets\Textures\y2_pause menu_ SETTINGS_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756888403567100, ../assets\Textures\y2_pause menu_ RESUMEGAME_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756892272022000, ../assets\Textures\y2_pause menu_ QUITGAME_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756896520626400, ../assets\Textures\y2_pause menu_ MENU_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700756899751994000, ../assets\Textures\y2_pause menu_ HOWTOPLAY_noglow.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700772694795002100, ../assets\Textures\gam200_confirmation_quit game.png, classSpriteManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698945575867297200, ../assets\textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954259805573200, ../assets\Textures\ANIM\ANIM_J_WALK_spritesheet.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954487533620100, ../assets\Textures\ANIM\ANIM_J_BITE_Spritesheet.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954489840002900, ../assets\Textures\ANIM\ANIM_J_RUN_Spritesheet.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698954684954475800, ../assets\Textures\ROBIN_ANIM_Spritesheet.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1698992900427510800, ../assets\Textures\ANIM\DAA2402_ROBIN_RUN.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700480657025096500, ../assets\Textures\ANIM\DAA2402_ROBIN_idle.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700480697547170400, ../assets\Textures\ANIM\DAA2402_ROBIN_jump.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Aid, Path, Sysname: 1700790935381564100, ../assets\Textures\ANIM\gam200_spinning_card.png, classAnimationManager 2023-11-24 12:15:52 FN: AssetManager::Init
+
+[INFO]: Succesful init Freetype Library 2023-11-24 12:15:52 FN: Image::FontRenderer::Init
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Successful init FreeType Face Arial 2023-11-24 12:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Lato 2023-11-24 12:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Successful init FreeType Face Getho 2023-11-24 12:15:52 FN: Image::FontRenderer::LoadFont
+
+[INFO]: Successful Set Font Size to 100 2023-11-24 12:15:52 FN: Image::FontRenderer::SetFontSize
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Succesfully Compiled and Linked! 2023-11-24 12:15:52 FN: Shader::CreateShaderFromString
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:52 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:52 FN: Framebuffer::Recreate
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: <Module> 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyAttackState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyBaseState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: NodeState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyChaseState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyDefaultState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyIdleState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace:  2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnemyPatrolState 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Input 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: InternalCalls 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: AnimationCodeEnemy 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: AnimationCodePlayer 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: KeyCode 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Entity 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: RaycastHit 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: PhysicsWrapper 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector4 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector3 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Image 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Vector2 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: BasicEnemy 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: EnterLevelOne 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Quit 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Namespace: Object 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Class Name: Player 2023-11-24 12:15:52 FN: Image::ScriptManager::PrintMonoAssemblyTypes
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:52 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:53 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:53 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:53 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:15:53 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectPlayer created! 2023-11-24 12:16:01 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:16:01 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectBasicEnemy created! 2023-11-24 12:16:01 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:16:44 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:16:44 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:16:44 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:01 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Framebuffer is complete! 2023-11-24 12:17:02 FN: Framebuffer::Recreate
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectPlayer created! 2023-11-24 12:17:44 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnCreate created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnUpdate created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Mono method OnExit created! 2023-11-24 12:17:44 FN: Image::ScriptClass::GetMethod
+
+[INFO]: Entity w script component named ObjectBasicEnemy created! 2023-11-24 12:17:44 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Aid, Path, Sysname: 1700756888403567100, ../assets\Textures\y2_pause menu_ RESUMEGAME_noglow.png, classSpriteManager 2023-11-24 12:18:23 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756892272022000, ../assets\Textures\y2_pause menu_ QUITGAME_noglow.png, classSpriteManager 2023-11-24 12:18:23 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756896520626400, ../assets\Textures\y2_pause menu_ MENU_noglow.png, classSpriteManager 2023-11-24 12:18:23 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756899751994000, ../assets\Textures\y2_pause menu_ HOWTOPLAY_noglow.png, classSpriteManager 2023-11-24 12:18:23 FN: AssetManager::LoadAssetChunk
+
+[ERROR]: Entity Script does not exist! 2023-11-24 12:18:23 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Aid, Path, Sysname: 1700753029114891400, ../assets\Textures\Y2_menu.png, classSpriteManager 2023-11-24 12:18:27 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756888403567100, ../assets\Textures\y2_pause menu_ RESUMEGAME_noglow.png, classSpriteManager 2023-11-24 12:18:33 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756892272022000, ../assets\Textures\y2_pause menu_ QUITGAME_noglow.png, classSpriteManager 2023-11-24 12:18:33 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756896520626400, ../assets\Textures\y2_pause menu_ MENU_noglow.png, classSpriteManager 2023-11-24 12:18:33 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756899751994000, ../assets\Textures\y2_pause menu_ HOWTOPLAY_noglow.png, classSpriteManager 2023-11-24 12:18:33 FN: AssetManager::LoadAssetChunk
+
+[ERROR]: Entity Script does not exist! 2023-11-24 12:18:33 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Aid, Path, Sysname: 1700756888403567100, ../assets\Textures\y2_pause menu_ RESUMEGAME_noglow.png, classSpriteManager 2023-11-24 12:18:42 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756892272022000, ../assets\Textures\y2_pause menu_ QUITGAME_noglow.png, classSpriteManager 2023-11-24 12:18:42 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756896520626400, ../assets\Textures\y2_pause menu_ MENU_noglow.png, classSpriteManager 2023-11-24 12:18:42 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Aid, Path, Sysname: 1700756899751994000, ../assets\Textures\y2_pause menu_ HOWTOPLAY_noglow.png, classSpriteManager 2023-11-24 12:18:42 FN: AssetManager::LoadAssetChunk
+
+[ERROR]: Entity Script does not exist! 2023-11-24 12:18:42 FN: Image::ScriptManager::OnCreateEntityEvent
+
+[INFO]: Aid, Path, Sysname: 1700753029114891400, ../assets\Textures\Y2_menu.png, classSpriteManager 2023-11-24 12:18:44 FN: AssetManager::LoadAssetChunk
+
+[INFO]: Mono method .ctor created! 2023-11-24 12:19:05 FN: Image::ScriptClass::GetMethod
+
