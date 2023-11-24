@@ -1232,11 +1232,10 @@ namespace Image {
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
-        //auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+        auto frameController = FrameRateController::GetInstance();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
             }
@@ -1271,12 +1270,11 @@ namespace Image {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
                 ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
             }
-
+            
         }
-        ////tch: hello this is my input part
-        //if (ImGui::IsWindowHovered()) {
-
-        //}
+        /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
+            frameController->ScaleDeltaTime(0.5f);
+        }*/
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
