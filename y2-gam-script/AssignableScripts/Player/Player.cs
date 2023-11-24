@@ -98,8 +98,8 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                //PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y),
-                    //new Vector2(Translation.X, Translation.Y - 10), entityID, out RaycastHit groundedRayCast);
+                PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                new Vector2(Collider.X, Collider.Y - 5.0f), entityID, out RaycastHit groundedRayCast);
 
                 //Console.WriteLine(groundedRayCast.layer);
                 /*

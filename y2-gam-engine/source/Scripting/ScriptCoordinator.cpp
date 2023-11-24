@@ -364,16 +364,11 @@ namespace Image {
 	Get the raycast hit information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
-	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
-		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag, MonoString** layer) {
+	static void PhysicsComponent_GetRaycast(Vec2* origin, Vec2* end, uint32_t entityToIgnore, bool* hit, 
+		MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
-		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
-		
-		*normal = rh.normal;
-		*point = rh.point;
-		*distance = rh.distance;
-		*entityID = rh.entityID;
+		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
 		
 		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
 			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
@@ -387,6 +382,46 @@ namespace Image {
 		}
 		else {
 			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetColliderPos
+
+	@param entityID
+	The ID of the entity.
+
+	@param outPos
+	The current collider position of the entity.
+
+	@return none.
+
+	Get the collider current position of the entity in C#.
+	*/
+	static void PhysicsComponent_GetColliderPos(uint32_t entityID, Vec2* outPos) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			*outPos = Vec2{ gCoordinator->GetComponent<Collider>(entityID).position };
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_SetColliderPos
+
+	@param entityID
+	The ID of the entity.
+
+	@param translation
+	Updated  collider position of the entity.
+
+	@return none.
+
+	Set the collider current position of the entity in C#.
+	*/
+	static void PhysicsComponent_SetColliderPos(uint32_t entityID, Vec2* pos) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			gCoordinator->GetComponent<Collider>(entityID).position = *pos;
 		}
 	}
 
@@ -839,6 +874,8 @@ namespace Image {
 
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);

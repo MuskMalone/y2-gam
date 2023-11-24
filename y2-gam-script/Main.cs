@@ -215,6 +215,24 @@ namespace Image
 
         #region Physics
         /*  _________________________________________________________________________ */
+        /*! Collider
+
+        Getter setter for Collider.
+        */
+        public Vector2 Collider
+        {
+            get
+            {
+                InternalCalls.PhysicsComponent_GetColliderPos(entityID, out Vector2 pos);
+                return pos;
+            }
+            set
+            {
+                InternalCalls.PhysicsComponent_SetColliderPos(entityID, ref value);
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! Translation
 
         Getter setter for Translation.
@@ -230,30 +248,6 @@ namespace Image
             {
                 InternalCalls.TransformComponent_SetTranslation(entityID, ref value);
             }
-        }
-
-        /*  _________________________________________________________________________ */
-        /*! CalculateAcceleration
-        
-        @param force
-        The force.
-
-        @param mass
-        The mass.
-
-        @return Vector2
-
-        Given force and mass, calculates acceleration using f=ma.
-        */
-        public Vector2 CalculateAcceleration(Vector2 force, float mass)
-        {
-            if (mass == 0.0f)
-            {
-                return new Vector2(0.0f, 0.0f);
-            }
-
-            Vector2 acceleration = force / mass;
-            return acceleration;
         }
 
         /*  _________________________________________________________________________ */

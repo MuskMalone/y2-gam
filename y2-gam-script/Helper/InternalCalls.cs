@@ -74,11 +74,43 @@ namespace Image
 
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag, out String layer);
+        internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, uint optionalEntityID,
+            out bool hit, out String tag, out String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, out bool collidedOrNot);
+
+        /*  _________________________________________________________________________ */
+        /*! PhysicsComponent_GetColliderPos
+
+        @param entityID
+        The ID of the entity.
+
+        @param outPos
+        The current collider position of the entity.
+
+        @return none.
+
+        Get the collider current position of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_GetColliderPos(uint entityHandle, out Vector2 pos);
+
+        /*  _________________________________________________________________________ */
+        /*! PhysicsComponent_SetColliderPos
+
+        @param entityID
+        The ID of the entity.
+
+        @param translation
+        Updated  collider position of the entity.
+
+        @return none.
+
+        Set the collider current position of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_SetColliderPos(uint entityHandle, ref Vector2 pos);
         #endregion
 
         #region Graphics

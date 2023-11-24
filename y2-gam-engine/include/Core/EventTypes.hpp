@@ -86,3 +86,11 @@ namespace Events::Physics {
 namespace Events::Physics::Collision {
 	const ParamId COLLIDED = "Events::Physics::Collision::COLLIDED"_hash;
 }
+
+namespace Events::Physics::Raycast {
+	const EventId RAYCAST_FIRED = "Events::Physics::Raycast::RAYCAST_FIRED"_hash;
+}
+
+namespace Events::Physics::Raycast::Debug {
+	const ParamId RAYCAST_DEBUGGED = "Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED"_hash;
+}
