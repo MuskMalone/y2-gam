@@ -25,6 +25,8 @@ namespace Object
         // Force Based
         public readonly float JumpForce = 4000000.0f;
         public readonly float MovementForce = 100000.0f;
+        public int Health = 1;
+
         public bool isGrounded = true;
 
         // Direction related
@@ -52,7 +54,7 @@ namespace Object
         */
         public Player() : base()
         {
-
+            
         }
 
         /*  _________________________________________________________________________ */
@@ -143,6 +145,32 @@ namespace Object
                 {
                     MoveRight(dt);
                 }
+
+
+                // Die by spikes
+
+                Vector2 playerFeet = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+                Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+                
+                if (PhysicsWrapper.Raycast(playerFeet, spikesTip, entityID, out RaycastHit spikeHit))
+                {
+                    
+                    if (spikeHit.tag == "Spikes")
+                    {
+                        Health -= 1;
+                        if(Health <= 0)
+                        {
+                            Console.WriteLine("Die");
+                            //Translation = new Vector2(-400, -27);
+
+                        }
+                    }
+                }
+
+                
+
+
+
             }
         }
 
@@ -178,5 +206,6 @@ namespace Object
         {
             Force += new Vector2(0, JumpForce) * dt;
         }
+
     }
 }

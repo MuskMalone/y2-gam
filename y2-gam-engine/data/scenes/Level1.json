@@ -34,14 +34,14 @@
                 "states": [
                     1700480657025096500
                 ],
-                "currFrame": 2,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Collider": {
                 "collider": 0,
-                "posX": -342.0,
-                "posY": -4.5,
+                "posX": -400.0,
+                "posY": -36.0,
                 "rotation": 0.0,
                 "dimX": 20.0,
                 "dimY": 32.0
@@ -78,8 +78,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": -340.46051025390625,
-                "posY": 4.985186576843262,
+                "posX": -400.0,
+                "posY": -27.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -956,7 +956,7 @@
                 "states": [
                     1698954259805573200
                 ],
-                "currFrame": 6,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1095,7 +1095,7 @@
                 "assetID": 1698951648982145500
             },
             "Tag": {
-                "Tag": "Spikes_1"
+                "Tag": "Spikes"
             },
             "Transform": {
                 "posX": 353.00537109375,

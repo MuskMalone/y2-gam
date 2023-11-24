@@ -582,6 +582,11 @@ namespace Image {
 				translation->y,
 				gCoordinator->GetComponent<Transform>(entityID).position.z };
 		}
+
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			gCoordinator->GetComponent<Collider>(entityID).position = { translation->x,
+				translation->y };
+		}
 	}
 
 	// For Force
