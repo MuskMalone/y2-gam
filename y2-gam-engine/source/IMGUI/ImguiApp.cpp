@@ -863,263 +863,266 @@ namespace Image {
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
         const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
-            ImGui::Text("Entity ID: %d", selectedEntity);
-            if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                static Entity gPreviousEntity = { MAX_ENTITIES };
-                static char tag[256] = "";
-                if (gPreviousEntity != selectedEntity) {
-                    memset(tag, 0, sizeof(tag));
-                    gPreviousEntity = selectedEntity;
-                }
-                Tag& tagComponent = gCoordinator->GetComponent<Tag>(selectedEntity);
-                ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
-                //ImGui::SetNextItemWidth(50.0f);
-                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
-                    tagComponent.tag = tag;
-                    memset(tag, 0, sizeof(tag)); // Clear the input
-                }
+          ImGui::Text("Entity ID: %d", selectedEntity);
+          if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
+            static Entity gPreviousEntity = { MAX_ENTITIES };
+            static char tag[256] = "";
+            if (gPreviousEntity != selectedEntity) {
+              memset(tag, 0, sizeof(tag));
+              gPreviousEntity = selectedEntity;
             }
-            else {
-                ImGui::Text("No Entity Tag");
+            Tag& tagComponent = gCoordinator->GetComponent<Tag>(selectedEntity);
+            ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
+            //ImGui::SetNextItemWidth(50.0f);
+            if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
+              tagComponent.tag = tag;
+              memset(tag, 0, sizeof(tag)); // Clear the input
             }
+          }
+          else {
+            ImGui::Text("No Entity Tag");
+          }
 
-            //Combo box click to add components
-            ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
-            if (ImGui::Button("Add")) {
-                switch (selectedComponent) {
-                case 0: {
-                    if (!gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                        ImGuiViewport* vP = ImGui::GetWindowViewport();
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Transform{
-                                {vP->Pos.x,vP->Pos.y,0},
-                                {0,0,0},
-                                {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 1: {
-                    if (!gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Sprite{
-                                {1,1,1, 1}
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 2: {
-                    if (!gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
-                        if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                            Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
-                            gCoordinator->AddComponent(
-                                selectedEntity,
-                                RigidBody{
-                                    Vec2{transform.position.x,transform.position.y},
-                                    transform.rotation.z,
-                                    IMGUI_MASS,
-                                    Vec2{transform.scale.x,transform.scale.y}
-                                }, ignore);
-                        }
-                        else {
-                            ImGuiViewport* vP = ImGui::GetWindowViewport();
-                            gCoordinator->AddComponent(
-                                selectedEntity,
-                                RigidBody{
-                                    Vec2{vP->Pos.x,vP->Pos.y},
-                                    0.f,
-                                    IMGUI_MASS,
-                                    Vec2{IMGUI_SCALE,IMGUI_SCALE}
-                                }, ignore);
-                        }
-                    }
-                }
-                      break;
-                case 3: {
-                    if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Collider{ Vec2{},0,Vec2{} }, ignore);
-                    }
-
-                }
-                      break;
-                case 4: {
-                    if (!gCoordinator->HasComponent<Animation>(selectedEntity)) {
-                        ::gCoordinator->AddComponent(
-                            selectedEntity,
-                            Animation{
-                                0.08f,
-                                0,
-                                0
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 5: {
-                    if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
-                    }
-                }
-                      break;
-                case 6: {
-                    if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
-                    }
-                }
-                      break;
-                case 7: {
-
-                    if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Script{ "No Script Assigned" }, ignore);
-                        ScriptManager::OnCreateEntity(selectedEntity);
-                    }
-                }
-                      break;
-                case 8: {
-
-                    if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                          selectedEntity,
-                            UIImage{ true }, ignore);
-                    }
-                }
-                      break;
-
-                case 9: {
-
-                  if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
-                    gCoordinator->AddComponent(
-                      selectedEntity,
-                      Text{"Arial", 0.05f,
-                            "Your Text Here", Vec3(
-                            1.0,
-                            1.0,
-                            1.0) }, ignore);
-                  }
-                }
-                      break;
-
-                case 10: {
-
-                  if (!gCoordinator->HasComponent<Swappable>(selectedEntity)) {
-                    gCoordinator->AddComponent(
-                      selectedEntity,
-                      Swappable{}, ignore);
-                  }
-                }
-                      break;
-                }
+          //Combo box click to add components
+          ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
+          if (ImGui::Button("Add")) {
+            switch (selectedComponent) {
+            case 0: {
+              if (!gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                ImGuiViewport* vP = ImGui::GetWindowViewport();
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Transform{
+                      {vP->Pos.x,vP->Pos.y,0},
+                      {0,0,0},
+                      {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                  }, ignore);
+              }
             }
-            ImGui::SameLine();
-            if (ImGui::Button("Remove")) {
-                switch (selectedComponent) {
-                case 0: {
-                    // Remove Transform component
-                    if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Transform>(selectedEntity);
-                    }
-                }
-                      break;
-                case 1: {
-                    // Remove Sprite component
-                    if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Sprite>(selectedEntity);
-                    }
-                }
-                      break;
-                case 2: {
-                    // Remove RigidBody component
-                    if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<RigidBody>(selectedEntity);
-                    }
-                }
-                      break;
-                case 3: {
-                    // Remove Collider component
-                    if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Collider>(selectedEntity);
-                    }
-                }
-                      break;
-                case 4: {
-                    // Remove Animation component
-                    if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Animation>(selectedEntity);
-                    }
-                }
-                      break;
-                case 5: {
-                    // Remove Gravity component
-                    if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Gravity>(selectedEntity);
-                    }
-                }
-                      break;
-                case 6: {
-                    // Remove Tag component
-                    if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Tag>(selectedEntity);
-                    }
-                }
-                      break;
-                case 7: {
-                    // Remove Script component
-                    if (gCoordinator->HasComponent<Script>(selectedEntity)) {
-                      gCoordinator->RemoveComponent<Script>(selectedEntity);
-                    }
-                }
-                      break;
-                case 8: {
-                    // Remove UIImage component
-                    if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<UIImage>(selectedEntity);
-                    }
-                }
-                      break;
-
-                case 9: {
-                  // Remove UIImage component
-                  if (gCoordinator->HasComponent<Text>(selectedEntity)) {
-                    gCoordinator->RemoveComponent<Text>(selectedEntity);
-                  }
-                }
-                      break;
-                case 10: {
-                  if (gCoordinator->HasComponent<Swappable>(selectedEntity)) {
-                    gCoordinator->RemoveComponent<Swappable>(selectedEntity);
-                  }
-                }
-                      break;
-                }
+                  break;
+            case 1: {
+              if (!gCoordinator->HasComponent<Sprite>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Sprite{
+                      {1,1,1, 1}
+                  }, ignore);
+              }
             }
-            ImGui::Separator();
-            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
-            ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
-            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
+                  break;
+            case 2: {
+              if (!gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
+                if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                  Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+                  gCoordinator->AddComponent(
+                    selectedEntity,
+                    RigidBody{
+                        Vec2{transform.position.x,transform.position.y},
+                        transform.rotation.z,
+                        IMGUI_MASS,
+                        Vec2{transform.scale.x,transform.scale.y}
+                    }, ignore);
+                }
+                else {
+                  ImGuiViewport* vP = ImGui::GetWindowViewport();
+                  gCoordinator->AddComponent(
+                    selectedEntity,
+                    RigidBody{
+                        Vec2{vP->Pos.x,vP->Pos.y},
+                        0.f,
+                        IMGUI_MASS,
+                        Vec2{IMGUI_SCALE,IMGUI_SCALE}
+                    }, ignore);
+                }
+              }
+            }
+                  break;
+            case 3: {
+              if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Collider{ Vec2{},0,Vec2{} }, ignore);
+              }
+
+            }
+                  break;
+            case 4: {
+              if (!gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                ::gCoordinator->AddComponent(
+                  selectedEntity,
+                  Animation{
+                      0.08f,
+                      0,
+                      0
+                  }, ignore);
+              }
+            }
+                  break;
+            case 5: {
+              if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
+              }
+            }
+                  break;
+            case 6: {
+              if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
+              }
+            }
+                  break;
+            case 7: {
+
+              if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Script{ "No Script Assigned" }, ignore);
+                ScriptManager::OnCreateEntity(selectedEntity);
+              }
+            }
+                  break;
+            case 8: {
+
+              if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  UIImage{ true }, ignore);
+              }
+            }
+                  break;
+
+            case 9: {
+
+              if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Text{ "Arial", 0.05f,
+                        "Your Text Here", Vec3(
+                        1.0,
+                        1.0,
+                        1.0) }, ignore);
+              }
+            }
+                  break;
+
+            case 10: {
+
+              if (!gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Swappable{}, ignore);
+              }
+            }
+                   break;
+            }
+          }
+          ImGui::SameLine();
+          if (ImGui::Button("Remove")) {
+            switch (selectedComponent) {
+            case 0: {
+              // Remove Transform component
+              if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Transform>(selectedEntity);
+              }
+            }
+                  break;
+            case 1: {
+              // Remove Sprite component
+              if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Sprite>(selectedEntity);
+              }
+            }
+                  break;
+            case 2: {
+              // Remove RigidBody component
+              if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
+                gCoordinator->RemoveComponent<RigidBody>(selectedEntity);
+              }
+            }
+                  break;
+            case 3: {
+              // Remove Collider component
+              if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Collider>(selectedEntity);
+              }
+            }
+                  break;
+            case 4: {
+              // Remove Animation component
+              if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Animation>(selectedEntity);
+              }
+            }
+                  break;
+            case 5: {
+              // Remove Gravity component
+              if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Gravity>(selectedEntity);
+              }
+            }
+                  break;
+            case 6: {
+              // Remove Tag component
+              if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Tag>(selectedEntity);
+              }
+            }
+                  break;
+            case 7: {
+              // Remove Script component
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Script>(selectedEntity);
+              }
+            }
+                  break;
+            case 8: {
+              // Remove UIImage component
+              if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                gCoordinator->RemoveComponent<UIImage>(selectedEntity);
+              }
+            }
+                  break;
+
+            case 9: {
+              // Remove UIImage component
+              if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Text>(selectedEntity);
+              }
+            }
+                  break;
+            case 10: {
+              if (gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Swappable>(selectedEntity);
+              }
+            }
+                   break;
+            }
+          }
+          ImGui::Separator();
+          ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
+          ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
+          ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
+
+          //ImGui::PopFont();
+          //ImGui::End();
+
+        }
         ImGui::PopFont();
-        ImGui::End();
-
+        //ImGui::End();
     }
     void PrefabPropertyWindow() {
         ImGui::Begin("Prefab Property");
@@ -1128,7 +1131,7 @@ namespace Image {
     }
     void GameObjectPropertyWindow() {
         ImGui::Begin("Property");
- 
+        PropertyWindow(gSelectedEntity);
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -1615,6 +1618,7 @@ namespace Image {
     }
 
     void GuizmoWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Guizmo editor");
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
@@ -1661,8 +1665,9 @@ namespace Image {
                 ImGui::InputFloat("Scale Snap", &gSnapVal);
             }
         }
+        ImGui::PopFont();
         ImGui::End();
 
     }
-
+    
 }

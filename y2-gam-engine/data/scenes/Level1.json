@@ -32,9 +32,11 @@
         {
             "Animation": {
                 "states": [
-                    1700480657025096500
+                    1700480657025096500,
+                    1698992900427510800,
+                    1700480697547170400
                 ],
-                "currFrame": 5,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -74,6 +76,7 @@
                 "layer": 2,
                 "assetID": 0
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Player"
             },
@@ -123,6 +126,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "SwappableBox"
             },
@@ -396,6 +400,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "SwappableBox_1"
             },
@@ -445,6 +450,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "SwappableBox_2"
             },
@@ -641,6 +647,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "SwappableBox_3"
             },
@@ -954,9 +961,11 @@
         {
             "Animation": {
                 "states": [
-                    1698954259805573200
+                    1698954259805573200,
+                    1698954489840002900,
+                    1698954487533620100
                 ],
-                "currFrame": 2,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -973,7 +982,7 @@
                 "y": -90.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Enemy"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -996,6 +1005,7 @@
                 "layer": 2,
                 "assetID": 0
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Enemy"
             },
@@ -1155,6 +1165,67 @@
                 "rotZ": 0.0,
                 "scaleX": 1000.0,
                 "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1700790935381564100
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 9999.0,
+                "posY": 9999.0,
+                "rotation": 0.0,
+                "dimX": 9.105999946594238,
+                "dimY": 15.142999649047852
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Card"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 214.95852661132813,
+                "posY": -65.48796844482422,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectCard",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.19607843458652496,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Card"
+            },
+            "Transform": {
+                "posX": 54.03702926635742,
+                "posY": 97.61537170410156,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 29.14299964904785,
+                "scaleY": 36.2140007019043,
                 "scaleZ": 15.0,
                 "elipse": false
             }

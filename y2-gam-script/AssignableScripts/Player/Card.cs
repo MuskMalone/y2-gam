@@ -24,7 +24,7 @@ namespace Object
         private float timeAlive = 0.0f;
         private bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 10.0f;
+        private readonly float MAX_TIME_ALIVE = 5.0f;
         private readonly float speed = 35.0f;
 
         /*  _________________________________________________________________________ */
