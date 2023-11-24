@@ -215,6 +215,20 @@ namespace Image
 
         #region Physics
         /*  _________________________________________________________________________ */
+        /*! ColliderDimensions
+
+        Getter setter for Collider.
+        */
+        public Vector2 ColliderDimensions
+        {
+            get
+            {
+                InternalCalls.PhysicsComponent_GetColliderDimensions(entityID, out Vector2 dim);
+                return dim;
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! Collider
 
         Getter setter for Collider.

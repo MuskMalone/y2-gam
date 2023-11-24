@@ -29,10 +29,10 @@ public class EnemyAttackState : EnemyBaseState
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
         enemy.AnimationState = (int)AnimationCodeEnemy.ATTACK;
-
+        
         float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
-        Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
-        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
+        Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
         if (attackRayCast.tag != "Player")
         {

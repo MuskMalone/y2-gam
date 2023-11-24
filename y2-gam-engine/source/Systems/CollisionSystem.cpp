@@ -669,6 +669,7 @@ Computes the collision between two entities and returns an arbiter.
         rh = RayHit{
             cnMin, cpMin, timeMin, eMin
         };
+
         return out;
     }
 

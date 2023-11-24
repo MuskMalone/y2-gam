@@ -36,17 +36,17 @@ public class EnemyIdleState : EnemyBaseState
 
         // Calculate losRayEnd based on isFacingRight
         float offset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
-        Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + offset, enemy.Translation.Y);
+        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + offset, enemy.Collider.Y);
 
         // Perform the raycast
-        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
 
         // Check the raycast result for "Player" tag
         if (losRayCast.tag == "Player")
         {
             float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
-            Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
+            Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
+            PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
             if (attackRayCast.tag == "Player")
             {

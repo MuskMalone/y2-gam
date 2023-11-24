@@ -98,25 +98,21 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                new Vector2(Collider.X, Collider.Y - 5.0f), entityID, out RaycastHit groundedRayCast);
-
-                //Console.WriteLine(groundedRayCast.layer);
-                /*
-                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy" || groundedRayCast.layer == "Player")
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
+                new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                    PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
+                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast))
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
-                */
-                isGrounded = true;
-                /*
+
                 else
                 {
                     isGrounded = false;
                     AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
-                */
+
                 if (FacingDirectionChanged)
                 {
                     Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
@@ -125,7 +121,7 @@ namespace Object
 
                 if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                 {
-                    FireCard(Translation);
+                    FireCard(Collider);
                 }
 
                 if (Input.IsKeyClicked(KeyCode.KEY_SPACE))

@@ -25,8 +25,8 @@ namespace Object
         public readonly float JumpCooldown = 0.2f;
         public readonly float MovementForce = 90000.0f;
         public readonly float JumpForce = 3500000.0f;
-        public readonly float VisionRange = 35.0f;
-        public readonly float AttackRange = 15.0f;
+        public readonly float VisionRange = 80.0f;
+        public readonly float AttackRange = 70.0f;
         public bool isGrounded = true;
 
         // Time related
@@ -117,7 +117,6 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            /*
             if (!IsEditorMode())
             {
                 // Workaround for now
@@ -140,9 +139,6 @@ namespace Object
                 TimeInState += dt;
                 currentState.UpdateState(this, dt);
             }
-
-            //Console.WriteLine("Current enemy state: " + currentState.ToString());
-            */
         }
         void OnExit()
         {

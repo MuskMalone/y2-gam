@@ -26,7 +26,7 @@ namespace Image
         //public Vector2 normal;
         //public Vector2 point;
         //public float distance;
-        public int entityID;
+        //public int entityID;
         public string tag;
         public string layer;
     }
@@ -40,7 +40,7 @@ namespace Image
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, optionalEntityID,
-            out bool hit, out String tagString, out String layerString);
+                out bool hit, out String tagString, out String layerString);
             
             if (hit)
             {
@@ -53,19 +53,17 @@ namespace Image
                     tag = tagString,
                     layer = layerString
                 };
-
-                return true;
             }
 
             else
             {
                 RaycastHit rh;
-                rh.entityID = -1;
                 rh.tag = "";
                 rh.layer = "";
                 result = rh;
-                return false;
             }
+
+            return hit;
         }
 
         public static Vector2 Normalize(Vector2 vector)

@@ -34,18 +34,18 @@ public class EnemyPatrolState : EnemyBaseState
         float visionOffset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
         // Position that is 10 pixels in front of the enemy
-        Vector2 groundRayPos = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Translation.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
+        Vector2 groundRayPos = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Collider.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
         PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
 
         // Raycast for line of sight
-        Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Translation.Y);
-        PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
 
         if (losRayCast.tag == "Player")
         {
             float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
-            Vector2 attackRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Translation.Y);
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
+            Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
+            PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
             if (attackRayCast.tag == "Player")
             {

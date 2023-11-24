@@ -135,7 +135,7 @@ namespace Image {
 	static void UIComponent_GetIsUIButtonClicked(uint32_t entityID, bool* outIsClicked) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsClicked = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isClicked);
+			*outIsClicked = gCoordinator->GetComponent<UIImage>(entityID).isClicked;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -153,7 +153,7 @@ namespace Image {
 	static void UIComponent_GetIsUIButtonHover(uint32_t entityID, bool* outIsHover) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsHover = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isHover);
+			*outIsHover = gCoordinator->GetComponent<UIImage>(entityID).isHover;
 	}
 
 	// For Serialization
@@ -173,7 +173,7 @@ namespace Image {
 	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Script>(entityID))
-			*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
+			*outFacingDirection = gCoordinator->GetComponent<Script>(entityID).isFacingRight;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -382,6 +382,26 @@ namespace Image {
 		}
 		else {
 			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetColliderDimensions
+
+	@param entityID
+	The ID of the entity.
+
+	@param outDim
+	The current collider dimensions of the entity.
+
+	@return none.
+
+	Get the collider dimensions of the entity in C#.
+	*/
+	static void PhysicsComponent_GetColliderDimensions(uint32_t entityID, Vec2* outDim) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			*outDim = Vec2{ gCoordinator->GetComponent<Collider>(entityID).dimension };
 		}
 	}
 
@@ -874,6 +894,7 @@ namespace Image {
 
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
