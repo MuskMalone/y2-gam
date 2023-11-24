@@ -100,7 +100,7 @@ namespace Image {
 			Script{ "ObjectCard" }
 			);
 		*/
-		PrefabsManager::GetInstance()->SpawnPrefab("Card", *startPos);
+		//PrefabsManager::GetInstance()->SpawnPrefab("Card", *startPos);
 	}
 
 	/*  _________________________________________________________________________ */
