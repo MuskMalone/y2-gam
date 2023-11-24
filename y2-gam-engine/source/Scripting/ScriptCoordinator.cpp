@@ -20,6 +20,7 @@
 
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Scripting/NodeManager.hpp"
+#include "Scripting/ScriptManager.hpp"
 
 #include "Core/Coordinator.hpp"
 
@@ -115,6 +116,7 @@ namespace Image {
 	*/
 	static void GameplayComponent_Destroy(uint32_t* entityID) {
 		gCoordinator->DestroyEntity(*entityID);
+		Image::ScriptManager::RemoveEntity(*entityID);
 	}
 
 	// For UI

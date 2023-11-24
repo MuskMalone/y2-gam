@@ -275,6 +275,7 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
+                Image::ScriptManager::RemoveEntity(gSelectedEntity);
                 gSelectedEntity = MAX_ENTITIES;
             //}
                 //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
@@ -354,6 +355,7 @@ namespace Image {
             if (gSelectedEntity != MAX_ENTITIES) {
                 //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     gCoordinator->DestroyEntity(gSelectedEntity);
+                    Image::ScriptManager::RemoveEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
                 //}
                 //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {

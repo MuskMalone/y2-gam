@@ -117,6 +117,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            /*
             if (!IsEditorMode())
             {
                 // Workaround for now
@@ -141,6 +142,7 @@ namespace Object
             }
 
             //Console.WriteLine("Current enemy state: " + currentState.ToString());
+            */
         }
         void OnExit()
         {

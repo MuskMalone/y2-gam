@@ -28,7 +28,7 @@ namespace Image {
   MonoDomain* ScriptManager::sRootDomain{ nullptr };
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
-  std::unordered_map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
+  std::map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
   std::vector<const char*> ScriptManager::sAssignableScriptNames{};
 
   /*  _________________________________________________________________________ */

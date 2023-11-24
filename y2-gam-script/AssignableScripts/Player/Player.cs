@@ -98,22 +98,25 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f),
-                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f), entityID, out RaycastHit groundedRayCast);
+                //PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y),
+                    //new Vector2(Translation.X, Translation.Y - 10), entityID, out RaycastHit groundedRayCast);
 
                 //Console.WriteLine(groundedRayCast.layer);
-                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy")
+                /*
+                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy" || groundedRayCast.layer == "Player")
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
-
+                */
+                isGrounded = true;
+                /*
                 else
                 {
                     isGrounded = false;
                     AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
-
+                */
                 if (FacingDirectionChanged)
                 {
                     Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);

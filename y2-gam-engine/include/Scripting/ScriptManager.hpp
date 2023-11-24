@@ -20,7 +20,7 @@
 
 #include "Scripting/ScriptClass.hpp"
 #include "Core/Coordinator.hpp"
-#include "ScriptInstance.hpp"
+#include "Scripting/ScriptInstance.hpp"
 #include "Components/Script.hpp"
 #include "Scripting/ScriptCoordinator.hpp"
 
@@ -43,20 +43,19 @@ namespace Image {
     // Getters
     static MonoDomain* GetAppDomain() { return sAppDomain; }
     static std::unordered_map<std::string, ScriptClass> const& GetEntityClasses() { return sEntityClasses; };
-    static std::unordered_map<Entity, ScriptInstance> const& GetEntityInstances() { return sEntityInstances; };
+    static std::map<Entity, ScriptInstance> const& GetEntityInstances() { return sEntityInstances; };
     static std::vector<const char *> const& GetAssignableScriptNames() { return sAssignableScriptNames; }
 
   private:
     static char* LoadFile(std::string const& filePath, size_t& fileSize);
     static void InitMono();
     static void Exit();
-    //static void FillAssignableScriptNames();
 
   private:
     static MonoDomain* sRootDomain;
     static MonoDomain* sAppDomain;
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
-    static std::unordered_map<Entity, ScriptInstance> sEntityInstances;
+    static std::map<Entity, ScriptInstance> sEntityInstances;
     static std::vector<const char*> sAssignableScriptNames;
   };
 }

@@ -21,6 +21,7 @@
 #include <Core/Serialization/Serializer.hpp>
 #include <Core/Coordinator.hpp>
 #include <Core/Types.hpp>
+#include "Scripting/ScriptManager.hpp"
 std::shared_ptr<PrefabsManager> PrefabsManager::_mSelf = nullptr;
 void PrefabsManager::Init() {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
@@ -70,6 +71,7 @@ void PrefabsManager::DeletePrefab(PrefabID id){
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	coordinator->DestroyEntity(mPrefabsFactory[id].entity);
+	Image::ScriptManager::RemoveEntity(mPrefabsFactory[id].entity);
 	mPrefabsFactory.erase(id);
 	Coordinator::GetInstance()->UnblockEvent(Events::System::ENTITY);
 
