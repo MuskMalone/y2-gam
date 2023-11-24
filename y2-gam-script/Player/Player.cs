@@ -17,7 +17,6 @@
 
 using Image;
 using System;
-using System.Dynamic;
 
 namespace Object
 {
@@ -165,15 +164,11 @@ namespace Object
 
         public void PlayerTakeDamage()
         {
-            PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), attackRayEnd, enemy.entityID, out RaycastHit damageRayCast);
-           
             Health -= 1;
             if(Health <= 0)
             {
                 Console.WriteLine("Player died");
             }
         }
-
-
     }
 }

@@ -1,24 +1,27 @@
-﻿using Image;
-using System;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
+﻿//using Image;
+//using System;
 
-namespace Object
-{
-    public class Spike : Entity
-    {
+//namespace Object
+//{
+//    public class Spike : Entity
+//    {
 
-        public Spike() : base()
-        {
+//        public Spike() : base()
+//        {
 
-        }
+//        }
 
-        public Spike(uint entityHandle) : base(entityHandle)
-        {
-            entityID = entityHandle;
-        }
+//        public Spike(uint entityHandle) : base(entityHandle)
+//        {
+//            entityID = entityHandle;
+//        }
 
-    }
+//        public void DamagePlayer(Player player)
+//        {
+//            player.PlayerTakeDamage();
+//        }
+       
 
-   
+//    }
 
-}
+//}
