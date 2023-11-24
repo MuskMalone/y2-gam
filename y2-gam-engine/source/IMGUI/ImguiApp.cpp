@@ -850,7 +850,7 @@ namespace Image {
     adding or removing components.
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage", "Text" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
