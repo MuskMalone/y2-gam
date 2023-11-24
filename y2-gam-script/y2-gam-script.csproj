@@ -60,6 +60,8 @@
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
     <Compile Include="AssignableScripts\Hazards\Spikes.cs" />
     <Compile Include="AssignableScripts\Player\PlayerHealth.cs" />
+    <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />
+    <Compile Include="AssignableScripts\Buttons\Quit.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
     <Compile Include="Helper\KeyCodes.cs" />

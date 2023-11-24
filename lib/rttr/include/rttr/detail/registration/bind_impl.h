@@ -355,7 +355,7 @@ class registration::bind<detail::prop, Class_Type, A, acc_level> : public regist
                                                         void,
                                                         detail::map_access_level_to_enum<acc_level>::value,
                                                         default_getter_policy, default_setter_policy,
-                                                        0>>(name, type::get<Class_Type>(), acc, std::array<detail::metadata, 0>());
+                                                        0>>(name, type::template get<Class_Type>(), acc, std::array<detail::metadata, 0>());
         }
 
         template<typename Acc, std::size_t Metadata_Count, typename... Args>
@@ -385,7 +385,7 @@ class registration::bind<detail::prop, Class_Type, A, acc_level> : public regist
                                                              void,
                                                              detail::map_access_level_to_enum<acc_level>::value,
                                                              getter_policy, setter_policy,
-                                                             Metadata_Count>>(name, type::get<Class_Type>(), acc, std::move(metadata_list));
+                                                             Metadata_Count>>(name, type::template get<Class_Type>(), acc, std::move(metadata_list));
             return std::move(prop);
         }
 
@@ -446,7 +446,7 @@ class registration::bind<detail::prop, Class_Type, A1, A2, acc_level> : public r
             return detail::make_unique<property_wrapper<acc_type,
                                                         Acc1, Acc2,
                                                         detail::map_access_level_to_enum<acc_level>::value,
-                                                        default_getter_policy, default_setter_policy, 0>>(name, type::get<Class_Type>(),
+                                                        default_getter_policy, default_setter_policy, 0>>(name, type::template get<Class_Type>(),
                                                                                                           getter, setter, std::array<detail::metadata, 0>());
         }
 
@@ -474,7 +474,7 @@ class registration::bind<detail::prop, Class_Type, A1, A2, acc_level> : public r
                                                              Acc1, Acc2,
                                                              detail::map_access_level_to_enum<acc_level>::value,
                                                              getter_policy, setter_policy,
-                                                             Metadata_Count>>(name, type::get<Class_Type>(),
+                                                             Metadata_Count>>(name, type::template get<Class_Type>(),
                                                                               getter, setter, std::move(metadata_list));
             return std::move(prop);
         }
@@ -536,7 +536,7 @@ class registration::bind<detail::prop_readonly, Class_Type, A, acc_level> : publ
             using acc_type = typename property_type<Acc>::type;
             return detail::make_unique<property_wrapper<acc_type, A, void,
                                                         detail::map_access_level_to_enum<acc_level>::value,
-                                                        default_getter_policy, default_setter_policy, 0>>(name, type::get<Class_Type>(),
+                                                        default_getter_policy, default_setter_policy, 0>>(name, type::template get<Class_Type>(),
                                                                                                           acc, std::array<detail::metadata, 0>());
         }
 
@@ -563,7 +563,7 @@ class registration::bind<detail::prop_readonly, Class_Type, A, acc_level> : publ
 
             auto prop = detail::make_unique<property_wrapper<acc_type, Acc, void,
                                                              detail::map_access_level_to_enum<acc_level>::value,
-                                                             getter_policy, default_setter_policy, Metadata_Count>>(name, type::get<Class_Type>(),
+                                                             getter_policy, default_setter_policy, Metadata_Count>>(name, type::template get<Class_Type>(),
                                                                                                                     acc, std::move(metadata_list));
 
             return std::move(prop);
@@ -622,7 +622,7 @@ class registration::bind<detail::meth, Class_Type, F, acc_level> : public regist
                                                       default_invoke,
                                                       default_args<>,
                                                       param_info_t,
-                                                      0>>(name, type::get<Class_Type>(), func, std::array<detail::metadata, 0>(), param_info_t());
+                                                      0>>(name, type::template get<Class_Type>(), func, std::array<detail::metadata, 0>(), param_info_t());
         }
 
         template<typename Acc_Func, typename... Args>
@@ -675,7 +675,7 @@ class registration::bind<detail::meth, Class_Type, F, acc_level> : public regist
                                                               detail::default_args<TArgs...>,
                                                               detail::parameter_infos<Param_Args...>,
                                                               Metadata_Count>>(name,
-                                                                               type::get<Class_Type>(),
+                                                                               type::template get<Class_Type>(),
                                                                                func,
                                                                                std::move(metadata_list),
                                                                                std::move(def_args),
@@ -695,7 +695,7 @@ class registration::bind<detail::meth, Class_Type, F, acc_level> : public regist
                                                               detail::default_args<>,
                                                               detail::parameter_infos<Param_Args...>,
                                                               Metadata_Count>>(name,
-                                                                               type::get<Class_Type>(),
+                                                                               type::template get<Class_Type>(),
                                                                                func,
                                                                                std::move(metadata_list),
                                                                                std::move(param_infos));
@@ -775,12 +775,12 @@ class registration::bind<detail::enum_, Class_Type, Enum_Type> : public registra
 
     public:
         bind(const std::shared_ptr<detail::registration_executer>& reg_exec, string_view name)
-        :   registration_derived_t<Class_Type>(reg_exec), m_reg_exec(reg_exec), m_declared_type(type::get<Class_Type>())
+        :   registration_derived_t<Class_Type>(reg_exec), m_reg_exec(reg_exec), m_declared_type(type::template get<Class_Type>())
         {
             using namespace detail;
 
             m_reg_exec->add_registration_func(this);
-            auto t = type::get<Enum_Type>();
+            auto t = type::template get<Enum_Type>();
             type_register::custom_name(t, name);
         }
 

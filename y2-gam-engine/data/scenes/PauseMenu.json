@@ -1,0 +1,240 @@
+{
+    "Assets": [
+        1700756896520626400,
+        1700756892272022000,
+        1700756888403567100,
+        1700756899751994000
+    ],
+    "Entities": [
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700753029114891400
+            },
+            "Tag": {
+                "Tag": "bg"
+            },
+            "Transform": {
+                "posX": -108.0,
+                "posY": 7.452728271484375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 625.7249755859375,
+                "scaleY": 273.0419921875,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700755559541091100
+            },
+            "Tag": {
+                "Tag": "paused"
+            },
+            "Transform": {
+                "posX": 789.4015502929688,
+                "posY": 757.3890380859375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 700.0,
+                "scaleY": 285.22198486328125,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "No Script Assigned",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756885152458300
+            },
+            "Tag": {
+                "Tag": "settings"
+            },
+            "Transform": {
+                "posX": 812.1329956054688,
+                "posY": 497.0523376464844,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 400.0,
+                "scaleY": 121.80000305175781,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756896520626400
+            },
+            "Tag": {
+                "Tag": "menu"
+            },
+            "Transform": {
+                "posX": 813.2609252929688,
+                "posY": 411.1937255859375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 372.4670104980469,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756892272022000
+            },
+            "Tag": {
+                "Tag": "quitgame"
+            },
+            "Transform": {
+                "posX": 814.47900390625,
+                "posY": 313.11181640625,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 436.6239929199219,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756888403567100
+            },
+            "Tag": {
+                "Tag": "resumegame"
+            },
+            "Transform": {
+                "posX": 820.9458618164063,
+                "posY": 222.46255493164063,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 526.0390014648438,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756899751994000
+            },
+            "Tag": {
+                "Tag": "howtoplay"
+            },
+            "Transform": {
+                "posX": 818.38134765625,
+                "posY": 132.08958435058594,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 488.17498779296875,
+                "scaleY": 90.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        }
+    ]
+}

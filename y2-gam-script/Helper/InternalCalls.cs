@@ -17,13 +17,27 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Image
 {
     public static class InternalCalls
     {
+        #region Gameplay
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_FireCard(ref Vector2 startPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_Destroy(ref uint entityID);
+        #endregion
+
+        #region UI
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonClicked(uint entityID, out bool outIsClicked);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void UIComponent_GetIsUIButtonHover(uint entityID, out bool outIsHover);
+        #endregion
+
         #region Serialization
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
@@ -34,6 +48,9 @@ namespace Image
 
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_GetMousePos(out Vector2 outMousePos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayAudio(out String audioFileName, out int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -42,24 +59,29 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(out bool isEditorMode);
 
-
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetText(uint entityID, out String text);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_Quit();
         #endregion
 
-        #region PathfindingComponent
+        #region Pathfinding
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
             out Vector2 nextNode, out Vector2 nodeType);
         #endregion
 
-        #region PhysicsComponent
+        #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(out Vector2 origin, out Vector2 end, out uint optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag);
+            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tag, out String layer);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_Collided(ref uint entityHandle, out bool collidedOrNot);
         #endregion
 
-        #region GraphicsComponent
+        #region Graphics
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAssetID
 
@@ -125,6 +147,22 @@ namespace Image
         internal extern static void AnimationComponent_SetAnimationState(uint entityHandle, ref int animationState);
 
         /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetSprite
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param fileName
+        Name of the file.
+
+        @return none.
+
+        Set the current sprite of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetSprite(uint entityHandle, out String fileName);
+
+        /*  _________________________________________________________________________ */
         /*! GraphicsComponent_GetScale
 
         @param entityHandle
@@ -155,9 +193,12 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetColour(uint entityHandle, ref Vector4 colour);
         #endregion
 
-        #region TransformComponent
+        #region Transform
         /*  _________________________________________________________________________ */
         /*! TransformComponent_GetTranslation
 
@@ -191,7 +232,7 @@ namespace Image
         internal extern static void TransformComponent_SetTranslation(uint entityHandle, ref Vector2 translation);
         #endregion
 
-        #region ForceComponent
+        #region Force
         // For Force
         /*  _________________________________________________________________________ */
         /*! ForceComponent_GetForce

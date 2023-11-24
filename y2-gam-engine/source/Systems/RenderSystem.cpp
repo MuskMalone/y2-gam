@@ -36,7 +36,8 @@
 #include "Scripting/NodeManager.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Systems/InputSystem.hpp>
-
+#include <Core/FrameRateController.hpp>
+#include <Graphics/AnimationManager.hpp>
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -279,10 +280,11 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 }
 
+//this is super hacky
 void RenderSystem::RenderPrefab(Entity prefab) {
 	//tch: hack to check if its a valid entity for drawing
 	//xavier todo: pls change this to a more ecs implementation in the future!!!
-	if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
+	//if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
 
@@ -291,16 +293,61 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	Renderer::ClearDepth();
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mPrefabEditorCamera).GetViewProjMtx());
 
-	const auto& sprite = ::gCoordinator->GetComponent<Sprite>(prefab);
-	const auto& transform = ::gCoordinator->GetComponent<Transform>(prefab);
 
-	if (sprite.spriteID)
-		Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.spriteID), sprite.color, transform.rotation.z, prefab);
-	else {
-		if (transform.elipse)
-			Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-		else
-			Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, prefab);
+	if (gCoordinator->HasComponent<Transform>(prefab)) {
+		const auto& transform = gCoordinator->GetComponent<Transform>(prefab);
+		decltype(transform.position) drawnPos{0, 0, 0};
+		if (gCoordinator->HasComponent<Sprite>(prefab)) {
+			auto& sprite = gCoordinator->GetComponent<Sprite>(prefab);
+
+			if (gCoordinator->HasComponent<Animation>(prefab)) {
+				auto& animation = gCoordinator->GetComponent<Animation>(prefab);
+				if (!animation.states.empty()) {
+					float dt = FrameRateController::GetInstance()->GetDeltaTime();
+					if (animation.currState >= animation.states.size()) animation.currState = animation.states.size() - 1;
+					size_t& frameIdx{ animation.currFrame };
+					//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
+					//quick patch to constcast this
+					std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
+
+					if (frameIdx >= frameList.size())
+						frameIdx = 0;
+
+					AnimationFrame& currFrame{ frameList[frameIdx] };
+
+					//xavier todo: help me change this to not use elapsed time
+					currFrame.elapsedTime += dt;
+
+					sprite.spriteID = currFrame.spriteID;
+
+					if (currFrame.elapsedTime >= animation.speed) {
+						++frameIdx;
+						currFrame.elapsedTime = 0.f;
+					}
+				}
+			}
+			if (sprite.GetSpriteID())
+				Renderer::DrawSprite({}, transform.scale, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, transform.rotation.z, prefab);
+			else {
+				if (transform.elipse)
+					Renderer::DrawCircle(drawnPos, transform.scale, sprite.color);
+				else
+					Renderer::DrawQuad(drawnPos, transform.scale, sprite.color, transform.rotation.z, prefab);
+			}
+
+
+		}
+		if (gCoordinator->HasComponent<Collider>(prefab)) {
+			const auto& c = gCoordinator->GetComponent<Collider>(prefab);
+			decltype(transform.position) colliderPos{ c.position.x, c.position.y, 1.f };
+			auto relativePos{ colliderPos - transform.position };
+			if (c.type == ColliderType::BOX) {
+				Renderer::DrawLineRect(relativePos, { c.dimension.x,c.dimension.y }, { 1.f, 1.f, 1.f ,1.f }, Image::Degree(c.rotation));
+			}
+			else {
+				Renderer::DrawCircle(relativePos, { c.dimension.x, c.dimension.x }, { 1.f,1.f,1.f, 1.f }, .1f);
+			}
+		}
 	}
 
 	Renderer::RenderSceneEnd();
@@ -312,6 +359,9 @@ void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
 	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
 
 		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
 		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };

@@ -23,7 +23,7 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 3000000.0f;
+        public readonly float JumpForce = 4000000.0f;
         public readonly float MovementForce = 100000.0f;
         public bool isGrounded = true;
 
@@ -52,7 +52,7 @@ namespace Object
         */
         public Player() : base()
         {
-            //Console.WriteLine("Player Default Constructor Called!");
+
         }
 
         /*  _________________________________________________________________________ */
@@ -98,15 +98,20 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
+                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f),
+                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f), entityID, out RaycastHit groundedRayCast);
+
+                //Console.WriteLine(groundedRayCast.layer);
+                if (groundedRayCast.layer == "Platform" || groundedRayCast.layer == "Enemy")
                 {
-                    isGrounded = false;
+                    isGrounded = true;
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
 
                 else
                 {
-                    isGrounded = true;
+                    isGrounded = false;
+                    AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
 
                 if (FacingDirectionChanged)
@@ -115,29 +120,38 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                 {
-                    Jump(dt);
+                    FireCard(Translation);
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
+                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                {
+                    if (isGrounded)
+                    {
+                        Jump(dt);
+                    }
+                }
+
+                else if (Input.IsKeyPressed(KeyCode.KEY_A))
                 {
                     MoveLeft(dt);
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
+                else if (Input.IsKeyPressed(KeyCode.KEY_D))
                 {
                     MoveRight(dt);
-                }
-
-                else
-                {
-                    if (isGrounded)
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
             }
         }
 
+        /*  _________________________________________________________________________ */
+        /*! OnExit
+
+        @return none
+
+        Called on exit.
+        */
         void OnExit()
         {
             FacingDirection = isFacingRight;
@@ -161,7 +175,6 @@ namespace Object
 
         public void Jump(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.JUMP;
             Force += new Vector2(0, JumpForce) * dt;
         }
     }

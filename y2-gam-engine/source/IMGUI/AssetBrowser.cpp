@@ -16,6 +16,7 @@
 #include "IMGUI/AssetBrowser.hpp"
 #include <Core/Coordinator.hpp>
 #include <Systems/InputSystem.hpp>
+#include <IMGUI/PrefabsBrowser.hpp>
 
 namespace {
     std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
@@ -158,6 +159,7 @@ void SceneAssetWindow(std::set<Entity> const& mEntities) {
     ImGui::SameLine();
     if (ImGui::Button("New Scene")) {
         std::string sceneName{namebuffer};
+        if (sceneName.empty()) sceneName = "NewScene";
         std::ofstream newScene{(assetDirectory / sceneName).string() + ".json"};
         if (newScene) {
             newScene.close();
@@ -209,7 +211,8 @@ namespace {
         {"Animations", AnimationAssetWindow}, 
         { "Sprites", SpriteAssetWindow }, 
         { "Sounds", SoundAssetWindow }, 
-        { "Scenes", SceneAssetWindow }
+        { "Scenes", SceneAssetWindow },
+        { "Prefabs", PrefabsAssetWindow }
     };
 }
 

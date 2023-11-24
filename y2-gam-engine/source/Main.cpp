@@ -66,7 +66,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
 
-	Image::ScriptManager::Init();
+	
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -214,8 +214,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	float dt = frameController->GetDeltaTime();
 
 	NodeManager::Initialize();
+	Image::ScriptManager::Init();
 
 #ifdef _INSTALLER
+	// REPLACE THIS SCENE WITH MAIN MENU AFTER IT IS DONE // REMEMBER PLS
 	SceneManager::GetInstance()->LoadScene("Scene1");
 #endif
 
@@ -260,6 +262,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();
 	assetManager->Exit();
+	PrefabsManager::GetInstance()->Exit();
 	layeringSystem->Exit();
 	return 0;
 }

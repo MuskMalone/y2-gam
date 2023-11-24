@@ -19,12 +19,12 @@
 
 #include <string>
 #include <Core/Serialization/SerializationManager.hpp>
-
+const std::string LAYER_SENTINEL { "#####" };
 struct Layering {
 	std::string assignedLayer;
 
 	Layering() = default;
-	Layering(std::string al) : assignedLayer{ al } {}
+	Layering(std::string const& al) : assignedLayer{ al } {}
 	Layering(rapidjson::Value const& obj) {
 		assignedLayer = obj["layering"].GetString();
 	}
