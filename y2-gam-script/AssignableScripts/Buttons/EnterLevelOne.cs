@@ -56,6 +56,7 @@ namespace Object
 
         Called on creation.
         */
+        
         void OnCreate()
         {
 
@@ -83,7 +84,8 @@ namespace Object
 
                 if (UIHover)
                 {
-                    Colour = new Vector4(1, 1, 0, 1);
+                    //Colour = new Vector4(1, 1, 0, 1);
+                    SetSprite("start_glow");
                 }
                 else
                 {

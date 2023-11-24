@@ -25,6 +25,8 @@
 #include "Core/System.hpp"
 #include "Core/EventTypes.hpp"
 static void glfw_error_callback(int error, const char* description);
+extern ImFont* mainfont;
+
 class ImGuiSystem : public System
 {
 public:
@@ -32,6 +34,7 @@ public:
     void Init(GLFWwindow* window);
     void Update(float dt);
     void Destroy();
+
 private:
     void ImguiEventListener(Event& event);
 };

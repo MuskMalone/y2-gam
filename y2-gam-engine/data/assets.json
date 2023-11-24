@@ -116,6 +116,30 @@
             "dimX": 180.0,
             "dimY": 178.0
         },
+        "1700464448871150500": {
+            "id": 1700464448871277000,
+            "path": "../assets\\Textures\\gam200_scaffolding_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 316.0,
+            "dimY": 318.0
+        },
+        "1700668929720510100": {
+            "id": 1700668929720575600,
+            "path": "../assets\\Textures\\gam200_backstage_background_tint.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 8880.0,
+            "dimY": 1300.0
+        },
+        "1700728664825034900": {
+            "id": 1700728664825102800,
+            "path": "../assets\\Textures\\gam200_backstage_wall.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 234.0,
+            "dimY": 714.0
+        },
         "1700712327935657900": {
             "id": 1700712327935709200,
             "path": "../assets\\Textures\\main menu 1.png",
