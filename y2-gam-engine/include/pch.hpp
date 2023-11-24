@@ -98,3 +98,4 @@
 #include "Components/Tag.hpp"
 #include "Components/Layering.hpp"
 #include "Components/UIImage.hpp"
+#include "Components/Swappable.hpp"

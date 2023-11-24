@@ -591,8 +591,8 @@ namespace Image {
                                 if (anim.currState >= i && anim.states.size() > 0)
                                     anim.currState--;
                                 if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                                    Sprite& anim = gCoordinator->GetComponent<Sprite>(selectedEntity);
-                                    anim.spriteID = InvalidAsset;
+                                    Sprite& anima = gCoordinator->GetComponent<Sprite>(selectedEntity);
+                                    anima.spriteID = InvalidAsset;
                                 }
                             }
 
@@ -852,7 +852,7 @@ namespace Image {
     adding or removing components.
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script", "UIImage", "Text" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1000,6 +1000,16 @@ namespace Image {
                   }
                 }
                       break;
+
+                case 10: {
+
+                  if (!gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                    gCoordinator->AddComponent(
+                      selectedEntity,
+                      Swappable{}, ignore);
+                  }
+                }
+                      break;
                 }
             }
             ImGui::SameLine();
@@ -1076,6 +1086,13 @@ namespace Image {
                   }
                 }
                       break;
+                case 10: {
+                  // Remove UIImage component
+                  if (gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Swappable>(selectedEntity);
+                  }
+                }
+                      break;
                 }
             }
             ImGui::Separator();
@@ -1089,6 +1106,7 @@ namespace Image {
             ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
             ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
             ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
+            ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
         }
 
     }

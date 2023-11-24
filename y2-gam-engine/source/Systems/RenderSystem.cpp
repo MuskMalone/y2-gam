@@ -40,7 +40,7 @@
 #include <Graphics/AnimationManager.hpp>
 
 // Static Initialization
-std::vector <std::pair<Vec2, Vec2>> RenderSystem::mRays;
+std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -272,7 +272,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		NodeManager::DisplayDebugLines();
 
 		for (auto const& ray : mRays) {
-			Renderer::DrawLine(glm::vec3(ray.first.x, ray.first.y, 0), glm::vec3(ray.second.x, ray.second.y, 0), glm::vec4(0.f, 1.f, 0.f, 1.f));
+			glm::vec3 firstPos{ glm::vec3(ray.first.first.x, ray.first.first.y, 0.f) };
+			glm::vec3 secondPos{ glm::vec3(ray.first.second.x, ray.first.second.y, 0.f) };
+			Renderer::DrawLine(firstPos, secondPos, ray.second);
 		}
 		mRays.clear();
 	}
@@ -432,7 +434,8 @@ Listens for the raycast event.
 \param event The event data that includes the positions the raycast were fired.
 */
 void RenderSystem::DebugRay(Event& event) {
-	[[maybe_unused]] auto pos = event.GetParam<std::pair<Vec2, Vec2>>(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED);
-	//Renderer::DrawLine(glm::vec3(pos.first.x, pos.first.y, 0.f), glm::vec3(pos.second.x, pos.second.y, 0.f), glm::vec4(0, 1, 0, 1));
+	[[maybe_unused]] auto pos = event.GetParam<std::pair<std::pair<Vec2, Vec2>, 
+		glm::vec4>>(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED);
+
 	mRays.push_back(pos);
 }

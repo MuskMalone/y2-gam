@@ -60,6 +60,8 @@
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
     <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />
+    <Compile Include="AssignableScripts\Player\Card.cs" />
+    <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
     <Compile Include="Helper\KeyCodes.cs" />

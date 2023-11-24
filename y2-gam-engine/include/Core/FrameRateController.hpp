@@ -43,6 +43,9 @@ public:
 	inline float GetFps() { return mFps;  }
 	inline float GetDeltaTime() { return mDeltaTime; }
 	inline float GetTargetDT() { return mTargetDeltaTime; }
+
+	static bool GetIsGameSlow() noexcept { return isGameSlow; }
+	static void SetIsGameSlow(bool flag) noexcept { isGameSlow = flag; }
 	
 private:
 	static std::shared_ptr<FrameRateController> _mSelf;
@@ -56,6 +59,6 @@ private:
 	float mAccumulator{};
 	std::map<size_t, float> mProfiler{};
 	std::queue<std::chrono::steady_clock::time_point> mSubDelta{};
-	bool isGameSlow;
+	static bool isGameSlow;
 	float slowFactor;
 };

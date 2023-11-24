@@ -23,10 +23,10 @@ namespace Object
     {
         private Vector2 direction;
         private float timeAlive = 0.0f;
-        private bool firstTime = true;
+        private bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 2.0f;
-        private readonly float speed = 20.0f;
+        private readonly float MAX_TIME_ALIVE = 4.0f;
+        private readonly float speed = 35.0f;
 
         /*  _________________________________________________________________________ */
         /*! Card
@@ -64,8 +64,7 @@ namespace Object
         */
         void OnCreate()
         {
-            direction = MousePos - Translation;
-            direction = PhysicsWrapper.Normalize(direction);
+            ResetCardPos();
         }
 
         /*  _________________________________________________________________________ */
@@ -82,22 +81,56 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                timeAlive += dt;
-                Velocity += direction * speed * dt;
-
-                if ((timeAlive >= MAX_TIME_ALIVE) && firstTime)
+                if (Alive)
                 {
-                    firstTime = false;
-                    DestroyEntity(entityID);
+                    // Card Related
+                    timeAlive += dt;
+                    Velocity += direction * speed * dt;
+
+                    if ((timeAlive >= MAX_TIME_ALIVE))
+                    {
+                        ResetCardPos();
+                    }
+
+                    // Swap Related
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
+                        if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
+                        {
+                            if (GameplayWrapper.IsSwappable(mouseRayCast.id))
+                            {
+                                GameplayWrapper.Swap(entityID, mouseRayCast.id);
+                                ResetCardPos();
+                            }
+                        }
+                    }
+                    /*
+                    if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+                    {
+                        ResetCardPos();
+                    }
+                    */
+                    /*
+                    if (!PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y + (ColliderDimensions.Y / 2) + 1),
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), GameplayWrapper.PlayerID, out RaycastHit LeftTBRayCast) &&
+                            !PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y + (ColliderDimensions.Y / 2) + 1),
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), GameplayWrapper.PlayerID, out RaycastHit RightTBRayCast) &&
+                        !PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) - 1, Collider.Y + (ColliderDimensions.Y / 2)),
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) + 1, Collider.Y + (ColliderDimensions.Y / 2)), GameplayWrapper.PlayerID, out RaycastHit topLeftRayCast) &&
+                        !PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) - 1, Collider.Y - (ColliderDimensions.Y / 2)),
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) + 1, Collider.Y - (ColliderDimensions.Y / 2)), GameplayWrapper.PlayerID, out RaycastHit topRightRayCast))
+                    {
+                        ResetCardPos();
+                    }
+                    */
                 }
 
-                /*
-                if ((PhysicsWrapper.IsCollidedWithAnything(entityID) && firstTime))
+                else
                 {
-                    firstTime = false;
-                    DestroyEntity(entityID);
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        FireCard();
+                    }
                 }
-                */
             }
         }
 
@@ -111,6 +144,26 @@ namespace Object
         void OnExit()
         {
 
+        }
+
+        void ResetCardPos()
+        {
+            Translation = new Vector2(9999, 9999);
+            Collider = new Vector2(9999, 9999);
+            Colour = new Vector4(255, 255, 255, 0);
+            timeAlive = 0.0f;
+            Alive = false;
+            Velocity = new Vector2(0, 0);
+        }
+
+        void FireCard()
+        {
+            Translation = GameplayWrapper.PlayerPos;
+            Collider = GameplayWrapper.PlayerPos;
+            direction = MousePos - GameplayWrapper.PlayerPos;
+            direction = PhysicsWrapper.Normalize(direction);
+            Colour = new Vector4(255, 255, 255, 255);
+            Alive = true;
         }
     }
 }

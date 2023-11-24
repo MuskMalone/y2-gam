@@ -4,7 +4,7 @@
 \file       InternalCalls.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Nov 23, 2023
 
 \brief      All C# internal calls go here, where information from CPP code 
             can be accessed in C#, and vice versa
@@ -28,6 +28,21 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_Destroy(ref uint entityID);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_GetPlayerPos(out Vector2 playerPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_GetPlayerID(out uint playerID);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_IsSwappable(ref uint entityHandle, out bool outIsSwappable);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_Swap(ref uint lhs, ref uint rhs);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_SlowdownTime(out bool flag);
         #endregion
 
         #region UI
@@ -75,7 +90,7 @@ namespace Image
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, uint optionalEntityID,
-           out bool hit, out String tag, out String layer);
+           out bool hit, out uint entityHandle, out String tag, out String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, out bool collidedOrNot);

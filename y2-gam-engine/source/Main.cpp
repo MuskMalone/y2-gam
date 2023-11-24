@@ -90,6 +90,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<Prefab>();
 	coordinator->RegisterComponent<UIImage>();
+	coordinator->RegisterComponent<Swappable>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif

@@ -85,7 +85,7 @@ ResourceID SpriteManager::CreateSubTexture(ResourceID textureID, SpritePropertie
 
     if (textures.find(textureID) == textures.end()) {
         // handle error: textureID not found
-        return -1;
+        return 0;
     }
 
     auto sprite = SubTexture::Create(textures[textureID], props.idx, props.dim, props);

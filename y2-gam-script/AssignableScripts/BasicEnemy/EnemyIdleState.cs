@@ -29,7 +29,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Change direction after 4 seconds
-        if (enemy.TimeInState >= 4.0f)
+        if (enemy.TimeInState >= 2.0f)
         {
             enemy.SwitchState(enemy.PatrolState);
         }

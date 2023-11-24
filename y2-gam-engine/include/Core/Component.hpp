@@ -9,6 +9,7 @@
 #include <Components/RigidBody.hpp>
 #include <Components/Script.hpp>
 #include <Components/Sprite.hpp>
+#include <Components/Swappable.hpp>
 #include <Components/Tag.hpp>
 #include <Components/Text.hpp>
 #include <Components/Transform.hpp>

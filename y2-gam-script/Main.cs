@@ -49,17 +49,6 @@ namespace Image
             entityID = 0;
         }
 
-        #region Gameplay
-        public void FireCard(Vector2 startPos)
-        {
-            InternalCalls.GameplayComponent_FireCard(ref startPos);
-        }
-        public void DestroyEntity(uint entID)
-        {
-            InternalCalls.GameplayComponent_Destroy(ref entID);
-        }
-        #endregion
-
         #region EngineCore
         /*  _________________________________________________________________________ */
         /*! MousePos

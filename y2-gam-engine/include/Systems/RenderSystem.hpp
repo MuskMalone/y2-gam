@@ -75,7 +75,7 @@ private:
 	Entity mPrefabEditorCamera{};
 	Entity mUICamera{};
 
-	static std::vector <std::pair<Vec2, Vec2>> mRays;
+	static std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> mRays;
 
 public:
 	Entity mPlayer{}; // TEMP TO BE REMOVED

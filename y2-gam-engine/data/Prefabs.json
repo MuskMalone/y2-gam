@@ -48,20 +48,18 @@
         },
         "Card": {
             "Animation": {
-                "states": [
-                    1700753762549760800
-                ],
-                "currFrame": 0,
+                "states": [],
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Collider": {
                 "collider": 0,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 9999.0,
+                "posY": 9999.0,
                 "rotation": 0.0,
-                "dimX": 15.142999649047852,
-                "dimY": 15.144000053405762
+                "dimX": 11.142000198364258,
+                "dimY": 12.321000099182129
             },
             "Gravity": {
                 "x": 0.0,
@@ -92,17 +90,17 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "CardPrefab"
+                "Tag": "Card"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 9999.0,
+                "posY": 9999.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 37.5359992980957,
-                "scaleY": 38.71500015258789,
+                "scaleX": 30.0,
+                "scaleY": 30.0,
                 "scaleZ": 0.0,
                 "elipse": false
             }

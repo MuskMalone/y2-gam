@@ -641,10 +641,6 @@ Computes the collision between two entities and returns an arbiter.
         Renderer::RenderSceneEnd();
       glEnable(GL_DEPTH_TEST);
       */
-      std::pair<Vec2, Vec2> beginEnd{ origin, end };
-        Event event{ Events::Physics::Raycast::RAYCAST_FIRED };
-        event.SetParam(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED, beginEnd);
-        gCoordinator->SendEvent(event);
 
         float timeMin{ FLOAT_MAX };
         Entity eMin{};
@@ -669,6 +665,12 @@ Computes the collision between two entities and returns an arbiter.
         rh = RayHit{
             cnMin, cpMin, timeMin, eMin
         };
+
+        glm::vec4 col{ (!out) ? glm::vec4(0.f, 1.f, 0.f, 1.f) : glm::vec4(1.f, 0.f, 0.f, 1.f) };
+        std::pair<std::pair<Vec2, Vec2>, glm::vec4> beginEnd{ {origin, end}, col };
+        Event event{ Events::Physics::Raycast::RAYCAST_FIRED };
+        event.SetParam(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED, beginEnd);
+        gCoordinator->SendEvent(event);
 
         return out;
     }

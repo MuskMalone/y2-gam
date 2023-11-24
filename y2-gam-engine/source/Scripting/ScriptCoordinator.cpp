@@ -23,6 +23,7 @@
 #include "Scripting/ScriptManager.hpp"
 
 #include "Core/Coordinator.hpp"
+#include "Core/FrameRateController.hpp"
 
 #include "Graphics/SpriteManager.hpp"
 
@@ -119,6 +120,130 @@ namespace Image {
 		Image::ScriptManager::RemoveEntity(*entityID);
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_GetPlayerPos
+
+	@param playerPos
+	The position of the player.
+
+	@return none.
+
+	Get the player position.
+	*/
+	static void GameplayComponent_GetPlayerPos(Vec2* playerPos) {
+		::gCoordinator = Coordinator::GetInstance();
+		Entity player{};
+		for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+			if (tag.tag == "Player") {
+				player = e;
+				break;
+			}
+		}
+
+		*playerPos = gCoordinator->GetComponent<Collider>(player).position;
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_GetPlayerID
+
+	@param playerID
+	Id of the player.
+
+	@return none.
+
+	Get the player id.
+	*/
+		static void GameplayComponent_GetPlayerID(uint32_t* playerID) {
+			::gCoordinator = Coordinator::GetInstance();
+			Entity player{};
+			for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+				if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+				auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+				if (tag.tag == "Player") {
+					player = e;
+					break;
+				}
+			}
+
+			*playerID = player;
+		}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_IsSwappable
+
+	@param entityID
+	The ID of the entity.
+
+	@param bool
+	The swappable flag.
+
+	@return none.
+
+	Checks if the entity is swappable or not.
+	*/
+	static void GameplayComponent_IsSwappable(uint32_t* entityID, bool* outIsSwappable) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Swappable>(*entityID)) {
+			*outIsSwappable = true;
+		}
+		else {
+			*outIsSwappable = false;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_Swap
+
+	@param lhs
+	The lhs entity.
+
+	@param rhs
+	The rhs entity.
+
+	@return none.
+
+	Swaps the positions of two different entities.
+	*/
+	static void GameplayComponent_Swap(uint32_t* lhs, uint32_t* rhs) {
+		::gCoordinator = Coordinator::GetInstance();
+		auto& lhsTransform{ gCoordinator->GetComponent<Transform>(*lhs).position };
+		auto& rhsTransform{ gCoordinator->GetComponent<Transform>(*rhs).position };
+
+		auto& lhsCollider{ gCoordinator->GetComponent<Collider>(*lhs).position };
+		auto& rhsCollider{ gCoordinator->GetComponent<Collider>(*rhs).position };
+
+		glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
+		glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
+
+		std::swap(lhsTransform, rhsTransform);
+		std::swap(lhsCollider, rhsCollider);
+
+		lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);
+		rhsCollider = Vec2(rhsCollider.x - rhsOffset.x, rhsCollider.y - rhsOffset.y);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_SlowdownTime
+
+	@param flag
+	Set slowdown time to true or false.
+
+	@return none.
+
+	Set slowdown time to true or false.
+	*/
+	static void GameplayComponent_SlowdownTime(bool* flag) {
+		auto frameController{ FrameRateController::GetInstance() };
+		if (*flag) {
+			frameController->ScaleDeltaTime(0.4f);
+		}
+		else {
+			frameController->ScaleDeltaTime(0.f);
+		}
+	}
+
 	// For UI
 	/*  _________________________________________________________________________ */
 	/*! UIComponent_GetIsUIButtonClicked
@@ -127,6 +252,7 @@ namespace Image {
 	The ID of the entity.
 
 	@param outIsClicked
+	The clicked flag.
 
 	@return none.
 
@@ -145,6 +271,7 @@ namespace Image {
 	The ID of the entity.
 
 	@param outIsHover
+	The hover flag.
 
 	@return none.
 
@@ -212,6 +339,7 @@ namespace Image {
 	/*! EngineCore_GetMousePos
 
 	@param outMousePos
+	The mouse position.
 
 	@return none.
 
@@ -241,6 +369,7 @@ namespace Image {
 	/*! EngineCore_LoadScene
 
 	@param sceneName
+	The scene name.
 
 	@return none.
 
@@ -255,6 +384,7 @@ namespace Image {
 	/*! EngineCore_IsEditorMode
 
 	@param isEditorMode
+	The flag for editor mode.
 
 	@return none.
 
@@ -343,7 +473,7 @@ namespace Image {
 	*/
 	static void PhysicsComponent_Collided(uint32_t* entityID, bool* collidedOrNot) {
 		::gCoordinator = Coordinator::GetInstance();
-		bool collided{ gCoordinator->GetSystem<PhysicsSystem>()->IsCollided(*entityID).empty() };
+		bool collided{ gCoordinator->GetSystem<PhysicsSystem>()->IsCollided(*entityID).size() > 1 };
 		*collidedOrNot = collided;
 	}
 
@@ -364,11 +494,12 @@ namespace Image {
 	Get the raycast hit information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
-	static void PhysicsComponent_GetRaycast(Vec2* origin, Vec2* end, uint32_t entityToIgnore, bool* hit, 
+	static void PhysicsComponent_GetRaycast(Vec2* origin, Vec2* end, uint32_t entityToIgnore, bool* hit, uint32_t* entityHandle,
 		MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
 		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
+		*entityHandle = rh.entityID;
 		
 		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
 			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
@@ -447,48 +578,6 @@ namespace Image {
 
 	// For Graphics
 	/*  _________________________________________________________________________ */
-	/*! AnimationComponent_GetAssetID
-
-	@param entityID
-	The ID of the entity.
-
-	@param outAssetID
-	The current asset ID of the entity.
-
-	@return none.
-
-	Get the current asset ID of the entity in C#.
-	*/
-	/*
-	static void AnimationComponent_GetAssetID(uint32_t entityID, int64_t* outAssetID) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			*outAssetID = gCoordinator->GetComponent<Animation>(entityID).assetID;
-	}
-	*/
-
-	/*  _________________________________________________________________________ */
-	/*! AnimationComponent_SetAssetID
-
-	@param entityID
-	The ID of the entity.
-
-	@param assetID
-	Updated asset ID of the entity.
-
-	@return none.
-
-	Set the current asset ID of the entity in C#.
-	*/
-	/*
-	static void AnimationComponent_SetAssetID(uint32_t entityID, int64_t* assetID) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			gCoordinator->GetComponent<Animation>(entityID).assetID = *assetID;
-	}
-	*/
-
-	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
 	@param entityID
@@ -542,7 +631,8 @@ namespace Image {
 	static void GraphicsComponent_SetSprite(uint32_t entityID, MonoString** fileName) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Sprite>(entityID)) {
-			gCoordinator->GetComponent<Sprite>(entityID).spriteID = SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+			gCoordinator->GetComponent<Sprite>(entityID).spriteID = 
+				SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
 		}
 	}
 
@@ -589,11 +679,24 @@ namespace Image {
 		}
 	}
 
-	static void GraphicsComponent_SetColour(uint32_t entityID, Vec4* colour) {
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetColour
+
+	@param entityID
+	The ID of the entity.
+
+	@param colour
+	The colour to set to.
+
+	@return none.
+
+	Set the current colour of the entity sprite in C#.
+	*/
+	static void GraphicsComponent_SetColour(uint32_t entityID, glm::vec4* colour) {
 		::gCoordinator = Coordinator::GetInstance();
+		
 		if (gCoordinator->HasComponent<Sprite>(entityID)) {
-			gCoordinator->GetComponent<Sprite>(entityID).color =
-			{ colour->x, colour->y, colour->z, colour->w };
+			gCoordinator->GetComponent<Sprite>(entityID).color = *colour;
 		}
 	}
 
@@ -876,6 +979,11 @@ namespace Image {
 	void ScriptCoordinator::RegisterFunctions() {
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_FireCard);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerPos);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerID);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_IsSwappable);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Swap);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SlowdownTime);
 
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);

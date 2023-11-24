@@ -16,7 +16,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Image
 {
@@ -26,7 +25,7 @@ namespace Image
         //public Vector2 normal;
         //public Vector2 point;
         //public float distance;
-        //public int entityID;
+        public uint id;
         public string tag;
         public string layer;
     }
@@ -40,7 +39,7 @@ namespace Image
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, optionalEntityID,
-                out bool hit, out String tagString, out String layerString);
+                out bool hit, out uint entID, out String tagString, out String layerString);
             
             if (hit)
             {
@@ -50,6 +49,7 @@ namespace Image
                     //normal = normal,
                     //point = point,
                     //distance = distance,
+                    id = entID,
                     tag = tagString,
                     layer = layerString
                 };
@@ -60,6 +60,7 @@ namespace Image
                 RaycastHit rh;
                 rh.tag = "";
                 rh.layer = "";
+                rh.id = 0;
                 result = rh;
             }
 

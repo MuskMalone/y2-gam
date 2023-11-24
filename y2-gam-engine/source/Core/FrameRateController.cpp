@@ -20,6 +20,9 @@
 #include "../include/pch.hpp"
 #include <Core/FrameRateController.hpp>
 #include <Engine/StateManager.hpp>
+
+bool FrameRateController::isGameSlow;
+
 std::shared_ptr<FrameRateController> FrameRateController::_mSelf = 0;
 std::shared_ptr<FrameRateController> FrameRateController::GetInstance() {
 	if (!_mSelf) return _mSelf = std::make_shared<FrameRateController>();

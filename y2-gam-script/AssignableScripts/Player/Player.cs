@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Nov 23, 2023
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -24,8 +24,9 @@ namespace Object
     {
         // Force Based
         public readonly float JumpForce = 4000000.0f;
-        public readonly float MovementForce = 100000.0f;
+        public readonly float MovementForce = 80000.0f;
         public bool isGrounded = true;
+        private bool slowdownToggle = true;
 
         // Direction related
         private bool _isFacingRight;
@@ -119,9 +120,10 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                if (Input.IsKeyClicked(KeyCode.KEY_E))
                 {
-                    FireCard(Collider);
+                    GameplayWrapper.SlowdownTime(slowdownToggle);
+                    slowdownToggle = !slowdownToggle;
                 }
 
                 if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
