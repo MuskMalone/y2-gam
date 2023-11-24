@@ -448,6 +448,15 @@ namespace Image {
     return (sEntityClasses.find(className) != sEntityClasses.end()) ? true : false;
   }
 
+  void ScriptManager::PrintEntityInstances() {
+    std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+    std::cout << "Entity-Script Pairs in the Script Instance Map:\n";
+    for (const auto& pair : sEntityInstances) {
+      std::cout << pair.first << ": " << gCoordinator->GetComponent<Script>(pair.first).name << "\n";
+    }
+    std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+  }
+
   /*  _________________________________________________________________________ */
   /*! FillAssignableScriptNames
 

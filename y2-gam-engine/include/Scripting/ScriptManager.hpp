@@ -39,6 +39,7 @@ namespace Image {
     static void RemoveEntity(Entity const& entity);
     
     static bool EntityClassExists(std::string const& className);
+    static void PrintEntityInstances();
 
     // Getters
     static MonoDomain* GetAppDomain() { return sAppDomain; }

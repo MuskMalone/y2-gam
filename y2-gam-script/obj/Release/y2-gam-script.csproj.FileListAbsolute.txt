@@ -34,3 +34,9 @@ C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReferenc
 C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
 C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
+D:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
+D:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
+D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
+D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
+D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
+D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb

@@ -15,7 +15,6 @@
 /******************************************************************************/
 
 using Image;
-using System;
 
 namespace Object
 {
@@ -25,7 +24,7 @@ namespace Object
         private float timeAlive = 0.0f;
         private bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 4.0f;
+        private readonly float MAX_TIME_ALIVE = 10.0f;
         private readonly float speed = 35.0f;
 
         /*  _________________________________________________________________________ */
@@ -150,7 +149,7 @@ namespace Object
         {
             Translation = new Vector2(9999, 9999);
             Collider = new Vector2(9999, 9999);
-            Colour = new Vector4(255, 255, 255, 0);
+            Colour = new Vector4(1, 1, 1, 0);
             timeAlive = 0.0f;
             Alive = false;
             Velocity = new Vector2(0, 0);
@@ -162,7 +161,7 @@ namespace Object
             Collider = GameplayWrapper.PlayerPos;
             direction = MousePos - GameplayWrapper.PlayerPos;
             direction = PhysicsWrapper.Normalize(direction);
-            Colour = new Vector4(255, 255, 255, 255);
+            Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
         }
     }
