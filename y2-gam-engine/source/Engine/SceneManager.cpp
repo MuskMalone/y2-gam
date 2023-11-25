@@ -82,6 +82,7 @@ void SceneManager::ExitScene(std::string const& scnpath) {
 	mEntities.clear();
 }
 void SceneManager::ResetScene(std::string const& scnpath) {
+
 	ExitScene(scnpath);
 	LoadScene(scnpath);
 }
@@ -125,7 +126,34 @@ void SceneManager::RemoveAsset(std::string const& scnpath, AssetID aid) {
 		}
 	}
 }
-	
+
+void SceneManager::ModifyScene() {
+	if (IsSceneActive())
+		ModifyScene(mCurrentScene);
+}
+void SceneManager::SaveScene() {
+	if (IsSceneActive())
+	SaveScene(mCurrentScene);
+}
+void SceneManager::ExitScene() {
+	if (IsSceneActive())
+	ExitScene(mCurrentScene);
+}
+void SceneManager::ResetScene() {
+	if (IsSceneActive()){
+		std::string scenestr {mCurrentScene};
+		ResetScene(scenestr);
+	}
+}
+void SceneManager::AddAsset(AssetID aid) {
+	if (IsSceneActive())
+	AddAsset(mCurrentScene, aid);
+}
+void SceneManager::RemoveAsset(AssetID aid) {
+	if (IsSceneActive())
+	RemoveAsset(mCurrentScene, aid);
+}
+
 void SceneManager::OnEntityEvent(Event& event) {
 	if (!mSceneListenerStart) return;
 	auto e = event.GetParam<Entity>(Events::System::Entity::CREATE);

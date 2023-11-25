@@ -64,7 +64,7 @@ namespace {
     float gSnapVal = 1.f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
-    std::string gCurrentScene = "";
+    //std::string gCurrentScene = "";
 }
 namespace Image {
     /*  _________________________________________________________________________ */
@@ -149,8 +149,7 @@ namespace Image {
 
                 //}
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
-                    if (gCurrentScene != "")
-                        SceneManager::GetInstance()->SaveScene(gCurrentScene);
+                    SceneManager::GetInstance()->SaveScene();
                 }
                 //if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
 
@@ -175,22 +174,22 @@ namespace Image {
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
             if (ImGui::MenuItem("Play")) {
-                if (renderSystem->IsEditorMode() && gCurrentScene != "") {
-                    SceneManager::GetInstance()->ModifyScene(gCurrentScene);
+                if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
+                    SceneManager::GetInstance()->ModifyScene();
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-                if (gCurrentScene != "") {
+                if (SceneManager::GetInstance()->IsSceneActive()) {
                     if (!renderSystem->IsEditorMode()) {
                         //std::cout << "Stop to toggle to editer mode" << std::endl;
                         renderSystem->ToggleEditorMode();
                         ImGui::SetWindowFocus("Image Game Engine");
 
                     }
-                    SceneManager::GetInstance()->ResetScene(gCurrentScene);
+                    SceneManager::GetInstance()->ResetScene();
 
                 }
             }
@@ -210,15 +209,16 @@ namespace Image {
     listen from.
     */
     void HierarchyWindow(std::set<Entity>const& mEntities) {
+        auto scenemgr{ SceneManager::GetInstance() };
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
         //Create entity and destory first
-        std::string scenestring{"Current Scene: " + ((gCurrentScene.empty()) ? std::string{"No Scene Selected"} : gCurrentScene)};
+        std::string scenestring{"Current Scene: " + ((!scenemgr->IsSceneActive()) ? std::string{"No Scene Selected"} : scenemgr->GetSceneName())};
         ImGui::Text(scenestring.c_str());
         if (ImGui::BeginPopupContextWindow("Hierarchy Context Menu", ImGuiPopupFlags_MouseButtonRight)) {
             if (ImGui::MenuItem("Create Entity")) {
 
-                if (gCurrentScene != "") {
+                if (scenemgr->IsSceneActive()) {
                     Entity newEntity = gCoordinator->CreateEntity();
                     gSelectedEntity = newEntity;
                     ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -245,7 +245,7 @@ namespace Image {
             ImGui::EndPopup();
         }
         if (ImGui::Button("Create Entity")) {
-            if (gCurrentScene != "") {
+            if (SceneManager::GetInstance()->IsSceneActive()) {
             Entity newEntity = gCoordinator->CreateEntity();
             gSelectedEntity = newEntity;
             ImGuiViewport* vP = ImGui::GetWindowViewport();
@@ -318,7 +318,7 @@ namespace Image {
                             entity,
                             s);
                     }
-                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    SceneManager::GetInstance()->AddAsset(droppedAid);
                 }
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
@@ -341,7 +341,7 @@ namespace Image {
                             entity,
                             a);
                     }
-                    SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                    SceneManager::GetInstance()->AddAsset(droppedAid);
                 }
                 ImGui::EndDragDropTarget();
             }
@@ -1348,12 +1348,12 @@ namespace Image {
                 //if (gCurrentScene != "") {
                 //    SceneManager::GetInstance()->ExitScene(gCurrentScene);
                 //}
-                gCurrentScene = (basePath / payLoadPath).stem().string();
+                std::string currentScene = (basePath / payLoadPath).stem().string();
 
-                SceneManager::GetInstance()->LoadScene(gCurrentScene);
+                SceneManager::GetInstance()->LoadScene(currentScene);
             }
             if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("PrefabsInstance")) {
-                if (gCurrentScene != "") {
+                if (SceneManager::GetInstance()->IsSceneActive()) {
                     PrefabsManager::PrefabID droppedPid = *(const PrefabsManager::PrefabID*)dragDropPayLoad->Data;
 
                     PrefabsManager::GetInstance()->SpawnPrefab(droppedPid, { mpos.first, mpos.second });

@@ -84,7 +84,11 @@ Entity PrefabsManager::AddPrefab(std::string name) {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 
 	//Create the default components
-	coordinator->AddComponent<Transform>(entity, Transform{}, true);
+	coordinator->AddComponent<Transform>(entity, Transform{
+							{0.f,0.f,0.f},
+							{0,0,0},
+							{IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+		}, true);
 	coordinator->AddComponent<Layering>(entity, Layering{ LAYER_SENTINEL }, true);
 
 	mPrefabsFactory[id] = std::move(PrefabEntry{
