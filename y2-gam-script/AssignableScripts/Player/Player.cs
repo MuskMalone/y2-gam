@@ -23,7 +23,7 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 4000000.0f;
+        public readonly float JumpForce = 1000000.0f;
         public readonly float MovementForce = 80000.0f;
         public int Health = 1;
         public bool isGrounded = true;
@@ -32,6 +32,7 @@ namespace Object
         private Vector2 colliderPosition = new Vector2(-400, -36);
         //private Vector2 spawnPosition = new Vector2(0, 0);
         //private Vector2 colliderPosition = new Vector2(0, 0);
+        //private bool jumped = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -111,12 +112,22 @@ namespace Object
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
                 new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                     PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
-                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast))
+                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                    PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
+                
 
+                /*
+                if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+                {
+                    isGrounded = true;
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                }
+                */
                 else
                 {
                     isGrounded = false;
@@ -132,10 +143,10 @@ namespace Object
                 if (Input.IsKeyClicked(KeyCode.KEY_E))
                 {
                     GameplayWrapper.SlowdownTime(slowdownToggle);
-                    slowdownToggle = !slowdownToggle;
+                    slowdownToggle = !slowdownToggle;                  
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
                 {
                     if (isGrounded)
                     {
@@ -212,7 +223,7 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
@@ -220,7 +231,7 @@ namespace Object
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
@@ -228,7 +239,9 @@ namespace Object
 
         public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce) * dt;
+            //Force += new Vector2(0, JumpForce) * dt;
+            Velocity -= new Vector2(0, Velocity.Y);
+            Velocity += new Vector2(0, 7000) * dt;
         }
     }
 }

@@ -121,7 +121,7 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
 	);
 
-	float const zoomFactor{ 0.4f };
+	float const zoomFactor{ 0.5f };
 	::gCoordinator->AddComponent(
 		mSceneCamera,
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }

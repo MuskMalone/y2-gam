@@ -219,7 +219,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 #ifdef _INSTALLER
 	// REPLACE THIS SCENE WITH MAIN MENU AFTER IT IS DONE // REMEMBER PLS
-	SceneManager::GetInstance()->LoadScene("Scene1");
+	SceneManager::GetInstance()->LoadScene("MainMenu");
 #endif
 
 	while (!quit && !windowManager->ShouldClose())

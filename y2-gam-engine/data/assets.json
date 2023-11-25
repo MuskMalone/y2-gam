@@ -251,6 +251,14 @@
             "idxY": 0.0,
             "dimX": 813.0,
             "dimY": 462.0
+        },
+        "1700888002494215700": {
+            "id": 1700888002494253600,
+            "path": "../assets\\Textures\\start_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 533.0,
+            "dimY": 148.0
         }
     },
     "classAnimationManager": {

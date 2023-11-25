@@ -10,3 +10,9 @@ C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Installer\y2-gam-scri
 C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
 C:\Users\terra\My Drive\schoo\UNI\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
+D:\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.dll
+D:\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.pdb
+D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyReference.cache
+D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
+D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
+D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb

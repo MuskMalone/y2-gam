@@ -79,19 +79,23 @@ void PrefabsManager::DeletePrefab(PrefabID id){
 Entity PrefabsManager::AddPrefab(std::string name) {
 	PrefabID id{ _hash(name) };
 	//tch: if name copied then make  anew one + copy at the end
-	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) 
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end())
 		return MAX_ENTITIES;
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	Entity entity{ Coordinator::GetInstance()->CreateEntity() };
-	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 
 	//Create the default components
-	coordinator->AddComponent<Transform>(entity, Transform{}, true);
+	coordinator->AddComponent<Transform>(entity, Transform{
+							{0.f,0.f,0.f},
+							{0,0,0},
+							{IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+		}, true);
 	coordinator->AddComponent<Layering>(entity, Layering{ LAYER_SENTINEL }, true);
 
 	mPrefabsFactory[id] = std::move(PrefabEntry{
 		name, id, false, entity
-	});
+		});
 	Coordinator::GetInstance()->UnblockEvent(Events::System::ENTITY);
 	return entity;
 }

@@ -5,6 +5,7 @@
 #include "Core/Coordinator.hpp"
 
 #include <Core/Globals.hpp>
+#include "../WindowManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -57,6 +58,29 @@ MousePosition InputSystem::GetWorldMousePos() const {
 
 	return { worldPos.x, worldPos.y };
 }
+
+MousePosition InputSystem::GetSceneMousePos() const {
+	int windowWidth = WindowManager::GetInstance()->GetWidth();
+	int windowHeight = WindowManager::GetInstance()->GetHeight();
+
+	MousePosition mp{ GetMousePos() };
+
+	// Normalize mouse position to NDC
+	Vec2 mousePos{
+		(2.0f * mp.first / static_cast<float>(windowWidth)) - 1.0f,
+		1.0f - (2.0f * mp.second / static_cast<float>(windowHeight))
+	};
+
+	// Transform mouse position using the camera
+	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
+	glm::mat4 inverseViewProj = glm::inverse(camera.GetViewProjMtx());
+	glm::vec4 mouseClipSpace = glm::vec4(mousePos.x, mousePos.y, 0.0f, 1.0f);
+	glm::vec4 mouseWorldSpace = inverseViewProj * mouseClipSpace;
+	mouseWorldSpace /= mouseWorldSpace.w;
+
+	return { mouseWorldSpace.x, mouseWorldSpace.y };
+}
+
 EditorMousePosition InputSystem::GetEditorMousePos() const {
 	return mEditorMousePos;
 }
