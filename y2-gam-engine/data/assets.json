@@ -259,6 +259,14 @@
             "idxY": 0.0,
             "dimX": 551.0,
             "dimY": 131.0
+        },
+        "1700928706423252000": {
+            "id": 1700928706423292500,
+            "path": "../assets\\Textures\\Y2_menu_words.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2750.0,
+            "dimY": 1200.0
         }
     },
     "classAnimationManager": {

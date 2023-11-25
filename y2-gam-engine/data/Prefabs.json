@@ -4,13 +4,17 @@
             "Layering": {
                 "layering": "#####"
             },
+            "Script": {
+                "script": "No Script Assigned",
+                "isFacingRight": true
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1700928706423252000
             },
             "Transform": {
                 "posX": 0.0,
@@ -19,8 +23,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.428999900817871,
-                "scaleY": 15.0,
+                "scaleX": 200.0,
+                "scaleY": 87.27200317382813,
                 "scaleZ": 15.0,
                 "elipse": false
             },
