@@ -74,18 +74,9 @@ namespace Object
                 if (!isPaused)
                 {
                     Colour = new Vector4(1, 0, 1, 0);
-                    //if (Input.IsKeyClicked(KeyCode.KEY_U))
-                    //{
-                    //    Colour = new Vector4(1, 1, 1, 1);
-                    //    SetSprite("gam200_mainmenu_quitgame");
-                    //}
 
                 }
-                //if (Input.IsKeyClicked(KeyCode.KEY_U))
-                //{
-                //    Colour = new Vector4(1, 1, 1, 1);
-                //    SetSprite("gam200_mainmenu_quitgame");
-                //}
+                
                 if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
                     if (!isPaused)
@@ -100,7 +91,7 @@ namespace Object
                     }
                     //firstTime = false;
                 }
-
+                
 
                 //if (UIClicked)
                 //{
