@@ -632,9 +632,19 @@ Computes the collision between two entities and returns an arbiter.
     }
 
     bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore) {
+      /*
+      glDisable(GL_DEPTH_TEST);
+        glm::mat4 viewProjMtx{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()).GetViewProjMtx() };
+        Renderer::RenderSceneBegin(viewProjMtx);
+        Renderer::DrawLine(glm::vec3(origin.x, origin.y, 0.f), glm::vec3(end.x, end.y, 0.f), glm::vec4(0, 1, 0, 1));
+        Renderer::DrawLine(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 10.f, 0.f), glm::vec4(0, 1, 0, 1));
+        Renderer::RenderSceneEnd();
+      glEnable(GL_DEPTH_TEST);
+      */
+
         float timeMin{ FLOAT_MAX };
         Entity eMin{};
-        Vec2 cnMin, cpMin;
+        Vec2 cnMin{0, 0}, cpMin{0, 0};
         bool out{ false };
         for (auto const& entity : mEntities) {
             if (entityToIgnore.has_value() && entityToIgnore.value() == entity) continue;
@@ -655,6 +665,13 @@ Computes the collision between two entities and returns an arbiter.
         rh = RayHit{
             cnMin, cpMin, timeMin, eMin
         };
+
+        glm::vec4 col{ (!out) ? glm::vec4(0.f, 1.f, 0.f, 1.f) : glm::vec4(1.f, 0.f, 0.f, 1.f) };
+        std::pair<std::pair<Vec2, Vec2>, glm::vec4> beginEnd{ {origin, end}, col };
+        Event event{ Events::Physics::Raycast::RAYCAST_FIRED };
+        event.SetParam(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED, beginEnd);
+        gCoordinator->SendEvent(event);
+
         return out;
     }
 
@@ -674,6 +691,8 @@ Initializes the CollisionSystem, setting up the Quadtree and other necessary com
         mLookupTable[ColliderLookupKey{ ColliderType::CIRCLE, ColliderType::BOX }] = CircleBoxCollide;
         mLookupTable[ColliderLookupKey{ ColliderType::BOX, ColliderType::CIRCLE }] = BoxCircleCollide;
         mLookupTable[ColliderLookupKey{ ColliderType::CIRCLE, ColliderType::CIRCLE }] = CircleCircleCollide;
+
+        ::gCoordinator->AddEventListener(FUNCTION_LISTENER(Events::Physics::Raycast::RAYCAST_FIRED, RenderSystem::DebugRay));
     }
     /*  _________________________________________________________________________ */
 /*! CollisionSystem::Update
@@ -801,6 +820,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
         //Renderer::RenderSceneEnd();
 
     }
+
     bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2) {
         if (mCollidedEntities.find(e1) != mCollidedEntities.end()) return false;
         auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {

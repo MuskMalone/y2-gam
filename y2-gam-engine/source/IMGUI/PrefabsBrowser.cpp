@@ -52,7 +52,7 @@ void PrefabsAssetWindow(std::set<Entity> const&) {
         }
 
         ImGui::PopStyleColor();
-        PrefabsManager::PrefabID pid{ prefab.first };
+        //PrefabsManager::PrefabID pid{ prefab.first };
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
             //add actions

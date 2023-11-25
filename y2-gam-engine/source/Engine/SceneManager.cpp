@@ -3,6 +3,7 @@
 #include <Engine/AssetManager.hpp>
 #include <Core/Coordinator.hpp>
 #include <Systems/EntitySerializationSystem.hpp>
+#include "Scripting/ScriptManager.hpp"
 
 namespace {
 	static const char* prefix = "scenes/";
@@ -78,6 +79,8 @@ void SceneManager::ExitScene(std::string const& scnpath) {
 
 	for (auto const& e : mEntities) {
 		coordinator->DestroyEntity(e);
+		if (gCoordinator->HasComponent<Script>(e))
+			Image::ScriptManager::RemoveEntity(e);
 	}
 	mEntities.clear();
 }

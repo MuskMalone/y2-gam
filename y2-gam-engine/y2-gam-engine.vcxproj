@@ -216,6 +216,7 @@
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Prefab.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
+    <ClInclude Include="include\Components\Swappable.hpp" />
     <ClInclude Include="include\Components\Text.hpp" />
     <ClInclude Include="include\Components\Tag.hpp" />
     <ClInclude Include="include\Components\UIImage.hpp" />

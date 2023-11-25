@@ -20,6 +20,9 @@
 #include "../include/pch.hpp"
 #include <Core/FrameRateController.hpp>
 #include <Engine/StateManager.hpp>
+
+bool FrameRateController::isGameSlow;
+
 std::shared_ptr<FrameRateController> FrameRateController::_mSelf = 0;
 std::shared_ptr<FrameRateController> FrameRateController::GetInstance() {
 	if (!_mSelf) return _mSelf = std::make_shared<FrameRateController>();
@@ -43,6 +46,8 @@ void FrameRateController::Init(int fps, bool vsync) {
 	mTargetDeltaTime = mDeltaTime;
 	mVsync = vsync;
 	mAccumulator = 0.f;
+	slowFactor = 0.f;
+	isGameSlow = false;
 	glfwSwapInterval((vsync) ? 1 : 0);
 
 }
@@ -97,7 +102,12 @@ float FrameRateController::EndFrameTime() {
 		mFps = 1.f / mDeltaTime;
 	}
 	//std::cout << mDeltaTime << " "<<mFps << std::endl;
-	return mDeltaTime;
+	if (isGameSlow) {
+		return mDeltaTime * slowFactor;
+	}
+	else {
+		return mDeltaTime;
+	}
 }
 /*  _________________________________________________________________________ */
 /*! StartSubFrameTime
@@ -140,5 +150,15 @@ Retrieves the profiler value for the specified key, normalized by the frame's de
 float FrameRateController::GetProfilerValue(size_t key) {
 	if (mProfiler.find(key) == mProfiler.end()) return 0.0f;
 	return mProfiler[key] / mDeltaTime;
+}
+
+void FrameRateController::ScaleDeltaTime(float factor){
+	isGameSlow = !isGameSlow;
+	if (isGameSlow) {
+		slowFactor = factor;
+	}
+	else {
+		slowFactor = 0.f;
+	}
 }
 

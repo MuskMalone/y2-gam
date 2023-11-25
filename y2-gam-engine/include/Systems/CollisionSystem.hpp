@@ -48,6 +48,8 @@ namespace Collision {
 
 		void Debug();
 
+		//void DebugRay(Event& event);
+
 		bool Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore);
 
 		bool IsIntersected(Entity const& e1, Entity const& e2);

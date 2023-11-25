@@ -297,6 +297,9 @@ two vectors.
 */
 bool LayeringSystem::IsLayerVisible(std::string const& layerName) {
   if (layerName == LAYER_SENTINEL) return false;
+  if (layerName == "NONE")
+    return true;
+
   int index{};
   for (auto const& name : mLayerNames) {
     if (name == layerName) {
@@ -323,6 +326,9 @@ The rhs layer name to check.
 Returns whether two layers are collidable or not.
 */
 bool LayeringSystem::IsCollidable(std::string const& lhsName, std::string const& rhsName) {
+  if (lhsName == "NONE" || rhsName == "NONE") {
+    return true;
+  }
 
   int idxLhs{};
   int idxRhs{};

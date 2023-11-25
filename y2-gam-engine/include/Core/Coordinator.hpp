@@ -20,6 +20,7 @@
 #include "EventManager.hpp"
 #include "SystemManager.hpp"
 #include "Types.hpp"
+//#include "ScriptManager.hpp"
 #include <memory>
 
 
@@ -144,6 +145,8 @@ Destroys the specified entity and notifies all systems of its destruction.
 
 	void DestroyEntity(Entity entity)
 	{
+		//Image::ScriptManager::RemoveEntity(entity);
+
 		mEntityManager->DestroyEntity(entity);
 
 		mComponentManager->EntityDestroyed(entity);

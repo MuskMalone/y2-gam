@@ -38,6 +38,10 @@
 #include <Systems/InputSystem.hpp>
 #include <Core/FrameRateController.hpp>
 #include <Graphics/AnimationManager.hpp>
+
+// Static Initialization
+std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
+
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
@@ -266,6 +270,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
+
+		for (auto const& ray : mRays) {
+			glm::vec3 firstPos{ glm::vec3(ray.first.first.x, ray.first.first.y, 0.f) };
+			glm::vec3 secondPos{ glm::vec3(ray.first.second.x, ray.first.second.y, 0.f) };
+			Renderer::DrawLine(firstPos, secondPos, ray.second);
+		}
+		mRays.clear();
 	}
 
 	Renderer::RenderSceneEnd();
@@ -350,8 +361,6 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 		}
 	}
 
-
-
 	Renderer::RenderSceneEnd();
 	mFramebuffers[1]->Unbind();
 }
@@ -361,6 +370,9 @@ void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
 	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
 
 		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
 		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };
@@ -411,4 +423,19 @@ void RenderSystem::WindowSizeListener(Event& event)
 	camera.mAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
 	camera.UpdateProjectionMtx();
 	//camera.SetProjectionMtx(left, right, bottom, top);
+}
+
+/*  _________________________________________________________________________ */
+/*!
+\brief DebugRay Function
+
+Listens for the raycast event.
+
+\param event The event data that includes the positions the raycast were fired.
+*/
+void RenderSystem::DebugRay(Event& event) {
+	[[maybe_unused]] auto pos = event.GetParam<std::pair<std::pair<Vec2, Vec2>, 
+		glm::vec4>>(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED);
+
+	mRays.push_back(pos);
 }

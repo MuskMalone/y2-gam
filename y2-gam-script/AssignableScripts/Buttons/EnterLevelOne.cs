@@ -56,9 +56,10 @@ namespace Object
 
         Called on creation.
         */
+        
         void OnCreate()
         {
-
+            Colour = new Vector4(1, 1, 1, 1);
         }
 
         /*  _________________________________________________________________________ */
@@ -75,19 +76,21 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (UIClicked && firstTime)
-                {
-                    LoadScene("Scene1");
-                    firstTime = false;
-                }
-
+                //SetSprite("start_glow");
                 if (UIHover)
                 {
-                    Colour = new Vector4(1, 1, 0, 1);
+                    Colour = new Vector4(1, 1, 1, 1);
+                    SetSprite("start_glow");
                 }
                 else
                 {
-                    Colour = new Vector4(1, 0, 1, 1);
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+
+                if (UIClicked && firstTime)
+                {
+                    LoadScene("Level1");
+                    firstTime = false;
                 }
             }
         }

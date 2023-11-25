@@ -45,7 +45,7 @@ public class EnemyChaseState : EnemyBaseState
         {
             case NodeState.WALK:
 
-                Vector2 direction = new Vector2(path[currentPathIndex].X - enemy.Translation.X, 1.0f);
+                Vector2 direction = new Vector2(path[currentPathIndex].X - enemy.Collider.X, 1.0f);
                 float distanceToClosestNode = direction.Length();
 
                 float thresholdForNodeCloseness = 3.0f;
@@ -58,12 +58,12 @@ public class EnemyChaseState : EnemyBaseState
                         return;
                     }
 
-                    direction = path[currentPathIndex] - enemy.Translation;
+                    direction = path[currentPathIndex] - enemy.Collider;
                 }
 
                 // Distance to next node
                 float distanceToNextNode = (currentPathIndex + 1 < path.Count)
-                    ? (path[currentPathIndex + 1] - enemy.Translation).Length()
+                    ? (path[currentPathIndex + 1] - enemy.Collider).Length()
                     : float.MaxValue;
 
                 if (distanceToNextNode < thresholdForNodeCloseness)
@@ -74,7 +74,7 @@ public class EnemyChaseState : EnemyBaseState
                         RecalculatePath(enemy);
                         return;
                     }
-                    direction = path[currentPathIndex] - enemy.Translation;
+                    direction = path[currentPathIndex] - enemy.Collider;
                 }
 
                 direction = PhysicsWrapper.Normalize(direction);
@@ -105,10 +105,10 @@ public class EnemyChaseState : EnemyBaseState
 
                 // Calculate losRayEnd based on isFacingRight
                 float offset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
-                Vector2 losRayEnd = new Vector2(enemy.Translation.X + (enemy.Scale.X / 2.0f) + offset, enemy.Translation.Y);
+                Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + offset, enemy.Collider.Y);
 
                 // Perform the raycast
-                PhysicsWrapper.Raycast(new Vector2(enemy.Translation.X, enemy.Translation.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+                PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
 
                 // Check the raycast result for "Player" tag
                 if (losRayCast.tag == "Player")

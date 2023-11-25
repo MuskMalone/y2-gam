@@ -172,6 +172,7 @@
     <ClInclude Include="include\Components\UIImage.hpp" />
     <ClInclude Include="include\Systems\UISystem.hpp" />
     <ClInclude Include="include\IMGUI\CommandManager.hpp" />
+    <ClInclude Include="include\Components\Swappable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics\Shader.hpp">

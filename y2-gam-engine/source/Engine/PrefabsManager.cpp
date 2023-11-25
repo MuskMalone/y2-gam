@@ -21,6 +21,7 @@
 #include <Core/Serialization/Serializer.hpp>
 #include <Core/Coordinator.hpp>
 #include <Core/Types.hpp>
+#include "Scripting/ScriptManager.hpp"
 std::shared_ptr<PrefabsManager> PrefabsManager::_mSelf = nullptr;
 void PrefabsManager::Init() {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
@@ -70,6 +71,7 @@ void PrefabsManager::DeletePrefab(PrefabID id){
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	coordinator->DestroyEntity(mPrefabsFactory[id].entity);
+	Image::ScriptManager::RemoveEntity(mPrefabsFactory[id].entity);
 	mPrefabsFactory.erase(id);
 	Coordinator::GetInstance()->UnblockEvent(Events::System::ENTITY);
 
@@ -77,11 +79,11 @@ void PrefabsManager::DeletePrefab(PrefabID id){
 Entity PrefabsManager::AddPrefab(std::string name) {
 	PrefabID id{ _hash(name) };
 	//tch: if name copied then make  anew one + copy at the end
-	if (mPrefabsFactory.find(id) != mPrefabsFactory.end()) 
+	if (mPrefabsFactory.find(id) != mPrefabsFactory.end())
 		return MAX_ENTITIES;
 	Coordinator::GetInstance()->BlockEvent(Events::System::ENTITY);
 	Entity entity{ Coordinator::GetInstance()->CreateEntity() };
-	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 
 	//Create the default components
 	coordinator->AddComponent<Transform>(entity, Transform{
@@ -93,13 +95,12 @@ Entity PrefabsManager::AddPrefab(std::string name) {
 
 	mPrefabsFactory[id] = std::move(PrefabEntry{
 		name, id, false, entity
-	});
+		});
 	Coordinator::GetInstance()->UnblockEvent(Events::System::ENTITY);
 	return entity;
 }
 
 //DO NOT USE IT REPEATEDLY IN FOR LOOP 
-// IT IS SLOW AS FUCK I WILL FUCKING SLAP YOU
 Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};

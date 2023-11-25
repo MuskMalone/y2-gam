@@ -16,66 +16,85 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Image
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct RaycastHit
     {
-        public Vector2 normal;
-        public Vector2 point;
-        public float distance;
-        public uint entityID;
+        //public Vector2 normal;
+        //public Vector2 point;
+        //public float distance;
+        public uint id;
         public string tag;
         public string layer;
     }
     public static class PhysicsWrapper
     {
+        public static bool IsCollidedWithAnything(uint entityID)
+        {
+            InternalCalls.PhysicsComponent_Collided(ref entityID, out bool isCollided);
+            return isCollided;
+        }
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
-            InternalCalls.PhysicsComponent_GetRaycast(out origin, out end, out optionalEntityID,
-            out bool hit, out Vector2 normal, out Vector2 point, out float distance, out uint entityID, out String tagString,
-            out String layerString);
+            InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, optionalEntityID,
+                out bool hit, out uint entID, out String tagString, out String layerString);
             
             if (hit)
             {
-                /* Marshal method
-                result = new RaycastHit();
-                IntPtr resultStructPtr = IntPtr.Add(resultPtr, Marshal.SizeOf(typeof(RaycastHit)));
-                RaycastHit resultCpp = Marshal.PtrToStructure<RaycastHit>(resultStructPtr);
-
-                result.normal = resultCpp.normal;
-                result.point = resultCpp.point;
-                result.distance = resultCpp.distance;
-                result.entityID = resultCpp.entityID;
-                */
-
                 result = new RaycastHit
                 {
-                    entityID = entityID,
-                    normal = normal,
-                    point = point,
-                    distance = distance,
+                    //entityID = entityID,
+                    //normal = normal,
+                    //point = point,
+                    //distance = distance,
+                    id = entID,
                     tag = tagString,
                     layer = layerString
                 };
-
-                return true;
             }
 
             else
             {
-                result = new RaycastHit();
-                return false;
+                RaycastHit rh;
+                rh.tag = "";
+                rh.layer = "";
+                rh.id = 0;
+                result = rh;
             }
+
+            return hit;
         }
 
-        // Normalize function
         public static Vector2 Normalize(Vector2 vector)
         {
             float length = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             return new Vector2(vector.X / length, vector.Y / length);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! CalculateAcceleration
+        
+        @param force
+        The force.
+
+        @param mass
+        The mass.
+
+        @return Vector2
+
+        Given force and mass, calculates acceleration using f=ma.
+        */
+        public static Vector2 CalculateAcceleration(Vector2 force, float mass)
+        {
+            if (mass == 0.0f)
+            {
+                return new Vector2(0.0f, 0.0f);
+            }
+
+            Vector2 acceleration = force / mass;
+            return acceleration;
         }
     }
 }

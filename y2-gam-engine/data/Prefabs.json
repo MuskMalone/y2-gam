@@ -1,37 +1,5 @@
 {
     "Prefabs": {
-        "TestingPrefab": {
-            "Layering": {
-                "layering": "Enemy"
-            },
-            "Script": {
-                "script": "ObjectEnterLevelOne",
-                "isFacingRight": true
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698744788359338700
-            },
-            "Tag": {
-                "Tag": "Hello"
-            },
-            "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 41.07099914550781,
-                "scaleY": 35.17900085449219,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
         "Box": {
             "Collider": {
                 "collider": 0,
@@ -75,6 +43,113 @@
                 "scaleX": 5.0,
                 "scaleY": 5.0,
                 "scaleZ": 1.0,
+                "elipse": false
+            }
+        },
+        "Card": {
+            "Animation": {
+                "states": [
+                    1700790935381564100
+                ],
+                "currFrame": 3,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 1,
+                "posX": 9999.0,
+                "posY": 9999.0,
+                "rotation": 0.0,
+                "dimX": 20.570999145507813,
+                "dimY": 20.570999145507813
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Card"
+            },
+            "RigidBody": {
+                "dimX": 0.0,
+                "dimY": 0.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectCard",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Card"
+            },
+            "Transform": {
+                "posX": 9999.0,
+                "posY": 9999.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 50.0,
+                "scaleZ": 0.0,
+                "elipse": false
+            }
+        },
+        "Platform": {
+            "Collider": {
+                "collider": 0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "rotation": 0.0,
+                "dimX": 100.0,
+                "dimY": 21.035999298095703
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 100.0,
+                "dimY": 21.03499984741211,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 0.2711864113807678,
+                "g": 1.0,
+                "b": 0.9444124698638916,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 21.03499984741211,
+                "scaleZ": 0.0,
                 "elipse": false
             }
         },

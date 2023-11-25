@@ -4,7 +4,7 @@
 \file       ScriptCoordinator.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Oct 26, 2023
+\date       Nov 25, 2023
 
 \brief      Communicates with the C# scripts, allowing for internal calls
 						in which the information from CPP code can be accessed in C#,
@@ -20,13 +20,24 @@
 
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Scripting/NodeManager.hpp"
+#include "Scripting/ScriptManager.hpp"
 
 #include "Core/Coordinator.hpp"
+#include "Core/FrameRateController.hpp"
+
+#include "Graphics/SpriteManager.hpp"
 
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/PhysicsSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
+
+#include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
+
 #include "Audio/Sound.hpp"
+
+using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -35,6 +46,204 @@ namespace {
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
+	// For Gameplay
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_FireCard
+
+	@param startPos
+	The starting position the card will be fired at.
+
+	@return none.
+
+	Fires an entity with the Card.cs script attached.
+	*/
+	static void GameplayComponent_FireCard(Vec2* startPos) {
+		/*
+		const float cardSize{ 5.f };
+		Entity newEntity = gCoordinator->CreateEntity();
+		gCoordinator->AddComponent(
+			newEntity,
+			Layering{ "Card" });
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Transform{
+					{startPos->x,startPos->y,0},
+					{0,0,0},
+					{cardSize,cardSize,cardSize}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Gravity{
+				Vec2{0.f, 0.f}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			RigidBody{
+					Vec2{startPos->x,startPos->y},
+					0.f,
+					0.f,
+					Vec2{cardSize,cardSize}
+			});
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Collider{ Vec2{startPos->x,startPos->y},0,Vec2{} });
+
+		gCoordinator->AddComponent(
+			newEntity,
+			Tag{ "Card" });
+		//gCoordinator->AddComponent(
+
+			//);
+		gCoordinator->AddComponent(
+			newEntity,
+			Script{ "ObjectCard" }
+			);
+		*/
+		//PrefabsManager::GetInstance()->SpawnPrefab("Card", *startPos);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_Destroy
+
+	@param entityID
+	The entity to destroy.
+
+	@return none.
+
+	Destroys entity.
+	*/
+	static void GameplayComponent_Destroy(uint32_t* entityID) {
+		gCoordinator->DestroyEntity(*entityID);
+		Image::ScriptManager::RemoveEntity(*entityID);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_GetPlayerPos
+
+	@param playerPos
+	The position of the player.
+
+	@return none.
+
+	Get the player position.
+	*/
+	static void GameplayComponent_GetPlayerPos(Vec2* playerPos) {
+		::gCoordinator = Coordinator::GetInstance();
+		Entity player{};
+		for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+			if (tag.tag == "Player") {
+				player = e;
+				break;
+			}
+		}
+
+		*playerPos = gCoordinator->GetComponent<Collider>(player).position;
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_GetPlayerID
+
+	@param playerID
+	Id of the player.
+
+	@return none.
+
+	Get the player id.
+	*/
+		static void GameplayComponent_GetPlayerID(uint32_t* playerID) {
+			::gCoordinator = Coordinator::GetInstance();
+			Entity player{};
+			for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+				if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+				auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+				if (tag.tag == "Player") {
+					player = e;
+					break;
+				}
+			}
+
+			*playerID = player;
+		}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_IsSwappable
+
+	@param entityID
+	The ID of the entity.
+
+	@param bool
+	The swappable flag.
+
+	@return none.
+
+	Checks if the entity is swappable or not.
+	*/
+	static void GameplayComponent_IsSwappable(uint32_t* entityID, bool* outIsSwappable) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Swappable>(*entityID)) {
+			*outIsSwappable = true;
+		}
+		else {
+			*outIsSwappable = false;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_Swap
+
+	@param lhs
+	The lhs entity.
+
+	@param rhs
+	The rhs entity.
+
+	@return none.
+
+	Swaps the positions of two different entities.
+	*/
+	static void GameplayComponent_Swap(uint32_t* lhs, uint32_t* rhs) {
+		::gCoordinator = Coordinator::GetInstance();
+		auto& lhsTransform{ gCoordinator->GetComponent<Transform>(*lhs).position };
+		auto& rhsTransform{ gCoordinator->GetComponent<Transform>(*rhs).position };
+
+		auto& lhsCollider{ gCoordinator->GetComponent<Collider>(*lhs).position };
+		auto& rhsCollider{ gCoordinator->GetComponent<Collider>(*rhs).position };
+
+		glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
+		glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
+
+		std::swap(lhsTransform, rhsTransform);
+		std::swap(lhsCollider, rhsCollider);
+
+		lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);
+		rhsCollider = Vec2(rhsCollider.x - rhsOffset.x, rhsCollider.y - rhsOffset.y);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_SlowdownTime
+
+	@param flag
+	Set slowdown time to true or false.
+
+	@return none.
+
+	Set slowdown time to true or false.
+	*/
+	static void GameplayComponent_SlowdownTime(bool* flag) {
+		auto frameController{ FrameRateController::GetInstance() };
+		if (*flag) {
+			frameController->ScaleDeltaTime(0.4f);
+		}
+		else {
+			frameController->ScaleDeltaTime(0.f);
+		}
+	}
 
 	// For UI
 	/*  _________________________________________________________________________ */
@@ -44,6 +253,7 @@ namespace Image {
 	The ID of the entity.
 
 	@param outIsClicked
+	The clicked flag.
 
 	@return none.
 
@@ -52,7 +262,7 @@ namespace Image {
 	static void UIComponent_GetIsUIButtonClicked(uint32_t entityID, bool* outIsClicked) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsClicked = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isClicked);
+			*outIsClicked = gCoordinator->GetComponent<UIImage>(entityID).isClicked;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -62,6 +272,7 @@ namespace Image {
 	The ID of the entity.
 
 	@param outIsHover
+	The hover flag.
 
 	@return none.
 
@@ -70,7 +281,7 @@ namespace Image {
 	static void UIComponent_GetIsUIButtonHover(uint32_t entityID, bool* outIsHover) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsHover = static_cast<int>(gCoordinator->GetComponent<UIImage>(entityID).isHover);
+			*outIsHover = gCoordinator->GetComponent<UIImage>(entityID).isHover;
 	}
 
 	// For Serialization
@@ -90,7 +301,7 @@ namespace Image {
 	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Script>(entityID))
-			*outFacingDirection = static_cast<int>(gCoordinator->GetComponent<Script>(entityID).isFacingRight);
+			*outFacingDirection = gCoordinator->GetComponent<Script>(entityID).isFacingRight;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -114,6 +325,35 @@ namespace Image {
 
 	// For Engine Core
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_Quit
+
+	@return none.
+
+	Quits the application.
+	*/
+	static void EngineCore_Quit() {
+		Event e{ Events::Window::QUIT };
+		gCoordinator->SendEvent(e);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetMousePos
+
+	@param outMousePos
+	The mouse position.
+
+	@return none.
+
+	Gets the mouse pos in C#.
+	*/
+	static void EngineCore_GetMousePos(Vec2* outMousePos) {
+		::gCoordinator = Coordinator::GetInstance();
+		auto inputSystem{ ::gCoordinator->GetSystem<InputSystem>() };
+		Vec2 mousePos{ inputSystem->GetSceneMousePos().first, inputSystem->GetSceneMousePos().second };
+		*outMousePos = mousePos;
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_PlayAudio
 
 	@param audioFileName
@@ -123,27 +363,49 @@ namespace Image {
 	Plays audio.
 	*/
 	static void EngineCore_PlayAudio(MonoString** audioFileName, int* loopCount) {
-		SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+		const char* utf8Str = *audioFileName != nullptr ? mono_string_to_utf8(*audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_LoadScene
 
 	@param sceneName
+	The scene name.
 
 	@return none.
 
 	Loads the specified scene.
 	*/
 	static void EngineCore_LoadScene(MonoString** sceneName) {
-		::gCoordinator = Coordinator::GetInstance();
-		SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_IsEditorMode
 
 	@param isEditorMode
+	The flag for editor mode.
 
 	@return none.
 
@@ -168,10 +430,19 @@ namespace Image {
 	Sets text for the entity.
 	*/
 	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Text>(entityID)) {
-			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+		const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Text>(entityID)) {
+				gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+			}
 		}
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	// For Pathfinding
@@ -221,6 +492,22 @@ namespace Image {
 	
 	// For Physics
 	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_Collided
+
+	@param 
+
+	@return none.
+
+	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_Collided(uint32_t* entityID, bool* collidedOrNot) {
+		::gCoordinator = Coordinator::GetInstance();
+		bool collided{ gCoordinator->GetSystem<PhysicsSystem>()->IsCollided(*entityID).size() > 1 };
+		*collidedOrNot = collided;
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_GetRaycast
 
 	@param origin
@@ -237,75 +524,97 @@ namespace Image {
 	Get the raycast hit information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
-	static void PhysicsComponent_GetRaycast(Vec2 origin, Vec2 end, uint32_t* entityToIgnore, bool* hit, Vec2* normal,
-		Vec2* point, float* distance, uint32_t* entityID, MonoString** tag, MonoString** layer) {
+	static void PhysicsComponent_GetRaycast(Vec2* origin, Vec2* end, uint32_t entityToIgnore, bool* hit, uint32_t* entityHandle,
+		MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
-		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, *entityToIgnore);
-		
-		*normal = rh.normal;
-		*point = rh.point;
-		*distance = rh.distance;
-		*entityID = rh.entityID;
+		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
+		*entityHandle = rh.entityID;
 		
 		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
-			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+			if (gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str() != nullptr)
+				*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+			else {
+				*tag = mono_string_new(mono_domain_get(), "No Tag");
+			}
 		}
 		else {
-			*tag = mono_string_new(mono_domain_get(), std::string("No Tag").c_str());
+			*tag = mono_string_new(mono_domain_get(), "No Tag");
 		}
 
 		if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
-			*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+			if (gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str() != nullptr)
+				*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+			else {
+				*layer = mono_string_new(mono_domain_get(), "No Layer");
+			}
 		}
 		else {
-			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
+			*layer = mono_string_new(mono_domain_get(), "No Layer");
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetColliderDimensions
+
+	@param entityID
+	The ID of the entity.
+
+	@param outDim
+	The current collider dimensions of the entity.
+
+	@return none.
+
+	Get the collider dimensions of the entity in C#.
+	*/
+	static void PhysicsComponent_GetColliderDimensions(uint32_t entityID, Vec2* outDim) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			*outDim = Vec2{ gCoordinator->GetComponent<Collider>(entityID).dimension };
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetColliderPos
+
+	@param entityID
+	The ID of the entity.
+
+	@param outPos
+	The current collider position of the entity.
+
+	@return none.
+
+	Get the collider current position of the entity in C#.
+	*/
+	static void PhysicsComponent_GetColliderPos(uint32_t entityID, Vec2* outPos) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			*outPos = Vec2{ gCoordinator->GetComponent<Collider>(entityID).position };
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_SetColliderPos
+
+	@param entityID
+	The ID of the entity.
+
+	@param translation
+	Updated  collider position of the entity.
+
+	@return none.
+
+	Set the collider current position of the entity in C#.
+	*/
+	static void PhysicsComponent_SetColliderPos(uint32_t entityID, Vec2* pos) {
+		::gCoordinator = Coordinator::GetInstance();
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			gCoordinator->GetComponent<Collider>(entityID).position = *pos;
 		}
 	}
 
 	// For Graphics
-	/*  _________________________________________________________________________ */
-	/*! AnimationComponent_GetAssetID
-
-	@param entityID
-	The ID of the entity.
-
-	@param outAssetID
-	The current asset ID of the entity.
-
-	@return none.
-
-	Get the current asset ID of the entity in C#.
-	*/
-	/*
-	static void AnimationComponent_GetAssetID(uint32_t entityID, int64_t* outAssetID) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			*outAssetID = gCoordinator->GetComponent<Animation>(entityID).assetID;
-	}
-	*/
-
-	/*  _________________________________________________________________________ */
-	/*! AnimationComponent_SetAssetID
-
-	@param entityID
-	The ID of the entity.
-
-	@param assetID
-	Updated asset ID of the entity.
-
-	@return none.
-
-	Set the current asset ID of the entity in C#.
-	*/
-	/*
-	static void AnimationComponent_SetAssetID(uint32_t entityID, int64_t* assetID) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			gCoordinator->GetComponent<Animation>(entityID).assetID = *assetID;
-	}
-	*/
-
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -345,18 +654,48 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
-/*! GraphicsComponent_GetScale
+	/*! GraphicsComponent_SetSprite
 
-@param entityID
-The ID of the entity.
+	@param entityID
+	The ID of the entity.
 
-@param outScale
-The current scale of the entity.
+	@param fileName
+	The name of the file the sprite asset is at.
 
-@return none.
+	@return none.
 
-Get the current scale of the entity in C#.
-*/
+	Sets the sprite for the entity.
+	*/
+	static void GraphicsComponent_SetSprite(uint32_t entityID, MonoString** fileName) {
+		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Sprite>(entityID)) {
+				gCoordinator->GetComponent<Sprite>(entityID).spriteID =
+					SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+			}
+		}
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_GetScale
+
+	@param entityID
+	The ID of the entity.
+
+	@param outScale
+	The current scale of the entity.
+
+	@return none.
+
+	Get the current scale of the entity in C#.
+	*/
 	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
 		::gCoordinator = Coordinator::GetInstance();
 		if (gCoordinator->HasComponent<Transform>(entityID)) {
@@ -387,11 +726,24 @@ Get the current scale of the entity in C#.
 		}
 	}
 
-	static void GraphicsComponent_SetColour(uint32_t entityID, Vec4* colour) {
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetColour
+
+	@param entityID
+	The ID of the entity.
+
+	@param colour
+	The colour to set to.
+
+	@return none.
+
+	Set the current colour of the entity sprite in C#.
+	*/
+	static void GraphicsComponent_SetColour(uint32_t entityID, glm::vec4* colour) {
 		::gCoordinator = Coordinator::GetInstance();
+		
 		if (gCoordinator->HasComponent<Sprite>(entityID)) {
-			gCoordinator->GetComponent<Sprite>(entityID).color =
-			{ colour->x, colour->y, colour->z, colour->w };
+			gCoordinator->GetComponent<Sprite>(entityID).color = *colour;
 		}
 	}
 
@@ -436,6 +788,11 @@ Get the current scale of the entity in C#.
 			gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
 				translation->y,
 				gCoordinator->GetComponent<Transform>(entityID).position.z };
+		}
+
+		if (gCoordinator->HasComponent<Collider>(entityID)) {
+			gCoordinator->GetComponent<Collider>(entityID).position = { translation->x,
+				translation->y };
 		}
 	}
 
@@ -672,22 +1029,38 @@ Get the current scale of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_FireCard);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerPos);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerID);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_IsSwappable);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Swap);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SlowdownTime);
+
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
 
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
+
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetSprite);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetColour);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);

@@ -38,6 +38,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/ImguiSystem.hpp"
 #include "Logging/LoggingSystem.hpp"
 #include <Core/Globals.hpp>
 #include <Core/FrameRateController.hpp>
@@ -81,7 +82,7 @@ namespace Image {
     */
     void AppRender(std::set<Entity>const& mEntities,float dt) {
         ::gCoordinator = Coordinator::GetInstance();
-
+        ImGui::PushFont(mainfont);
         //static bool toDelete{ false };
 
         //if (ImGui::IsKeyReleased(ImGuiKey_C)) {
@@ -126,6 +127,7 @@ namespace Image {
         //    toDelete = !toDelete;
 
         //}
+        ImGui::PopFont();
     }
     /*  _________________________________________________________________________ */
     /*! MainMenuWindow
@@ -137,6 +139,7 @@ namespace Image {
     Displaying the menu bar.
     */
     void MainMenuWindow() {
+        ImGui::PushFont(mainfont);
         if (ImGui::BeginMainMenuBar())
         {
             //Read files maybe
@@ -193,6 +196,7 @@ namespace Image {
 
                 }
             }
+            ImGui::PopFont();
             ImGui::EndMainMenuBar();
         }
     }
@@ -209,6 +213,7 @@ namespace Image {
     listen from.
     */
     void HierarchyWindow(std::set<Entity>const& mEntities) {
+        ImGui::PushFont(mainfont);
         auto scenemgr{ SceneManager::GetInstance() };
         // Hierarchy Panel
         ImGui::Begin("Hierarchy");
@@ -275,6 +280,7 @@ namespace Image {
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 gCoordinator->DestroyEntity(gSelectedEntity);
+                Image::ScriptManager::RemoveEntity(gSelectedEntity);
                 gSelectedEntity = MAX_ENTITIES;
             //}
                 //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
@@ -354,6 +360,7 @@ namespace Image {
             if (gSelectedEntity != MAX_ENTITIES) {
                 //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     gCoordinator->DestroyEntity(gSelectedEntity);
+                    Image::ScriptManager::RemoveEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
                 //}
                 //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
@@ -372,6 +379,7 @@ namespace Image {
             //    // Add more entity interaction options here...
             //    ImGui::EndPopup();
             //}
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -402,6 +410,8 @@ namespace Image {
         // Inspector Panel
         //ImGui::Begin("Inspector");
         //TransformComponent
+        ImGui::PushFont(mainfont);
+
         if (selectedEntity != MAX_ENTITIES) {
             ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
@@ -416,6 +426,7 @@ namespace Image {
 
                 static int selectedOption = -1;
                 std::vector<const char*> tmp;
+                tmp.push_back("NONE");
                 for (std::string const& name : LayeringSystem::GetLayerNames()) {
                   if (name != "")
                     tmp.push_back(name.c_str());
@@ -588,8 +599,8 @@ namespace Image {
                                 if (anim.currState >= i && anim.states.size() > 0)
                                     anim.currState--;
                                 if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                                    Sprite& anim = gCoordinator->GetComponent<Sprite>(selectedEntity);
-                                    anim.spriteID = InvalidAsset;
+                                    Sprite& anima = gCoordinator->GetComponent<Sprite>(selectedEntity);
+                                    anima.spriteID = InvalidAsset;
                                 }
                             }
 
@@ -825,7 +836,8 @@ namespace Image {
             }
             ImGui::PopStyleColor(2);
         }
-        //ImGui::End();
+        ImGui::PopFont();
+
     }
     void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
@@ -849,245 +861,268 @@ namespace Image {
     adding or removing components.
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collision","Animation","Gravity","Tag", "Script" };
+      ImGui::PushFont(mainfont);
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
-            ImGui::Text("Entity ID: %d", selectedEntity);
-            if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                static Entity gPreviousEntity = { MAX_ENTITIES };
-                static char tag[256] = "";
-                if (gPreviousEntity != selectedEntity) {
-                    memset(tag, 0, sizeof(tag));
-                    gPreviousEntity = selectedEntity;
-                }
-                Tag& tagComponent = gCoordinator->GetComponent<Tag>(selectedEntity);
-                ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
-                //ImGui::SetNextItemWidth(50.0f);
-                if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
-                    tagComponent.tag = tag;
-                    memset(tag, 0, sizeof(tag)); // Clear the input
-                }
+          ImGui::Text("Entity ID: %d", selectedEntity);
+          if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
+            static Entity gPreviousEntity = { MAX_ENTITIES };
+            static char tag[256] = "";
+            if (gPreviousEntity != selectedEntity) {
+              memset(tag, 0, sizeof(tag));
+              gPreviousEntity = selectedEntity;
             }
-            else {
-                ImGui::Text("No Entity Tag");
+            Tag& tagComponent = gCoordinator->GetComponent<Tag>(selectedEntity);
+            ImGui::Text("Current Tag: %s", tagComponent.tag.c_str());
+            //ImGui::SetNextItemWidth(50.0f);
+            if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
+              tagComponent.tag = tag;
+              memset(tag, 0, sizeof(tag)); // Clear the input
             }
+          }
+          else {
+            ImGui::Text("No Entity Tag");
+          }
 
-            //Combo box click to add components
-            ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
-            if (ImGui::Button("Add")) {
-                switch (selectedComponent) {
-                case 0: {
-                    if (!gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                        ImGuiViewport* vP = ImGui::GetWindowViewport();
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Transform{
-                                {vP->Pos.x,vP->Pos.y,0},
-                                {0,0,0},
-                                {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 1: {
-                    if (!gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Sprite{
-                                {1,1,1, 1}
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 2: {
-                    if (!gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
-                        if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                            Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
-                            gCoordinator->AddComponent(
-                                selectedEntity,
-                                RigidBody{
-                                    Vec2{transform.position.x,transform.position.y},
-                                    transform.rotation.z,
-                                    IMGUI_MASS,
-                                    Vec2{transform.scale.x,transform.scale.y}
-                                }, ignore);
-                        }
-                        else {
-                            ImGuiViewport* vP = ImGui::GetWindowViewport();
-                            gCoordinator->AddComponent(
-                                selectedEntity,
-                                RigidBody{
-                                    Vec2{vP->Pos.x,vP->Pos.y},
-                                    0.f,
-                                    IMGUI_MASS,
-                                    Vec2{IMGUI_SCALE,IMGUI_SCALE}
-                                }, ignore);
-                        }
-                    }
-                }
-                      break;
-                case 3: {
-                    if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Collider{ Vec2{},0,Vec2{} }, ignore);
-                    }
-
-                }
-                      break;
-                case 4: {
-                    if (!gCoordinator->HasComponent<Animation>(selectedEntity)) {
-                        ::gCoordinator->AddComponent(
-                            selectedEntity,
-                            Animation{
-                                0.08f,
-                                0,
-                                0
-                            }, ignore);
-                    }
-                }
-                      break;
-                case 5: {
-                    if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
-                    }
-                }
-                      break;
-                case 6: {
-                    if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
-                    }
-                }
-                      break;
-                case 7: {
-
-                    if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                            selectedEntity,
-                            Script{ "No Script Assigned" }, ignore);
-                        ScriptManager::OnCreateEntity(selectedEntity);
-                    }
-                }
-                      break;
-                case 8: {
-
-                    if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
-                        gCoordinator->AddComponent(
-                          selectedEntity,
-                            UIImage{ true }, ignore);
-                    }
-                }
-                      break;
-
-                case 9: {
-
-                  if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
-                    gCoordinator->AddComponent(
-                      selectedEntity,
-                      Text{"Arial", 0.05f,
-                            "Your Text Here", Vec3(
-                            1.0,
-                            1.0,
-                            1.0) }, ignore);
-                  }
-                }
-                      break;
-                }
+          //Combo box click to add components
+          ImGui::Combo("Components", &selectedComponent, components, IM_ARRAYSIZE(components));
+          if (ImGui::Button("Add")) {
+            switch (selectedComponent) {
+            case 0: {
+              if (!gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                ImGuiViewport* vP = ImGui::GetWindowViewport();
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Transform{
+                      {vP->Pos.x,vP->Pos.y,0},
+                      {0,0,0},
+                      {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                  }, ignore);
+              }
             }
-            ImGui::SameLine();
-            if (ImGui::Button("Remove")) {
-                switch (selectedComponent) {
-                case 0: {
-                    // Remove Transform component
-                    if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Transform>(selectedEntity);
-                    }
-                }
-                      break;
-                case 1: {
-                    // Remove Sprite component
-                    if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Sprite>(selectedEntity);
-                    }
-                }
-                      break;
-                case 2: {
-                    // Remove RigidBody component
-                    if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<RigidBody>(selectedEntity);
-                    }
-                }
-                      break;
-                case 3: {
-                    // Remove Collider component
-                    if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Collider>(selectedEntity);
-                    }
-                }
-                      break;
-                case 4: {
-                    // Remove Animation component
-                    if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Animation>(selectedEntity);
-                    }
-                }
-                      break;
-                case 5: {
-                    // Remove Gravity component
-                    if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Gravity>(selectedEntity);
-                    }
-                }
-                      break;
-                case 6: {
-                    // Remove Tag component
-                    if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<Tag>(selectedEntity);
-                    }
-                }
-                      break;
-                case 7: {
-                    // Remove Script component
-                    if (gCoordinator->HasComponent<Script>(selectedEntity)) {
-                      gCoordinator->RemoveComponent<Script>(selectedEntity);
-                    }
-                }
-                      break;
-                case 8: {
-                    // Remove UIImage component
-                    if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
-                        gCoordinator->RemoveComponent<UIImage>(selectedEntity);
-                    }
-                }
-                      break;
-
-                case 9: {
-                  // Remove UIImage component
-                  if (gCoordinator->HasComponent<Text>(selectedEntity)) {
-                    gCoordinator->RemoveComponent<Text>(selectedEntity);
-                  }
-                }
-                      break;
-                }
+                  break;
+            case 1: {
+              if (!gCoordinator->HasComponent<Sprite>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Sprite{
+                      {1,1,1, 1}
+                  }, ignore);
+              }
             }
-            ImGui::Separator();
-            ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
-            ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
-            ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
-            ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
+                  break;
+            case 2: {
+              if (!gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
+                if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                  Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+                  gCoordinator->AddComponent(
+                    selectedEntity,
+                    RigidBody{
+                        Vec2{transform.position.x,transform.position.y},
+                        transform.rotation.z,
+                        IMGUI_MASS,
+                        Vec2{transform.scale.x,transform.scale.y}
+                    }, ignore);
+                }
+                else {
+                  ImGuiViewport* vP = ImGui::GetWindowViewport();
+                  gCoordinator->AddComponent(
+                    selectedEntity,
+                    RigidBody{
+                        Vec2{vP->Pos.x,vP->Pos.y},
+                        0.f,
+                        IMGUI_MASS,
+                        Vec2{IMGUI_SCALE,IMGUI_SCALE}
+                    }, ignore);
+                }
+              }
+            }
+                  break;
+            case 3: {
+              if (!gCoordinator->HasComponent<Collider>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Collider{ Vec2{},0,Vec2{} }, ignore);
+              }
+
+            }
+                  break;
+            case 4: {
+              if (!gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                ::gCoordinator->AddComponent(
+                  selectedEntity,
+                  Animation{
+                      0.08f,
+                      0,
+                      0
+                  }, ignore);
+              }
+            }
+                  break;
+            case 5: {
+              if (!gCoordinator->HasComponent<Gravity>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Gravity{ Vec2{0.f,-IMGUI_GRAVITY} }, ignore);
+              }
+            }
+                  break;
+            case 6: {
+              if (!gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
+              }
+            }
+                  break;
+            case 7: {
+
+              if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Script{ "No Script Assigned" }, ignore);
+                ScriptManager::OnCreateEntity(selectedEntity);
+              }
+            }
+                  break;
+            case 8: {
+
+              if (!gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  UIImage{ true }, ignore);
+              }
+            }
+                  break;
+
+            case 9: {
+
+              if (!gCoordinator->HasComponent<Text>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Text{ "Arial", 0.05f,
+                        "Your Text Here", Vec3(
+                        1.0,
+                        1.0,
+                        1.0) }, ignore);
+              }
+            }
+                  break;
+
+            case 10: {
+
+              if (!gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                gCoordinator->AddComponent(
+                  selectedEntity,
+                  Swappable{}, ignore);
+              }
+            }
+                   break;
+            }
+          }
+          ImGui::SameLine();
+          if (ImGui::Button("Remove")) {
+            switch (selectedComponent) {
+            case 0: {
+              // Remove Transform component
+              if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Transform>(selectedEntity);
+              }
+            }
+                  break;
+            case 1: {
+              // Remove Sprite component
+              if (gCoordinator->HasComponent<Sprite>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Sprite>(selectedEntity);
+              }
+            }
+                  break;
+            case 2: {
+              // Remove RigidBody component
+              if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
+                gCoordinator->RemoveComponent<RigidBody>(selectedEntity);
+              }
+            }
+                  break;
+            case 3: {
+              // Remove Collider component
+              if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Collider>(selectedEntity);
+              }
+            }
+                  break;
+            case 4: {
+              // Remove Animation component
+              if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Animation>(selectedEntity);
+              }
+            }
+                  break;
+            case 5: {
+              // Remove Gravity component
+              if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Gravity>(selectedEntity);
+              }
+            }
+                  break;
+            case 6: {
+              // Remove Tag component
+              if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Tag>(selectedEntity);
+              }
+            }
+                  break;
+            case 7: {
+              // Remove Script component
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Script>(selectedEntity);
+              }
+            }
+                  break;
+            case 8: {
+              // Remove UIImage component
+              if (gCoordinator->HasComponent<UIImage>(selectedEntity)) {
+                gCoordinator->RemoveComponent<UIImage>(selectedEntity);
+              }
+            }
+                  break;
+
+            case 9: {
+              // Remove UIImage component
+              if (gCoordinator->HasComponent<Text>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Text>(selectedEntity);
+              }
+            }
+                  break;
+            case 10: {
+              if (gCoordinator->HasComponent<Swappable>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Swappable>(selectedEntity);
+              }
+            }
+                   break;
+            }
+          }
+          ImGui::Separator();
+          ImGui::Text("Tag Component: %s", gCoordinator->HasComponent<Tag>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Script Component: %s", gCoordinator->HasComponent<Script>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Transform Component: %s", gCoordinator->HasComponent<Transform>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Sprite Component: %s", gCoordinator->HasComponent<Sprite>(selectedEntity) ? "True" : "False");
+          ImGui::Text("RigidBody Component: %s", gCoordinator->HasComponent<RigidBody>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Collsion Component: %s", gCoordinator->HasComponent<Collider>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Animation Component: %s", gCoordinator->HasComponent<Animation>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Gravity Component: %s", gCoordinator->HasComponent<Gravity>(selectedEntity) ? "True" : "False");
+          ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
+
+          //ImGui::PopFont();
+          //ImGui::End();
+
         }
-
+        ImGui::PopFont();
+        //ImGui::End();
     }
     void PrefabPropertyWindow() {
         ImGui::Begin("Prefab Property");
@@ -1231,11 +1266,10 @@ namespace Image {
 
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
-        //auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
+        auto frameController = FrameRateController::GetInstance();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-
                 camera.mPos.y += CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
             }
@@ -1270,12 +1304,11 @@ namespace Image {
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
                 ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
             }
-
+            
         }
-        ////tch: hello this is my input part
-        //if (ImGui::IsWindowHovered()) {
-
-        //}
+        /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
+            frameController->ScaleDeltaTime(0.5f);
+        }*/
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
@@ -1379,6 +1412,7 @@ namespace Image {
     This function displays the prefab framebuffer window.
     */
     void PrefabWindow() {
+        ImGui::PushFont(mainfont);
         static ImVec2 prefabVp {};
         ImGui::Begin("Prefab Editor");
 
@@ -1397,8 +1431,7 @@ namespace Image {
          gCoordinator->GetSystem<RenderSystem>()->RenderPrefab(selectedPrefab);
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(ENGINE_SCREEN_WIDTH / gScalingFactor, ENGINE_SCREEN_HEIGHT / gScalingFactor), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
-
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -1412,6 +1445,7 @@ namespace Image {
     This function displays all the assets and allows for dragging of the assets.
     */
     void ContentWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Content Browser");
         static std::shared_ptr<Texture> directroyIcon = Texture::Create("../Icon/DirectoryIcon.png");
         static std::shared_ptr<Texture> fileIcon = Texture::Create("../Icon/FileIcon.png");
@@ -1460,6 +1494,7 @@ namespace Image {
         }
 
         ImGui::Columns(1);// go back to default
+        ImGui::PopFont();
         ImGui::End();
     }
 
@@ -1476,6 +1511,7 @@ namespace Image {
     various systems
     */
     void PerformanceWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Performance Viewer");
         auto frameController = FrameRateController::GetInstance();
         static float fpsValues[gPercent] = {};
@@ -1525,7 +1561,7 @@ namespace Image {
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
-
+        ImGui::PopFont();
         ImGui::End();
     }
     /*  _________________________________________________________________________ */
@@ -1539,6 +1575,7 @@ namespace Image {
     bottom.
     */
     void LoggingWindow() {
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Log");
         // Retrieve logs from LoggingSystem
         LoggingSystem& logger = LoggingSystem::GetInstance();
@@ -1554,6 +1591,7 @@ namespace Image {
             if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                 ImGui::SetScrollHereY(1.0f);
         }
+        ImGui::PopFont();
         ImGui::EndChild();
         ImGui::End();
     }
@@ -1567,19 +1605,21 @@ namespace Image {
     quads, vertices, and indices, and then resets the stats for the next frame.
     */
     void RenderStatsWindow() {
-
+        ImGui::PushFont(mainfont);
         ImGui::Begin("Renderer Stats");
         auto stats = Renderer::GetStats();
         ImGui::Text("Draw Calls: %d", stats.drawCalls);
         ImGui::Text("Quads: %d", stats.quadCount);
         ImGui::Text("Vertices: %d", stats.GetTotalVtxCount());
         ImGui::Text("Indices: %d", stats.GetTotalIdxCount());
+        ImGui::PopFont();
         ImGui::End();
         Renderer::ResetStats();
     }
 
     void GuizmoWindow() {
-        ImGui::Begin("Guizmo editor");
+        ImGui::PushFont(mainfont);
+        ImGui::Begin("Guizmo");
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
@@ -1625,8 +1665,9 @@ namespace Image {
                 ImGui::InputFloat("Scale Snap", &gSnapVal);
             }
         }
+        ImGui::PopFont();
         ImGui::End();
 
     }
-
+    
 }

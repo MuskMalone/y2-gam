@@ -31,7 +31,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 4,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -71,6 +71,7 @@
                 "layer": 2,
                 "assetID": 0
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Player"
             },
@@ -102,7 +103,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -142,6 +143,7 @@
                 "layer": 2,
                 "assetID": 0
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Enemy"
             },
@@ -217,7 +219,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "NONE"
             },
             "Sprite": {
                 "r": 1.0,
@@ -246,9 +248,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 328.7131652832031,
-                "posY": -89.8570785522461,
-                "rotation": -39.26886749267578,
+                "posX": 328.52490234375,
+                "posY": -89.74600982666016,
+                "rotation": -1.571865200996399,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -257,7 +259,7 @@
                 "y": -90.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -280,15 +282,15 @@
                 "Tag": "Box"
             },
             "Transform": {
-                "posX": 328.7131652832031,
-                "posY": -89.8570785522461,
+                "posX": 328.52490234375,
+                "posY": -89.74600982666016,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -2250.061279296875,
+                "rotZ": -90.06124114990234,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
-                "scaleZ": 5.0,
+                "scaleZ": 4.999783039093018,
                 "elipse": false
             }
         },
@@ -297,7 +299,7 @@
                 "states": [
                     1698992900427510800
                 ],
-                "currFrame": 3,
+                "currFrame": 1,
                 "speed": 0.14300000667572021,
                 "currState": 0
             },
@@ -369,7 +371,7 @@
                 "states": [
                     1698954259805573200
                 ],
-                "currFrame": 4,
+                "currFrame": 5,
                 "speed": 0.13199999928474426,
                 "currState": 0
             },
@@ -441,7 +443,7 @@
                 "states": [
                     1698954489840002900
                 ],
-                "currFrame": 6,
+                "currFrame": 1,
                 "speed": 0.09700000286102295,
                 "currState": 0
             },
@@ -785,7 +787,7 @@
                 "collider": 0,
                 "posX": -156.81729125976563,
                 "posY": -89.84612274169922,
-                "rotation": 4.927637178298028e-7,
+                "rotation": 4.928210728394333e-7,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -813,6 +815,7 @@
                 "layer": 2,
                 "assetID": 1698953104427274700
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Box2"
             },
@@ -822,7 +825,7 @@
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.000028236569050932303,
+                "rotZ": 0.0000282365672319429,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
@@ -861,6 +864,67 @@
                 "rotZ": 0.0,
                 "scaleX": 50.0,
                 "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1700790935381564100
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 9999.0,
+                "posY": 9999.0,
+                "rotation": 0.0,
+                "dimX": 9.105999946594238,
+                "dimY": 15.142999649047852
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Card"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 214.95852661132813,
+                "posY": -65.48796844482422,
+                "lockRotate": true
+            },
+            "Script": {
+                "script": "ObjectCard",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.19607843458652496,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Card"
+            },
+            "Transform": {
+                "posX": 54.03702926635742,
+                "posY": 97.61537170410156,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 29.14299964904785,
+                "scaleY": 36.2140007019043,
                 "scaleZ": 15.0,
                 "elipse": false
             }

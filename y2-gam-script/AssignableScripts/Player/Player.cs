@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Nov 23, 2023
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -24,8 +24,12 @@ namespace Object
     {
         // Force Based
         public readonly float JumpForce = 4000000.0f;
-        public readonly float MovementForce = 100000.0f;
+        public readonly float MovementForce = 80000.0f;
+        public int Health = 1;
+
         public bool isGrounded = true;
+        private bool slowdownToggle = true;
+        //private bool jumped = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -52,7 +56,7 @@ namespace Object
         */
         public Player() : base()
         {
-            //Console.WriteLine("Player Default Constructor Called!");
+            
         }
 
         /*  _________________________________________________________________________ */
@@ -98,11 +102,12 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                PhysicsWrapper.Raycast(new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f),
-                    new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 3.0f), entityID, out RaycastHit groundedRayCast);
-                
-
-                if (groundedRayCast.layer == "Platform")
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
+                new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                    PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
+                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                    PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
@@ -114,31 +119,52 @@ namespace Object
                     AnimationState = (int)AnimationCodePlayer.JUMP;
                 }
 
-                //Console.WriteLine("Layer Status: " + groundedRayCast.layer);
-
                 if (FacingDirectionChanged)
                 {
                     Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked((KeyCode.KEY_SPACE)))
+                if (Input.IsKeyClicked(KeyCode.KEY_E))
                 {
+                    GameplayWrapper.SlowdownTime(slowdownToggle);
+                    slowdownToggle = !slowdownToggle;
+                }
 
+                if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                {
                     if (isGrounded)
                     {
                         Jump(dt);
                     }
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_LEFT)))
+                else if (Input.IsKeyPressed(KeyCode.KEY_A))
                 {
                     MoveLeft(dt);
                 }
 
-                else if (Input.IsKeyPressed((KeyCode.KEY_RIGHT)))
+                else if (Input.IsKeyPressed(KeyCode.KEY_D))
                 {
                     MoveRight(dt);
+                }
+
+
+                // Die by spikes
+                Vector2 playerFeet = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+                Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+                
+                if (PhysicsWrapper.Raycast(playerFeet, spikesTip, entityID, out RaycastHit spikeHit))
+                {
+                    if (spikeHit.tag == "Spikes")
+                    {
+                        Health -= 1;
+                        if(Health <= 0)
+                        {
+                            //Console.WriteLine("Die");
+                            //Translation = new Vector2(-400, -27);
+                        }
+                    }
                 }
             }
         }
@@ -157,7 +183,7 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
@@ -165,7 +191,7 @@ namespace Object
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;

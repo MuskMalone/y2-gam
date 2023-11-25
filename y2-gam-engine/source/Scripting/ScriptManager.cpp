@@ -28,7 +28,7 @@ namespace Image {
   MonoDomain* ScriptManager::sRootDomain{ nullptr };
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
-  std::unordered_map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
+  std::map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
   std::vector<const char*> ScriptManager::sAssignableScriptNames{};
 
   /*  _________________________________________________________________________ */
@@ -446,6 +446,15 @@ namespace Image {
   */
   bool ScriptManager::EntityClassExists(std::string const& className) {
     return (sEntityClasses.find(className) != sEntityClasses.end()) ? true : false;
+  }
+
+  void ScriptManager::PrintEntityInstances() {
+    std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+    std::cout << "Entity-Script Pairs in the Script Instance Map:\n";
+    for (const auto& pair : sEntityInstances) {
+      std::cout << pair.first << ": " << gCoordinator->GetComponent<Script>(pair.first).name << "\n";
+    }
+    std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
   }
 
   /*  _________________________________________________________________________ */

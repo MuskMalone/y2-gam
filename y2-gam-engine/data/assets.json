@@ -115,6 +115,142 @@
             "idxY": 0.0,
             "dimX": 180.0,
             "dimY": 178.0
+        },
+        "1700464448871150500": {
+            "id": 1700464448871277000,
+            "path": "../assets\\Textures\\gam200_scaffolding_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 316.0,
+            "dimY": 318.0
+        },
+        "1700668929720510100": {
+            "id": 1700668929720575600,
+            "path": "../assets\\Textures\\gam200_backstage_background_tint.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 8880.0,
+            "dimY": 1300.0
+        },
+        "1700728664825034900": {
+            "id": 1700728664825102800,
+            "path": "../assets\\Textures\\gam200_backstage_wall.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 234.0,
+            "dimY": 714.0
+        },
+        "1700712327935657900": {
+            "id": 1700712327935709200,
+            "path": "../assets\\Textures\\main menu 1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1700712331350629700": {
+            "id": 1700712331350686200,
+            "path": "../assets\\Textures\\main menu 2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700722673936655200": {
+            "id": 1700722673936705000,
+            "path": "../assets\\Textures\\gam200_mainmenu_text_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 551.0,
+            "dimY": 463.0
+        },
+        "1700753029114891400": {
+            "id": 1700753029114920900,
+            "path": "../assets\\Textures\\Y2_menu.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2750.0,
+            "dimY": 1200.0
+        },
+        "1700754634838988900": {
+            "id": 1700754634839032700,
+            "path": "../assets\\Textures\\y2_pause menu_ words_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 698.0,
+            "dimY": 924.0
+        },
+        "1700755559541091100": {
+            "id": 1700755559541122100,
+            "path": "../assets\\Textures\\y2_pause menu_ PAUSED_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 697.0,
+            "dimY": 284.0
+        },
+        "1700755562526839000": {
+            "id": 1700755562526870800,
+            "path": "../assets\\Textures\\y2_pause menu_ BUTTONS_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1700756885152458300": {
+            "id": 1700756885152527700,
+            "path": "../assets\\Textures\\y2_pause menu_ SETTINGS_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 289.0,
+            "dimY": 88.0
+        },
+        "1700756888403567100": {
+            "id": 1700756888403609500,
+            "path": "../assets\\Textures\\y2_pause menu_ RESUMEGAME_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 384.0,
+            "dimY": 73.0
+        },
+        "1700756892272022000": {
+            "id": 1700756892272062800,
+            "path": "../assets\\Textures\\y2_pause menu_ QUITGAME_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 310.0,
+            "dimY": 71.0
+        },
+        "1700756896520626400": {
+            "id": 1700756896520662600,
+            "path": "../assets\\Textures\\y2_pause menu_ MENU_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 257.0,
+            "dimY": 69.0
+        },
+        "1700756899751994000": {
+            "id": 1700756899752025300,
+            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 358.0,
+            "dimY": 66.0
+        },
+        "1700772694795002100": {
+            "id": 1700772694795039300,
+            "path": "../assets\\Textures\\gam200_confirmation_quit game.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 812.0,
+            "dimY": 340.0
+        },
+        "1700888002494215700": {
+            "id": 1700888002494253600,
+            "path": "../assets\\Textures\\start_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 533.0,
+            "dimY": 148.0
         }
     },
     "classAnimationManager": {
@@ -178,6 +314,14 @@
             "id": 1700480697547250300,
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_jump.png",
             "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1700790935381564100": {
+            "id": 1700790935381617200,
+            "path": "../assets\\Textures\\ANIM\\gam200_spinning_card.png",
+            "frameCount": 4,
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0

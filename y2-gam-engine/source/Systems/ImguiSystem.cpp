@@ -31,6 +31,8 @@
 namespace {
     std::shared_ptr<Coordinator> gCoordinator{};
 }
+
+ImFont* mainfont = nullptr;
     /*  _________________________________________________________________________ */
     /*! glfw_error_callback
 
@@ -77,7 +79,12 @@ namespace {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;     
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;        
+        
+        io.Fonts->AddFontDefault();
+        mainfont = io.Fonts->AddFontFromFileTTF("../assets/fonts/arial/arial.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
+        IM_ASSERT(mainfont != NULL);
+
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
