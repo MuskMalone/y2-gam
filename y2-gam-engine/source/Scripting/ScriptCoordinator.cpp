@@ -4,7 +4,7 @@
 \file       ScriptCoordinator.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Oct 26, 2023
+\date       Nov 25, 2023
 
 \brief      Communicates with the C# scripts, allowing for internal calls
 						in which the information from CPP code can be accessed in C#,
@@ -34,6 +34,7 @@
 
 #include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
+
 #include "Audio/Sound.hpp"
 
 using namespace Physics;
@@ -362,7 +363,17 @@ namespace Image {
 	Plays audio.
 	*/
 	static void EngineCore_PlayAudio(MonoString** audioFileName, int* loopCount) {
-		SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+		const char* utf8Str = *audioFileName != nullptr ? mono_string_to_utf8(*audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
@@ -376,8 +387,18 @@ namespace Image {
 	Loads the specified scene.
 	*/
 	static void EngineCore_LoadScene(MonoString** sceneName) {
-		::gCoordinator = Coordinator::GetInstance();
-		SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
@@ -409,10 +430,19 @@ namespace Image {
 	Sets text for the entity.
 	*/
 	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Text>(entityID)) {
-			gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+		const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Text>(entityID)) {
+				gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+			}
 		}
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	// For Pathfinding
@@ -502,17 +532,25 @@ namespace Image {
 		*entityHandle = rh.entityID;
 		
 		if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
-			*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+			if (gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str() != nullptr)
+				*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+			else {
+				*tag = mono_string_new(mono_domain_get(), "No Tag");
+			}
 		}
 		else {
-			*tag = mono_string_new(mono_domain_get(), std::string("No Tag").c_str());
+			*tag = mono_string_new(mono_domain_get(), "No Tag");
 		}
 
 		if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
-			*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+			if (gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str() != nullptr)
+				*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+			else {
+				*layer = mono_string_new(mono_domain_get(), "No Layer");
+			}
 		}
 		else {
-			*layer = mono_string_new(mono_domain_get(), std::string("No Layer").c_str());
+			*layer = mono_string_new(mono_domain_get(), "No Layer");
 		}
 	}
 
@@ -629,11 +667,20 @@ namespace Image {
 	Sets the sprite for the entity.
 	*/
 	static void GraphicsComponent_SetSprite(uint32_t entityID, MonoString** fileName) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Sprite>(entityID)) {
-			gCoordinator->GetComponent<Sprite>(entityID).spriteID = 
-				SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+		if (utf8Str != nullptr) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Sprite>(entityID)) {
+				gCoordinator->GetComponent<Sprite>(entityID).spriteID =
+					SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+			}
 		}
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
