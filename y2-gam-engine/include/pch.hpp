@@ -48,6 +48,7 @@
 #include <thread>
 #include <vector>
 #include <any>
+#include <stack>
 
 #include <stb_image.h>
 
@@ -83,6 +84,9 @@
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
+
+#include <rttr/type>
+#include <rttr/registration>
 
 // Components
 #include "Components/Collider.hpp"

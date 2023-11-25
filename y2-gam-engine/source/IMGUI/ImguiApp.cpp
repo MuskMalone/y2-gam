@@ -46,6 +46,7 @@
 #include "Scripting/NodeManager.hpp"
 #include "Scripting/ScriptManager.hpp"
 
+#include <Engine/CommandManager.hpp>
 #include <Engine/AssetManager.hpp>
 #include <Engine/SceneManager.hpp>
 #include <Graphics/SpriteManager.hpp>
@@ -162,7 +163,9 @@ namespace Image {
 
             //EDIT
             if (ImGui::BeginMenu("Edit")) {
-                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+                if (ImGui::MenuItem("Undo", "CTRL+Z")) {
+                    CommandManager::GetInstance()->UndoCommand();
+                }
                 if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}
                 ImGui::Separator();
                 if (ImGui::MenuItem("Cut", "CTRL+X")) {}
@@ -245,34 +248,39 @@ namespace Image {
                       Sprite{
                           {1,1,1, 1}
                       });
+                    CommandManager::GetInstance()->AddCommand("Create", newEntity);
+
                 }
             }
             ImGui::EndPopup();
         }
         if (ImGui::Button("Create Entity")) {
             if (SceneManager::GetInstance()->IsSceneActive()) {
-            Entity newEntity = gCoordinator->CreateEntity();
-            gSelectedEntity = newEntity;
-            ImGuiViewport* vP = ImGui::GetWindowViewport();
-            gCoordinator->AddComponent(
-              gSelectedEntity,
-              Layering{ "Default" });
-            gCoordinator->AddComponent(
-                gSelectedEntity,
-                Transform{
-                    {vP->Pos.x,vP->Pos.y,0},
-                    {0,0,0},
-                    {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
-                });
-            gCoordinator->AddComponent(
-                gSelectedEntity,
-                Tag{ "Name" });
-            gCoordinator->AddComponent(
-              gSelectedEntity,
-              Sprite{
-                  {1,1,1, 1}
-              });
+                Entity newEntity = gCoordinator->CreateEntity();
+                gSelectedEntity = newEntity;
+                ImGuiViewport* vP = ImGui::GetWindowViewport();
+                gCoordinator->AddComponent(
+                  gSelectedEntity,
+                  Layering{ "Default" });
+                gCoordinator->AddComponent(
+                    gSelectedEntity,
+                    Transform{
+                        {vP->Pos.x,vP->Pos.y,0},
+                        {0,0,0},
+                        {IMGUI_SCALE,IMGUI_SCALE,IMGUI_SCALE}
+                    });
+                gCoordinator->AddComponent(
+                    gSelectedEntity,
+                    Tag{ "Name" });
+                gCoordinator->AddComponent(
+                  gSelectedEntity,
+                  Sprite{
+                      {1,1,1, 1}
+                  });
+                CommandManager::GetInstance()->AddCommand("Create", newEntity);
+
             }
+
         }
 
         //Cant destroy player
