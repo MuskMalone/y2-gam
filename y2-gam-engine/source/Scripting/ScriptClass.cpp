@@ -114,6 +114,18 @@ namespace Image {
 
     // FOR THE FUTURE
     // change to unmanaged thunks
-    return mono_runtime_invoke(method, instance, params, nullptr);
+
+    MonoObject* exception = nullptr;
+
+    MonoObject* obj{ mono_runtime_invoke(method, instance, params, &exception) };
+
+#ifndef _INSTALLER
+    if (obj == nullptr) {
+      //LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception during method invocation in %s", __FUNCTION__);
+      return nullptr;
+    }
+#endif
+
+      return obj;
   }
 }

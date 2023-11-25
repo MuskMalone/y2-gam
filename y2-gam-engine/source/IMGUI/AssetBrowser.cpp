@@ -208,11 +208,11 @@ void SceneAssetWindow(std::set<Entity> const& mEntities) {
 }
 namespace {
     std::vector< std::pair<std::string, std::function<void(std::set<Entity>const&)>>> gAssetwindows{
-        {"Animations", AnimationAssetWindow}, 
-        { "Sprites", SpriteAssetWindow }, 
-        { "Sounds", SoundAssetWindow }, 
-        { "Scenes", SceneAssetWindow },
-        { "Prefabs", PrefabsAssetWindow }
+        {"Animation", AnimationAssetWindow}, 
+        { "Sprite", SpriteAssetWindow }, 
+        { "Sound", SoundAssetWindow }, 
+        { "Scene", SceneAssetWindow },
+        { "Prefab", PrefabsAssetWindow }
     };
 }
 

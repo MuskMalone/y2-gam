@@ -27,6 +27,9 @@ namespace Image
         internal extern static void GameplayComponent_FireCard(ref Vector2 startPos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_SpawnPrefab(out String fileName, out Vector2 startPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_Destroy(ref uint entityID);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -132,38 +135,6 @@ namespace Image
         #endregion
 
         #region Graphics
-        /*  _________________________________________________________________________ */
-        /*! AnimationComponent_GetAssetID
-
-        @param entityID
-        The ID of the entity.
-
-        @param outAssetID
-        The current asset ID of the entity.
-
-        @return none.
-
-        Get the current asset ID of the entity in C#.
-        */
-        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-        //internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
-
-        /*  _________________________________________________________________________ */
-        /*! AnimationComponent_SetAssetID
-
-        @param entityID
-        The ID of the entity.
-
-        @param assetID
-        Updated asset ID of the entity.
-
-        @return none.
-
-        Set the current asset ID of the entity in C#.
-        */
-        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-        //internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
-
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 

@@ -29,14 +29,15 @@ namespace Testing {
 void EditorControlSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
-
+	/*
 	using namespace std::chrono;
 	Testing::generator.seed(static_cast<unsigned int>(duration_cast<milliseconds>(
 		system_clock::now().time_since_epoch()
 	).count()));
-	Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
+	*/
+	//Vec3 position = Vec3(0, -WORLD_LIMIT_Y,1);
 
-	::gCoordinator->GetSystem<RenderSystem>()->mPlayer = 3; // i think player will always be 3?
+	//::gCoordinator->GetSystem<RenderSystem>()->mPlayer = 3; // i think player will always be 3?
 }
 
 void EditorControlSystem::Update(float dt)

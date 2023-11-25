@@ -15,8 +15,15 @@ public:
 	void ResetScene(std::string const&);
 	void AddAsset(std::string const& scnpath, AssetID aid);
 	void RemoveAsset(std::string const& scnpath, AssetID aid);
-	bool IsSceneActive() const { return !mCurrentScene.empty(); }
 
+	void ModifyScene();
+	void SaveScene();
+	void ExitScene();
+	void ResetScene();
+	void AddAsset(AssetID aid);
+	void RemoveAsset(AssetID aid);
+	bool IsSceneActive() const { return !mCurrentScene.empty(); }
+	std::string GetSceneName() const { return mCurrentScene; }
 private:
 	static std::shared_ptr<SceneManager> _mSelf;
 	std::set<Entity> mEntities;
