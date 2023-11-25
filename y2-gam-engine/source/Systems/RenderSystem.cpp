@@ -366,18 +366,30 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 }
 
 void RenderSystem::RenderUI() {
-	//UI
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
-	for (auto const& entity : mEntities) {
-		if (::gCoordinator->HasComponent<Layering>(entity)) {
-			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
-		}
+	// Create a vector to store entities with UIImage components
+	std::vector<Entity> uiEntities;
 
-		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
-		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };
-		auto& sprite{ ::gCoordinator->GetComponent<Sprite>(entity) };
-		auto& transform{ ::gCoordinator->GetComponent<Transform>(entity) };
+	// Populate the vector with entities that have UIImage and Transform components
+	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<UIImage>(entity) && ::gCoordinator->HasComponent<Transform>(entity)) {
+			uiEntities.push_back(entity);
+		}
+	}
+
+	// Sort the entities based on the z value of their Transform component
+	std::sort(uiEntities.begin(), uiEntities.end(), [](const Entity& a, const Entity& b) {
+		auto& transformA = ::gCoordinator->GetComponent<Transform>(a);
+		auto& transformB = ::gCoordinator->GetComponent<Transform>(b);
+		return transformA.position.z < transformB.position.z; // Sort in ascending order
+		});
+
+	// Render sorted UI elements
+	for (auto const& entity : uiEntities) {
+		auto const& ui = ::gCoordinator->GetComponent<UIImage>(entity);
+		auto& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
 
 		if (ui.enabled) {
 			// Constrain position within screen bounds
@@ -398,11 +410,11 @@ void RenderSystem::RenderUI() {
 					Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
 			}
 		}
-
 	}
 
 	Renderer::RenderSceneEnd();
 }
+
 /*  _________________________________________________________________________ */
 /*!
 \brief WindowSizeListener Function
