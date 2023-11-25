@@ -439,7 +439,10 @@ namespace Image {
   Removes the entity from the map.
   */
   void ScriptManager::RemoveEntity(Entity const& entity) {
-    sEntityInstances.erase(entity);
+    auto it = sEntityInstances.find(entity);
+    if (it != sEntityInstances.end()) {
+      sEntityInstances.erase(it);
+    }
   }
 
   /*  _________________________________________________________________________ */

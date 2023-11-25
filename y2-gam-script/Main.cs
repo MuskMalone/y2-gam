@@ -199,6 +199,24 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! Rotation
+
+        Getter setter for Rotation.
+        */
+        public Vector3 Rotation
+        {
+            get
+            {
+                InternalCalls.GraphicsComponent_GetRotation(ref entityID, out Vector3 rotation);
+                return rotation;
+            }
+            set
+            {
+                InternalCalls.GraphicsComponent_SetRotation(entityID, ref value);
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! GetScaleFromEntity
 
         Get the scale, given the entity id.

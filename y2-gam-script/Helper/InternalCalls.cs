@@ -218,6 +218,38 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
 
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_GetRotation
+
+        @param entityID
+        The ID of the entity.
+
+        @param outRotation
+        The current rotation of the entity.
+
+        @return none.
+
+        Get the current rotation of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_GetRotation(ref uint entityHandle, out Vector3 rotation);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetRotation
+
+        @param entityID
+        The ID of the entity.
+
+        @param rotation
+        Updated rotation of the entity.
+
+        @return none.
+
+        Set the current rotation of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetRotation(uint entityHandle, ref Vector3 rotation);
+
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetColour(uint entityHandle, ref Vector4 colour);
         #endregion

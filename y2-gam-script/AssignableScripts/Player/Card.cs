@@ -6,7 +6,7 @@
 \author     Ernest Cheo (e.cheo@digipen.edu)
 \date       Nov 23, 2023
 
-\brief      
+\brief      Script for the card. Includes the UI card.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior

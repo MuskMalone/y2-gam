@@ -462,9 +462,7 @@ namespace Image {
 	static void EngineCore_LoadScene(MonoString** sceneName) {
 		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
 		if (utf8Str != nullptr) {
-			::gCoordinator = Coordinator::GetInstance();
-			SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
-			mono_free(*sceneName);
+			SceneManager::GetInstance()->LoadScene("Level1");
 		}
 
 #ifndef _INSTALLER
@@ -818,6 +816,53 @@ namespace Image {
 			if (gCoordinator->HasComponent<Transform>(entityID)) {
 				gCoordinator->GetComponent<Transform>(entityID).scale =
 				{ scale->x, scale->y, scale->z };
+			}
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_GetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param outRotation
+	The current rotation of the entity.
+
+	@return none.
+
+	Get the current rotation of the entity in C#.
+	*/
+	static void GraphicsComponent_GetRotation(uint32_t* entityID, Vec3* outRotation) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(*entityID)) {
+				*outRotation = Vec3{ gCoordinator->GetComponent<Transform>(*entityID).rotation.x,
+				gCoordinator->GetComponent<Transform>(*entityID).rotation.y,
+				gCoordinator->GetComponent<Transform>(*entityID).rotation.z };
+			}
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param rotation
+	Updated rotation of the entity.
+
+	@return none.
+
+	Set the current rotation of the entity in C#.
+	*/
+	static void GraphicsComponent_SetRotation(uint32_t entityID, Vec3* rotation) {
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(entityID)) {
+				gCoordinator->GetComponent<Transform>(entityID).rotation =
+				{ rotation->x, rotation->y, rotation->z };
 			}
 		}
 	}
@@ -1180,6 +1225,8 @@ namespace Image {
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetColour);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetRotation);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetRotation);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);

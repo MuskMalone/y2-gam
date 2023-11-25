@@ -5,6 +5,43 @@
                 "Tag": "CardUI"
             }
         },
+        "Arm": {
+            "Animation": {
+                "states": [
+                    1700930523778839900
+                ],
+                "currFrame": 3,
+                "speed": 0.38999998569488525,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "No Script Assigned",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
         "Box": {
             "Collider": {
                 "collider": 0,
