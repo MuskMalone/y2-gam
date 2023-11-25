@@ -114,18 +114,43 @@ namespace Image {
 
     // FOR THE FUTURE
     // change to unmanaged thunks
-    
-    MonoObject* obj{ mono_runtime_invoke(method, instance, params, nullptr) };
 
-    if (obj != nullptr) {
-      return obj;
+    MonoObject* exception = nullptr;
+    MonoError error;
+    mono_error_init(&error);
+
+    MonoObject* obj{ mono_runtime_invoke(method, instance, params, &exception) };
+
+    //if (exception != nullptr) {
+      //return obj;
+    //}
+
+    if (obj == nullptr) {
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception during method invocation in %s", __FUNCTION__);
+      return nullptr;
     }
 
-    else {
 #ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "MonoObject instance is NULL!"
-        , __FUNCTION__);
+     if (exception != nullptr) {
+      MonoClass* exceptionClass = mono_object_get_class(exception);
+      MonoMethod* toStringMethod = mono_class_get_method_from_name(exceptionClass, "ToString", 0);
+
+        if (toStringMethod != nullptr) {
+          void* toStringParams[] = { nullptr };
+          MonoString* exceptionString = reinterpret_cast<MonoString*>(mono_runtime_invoke(toStringMethod, exception, toStringParams, nullptr));
+
+          // Convert the MonoString to a C string
+          const char* exceptionMessage = mono_string_to_utf8(exceptionString);
+
+          // Handle the exception, log the details, etc.
+
+          LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception occurred during method invocation: %s", exceptionMessage);
+
+          // Release the memory used by the C string
+          mono_free(const_cast<char*>(exceptionMessage));
+        }
+      }
 #endif
-    }
+      return obj;
   }
 }

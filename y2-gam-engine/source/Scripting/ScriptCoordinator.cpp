@@ -209,20 +209,22 @@ namespace Image {
 	*/
 	static void GameplayComponent_Swap(uint32_t* lhs, uint32_t* rhs) {
 		::gCoordinator = Coordinator::GetInstance();
-		auto& lhsTransform{ gCoordinator->GetComponent<Transform>(*lhs).position };
-		auto& rhsTransform{ gCoordinator->GetComponent<Transform>(*rhs).position };
+		if (gCoordinator->HasComponent<Transform>(*lhs) && gCoordinator->HasComponent<Transform>(*rhs) &&
+			gCoordinator->HasComponent<Collider>(*lhs) && gCoordinator->HasComponent<Collider>(*rhs)) {
+			auto& lhsTransform{ gCoordinator->GetComponent<Transform>(*lhs).position };
+			auto& rhsTransform{ gCoordinator->GetComponent<Transform>(*rhs).position };
+			auto& lhsCollider{ gCoordinator->GetComponent<Collider>(*lhs).position };
+			auto& rhsCollider{ gCoordinator->GetComponent<Collider>(*rhs).position };
 
-		auto& lhsCollider{ gCoordinator->GetComponent<Collider>(*lhs).position };
-		auto& rhsCollider{ gCoordinator->GetComponent<Collider>(*rhs).position };
+			glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
+			glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
 
-		glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
-		glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
+			std::swap(lhsTransform, rhsTransform);
+			std::swap(lhsCollider, rhsCollider);
 
-		std::swap(lhsTransform, rhsTransform);
-		std::swap(lhsCollider, rhsCollider);
-
-		lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);
-		rhsCollider = Vec2(rhsCollider.x - rhsOffset.x, rhsCollider.y - rhsOffset.y);
+			lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);
+			rhsCollider = Vec2(rhsCollider.x - rhsOffset.x, rhsCollider.y - rhsOffset.y);
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -366,6 +368,7 @@ namespace Image {
 		const char* utf8Str = *audioFileName != nullptr ? mono_string_to_utf8(*audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
 			SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
+			mono_free(*audioFileName);
 		}
 
 #ifndef _INSTALLER
@@ -391,6 +394,7 @@ namespace Image {
 		if (utf8Str != nullptr) {
 			::gCoordinator = Coordinator::GetInstance();
 			SceneManager::GetInstance()->LoadScene(mono_string_to_utf8(*sceneName));
+			mono_free(*sceneName);
 		}
 
 #ifndef _INSTALLER
@@ -503,7 +507,7 @@ namespace Image {
 	*/
 	static void PhysicsComponent_Collided(uint32_t* entityID, bool* collidedOrNot) {
 		::gCoordinator = Coordinator::GetInstance();
-		bool collided{ gCoordinator->GetSystem<PhysicsSystem>()->IsCollided(*entityID).size() > 1 };
+		bool collided{ gCoordinator->GetSystem<Collision::CollisionSystem>()->IsIntersected(*entityID).size() > 0 };
 		*collidedOrNot = collided;
 	}
 

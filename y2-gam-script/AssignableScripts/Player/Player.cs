@@ -23,7 +23,7 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 4000000.0f;
+        public readonly float JumpForce = 1000000.0f;
         public readonly float MovementForce = 80000.0f;
         public int Health = 1;
 
@@ -102,6 +102,7 @@ namespace Object
         {
             if (!IsEditorMode())
             {
+                
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
                 new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                     PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
@@ -112,7 +113,15 @@ namespace Object
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
+                
 
+                /*
+                if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+                {
+                    isGrounded = true;
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                }
+                */
                 else
                 {
                     isGrounded = false;
@@ -183,7 +192,7 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
@@ -191,7 +200,7 @@ namespace Object
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
