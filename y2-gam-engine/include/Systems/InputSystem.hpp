@@ -21,6 +21,7 @@ public:
 	bool CheckKey(InputKeyState state, size_t key) const;
 	MousePosition GetMousePos() const;
 	MousePosition GetWorldMousePos() const;
+	MousePosition GetSceneMousePos() const;
 	EditorMousePosition GetEditorMousePos() const;
 
 	void Update();

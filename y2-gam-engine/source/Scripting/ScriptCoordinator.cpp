@@ -348,7 +348,7 @@ namespace Image {
 	static void EngineCore_GetMousePos(Vec2* outMousePos) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem{ ::gCoordinator->GetSystem<InputSystem>() };
-		Vec2 mousePos{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+		Vec2 mousePos{ inputSystem->GetSceneMousePos().first, inputSystem->GetSceneMousePos().second };
 		*outMousePos = mousePos;
 	}
 
