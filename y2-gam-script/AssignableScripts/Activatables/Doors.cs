@@ -1,12 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Image;
+using System;
 
-namespace y2_gam_script.AssignableScripts.Activatables
+namespace Object
 {
-    internal class Doors
+
+    public class Button : Entity
     {
+        public Button() : base()
+        {
+
+        }
+
+        public Button(uint entityHandle) : base(entityHandle)
+        {
+            entityID = entityHandle;
+        }
+
+        void OnCreate()
+        {
+
+        }
+
+
+
+        void OnUpdate(float dt)
+        {
+            //if (!IsEditorMode())
+            //{
+            //    Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f));
+            //    if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit) && buttonHit.tag == "Player")
+            //    {
+            //        Console.WriteLine("Player touched a button!");
+            //        //Colour = new Vector4(1, 1, 1, 1);
+            //        //SetSprite("gam200_anvil");
+            //    }
+            //}
+        }
+
+        void OnExit()
+        {
+
+        }
+
     }
 }

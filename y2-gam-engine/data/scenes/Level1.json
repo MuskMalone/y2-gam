@@ -36,7 +36,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 3,
+                "currFrame": 7,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -590,6 +590,10 @@
                 "posY": -49.26460266113281,
                 "lockRotate": false
             },
+            "Script": {
+                "script": "ObjectButton",
+                "isFacingRight": true
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -965,7 +969,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 4,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1174,7 +1178,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
