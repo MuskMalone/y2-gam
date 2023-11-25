@@ -93,6 +93,9 @@ namespace Object
 
             if (!IsEditorMode())
             {
+                Vector4 originalColour = new Vector4(1, 1, 1, 1);
+                Vector4 highlightColour = new Vector4(0, 1, 1, 1);
+
                 if (Alive)
                 {
                     // Card Related
@@ -101,28 +104,38 @@ namespace Object
 
                     SetEntityColour(CardUIID,
                         new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
-                    
+
                     SetScaleFromEntity(CardUIID, new Vector3(
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
-                    
+
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
                     }
-
+                    
                     // Swap Related
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
-                        if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
+                    //if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
+                    if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
+                    {
+                        
+                        if (GameplayWrapper.IsSwappable(mouseRayCast.id))
                         {
-                            if (GameplayWrapper.IsSwappable(mouseRayCast.id))
+                            SetEntityColour(mouseRayCast.id, highlightColour);
+
+                            if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
                             {
+
                                 GameplayWrapper.Swap(entityID, mouseRayCast.id);
                                 ResetCardPos();
                                 ResetCardUI();
                             }
                         }
+
                     }
+                
+   
+                    //}
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))
                     {
