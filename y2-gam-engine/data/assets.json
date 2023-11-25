@@ -307,6 +307,14 @@
             "idxY": 0.0,
             "dimX": 1229.0,
             "dimY": 691.0
+        },
+        "1700951688787371900": {
+            "id": 1700951688787406200,
+            "path": "../assets\\Textures\\y2_pause menu_ howtoplay_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 344.0,
+            "dimY": 71.0
         }
     },
     "classAnimationManager": {

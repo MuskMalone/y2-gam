@@ -4,7 +4,8 @@
         1700925666827633500,
         1700947919118509400,
         1700946331426554800,
-        1700948555024191800
+        1700948555024191800,
+        1700951688787371900
     ],
     "Entities": [
         {
@@ -975,7 +976,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 3,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1184,7 +1185,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1379,6 +1380,43 @@
                 "rotZ": 0.0,
                 "scaleX": 100.0,
                 "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectPmHowToPlay",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700951688787371900
+            },
+            "Tag": {
+                "Tag": "howtoplay_glow"
+            },
+            "Transform": {
+                "posX": 1007.9178466796875,
+                "posY": 429.787109375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 190.0,
+                "scaleY": 39.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },
