@@ -1,11 +1,13 @@
 ﻿using Image;
 using System;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
     public class PauseMenu : Entity
     {
-        bool firstTime = true;
+        //bool firstTime = true;
+        bool isPaused = false;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -43,9 +45,18 @@ namespace Object
 
         void OnCreate()
         {
+
+        }
+
+        void PauseGame()
+        {
             Colour = new Vector4(1, 1, 1, 1);
         }
 
+        void ResumeGame()
+        {
+            Colour = new Vector4(1, 0, 1, 0);
+        }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -60,22 +71,54 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                //SetSprite("start_glow");
-                if (UIHover)
+                if (!isPaused)
                 {
-                    Colour = new Vector4(1, 1, 1, 1);
-                    //SetSprite("start_glow");
+                    Colour = new Vector4(1, 0, 1, 0);
+                    //if (Input.IsKeyClicked(KeyCode.KEY_U))
+                    //{
+                    //    Colour = new Vector4(1, 1, 1, 1);
+                    //    SetSprite("gam200_mainmenu_quitgame");
+                    //}
+
                 }
-                else
+                //if (Input.IsKeyClicked(KeyCode.KEY_U))
+                //{
+                //    Colour = new Vector4(1, 1, 1, 1);
+                //    SetSprite("gam200_mainmenu_quitgame");
+                //}
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    Colour = new Vector4(1, 1, 1, 0);
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        ResumeGame();
+                        isPaused = false;
+                    }
+                    //firstTime = false;
                 }
 
-                if (UIClicked && firstTime)
-                {
-                    LoadScene("Level1");
-                    firstTime = false;
-                }
+
+                //if (UIClicked)
+                //{
+                //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
+                //    {
+                //        Console.WriteLine("QUITCLICKED");
+                //        Colour = new Vector4(1, 0, 1, 0);
+                //    }
+                //}
+                //if (UIHover)
+                //{
+                //    Colour = new Vector4(1, 1, 0, 1);
+                //    //SetSprite("start_glow");
+                //}
+                //else
+                //{
+                //    Colour = new Vector4(1, 0, 1, 0);
+                //}
             }
         }
 
@@ -92,4 +135,5 @@ namespace Object
         }
     }
 }
+
 

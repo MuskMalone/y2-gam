@@ -5,14 +5,14 @@
                 "layering": "#####"
             },
             "Script": {
-                "script": "No Script Assigned",
+                "script": "ObjectPauseMenu",
                 "isFacingRight": true
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
@@ -24,7 +24,7 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 200.0,
-                "scaleY": 87.27200317382813,
+                "scaleY": 109.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },
@@ -139,6 +139,36 @@
                 "scaleY": 50.0,
                 "scaleZ": 0.0,
                 "elipse": false
+            }
+        },
+        "Confirmation": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700943442995398400
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 56.82699966430664,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         "Circle": {

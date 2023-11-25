@@ -135,7 +135,7 @@ namespace Object
                     {
                         //resume game
                         ResumeGame();
-                        dt = temp_dt;
+                        //dt = temp_dt;
                         isPaused = false;
                     }
                     //firstTime = false;
@@ -266,9 +266,9 @@ namespace Object
 
         void ResumeGame()
         {
-            Force = temp_Force;
+            Force = temp_Force*temp_dt;
             Translation = temp_pos;
-            Velocity = temp_velocity;
+            Velocity = temp_velocity*temp_dt;
             //AnimationState = temp_AnimationState;
         }
         public void MoveLeft(float dt)

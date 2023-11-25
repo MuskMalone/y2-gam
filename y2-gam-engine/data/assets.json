@@ -267,6 +267,14 @@
             "idxY": 0.0,
             "dimX": 2750.0,
             "dimY": 1200.0
+        },
+        "1700943442995398400": {
+            "id": 1700943442995431400,
+            "path": "../assets\\Textures\\gam200_mainmenu_quit game.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 813.0,
+            "dimY": 462.0
         }
     },
     "classAnimationManager": {
