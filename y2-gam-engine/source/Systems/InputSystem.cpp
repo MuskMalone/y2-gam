@@ -78,13 +78,7 @@ MousePosition InputSystem::GetSceneMousePos() const {
 	glm::vec4 mouseWorldSpace = inverseViewProj * mouseClipSpace;
 	mouseWorldSpace /= mouseWorldSpace.w;
 
-	std::cout << "X: " << mouseWorldSpace.x << " Y:" << mouseWorldSpace.y << std::endl;
-
 	return { mouseWorldSpace.x, mouseWorldSpace.y };
-	//mousePos = Vec2(mouseWorldSpace.x, mouseWorldSpace.y);
-
-
-
 }
 
 EditorMousePosition InputSystem::GetEditorMousePos() const {
