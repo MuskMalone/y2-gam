@@ -137,7 +137,7 @@ namespace Object
                 if (Input.IsKeyClicked(KeyCode.KEY_E))
                 {
                     GameplayWrapper.SlowdownTime(slowdownToggle);
-                    slowdownToggle = !slowdownToggle;
+                    slowdownToggle = !slowdownToggle;                  
                 }
 
                 if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
@@ -208,7 +208,9 @@ namespace Object
 
         public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce) * dt;
+            //Force += new Vector2(0, JumpForce) * dt;
+            Velocity -= new Vector2(0, Velocity.Y);
+            Velocity += new Vector2(0, 7000) * dt;
         }
     }
 }

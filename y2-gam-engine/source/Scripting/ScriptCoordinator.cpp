@@ -107,6 +107,30 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! GameplayComponent_SpawnPrefab
+
+	@param entityID
+	The entity to destroy.
+
+	@return none.
+
+	Destroys entity.
+	*/
+	static void GameplayComponent_SpawnPrefab(MonoString** fileName, Vec2* startPos) {
+		
+		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+		if (utf8Str != nullptr) {
+			PrefabsManager::GetInstance()->SpawnPrefab(utf8Str, *startPos);
+		}
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! GameplayComponent_Destroy
 
 	@param entityID
@@ -1034,6 +1058,7 @@ namespace Image {
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_FireCard);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SpawnPrefab);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerPos);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerID);

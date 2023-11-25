@@ -71,7 +71,7 @@ namespace Image {
   */
   void ScriptManager::InitMono() {
     // Looks for mscorlib.dll (Using .NET 4.5), required for C#
-    mono_set_assemblies_path("../assets/scripts");
+    mono_set_assemblies_path("lib/mono");
 
     // Mono auto detects the runtime version based on first assembly loaded
     MonoDomain* rootDomain{ mono_jit_init("ScriptRuntime") };
