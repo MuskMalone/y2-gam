@@ -462,7 +462,7 @@ namespace Image {
 	static void EngineCore_LoadScene(MonoString** sceneName) {
 		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
 		if (utf8Str != nullptr) {
-			SceneManager::GetInstance()->LoadScene("Level1");
+			SceneManager::GetInstance()->LoadScene(utf8Str);
 		}
 
 #ifndef _INSTALLER
