@@ -79,7 +79,8 @@ void SceneManager::ExitScene(std::string const& scnpath) {
 
 	for (auto const& e : mEntities) {
 		coordinator->DestroyEntity(e);
-		Image::ScriptManager::RemoveEntity(e);
+		if (gCoordinator->HasComponent<Script>(e))
+			Image::ScriptManager::RemoveEntity(e);
 	}
 	mEntities.clear();
 }
