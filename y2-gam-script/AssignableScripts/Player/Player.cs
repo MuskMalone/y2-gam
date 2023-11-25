@@ -29,6 +29,7 @@ namespace Object
 
         public bool isGrounded = true;
         private bool slowdownToggle = true;
+        //private bool jumped = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -104,7 +105,9 @@ namespace Object
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
                 new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                     PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
-                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast))
+                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                    PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
                 {
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
@@ -128,7 +131,7 @@ namespace Object
                     slowdownToggle = !slowdownToggle;
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
                 {
                     if (isGrounded)
                     {
@@ -180,7 +183,7 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
@@ -188,7 +191,7 @@ namespace Object
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.4f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             Force += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;

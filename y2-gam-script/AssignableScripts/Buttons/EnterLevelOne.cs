@@ -89,7 +89,7 @@ namespace Object
 
                 if (UIClicked && firstTime)
                 {
-                    LoadScene("Scene1");
+                    LoadScene("Level1");
                     firstTime = false;
                 }
             }
