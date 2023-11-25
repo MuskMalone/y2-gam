@@ -148,29 +148,21 @@ namespace Object
 
 
                 // Die by spikes
-
                 Vector2 playerFeet = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
                 Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
                 
                 if (PhysicsWrapper.Raycast(playerFeet, spikesTip, entityID, out RaycastHit spikeHit))
                 {
-                    
                     if (spikeHit.tag == "Spikes")
                     {
                         Health -= 1;
                         if(Health <= 0)
                         {
-                            Console.WriteLine("Die");
+                            //Console.WriteLine("Die");
                             //Translation = new Vector2(-400, -27);
-
                         }
                     }
                 }
-
-                
-
-
-
             }
         }
 

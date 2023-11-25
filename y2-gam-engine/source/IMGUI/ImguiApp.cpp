@@ -1619,7 +1619,7 @@ namespace Image {
 
     void GuizmoWindow() {
         ImGui::PushFont(mainfont);
-        ImGui::Begin("Guizmo editor");
+        ImGui::Begin("Guizmo");
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;

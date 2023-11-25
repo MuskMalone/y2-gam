@@ -114,6 +114,16 @@ namespace Image {
 
     // FOR THE FUTURE
     // change to unmanaged thunks
-    return mono_runtime_invoke(method, instance, params, nullptr);
+    
+    if (instance != nullptr) {
+      return mono_runtime_invoke(method, instance, params, nullptr);
+    }
+
+    else {
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "MonoObject instance is NULL!"
+        , __FUNCTION__);
+#endif
+    }
   }
 }
