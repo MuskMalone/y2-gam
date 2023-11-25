@@ -53,15 +53,15 @@ namespace Image
 
         #region UI
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void UIComponent_GetIsUIButtonClicked(uint entityID, out bool outIsClicked);
+        internal extern static void UIComponent_GetIsUIButtonClicked(ref uint entityID, out bool outIsClicked);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void UIComponent_GetIsUIButtonHover(uint entityID, out bool outIsHover);
+        internal extern static void UIComponent_GetIsUIButtonHover(ref uint entityID, out bool outIsHover);
         #endregion
 
         #region Serialization
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
+        internal extern static void SerializationComponent_GetIsFacingRight(ref uint entityID, out bool outFacingDirection);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void SerializationComponent_SetIsFacingRight(uint entityID, ref bool facingDirection);
@@ -89,7 +89,7 @@ namespace Image
 
         #region Pathfinding
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
+        internal extern static void PathfindingComponent_GetPath(ref uint entityID, out Vector2 closestNode, 
             out Vector2 nextNode, out Vector2 nodeType);
         #endregion
 
@@ -102,7 +102,7 @@ namespace Image
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, out bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetColliderDimensions(uint entityHandle, out Vector2 dim);
+        internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, out Vector2 dim);
 
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_GetColliderPos
@@ -118,7 +118,7 @@ namespace Image
         Get the collider current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetColliderPos(uint entityHandle, out Vector2 pos);
+        internal extern static void PhysicsComponent_GetColliderPos(ref uint entityHandle, out Vector2 pos);
 
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_SetColliderPos
@@ -152,7 +152,7 @@ namespace Image
         Get the current animation state of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void AnimationComponent_GetAnimationState(uint entityHandle, out int animationState);
+        internal extern static void AnimationComponent_GetAnimationState(ref uint entityHandle, out int animationState);
 
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_SetAnimationState
@@ -200,7 +200,7 @@ namespace Image
         Get the current scale of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void GraphicsComponent_GetScale(uint entityHandle, out Vector3 scale);
+        internal extern static void GraphicsComponent_GetScale(ref uint entityHandle, out Vector3 scale);
 
         /*  _________________________________________________________________________ */
         /*! GraphicsComponent_SetScale
@@ -237,7 +237,7 @@ namespace Image
         Get the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector2 translation);
+        internal extern static void TransformComponent_GetTranslation(ref uint entityHandle, out Vector2 translation);
 
         /*  _________________________________________________________________________ */
         /*! TransformComponent_SetTranslation
@@ -272,7 +272,7 @@ namespace Image
         Get the current force of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetForce(uint entityHandle, out Vector2 force);
+        internal extern static void ForceComponent_GetForce(ref uint entityHandle, out Vector2 force);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetForce
@@ -304,7 +304,7 @@ namespace Image
         Get the current mass of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetMass(uint entityHandle, out float mass);
+        internal extern static void ForceComponent_GetMass(ref uint entityHandle, out float mass);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetMass
@@ -336,7 +336,7 @@ namespace Image
         Get the current velocity of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetVelocity(uint entityHandle, out Vector2 velocity);
+        internal extern static void ForceComponent_GetVelocity(ref uint entityHandle, out Vector2 velocity);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetVelocity

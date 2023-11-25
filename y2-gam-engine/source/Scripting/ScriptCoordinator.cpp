@@ -117,7 +117,6 @@ namespace Image {
 	Destroys entity.
 	*/
 	static void GameplayComponent_SpawnPrefab(MonoString** fileName, Vec2* startPos) {
-		
 		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
 		if (utf8Str != nullptr) {
 			PrefabsManager::GetInstance()->SpawnPrefab(utf8Str, *startPos);
@@ -141,8 +140,10 @@ namespace Image {
 	Destroys entity.
 	*/
 	static void GameplayComponent_Destroy(uint32_t* entityID) {
-		gCoordinator->DestroyEntity(*entityID);
-		Image::ScriptManager::RemoveEntity(*entityID);
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			gCoordinator->DestroyEntity(*entityID);
+			Image::ScriptManager::RemoveEntity(*entityID);
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -181,18 +182,20 @@ namespace Image {
 	Get the player id.
 	*/
 		static void GameplayComponent_GetPlayerID(uint32_t* playerID) {
-			::gCoordinator = Coordinator::GetInstance();
-			Entity player{};
-			for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
-				if (!::gCoordinator->HasComponent<Tag>(e)) continue;
-				auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
-				if (tag.tag == "Player") {
-					player = e;
-					break;
+			if (*playerID >= 0 && *playerID < MAX_ENTITIES) {
+				::gCoordinator = Coordinator::GetInstance();
+				Entity player{};
+				for (auto const& e : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+					if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+					auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+					if (tag.tag == "Player") {
+						player = e;
+						break;
+					}
 				}
-			}
 
-			*playerID = player;
+				*playerID = player;
+			}
 		}
 
 		/*  _________________________________________________________________________ */
@@ -206,24 +209,26 @@ namespace Image {
 		Get the ID of an entity by its tag.
 		*/
 		static void GameplayComponent_GetEntityIDByTag(uint32_t* entityID, MonoString** tag) {
-			const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
-			if (utf8Str != nullptr) {
-				::gCoordinator = Coordinator::GetInstance();
-				for (auto& ent : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
-					if (gCoordinator->HasComponent<Tag>(ent)) {
-						if (gCoordinator->GetComponent<Tag>(ent).tag == utf8Str) {
-							*entityID = ent;
-							break;
+			if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+				const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+				if (utf8Str != nullptr) {
+					::gCoordinator = Coordinator::GetInstance();
+					for (auto& ent : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+						if (gCoordinator->HasComponent<Tag>(ent)) {
+							if (gCoordinator->GetComponent<Tag>(ent).tag == utf8Str) {
+								*entityID = ent;
+								break;
+							}
 						}
-					}			
+					}
 				}
-			}
 #ifndef _INSTALLER
-			else {
-				LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
-					, __FUNCTION__);
-			}
+				else {
+					LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+						, __FUNCTION__);
+				}
 #endif
+			}
 		}
 
 	/*  _________________________________________________________________________ */
@@ -240,12 +245,14 @@ namespace Image {
 	Checks if the entity is swappable or not.
 	*/
 	static void GameplayComponent_IsSwappable(uint32_t* entityID, bool* outIsSwappable) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Swappable>(*entityID)) {
-			*outIsSwappable = true;
-		}
-		else {
-			*outIsSwappable = false;
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Swappable>(*entityID)) {
+				*outIsSwappable = true;
+			}
+			else {
+				*outIsSwappable = false;
+			}
 		}
 	}
 
@@ -316,10 +323,12 @@ namespace Image {
 
 	Gets if the UI button is clicked or not.
 	*/
-	static void UIComponent_GetIsUIButtonClicked(uint32_t entityID, bool* outIsClicked) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsClicked = gCoordinator->GetComponent<UIImage>(entityID).isClicked;
+	static void UIComponent_GetIsUIButtonClicked(uint32_t* entityID, bool* outIsClicked) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<UIImage>(*entityID))
+				*outIsClicked = gCoordinator->GetComponent<UIImage>(*entityID).isClicked;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -335,10 +344,12 @@ namespace Image {
 
 	Gets if the UI button is hovered over or not.
 	*/
-	static void UIComponent_GetIsUIButtonHover(uint32_t entityID, bool* outIsHover) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<UIImage>(entityID))
-			*outIsHover = gCoordinator->GetComponent<UIImage>(entityID).isHover;
+	static void UIComponent_GetIsUIButtonHover(uint32_t* entityID, bool* outIsHover) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<UIImage>(*entityID))
+				*outIsHover = gCoordinator->GetComponent<UIImage>(*entityID).isHover;
+		}
 	}
 
 	// For Serialization
@@ -355,10 +366,12 @@ namespace Image {
 
 	Gets the facing right flag in C#.
 	*/
-	static void SerializationComponent_GetIsFacingRight(uint32_t entityID, bool* outFacingDirection) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Script>(entityID))
-			*outFacingDirection = gCoordinator->GetComponent<Script>(entityID).isFacingRight;
+	static void SerializationComponent_GetIsFacingRight(uint32_t* entityID, bool* outFacingDirection) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Script>(*entityID))
+				*outFacingDirection = gCoordinator->GetComponent<Script>(*entityID).isFacingRight;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -375,9 +388,11 @@ namespace Image {
 	Sets the facing right flag in C#.
 	*/
 	static void SerializationComponent_SetIsFacingRight(uint32_t entityID, bool* facingDirection) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Script>(entityID))
-			gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Script>(entityID))
+				gCoordinator->GetComponent<Script>(entityID).isFacingRight = *facingDirection;
+		}
 	}
 
 	// For Engine Core
@@ -489,19 +504,21 @@ namespace Image {
 	Sets text for the entity.
 	*/
 	static void EngineCore_SetText(uint32_t entityID, MonoString** tag) {
-		const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
-		if (utf8Str != nullptr) {
-			::gCoordinator = Coordinator::GetInstance();
-			if (gCoordinator->HasComponent<Text>(entityID)) {
-				gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+			if (utf8Str != nullptr) {
+				::gCoordinator = Coordinator::GetInstance();
+				if (gCoordinator->HasComponent<Text>(entityID)) {
+					gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+				}
 			}
-		}
 #ifndef _INSTALLER
-		else {
-			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
-				, __FUNCTION__);
-		}
+			else {
+				LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+					, __FUNCTION__);
+			}
 #endif
+		}
 	}
 
 	// For Pathfinding
@@ -525,28 +542,30 @@ namespace Image {
 	Calls the pathfinding algorithm in CPP, and returns the closest node and the
 	next node to the entity in C#.
 	*/
-	static void PathfindingComponent_GetPath(uint32_t entityID, Vec2* closestNode, Vec2* nextNode, Vec2* tag) {
-		if (!NodeManager::GetCurrentlyActiveNodes().empty()) {
-			::gCoordinator = Coordinator::GetInstance();
-			NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(entityID),
-				NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
+	static void PathfindingComponent_GetPath(uint32_t* entityID, Vec2* closestNode, Vec2* nextNode, Vec2* tag) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			if (!NodeManager::GetCurrentlyActiveNodes().empty()) {
+				::gCoordinator = Coordinator::GetInstance();
+				NodeManager::Path path{ NodeManager::DjkstraAlgorithm(NodeManager::FindClosestNodeToEntity(*entityID),
+					NodeManager::FindClosestNodeToEntity(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) };
 
-			*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
-				gCoordinator->GetComponent<Transform>(path.front()).position.y };
+				*closestNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+					gCoordinator->GetComponent<Transform>(path.front()).position.y };
 
-			if (path.size() > 1) {
-				*nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
-					gCoordinator->GetComponent<Transform>(path[1]).position.y;
-				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
-					static_cast<float>(gCoordinator->GetComponent<Node>(path[1]).type) };
+				if (path.size() > 1) {
+					*nextNode = gCoordinator->GetComponent<Transform>(path[1]).position.x,
+						gCoordinator->GetComponent<Transform>(path[1]).position.y;
+					*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type),
+						static_cast<float>(gCoordinator->GetComponent<Node>(path[1]).type) };
+				}
+				else {
+					*nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
+					gCoordinator->GetComponent<Transform>(path.front()).position.y };
+					*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type),
+						static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type) };
+				}
 			}
-			else {
-				*nextNode = { gCoordinator->GetComponent<Transform>(path.front()).position.x,
-				gCoordinator->GetComponent<Transform>(path.front()).position.y };
-				*tag = { static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type), 
-					static_cast<float>(gCoordinator->GetComponent<Node>(path[0]).type) };
-			}
-    }
+		}
 	}
 	
 	// For Physics
@@ -561,9 +580,11 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_Collided(uint32_t* entityID, bool* collidedOrNot) {
-		::gCoordinator = Coordinator::GetInstance();
-		bool collided{ gCoordinator->GetSystem<Collision::CollisionSystem>()->IsIntersected(*entityID).size() > 0 };
-		*collidedOrNot = collided;
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			bool collided{ gCoordinator->GetSystem<Collision::CollisionSystem>()->IsIntersected(*entityID).size() > 0 };
+			*collidedOrNot = collided;
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -626,10 +647,12 @@ namespace Image {
 
 	Get the collider dimensions of the entity in C#.
 	*/
-	static void PhysicsComponent_GetColliderDimensions(uint32_t entityID, Vec2* outDim) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Collider>(entityID)) {
-			*outDim = Vec2{ gCoordinator->GetComponent<Collider>(entityID).dimension };
+	static void PhysicsComponent_GetColliderDimensions(uint32_t* entityID, Vec2* outDim) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Collider>(*entityID)) {
+				*outDim = Vec2{ gCoordinator->GetComponent<Collider>(*entityID).dimension };
+			}
 		}
 	}
 
@@ -646,10 +669,12 @@ namespace Image {
 
 	Get the collider current position of the entity in C#.
 	*/
-	static void PhysicsComponent_GetColliderPos(uint32_t entityID, Vec2* outPos) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Collider>(entityID)) {
-			*outPos = Vec2{ gCoordinator->GetComponent<Collider>(entityID).position };
+	static void PhysicsComponent_GetColliderPos(uint32_t* entityID, Vec2* outPos) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Collider>(*entityID)) {
+				*outPos = Vec2{ gCoordinator->GetComponent<Collider>(*entityID).position };
+			}
 		}
 	}
 
@@ -667,9 +692,11 @@ namespace Image {
 	Set the collider current position of the entity in C#.
 	*/
 	static void PhysicsComponent_SetColliderPos(uint32_t entityID, Vec2* pos) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Collider>(entityID)) {
-			gCoordinator->GetComponent<Collider>(entityID).position = *pos;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Collider>(entityID)) {
+				gCoordinator->GetComponent<Collider>(entityID).position = *pos;
+			}
 		}
 	}
 
@@ -687,10 +714,12 @@ namespace Image {
 
 	Get the current animation state of the entity in C#.
 	*/
-	static void AnimationComponent_GetAnimationState(uint32_t entityID, int* outAnimationState) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			*outAnimationState = static_cast<int>(gCoordinator->GetComponent<Animation>(entityID).currState);
+	static void AnimationComponent_GetAnimationState(uint32_t* entityID, int* outAnimationState) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Animation>(*entityID))
+				*outAnimationState = static_cast<int>(gCoordinator->GetComponent<Animation>(*entityID).currState);
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -707,9 +736,11 @@ namespace Image {
 	Set the current animation state of the entity in C#.
 	*/
 	static void AnimationComponent_SetAnimationState(uint32_t entityID, int* animationState) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Animation>(entityID))
-			gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<uint64_t>(*animationState);
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Animation>(entityID))
+				gCoordinator->GetComponent<Animation>(entityID).currState = static_cast<uint64_t>(*animationState);
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -726,20 +757,22 @@ namespace Image {
 	Sets the sprite for the entity.
 	*/
 	static void GraphicsComponent_SetSprite(uint32_t entityID, MonoString** fileName) {
-		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
-		if (utf8Str != nullptr) {
-			::gCoordinator = Coordinator::GetInstance();
-			if (gCoordinator->HasComponent<Sprite>(entityID)) {
-				gCoordinator->GetComponent<Sprite>(entityID).spriteID =
-					SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+			if (utf8Str != nullptr) {
+				::gCoordinator = Coordinator::GetInstance();
+				if (gCoordinator->HasComponent<Sprite>(entityID)) {
+					gCoordinator->GetComponent<Sprite>(entityID).spriteID =
+						SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+				}
 			}
-		}
 #ifndef _INSTALLER
-		else {
-			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
-				, __FUNCTION__);
-		}
+			else {
+				LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+					, __FUNCTION__);
+			}
 #endif
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -755,12 +788,14 @@ namespace Image {
 
 	Get the current scale of the entity in C#.
 	*/
-	static void GraphicsComponent_GetScale(uint32_t entityID, Vec3* outScale) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Transform>(entityID)) {
-			*outScale = Vec3{ gCoordinator->GetComponent<Transform>(entityID).scale.x,
-			gCoordinator->GetComponent<Transform>(entityID).scale.y,
-			gCoordinator->GetComponent<Transform>(entityID).scale.z };
+	static void GraphicsComponent_GetScale(uint32_t* entityID, Vec3* outScale) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(*entityID)) {
+				*outScale = Vec3{ gCoordinator->GetComponent<Transform>(*entityID).scale.x,
+				gCoordinator->GetComponent<Transform>(*entityID).scale.y,
+				gCoordinator->GetComponent<Transform>(*entityID).scale.z };
+			}
 		}
 	}
 
@@ -778,10 +813,12 @@ namespace Image {
 	Set the current scale of the entity in C#.
 	*/
 	static void GraphicsComponent_SetScale(uint32_t entityID, Vec3* scale) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Transform>(entityID)) {
-			gCoordinator->GetComponent<Transform>(entityID).scale =
-			{ scale->x, scale->y, scale->z };
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(entityID)) {
+				gCoordinator->GetComponent<Transform>(entityID).scale =
+				{ scale->x, scale->y, scale->z };
+			}
 		}
 	}
 
@@ -799,10 +836,12 @@ namespace Image {
 	Set the current colour of the entity sprite in C#.
 	*/
 	static void GraphicsComponent_SetColour(uint32_t entityID, glm::vec4* colour) {
-		::gCoordinator = Coordinator::GetInstance();
-		
-		if (gCoordinator->HasComponent<Sprite>(entityID)) {
-			gCoordinator->GetComponent<Sprite>(entityID).color = *colour;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+
+			if (gCoordinator->HasComponent<Sprite>(entityID)) {
+				gCoordinator->GetComponent<Sprite>(entityID).color = *colour;
+			}
 		}
 	}
 
@@ -820,11 +859,13 @@ namespace Image {
 
 	Get the current position of the entity in C#.
 	*/
-	static void TransformComponent_GetTranslation(uint32_t entityID, Vec2* outTranslation) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Transform>(entityID)) {
-			*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(entityID).position.x,
-				gCoordinator->GetComponent<Transform>(entityID).position.y };
+	static void TransformComponent_GetTranslation(uint32_t* entityID, Vec2* outTranslation) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(*entityID)) {
+				*outTranslation = Vec2{ gCoordinator->GetComponent<Transform>(*entityID).position.x,
+					gCoordinator->GetComponent<Transform>(*entityID).position.y };
+			}
 		}
 	}
 
@@ -842,16 +883,18 @@ namespace Image {
 	Set the current position of the entity in C#.
 	*/
 	static void TransformComponent_SetTranslation(uint32_t entityID, Vec2* translation) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<Transform>(entityID)) {
-			gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
-				translation->y,
-				gCoordinator->GetComponent<Transform>(entityID).position.z };
-		}
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Transform>(entityID)) {
+				gCoordinator->GetComponent<Transform>(entityID).position = { translation->x,
+					translation->y,
+					gCoordinator->GetComponent<Transform>(entityID).position.z };
+			}
 
-		if (gCoordinator->HasComponent<Collider>(entityID)) {
-			gCoordinator->GetComponent<Collider>(entityID).position = { translation->x,
-				translation->y };
+			if (gCoordinator->HasComponent<Collider>(entityID)) {
+				gCoordinator->GetComponent<Collider>(entityID).position = { translation->x,
+					translation->y };
+			}
 		}
 	}
 
@@ -869,10 +912,12 @@ namespace Image {
 
 	Get the current force of the entity in C#.
 	*/
-	static void ForceComponent_GetForce(uint32_t entityID, Vec2* outForce) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			*outForce = gCoordinator->GetComponent<RigidBody>(entityID).force;
+	static void ForceComponent_GetForce(uint32_t* entityID, Vec2* outForce) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(*entityID)) {
+				*outForce = gCoordinator->GetComponent<RigidBody>(*entityID).force;
+			}
 		}
 	}
 
@@ -890,9 +935,11 @@ namespace Image {
 	Set the current force of the entity in C#.
 	*/
 	static void ForceComponent_SetForce(uint32_t entityID, Vec2* force) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			gCoordinator->GetComponent<RigidBody>(entityID).force = *force;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+				gCoordinator->GetComponent<RigidBody>(entityID).force = *force;
+			}
 		}
 	}
 
@@ -909,10 +956,12 @@ namespace Image {
 
 	Get the current mass of the entity in C#.
 	*/
-	static void ForceComponent_GetMass(uint32_t entityID, float* outMass) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			*outMass = gCoordinator->GetComponent<RigidBody>(entityID).mass;
+	static void ForceComponent_GetMass(uint32_t* entityID, float* outMass) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(*entityID)) {
+				*outMass = gCoordinator->GetComponent<RigidBody>(*entityID).mass;
+			}
 		}
 	}
 
@@ -930,9 +979,11 @@ namespace Image {
 	Set the current mass of the entity in C#.
 	*/
 	static void ForceComponent_SetMass(uint32_t entityID, float* mass) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			gCoordinator->GetComponent<RigidBody>(entityID).mass = *mass;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+				gCoordinator->GetComponent<RigidBody>(entityID).mass = *mass;
+			}
 		}
 	}
 
@@ -949,10 +1000,12 @@ namespace Image {
 
 	Get the current velocity of the entity in C#.
 	*/
-	static void ForceComponent_GetVelocity(uint32_t entityID, Vec2* outVelocity) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			*outVelocity = gCoordinator->GetComponent<RigidBody>(entityID).velocity;
+	static void ForceComponent_GetVelocity(uint32_t* entityID, Vec2* outVelocity) {
+		if (*entityID >= 0 && *entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(*entityID)) {
+				*outVelocity = gCoordinator->GetComponent<RigidBody>(*entityID).velocity;
+			}
 		}
 	}
 
@@ -970,9 +1023,11 @@ namespace Image {
 	Set the current velocity of the entity in C#.
 	*/
 	static void ForceComponent_SetVelocity(uint32_t entityID, Vec2* velocity) {
-		::gCoordinator = Coordinator::GetInstance();
-		if (gCoordinator->HasComponent<RigidBody>(entityID)) {
-			gCoordinator->GetComponent<RigidBody>(entityID).velocity = *velocity;
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<RigidBody>(entityID)) {
+				gCoordinator->GetComponent<RigidBody>(entityID).velocity = *velocity;
+			}
 		}
 	}
 

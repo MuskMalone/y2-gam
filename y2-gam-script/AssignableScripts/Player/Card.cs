@@ -25,7 +25,7 @@ namespace Object
         private float timeAlive = 0.0f;
         private bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 5.0f;
+        private readonly float MAX_TIME_ALIVE = 3.5f;
         private readonly float speed = 35.0f;
 
         private uint CardUIID;
@@ -119,6 +119,7 @@ namespace Object
                             {
                                 GameplayWrapper.Swap(entityID, mouseRayCast.id);
                                 ResetCardPos();
+                                ResetCardUI();
                             }
                         }
                     }
@@ -164,6 +165,12 @@ namespace Object
         void OnExit()
         {
 
+        }
+
+        void ResetCardUI()
+        {
+            SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
+            SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
 
         void ResetCardPos()
