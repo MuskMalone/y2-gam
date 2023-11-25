@@ -154,9 +154,6 @@ namespace Object
                 }
 
 
-                // Die by spikes
-
-                //Vector2 playerFeet = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
                 Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
 
                 Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
@@ -169,7 +166,7 @@ namespace Object
                         Health -= 1;
                         if (Health <= 0)
                         {
-                            Console.WriteLine("Die");
+                            //Console.WriteLine("Die");
                             Translation = spawnPosition;
                             Collider = colliderPosition;
                             Health = 1;
@@ -181,8 +178,8 @@ namespace Object
                 Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
                 if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID ,out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                 {
-                    // Player is touching a waypoint, perform desired actions
-                    Console.WriteLine("Player touched a waypoint!");
+
+                    //Console.WriteLine("Player touched a waypoint!");
                     float waypointOffset = 2.0f;
                     float colliderOffset = 9.0f;
                     spawnPosition = Translation;

@@ -61,10 +61,10 @@
     <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
     <Compile Include="AssignableScripts\Checkpoints\Checkpoint.cs" />
-    <Compile Include="AssignableScripts\Player\PlayerHealth.cs" />
     <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />
     <Compile Include="AssignableScripts\Player\Card.cs" />
+    <Compile Include="AssignableScripts\Player\Swappable.cs" />
     <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />

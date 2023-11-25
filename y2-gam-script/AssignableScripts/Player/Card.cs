@@ -15,6 +15,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 
 namespace Object
 {
@@ -92,16 +93,20 @@ namespace Object
                     }
 
                     // Swap Related
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
+                    //if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
                         {
                             if (GameplayWrapper.IsSwappable(mouseRayCast.id))
                             {
-                                GameplayWrapper.Swap(entityID, mouseRayCast.id);
-                                ResetCardPos();
+                                //Colour = new Vector4(0, 1, 1, 1);
+                                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
+                                {
+                                    GameplayWrapper.Swap(entityID, mouseRayCast.id);
+                                    ResetCardPos();
+                                }
                             }
                         }
-                    }
+                    //}
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))
                     {
