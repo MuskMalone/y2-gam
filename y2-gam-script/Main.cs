@@ -170,6 +170,11 @@ namespace Image
             }
         }
 
+        /*  _________________________________________________________________________ */
+        /*! SetSprite
+
+        Wrapper function for setting the sprite based on the sprite's filename.
+        */
         public void SetSprite(string fileName)
         {
             InternalCalls.GraphicsComponent_SetSprite(entityID, out fileName);
@@ -193,6 +198,32 @@ namespace Image
             }
         }
 
+        /*  _________________________________________________________________________ */
+        /*! GetScaleFromEntity
+
+        Get the scale, given the entity id.
+        */
+        public Vector3 GetScaleFromEntity(uint id)
+        {
+            InternalCalls.GraphicsComponent_GetScale(id, out Vector3 scale);
+            return scale;
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! SetScaleFromEntity
+
+        Set the scale, given the entity id.
+        */
+        public void SetScaleFromEntity(uint id, Vector3 value)
+        {
+            InternalCalls.GraphicsComponent_SetScale(id, ref value);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! Colour
+
+        Setter for Colour.
+        */
         public Vector4 Colour
         {
             set
@@ -201,6 +232,11 @@ namespace Image
             }
         }
 
+        /*  _________________________________________________________________________ */
+        /*! SetEntityColour
+
+        Sets a particular entity's colour.
+        */
         public void SetEntityColour(uint id, Vector4 col)
         {
             InternalCalls.GraphicsComponent_SetColour(id, ref col);

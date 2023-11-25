@@ -39,6 +39,9 @@ namespace Image
         internal extern static void GameplayComponent_GetPlayerID(out uint playerID);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_GetEntityIDByTag(out uint entityID, out String tag);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_IsSwappable(ref uint entityHandle, out bool outIsSwappable);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

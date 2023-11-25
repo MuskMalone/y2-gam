@@ -195,6 +195,37 @@ namespace Image {
 			*playerID = player;
 		}
 
+		/*  _________________________________________________________________________ */
+		/*! GameplayComponent_GetEntityIDByTag
+
+		@param tag
+		The tag you want to search for.
+
+		@return none.
+
+		Get the ID of an entity by its tag.
+		*/
+		static void GameplayComponent_GetEntityIDByTag(uint32_t* entityID, MonoString** tag) {
+			const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+			if (utf8Str != nullptr) {
+				::gCoordinator = Coordinator::GetInstance();
+				for (auto& ent : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
+					if (gCoordinator->HasComponent<Tag>(ent)) {
+						if (gCoordinator->GetComponent<Tag>(ent).tag == utf8Str) {
+							*entityID = ent;
+							break;
+						}
+					}			
+				}
+			}
+#ifndef _INSTALLER
+			else {
+				LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+					, __FUNCTION__);
+			}
+#endif
+		}
+
 	/*  _________________________________________________________________________ */
 	/*! GameplayComponent_IsSwappable
 
@@ -1062,6 +1093,7 @@ namespace Image {
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerPos);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerID);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetEntityIDByTag);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_IsSwappable);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Swap);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SlowdownTime);

@@ -64,6 +64,12 @@ namespace Image
             }
         }
 
+        public static uint GetIDFromTag(String tag)
+        {
+            InternalCalls.GameplayComponent_GetEntityIDByTag(out uint id, out tag);
+            return id;
+        }
+
         public static void SlowdownTime(bool flag)
         {
             InternalCalls.GameplayComponent_SlowdownTime(out flag);

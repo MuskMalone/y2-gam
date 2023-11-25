@@ -102,6 +102,7 @@ namespace Object
         {
             if (!IsEditorMode())
             {
+                FacingDirection = isFacingRight;
                 
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
                 new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
@@ -210,7 +211,7 @@ namespace Object
         {
             //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 7000) * dt;
+            Velocity += new Vector2(0, 5500) * dt;
         }
     }
 }

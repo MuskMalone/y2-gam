@@ -15,6 +15,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 
 namespace Object
 {
@@ -26,6 +27,11 @@ namespace Object
 
         private readonly float MAX_TIME_ALIVE = 5.0f;
         private readonly float speed = 35.0f;
+
+        private uint CardUIID;
+        private Vector3 CardUIMaxScale;
+
+        private bool firstTime = true;
 
         /*  _________________________________________________________________________ */
         /*! Card
@@ -78,6 +84,13 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (firstTime)
+            {
+                CardUIID = GameplayWrapper.GetIDFromTag("CardUI");
+                CardUIMaxScale = GetScaleFromEntity(CardUIID);
+                firstTime = false;
+            }
+
             if (!IsEditorMode())
             {
                 if (Alive)
@@ -86,6 +99,13 @@ namespace Object
                     timeAlive += dt;
                     Velocity += direction * speed * dt;
 
+                    SetEntityColour(CardUIID,
+                        new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
+                    
+                    SetScaleFromEntity(CardUIID, new Vector3(
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
+                    
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
@@ -127,6 +147,7 @@ namespace Object
                 {
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
+                        //SetEntityColour(GameplayWrapper.GetIDFromTag("CardUI"), new Vector4(1, 1, 1, 0));
                         FireCard();
                     }
                 }
@@ -163,6 +184,17 @@ namespace Object
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
+        }
+
+        static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)
+        {
+            if (oldMin == oldMax)
+                return newMin;
+
+            double normalizedValue = (value - oldMin) / (oldMax - oldMin);
+            double scaledValue = normalizedValue * (newMax - newMin) + newMin;
+
+            return Math.Min(Math.Max(scaledValue, newMin), newMax);
         }
     }
 }
