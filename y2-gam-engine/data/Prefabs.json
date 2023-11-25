@@ -107,6 +107,36 @@
                 "elipse": false
             }
         },
+        "ConfirmationWindow": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700909835064037700
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 0.0,
+                "scaleY": 0.0,
+                "scaleZ": 0.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
         "Circle": {
             "Collider": {
                 "collider": 1,
