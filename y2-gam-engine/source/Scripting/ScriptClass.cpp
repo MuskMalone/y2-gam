@@ -127,6 +127,7 @@ namespace Image {
 
     if (obj == nullptr) {
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception during method invocation in %s", __FUNCTION__);
+      return nullptr;
     }
 
 #ifndef _INSTALLER

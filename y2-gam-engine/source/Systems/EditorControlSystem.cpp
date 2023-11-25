@@ -52,7 +52,7 @@ void EditorControlSystem::Update(float dt)
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		//Image::ScriptManager::PrintEntityInstances();
+		Image::ScriptManager::PrintEntityInstances();
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
