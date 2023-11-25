@@ -402,7 +402,16 @@ namespace Image {
   This function is called on update loop for the entity.
   */
   void ScriptManager::OnUpdateEntity(Entity const& entity, float dt) {
-    sEntityInstances[entity].CallOnUpdate(dt);
+    auto it = sEntityInstances.find(entity);
+
+    if (it != sEntityInstances.end()) {
+      sEntityInstances[entity].CallOnUpdate(dt);
+    }
+#ifndef _INSTALLER
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ENTITY COULD NOT BE FOUND", __FUNCTION__);
+    }
+#endif
   }
 
   /*  _________________________________________________________________________ */
