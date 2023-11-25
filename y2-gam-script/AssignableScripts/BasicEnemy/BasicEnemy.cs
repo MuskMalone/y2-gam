@@ -29,6 +29,13 @@ namespace Object
         public readonly float AttackRange = 70.0f;
         public bool isGrounded = true;
 
+        //For pausing 
+        //int temp_AnimationState = 0;
+        Vector2 temp_pos;
+        Vector2 temp_Force;
+        Vector2 temp_velocity;
+        float temp_dt = 0f;
+        bool isPaused = false;
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
@@ -119,25 +126,52 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
+                if (isPaused)
                 {
-                    isGrounded = false;
+                    dt = temp_dt;
+                    PauseGame();
+                    //AnimationState = temp_AnimationState;
                 }
-
-                else
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    isGrounded = true;
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        temp_dt = dt;
+                        dt = temp_dt;
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        //resume game
+                        ResumeGame();
+                        dt = temp_dt;
+                        isPaused = false;
+                    }
+                    //firstTime = false;
                 }
-
-                if (FacingDirectionChanged)
+                if (!isPaused)
                 {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                }
+                    // Workaround for now
+                    if (Math.Abs(Velocity.Y) > 1.0f)
+                    {
+                        isGrounded = false;
+                    }
 
-                TimeInState += dt;
-                currentState.UpdateState(this, dt);
+                    else
+                    {
+                        isGrounded = true;
+                    }
+
+                    if (FacingDirectionChanged)
+                    {
+                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                        FacingDirectionChanged = false; // Reset the flag
+                    }
+
+                    TimeInState += dt;
+                    currentState.UpdateState(this, dt);
+                }
             }
         }
         void OnExit()
@@ -145,6 +179,26 @@ namespace Object
             FacingDirection = isFacingRight;
         }
 
+        void PauseGame()
+        {
+            //pause the game
+            temp_Force = Force;
+            temp_pos = Translation;
+            temp_velocity = Velocity;
+            //temp_AnimationState = AnimationState;
+            Force = new Vector2(0, 0);
+            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+            Velocity = new Vector2(0, 0);
+            //AnimationState = temp_AnimationState;
+        }
+
+        void ResumeGame()
+        {
+            Force = temp_Force;
+            Translation = temp_pos;
+            Velocity = temp_velocity;
+            //AnimationState = temp_AnimationState;
+        }
         /*  _________________________________________________________________________ */
         /*! SwitchState
         

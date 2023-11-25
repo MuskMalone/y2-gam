@@ -67,7 +67,7 @@ namespace Object
 
                 if (UIHover)
                 {
-                    Colour = new Vector4(1, 1, 0, 1);
+                    Colour = new Vector4(1, 1, 1, 1);
                 }
                 else
                 {

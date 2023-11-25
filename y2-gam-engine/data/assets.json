@@ -251,6 +251,14 @@
             "idxY": 0.0,
             "dimX": 533.0,
             "dimY": 148.0
+        },
+        "1700925666827633500": {
+            "id": 1700925666827671100,
+            "path": "../assets\\Textures\\quitgame_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 551.0,
+            "dimY": 131.0
         }
     },
     "classAnimationManager": {
