@@ -200,6 +200,12 @@ namespace Image
                 InternalCalls.GraphicsComponent_SetColour(entityID, ref value);
             }
         }
+
+        public void SetEntityColour(uint id, Vector4 col)
+        {
+            InternalCalls.GraphicsComponent_SetColour(id, ref col);
+        }
+
         #endregion
 
         #region Physics

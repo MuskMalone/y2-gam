@@ -24,6 +24,7 @@ namespace Image
         {
             InternalCalls.GameplayComponent_SpawnPrefab(out prefabName, out spawnPosition);
         }
+
         public static bool IsSwappable(uint entityHandle)
         {
             InternalCalls.GameplayComponent_IsSwappable(ref entityHandle, out bool isCollided);
