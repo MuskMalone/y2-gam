@@ -26,7 +26,8 @@ namespace Object
         public readonly float JumpForce = 1000000.0f;
         public readonly float MovementForce = 80000.0f;
         public int Health = 1;
-
+        private Vector2 spawnPosition = new Vector2(-400, -27);
+        private Vector2 colliderPosition = new Vector2(-400, -36);
         public bool isGrounded = true;
         private bool slowdownToggle = true;
         //private bool jumped = false;
@@ -160,21 +161,40 @@ namespace Object
                 }
 
 
-                // Die by spikes
-                Vector2 playerFeet = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+                Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
+
                 Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-                
-                if (PhysicsWrapper.Raycast(playerFeet, spikesTip, entityID, out RaycastHit spikeHit))
+
+                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
                 {
                     if (spikeHit.tag == "Spikes")
                     {
                         Health -= 1;
-                        if(Health <= 0)
+                        if (Health <= 0)
                         {
                             //Console.WriteLine("Die");
-                            //Translation = new Vector2(-400, -27);
+                            Translation = spawnPosition;
+                            Collider = colliderPosition;
+                            Health = 1;
+
                         }
                     }
+                }
+
+                Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
+                if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
+                {
+
+                    //Console.WriteLine("Player touched a waypoint!");
+                    float waypointOffset = 2.0f;
+                    float colliderOffset = 9.0f;
+                    spawnPosition = Translation;
+                    spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                    colliderPosition = Translation;
+                    colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                    colliderPosition -= new Vector2(0, colliderOffset);
+
+
                 }
             }
         }
