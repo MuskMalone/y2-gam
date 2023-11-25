@@ -232,14 +232,12 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		if (playerFound) {
 			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
-			RigidBody const& playerRigidBody{ ::gCoordinator->GetComponent<RigidBody>(mPlayer) };
-			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
+			Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
-			Vec2 playerVel{ playerRigidBody.velocity };
 
 			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
-			sceneCamera.UpdatePosition(playerPosition, playerVel);
+			sceneCamera.UpdatePosition(playerPosition, playerScript.isFacingRight);
 		}
 
 	}

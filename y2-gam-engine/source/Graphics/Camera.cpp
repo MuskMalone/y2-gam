@@ -97,11 +97,9 @@ Updates the camera's position based on the target's position and velocity. Adjus
 \param targetPos Position of the target (e.g., player) in the world.
 \param targetVel Velocity of the target (e.g., player).
 */
-void Camera::UpdatePosition(const glm::vec3& targetPosition, const Vec2& targetVelocity) {
-	if (std::abs(targetVelocity.x) > mSettings.velocityThreshold) {
-		float direction = (targetVelocity.x > 0) ? 1.0f : -1.0f;
-		mOffset.x = direction * mSettings.offsetX;
-	}
+void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight) {
+	float direction = isFacingRight ? 1.0f : -1.0f;
+	mOffset.x = direction * mSettings.offsetX;
 
 	//TODO CHANGE THIS
 	float leftBoundary = -300.f;
