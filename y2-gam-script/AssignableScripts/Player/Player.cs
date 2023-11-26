@@ -315,15 +315,17 @@ namespace Object
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
-            isFacingRight = false;
+            //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity -= new Vector2(100, 0.0f) * dt;
+            isFacingRight = false;    
         }
 
         public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f) * dt;
+            //Force += new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity += new Vector2(100, 0.0f) * dt;
             isFacingRight = true;
         }
 
@@ -331,7 +333,7 @@ namespace Object
         {
             //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 2300) * dt;
+            Velocity += new Vector2(0, 2500) * dt;
         }
 
         public void Respawn()
