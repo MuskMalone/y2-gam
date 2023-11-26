@@ -65,10 +65,10 @@ void MainState::Update(float dt) {
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
+
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	FrameRateController::GetInstance()->StartSubFrameTime();
 	coordinator->GetSystem<AnimationSystem>()->Update(dt);
-
 	coordinator->GetSystem<RenderSystem>()->Update(dt);
 	FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 
