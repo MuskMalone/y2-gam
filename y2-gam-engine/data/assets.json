@@ -390,6 +390,14 @@
             "idxY": 0.0,
             "dimX": 260.0,
             "dimY": 68.0
+        },
+        "1701008411608425600": {
+            "id": 1701008411608458100,
+            "path": "../assets\\Textures\\gam200_confirmation_quit game_YN.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 812.0,
+            "dimY": 432.0
         }
     },
     "classAnimationManager": {
