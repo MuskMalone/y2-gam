@@ -4,10 +4,10 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
-    public class PmQuit : Entity
+    public class PmConfirmationWindow : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
+        bool isPaused = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -15,7 +15,7 @@ namespace Object
 
         Default constructor for the EnterLevelOne entity. Inherits from entity class.
         */
-        public PmQuit() : base()
+        public PmConfirmationWindow() : base()
         {
 
         }
@@ -30,7 +30,7 @@ namespace Object
 
         Non-default, single-arg constructor for a EnterLevelOne entity.
         */
-        public PmQuit(uint entityHandle) : base(entityHandle)
+        public PmConfirmationWindow(uint entityHandle) : base(entityHandle)
         {
             entityID = entityHandle;
         }
@@ -50,35 +50,26 @@ namespace Object
 
         void PauseGame()
         {
-            
-            if (UIHover)
-            {
-                Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
-               
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked)
-            {
-                GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
-                
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
-                {
-                    //GameplayWrapper.DestroyEntity(6);
-                    //GameplayWrapper.DestroyEntity(5);
-                    ResumeGame();
-                    isPaused = false;
-                    //firstTime = false;
-                }
-            }
+
+            //if (UIHover)
+            //{
+            //    //Console.WriteLine("Quitgame Hovered Over");
+            //    Colour = new Vector4(1, 1, 1, 1);
+
+            //}
+            //else
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+            //}
+            Colour = new Vector4(1, 1, 1, 1);           
+            GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X - 150, Translation.Y - 170));
+             
         }
 
         void ResumeGame()
         {
             Colour = new Vector4(1, 0, 1, 0);
+            //GameplayWrapper.DestroyEntity(EntityID);
         }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
