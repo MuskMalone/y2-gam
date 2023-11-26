@@ -59,20 +59,12 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (UIClicked && firstTime)
+                if (firstTime && UIHover)
                 {
-                    QuitGame();
+                    PlayAudio("PM_Menu_Music_Loop.wav", 0);
                     firstTime = false;
                 }
-
-                if (UIHover)
-                {
-                    Colour = new Vector4(1, 1, 1, 1);
-                }
-                else
-                {
-                    Colour = new Vector4(1, 0, 1, 0);
-                }
+                
             }
         }
 
