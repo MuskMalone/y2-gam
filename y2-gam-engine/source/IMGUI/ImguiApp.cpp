@@ -1329,42 +1329,49 @@ namespace Image {
         auto frameController = FrameRateController::GetInstance();
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
-                camera.mPos.y += CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
+            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
+                CommandManager::GetInstance()->UndoCommand();
             }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
-                camera.mPos.y -= CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
+            else {
+
+
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W)) {
+                    camera.mPos.y += CAMERA_MOVESPEED * dt;
+                    camera.SetPosition(camera.mPos);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_S)) {
+                    camera.mPos.y -= CAMERA_MOVESPEED * dt;
+                    camera.SetPosition(camera.mPos);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
+                    camera.mPos.x -= CAMERA_MOVESPEED * dt;
+                    camera.SetPosition(camera.mPos);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
+                    camera.mPos.x += CAMERA_MOVESPEED * dt;
+                    camera.SetPosition(camera.mPos);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
+                    camera.mRot -= CAMERA_ROTSPEED * dt;
+                    camera.SetRotation(camera.mRot);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
+                    camera.mRot += CAMERA_ROTSPEED * dt;
+                    camera.SetRotation(camera.mRot);
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
+                    camera.mZoomLevel += CAMERA_ZOOMSPEED * dt;
+                    camera.ZoomIn();
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
+                    camera.mZoomLevel -= CAMERA_ZOOMSPEED * dt;
+                    camera.ZoomOut();
+                }
+                if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
+                    ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
+                }
+
             }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_A)) {
-                camera.mPos.x -= CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_D)) {
-                camera.mPos.x += CAMERA_MOVESPEED * dt;
-                camera.SetPosition(camera.mPos);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_Q)) {
-                camera.mRot -= CAMERA_ROTSPEED * dt;
-                camera.SetRotation(camera.mRot);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_E)) {
-                camera.mRot += CAMERA_ROTSPEED * dt;
-                camera.SetRotation(camera.mRot);
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_R)) {
-                camera.mZoomLevel += CAMERA_ZOOMSPEED * dt;
-                camera.ZoomIn();
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_F)) {
-                camera.mZoomLevel -= CAMERA_ZOOMSPEED * dt;
-                camera.ZoomOut();
-            }
-            if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_X)) {
-                ::gCoordinator->GetSystem<RenderSystem>()->ToggleDebugMode();
-            }
-            
         }
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
@@ -1470,9 +1477,9 @@ namespace Image {
                 if (SceneManager::GetInstance()->IsSceneActive()) {
                     PrefabsManager::PrefabID droppedPid = *(const PrefabsManager::PrefabID*)dragDropPayLoad->Data;
 
-                    PrefabsManager::GetInstance()->SpawnPrefab(droppedPid, { mpos.first, mpos.second });
+                    Entity spawnedEntity = PrefabsManager::GetInstance()->SpawnPrefab(droppedPid, { mpos.first, mpos.second });
                     //std::cout << "Mouse X: " << mpos.first << ", Mouse Y:-----------------------------------------------" << mpos.second << std::endl;
-
+                    CommandManager::GetInstance()->AddCommand("Create", spawnedEntity);
                 }
 
 
