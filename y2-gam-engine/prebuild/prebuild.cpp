@@ -94,6 +94,27 @@ int main(){
     }
     writeline(ofs, "};");
 
+    //write saveentity
+    writeline(ofs, "static std::map<std::string, std::any> SaveEntities(Entity entity) {");
+    writeline(ofs, "std::map<std::string, std::any> out{};");
+    for (std::string const& component : componentNames){
+        writeline(ofs, "if (Coordinator::GetInstance()->HasComponent<" + component + ">(entity)) { out[\"" + component + "\"] = std::any{ Coordinator::GetInstance()->GetComponent<" + component + ">(entity) }; }");
+    }
+    writeline(ofs, "return out;");
+    closebrace;
+
+    //write undestroy entity
+    writeline(ofs, "static Entity UndestroyEntity(std::map<std::string, std::any> const& components) {");
+    writeline(ofs, "Entity e{ Coordinator::GetInstance()->CreateEntity() };");
+    writeline(ofs, "for (auto const& c : components) {");
+    for (std::string const& component : componentNames){
+        writeline(ofs, "if (c.first == \"" + component + "\") { Coordinator::GetInstance()->AddComponent<" + component + ">(e, std::any_cast<" + component + ">(c.second)); }");
+    }
+    closebrace;
+    writeline(ofs, "return e;");
+
+    closebrace;
+
     //end namespace
     closebrace;
 

@@ -42,6 +42,20 @@ void EditorControlSystem::Init()
 
 void EditorControlSystem::Update(float dt)
 {
+	// Code to run the 'on update' function on entities with script components
+	if (SceneManager::GetInstance()->IsSceneActive()) {
+		//trying out smth
+		std::vector<std::pair<Entity, ScriptInstance>> vscripts{};
+		auto const& mscripts{ Image::ScriptManager::GetEntityInstances() };
+
+		std::copy(mscripts.cbegin(), mscripts.cend(), std::back_inserter(vscripts));
+		//for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+		for (size_t i{}; i < vscripts.size(); ++i){
+			auto const& e{ vscripts[i] };
+			Image::ScriptManager::OnUpdateEntity(e.first, dt);
+		}
+	}
+
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 #ifndef _INSTALLER

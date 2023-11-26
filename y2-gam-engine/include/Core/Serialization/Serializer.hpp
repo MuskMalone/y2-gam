@@ -222,4 +222,46 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Transform", EntityAddTransform},
 {"UIImage", EntityAddUIImage}
 };
+static std::map<std::string, std::any> SaveEntities(Entity entity) {
+std::map<std::string, std::any> out{};
+if (Coordinator::GetInstance()->HasComponent<Animation>(entity)) { out["Animation"] = std::any{ Coordinator::GetInstance()->GetComponent<Animation>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Camera>(entity)) { out["Camera"] = std::any{ Coordinator::GetInstance()->GetComponent<Camera>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Collider>(entity)) { out["Collider"] = std::any{ Coordinator::GetInstance()->GetComponent<Collider>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Editor>(entity)) { out["Editor"] = std::any{ Coordinator::GetInstance()->GetComponent<Editor>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Gravity>(entity)) { out["Gravity"] = std::any{ Coordinator::GetInstance()->GetComponent<Gravity>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Layering>(entity)) { out["Layering"] = std::any{ Coordinator::GetInstance()->GetComponent<Layering>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Node>(entity)) { out["Node"] = std::any{ Coordinator::GetInstance()->GetComponent<Node>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Prefab>(entity)) { out["Prefab"] = std::any{ Coordinator::GetInstance()->GetComponent<Prefab>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<RigidBody>(entity)) { out["RigidBody"] = std::any{ Coordinator::GetInstance()->GetComponent<RigidBody>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Script>(entity)) { out["Script"] = std::any{ Coordinator::GetInstance()->GetComponent<Script>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Sprite>(entity)) { out["Sprite"] = std::any{ Coordinator::GetInstance()->GetComponent<Sprite>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Swappable>(entity)) { out["Swappable"] = std::any{ Coordinator::GetInstance()->GetComponent<Swappable>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Tag>(entity)) { out["Tag"] = std::any{ Coordinator::GetInstance()->GetComponent<Tag>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Text>(entity)) { out["Text"] = std::any{ Coordinator::GetInstance()->GetComponent<Text>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Transform>(entity)) { out["Transform"] = std::any{ Coordinator::GetInstance()->GetComponent<Transform>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<UIImage>(entity)) { out["UIImage"] = std::any{ Coordinator::GetInstance()->GetComponent<UIImage>(entity) }; }
+return out;
+}
+static Entity UndestroyEntity(std::map<std::string, std::any> const& components) {
+Entity e{ Coordinator::GetInstance()->CreateEntity() };
+for (auto const& c : components) {
+if (c.first == "Animation") { Coordinator::GetInstance()->AddComponent<Animation>(e, std::any_cast<Animation>(c.second)); }
+if (c.first == "Camera") { Coordinator::GetInstance()->AddComponent<Camera>(e, std::any_cast<Camera>(c.second)); }
+if (c.first == "Collider") { Coordinator::GetInstance()->AddComponent<Collider>(e, std::any_cast<Collider>(c.second)); }
+if (c.first == "Editor") { Coordinator::GetInstance()->AddComponent<Editor>(e, std::any_cast<Editor>(c.second)); }
+if (c.first == "Gravity") { Coordinator::GetInstance()->AddComponent<Gravity>(e, std::any_cast<Gravity>(c.second)); }
+if (c.first == "Layering") { Coordinator::GetInstance()->AddComponent<Layering>(e, std::any_cast<Layering>(c.second)); }
+if (c.first == "Node") { Coordinator::GetInstance()->AddComponent<Node>(e, std::any_cast<Node>(c.second)); }
+if (c.first == "Prefab") { Coordinator::GetInstance()->AddComponent<Prefab>(e, std::any_cast<Prefab>(c.second)); }
+if (c.first == "RigidBody") { Coordinator::GetInstance()->AddComponent<RigidBody>(e, std::any_cast<RigidBody>(c.second)); }
+if (c.first == "Script") { Coordinator::GetInstance()->AddComponent<Script>(e, std::any_cast<Script>(c.second)); }
+if (c.first == "Sprite") { Coordinator::GetInstance()->AddComponent<Sprite>(e, std::any_cast<Sprite>(c.second)); }
+if (c.first == "Swappable") { Coordinator::GetInstance()->AddComponent<Swappable>(e, std::any_cast<Swappable>(c.second)); }
+if (c.first == "Tag") { Coordinator::GetInstance()->AddComponent<Tag>(e, std::any_cast<Tag>(c.second)); }
+if (c.first == "Text") { Coordinator::GetInstance()->AddComponent<Text>(e, std::any_cast<Text>(c.second)); }
+if (c.first == "Transform") { Coordinator::GetInstance()->AddComponent<Transform>(e, std::any_cast<Transform>(c.second)); }
+if (c.first == "UIImage") { Coordinator::GetInstance()->AddComponent<UIImage>(e, std::any_cast<UIImage>(c.second)); }
+}
+return e;
+}
 }
