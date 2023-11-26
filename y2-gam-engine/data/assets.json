@@ -294,6 +294,14 @@
             "idxY": 0.0,
             "dimX": 277.0,
             "dimY": 261.0
+        },
+        "1700992125651560200": {
+            "id": 1700992125651662000,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_drapery_start.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 578.0,
+            "dimY": 1300.0
         }
     },
     "classAnimationManager": {

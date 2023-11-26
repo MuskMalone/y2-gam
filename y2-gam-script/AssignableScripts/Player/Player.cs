@@ -184,15 +184,6 @@ namespace Object
                 {
                     if (spikeHit.tag == "Spikes")
                     {
-                        //Health -= 1;
-                        //if (Health <= 0)
-                        //{
-                        //    //Console.WriteLine("Die");
-                        //    Translation = spawnPosition;
-                        //    Collider = colliderPosition;
-                        //    Health = 1;
-
-                        //}
                         Respawn();
                     }
                 }
