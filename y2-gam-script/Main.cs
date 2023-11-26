@@ -16,6 +16,8 @@
 */
 /******************************************************************************/
 
+using System;
+
 namespace Image
 {
     public class Entity
@@ -83,6 +85,18 @@ namespace Image
         {
             InternalCalls.EngineCore_LoadScene(out sceneName);
         }
+
+        /*  _________________________________________________________________________ */
+        /*! LoadScene
+
+        Loads the specified scene.
+        */
+        public string GetCurrentScene()
+        {
+            InternalCalls.EngineCore_GetCurrentScene(out String sceneName);
+            return (string)sceneName;
+        }
+            
 
         /*  _________________________________________________________________________ */
         /*! IsEditorMode

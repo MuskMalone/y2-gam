@@ -483,6 +483,22 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetCurrentScene
+
+	@param sceneName
+	The scene name.
+
+	@return none.
+
+	Gets the current scene name.
+	*/
+	static void EngineCore_GetCurrentScene(MonoString** sceneName) {
+		auto scenemgr{ SceneManager::GetInstance() };
+		std::string sceneString{ (!scenemgr->IsSceneActive()) ? std::string{"No Scene Selected"} : scenemgr->GetSceneName() };
+		*sceneName = mono_string_new(mono_domain_get(), sceneString.c_str());
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_IsEditorMode
 
 	@param isEditorMode
@@ -1241,6 +1257,7 @@ namespace Image {
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetCurrentScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
