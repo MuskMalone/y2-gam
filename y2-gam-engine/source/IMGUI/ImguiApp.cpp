@@ -1086,6 +1086,7 @@ namespace Image {
               // Remove Script component
               if (gCoordinator->HasComponent<Script>(selectedEntity)) {
                 gCoordinator->RemoveComponent<Script>(selectedEntity);
+                Image::ScriptManager::RemoveEntity(selectedEntity);
               }
             }
                   break;

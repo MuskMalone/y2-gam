@@ -110,6 +110,11 @@ namespace Image
             return new Vector3(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
         }
 
+        public static Vector3 operator *(float scalar, Vector3 vector)
+        {
+            return new Vector3(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
+        }
+
         /*  _________________________________________________________________________ */
         /*! operator/
         

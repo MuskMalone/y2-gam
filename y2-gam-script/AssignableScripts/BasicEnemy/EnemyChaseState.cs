@@ -133,7 +133,7 @@ public class EnemyChaseState : EnemyBaseState
         path.Clear();
         nodeTypes.Clear();
 
-        InternalCalls.PathfindingComponent_GetPath(enemy.entityID, out Vector2 close, 
+        InternalCalls.PathfindingComponent_GetPath(ref enemy.entityID, out Vector2 close, 
             out Vector2 next, out Vector2 nodeType);
 
         // If the path is empty, switch back to idle state

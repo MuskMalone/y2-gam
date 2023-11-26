@@ -14,10 +14,17 @@
 */
 /******************************************************************************/
 
+using System;
+
 namespace Image
 {
     public static class GameplayWrapper
     {
+        public static void SpawnPrefab(String prefabName, Vector2 spawnPosition)
+        {
+            InternalCalls.GameplayComponent_SpawnPrefab(out prefabName, out spawnPosition);
+        }
+
         public static bool IsSwappable(uint entityHandle)
         {
             InternalCalls.GameplayComponent_IsSwappable(ref entityHandle, out bool isCollided);
@@ -55,6 +62,12 @@ namespace Image
                 InternalCalls.GameplayComponent_GetPlayerID(out uint playerID);
                 return playerID;
             }
+        }
+
+        public static uint GetIDFromTag(String tag)
+        {
+            InternalCalls.GameplayComponent_GetEntityIDByTag(out uint id, out tag);
+            return id;
         }
 
         public static void SlowdownTime(bool flag)

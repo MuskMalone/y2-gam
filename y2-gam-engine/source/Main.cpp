@@ -251,7 +251,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		dt = frameController->EndFrameTime();
 		windowManager->UpdateWindowTitle(WINDOW_TITLE);
-
 	}
 	Image::ScriptManager::ExitMono();
 	StateManager::GetInstance()->Clear();

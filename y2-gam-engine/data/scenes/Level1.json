@@ -36,7 +36,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 0,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -45,7 +45,7 @@
                 "posX": -400.0,
                 "posY": -36.0,
                 "rotation": 0.0,
-                "dimX": 20.0,
+                "dimX": 8.21399974822998,
                 "dimY": 32.0
             },
             "Gravity": {
@@ -550,7 +550,7 @@
                 "assetID": 1698953117858423800
             },
             "Tag": {
-                "Tag": "Waypoint_1"
+                "Tag": "Waypoint"
             },
             "Transform": {
                 "posX": -11.086105346679688,
@@ -845,7 +845,7 @@
                 "assetID": 1698953117858423800
             },
             "Tag": {
-                "Tag": "Waypoint_2"
+                "Tag": "Waypoint"
             },
             "Transform": {
                 "posX": 131.57472229003906,
@@ -965,7 +965,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 5,
+                "currFrame": 4,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1226,6 +1226,79 @@
                 "rotZ": 0.0,
                 "scaleX": 29.14299964904785,
                 "scaleY": 36.2140007019043,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "UI"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700911793527682100
+            },
+            "Tag": {
+                "Tag": "CardUI"
+            },
+            "Transform": {
+                "posX": 133.775634765625,
+                "posY": 758.75,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 200.0,
+                "scaleY": 200.0,
+                "scaleZ": 108.7961654663086,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1700930523778839900
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectArms",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 12.462470054626465,
+                "posY": 97.49897766113281,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

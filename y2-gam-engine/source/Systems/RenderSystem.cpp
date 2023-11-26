@@ -121,7 +121,7 @@ void RenderSystem::Init()
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
 	);
 
-	float const zoomFactor{ 0.4f };
+	float const zoomFactor{ 0.5f };
 	::gCoordinator->AddComponent(
 		mSceneCamera,
 		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
@@ -232,14 +232,12 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		if (playerFound) {
 			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
-			RigidBody const& playerRigidBody{ ::gCoordinator->GetComponent<RigidBody>(mPlayer) };
-			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
+			Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
-			Vec2 playerVel{ playerRigidBody.velocity };
 
 			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
-			sceneCamera.UpdatePosition(playerPosition, playerVel);
+			sceneCamera.UpdatePosition(playerPosition, playerScript.isFacingRight);
 		}
 
 	}
@@ -366,18 +364,30 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 }
 
 void RenderSystem::RenderUI() {
-	//UI
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
-	for (auto const& entity : mEntities) {
-		if (::gCoordinator->HasComponent<Layering>(entity)) {
-			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
-		}
+	// Create a vector to store entities with UIImage components
+	std::vector<Entity> uiEntities;
 
-		if (!::gCoordinator->HasComponent<UIImage>(entity)) continue;
-		auto const& ui{ ::gCoordinator->GetComponent<UIImage>(entity) };
-		auto& sprite{ ::gCoordinator->GetComponent<Sprite>(entity) };
-		auto& transform{ ::gCoordinator->GetComponent<Transform>(entity) };
+	// Populate the vector with entities that have UIImage and Transform components
+	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<UIImage>(entity) && ::gCoordinator->HasComponent<Transform>(entity)) {
+			uiEntities.push_back(entity);
+		}
+	}
+
+	// Sort the entities based on the z value of their Transform component
+	std::sort(uiEntities.begin(), uiEntities.end(), [](const Entity& a, const Entity& b) {
+		auto& transformA = ::gCoordinator->GetComponent<Transform>(a);
+		auto& transformB = ::gCoordinator->GetComponent<Transform>(b);
+		return transformA.position.z < transformB.position.z; // Sort in ascending order
+		});
+
+	// Render sorted UI elements
+	for (auto const& entity : uiEntities) {
+		auto const& ui = ::gCoordinator->GetComponent<UIImage>(entity);
+		auto& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
+		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
 
 		if (ui.enabled) {
 			// Constrain position within screen bounds
@@ -398,11 +408,11 @@ void RenderSystem::RenderUI() {
 					Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
 			}
 		}
-
 	}
 
 	Renderer::RenderSceneEnd();
 }
+
 /*  _________________________________________________________________________ */
 /*!
 \brief WindowSizeListener Function

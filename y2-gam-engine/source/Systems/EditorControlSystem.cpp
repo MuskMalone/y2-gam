@@ -44,15 +44,27 @@ void EditorControlSystem::Update(float dt)
 {
 	// Code to run the 'on update' function on entities with script components
 	if (SceneManager::GetInstance()->IsSceneActive()) {
-		for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-			Image::ScriptManager::OnUpdateEntity(e.first, dt);
+		try {
+			//trying out smth
+			std::vector<std::pair<Entity, ScriptInstance>> vscripts{};
+			auto const& mscripts{ Image::ScriptManager::GetEntityInstances() };
+
+			std::copy(mscripts.cbegin(), mscripts.cend(), std::back_inserter(vscripts));
+			//for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+			for (size_t i{}; i < vscripts.size(); ++i){
+				auto const& e{ vscripts[i] };
+				Image::ScriptManager::OnUpdateEntity(e.first, dt);
+			}
+		}
+		catch (...) {
+			LoggingSystem::GetInstance().Log(LogLevel::WARNING_LEVEL, "Script Manager Coudldn't Get All Entities", "EditorControlSystem::Update");
 		}
 	}
 
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		//Image::ScriptManager::PrintEntityInstances();
+		Image::ScriptManager::PrintEntityInstances();
 	}
 
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {

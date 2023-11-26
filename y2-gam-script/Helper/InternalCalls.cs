@@ -27,6 +27,9 @@ namespace Image
         internal extern static void GameplayComponent_FireCard(ref Vector2 startPos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_SpawnPrefab(out String fileName, out Vector2 startPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_Destroy(ref uint entityID);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -34,6 +37,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_GetPlayerID(out uint playerID);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_GetEntityIDByTag(out uint entityID, out String tag);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_IsSwappable(ref uint entityHandle, out bool outIsSwappable);
@@ -47,15 +53,15 @@ namespace Image
 
         #region UI
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void UIComponent_GetIsUIButtonClicked(uint entityID, out bool outIsClicked);
+        internal extern static void UIComponent_GetIsUIButtonClicked(ref uint entityID, out bool outIsClicked);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void UIComponent_GetIsUIButtonHover(uint entityID, out bool outIsHover);
+        internal extern static void UIComponent_GetIsUIButtonHover(ref uint entityID, out bool outIsHover);
         #endregion
 
         #region Serialization
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void SerializationComponent_GetIsFacingRight(uint entityID, out bool outFacingDirection);
+        internal extern static void SerializationComponent_GetIsFacingRight(ref uint entityID, out bool outFacingDirection);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void SerializationComponent_SetIsFacingRight(uint entityID, ref bool facingDirection);
@@ -83,7 +89,7 @@ namespace Image
 
         #region Pathfinding
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PathfindingComponent_GetPath(uint entityID, out Vector2 closestNode, 
+        internal extern static void PathfindingComponent_GetPath(ref uint entityID, out Vector2 closestNode, 
             out Vector2 nextNode, out Vector2 nodeType);
         #endregion
 
@@ -96,7 +102,7 @@ namespace Image
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, out bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetColliderDimensions(uint entityHandle, out Vector2 dim);
+        internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, out Vector2 dim);
 
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_GetColliderPos
@@ -112,7 +118,7 @@ namespace Image
         Get the collider current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void PhysicsComponent_GetColliderPos(uint entityHandle, out Vector2 pos);
+        internal extern static void PhysicsComponent_GetColliderPos(ref uint entityHandle, out Vector2 pos);
 
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_SetColliderPos
@@ -133,38 +139,6 @@ namespace Image
 
         #region Graphics
         /*  _________________________________________________________________________ */
-        /*! AnimationComponent_GetAssetID
-
-        @param entityID
-        The ID of the entity.
-
-        @param outAssetID
-        The current asset ID of the entity.
-
-        @return none.
-
-        Get the current asset ID of the entity in C#.
-        */
-        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-        //internal extern static void AnimationComponent_GetAssetID(uint entityHandle, out long assetID);
-
-        /*  _________________________________________________________________________ */
-        /*! AnimationComponent_SetAssetID
-
-        @param entityID
-        The ID of the entity.
-
-        @param assetID
-        Updated asset ID of the entity.
-
-        @return none.
-
-        Set the current asset ID of the entity in C#.
-        */
-        //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-        //internal extern static void AnimationComponent_SetAssetID(uint entityHandle, ref long assetID);
-
-        /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
         @param entityHandle
@@ -178,7 +152,7 @@ namespace Image
         Get the current animation state of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void AnimationComponent_GetAnimationState(uint entityHandle, out int animationState);
+        internal extern static void AnimationComponent_GetAnimationState(ref uint entityHandle, out int animationState);
 
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_SetAnimationState
@@ -226,7 +200,7 @@ namespace Image
         Get the current scale of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void GraphicsComponent_GetScale(uint entityHandle, out Vector3 scale);
+        internal extern static void GraphicsComponent_GetScale(ref uint entityHandle, out Vector3 scale);
 
         /*  _________________________________________________________________________ */
         /*! GraphicsComponent_SetScale
@@ -243,6 +217,38 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetScale(uint entityHandle, ref Vector3 scale);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_GetRotation
+
+        @param entityID
+        The ID of the entity.
+
+        @param outRotation
+        The current rotation of the entity.
+
+        @return none.
+
+        Get the current rotation of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_GetRotation(ref uint entityHandle, out Vector3 rotation);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetRotation
+
+        @param entityID
+        The ID of the entity.
+
+        @param rotation
+        Updated rotation of the entity.
+
+        @return none.
+
+        Set the current rotation of the entity in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetRotation(uint entityHandle, ref Vector3 rotation);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetColour(uint entityHandle, ref Vector4 colour);
@@ -263,7 +269,7 @@ namespace Image
         Get the current position of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void TransformComponent_GetTranslation(uint entityHandle, out Vector2 translation);
+        internal extern static void TransformComponent_GetTranslation(ref uint entityHandle, out Vector2 translation);
 
         /*  _________________________________________________________________________ */
         /*! TransformComponent_SetTranslation
@@ -298,7 +304,7 @@ namespace Image
         Get the current force of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetForce(uint entityHandle, out Vector2 force);
+        internal extern static void ForceComponent_GetForce(ref uint entityHandle, out Vector2 force);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetForce
@@ -330,7 +336,7 @@ namespace Image
         Get the current mass of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetMass(uint entityHandle, out float mass);
+        internal extern static void ForceComponent_GetMass(ref uint entityHandle, out float mass);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetMass
@@ -362,7 +368,7 @@ namespace Image
         Get the current velocity of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void ForceComponent_GetVelocity(uint entityHandle, out Vector2 velocity);
+        internal extern static void ForceComponent_GetVelocity(ref uint entityHandle, out Vector2 velocity);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_SetVelocity

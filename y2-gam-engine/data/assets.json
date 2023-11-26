@@ -251,6 +251,14 @@
             "idxY": 0.0,
             "dimX": 533.0,
             "dimY": 148.0
+        },
+        "1700911793527682100": {
+            "id": 1700911793527755100,
+            "path": "../assets\\Textures\\UI\\gam200_playingcards_UI.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 277.0,
+            "dimY": 261.0
         }
     },
     "classAnimationManager": {
@@ -322,6 +330,14 @@
             "id": 1700790935381617200,
             "path": "../assets\\Textures\\ANIM\\gam200_spinning_card.png",
             "frameCount": 4,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1700930523778839900": {
+            "id": 1700930523778917800,
+            "path": "../assets\\Textures\\ANIM\\ROBIN_ANIM_ARMTHROW_Spritesheet.png",
+            "frameCount": 5,
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0

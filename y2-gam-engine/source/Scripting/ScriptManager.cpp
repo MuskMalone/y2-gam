@@ -71,7 +71,7 @@ namespace Image {
   */
   void ScriptManager::InitMono() {
     // Looks for mscorlib.dll (Using .NET 4.5), required for C#
-    mono_set_assemblies_path("../assets/scripts");
+    mono_set_assemblies_path("lib/mono");
 
     // Mono auto detects the runtime version based on first assembly loaded
     MonoDomain* rootDomain{ mono_jit_init("ScriptRuntime") };
@@ -402,7 +402,16 @@ namespace Image {
   This function is called on update loop for the entity.
   */
   void ScriptManager::OnUpdateEntity(Entity const& entity, float dt) {
-    sEntityInstances[entity].CallOnUpdate(dt);
+    auto it = sEntityInstances.find(entity);
+
+    if (it != sEntityInstances.end()) {
+      sEntityInstances[entity].CallOnUpdate(dt);
+    }
+#ifndef _INSTALLER
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ENTITY COULD NOT BE FOUND", __FUNCTION__);
+    }
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -430,7 +439,10 @@ namespace Image {
   Removes the entity from the map.
   */
   void ScriptManager::RemoveEntity(Entity const& entity) {
-    sEntityInstances.erase(entity);
+    auto it = sEntityInstances.find(entity);
+    if (it != sEntityInstances.end()) {
+      sEntityInstances.erase(it);
+    }
   }
 
   /*  _________________________________________________________________________ */

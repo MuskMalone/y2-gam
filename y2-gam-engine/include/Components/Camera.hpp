@@ -39,7 +39,7 @@ public:
 
 	glm::vec3 const& GetPosition() const;
 
-	void UpdatePosition(glm::vec3 const& targetPos, Vec2 const& targetVel);
+	void UpdatePosition(glm::vec3 const& targetPos, bool isFacingRight);
 	void SetPosition(glm::vec3 const& pos);
 	void SetRotation(float rot);
 	void ZoomIn();
@@ -63,7 +63,7 @@ public:
 
 	struct CameraSettings {
 		float offsetX{ 30.f };
-		float offsetY{ 20.f };
+		float offsetY{ 0.f };
 		float velocityThreshold{ 0.2f };
 		float cameraSpeed{ 0.05f };
 
