@@ -104,45 +104,49 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                FacingDirection = isFacingRight;
-
-                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
-                new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
-                    PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
-                new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
-                    PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
-                {
-                    isGrounded = true;
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
-                }
-
-                /*
-                if (PhysicsWrapper.IsCollidedWithAnything(entityID))
-                {
-                    isGrounded = true;
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
-                }
-                */
-
-                else
-                {
-                    isGrounded = false;
-                    AnimationState = (int)AnimationCodePlayer.JUMP;
-                }
-
-                if (FacingDirectionChanged)
-                {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                }
+                
 
                 if (!godMode)
                 {
+                        FacingDirection = isFacingRight;
+
+                        if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
+                    new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
+                    new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                    new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
+                    {
+                        isGrounded = true;
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                    }
+
+                    /*
+                    if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+                    {
+                        isGrounded = true;
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                    }
+                    */
+
+                    else
+                    {
+                        isGrounded = false;
+                        AnimationState = (int)AnimationCodePlayer.JUMP;
+                    }
+
+                    if (FacingDirectionChanged)
+                    {
+                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                        FacingDirectionChanged = false; // Reset the flag
+                    }
+
+
                     if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
                     {
                         godMode = true;
                         Gravity = new Vector2(0.0f, 0.0f);
+                        Mass = 0;
                     }
 
                     if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
