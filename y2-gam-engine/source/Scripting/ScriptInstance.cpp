@@ -54,7 +54,8 @@ namespace Image {
   Calls the on create function from C#.
   */
   void ScriptInstance::CallOnCreate() {
-    mScriptClass.CallMethod(mInstance, mOnCreateMethod);
+    if (mInstance != nullptr && mOnCreateMethod != nullptr)
+      mScriptClass.CallMethod(mInstance, mOnCreateMethod);
   }
 
   /*  _________________________________________________________________________ */
@@ -81,6 +82,7 @@ namespace Image {
   Calls the on exit function from C#.
   */
   void ScriptInstance::CallOnExit() {
-    mScriptClass.CallMethod(mInstance, mOnExitMethod);
+    if (mInstance != nullptr && mOnExitMethod != nullptr)
+      mScriptClass.CallMethod(mInstance, mOnExitMethod);
   }
 }

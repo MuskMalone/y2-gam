@@ -50,7 +50,11 @@ namespace Object
         }
         public bool HoveringChanged { get; private set; }
 
-        //private List<string> CardSwapAudio = 
+        private List<string> CardSwapAudio = new List<string>();
+        private List<string> CardThrowAudio = new List<string>();
+        private int CardSwapAudioCounter = 0;
+        private int CardThrowAudioCounter = 0;
+        private readonly int MAX_AUDIO_FILES = 2;
 
         /*  _________________________________________________________________________ */
         /*! Card
@@ -90,6 +94,12 @@ namespace Object
         {
             Hovering = false;
             ResetCardPos();
+
+            CardSwapAudio.Add("Card-Swap_SFX_1.wav");
+            CardSwapAudio.Add("Card-Swap_SFX_2.wav");
+
+            CardThrowAudio.Add("Card-Throw_SFX_1.wav");
+            CardThrowAudio.Add("Card-Throw_SFX_2.wav");
         }
 
         /*  _________________________________________________________________________ */
@@ -128,7 +138,14 @@ namespace Object
                             {
                                 ResetCardUI();
                                 GameplayWrapper.Swap(entityID, swapRayCast.id);
-                                PlayAudio("Card-Swap_SFX_1.wav", 0);
+
+                                CardSwapAudioCounter++;
+                                if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                {
+                                    CardSwapAudioCounter = 0;
+                                }
+                                PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
                                 ResetCardPos();
                                 ResetColour(swapRayCast.id);
                             }
@@ -248,7 +265,13 @@ namespace Object
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
-            PlayAudio("Card-Throw_SFX_1.wav", 0);
+
+            CardThrowAudioCounter++;
+            if (CardThrowAudioCounter >= MAX_AUDIO_FILES)
+            {
+                CardThrowAudioCounter = 0;
+            }
+            PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0);
         }
 
         static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)
