@@ -179,6 +179,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	uiSystem->Init();
 
+
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
@@ -210,7 +211,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	inputSystem->Init();
 
-
+	auto prefabSystem = coordinator->RegisterSystem<PrefabsSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Prefab>());
+		coordinator->SetSystemSignature<PrefabsSystem>(signature);
+	}
+	inputSystem->Init();
+	
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
@@ -240,6 +248,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		windowManager->ProcessEvents();
 		//gGameLoop.CheckToggleKey();
+		//prefabSystem->Update();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
 		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
@@ -256,7 +265,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
-		imguiSystem->Update(dt);
+		static bool isEditor{ true };
+		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+			isEditor = !isEditor;
+		}
+		if (isEditor) {
+			imguiSystem->Update(dt);
+		}
 #endif
 
 		dt = frameController->EndFrameTime();

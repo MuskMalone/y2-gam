@@ -4,6 +4,7 @@
 struct Prefab {
 	size_t prefabId;
 	Prefab() = default;
+	Prefab(size_t id) : prefabId{ id } {}
 	Prefab(rapidjson::Value const& obj) : prefabId{ obj["prefabId"].GetUint64() } {}
 	bool Serialize(rapidjson::Value& obj) {
 		Serializer::SerializationManager::GetInstance()->InsertValue(obj, "prefabId", prefabId);

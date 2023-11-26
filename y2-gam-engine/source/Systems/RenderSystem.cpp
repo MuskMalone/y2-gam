@@ -385,6 +385,11 @@ void RenderSystem::RenderUI() {
 
 	// Render sorted UI elements
 	for (auto const& entity : uiEntities) {
+
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
+
 		auto const& ui = ::gCoordinator->GetComponent<UIImage>(entity);
 		auto& sprite = ::gCoordinator->GetComponent<Sprite>(entity);
 		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);

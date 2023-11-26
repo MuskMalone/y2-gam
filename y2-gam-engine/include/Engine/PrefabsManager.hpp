@@ -16,6 +16,8 @@
 /******************************************************************************/
 #include <Core/Types.hpp>
 #include <Core/Globals.hpp>
+#include <Core/Coordinator.hpp>
+
 struct PrefabEntry;
 class PrefabsManager {
 public:
@@ -52,4 +54,12 @@ struct PrefabEntry {
 	PrefabsManager::PrefabID id;
 	bool isChanged;
 	Entity entity;
+};
+class PrefabsSystem : public System {
+public:
+	void Init() {}
+	void Update();
+
+private:
+	//TODO REMOVE ------------TEMP------------------
 };

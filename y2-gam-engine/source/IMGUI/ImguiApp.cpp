@@ -12,7 +12,8 @@
             parts of the application's GUI. It includes the main rendering function, 
             as well as functions for displaying various windows such as the main 
             menu, hierarchy, inspector, property, buffer, prefab buffer, texture
-            performance, contet browser and logging windows. 
+            performance, contet browser and logging windows. Gizmo has been
+            implmented as well for translation, scaling and rotation.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -179,12 +180,23 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+            static bool paused = false;
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
-                    SceneManager::GetInstance()->ModifyScene();
+                    if (!paused) SceneManager::GetInstance()->ModifyScene();
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
+                    paused = false;
+                }
+            }
+            if (ImGui::MenuItem("Pause")) {
+                if (!renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
+                    //SceneManager::GetInstance()->ModifyScene();
+                    // std::cout << "Play to toggle to editer play mode" << std::endl;
+                    renderSystem->ToggleEditorMode();
+                    ImGui::SetWindowFocus("Image Game Engine");
+                    paused = true;
                 }
             }
             if (ImGui::MenuItem("Stop")) {
@@ -196,6 +208,7 @@ namespace Image {
 
                     }
                     SceneManager::GetInstance()->ResetScene();
+                    paused = false;
 
                 }
             }
@@ -445,7 +458,7 @@ namespace Image {
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
             std::string entityidstring{"Entity ID: " + std::to_string(selectedEntity)};
             ImGui::Text(entityidstring.c_str());
-            if (gCoordinator->HasComponent<Layering>(selectedEntity)) {
+            if (gCoordinator->HasComponent<Layering>(selectedEntity) && !prefabs) {
               std::string treeNodeLabel = "Layer##" + std::to_string(selectedEntity);
               
               ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
@@ -491,28 +504,6 @@ namespace Image {
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                     if (prefabs) {
                         Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
-
-                        // Position X
-                        ImGui::Text("Position");
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos X", &transform.position.x);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
-
-                        // Position Y
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos Y", &transform.position.y);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
-
-                        // Position Z
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos Z", &transform.position.z);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
                         // Rotation
                         ImGui::Text("Rotation");
@@ -1241,7 +1232,7 @@ namespace Image {
     }
     void PrefabPropertyWindow() {
         ImGui::Begin("Prefab Property");
-        PropertyWindow(gSelectedPrefab, false);
+        PropertyWindow(gSelectedPrefab, true);
         ImGui::End();
     }
     void GameObjectPropertyWindow() {
@@ -1760,6 +1751,20 @@ namespace Image {
         Renderer::ResetStats();
     }
 
+    /*  _________________________________________________________________________ */
+     /*! GuizmoWindow
+
+     @param none
+
+     @return none.
+
+     This function creates and manages a GUI window for manipulating object transformations
+     using the Dear ImGui library. It allows users to switch between translation, rotation,
+     and scaling operations for a selected entity and adjust transformation parameters.
+     The function also supports toggling between local and world coordinates and enables
+     snapping for precise control. 
+
+     */
     void GuizmoWindow() {
         ImGui::PushFont(mainfont);
         ImGui::Begin("Guizmo");
