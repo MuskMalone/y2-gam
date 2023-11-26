@@ -42,19 +42,13 @@ void EditorControlSystem::Init()
 
 void EditorControlSystem::Update(float dt)
 {
-	// Code to run the 'on update' function on entities with script components
-	if (SceneManager::GetInstance()->IsSceneActive()) {
-		for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-			Image::ScriptManager::OnUpdateEntity(e.first, dt);
-		}
-	}
-
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
+#ifndef _INSTALLER
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
 		Image::ScriptManager::PrintEntityInstances();
 	}
-
+#endif
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
 
 	}

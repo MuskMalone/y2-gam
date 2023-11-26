@@ -116,7 +116,6 @@ namespace Object
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
                 
-
                 /*
                 if (PhysicsWrapper.IsCollidedWithAnything(entityID))
                 {
@@ -124,6 +123,7 @@ namespace Object
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
                 */
+
                 else
                 {
                     isGrounded = false;
@@ -230,8 +230,8 @@ namespace Object
         public void Jump(float dt)
         {
             //Force += new Vector2(0, JumpForce) * dt;
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 3800) * dt;
+            Velocity -= new Vector2(0, Velocity.Y) * dt;
+            Velocity += new Vector2(0, 2000) * dt;
         }
     }
 }

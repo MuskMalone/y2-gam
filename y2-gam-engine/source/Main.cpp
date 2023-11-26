@@ -214,7 +214,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
-	NodeManager::Initialize();
+	//NodeManager::Initialize();
 	Image::ScriptManager::Init();
 
 #ifdef _INSTALLER
@@ -224,6 +224,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (!quit && !windowManager->ShouldClose())
 	{
+		// Code to run the 'on update' function on entities with script components
+		//if (SceneManager::GetInstance()->IsSceneActive()) {
+			for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
+				if (e.first >= 0 && e.first < MAX_ENTITIES)
+					Image::ScriptManager::OnUpdateEntity(e.first, dt);
+			}
+		//}
+
 		Image::SoundManager::AudioUpdate();
 		
 		inputSystem->Update();
@@ -239,7 +247,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		uiSystem->Update();
 
-		NodeManager::Update();
+		//NodeManager::Update();
 
 		windowManager->Update();
 
