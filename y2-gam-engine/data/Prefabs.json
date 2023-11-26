@@ -152,7 +152,7 @@
                 "layering": "layer"
             },
             "Script": {
-                "script": "ObjectPmHowToPlay",
+                "script": "ObjectPmHowToPlayScene",
                 "isFacingRight": true
             },
             "Sprite": {
@@ -161,7 +161,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1700951688787371900
+                "assetID": 1701023414855149600
             },
             "Transform": {
                 "posX": 1009.0,
@@ -170,8 +170,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 187.0,
-                "scaleY": 38.0,
+                "scaleX": 1600.0,
+                "scaleY": 889.593017578125,
                 "scaleZ": 15.0,
                 "elipse": false
             },

@@ -63,9 +63,9 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+                if (Input.IsKeyClicked(KeyCode.KEY_Q))
                 {
-                    LoadScene("Level1");
+                    GameplayWrapper.DestroyEntity(entityID);
                 }
               
             }

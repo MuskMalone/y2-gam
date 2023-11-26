@@ -398,6 +398,14 @@
             "idxY": 0.0,
             "dimX": 812.0,
             "dimY": 432.0
+        },
+        "1701023414855149600": {
+            "id": 1701023414855184400,
+            "path": "../assets\\Textures\\HowToPlayQ.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1229.0,
+            "dimY": 691.0
         }
     },
     "classAnimationManager": {
