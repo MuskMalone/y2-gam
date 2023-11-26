@@ -69,11 +69,22 @@ namespace Image
         /*  _________________________________________________________________________ */
         /*! PlayAudio
 
-        Loads the specified scene.
+        Plays any sound file loaded in the asset manager. Remember to add '.wav' to
+        the end of the audioFileName
         */
         public void PlayAudio(string audioFileName, int loopCount)
         {
             InternalCalls.EngineCore_PlayAudio(out audioFileName, out loopCount);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! StopAudio
+
+        Stops the current bgm.
+        */
+        public void StopAudio()
+        {
+            InternalCalls.EngineCore_StopAudio();
         }
 
         /*  _________________________________________________________________________ */
