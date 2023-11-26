@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignableScripts\Activatables\Button.cs" />
+    <Compile Include="AssignableScripts\Activatables\CloseDoor.cs" />
     <Compile Include="AssignableScripts\Activatables\Door.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />

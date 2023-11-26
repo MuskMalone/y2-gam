@@ -264,12 +264,12 @@
             "dimY": 69.0
         },
         "1700756899751994000": {
-            "id": 1700756899752025300,
-            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "id": 1701013613861012200,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_drapery_middle.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 358.0,
-            "dimY": 66.0
+            "dimX": 1838.0,
+            "dimY": 1300.0
         },
         "1700772694795002100": {
             "id": 1700772694795039300,
@@ -302,6 +302,62 @@
             "idxY": 0.0,
             "dimX": 578.0,
             "dimY": 1300.0
+        },
+        "1701014480829685200": {
+            "id": 1701014480829790300,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_drapery_end.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 578.0,
+            "dimY": 1300.0
+        },
+        "1701014742290663500": {
+            "id": 1701014742290811900,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_pattern_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1915.0,
+            "dimY": 683.0
+        },
+        "1701015172374297100": {
+            "id": 1701015172374491400,
+            "path": "../assets\\Textures\\tiles\\GAM TILES LONG.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3686.0,
+            "dimY": 137.0
+        },
+        "1701015179232428100": {
+            "id": 1701015179232585900,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_lamp.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 225.0,
+            "dimY": 417.0
+        },
+        "1701015181548270400": {
+            "id": 1701015181548365100,
+            "path": "../assets\\Textures\\backgrounds\\game 200_backstage_pattern_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2067.0,
+            "dimY": 683.0
+        },
+        "1701018729156716900": {
+            "id": 1701018729156758000,
+            "path": "../assets\\Textures\\backgrounds\\backstage_pattern_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1915.0,
+            "dimY": 683.0
+        },
+        "1701018730386085900": {
+            "id": 1701018730386140700,
+            "path": "../assets\\Textures\\backgrounds\\backstage_pattern_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2067.0,
+            "dimY": 683.0
         }
     },
     "classAnimationManager": {

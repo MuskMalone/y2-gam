@@ -28,6 +28,7 @@ namespace Object
         //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
+        private bool waypointActivated = false;
         public bool isGrounded = true;
         private bool slowdownToggle = true;
         //private bool jumped = false;
@@ -87,6 +88,7 @@ namespace Object
         {
             isFacingRight = FacingDirection;
             FacingDirectionChanged = false;
+            //GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));
         }
 
         /*  _________________________________________________________________________ */
@@ -172,8 +174,13 @@ namespace Object
                     colliderPosition = Translation;
                     colliderPosition += new Vector2(waypointOffset, waypointOffset);
                     colliderPosition -= new Vector2(0, colliderOffset);
+                    //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
 
+                }
 
+                if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                {
+                    Respawn();
                 }
 
                 Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
