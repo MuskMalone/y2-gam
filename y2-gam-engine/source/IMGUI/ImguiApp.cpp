@@ -179,12 +179,23 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
+            static bool paused = false;
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
-                    SceneManager::GetInstance()->ModifyScene();
+                    if (!paused) SceneManager::GetInstance()->ModifyScene();
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
+                    paused = false;
+                }
+            }
+            if (ImGui::MenuItem("Pause")) {
+                if (!renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
+                    //SceneManager::GetInstance()->ModifyScene();
+                    // std::cout << "Play to toggle to editer play mode" << std::endl;
+                    renderSystem->ToggleEditorMode();
+                    ImGui::SetWindowFocus("Image Game Engine");
+                    paused = true;
                 }
             }
             if (ImGui::MenuItem("Stop")) {
@@ -196,6 +207,7 @@ namespace Image {
 
                     }
                     SceneManager::GetInstance()->ResetScene();
+                    paused = false;
 
                 }
             }
