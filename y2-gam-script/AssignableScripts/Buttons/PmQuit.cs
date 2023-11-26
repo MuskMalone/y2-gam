@@ -64,7 +64,14 @@ namespace Object
             if (UIClicked)
             {
                 GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
-                GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X, Translation.Y));
+                GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X-150, Translation.Y-170));
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                {
+                    
+                    ResumeGame();
+                    isPaused = false;
+                    //firstTime = false;
+                }
             }
         }
 
