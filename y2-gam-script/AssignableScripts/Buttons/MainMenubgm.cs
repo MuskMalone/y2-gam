@@ -61,7 +61,7 @@ namespace Object
             {
                 if (firstTime && UIHover)
                 {
-                    PlayAudio("PM_Menu_Music_Loop.wav", 0);
+                    PlayAudio("PM_Menu_Music_Loop.wav", -1);
                     firstTime = false;
                 }
                 
