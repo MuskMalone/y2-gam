@@ -43,7 +43,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 4,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -976,7 +976,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 0,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1185,7 +1185,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1269,43 +1269,6 @@
                 "rotZ": 0.0,
                 "scaleX": 1500.0,
                 "scaleY": 654.5549926757813,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
-            "Script": {
-                "script": "ObjectPmQuit",
-                "isFacingRight": true
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 0.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1700946331426554800
-            },
-            "Tag": {
-                "Tag": "quitgame_glow"
-            },
-            "Transform": {
-                "posX": 1009.0,
-                "posY": 497.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 155.0,
-                "scaleY": 34.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

@@ -177,7 +177,11 @@
         },
         "Quit": {
             "Layering": {
-                "layering": "#####"
+                "layering": "layer"
+            },
+            "Script": {
+                "script": "ObjectPmQuit",
+                "isFacingRight": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -185,20 +189,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1700925666827633500
+                "assetID": 1700946331426554800
             },
             "Tag": {
                 "Tag": "pf_quitgameglow"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 1009.0,
+                "posY": 497.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 23.774999618530273,
+                "scaleX": 155.0,
+                "scaleY": 34.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },
@@ -210,7 +214,7 @@
         },
         "Confirmation": {
             "Layering": {
-                "layering": "#####"
+                "layering": "Card"
             },
             "Sprite": {
                 "r": 1.0,

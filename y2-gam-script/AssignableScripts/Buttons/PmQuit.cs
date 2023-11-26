@@ -63,7 +63,7 @@ namespace Object
             }
             if (UIClicked)
             {
-                GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(Translation.X, Translation.Y));
+                GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
             }
         }
 

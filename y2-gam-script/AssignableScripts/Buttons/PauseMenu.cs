@@ -51,6 +51,7 @@ namespace Object
         void PauseGame()
         {
             Colour = new Vector4(1, 1, 1, 1);
+            GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
         }
 
         void ResumeGame()
