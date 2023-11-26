@@ -105,7 +105,11 @@ Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
 	using namespace Serializer;
-	return gCoordinator->CloneEntity(mPrefabsFactory[key].entity);
+	auto out = gCoordinator->CloneEntity(mPrefabsFactory[key].entity);
+	if (gCoordinator->HasComponent<Script>(out)) {
+		ScriptManager::OnCreateEntity(out);
+	}
+	return out;
 }
 Entity PrefabsManager::SpawnPrefab(const char* key) {
 	return SpawnPrefab(_hash(key));
