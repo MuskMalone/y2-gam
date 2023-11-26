@@ -98,7 +98,17 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
-        /*! LoadScene
+        /*! SaveScene
+
+        Saves the specified scene.
+        */
+        public void SaveScene(string sceneName)
+        {
+            InternalCalls.EngineCore_SaveScene(out sceneName);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! GetCurrentScene
 
         Loads the specified scene.
         */

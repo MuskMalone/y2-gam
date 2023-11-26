@@ -493,6 +493,31 @@ namespace Image {
 #endif
 	}
 
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_SaveScene
+
+	@param sceneName
+	The scene name to save.
+
+	@return none.
+
+	Saves the scene.
+	*/
+	static void EngineCore_SaveScene(MonoString** sceneName) {
+		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
+		if (utf8Str != nullptr) {
+			SceneManager::GetInstance()->SaveScene(utf8Str);
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetCurrentScene
 
@@ -1269,6 +1294,7 @@ namespace Image {
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SaveScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetCurrentScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
