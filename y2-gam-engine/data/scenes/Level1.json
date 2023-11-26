@@ -11,6 +11,10 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Script": {
+                "script": "ObjectGameplaybgm",
+                "isFacingRight": true
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,

@@ -89,6 +89,7 @@ namespace Object
 
                 if (UIClicked && firstTime)
                 {
+                    StopAudio();
                     LoadScene("Level1");
                     firstTime = false;
                 }

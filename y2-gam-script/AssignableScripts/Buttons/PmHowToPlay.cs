@@ -63,6 +63,7 @@ namespace Object
             }
             if (UIClicked)
             {
+                StopAudio();
                 //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
                 LoadScene("HowToPlay");
             }

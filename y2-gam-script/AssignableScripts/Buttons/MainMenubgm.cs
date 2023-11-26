@@ -6,6 +6,7 @@ namespace Object
     public class MainMenubgm : Entity
     {
         bool firstTime = true;
+        bool isPlaying = false;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -59,12 +60,23 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (firstTime && UIHover)
+                if (GetCurrentScene() == "MainMenu" && !isPlaying)
                 {
                     PlayAudio("PM_Menu_Music_Loop.wav", -1);
-                    firstTime = false;
+                    firstTime = true;
+                    isPlaying = true;
                 }
+                //else
+                //{
+                //    StopAudio();
+                    
+                //}
                 
+            }
+            else if(firstTime)
+            {
+                StopAudio();
+                firstTime = false;
             }
         }
 
