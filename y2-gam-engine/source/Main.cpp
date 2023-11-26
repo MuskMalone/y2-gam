@@ -256,7 +256,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
-		imguiSystem->Update(dt);
+		static bool isEditor{ true };
+		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+			isEditor = !isEditor;
+		}
+		if (isEditor) {
+			imguiSystem->Update(dt);
+		}
 #endif
 
 		dt = frameController->EndFrameTime();

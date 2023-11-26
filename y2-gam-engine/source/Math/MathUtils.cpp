@@ -48,6 +48,23 @@ namespace Image {
 		return degree * (gPI / 180.f);
 	}
 
+    /**
+     *  _________________________________________________________________________
+     *  @brief Decomposes a 4x4 transformation matrix into its translation, rotation, and scale components.
+     *
+     *  This function takes a 4x4 transformation matrix and decomposes it into translation,
+     *  rotation, and scale vectors. It normalizes the matrix, isolates the perspective
+     *  partition, and extracts the translation, scale, and rotation components.
+     *  The function is based on glm::decompose in matrix_decompose.inl from the GLM library.
+     *
+     *  @param transform A constant reference to a glm::mat4 transformation matrix to be decomposed.
+     *  @param[out] translation Reference to a glm::vec3 to store the translation vector.
+     *  @param[out] rotation Reference to a glm::vec3 to store the rotation vector (in radians).
+     *  @param[out] scale Reference to a glm::vec3 to store the scale vector.
+     *
+     *  @return bool True if the matrix was successfully decomposed; false if the matrix is
+     *          non-invertible (determinant is zero).
+ */
     bool DecomposeTransform(const glm::mat4& transform, glm::vec3& translation, glm::vec3& rotation, glm::vec3& scale){
         // From glm::decompose in matrix_decompose.inl
 

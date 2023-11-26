@@ -12,7 +12,8 @@
             parts of the application's GUI. It includes the main rendering function, 
             as well as functions for displaying various windows such as the main 
             menu, hierarchy, inspector, property, buffer, prefab buffer, texture
-            performance, contet browser and logging windows. 
+            performance, contet browser and logging windows. Gizmo has been
+            implmented as well for translation, scaling and rotation.
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -1760,6 +1761,20 @@ namespace Image {
         Renderer::ResetStats();
     }
 
+    /*  _________________________________________________________________________ */
+     /*! GuizmoWindow
+
+     @param none
+
+     @return none.
+
+     This function creates and manages a GUI window for manipulating object transformations
+     using the Dear ImGui library. It allows users to switch between translation, rotation,
+     and scaling operations for a selected entity and adjust transformation parameters.
+     The function also supports toggling between local and world coordinates and enables
+     snapping for precise control. 
+
+     */
     void GuizmoWindow() {
         ImGui::PushFont(mainfont);
         ImGui::Begin("Guizmo");
