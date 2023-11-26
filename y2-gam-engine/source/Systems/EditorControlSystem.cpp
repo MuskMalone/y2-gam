@@ -59,17 +59,25 @@ void EditorControlSystem::Update(float dt)
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 
 #ifndef _INSTALLER
+	/*
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_1)) {
-		Image::ScriptManager::PrintEntityInstances();
+		//Image::ScriptManager::PrintEntityInstances();
+		SoundManager::AudioPlay("PM_Menu_Music_Loop.wav", -1);
 	}
-#endif
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
 
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_2)) {
+		SoundManager::AudioStopGroup(SoundManager::musicGroup);
 	}
 	
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_3)) {
-
+		SoundManager::AudioPlay("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
 	}
+
+	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_4)) {
+		SoundManager::AudioResumeGroup(SoundManager::musicGroup);
+	}
+	*/
+#endif
 
 #ifndef _INSTALLER
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&

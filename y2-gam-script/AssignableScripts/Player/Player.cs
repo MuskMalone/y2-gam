@@ -186,7 +186,6 @@ namespace Object
                         {
                             GameplayWrapper.SlowdownTime(slowdownToggle);
                             slowdownToggle = !slowdownToggle;
-                            Console.WriteLine(GetCurrentScene());
                         }
 
                         if (Input.IsKeyPressed(KeyCode.KEY_W))

@@ -459,6 +459,17 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_StopAudio
+
+	@return none.
+
+	Stops audio in the bgm group.
+	*/
+	static void EngineCore_StopAudio() {
+		SoundManager::AudioStopGroup(SoundManager::musicGroup);
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_LoadScene
 
 	@param sceneName
@@ -1256,6 +1267,7 @@ namespace Image {
 
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetCurrentScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
