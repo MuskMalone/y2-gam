@@ -122,6 +122,7 @@ namespace Object
                 {
                     dt = temp_dt;
                     PauseGame();
+
                     //AnimationState = temp_AnimationState;
                 }
 
@@ -129,6 +130,7 @@ namespace Object
                 {
                     if (!isPaused)
                     {
+
                         PauseGame();
                         temp_dt = dt;
                         dt = temp_dt;
