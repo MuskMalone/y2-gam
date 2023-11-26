@@ -87,6 +87,9 @@ namespace Image
         internal extern static void EngineCore_LoadScene(out String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_SaveScene(out String sceneName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_GetCurrentScene(out String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
