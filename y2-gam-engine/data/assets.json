@@ -9,6 +9,41 @@
             "id": 1700582537521524600,
             "path": "../assets\\audio\\music\\Poltergeist'sMansionTheme_BGM_Loop.wav",
             "stream": false
+        },
+        "1700982285017535900": {
+            "id": 1700982285017546500,
+            "path": "../assets\\audio\\sfx\\Card-Throw_SFX_1.wav",
+            "stream": true
+        },
+        "1700982285850811900": {
+            "id": 1700982285850829100,
+            "path": "../assets\\audio\\sfx\\Card-Throw_SFX_2.wav",
+            "stream": false
+        },
+        "1700983656576161600": {
+            "id": 1700983656576181900,
+            "path": "../assets\\audio\\sfx\\player_hit_the_ground.wav",
+            "stream": false
+        },
+        "1700983671697623800": {
+            "id": 1700983671697642400,
+            "path": "../assets\\audio\\sfx\\out_of_cards.wav",
+            "stream": false
+        },
+        "1700983681928349900": {
+            "id": 1700983681928367900,
+            "path": "../assets\\audio\\sfx\\player_killed.wav",
+            "stream": false
+        },
+        "1700983693625967400": {
+            "id": 1700983693625987500,
+            "path": "../assets\\audio\\sfx\\Card-Swap_SFX_1.wav",
+            "stream": false
+        },
+        "1700983699464844200": {
+            "id": 1700983699464866400,
+            "path": "../assets\\audio\\sfx\\Card-Swap_SFX_2.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {

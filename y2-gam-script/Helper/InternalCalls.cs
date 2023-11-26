@@ -24,6 +24,12 @@ namespace Image
     {
         #region Gameplay
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_GetPressed(out bool isPressed);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GameplayComponent_SetPressed(ref bool isPressed);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_FireCard(ref Vector2 startPos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

@@ -113,6 +113,11 @@ namespace Object
             {
                 if (Alive)
                 {
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        PlayAudio("out_of_cards.wav", 0);
+                    }
+
                     // Swap Related
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
@@ -238,6 +243,7 @@ namespace Object
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
+            PlayAudio("Card-Throw_SFX_1.wav", 0);
         }
 
         static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)

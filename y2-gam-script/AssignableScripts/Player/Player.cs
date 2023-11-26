@@ -23,8 +23,8 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 1000000.0f;
-        public readonly float MovementForce = 80000.0f;
+        public readonly float JumpForce = 900000.0f;
+        public readonly float MovementForce = 70000.0f;
         public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
@@ -230,8 +230,8 @@ namespace Object
         public void Jump(float dt)
         {
             //Force += new Vector2(0, JumpForce) * dt;
-            Velocity -= new Vector2(0, Velocity.Y) * dt;
-            Velocity += new Vector2(0, 2000) * dt;
+            Velocity -= new Vector2(0, Velocity.Y);
+            Velocity += new Vector2(0, 2100) * dt;
         }
     }
 }

@@ -74,6 +74,19 @@ namespace Image
         {
             InternalCalls.GameplayComponent_SlowdownTime(out flag);
         }
+
+        public static bool IsPressed
+        {
+            get
+            {
+                InternalCalls.GameplayComponent_GetPressed(out bool isPressed);
+                return isPressed;
+            }
+            set
+            {
+                InternalCalls.GameplayComponent_SetPressed(ref value);
+            }
+        }
     }
 }
 

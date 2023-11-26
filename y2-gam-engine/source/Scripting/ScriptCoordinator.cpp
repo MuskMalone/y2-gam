@@ -41,6 +41,7 @@ using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
+	bool isPressed;
 }
 
 namespace Image {
@@ -104,6 +105,15 @@ namespace Image {
 			);
 		*/
 		//PrefabsManager::GetInstance()->SpawnPrefab("Card", *startPos);
+	}
+
+	// Temporary (to work on wrapping event system from cpp to cs during hols)
+	static void GameplayComponent_GetPressed(bool* isPressed) {
+		*isPressed = ::isPressed;
+	}
+
+	static void GameplayComponent_SetPressed(bool* isPressed) {
+		::isPressed = *isPressed;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -437,8 +447,7 @@ namespace Image {
 	static void EngineCore_PlayAudio(MonoString** audioFileName, int* loopCount) {
 		const char* utf8Str = *audioFileName != nullptr ? mono_string_to_utf8(*audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
-			SoundManager::AudioPlay(mono_string_to_utf8(*audioFileName), *loopCount);
-			mono_free(*audioFileName);
+			SoundManager::AudioPlay(utf8Str, *loopCount);
 		}
 
 #ifndef _INSTALLER
@@ -1178,6 +1187,8 @@ namespace Image {
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPressed);
+		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SetPressed);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_FireCard);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SpawnPrefab);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
