@@ -31,6 +31,7 @@ namespace Object
         public bool isGrounded = true;
         private bool slowdownToggle = true;
         //private bool jumped = false;
+        bool godMode = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -104,7 +105,7 @@ namespace Object
             if (!IsEditorMode())
             {
                 FacingDirection = isFacingRight;
-                
+
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
                 new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                     PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
@@ -115,7 +116,7 @@ namespace Object
                     isGrounded = true;
                     AnimationState = (int)AnimationCodePlayer.IDLE;
                 }
-                
+
                 /*
                 if (PhysicsWrapper.IsCollidedWithAnything(entityID))
                 {
@@ -136,74 +137,107 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                if (!godMode)
                 {
-                    GameplayWrapper.SlowdownTime(slowdownToggle);
-                    slowdownToggle = !slowdownToggle;                  
-                }
-
-                if (Input.IsKeyPressed(KeyCode.KEY_W))
-                {
-                    if (isGrounded)
+                    if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
                     {
-                        Jump(dt);
+                        godMode = true;
+                        Gravity = new Vector2(0.0f, 0.0f);
                     }
-                }
 
-                else if (Input.IsKeyPressed(KeyCode.KEY_A))
-                {
-                    MoveLeft(dt);
-                }
-
-                else if (Input.IsKeyPressed(KeyCode.KEY_D))
-                {
-                    MoveRight(dt);
-                }
-
-                Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
-                {
-
-                    //Console.WriteLine("Player touched a waypoint!");
-                    float waypointOffset = 2.0f;
-                    float colliderOffset = 9.0f;
-                    spawnPosition = Translation;
-                    spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                    colliderPosition = Translation;
-                    colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                    colliderPosition -= new Vector2(0, colliderOffset);
-
-
-                }
-
-                Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                {
-                    if (spikeHit.tag == "Spikes")
+                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
                     {
-                        //Health -= 1;
-                        //if (Health <= 0)
-                        //{
-                        //    //Console.WriteLine("Die");
-                        //    Translation = spawnPosition;
-                        //    Collider = colliderPosition;
-                        //    Health = 1;
+                        GameplayWrapper.SlowdownTime(slowdownToggle);
+                        slowdownToggle = !slowdownToggle;
+                    }
 
-                        //}
+                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    {
+                        if (isGrounded)
+                        {
+                            Jump(dt);
+                        }
+                    }
+
+                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    {
+                        MoveLeft(dt);
+                    }
+
+                    else if (Input.IsKeyPressed(KeyCode.KEY_D))
+                    {
+                        MoveRight(dt);
+                    }
+
+                    Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
+                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
+                    {
+
+                        //Console.WriteLine("Player touched a waypoint!");
+                        float waypointOffset = 2.0f;
+                        float colliderOffset = 9.0f;
+                        spawnPosition = Translation;
+                        spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                        colliderPosition = Translation;
+                        colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                        colliderPosition -= new Vector2(0, colliderOffset);
+
+
+                    }
+
+                    Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
+
+                    Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+
+                    if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
+                    {
+                        if (spikeHit.tag == "Spikes")
+                        {
+                            //Health -= 1;
+                            //if (Health <= 0)
+                            //{
+                            //    //Console.WriteLine("Die");
+                            //    Translation = spawnPosition;
+                            //    Collider = colliderPosition;
+                            //    Health = 1;
+
+                            //}
+                            Respawn();
+                        }
+                    }
+
+                    if (Translation.Y <= -99.0f)
+                    {
                         Respawn();
                     }
                 }
 
-                if (Translation.Y <= -99.0f)
+                else
                 {
-                    Respawn();
-                }
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                    ColliderDimensions = new Vector2(0f, 0f);
 
-                
-            }
+                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    {
+                        FlyUp(dt);
+                    }
+
+                    if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    {
+                        FlyLeft(dt);
+                    }
+
+                    if (Input.IsKeyPressed(KeyCode.KEY_D))
+                    {
+                        FlyRight(dt);
+                    }
+
+                    if (Input.IsKeyPressed(KeyCode.KEY_S))
+                    {
+                        FlyDown(dt);
+                    }
+                }            
+            } 
         }
 
         /*  _________________________________________________________________________ */
@@ -245,6 +279,29 @@ namespace Object
         {
             Translation = spawnPosition;
             Collider = colliderPosition;
+        }
+        public void FlyLeft(float dt)
+        {
+            Translation -= new Vector2(100, 0) * dt;
+            //AnimationState = (int)AnimationCodePlayer.RUN;
+            isFacingRight = false;
+        }
+
+        public void FlyRight(float dt)
+        {
+            Translation += new Vector2(100, 0) * dt;
+            //AnimationState = (int)AnimationCodePlayer.RUN;
+            isFacingRight = true;
+        }
+
+        public void FlyUp(float dt)
+        {
+            Translation += new Vector2(0, 100) * dt;
+        }
+
+        public void FlyDown(float dt)
+        {
+            Translation += new Vector2(0, -100) * dt;
         }
     }
 }

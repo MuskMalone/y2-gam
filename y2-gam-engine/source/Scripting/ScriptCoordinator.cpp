@@ -616,23 +616,31 @@ namespace Image {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
 
-		if (tag && layer) {
+		if (tag && layer && *tag == NULL && *layer == NULL) {
 			if (entityToIgnore >= 0 && entityToIgnore < MAX_ENTITIES) {
 				*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
 			}
 
-			if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
-				*entityHandle = rh.entityID;
+			if (*hit) {
+				if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
+					*entityHandle = rh.entityID;
 
-				if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
-					const char* str = gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
-					*tag = mono_string_new(mono_domain_get(), str);
-				}
+					if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
+						const char* str = gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
+						*tag = mono_string_new(mono_domain_get(), str);
+					}
 
-				if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
-					const char* str = gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
-					*layer = mono_string_new(mono_domain_get(), str);
+					if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
+						const char* str = gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
+						*layer = mono_string_new(mono_domain_get(), str);
+					}
 				}
+			}
+
+			else {
+				*entityHandle = 0;
+				*tag = mono_string_new(mono_domain_get(), "None");
+				*layer = mono_string_new(mono_domain_get(), "None");
 			}
 		}
 	}
@@ -655,6 +663,15 @@ namespace Image {
 			::gCoordinator = Coordinator::GetInstance();
 			if (gCoordinator->HasComponent<Collider>(*entityID)) {
 				*outDim = Vec2{ gCoordinator->GetComponent<Collider>(*entityID).dimension };
+			}
+		}
+	}
+
+	static void PhysicsComponent_SetColliderDimensions(uint32_t entityID, Vec2* dim) {
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Collider>(entityID)) {
+				gCoordinator->GetComponent<Collider>(entityID).dimension = *dim;
 			}
 		}
 	}
@@ -949,6 +966,7 @@ namespace Image {
 	}
 
 	// For Force
+
 	/*  _________________________________________________________________________ */
 	/*! ForceComponent_GetForce
 
@@ -992,7 +1010,16 @@ namespace Image {
 			}
 		}
 	}
-
+	
+	static void ForceComponent_SetGravity(uint32_t entityID, Vec2* force) {
+		if (entityID >= 0 && entityID < MAX_ENTITIES) {
+			::gCoordinator = Coordinator::GetInstance();
+			if (gCoordinator->HasComponent<Gravity>(entityID)) {
+				gCoordinator->GetComponent<Gravity>(entityID).force = *force;
+			}
+		}
+	}
+	
 	/*  _________________________________________________________________________ */
 	/*! ForceComponent_GetMass
 
@@ -1223,6 +1250,7 @@ namespace Image {
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
@@ -1240,6 +1268,7 @@ namespace Image {
 
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetForce);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetForce);
+		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetGravity);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetMass);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetMass);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetVelocity);

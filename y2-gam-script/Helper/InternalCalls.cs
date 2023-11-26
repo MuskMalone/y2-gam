@@ -110,6 +110,9 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, out Vector2 dim);
 
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_SetColliderDimensions(uint entityHandle, ref Vector2 dim);
+
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_GetColliderPos
 
@@ -327,6 +330,9 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void ForceComponent_SetForce(uint entityHandle, ref Vector2 force);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void ForceComponent_SetGravity(uint entityHandle, ref Vector2 force);
 
         /*  _________________________________________________________________________ */
         /*! ForceComponent_GetMass

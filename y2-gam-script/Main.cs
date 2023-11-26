@@ -275,6 +275,11 @@ namespace Image
                 InternalCalls.PhysicsComponent_GetColliderDimensions(ref entityID, out Vector2 dim);
                 return dim;
             }
+
+            set
+            {
+                InternalCalls.PhysicsComponent_SetColliderDimensions(entityID, ref value);
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -330,6 +335,16 @@ namespace Image
                 InternalCalls.ForceComponent_SetForce(entityID, ref value);
             }
         }
+
+        
+        public Vector2 Gravity
+        {
+            set
+            {
+                InternalCalls.ForceComponent_SetGravity(entityID, ref value);
+            }
+        }
+        
 
         /*  _________________________________________________________________________ */
         /*! Mass
