@@ -212,9 +212,43 @@
                 "isHover": false
             }
         },
+        "ConfirmationYes": {
+            "Layering": {
+                "layering": "layer"
+            },
+            "Script": {
+                "script": "ObjectQuit",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1700976985264297900
+            },
+            "Transform": {
+                "posX": 50.0,
+                "posY": 50.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
         "Confirmation": {
             "Layering": {
-                "layering": "Card"
+                "layering": "layer"
             },
             "Sprite": {
                 "r": 1.0,
@@ -234,8 +268,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 56.82699966430664,
+                "scaleX": 813.0,
+                "scaleY": 462.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

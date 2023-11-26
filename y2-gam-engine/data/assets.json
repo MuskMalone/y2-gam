@@ -315,6 +315,22 @@
             "idxY": 0.0,
             "dimX": 344.0,
             "dimY": 71.0
+        },
+        "1700976955830969700": {
+            "id": 1700976955831004200,
+            "path": "../assets\\Textures\\no_with glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 132.0,
+            "dimY": 99.0
+        },
+        "1700976985264297900": {
+            "id": 1700976985264350200,
+            "path": "../assets\\Textures\\yes_with glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 132.0,
+            "dimY": 93.0
         }
     },
     "classAnimationManager": {

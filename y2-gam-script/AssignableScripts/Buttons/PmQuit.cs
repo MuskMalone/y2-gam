@@ -64,6 +64,7 @@ namespace Object
             if (UIClicked)
             {
                 GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
+                GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X, Translation.Y));
             }
         }
 
