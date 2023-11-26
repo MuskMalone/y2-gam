@@ -6,6 +6,7 @@
 #include <Core/FrameRateController.hpp>
 #include <Systems/InputSystem.hpp>
 #include <Engine/SceneManager.hpp>
+#include <Engine/PrefabsManager.hpp>
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	mIsStep = false;
@@ -60,6 +61,9 @@ void MainState::Update(float dt) {
 				accumulatedTime -= tdt;
 			}
 		}
+	}
+	else {
+		coordinator->GetSystem<PrefabsSystem>()->Update();
 	}
 
 	//mCollisionSystem->Debug(); // for debug

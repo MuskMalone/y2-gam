@@ -457,7 +457,7 @@ namespace Image {
             ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.0f, 1.0f, 0.0f, 1.0f)); // Green
             std::string entityidstring{"Entity ID: " + std::to_string(selectedEntity)};
             ImGui::Text(entityidstring.c_str());
-            if (gCoordinator->HasComponent<Layering>(selectedEntity)) {
+            if (gCoordinator->HasComponent<Layering>(selectedEntity) && !prefabs) {
               std::string treeNodeLabel = "Layer##" + std::to_string(selectedEntity);
               
               ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
@@ -503,28 +503,6 @@ namespace Image {
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                     if (prefabs) {
                         Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
-
-                        // Position X
-                        ImGui::Text("Position");
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos X", &transform.position.x);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
-
-                        // Position Y
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos Y", &transform.position.y);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
-
-                        // Position Z
-                        ImGui::SetNextItemWidth(50.f);
-                        ImGui::InputFloat("##Pos Z", &transform.position.z);
-                        ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
-                        ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
                         // Rotation
                         ImGui::Text("Rotation");
@@ -1253,7 +1231,7 @@ namespace Image {
     }
     void PrefabPropertyWindow() {
         ImGui::Begin("Prefab Property");
-        PropertyWindow(gSelectedPrefab, false);
+        PropertyWindow(gSelectedPrefab, true);
         ImGui::End();
     }
     void GameObjectPropertyWindow() {
