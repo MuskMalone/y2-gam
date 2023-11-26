@@ -1,8 +1,46 @@
 {
     "Prefabs": {
+        "": {
+            "Tag": {
+                "Tag": "CardUI"
+            }
+        },
         "CardUI": {
             "Tag": {
                 "Tag": "CardUI"
+            }
+        },
+        "OpenDoor": {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953115391509900
+            },
+            "Tag": {
+                "Tag": "Open Door"
+            },
+            "Transform": {
+                "posX": 7.5,
+                "posY": 15.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 30.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         "Arm": {
