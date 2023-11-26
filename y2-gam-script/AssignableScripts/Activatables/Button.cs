@@ -24,7 +24,7 @@ namespace Object
     public class Button : Entity
     {
 
-        private bool closeSpawn = false;
+        private bool closeSpawn = true;
         private bool openSpawn = false;
 
         /*  _________________________________________________________________________ */
@@ -91,22 +91,24 @@ namespace Object
                   
                 }
 
-                if (GameplayWrapper.IsPressed == true && openSpawn == false)
+                // button pressed , openSpawn is not spawned , closedSpawn is spawned 
+                if (GameplayWrapper.IsPressed == true && openSpawn == false && closeSpawn == true)
                 {
-                    Console.WriteLine("pressed");
+                    //Console.WriteLine("pressed");
                     GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
                     
                     closeSpawn = false;
                     openSpawn = true;
                 }
 
-                if (GameplayWrapper.IsPressed == false && closeSpawn == false)
+                // button not pressed , openSpawn is spawned , closedSpawn is not spawned
+                if (GameplayWrapper.IsPressed == false && closeSpawn == false && openSpawn == true)
                 {
 
                     GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));
 
                     closeSpawn = true;
-                    
+                    openSpawn = false;
                 }
 
             }
