@@ -72,7 +72,8 @@ namespace Object
                 //resume game
                 else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
-                    Colour = new Vector4(1, 1, 1, 0);
+                    //Colour = new Vector4(1, 1, 1, 0);
+                    GameplayWrapper.DestroyEntity(entityID);
                 }
                
             }

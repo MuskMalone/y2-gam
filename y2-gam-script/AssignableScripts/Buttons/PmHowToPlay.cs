@@ -63,8 +63,13 @@ namespace Object
             }
             if (UIClicked)
             {
-                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-                LoadScene("HowToPlay");
+                
+                GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(750, 252));
+                //if(Input.IsKeyClicked(KeyCode.KEY_Q))
+                //{
+                    
+                //}
+                //LoadScene("HowToPlay");
             }
         }
 

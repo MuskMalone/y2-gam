@@ -64,7 +64,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            GameplayWrapper.IsPressed = false;
         }
 
 
@@ -86,20 +86,22 @@ namespace Object
                 Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f));
                 if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit) && (buttonHit.tag == "Player" || buttonHit.tag == "SwappableBox"))
                 {
-                    //Console.WriteLine("Player touched a button!");
                     GameplayWrapper.IsPressed = true;
-
+                }
+                else
+                {
+                    GameplayWrapper.IsPressed = false;
                 }
 
                 // button pressed , openSpawn is not spawned , closedSpawn is spawned 
                 if (GameplayWrapper.IsPressed == true && openSpawn == false && closeSpawn == true)
                 {
-                    //Console.WriteLine("pressed");
                     GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
 
                     closeSpawn = false;
                     openSpawn = true;
                 }
+
 
                 // button not pressed , openSpawn is spawned , closedSpawn is not spawned
                 if (GameplayWrapper.IsPressed == false && closeSpawn == false && openSpawn == true)
@@ -126,6 +128,7 @@ namespace Object
         {
 
         }
+
 
     }
 }

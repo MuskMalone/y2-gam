@@ -65,7 +65,10 @@ namespace Object
             if (UIClicked && firstTime)
             {
                 //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-                LoadScene("Scene1");
+                StopAudio();
+                LoadScene("Level1");
+                isPaused = false;
+                ResumeGame();
                 firstTime = false;
             }
         }
@@ -102,6 +105,7 @@ namespace Object
                 {
                     if (!isPaused)
                     {
+                        SaveScene("Level1");
                         PauseGame();
                         isPaused = true;
                     }

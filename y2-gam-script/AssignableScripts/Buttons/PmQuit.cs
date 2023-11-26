@@ -65,7 +65,7 @@ namespace Object
             {
                 GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
                 
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
                     ResumeGame();
                     isPaused = false;
