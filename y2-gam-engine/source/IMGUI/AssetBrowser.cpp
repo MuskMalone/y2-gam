@@ -44,6 +44,22 @@ std::string GetFileExtension(const std::string& filePath) {
     }
     return ""; // No extension found
 }
+void SummonModal(std::string const& message, std::string const& text) {
+    ImGui::OpenPopup(message.c_str());
+
+    if (ImGui::BeginPopupModal(message.c_str())) {
+        ImGui::Text(text.c_str());
+
+        // Add other widgets here
+
+        if (ImGui::Button("Close")) {
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::EndPopup();
+    }
+}
+bool IsFileValid(std::string const& systemType, std::string const& ext);
 /**
  * @brief Generates the contents for a panel displaying assets of a specific system.
  *
@@ -93,8 +109,10 @@ void AssetContents(std::string const& systemName) {
                     std::filesystem::path basePath {"../assets"};
                     std::string path{(basePath / payLoadPath).string()};
                     std::cout << path << std::endl;
-                    AssetManager::GetInstance()->ChangeAssetResource<_system>(aid, path);
-
+                    std::string ext {GetFileExtension(path) };
+                    if (IsFileValid(systemName, ext)) {
+                        AssetManager::GetInstance()->ChangeAssetResource<_system>(aid, path);
+                    }
                 }
                 ImGui::EndDragDropTarget();
             }
@@ -107,20 +125,6 @@ void AssetContents(std::string const& systemName) {
     }
     ImGui::EndChild();
 
-    if (ImGui::BeginDragDropTarget()) {
-
-        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
-            //std::cout << "Accepted payload." << std::endl;
-
-            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
-            std::filesystem::path basePath {"../assets"};
-            std::string path{(basePath / payLoadPath).string()};
-            std::cout << path << std::endl;
-            AssetManager::GetInstance()->AddAsset<_system>(path);
-
-        }
-        ImGui::EndDragDropTarget();
-    }
 }
 
 /*  _________________________________________________________________________ */
@@ -135,12 +139,76 @@ This function change all the texture related to the asset ID
 */
 void AnimationAssetWindow(std::set<Entity>const& mEntities) {
     AssetContents<AnimationManager>("Animation");
+    if (ImGui::BeginDragDropTarget()) {
+
+        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+            //std::cout << "Accepted payload." << std::endl;
+
+            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+            std::filesystem::path basePath {"../assets"};
+            std::string path{(basePath / payLoadPath).string()};
+            //std::cout << path << std::endl;
+            std::string ext {GetFileExtension(path)};
+            if (ext == "png" || ext == "jpg") {
+                AssetManager::GetInstance()->AddAsset<AnimationManager>(path);
+
+            }
+            else {
+                SummonModal("Invalid File Type!", "Accepted file types are .png and .jpg");
+
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
 void SpriteAssetWindow(std::set<Entity>const& mEntities) {
     AssetContents<SpriteManager>("Sprite");
+    if (ImGui::BeginDragDropTarget()) {
+
+        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+            //std::cout << "Accepted payload." << std::endl;
+
+            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+            std::filesystem::path basePath {"../assets"};
+            std::string path{(basePath / payLoadPath).string()};
+            std::cout << path << std::endl;
+            std::string ext {GetFileExtension(path)};
+            if (ext == "png" || ext == "jpg") {
+                AssetManager::GetInstance()->AddAsset<SpriteManager>(path);
+
+            }
+            else {
+                SummonModal("Invalid File Type!", "Accepted file types are .png and .jpg");
+
+            }
+
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
 void SoundAssetWindow(std::set<Entity>const& mEntities) {
     AssetContents<SoundManager>("Sound");
+    if (ImGui::BeginDragDropTarget()) {
+
+        if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
+            //std::cout << "Accepted payload." << std::endl;
+
+            const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
+            std::filesystem::path basePath {"../assets"};
+            std::string path{(basePath / payLoadPath).string()};
+            std::cout << path << std::endl;
+            std::string ext {GetFileExtension(path)};
+            if (ext == "wav" || ext == "ogg" || ext == "mp3") {
+                AssetManager::GetInstance()->AddAsset<SoundManager>(path);
+
+            }
+            else {
+                SummonModal("Invalid File Type!", "Accepted file types are .wav, .ogg, and .mp3");
+            }
+
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
 void SceneAssetWindow(std::set<Entity> const& mEntities) {
     ImGui::BeginChild("SceneBrowser");
@@ -266,6 +334,19 @@ void AssetWindow(std::set<Entity>const& mEntities) {
 bool AssetBrowserFindStr(std::string const& string, std::string const& substr) {
     return !(string.find(substr) == std::string::npos);
 }
+bool IsFileValid(std::string const& systemType, std::string const& ext) {
+    //tch: should use some type reflection lib to fix this...
+    if (AssetBrowserFindStr(systemType, "Sound")) {
+        return (ext == "png" || ext == "jpg");
+    }
+    else if (AssetBrowserFindStr(systemType, "Sprite")) {
+        return (ext == "png" || ext == "jpg");
+    }
+    else if (AssetBrowserFindStr(systemType, "Animation")) {
+        return (ext == "wav" || ext == "ogg" || ext == "mp3");
+    }
+
+}
 void AssetPropertiesWindow(std::set<Entity> const& mEntities){
     ImGui::Begin("Asset Properties");
     //displays path
@@ -278,12 +359,12 @@ void AssetPropertiesWindow(std::set<Entity> const& mEntities){
 
         if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Content Asset Browser")) {
             //std::cout << "Accepted payload." << std::endl;
+            //
 
             const wchar_t* payLoadPath = (const wchar_t*)dragDropPayLoad->Data;
             std::filesystem::path basePath {"../assets"};
             std::string path{(basePath / payLoadPath).string()};
             std::cout << path << std::endl;
-            
         }
         ImGui::EndDragDropTarget();
     }
