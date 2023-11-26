@@ -72,6 +72,10 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Script": {
+                "script": "ObjectDoor",
+                "isFacingRight": true
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -80,25 +84,17 @@
                 "layer": 2,
                 "assetID": 1698953115391509900
             },
-            "Tag": {
-                "Tag": "Open Door"
-            },
             "Transform": {
-                "posX": 7.5,
-                "posY": 15.0,
+                "posX": 0.0,
+                "posY": 0.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 30.0,
+                "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
             }
         },
         "Box": {
@@ -279,6 +275,81 @@
                 "isHover": false
             }
         },
+        "CloseDoor": {
+            "Collider": {
+                "collider": 0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 40.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 40.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "script": "ObjectCloseDoor",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953116624829600
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        "Waypoint": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953111881673300
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 10.0,
+                "scaleY": 18.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
         "ConfirmationYes": {
             "Layering": {
                 "layering": "layer"
@@ -336,6 +407,26 @@
                 "enabled": true,
                 "isClicked": false,
                 "isHover": false
+            }
+        },
+        "NewPrefab": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Tag": {
+                "Tag": "OpenDoor"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
             }
         },
         "Circle": {

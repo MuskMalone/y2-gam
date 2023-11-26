@@ -171,6 +171,31 @@ namespace Object
 
                     TimeInState += dt;
                     currentState.UpdateState(this, dt);
+
+                    //Vector2 enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));       
+
+                    //if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                    //{   
+                    //    GameplayWrapper.DestroyEntity(entityID);
+                    //}
+                    Vector2 enemyHead;
+
+                    if (isFacingRight)
+                    {
+                        // Cast the ray from the right side of the head
+                        enemyHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 2.5f));
+                    }
+                    else
+                    {
+                        // Cast the ray from the left side of the head
+                        enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));
+                    }
+
+                    if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                    {
+                        GameplayWrapper.DestroyEntity(entityID);
+                    }
+
                 }
             }
         }

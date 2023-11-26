@@ -58,7 +58,7 @@ public class EnemyPatrolState : EnemyBaseState
         }
 
         // Perform movement based on the groundRayCast result
-        String platformTag = "PLATFORM";
+        String platformTag = "PLATFORMS";
         if (groundRayCast.tag != platformTag)
         {
             if (enemy.isFacingRight)

@@ -25,12 +25,13 @@ namespace Object
         // Force Based
         public readonly float JumpForce = 900000.0f;
         public readonly float MovementForce = 70000.0f;
-        public int Health = 1;
-
-        public bool isGrounded = true;
-        private bool slowdownToggle = true;
+        //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
+        private bool waypointActivated = false;
+        public bool isGrounded = true;
+        private bool slowdownToggle = true;
+
         //private Vector2 spawnPosition = new Vector2(0, 0);
         //private Vector2 colliderPosition = new Vector2(0, 0);
         //private bool jumped = false;
@@ -210,38 +211,34 @@ namespace Object
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                         {
 
-                            //Console.WriteLine("Player touched a waypoint!");
-                            float waypointOffset = 2.0f;
-                            float colliderOffset = 9.0f;
-                            spawnPosition = Translation;
-                            spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                            colliderPosition = Translation;
-                            colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                            colliderPosition -= new Vector2(0, colliderOffset);
+                    //Console.WriteLine("Player touched a waypoint!");
+                    float waypointOffset = 2.0f;
+                    float colliderOffset = 9.0f;
+                    spawnPosition = Translation;
+                    spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                    colliderPosition = Translation;
+                    colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                    colliderPosition -= new Vector2(0, colliderOffset);
+                    //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
 
+                }
 
-                        }
+                if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                {
+                    Respawn();
+                }
 
                         Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
 
                         Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
 
-                        if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                        {
-                            if (spikeHit.tag == "Spikes")
-                            {
-                                //Health -= 1;
-                                //if (Health <= 0)
-                                //{
-                                //    //Console.WriteLine("Die");
-                                //    Translation = spawnPosition;
-                                //    Collider = colliderPosition;
-                                //    Health = 1;
-
-                                //}
-                                Respawn();
-                            }
-                        }
+                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
+                {
+                    if (spikeHit.tag == "Spikes")
+                    {
+                        Respawn();
+                    }
+                }
 
                         if (Translation.Y <= -99.0f)
                         {
