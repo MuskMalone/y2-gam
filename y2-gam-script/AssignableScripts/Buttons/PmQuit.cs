@@ -53,7 +53,7 @@ namespace Object
             
             if (UIHover)
             {
-                Console.WriteLine("Quitgame Hovered Over");
+                //Console.WriteLine("Quitgame Hovered Over");
                 Colour = new Vector4(1, 1, 1, 1);
                
             }
@@ -67,8 +67,6 @@ namespace Object
                 
                 if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    //GameplayWrapper.DestroyEntity(6);
-                    //GameplayWrapper.DestroyEntity(5);
                     ResumeGame();
                     isPaused = false;
                     //firstTime = false;

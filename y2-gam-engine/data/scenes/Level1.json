@@ -3,9 +3,7 @@
         1700928706423252000,
         1700925666827633500,
         1700947919118509400,
-        1700946331426554800,
-        1700948555024191800,
-        1700951688787371900
+        1700948555024191800
     ],
     "Entities": [
         {
@@ -43,7 +41,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 2,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -976,7 +974,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 1,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1343,6 +1341,114 @@
                 "rotZ": 0.0,
                 "scaleX": 100.0,
                 "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "layer"
+            },
+            "Script": {
+                "script": "ObjectQuit",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1700976985264297900
+            },
+            "Transform": {
+                "posX": 256.5,
+                "posY": 61.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectPmQuit",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700946331426554800
+            },
+            "Tag": {
+                "Tag": "quitgame_glow"
+            },
+            "Transform": {
+                "posX": 1009.0,
+                "posY": 497.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 155.0,
+                "scaleY": 34.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectPmHowToPlay",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700951688787371900
+            },
+            "Tag": {
+                "Tag": "howtoplay_glow"
+            },
+            "Transform": {
+                "posX": 1007.0,
+                "posY": 429.7869873046875,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 190.0,
+                "scaleY": 39.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

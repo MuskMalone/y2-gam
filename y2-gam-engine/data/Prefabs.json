@@ -250,18 +250,6 @@
             "Layering": {
                 "layering": "layer"
             },
-            "Script": {
-                "script": "ObjectQuit",
-                "isFacingRight": true
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 0.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1700976985264297900
-            },
             "Transform": {
                 "posX": 40.0,
                 "posY": 40.0,
@@ -285,7 +273,7 @@
                 "layering": "layer"
             },
             "Script": {
-                "script": "No Script Assigned",
+                "script": "ObjectPmConfirmationWindow",
                 "isFacingRight": true
             },
             "Sprite": {

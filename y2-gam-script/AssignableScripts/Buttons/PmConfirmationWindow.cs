@@ -7,7 +7,7 @@ namespace Object
     public class PmConfirmationWindow : Entity
     {
         //bool firstTime = true;
-        bool isPaused = true;
+        //bool isPaused = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -45,32 +45,10 @@ namespace Object
 
         void OnCreate()
         {
-
+            //GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X - 150, Translation.Y - 170));
         }
 
-        void PauseGame()
-        {
-
-            //if (UIHover)
-            //{
-            //    //Console.WriteLine("Quitgame Hovered Over");
-            //    Colour = new Vector4(1, 1, 1, 1);
-
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-            //}
-            Colour = new Vector4(1, 1, 1, 1);           
-            GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X - 150, Translation.Y - 170));
-             
-        }
-
-        void ResumeGame()
-        {
-            Colour = new Vector4(1, 0, 1, 0);
-            //GameplayWrapper.DestroyEntity(EntityID);
-        }
+        
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -85,49 +63,18 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (!isPaused)
+                //if(isPaused)
+
+                if(Input.IsKeyClicked(KeyCode.KEY_Y))
                 {
-                    Colour = new Vector4(1, 0, 1, 0);
-
+                    QuitGame();
                 }
-                else
+                //resume game
+                else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    PauseGame();
+                    Colour = new Vector4(1, 1, 1, 0);
                 }
-
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
-                {
-                    if (!isPaused)
-                    {
-                        PauseGame();
-                        isPaused = true;
-                    }
-                    else
-                    {
-                        ResumeGame();
-                        isPaused = false;
-                    }
-                    //firstTime = false;
-                }
-
-
-                //if (UIClicked)
-                //{
-                //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
-                //    {
-                //        Console.WriteLine("QUITCLICKED");
-                //        Colour = new Vector4(1, 0, 1, 0);
-                //    }
-                //}
-                //if (UIHover)
-                //{
-                //    Colour = new Vector4(1, 1, 0, 1);
-                //    //SetSprite("start_glow");
-                //}
-                //else
-                //{
-                //    Colour = new Vector4(1, 0, 1, 0);
-                //}
+               
             }
         }
 
