@@ -106,9 +106,9 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 	Event event(Events::Window::INPUT);
 
     if (GLFW_PRESS == action) {
-        if (GLFW_KEY_ESCAPE == key) {
+        /*if (GLFW_KEY_ESCAPE == key) {
             glfwSetWindowShouldClose(pwin, GLFW_TRUE);
-        }
+        }*/
 		GetInstance()->SetKey(currButtons, key, true);
 
 		if (!prevButtons.test(static_cast<std::size_t>(key)) && currButtons.test(static_cast<std::size_t>(key))) {

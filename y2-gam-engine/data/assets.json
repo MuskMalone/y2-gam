@@ -331,6 +331,22 @@
             "idxY": 0.0,
             "dimX": 132.0,
             "dimY": 93.0
+        },
+        "1700997209220089700": {
+            "id": 1700997209220117900,
+            "path": "../assets\\Textures\\settings_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 524.0,
+            "dimY": 124.0
+        },
+        "1700999221263113200": {
+            "id": 1700999221263142500,
+            "path": "../assets\\Textures\\y2_pause menu_ settings_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 260.0,
+            "dimY": 68.0
         }
     },
     "classAnimationManager": {

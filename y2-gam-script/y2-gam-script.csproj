@@ -67,6 +67,7 @@
     <Compile Include="AssignableScripts\Buttons\PmMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\PmQuit.cs" />
     <Compile Include="AssignableScripts\Buttons\PmResumeGame.cs" />
+    <Compile Include="AssignableScripts\Buttons\Settings.cs" />
     <Compile Include="AssignableScripts\Checkpoints\Checkpoint.cs" />
     <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />

@@ -80,7 +80,7 @@ namespace Object
                 if (UIHover)
                 {
                     Colour = new Vector4(1, 1, 1, 1);
-                    SetSprite("start_glow");
+                    //SetSprite("start_glow");
                 }
                 else
                 {

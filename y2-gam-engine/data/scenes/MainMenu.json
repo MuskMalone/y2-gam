@@ -1,7 +1,8 @@
 {
     "Assets": [
         1700722673936655200,
-        1700925666827633500
+        1700925666827633500,
+        1700997209220089700
     ],
     "Entities": [
         {
@@ -135,6 +136,43 @@
                 "rotZ": 0.0,
                 "scaleX": 600.0,
                 "scaleY": 140.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "script": "ObjectSettings",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1700997209220089700
+            },
+            "Tag": {
+                "Tag": "settings"
+            },
+            "Transform": {
+                "posX": 794.4682006835938,
+                "posY": 474.66851806640625,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 570.0,
+                "scaleY": 130.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

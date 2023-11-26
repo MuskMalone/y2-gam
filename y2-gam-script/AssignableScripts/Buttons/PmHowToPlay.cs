@@ -96,7 +96,7 @@ namespace Object
                     PauseGame();
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
                     if (!isPaused)
                     {

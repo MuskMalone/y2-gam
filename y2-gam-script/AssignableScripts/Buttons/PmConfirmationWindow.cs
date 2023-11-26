@@ -70,7 +70,7 @@ namespace Object
                     QuitGame();
                 }
                 //resume game
-                else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_P))
+                else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
                     Colour = new Vector4(1, 1, 1, 0);
                 }

@@ -65,7 +65,7 @@ namespace Object
             {
                 if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    LoadScene("Scene1");
+                    LoadScene("Level1");
                 }
               
             }
