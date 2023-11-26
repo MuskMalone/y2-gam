@@ -125,7 +125,7 @@ namespace Object
                     //AnimationState = temp_AnimationState;
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
                     if (!isPaused)
                     {

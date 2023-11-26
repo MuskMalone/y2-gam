@@ -63,7 +63,7 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
                     LoadScene("Level1");
                 }
