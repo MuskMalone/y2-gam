@@ -124,6 +124,7 @@ namespace Object
                     PauseGame();
                     //AnimationState = temp_AnimationState;
                 }
+
                 if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
                     if (!isPaused)
@@ -142,144 +143,138 @@ namespace Object
                     }
                     //firstTime = false;
                 }
+
                 if (!isPaused)
                 {
 
                     if (!godMode)
-                {
+                    {
                         FacingDirection = isFacingRight;
 
                         if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
-                    new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
-                        PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
-                    new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
-                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                    new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
-                    {
-                        isGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
-                    }
-
-                    /*
-                    if (PhysicsWrapper.IsCollidedWithAnything(entityID))
-                    {
-                        isGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
-                    }
-                    */
-
-                    else
-                    {
-                        isGrounded = false;
-                        AnimationState = (int)AnimationCodePlayer.JUMP;
-                    }
-
-                    if (FacingDirectionChanged)
-                    {
-                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                        FacingDirectionChanged = false; // Reset the flag
-                    }
-
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
-                    {
-                        godMode = true;
-                        Gravity = new Vector2(0.0f, 0.0f);
-                        Mass = 0;
-                    }
-
-                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
-                    {
-                        GameplayWrapper.SlowdownTime(slowdownToggle);
-                        slowdownToggle = !slowdownToggle;
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
-                    {
-                        if (isGrounded)
+                            new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                                PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y),
+                            new Vector2(Collider.X + (ColliderDimensions.X / 2), Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                                PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                            new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
                         {
-                            Jump(dt);
+                            isGrounded = true;
+                            AnimationState = (int)AnimationCodePlayer.IDLE;
                         }
-                    }
 
-                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
-                    {
-                        MoveLeft(dt);
-                    }
-
-                    else if (Input.IsKeyPressed(KeyCode.KEY_D))
-                    {
-                        MoveRight(dt);
-                    }
-
-                    Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
-                    {
-
-                        //Console.WriteLine("Player touched a waypoint!");
-                        float waypointOffset = 2.0f;
-                        float colliderOffset = 9.0f;
-                        spawnPosition = Translation;
-                        spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition = Translation;
-                        colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition -= new Vector2(0, colliderOffset);
-
-
-                    }
-
-                    Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                    Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                    if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                    {
-                        if (spikeHit.tag == "Spikes")
+                        else
                         {
-                            //Health -= 1;
-                            //if (Health <= 0)
-                            //{
-                            //    //Console.WriteLine("Die");
-                            //    Translation = spawnPosition;
-                            //    Collider = colliderPosition;
-                            //    Health = 1;
+                            isGrounded = false;
+                            AnimationState = (int)AnimationCodePlayer.JUMP;
+                        }
 
-                            //}
+                        if (FacingDirectionChanged)
+                        {
+                            Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                            FacingDirectionChanged = false; // Reset the flag
+                        }
+
+
+                        if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
+                        {
+                            godMode = true;
+                            Gravity = new Vector2(0.0f, 0.0f);
+                            Mass = 0;
+                        }
+
+                        if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                        {
+                            GameplayWrapper.SlowdownTime(slowdownToggle);
+                            slowdownToggle = !slowdownToggle;
+                        }
+
+                        if (Input.IsKeyPressed(KeyCode.KEY_W))
+                        {
+                            if (isGrounded)
+                            {
+                                Jump(dt);
+                            }
+                        }
+
+                        else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                        {
+                            MoveLeft(dt);
+                        }
+
+                        else if (Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            MoveRight(dt);
+                        }
+
+                        Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
+                        if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
+                        {
+
+                            //Console.WriteLine("Player touched a waypoint!");
+                            float waypointOffset = 2.0f;
+                            float colliderOffset = 9.0f;
+                            spawnPosition = Translation;
+                            spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                            colliderPosition = Translation;
+                            colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                            colliderPosition -= new Vector2(0, colliderOffset);
+
+
+                        }
+
+                        Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
+
+                        Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+
+                        if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
+                        {
+                            if (spikeHit.tag == "Spikes")
+                            {
+                                //Health -= 1;
+                                //if (Health <= 0)
+                                //{
+                                //    //Console.WriteLine("Die");
+                                //    Translation = spawnPosition;
+                                //    Collider = colliderPosition;
+                                //    Health = 1;
+
+                                //}
+                                Respawn();
+                            }
+                        }
+
+                        if (Translation.Y <= -99.0f)
+                        {
                             Respawn();
                         }
                     }
 
-                    if (Translation.Y <= -99.0f)
+                    else
                     {
-                        Respawn();
-                    }
-                }
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                        ColliderDimensions = new Vector2(0f, 0f);
 
-                else
-                {
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
-                    ColliderDimensions = new Vector2(0f, 0f);
+                        if (Input.IsKeyPressed(KeyCode.KEY_W))
+                        {
+                            FlyUp(dt);
+                        }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
-                    {
-                        FlyUp(dt);
-                    }
+                        if (Input.IsKeyPressed(KeyCode.KEY_A))
+                        {
+                            FlyLeft(dt);
+                        }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_A))
-                    {
-                        FlyLeft(dt);
-                    }
+                        if (Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            FlyRight(dt);
+                        }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_D))
-                    {
-                        FlyRight(dt);
+                        if (Input.IsKeyPressed(KeyCode.KEY_S))
+                        {
+                            FlyDown(dt);
+                        }
                     }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_S))
-                    {
-                        FlyDown(dt);
-                    }
-                }            
+                }          
             } 
         }
 
