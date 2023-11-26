@@ -60,6 +60,7 @@
     <Compile Include="AssignableScripts\BasicEnemy\EnemyDefaultState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
+    <Compile Include="AssignableScripts\Buttons\MainMenubgm.cs" />
     <Compile Include="AssignableScripts\Buttons\PauseMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlay.cs" />
