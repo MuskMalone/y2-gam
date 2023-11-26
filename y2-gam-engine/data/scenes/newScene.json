@@ -6,7 +6,7 @@
                 "states": [
                     1698945575867297200
                 ],
-                "currFrame": 2,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -334,6 +334,35 @@
                 "scaleX": 5.0,
                 "scaleY": 5.0,
                 "scaleZ": 1.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Script": {
+                "script": "No Script Assigned",
+                "isFacingRight": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Transform": {
+                "posX": -0.4615749716758728,
+                "posY": -1.8248443603515625,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
                 "elipse": false
             }
         }

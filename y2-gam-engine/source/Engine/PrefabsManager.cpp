@@ -22,6 +22,7 @@
 #include <Core/Coordinator.hpp>
 #include <Core/Types.hpp>
 #include "Scripting/ScriptManager.hpp"
+#include <Core/Component.hpp>
 std::shared_ptr<PrefabsManager> PrefabsManager::_mSelf = nullptr;
 void PrefabsManager::Init() {
 	std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
@@ -109,6 +110,7 @@ Entity PrefabsManager::SpawnPrefab(PrefabID key) {
 	if (gCoordinator->HasComponent<Script>(out)) {
 		ScriptManager::OnCreateEntity(out);
 	}
+	gCoordinator->AddComponent<Prefab>(out, Prefab{static_cast<size_t>(key)});
 	return out;
 }
 Entity PrefabsManager::SpawnPrefab(const char* key) {
@@ -134,3 +136,63 @@ Entity PrefabsManager::SpawnPrefab(const char* key, Vec2 const& pos) {
 	return (SpawnPrefab(_hash(key), pos));
 }
 
+void PrefabsSystem::Update() {
+	std::shared_ptr<Coordinator> gCoordinator {Coordinator::GetInstance()};
+	for (const auto& selectedEntity : mEntities) {
+		Prefab& prefab = gCoordinator->GetComponent<Prefab>(selectedEntity);
+		Entity prefabEntity = PrefabsManager::GetInstance()->GetEntityFactory().at(prefab.prefabId).entity;
+        if (gCoordinator->HasComponent<Transform>(selectedEntity) && gCoordinator->HasComponent<Transform>(prefabEntity)){
+            Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+			Transform& transform1 = gCoordinator->GetComponent<Transform>(prefabEntity);
+			transform.scale = transform1.scale;
+			transform.rotation = transform1.rotation;
+			transform.elipse = transform1.elipse;
+        }
+        if (gCoordinator->HasComponent<Sprite>(selectedEntity) && gCoordinator->HasComponent<Sprite>(prefabEntity)) {
+            Sprite& sprite = gCoordinator->GetComponent<Sprite>(selectedEntity);
+			Sprite& sprite1 = gCoordinator->GetComponent<Sprite>(prefabEntity);
+
+			sprite = sprite1;
+        }
+        if (gCoordinator->HasComponent<Animation>(selectedEntity) && gCoordinator->HasComponent<Animation>(prefabEntity)) {
+			Animation& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
+			Animation& anim1 = gCoordinator->GetComponent<Animation>(prefabEntity);
+			anim = anim1;
+		}
+        if (gCoordinator->HasComponent<Collider>(selectedEntity) && gCoordinator->HasComponent<Collider>(prefabEntity)) {
+            Collider& collider = gCoordinator->GetComponent<Collider>(selectedEntity);
+			Collider& collider1 = gCoordinator->GetComponent<Collider>(prefabEntity);
+			collider.dimension = collider1.dimension;
+			collider.rotation = collider1.rotation;
+			collider.type = collider1.type;
+			if (gCoordinator->HasComponent<Transform>(selectedEntity) && gCoordinator->HasComponent<Transform>(prefabEntity)) {
+				Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+				collider.position = { collider.position.x + transform.position.x, collider.position.y + transform.position.y };
+			}
+        }
+        if (gCoordinator->HasComponent<RigidBody>(selectedEntity) && gCoordinator->HasComponent<RigidBody>(prefabEntity)) {
+            RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(selectedEntity);
+			RigidBody& rigidBody1 = gCoordinator->GetComponent<RigidBody>(prefabEntity);
+			rigidBody = rigidBody1;
+        }
+        if (gCoordinator->HasComponent<Gravity>(selectedEntity) && gCoordinator->HasComponent<Gravity>(prefabEntity)) {
+            Gravity& gravity = gCoordinator->GetComponent<Gravity>(selectedEntity);
+			Gravity& gravity1 = gCoordinator->GetComponent<Gravity>(prefabEntity);
+			gravity = gravity1;
+        }
+        if (gCoordinator->HasComponent<Text>(selectedEntity) && gCoordinator->HasComponent<Text>(prefabEntity)) {
+            Text& text = gCoordinator->GetComponent<Text>(selectedEntity);
+			Text& text1 = gCoordinator->GetComponent<Text>(prefabEntity);
+			text = text1;
+        }
+        if (gCoordinator->HasComponent<Script>(selectedEntity) && gCoordinator->HasComponent<Script>(prefabEntity)) {
+            Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
+			Script& script1 = gCoordinator->GetComponent<Script>(prefabEntity);
+			if (script.name != script1.name) {
+				ScriptManager::OnCreateEntity(selectedEntity);
+			}
+			script = script1;
+        }
+	}
+	std::cout << mEntities.size() << " Prefab Entities spawned\n";
+}

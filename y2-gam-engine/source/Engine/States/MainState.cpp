@@ -6,6 +6,7 @@
 #include <Core/FrameRateController.hpp>
 #include <Systems/InputSystem.hpp>
 #include <Engine/SceneManager.hpp>
+#include <Engine/PrefabsManager.hpp>
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	mIsStep = false;
@@ -61,14 +62,17 @@ void MainState::Update(float dt) {
 			}
 		}
 	}
+	else {
+		coordinator->GetSystem<PrefabsSystem>()->Update();
+	}
 
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
+
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	FrameRateController::GetInstance()->StartSubFrameTime();
 	coordinator->GetSystem<AnimationSystem>()->Update(dt);
-
 	coordinator->GetSystem<RenderSystem>()->Update(dt);
 	FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 

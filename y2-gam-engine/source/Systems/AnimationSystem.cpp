@@ -33,6 +33,8 @@
 #include "Systems/InputSystem.hpp"
 #include "Graphics/SpriteManager.hpp"
 #include "Graphics/AnimationManager.hpp"
+#include "Core/FrameRateController.hpp"
+#include "Systems/RenderSystem.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -102,7 +104,11 @@ void AnimationSystem::Update(float dt) {
 		AnimationFrame & currFrame { frameList[frameIdx] };
 
 		//xavier todo: help me change this to not use elapsed time
-		currFrame.elapsedTime += dt;
+		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+		auto renderSystem = coordinator->GetSystem<RenderSystem>();
+		if (!renderSystem->IsEditorMode()) {
+			currFrame.elapsedTime += dt;
+		}
 
 		sprite.spriteID = currFrame.spriteID;
 
