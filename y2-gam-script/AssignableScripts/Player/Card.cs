@@ -131,6 +131,10 @@ namespace Object
                                 ResetCardUI();
                             }
                         }
+                        else
+                        {
+                            SetEntityColour(mouseRayCast.id, originalColour);
+                        }
 
                     }
                 
