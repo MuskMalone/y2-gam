@@ -153,9 +153,8 @@ void Camera::SetRotation(float rot) {
 Increases the camera's zoom level within the defined limits and updates the matrices.
 */
 void Camera::ZoomIn() {
-	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
-	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
-	//ComputeViewProjMtx();
+
+	mZoomLevel = std::min(mZoomLevel, mMaxZoom);
 	UpdateProjectionMtx();
 }
 
@@ -166,9 +165,7 @@ void Camera::ZoomIn() {
 Decreases the camera's zoom level within the defined limits and updates the matrices.
 */
 void Camera::ZoomOut() {
-	//mZoom = std::clamp(mZoom, mMinZoom, mMaxZoom);
-	//SetProjectionMtx(-mAspectRatio * mZoom, mAspectRatio * mZoom, -mZoom, mZoom);
-	//ComputeViewProjMtx();
+	mZoomLevel = std::max(mZoomLevel, mMinZoom);
 	UpdateProjectionMtx();
 }
 
