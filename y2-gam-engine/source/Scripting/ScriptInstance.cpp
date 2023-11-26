@@ -69,7 +69,8 @@ namespace Image {
   */
   void ScriptInstance::CallOnUpdate(float dt) {
     void* dtParam{ &dt };
-    mScriptClass.CallMethod(mInstance, mOnUpdateMethod, &dtParam);
+    if (mInstance != nullptr && mOnUpdateMethod != nullptr && dtParam != nullptr)
+      mScriptClass.CallMethod(mInstance, mOnUpdateMethod, &dtParam);
   }
 
   /*  _________________________________________________________________________ */

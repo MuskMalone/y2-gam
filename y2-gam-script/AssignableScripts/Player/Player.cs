@@ -238,7 +238,7 @@ namespace Object
         {
             //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 2100) * dt;
+            Velocity += new Vector2(0, 2300) * dt;
         }
 
         public void Respawn()

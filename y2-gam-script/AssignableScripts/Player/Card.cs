@@ -16,6 +16,7 @@
 
 using Image;
 using System;
+using System.Collections.Generic;
 
 namespace Object
 {
@@ -26,7 +27,7 @@ namespace Object
         private bool Alive = false;
 
         private readonly float MAX_TIME_ALIVE = 3.5f;
-        private readonly float speed = 35.0f;
+        private readonly float speed = 45.0f;
 
         private uint CardUIID;
         private Vector3 CardUIMaxScale;
@@ -34,7 +35,6 @@ namespace Object
         private bool firstTime = true;
 
         private uint HoveredID;
-
         private bool _isHovered;
         public bool Hovering
         {
@@ -49,6 +49,8 @@ namespace Object
             }
         }
         public bool HoveringChanged { get; private set; }
+
+        //private List<string> CardSwapAudio = 
 
         /*  _________________________________________________________________________ */
         /*! Card
@@ -124,9 +126,10 @@ namespace Object
                         {
                             if (GameplayWrapper.IsSwappable(swapRayCast.id))
                             {
-                                GameplayWrapper.Swap(entityID, swapRayCast.id);
-                                ResetCardPos();
                                 ResetCardUI();
+                                GameplayWrapper.Swap(entityID, swapRayCast.id);
+                                PlayAudio("Card-Swap_SFX_1.wav", 0);
+                                ResetCardPos();
                                 ResetColour(swapRayCast.id);
                             }
                         }
@@ -187,6 +190,7 @@ namespace Object
                     {
                         ResetCardPos();
                         ResetColour(HoveredID);
+                        ResetCardUI();
                     }
                 }
 
@@ -219,6 +223,7 @@ namespace Object
 
         void ResetCardUI()
         {
+            Console.WriteLine("Reset Card UI");
             SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
             SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
@@ -235,8 +240,8 @@ namespace Object
 
         void FireCard()
         {
-            Console.WriteLine("Card Fired");
-            Console.WriteLine("Player Position" + GameplayWrapper.PlayerPos.X + ", " + GameplayWrapper.PlayerPos.Y);
+            //Console.WriteLine("Card Fired");
+            //Console.WriteLine("Player Position" + GameplayWrapper.PlayerPos.X + ", " + GameplayWrapper.PlayerPos.Y);
             Translation = GameplayWrapper.PlayerPos;
             Collider = GameplayWrapper.PlayerPos;
             direction = MousePos - GameplayWrapper.PlayerPos;
