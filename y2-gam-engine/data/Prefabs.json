@@ -12,7 +12,7 @@
         },
         "OpenDoor": {
             "Layering": {
-                "layering": "Default"
+                "layering": "#####"
             },
             "Sprite": {
                 "r": 1.0,
@@ -22,25 +22,17 @@
                 "layer": 2,
                 "assetID": 1698953115391509900
             },
-            "Tag": {
-                "Tag": "Open Door"
-            },
             "Transform": {
-                "posX": 7.5,
-                "posY": 15.0,
+                "posX": 0.0,
+                "posY": 0.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 30.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
             }
         },
         "Arm": {
@@ -123,6 +115,26 @@
                 "scaleX": 5.0,
                 "scaleY": 5.0,
                 "scaleZ": 1.0,
+                "elipse": false
+            }
+        },
+        "NewPrefab": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Tag": {
+                "Tag": "OpenDoor"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
                 "elipse": false
             }
         }

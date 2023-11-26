@@ -19,7 +19,8 @@ namespace Object
 
         void OnCreate()
         {
-
+            //GameplayWrapper.IsPressed = false;
+            //GameplayWrapper.IsPressed = false;
         }
 
 
@@ -28,15 +29,18 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-               
+
                 Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f));
                 if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit) && (buttonHit.tag == "Player" || buttonHit.tag == "SwappableBox") && !isClicked)
                 {
                     Console.WriteLine("Player touched a button!");
+                    //if (created == false)
+                    //{
                     GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
                     isClicked = true;
                     
                 }
+               
             }
         }
 
