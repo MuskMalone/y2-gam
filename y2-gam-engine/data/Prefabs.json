@@ -12,7 +12,7 @@
         },
         "OpenDoor": {
             "Layering": {
-                "layering": "#####"
+                "layering": "Default"
             },
             "Sprite": {
                 "r": 1.0,
@@ -26,16 +26,21 @@
                 "Tag": "Open Door"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 7.5,
+                "posY": 15.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         "Arm": {

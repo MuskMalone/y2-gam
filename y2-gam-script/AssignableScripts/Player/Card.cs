@@ -113,9 +113,10 @@ namespace Object
                     {
                         ResetCardPos();
                     }
-                    
+
+
+
                     // Swap Related
-                    //if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT)) {
                     if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
                     {
                         
@@ -131,14 +132,14 @@ namespace Object
                                 ResetCardUI();
                             }
                         }
-                        else
-                        {
-                            SetEntityColour(mouseRayCast.id, originalColour);
-                        }
 
                     }
-                
-   
+
+
+
+                   
+
+
                     //}
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))

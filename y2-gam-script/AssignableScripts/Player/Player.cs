@@ -25,7 +25,7 @@ namespace Object
         // Force Based
         public readonly float JumpForce = 1000000.0f;
         public readonly float MovementForce = 80000.0f;
-        public int Health = 1;
+        //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
         public bool isGrounded = true;
@@ -136,13 +136,13 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_E))
+                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
                 {
                     GameplayWrapper.SlowdownTime(slowdownToggle);
                     slowdownToggle = !slowdownToggle;                  
                 }
 
-                if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                if (Input.IsKeyPressed(KeyCode.KEY_W))
                 {
                     if (isGrounded)
                     {
@@ -160,27 +160,6 @@ namespace Object
                     MoveRight(dt);
                 }
 
-
-                Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                {
-                    if (spikeHit.tag == "Spikes")
-                    {
-                        Health -= 1;
-                        if (Health <= 0)
-                        {
-                            //Console.WriteLine("Die");
-                            Translation = spawnPosition;
-                            Collider = colliderPosition;
-                            Health = 1;
-
-                        }
-                    }
-                }
-
                 Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
                 if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                 {
@@ -196,6 +175,34 @@ namespace Object
 
 
                 }
+
+                Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
+
+                Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
+
+                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
+                {
+                    if (spikeHit.tag == "Spikes")
+                    {
+                        //Health -= 1;
+                        //if (Health <= 0)
+                        //{
+                        //    //Console.WriteLine("Die");
+                        //    Translation = spawnPosition;
+                        //    Collider = colliderPosition;
+                        //    Health = 1;
+
+                        //}
+                        Respawn();
+                    }
+                }
+
+                if (Translation.Y <= -99.0f)
+                {
+                    Respawn();
+                }
+
+                
             }
         }
 
@@ -232,6 +239,12 @@ namespace Object
             //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
             Velocity += new Vector2(0, 3800) * dt;
+        }
+
+        public void Respawn()
+        {
+            Translation = spawnPosition;
+            Collider = colliderPosition;
         }
     }
 }

@@ -38,7 +38,7 @@
                     1698992900427510800,
                     1700480697547170400
                 ],
-                "currFrame": 0,
+                "currFrame": 6,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -971,7 +971,7 @@
                     1698954489840002900,
                     1698954487533620100
                 ],
-                "currFrame": 0,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1032,10 +1032,10 @@
             "Collider": {
                 "collider": 0,
                 "posX": 352.713623046875,
-                "posY": -27.564712524414063,
+                "posY": -15.0,
                 "rotation": 0.0,
                 "dimX": 30.0,
-                "dimY": 50.0
+                "dimY": 26.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1129,10 +1129,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 56.30580139160156,
-                "posY": -61.87400817871094,
+                "posX": -302.2661437988281,
+                "posY": -62.363155364990234,
                 "rotation": 0.0,
-                "dimX": 1000.0,
+                "dimX": 282.6736755371094,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -1140,7 +1140,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -1163,13 +1163,13 @@
                 "Tag": "Platform"
             },
             "Transform": {
-                "posX": 56.30580139160156,
-                "posY": -61.87400817871094,
+                "posX": -302.2661437988281,
+                "posY": -62.363155364990234,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 1000.0,
+                "scaleX": 282.6736755371094,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -1180,7 +1180,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 0,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1305,34 +1305,6 @@
                 "rotZ": 0.0,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "#####"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698953115391509900
-            },
-            "Tag": {
-                "Tag": "Open Door"
-            },
-            "Transform": {
-                "posX": 72.799560546875,
-                "posY": -109.48701477050781,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -1484,6 +1456,55 @@
                 "rotZ": 0.0,
                 "scaleX": 15.0,
                 "scaleY": 120.89962005615234,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 167.6512451171875,
+                "posY": -62.362998962402344,
+                "rotation": 0.0,
+                "dimX": 560.3971557617188,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Platform"
+            },
+            "Transform": {
+                "posX": 167.6512451171875,
+                "posY": -62.362998962402344,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 560.3971557617188,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
