@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignableScripts\Activatables\Button.cs" />
     <Compile Include="AssignableScripts\Activatables\Doors.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />
@@ -59,6 +60,15 @@
     <Compile Include="AssignableScripts\BasicEnemy\EnemyDefaultState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
+    <Compile Include="AssignableScripts\Buttons\PauseMenu.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmHowToPlay.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmHowToPlayScene.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmMenu.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmQuit.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmResumeGame.cs" />
+    <Compile Include="AssignableScripts\Buttons\Settings.cs" />
+    <Compile Include="AssignableScripts\Checkpoints\Checkpoint.cs" />
     <Compile Include="AssignableScripts\Exit\Exit.cs" />
     <Compile Include="AssignableScripts\Player\Arms.cs" />
     <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />

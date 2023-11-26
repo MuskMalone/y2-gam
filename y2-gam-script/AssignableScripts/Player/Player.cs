@@ -25,13 +25,24 @@ namespace Object
         // Force Based
         public readonly float JumpForce = 900000.0f;
         public readonly float MovementForce = 70000.0f;
-        //public int Health = 1;
-        private Vector2 spawnPosition = new Vector2(-400, -27);
-        private Vector2 colliderPosition = new Vector2(-400, -36);
+        public int Health = 1;
+
         public bool isGrounded = true;
         private bool slowdownToggle = true;
+        private Vector2 spawnPosition = new Vector2(-400, -27);
+        private Vector2 colliderPosition = new Vector2(-400, -36);
+        //private Vector2 spawnPosition = new Vector2(0, 0);
+        //private Vector2 colliderPosition = new Vector2(0, 0);
         //private bool jumped = false;
         bool godMode = false;
+
+        //For pausing 
+        //int temp_AnimationState = 0;
+        Vector2 temp_pos;
+        Vector2 temp_Force;
+        Vector2 temp_velocity;
+        float temp_dt = 0f;
+        bool isPaused = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -88,6 +99,9 @@ namespace Object
         {
             isFacingRight = FacingDirection;
             FacingDirectionChanged = false;
+            //originalPosition = Translation;
+            //originalcolliderPosition = Collider;
+
         }
 
         /*  _________________________________________________________________________ */
@@ -104,9 +118,34 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                
+                if (isPaused)
+                {
+                    dt = temp_dt;
+                    PauseGame();
+                    //AnimationState = temp_AnimationState;
+                }
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                {
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        temp_dt = dt;
+                        dt = temp_dt;
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        //resume game
+                        ResumeGame();
+                        //dt = temp_dt;
+                        isPaused = false;
+                    }
+                    //firstTime = false;
+                }
+                if (!isPaused)
+                {
 
-                if (!godMode)
+                    if (!godMode)
                 {
                         FacingDirection = isFacingRight;
 
@@ -256,6 +295,26 @@ namespace Object
             FacingDirection = isFacingRight;
         }
 
+        void PauseGame()
+        {
+            //pause the game
+            temp_Force = Force;
+            temp_pos = Translation;
+            temp_velocity = Velocity;
+            //temp_AnimationState = AnimationState;
+            Force = new Vector2(0, 0);
+            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+            Velocity = new Vector2(0, 0);
+            //AnimationState = temp_AnimationState;
+        }
+
+        void ResumeGame()
+        {
+            Force = temp_Force*temp_dt;
+            Translation = temp_pos;
+            Velocity = temp_velocity*temp_dt;
+            //AnimationState = temp_AnimationState;
+        }
         public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;

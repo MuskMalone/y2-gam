@@ -294,6 +294,102 @@
             "idxY": 0.0,
             "dimX": 277.0,
             "dimY": 261.0
+        },
+        "1700925666827633500": {
+            "id": 1700925666827671100,
+            "path": "../assets\\Textures\\quitgame_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 551.0,
+            "dimY": 131.0
+        },
+        "1700928706423252000": {
+            "id": 1700928706423292500,
+            "path": "../assets\\Textures\\Y2_menu_words.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2750.0,
+            "dimY": 1200.0
+        },
+        "1700943442995398400": {
+            "id": 1700943442995431400,
+            "path": "../assets\\Textures\\gam200_mainmenu_quit game.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 813.0,
+            "dimY": 462.0
+        },
+        "1700946331426554800": {
+            "id": 1700946331426587100,
+            "path": "../assets\\Textures\\y2_pause menu_ quitgame_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 285.0,
+            "dimY": 63.0
+        },
+        "1700947919118509400": {
+            "id": 1700947919118538200,
+            "path": "../assets\\Textures\\y2_pause menu_ resumegame_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 370.0,
+            "dimY": 60.0
+        },
+        "1700948555024191800": {
+            "id": 1700948555024219100,
+            "path": "../assets\\Textures\\y2_pause menu_ menu_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 182.0,
+            "dimY": 68.0
+        },
+        "1700950875967708300": {
+            "id": 1700950875967745400,
+            "path": "../assets\\Textures\\HowToPlay.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1229.0,
+            "dimY": 691.0
+        },
+        "1700951688787371900": {
+            "id": 1700951688787406200,
+            "path": "../assets\\Textures\\y2_pause menu_ howtoplay_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 344.0,
+            "dimY": 71.0
+        },
+        "1700976955830969700": {
+            "id": 1700976955831004200,
+            "path": "../assets\\Textures\\no_with glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 132.0,
+            "dimY": 99.0
+        },
+        "1700976985264297900": {
+            "id": 1700976985264350200,
+            "path": "../assets\\Textures\\yes_with glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 132.0,
+            "dimY": 93.0
+        },
+        "1700997209220089700": {
+            "id": 1700997209220117900,
+            "path": "../assets\\Textures\\settings_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 524.0,
+            "dimY": 124.0
+        },
+        "1700999221263113200": {
+            "id": 1700999221263142500,
+            "path": "../assets\\Textures\\y2_pause menu_ settings_glow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 260.0,
+            "dimY": 68.0
         }
     },
     "classAnimationManager": {

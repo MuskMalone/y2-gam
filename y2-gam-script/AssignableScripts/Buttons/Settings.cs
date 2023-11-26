@@ -3,9 +3,9 @@ using System;
 
 namespace Object
 {
-    public class Quit : Entity
+    public class Settings : Entity
     {
-        bool firstTime = true;
+        //bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -13,7 +13,7 @@ namespace Object
 
         Default constructor for the EnterLevelOne entity. Inherits from entity class.
         */
-        public Quit() : base()
+        public Settings() : base()
         {
 
         }
@@ -28,7 +28,7 @@ namespace Object
 
         Non-default, single-arg constructor for a EnterLevelOne entity.
         */
-        public Quit(uint entityHandle) : base(entityHandle)
+        public Settings(uint entityHandle) : base(entityHandle)
         {
             entityID = entityHandle;
         }
@@ -59,11 +59,11 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (UIClicked && firstTime)
-                {
-                    QuitGame();
-                    firstTime = false;
-                }
+                //if (UIClicked && firstTime)
+                //{
+                //    QuitGame();
+                //    firstTime = false;
+                //}
 
                 if (UIHover)
                 {

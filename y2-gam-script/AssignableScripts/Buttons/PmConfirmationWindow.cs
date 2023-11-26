@@ -1,11 +1,13 @@
 ﻿using Image;
 using System;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
-    public class Quit : Entity
+    public class PmConfirmationWindow : Entity
     {
-        bool firstTime = true;
+        //bool firstTime = true;
+        //bool isPaused = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -13,7 +15,7 @@ namespace Object
 
         Default constructor for the EnterLevelOne entity. Inherits from entity class.
         */
-        public Quit() : base()
+        public PmConfirmationWindow() : base()
         {
 
         }
@@ -28,7 +30,7 @@ namespace Object
 
         Non-default, single-arg constructor for a EnterLevelOne entity.
         */
-        public Quit(uint entityHandle) : base(entityHandle)
+        public PmConfirmationWindow(uint entityHandle) : base(entityHandle)
         {
             entityID = entityHandle;
         }
@@ -40,11 +42,13 @@ namespace Object
 
         Called on creation.
         */
+
         void OnCreate()
         {
-
+            //GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X - 150, Translation.Y - 170));
         }
 
+        
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -59,20 +63,18 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (UIClicked && firstTime)
+                //if(isPaused)
+
+                if(Input.IsKeyClicked(KeyCode.KEY_Y))
                 {
                     QuitGame();
-                    firstTime = false;
                 }
-
-                if (UIHover)
+                //resume game
+                else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
                 {
-                    Colour = new Vector4(1, 1, 1, 1);
+                    Colour = new Vector4(1, 1, 1, 0);
                 }
-                else
-                {
-                    Colour = new Vector4(1, 0, 1, 0);
-                }
+               
             }
         }
 
@@ -89,4 +91,5 @@ namespace Object
         }
     }
 }
+
 

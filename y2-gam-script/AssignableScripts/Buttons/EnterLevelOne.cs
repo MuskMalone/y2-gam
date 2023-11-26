@@ -77,16 +77,10 @@ namespace Object
             if (!IsEditorMode())
             {
                 //SetSprite("start_glow");
-                if (!firstTime)
-                {
-                    Console.WriteLine("NOT FIRT TIME ++++++++++++++++++++++++++++++++++++++");
-                }
                 if (UIHover)
                 {
-
                     Colour = new Vector4(1, 1, 1, 1);
-                    SetSprite("start_glow");
-
+                    //SetSprite("start_glow");
                 }
                 else
                 {
@@ -96,7 +90,6 @@ namespace Object
                 if (UIClicked && firstTime)
                 {
                     LoadScene("Level1");
-                    Console.WriteLine("ScriptLoaded==================================================================");
                     firstTime = false;
                 }
             }
