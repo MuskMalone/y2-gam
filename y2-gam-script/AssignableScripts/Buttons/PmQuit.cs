@@ -67,7 +67,8 @@ namespace Object
                 GameplayWrapper.SpawnPrefab("ConfirmationYes", new Vector2(Translation.X-150, Translation.Y-170));
                 if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    
+                    //GameplayWrapper.DestroyEntity(6);
+                    //GameplayWrapper.DestroyEntity(5);
                     ResumeGame();
                     isPaused = false;
                     //firstTime = false;
