@@ -615,18 +615,24 @@ namespace Image {
 		MonoString** tag, MonoString** layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
-		*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
-		if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
-			*entityHandle = rh.entityID;
 
-			if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
-				if (gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str() != nullptr)
-					*tag = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str());
+		if (tag && layer) {
+			if (entityToIgnore >= 0 && entityToIgnore < MAX_ENTITIES) {
+				*hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(*origin, *end, rh, entityToIgnore);
 			}
 
-			if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
-				if (gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str() != nullptr)
-					*layer = mono_string_new(mono_domain_get(), gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str());
+			if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
+				*entityHandle = rh.entityID;
+
+				if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
+					const char* str = gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
+					*tag = mono_string_new(mono_domain_get(), str);
+				}
+
+				if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
+					const char* str = gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
+					*layer = mono_string_new(mono_domain_get(), str);
+				}
 			}
 		}
 	}
