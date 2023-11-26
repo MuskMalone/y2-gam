@@ -938,7 +938,9 @@ namespace Image {
                   if (selectedOption != previousOption) {
                     previousOption = selectedOption;
                     script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
-                    ScriptManager::OnCreateEntity(selectedEntity);
+                    if (!prefabs) {
+                        ScriptManager::OnCreateEntity(selectedEntity); 
+                    }
                   }
                                 
                   ImGui::TreePop();
@@ -964,7 +966,7 @@ namespace Image {
     /*! PropertyWindow
 
     @param none
-
+    @param ignore - ignores adding to the systems if true
     @return none.
 
     This function displays the properties of the selected entity and allows for
@@ -1093,7 +1095,9 @@ namespace Image {
                 gCoordinator->AddComponent(
                   selectedEntity,
                   Script{ "No Script Assigned" }, ignore);
-                ScriptManager::OnCreateEntity(selectedEntity);
+                if (!ignore) {
+                    ScriptManager::OnCreateEntity(selectedEntity);
+                }
               }
             }
                   break;
