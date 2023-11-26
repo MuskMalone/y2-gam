@@ -287,13 +287,17 @@ namespace Image {
         // Ernest: Can delete now
         if (gSelectedEntity != MAX_ENTITIES && ImGui::Button("Destroy Entity")) {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-                gCoordinator->DestroyEntity(gSelectedEntity);
-                Image::ScriptManager::RemoveEntity(gSelectedEntity);
-                gSelectedEntity = MAX_ENTITIES;
+                //put before u destroy the entity
+            CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
+
+            gCoordinator->DestroyEntity(gSelectedEntity);
+            Image::ScriptManager::RemoveEntity(gSelectedEntity);
+            gSelectedEntity = MAX_ENTITIES;
             //}
                 //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                   //ScriptManager::RemoveEntity(gSelectedEntity);
                 //}
+
         }
 
         for (auto const& entity : mEntities) {
@@ -367,6 +371,8 @@ namespace Image {
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
                 //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                    CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
+
                     gCoordinator->DestroyEntity(gSelectedEntity);
                     Image::ScriptManager::RemoveEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
@@ -402,6 +408,20 @@ namespace Image {
     */
     void LayerWindow() {
       gCoordinator->GetSystem<LayeringSystem>()->ImguiLayeringWindow();
+    }
+
+
+    void CheckFirstAndLastUseTransform(bool& wasActive, const char* widgetName, Entity e) {
+        bool isActive = ImGui::IsItemActive();
+        if (isActive && !wasActive) {
+            //std::cout << widgetName << " was first used." << std::endl;
+            auto& transform = gCoordinator->GetComponent<Transform>(gSelectedEntity);
+            CommandManager::GetInstance()->AddCommand("Transform", gSelectedEntity, Transform{ transform });
+        }
+        if (!isActive && wasActive) {
+            //std::cout << widgetName << " was last used." << std::endl;
+        }
+        wasActive = isActive;
     }
 
     /*  _________________________________________________________________________ */
@@ -470,46 +490,77 @@ namespace Image {
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
                     Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
-                    // Position
+
+                    static bool wasPosXActive = false;
+                    static bool wasPosYActive = false;
+                    static bool wasPosZActive = false;
+                    static bool wasRotZActive = false;
+                    static bool wasScaleXActive = false;
+                    static bool wasScaleYActive = false;
+
+                    static bool wasPosXSliderActive = false;
+                    static bool wasPosYSliderActive = false;
+                    static bool wasPosZSliderActive = false;
+                    static bool wasRotZSliderActive = false;
+                    static bool wasScaleXSliderActive = false;
+                    static bool wasScaleYSliderActive = false;
+
+                    // Position X
                     ImGui::Text("Position");
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos X", &transform.position.x);
+                    CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
+                    CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
 
+                    // Position Y
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos Y", &transform.position.y);
+                    CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                    CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
 
+                    // Position Z
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Pos Z", &transform.position.z);
+                    CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                    CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
 
                     // Rotation
                     ImGui::Text("Rotation");
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Rot Z", &transform.rotation.z);
+                    CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
+                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
+                    CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
 
-                    // Scale
+                    // Scale X
                     ImGui::Text("Scale");
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Scale X", &transform.scale.x);
+                    CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
+                    CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
+
+                    // Scale Y
                     ImGui::SetNextItemWidth(50.f);
                     ImGui::InputFloat("##Scale Y", &transform.scale.y);
+                    CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(100.f);
                     ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+                    CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
 
                     ImGui::TreePop();
                 }
@@ -1354,6 +1405,26 @@ namespace Image {
                   gCurrentGuizmoOperation, gCurrentGizmoMode,
                   glm::value_ptr(transformMatrix), nullptr,
                   gSnap ? snapArr : nullptr);
+              
+              static bool wasUsingGuizmo = false;
+              bool isUsingGuizmo = ImGuizmo::IsUsing();
+              if (isUsingGuizmo && !wasUsingGuizmo) {
+                  // This is the frame where ImGuizmo started being used
+                  std::cout << "guizmo start\n";
+                  if (gCoordinator->HasComponent<Collider>(gSelectedEntity)) {
+                      Collider& collider = gCoordinator->GetComponent<Collider>(gSelectedEntity);
+                      CommandManager::GetInstance()->AddCommand("Transform", gSelectedEntity, Transform{ transform }, Collider{collider});
+                  }
+                  else {
+                      CommandManager::GetInstance()->AddCommand("Transform", gSelectedEntity, Transform{ transform });
+                  }
+              }
+
+              if (!isUsingGuizmo && wasUsingGuizmo) {
+                  // This is the frame where ImGuizmo stopped being used
+                  std::cout << "guizmo end\n";
+              }
+
               if (ImGuizmo::IsUsing()) {
                   glm::vec3 position, rotation, scale;
                   Image::DecomposeTransform(transformMatrix, position, rotation, scale);
@@ -1373,6 +1444,7 @@ namespace Image {
                       collider.dimension.y += deltaScale.y;
                   }
               }
+              wasUsingGuizmo = isUsingGuizmo;
           }
         }
         ImGui::EndChild();

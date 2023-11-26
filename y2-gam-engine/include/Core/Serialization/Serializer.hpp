@@ -242,7 +242,7 @@ if (Coordinator::GetInstance()->HasComponent<Transform>(entity)) { out["Transfor
 if (Coordinator::GetInstance()->HasComponent<UIImage>(entity)) { out["UIImage"] = std::any{ Coordinator::GetInstance()->GetComponent<UIImage>(entity) }; }
 return out;
 }
-static void UndestroyEntity(std::map<std::string, std::any> const& components) {
+static Entity UndestroyEntity(std::map<std::string, std::any> const& components) {
 Entity e{ Coordinator::GetInstance()->CreateEntity() };
 for (auto const& c : components) {
 if (c.first == "Animation") { Coordinator::GetInstance()->AddComponent<Animation>(e, std::any_cast<Animation>(c.second)); }
@@ -262,5 +262,6 @@ if (c.first == "Text") { Coordinator::GetInstance()->AddComponent<Text>(e, std::
 if (c.first == "Transform") { Coordinator::GetInstance()->AddComponent<Transform>(e, std::any_cast<Transform>(c.second)); }
 if (c.first == "UIImage") { Coordinator::GetInstance()->AddComponent<UIImage>(e, std::any_cast<UIImage>(c.second)); }
 }
+return e;
 }
 }
