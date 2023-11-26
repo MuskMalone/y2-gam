@@ -1242,7 +1242,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "script": "ObjectPauseMenu",
@@ -1279,7 +1279,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "script": "ObjectPmResumeGame",
@@ -1316,7 +1316,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "script": "ObjectPmMenu",
@@ -1353,7 +1353,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "script": "ObjectPmQuit",
@@ -1390,7 +1390,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "script": "ObjectPmHowToPlay",
@@ -1416,43 +1416,6 @@
                 "rotZ": 0.0,
                 "scaleX": 190.0,
                 "scaleY": 39.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
-            "Script": {
-                "script": "No Script Assigned",
-                "isFacingRight": true
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Tag": {
-                "Tag": "settings_glow"
-            },
-            "Transform": {
-                "posX": 7.5,
-                "posY": 7.5,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

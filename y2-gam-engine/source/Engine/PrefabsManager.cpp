@@ -194,5 +194,5 @@ void PrefabsSystem::Update() {
 			script = script1;
         }
 	}
-	std::cout << mEntities.size() << " Prefab Entities spawned\n";
+	//std::cout << mEntities.size() << " Prefab Entities spawned\n";
 }
