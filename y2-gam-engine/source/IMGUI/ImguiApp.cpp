@@ -434,7 +434,7 @@ namespace Image {
     This function displays the components of the selected entity and allows for
     modification to its components.
     */
-    void InspectorWindow(Entity selectedEntity) {
+    void InspectorWindow(Entity selectedEntity, bool prefabs) {
         // Inspector Panel
         //ImGui::Begin("Inspector");
         //TransformComponent
@@ -489,79 +489,130 @@ namespace Image {
               
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
-                    Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
+                    if (prefabs) {
+                        Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
 
-                    static bool wasPosXActive = false;
-                    static bool wasPosYActive = false;
-                    static bool wasPosZActive = false;
-                    static bool wasRotZActive = false;
-                    static bool wasScaleXActive = false;
-                    static bool wasScaleYActive = false;
+                        // Position X
+                        ImGui::Text("Position");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos X", &transform.position.x);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
-                    static bool wasPosXSliderActive = false;
-                    static bool wasPosYSliderActive = false;
-                    static bool wasPosZSliderActive = false;
-                    static bool wasRotZSliderActive = false;
-                    static bool wasScaleXSliderActive = false;
-                    static bool wasScaleYSliderActive = false;
+                        // Position Y
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos Y", &transform.position.y);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
-                    // Position X
-                    ImGui::Text("Position");
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Pos X", &transform.position.x);
-                    CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
-                    CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
+                        // Position Z
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos Z", &transform.position.z);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
 
-                    // Position Y
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Pos Y", &transform.position.y);
-                    CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
-                    CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
+                        // Rotation
+                        ImGui::Text("Rotation");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Rot Z", &transform.rotation.z);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
 
-                    // Position Z
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Pos Z", &transform.position.z);
-                    CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
-                    CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
+                        // Scale X
+                        ImGui::Text("Scale");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Scale X", &transform.scale.x);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
 
-                    // Rotation
-                    ImGui::Text("Rotation");
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Rot Z", &transform.rotation.z);
-                    CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
-                    CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
+                        // Scale Y
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Scale Y", &transform.scale.y);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+                    }
+                    else {
 
-                    // Scale X
-                    ImGui::Text("Scale");
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Scale X", &transform.scale.x);
-                    CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
-                    CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
 
-                    // Scale Y
-                    ImGui::SetNextItemWidth(50.f);
-                    ImGui::InputFloat("##Scale Y", &transform.scale.y);
-                    CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
-                    ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
-                    ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
-                    CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
+                        Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
 
+                        static bool wasPosXActive = false;
+                        static bool wasPosYActive = false;
+                        static bool wasPosZActive = false;
+                        static bool wasRotZActive = false;
+                        static bool wasScaleXActive = false;
+                        static bool wasScaleYActive = false;
+
+                        static bool wasPosXSliderActive = false;
+                        static bool wasPosYSliderActive = false;
+                        static bool wasPosZSliderActive = false;
+                        static bool wasRotZSliderActive = false;
+                        static bool wasScaleXSliderActive = false;
+                        static bool wasScaleYSliderActive = false;
+
+                        // Position X
+                        ImGui::Text("Position");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos X", &transform.position.x);
+                        CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
+                        CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
+
+                        // Position Y
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos Y", &transform.position.y);
+                        CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                        CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
+
+                        // Position Z
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Pos Z", &transform.position.z);
+                        CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
+                        CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
+
+                        // Rotation
+                        ImGui::Text("Rotation");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Rot Z", &transform.rotation.z);
+                        CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
+                        CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
+
+                        // Scale X
+                        ImGui::Text("Scale");
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Scale X", &transform.scale.x);
+                        CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
+                        CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
+
+                        // Scale Y
+                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::InputFloat("##Scale Y", &transform.scale.y);
+                        CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
+                        CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
+                    }
                     ImGui::TreePop();
                 }
             }
@@ -900,7 +951,7 @@ namespace Image {
     }
     void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
-        InspectorWindow(gSelectedPrefab);
+        InspectorWindow(gSelectedPrefab, true);
         ImGui::End();
         
     }
