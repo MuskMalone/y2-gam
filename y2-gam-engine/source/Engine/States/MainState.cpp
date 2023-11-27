@@ -27,8 +27,8 @@ void MainState::Update(float dt) {
 
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	auto inputSystem = coordinator->GetSystem<InputSystem>();
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_BACKSPACE))
-		mIsStep = !mIsStep;
+	//if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_BACKSPACE))
+	//	mIsStep = !mIsStep;
 	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
 	//todo tch: hacky way to do this pls change
