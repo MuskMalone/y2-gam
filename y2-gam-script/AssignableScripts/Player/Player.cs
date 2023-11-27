@@ -153,7 +153,7 @@ namespace Object
                     if (!godMode)
                     {
                         FacingDirection = isFacingRight;
-
+                        
                         if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
                             new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                                 PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
@@ -170,6 +170,7 @@ namespace Object
                             isGrounded = false;
                             AnimationState = (int)AnimationCodePlayer.JUMP;
                         }
+                        
 
                         if (FacingDirectionChanged)
                         {
@@ -210,21 +211,22 @@ namespace Object
                         }
 
                         Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
+                        
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                         {
 
-                    //Console.WriteLine("Player touched a waypoint!");
-                    float waypointOffset = 2.0f;
-                    float colliderOffset = 9.0f;
-                    spawnPosition = Translation;
-                    spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                    colliderPosition = Translation;
-                    colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                    colliderPosition -= new Vector2(0, colliderOffset);
-                    //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
+                            //Console.WriteLine("Player touched a waypoint!");
+                            float waypointOffset = 2.0f;
+                            float colliderOffset = 9.0f;
+                            spawnPosition = Translation;
+                            spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                            colliderPosition = Translation;
+                            colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                            colliderPosition -= new Vector2(0, colliderOffset);
+                            //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
 
-                }
-
+                        }
+                        
                 if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                 {
                     Respawn();
@@ -241,7 +243,7 @@ namespace Object
                         Respawn();
                     }
                 }
-
+                
                         if (Translation.Y <= -99.0f)
                         {
                             Respawn();
