@@ -405,7 +405,9 @@ namespace Image {
     auto it = sEntityInstances.find(entity);
 
     if (it != sEntityInstances.end()) {
-      sEntityInstances[entity].CallOnUpdate(dt);
+      if (entity >= 0 && entity < MAX_ENTITIES) {
+        sEntityInstances[entity].CallOnUpdate(dt);
+      }
     }
 #ifndef _INSTALLER
     else {

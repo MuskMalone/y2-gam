@@ -240,7 +240,6 @@ namespace Object
 
         void ResetCardUI()
         {
-            Console.WriteLine("Reset Card UI");
             SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
             SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
