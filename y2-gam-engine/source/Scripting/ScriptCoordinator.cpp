@@ -669,12 +669,12 @@ namespace Image {
 		Physics::RayHit rh{};
 
 		//if (tag && layer && *tag == NULL && *layer == NULL) {
-			//if (entityToIgnore >= 0 && entityToIgnore < MAX_ENTITIES) {
+			if (entityToIgnore >= 0 && entityToIgnore < MAX_ENTITIES) {
 				hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, entityToIgnore);
-			//}
+			}
 
 			if (hit) {
-				//if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
+				if (rh.entityID >= 0 && rh.entityID < MAX_ENTITIES) {
 					entityHandle = rh.entityID;
 
 					if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
@@ -686,13 +686,7 @@ namespace Image {
 						const char* str = gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
 						*layer = mono_string_new(mono_domain_get(), str);
 					}
-				//}
-			}
-
-			else {
-				entityHandle = 0;
-				*tag = mono_string_new(mono_domain_get(), "None");
-				*layer = mono_string_new(mono_domain_get(), "None");
+				}
 			}
 		//}
 	}
