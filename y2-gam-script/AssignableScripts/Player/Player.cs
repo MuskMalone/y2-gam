@@ -39,9 +39,9 @@ namespace Object
 
         //For pausing 
         //int temp_AnimationState = 0;
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
+        //Vector2 temp_pos;
+        //Vector2 temp_Force;
+        //Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
 
@@ -292,22 +292,24 @@ namespace Object
         void PauseGame()
         {
             //pause the game
-            temp_Force = Force;
-            temp_pos = Translation;
-            temp_velocity = Velocity;
-            //temp_AnimationState = AnimationState;
-            Force = new Vector2(0, 0);
-            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            Velocity = new Vector2(0, 0);
+            //temp_Force = Force;
+            //temp_pos = Translation;
+            //temp_velocity = Velocity;
+            ////temp_AnimationState = AnimationState;
+            //Force = new Vector2(0, 0);
+            //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+            //Velocity = new Vector2(0, 0);
             //AnimationState = temp_AnimationState;
+            SaveScene("Level1");
         }
 
         void ResumeGame()
         {
-            Force = temp_Force*temp_dt;
-            Translation = temp_pos;
-            Velocity = temp_velocity*temp_dt;
+            //Force = temp_Force*temp_dt;
+            //Translation = temp_pos;
+            //Velocity = temp_velocity*temp_dt;
             //AnimationState = temp_AnimationState;
+            LoadScene("Level1");
         }
         public void MoveLeft(float dt)
         {
