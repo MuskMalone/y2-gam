@@ -30,6 +30,9 @@ namespace Image {
     void CallOnUpdate(float dt);
     void CallOnExit();
 
+    MonoMethod* GetUpdateMethod() const { return mOnUpdateMethod; }
+    MonoObject* GetInstance() const { return mInstance; }
+
   private:
     MonoObject* mInstance{ nullptr };
     MonoMethod* mConstructor{ nullptr };

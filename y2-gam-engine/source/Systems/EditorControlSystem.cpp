@@ -53,7 +53,9 @@ void EditorControlSystem::Update(float dt)
 		for (size_t i{}; i < vscripts.size(); ++i){
 			auto const& e{ vscripts[i] };
 			if (e.first >= 0 && e.first < MAX_ENTITIES) {
-				Image::ScriptManager::OnUpdateEntity(e.first, dt);
+				if (e.second.GetUpdateMethod() != nullptr && e.second.GetInstance()) {
+					Image::ScriptManager::OnUpdateEntity(e.first, dt);
+				}
 			}
 		}
 	}
