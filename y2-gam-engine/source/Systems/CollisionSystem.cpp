@@ -631,7 +631,7 @@ Computes the collision between two entities and returns an arbiter.
         return false;
     }
 
-    bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, std::optional<Entity> entityToIgnore) {
+    bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, Entity entityToIgnore) {
       /*
       glDisable(GL_DEPTH_TEST);
         glm::mat4 viewProjMtx{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()).GetViewProjMtx() };
@@ -647,7 +647,7 @@ Computes the collision between two entities and returns an arbiter.
         Vec2 cnMin{0, 0}, cpMin{0, 0};
         bool out{ false };
         for (auto const& entity : mEntities) {
-            if (entityToIgnore.has_value() && entityToIgnore.value() == entity) continue;
+            if (entityToIgnore != static_cast<Entity>(-1) && entity == entityToIgnore) continue;
             //if (entity == 0) continue;
             float time{};
             Vec2 cn{}, cp{};
