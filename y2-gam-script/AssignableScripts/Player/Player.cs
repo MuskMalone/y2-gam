@@ -28,7 +28,7 @@ namespace Object
         //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
-        private bool waypointActivated = false;
+        //private bool waypointActivated = false;
         public bool isGrounded = true;
         private bool slowdownToggle = true;
 
@@ -39,9 +39,9 @@ namespace Object
 
         //For pausing 
         //int temp_AnimationState = 0;
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
+        //Vector2 temp_pos;
+        //Vector2 temp_Force;
+        //Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
 
@@ -70,7 +70,7 @@ namespace Object
         */
         public Player() : base()
         {
-            
+
         }
 
         /*  _________________________________________________________________________ */
@@ -153,7 +153,7 @@ namespace Object
                     if (!godMode)
                     {
                         FacingDirection = isFacingRight;
-                        
+
                         if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
                             new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                                 PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
@@ -170,7 +170,6 @@ namespace Object
                             isGrounded = false;
                             AnimationState = (int)AnimationCodePlayer.JUMP;
                         }
-                        
 
                         if (FacingDirectionChanged)
                         {
@@ -211,7 +210,6 @@ namespace Object
                         }
 
                         Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                        
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                         {
 
@@ -226,24 +224,24 @@ namespace Object
                             //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
 
                         }
-                        
-                if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
-                {
-                    Respawn();
-                }
+
+                        if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                        {
+                            Respawn();
+                        }
 
                         Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
 
                         Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
 
-                if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                {
-                    if (spikeHit.tag == "Spikes")
-                    {
-                        Respawn();
-                    }
-                }
-                
+                        if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
+                        {
+                            if (spikeHit.tag == "Spikes")
+                            {
+                                Respawn();
+                            }
+                        }
+
                         if (Translation.Y <= -99.0f)
                         {
                             Respawn();
@@ -275,8 +273,8 @@ namespace Object
                             FlyDown(dt);
                         }
                     }
-                }          
-            } 
+                }
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -294,22 +292,24 @@ namespace Object
         void PauseGame()
         {
             //pause the game
-            temp_Force = Force;
-            temp_pos = Translation;
-            temp_velocity = Velocity;
-            //temp_AnimationState = AnimationState;
-            Force = new Vector2(0, 0);
-            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            Velocity = new Vector2(0, 0);
+            //temp_Force = Force;
+            //temp_pos = Translation;
+            //temp_velocity = Velocity;
+            ////temp_AnimationState = AnimationState;
+            //Force = new Vector2(0, 0);
+            //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+            //Velocity = new Vector2(0, 0);
             //AnimationState = temp_AnimationState;
+            SaveScene("Level1");
         }
 
         void ResumeGame()
         {
-            Force = temp_Force*temp_dt;
-            Translation = temp_pos;
-            Velocity = temp_velocity*temp_dt;
+            //Force = temp_Force*temp_dt;
+            //Translation = temp_pos;
+            //Velocity = temp_velocity*temp_dt;
             //AnimationState = temp_AnimationState;
+            LoadScene("Level1");
         }
         public void MoveLeft(float dt)
         {
@@ -317,7 +317,7 @@ namespace Object
             AnimationState = (int)AnimationCodePlayer.RUN;
             //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
             Velocity -= new Vector2(100, 0.0f) * dt;
-            isFacingRight = false;    
+            isFacingRight = false;
         }
 
         public void MoveRight(float dt)

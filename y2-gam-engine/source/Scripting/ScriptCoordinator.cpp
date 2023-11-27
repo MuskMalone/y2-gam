@@ -108,12 +108,12 @@ namespace Image {
 	}
 
 	// Temporary (to work on wrapping event system from cpp to cs during hols)
-	static void GameplayComponent_GetPressed(bool& isPressed) {
-		isPressed = ::isPressed;
+	static void GameplayComponent_GetPressed(bool& pressed) {
+		pressed = ::isPressed;
 	}
 
-	static void GameplayComponent_SetPressed(bool& isPressed) {
-		::isPressed = isPressed;
+	static void GameplayComponent_SetPressed(bool& pressed) {
+		::isPressed = pressed;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -1166,7 +1166,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the key is being pressed.
 	*/
-	static bool Input_IsKeyPressed(size_t key) {
+	static bool Input_IsKeyPressed(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, key);
@@ -1183,7 +1183,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the key is being clicked.
 	*/
-	static bool Input_IsKeyClicked(size_t key) {
+	static bool Input_IsKeyClicked(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, key);
@@ -1200,7 +1200,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the key is being released.
 	*/
-	static bool Input_IsKeyReleased(size_t key) {
+	static bool Input_IsKeyReleased(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::KEY_RELEASED, key);
@@ -1217,7 +1217,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the mouse key is being pressed.
 	*/
-	static bool Input_IsMousePressed(size_t key) {
+	static bool Input_IsMousePressed(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_PRESSED, key);
@@ -1234,7 +1234,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the mouse key is being clicked.
 	*/
-	static bool Input_IsMouseClicked(size_t key) {
+	static bool Input_IsMouseClicked(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, key);
@@ -1251,7 +1251,7 @@ Get the collider dimensions of the entity in C#.
 
 	Check if the mouse key is being released.
 	*/
-	static bool Input_IsMouseReleased(size_t key) {
+	static bool Input_IsMouseReleased(int& key) {
 		::gCoordinator = Coordinator::GetInstance();
 		auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
 		return inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_RELEASED, key);

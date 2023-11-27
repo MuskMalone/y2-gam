@@ -47,13 +47,12 @@ void QuitHandler([[maybe_unused]] Event& event)
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
-#ifndef _INSTALLER
-int main() 
-{
+#ifndef _DEBUG
+		int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+		{
 
 #else
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+		int main() {
 #endif
 
 	// Enable run-time memory check for debug builds.

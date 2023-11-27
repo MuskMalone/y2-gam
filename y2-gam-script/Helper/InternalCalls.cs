@@ -422,7 +422,7 @@ namespace Image
         Check if the key is being pressed.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsKeyPressed(int key);
+        internal extern static bool Input_IsKeyPressed(ref int key);
 
         /*  _________________________________________________________________________ */
         /*! Input_IsKeyClicked
@@ -436,7 +436,7 @@ namespace Image
         Check if the key is being clicked.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsKeyClicked(int key);
+        internal extern static bool Input_IsKeyClicked(ref int key);
 
         /*  _________________________________________________________________________ */
         /*! Input_IsKeyReleased
@@ -450,7 +450,7 @@ namespace Image
         Check if the key is being released.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsKeyReleased(int key);
+        internal extern static bool Input_IsKeyReleased(ref int key);
 
         /*  _________________________________________________________________________ */
         /*! Input_IsMousePressed
@@ -464,7 +464,7 @@ namespace Image
         Check if the mouse key is being pressed.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsMousePressed(int key);
+        internal extern static bool Input_IsMousePressed(ref int key);
 
         /*  _________________________________________________________________________ */
         /*! Input_IsMouseClicked
@@ -478,7 +478,7 @@ namespace Image
         Check if the mouse key is being clicked.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsMouseClicked(int key);
+        internal extern static bool Input_IsMouseClicked(ref int key);
 
         /*  _________________________________________________________________________ */
         /*! Input_IsMouseReleased
@@ -492,7 +492,7 @@ namespace Image
         Check if the mouse key is being released.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static bool Input_IsMouseReleased(int key);
+        internal extern static bool Input_IsMouseReleased(ref int key);
         #endregion
     }
 }

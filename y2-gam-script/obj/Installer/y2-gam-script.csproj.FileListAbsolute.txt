@@ -16,3 +16,9 @@ D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyRefere
 D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
 D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
 D:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
+C:\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.dll
+C:\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.pdb
+C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyReference.cache
+C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
+C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
