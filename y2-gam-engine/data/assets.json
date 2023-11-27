@@ -44,6 +44,16 @@
             "id": 1700983699464866400,
             "path": "../assets\\audio\\sfx\\Card-Swap_SFX_2.wav",
             "stream": false
+        },
+        "1701089446736784800": {
+            "id": 1701089446736817600,
+            "path": "../assets\\audio\\sfx\\door_open.wav",
+            "stream": false
+        },
+        "1701089634283229200": {
+            "id": 1701089634283258000,
+            "path": "../assets\\audio\\sfx\\enemy_killed.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {

@@ -79,8 +79,8 @@ namespace Object
             {
                 if (GameplayWrapper.IsPressed == false)
                 {
+                    PlayAudio("door_open.wav", 0);
                     GameplayWrapper.DestroyEntity(entityID);
-
                 }
             }
         }

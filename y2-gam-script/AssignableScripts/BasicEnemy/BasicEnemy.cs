@@ -193,6 +193,7 @@ namespace Object
 
                     if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
                     {
+                        PlayAudio("enemy_killed.wav", 0);
                         GameplayWrapper.DestroyEntity(entityID);
                     }
 
