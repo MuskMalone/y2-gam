@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       InputSystem.cpp
+
+\author     
+\date       August 8, 2023
+
+\brief      The source file for the InputSystem.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+						or disclosure of this file or its contents without the prior
+						written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "../include/pch.hpp"
 
 #include "Systems/InputSystem.hpp"
@@ -11,11 +27,33 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief Init Function
+
+Initializes the InputSystem. This function sets up the InputSystem by registering it with the global Coordinator instance
+and adding an event listener for input events.
+
+@return none.
+*/
 void InputSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::INPUT, InputSystem::InputListener));
 }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief CheckKey Function
+
+Checks the state of a specific key or mouse button. This function allows querying various states like pressed, clicked, or released
+for both keyboard keys and mouse buttons.
+
+\param state The state to check for (e.g., KEY_PRESSED, MOUSE_CLICKED).
+\param key The key or button code to check.
+
+@return Boolean indicating whether the specified key is in the given state.
+*/
 bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	bool out{ false };
 	switch (state) {
@@ -40,9 +78,27 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	}
 	return out;
 }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief GetMousePos Function
+
+Gets the current position of the mouse cursor in screen coordinates.
+
+@return MousePosition structure containing the x and y coordinates of the mouse cursor.
+*/
 MousePosition InputSystem::GetMousePos() const {
 	return mMousePos;
 }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief GetWorldMousePos Function
+
+Calculates the mouse position in world coordinates, using the editor camera's view and projection matrices.
+
+@return MousePosition structure containing the x and y world coordinates of the mouse cursor.
+*/
 MousePosition InputSystem::GetWorldMousePos() const {
 	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
 
@@ -59,6 +115,15 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	return { worldPos.x, worldPos.y };
 }
 
+
+/*  _________________________________________________________________________ */
+/*!
+\brief GetSceneMousePos Function
+
+Calculates the mouse position in the scene's world coordinates, using the scene camera's view and projection matrices.
+
+@return MousePosition structure containing the x and y world coordinates of the mouse cursor in the scene.
+*/
 MousePosition InputSystem::GetSceneMousePos() const {
 	int windowWidth = WindowManager::GetInstance()->GetWidth();
 	int windowHeight = WindowManager::GetInstance()->GetHeight();
@@ -81,9 +146,27 @@ MousePosition InputSystem::GetSceneMousePos() const {
 	return { mouseWorldSpace.x, mouseWorldSpace.y };
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief GetEditorMousePos Function
+
+Gets the current position and size of the editor window's mouse cursor.
+
+@return EditorMousePosition structure containing the position and size data of the mouse cursor in the editor.
+*/
 EditorMousePosition InputSystem::GetEditorMousePos() const {
 	return mEditorMousePos;
 }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief Update Function
+
+Resets the states of all buttons and mouse buttons. This function is typically called at the beginning of a new frame
+to reset the state of the input system.
+
+@return none.
+*/
 void InputSystem::Update()
 {
 	mButtonsPressed.reset();
@@ -95,6 +178,17 @@ void InputSystem::Update()
 	mMouseButtonsReleased.reset();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief InputListener Function
+
+Event listener for input events. This function updates the state of the InputSystem based on the received input events.
+It processes keyboard and mouse events, updating the relevant states for keys and mouse buttons.
+
+\param event The event containing input data.
+
+@return none.
+*/
 void InputSystem::InputListener(Event& event)
 {
 	KeyState press {event.GetParam<KeyState>(Events::Window::Input::KEY_PRESS)};

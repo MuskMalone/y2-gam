@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       WindowManager.hpp
+
+\author     
+\date       August 10, 2023
+
+\brief      Header for the WindowManager class.
+
+			Manages the window and initialization as well as fullscreen toggling.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
