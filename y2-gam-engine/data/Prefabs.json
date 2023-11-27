@@ -10,20 +10,20 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 0.0,
+                "g": 1.0,
                 "b": 1.0,
-                "a": 0.0,
+                "a": 1.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
             "Transform": {
-                "posX": 193.86572265625,
-                "posY": -8.045827865600586,
+                "posX": 8.092488288879395,
+                "posY": -38.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": -200.0,
+                "scaleX": 200.0,
                 "scaleY": 109.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -149,7 +149,7 @@
             },
             "Script": {
                 "script": "ObjectPmHowToPlayScene",
-                "isFacingRight": true
+                "isFacingRight": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -331,9 +331,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1698953111881673300
             },

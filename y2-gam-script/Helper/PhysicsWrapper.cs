@@ -33,13 +33,19 @@ namespace Image
     {
         public static bool IsCollidedWithAnything(uint entityID)
         {
-            InternalCalls.PhysicsComponent_Collided(ref entityID, out bool isCollided);
+            bool isCollided = false;
+            InternalCalls.PhysicsComponent_Collided(ref entityID, ref isCollided);
             return isCollided;
         }
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
-            InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, optionalEntityID,
-                out bool hit, out uint entID, out String tagString, out String layerString);
+            bool hit = false;
+            uint entID = 0;
+            String tagString = "";
+            String layerString = "";
+
+            InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, ref optionalEntityID,
+                ref hit, ref entID, ref tagString, ref layerString);
             
             if (hit)
             {

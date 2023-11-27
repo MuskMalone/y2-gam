@@ -130,11 +130,12 @@ public class EnemyChaseState : EnemyBaseState
 
     void RecalculatePath(BasicEnemy enemy)
     {
+        /*
         path.Clear();
         nodeTypes.Clear();
 
-        InternalCalls.PathfindingComponent_GetPath(ref enemy.entityID, out Vector2 close, 
-            out Vector2 next, out Vector2 nodeType);
+        InternalCalls.PathfindingComponent_GetPath(enemy.entityID, Vector2 close, 
+            Vector2 next, Vector2 nodeType);
 
         // If the path is empty, switch back to idle state
         if (close == Vector2.Zero || next == Vector2.Zero)
@@ -152,5 +153,6 @@ public class EnemyChaseState : EnemyBaseState
 
         // Reset the current path index
         currentPathIndex = 0;
+        */
     }
 }

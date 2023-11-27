@@ -22,13 +22,14 @@ namespace Image
     {
         public static void SpawnPrefab(String prefabName, Vector2 spawnPosition)
         {
-            InternalCalls.GameplayComponent_SpawnPrefab(out prefabName, out spawnPosition);
+            InternalCalls.GameplayComponent_SpawnPrefab(ref prefabName, ref spawnPosition);
         }
 
         public static bool IsSwappable(uint entityHandle)
         {
-            InternalCalls.GameplayComponent_IsSwappable(ref entityHandle, out bool isCollided);
-            return isCollided;
+            bool swap = true;
+            InternalCalls.GameplayComponent_IsSwappable(ref entityHandle, ref swap);
+            return swap;
         }
 
         public static void Swap(uint lhs, uint rhs)
@@ -50,7 +51,8 @@ namespace Image
         {
             get
             {
-                InternalCalls.GameplayComponent_GetPlayerPos(out Vector2 playerPos);
+                Vector2 playerPos = new Vector2();
+                InternalCalls.GameplayComponent_GetPlayerPos(ref playerPos);
                 return playerPos;
             }
         }
@@ -59,27 +61,30 @@ namespace Image
         {
             get
             {
-                InternalCalls.GameplayComponent_GetPlayerID(out uint playerID);
+                uint playerID = 0;
+                InternalCalls.GameplayComponent_GetPlayerID(ref playerID);
                 return playerID;
             }
         }
 
         public static uint GetIDFromTag(String tag)
         {
-            InternalCalls.GameplayComponent_GetEntityIDByTag(out uint id, out tag);
+            uint id = 0;
+            InternalCalls.GameplayComponent_GetEntityIDByTag(ref id, ref tag);
             return id;
         }
 
         public static void SlowdownTime(bool flag)
         {
-            InternalCalls.GameplayComponent_SlowdownTime(out flag);
+            InternalCalls.GameplayComponent_SlowdownTime(ref flag);
         }
 
         public static bool IsPressed
         {
             get
             {
-                InternalCalls.GameplayComponent_GetPressed(out bool isPressed);
+                bool isPressed = true;
+                InternalCalls.GameplayComponent_GetPressed(ref isPressed);
                 return isPressed;
             }
             set
