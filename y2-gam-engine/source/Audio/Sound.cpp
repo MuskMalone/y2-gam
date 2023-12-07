@@ -571,7 +571,7 @@ namespace Image {
 
   Serializes asset.
   */
-  void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
+  void SoundManager::SaveAsset(AssetID aid, SoundProperties const& props, rapidjson::Value &obj) {
     _mSoundAssets[aid].second.stream = props.stream;
     Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
   }

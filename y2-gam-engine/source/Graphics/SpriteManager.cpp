@@ -196,7 +196,7 @@ The JSON object where the sprite properties will be saved.
 
 This function serializes the sprite properties and saves them to a specified JSON object.
 */
-void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rapidjson::Value& obj) {
+void SpriteManager::SaveAsset(AssetID rid, SpriteProperties const& props, rapidjson::Value& obj) {
     auto sm{ Serializer::SerializationManager::GetInstance() };
 
     sm->ModifyValue(obj, "idxX", props.idx.x);
@@ -204,6 +204,8 @@ void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rap
 
     sm->ModifyValue(obj, "dimX", props.dim.x);
     sm->ModifyValue(obj, "dimY", props.dim.y);
+
+    GetSprite(props.id)->SetTexCoords(props);
 }
 
 /*  _________________________________________________________________________ */

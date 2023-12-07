@@ -36,7 +36,7 @@ public:
     //for assetmanager
     //loads subtextures
     static ResourceID LoadAsset(rapidjson::Value const& obj);
-    static void SaveAsset(ResourceID aid, SpriteProperties const& props, rapidjson::Value& obj);
+    static void SaveAsset(AssetID aid, SpriteProperties const& props, rapidjson::Value& obj);
     static std::shared_ptr<SubTexture> const& GetAsset(ResourceID);
     static SpriteProperties& GetAssetProperties(ResourceID);
     static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID);

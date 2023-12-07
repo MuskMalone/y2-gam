@@ -48,7 +48,7 @@ namespace Image {
     // Sound Assets Management
     static ResourceID LoadAsset(SoundProperties const& props);
     static ResourceID LoadAsset(rapidjson::Value const& obj);
-    static void SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value& obj);
+    static void SaveAsset(AssetID aid, SoundProperties const& props, rapidjson::Value& obj);
     static Sound const& GetAsset(ResourceID);
     static ResourceID GetResourceID(std::string);
     static SoundProperties & GetAssetProperties(ResourceID);

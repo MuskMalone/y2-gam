@@ -118,7 +118,7 @@ The JSON object where the animation properties will be saved.
 
 This function serializes the animation properties and saves them to a specified JSON object.
 */
-void AnimationManager::SaveAsset(ResourceID aid, AnimationProperties const& props, rapidjson::Value& obj) {
+void AnimationManager::SaveAsset(AssetID aid, AnimationProperties const& props, rapidjson::Value& obj) {
 	auto sm{ Serializer::SerializationManager::GetInstance() };
 
 	sm->ModifyValue(obj, "frameCount", props.frameCount);
