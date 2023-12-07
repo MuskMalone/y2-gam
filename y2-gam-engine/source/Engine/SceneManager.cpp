@@ -121,10 +121,14 @@ void SceneManager::RemoveAsset(std::string const& scnpath, AssetID aid) {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 	JSONObj& assetlist{ sm->At(filename, assetsKey) };
+	std::cout << "assetlist size" << assetlist.Size();
+	std::cout << "aid1 " << aid << std::endl;
 	if (assetlist.IsArray()) {
 		// Iterate through the array
 		for (rapidjson::SizeType i = 0; i < assetlist.Size(); i++) {
 			// Check the id of each object
+			std::cout << "assetlist[i]" << assetlist[i].GetUint64() << std::endl;
+			std::cout << "aid2 " << aid << std::endl;
 			if (assetlist[i].GetUint64() == aid) {
 				// Remove the object
 				assetlist.Erase(assetlist.Begin() + i);
@@ -132,6 +136,7 @@ void SceneManager::RemoveAsset(std::string const& scnpath, AssetID aid) {
 			}
 		}
 	}
+	std::cout << "assetlist size" << assetlist.Size();
 }
 
 void SceneManager::ModifyScene() {

@@ -216,6 +216,27 @@ namespace Image {
             ImGui::EndMainMenuBar();
         }
     }
+
+    void RemoveUnusedAssets(Entity entity)
+    {
+        if (gCoordinator->HasComponent<Sprite>(entity))
+        {
+            auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+            SceneManager::GetInstance()->RemoveAsset(sprite.spriteAssetID);
+           
+        }
+        if (gCoordinator->HasComponent<Animation>(entity))
+        {
+            Animation& anim = gCoordinator->GetComponent<Animation>(entity);
+            std::cout << "anim size" << anim.states.size() << std::endl;
+            for (size_t i{}; i < anim.states.size(); ++i)
+            {
+                std::cout << "animstate[i]" << anim.states[i] << "i = " << i;
+                SceneManager::GetInstance()->RemoveAsset(anim.states[i]);
+            }
+            //std::cout << "anim size2" << anim.states.size() << std::endl;
+        }
+    }
     /*  _________________________________________________________________________ */
     /*! HierarchyWindow
 
@@ -302,7 +323,7 @@ namespace Image {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 //put before u destroy the entity
             CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
-
+            RemoveUnusedAssets(gSelectedEntity);
             gCoordinator->DestroyEntity(gSelectedEntity);
             Image::ScriptManager::RemoveEntity(gSelectedEntity);
             gSelectedEntity = MAX_ENTITIES;
@@ -324,6 +345,7 @@ namespace Image {
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
+
 
             if (ImGui::BeginDragDropTarget()) {
                 //std::cout << "Began drag-drop target." << std::endl;
@@ -354,11 +376,12 @@ namespace Image {
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
                     droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    //std::cout << droppedAid << std::endl;
+                    std::cout << "droppedAID" << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
                         //anim.assetID = droppedAid;
                         anim.states.emplace_back(droppedAid);
+
                     }
                     else {
                         Animation a{
