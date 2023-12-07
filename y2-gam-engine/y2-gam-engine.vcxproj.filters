@@ -173,6 +173,7 @@
     <ClInclude Include="include\Systems\UISystem.hpp" />
     <ClInclude Include="include\Engine\CommandManager.hpp" />
     <ClInclude Include="include\Components\Swappable.hpp" />
+    <ClInclude Include="include\Properties.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics\Shader.hpp">

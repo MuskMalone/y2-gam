@@ -291,6 +291,7 @@
     <ClInclude Include="include\Math\Vec3.h" />
     <ClInclude Include="include\Math\Vec4.h" />
     <ClInclude Include="include\pch.hpp" />
+    <ClInclude Include="include\Properties.h" />
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
