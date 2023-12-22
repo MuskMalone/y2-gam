@@ -111,20 +111,25 @@ namespace Image {
   Give a mono method, calls the function.
   */
   MonoObject* ScriptClass::CallMethod(MonoObject* instance, MonoMethod* method, void** params) {
-
-    // FOR THE FUTURE
-    // change to unmanaged thunks
-
     MonoObject* exception = nullptr;
-
     MonoObject* obj{ mono_runtime_invoke(method, instance, params, &exception) };
 
 #ifndef _INSTALLER
     if (exception)
       mono_print_unhandled_exception(exception);
-      //LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception during method invocation in %s", __FUNCTION__);
 #endif
-
       return obj;
+  }
+
+  void ScriptClass::CallThunkSingleArg(MonoObject* instance, MonoMethod* method, float arg) {
+    MonoFunctionThunkSingle functionThunk{ static_cast<MonoFunctionThunkSingle>(mono_method_get_unmanaged_thunk(method)) };
+    MonoException* exception{ nullptr };
+    functionThunk(instance, arg, &exception);
+  }
+
+  void ScriptClass::CallThunkNoArg(MonoObject* instance, MonoMethod* method) {
+    MonoFunctionThunkNone functionThunk{ static_cast<MonoFunctionThunkNone>(mono_method_get_unmanaged_thunk(method)) };
+    MonoException* exception{ nullptr };
+    functionThunk(instance, &exception);
   }
 }

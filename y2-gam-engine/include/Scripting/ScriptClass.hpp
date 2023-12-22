@@ -17,6 +17,10 @@
 
 #pragma once
 
+// For unmanaged thunks
+typedef void (*MonoFunctionThunkNone)(MonoObject*, MonoException**);
+typedef void (*MonoFunctionThunkSingle)(MonoObject*, float, MonoException**);
+
 namespace Image {
   class ScriptClass {
   public:
@@ -26,6 +30,8 @@ namespace Image {
     MonoObject* Instantiate() const;
     MonoMethod* GetMethod(std::string const& name, int numParameters);
     MonoObject* CallMethod(MonoObject* instance, MonoMethod* method, void** params = nullptr);
+    void CallThunkSingleArg(MonoObject* instance, MonoMethod* method, float arg);
+    void CallThunkNoArg(MonoObject* instance, MonoMethod* method);
 
     std::string GetNamespace() const { return mClassNamespace; }
     std::string GetClassName() const { return mClassName; }

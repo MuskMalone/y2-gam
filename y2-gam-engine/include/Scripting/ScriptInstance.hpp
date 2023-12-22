@@ -18,7 +18,6 @@
 #pragma once
 
 #include "ScriptClass.hpp"
-//#include "Core/Coordinator.hpp"
 
 namespace Image {
   class ScriptInstance {
