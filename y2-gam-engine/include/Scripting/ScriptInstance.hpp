@@ -37,5 +37,6 @@ namespace Image {
     MonoMethod* mOnUpdateMethod{ nullptr };
     MonoMethod* mOnExitMethod{ nullptr };
     ScriptClass mScriptClass{};
+    unsigned int gcHandle{};
   };
 }

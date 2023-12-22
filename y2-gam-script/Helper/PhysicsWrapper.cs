@@ -45,7 +45,7 @@ namespace Image
             String layerString = "";
 
             InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, ref optionalEntityID,
-                ref hit, ref entID, ref tagString, ref layerString);
+                ref hit, ref entID, tagString, layerString);
             
             if (hit)
             {

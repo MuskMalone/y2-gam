@@ -33,7 +33,7 @@ namespace Image
         internal extern static void GameplayComponent_FireCard(ref Vector2 startPos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void GameplayComponent_SpawnPrefab(ref String fileName, ref Vector2 startPos);
+        internal extern static void GameplayComponent_SpawnPrefab(String fileName, ref Vector2 startPos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_Destroy(ref uint entityID);
@@ -45,7 +45,7 @@ namespace Image
         internal extern static void GameplayComponent_GetPlayerID(ref uint playerID);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void GameplayComponent_GetEntityIDByTag(ref uint entityID, ref String tag);
+        internal extern static void GameplayComponent_GetEntityIDByTag(ref uint entityID, String tag);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GameplayComponent_IsSwappable(ref uint entityHandle, ref bool outIsSwappable);
@@ -78,25 +78,25 @@ namespace Image
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_PlayAudio(ref String audioFileName, ref int loopCount);
+        internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_LoadScene(ref String sceneName);
+        internal extern static void EngineCore_LoadScene(String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_SaveScene(ref String sceneName);
+        internal extern static void EngineCore_SaveScene(String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_GetCurrentScene(ref String sceneName);
+        internal extern static String EngineCore_GetCurrentScene();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_IsEditorMode(ref bool isEditorMode);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_SetText(ref uint entityID, ref String text);
+        internal extern static void EngineCore_SetText(ref uint entityID, String text);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_Quit();
@@ -111,7 +111,7 @@ namespace Image
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, ref uint optionalEntityID,
-           ref bool hit, ref uint entityHandle, ref String tag, ref String layer);
+           ref bool hit, ref uint entityHandle, String tag, String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, ref bool collidedOrNot);
@@ -202,7 +202,7 @@ namespace Image
         Set the current sprite of the entity in C#.
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void GraphicsComponent_SetSprite(ref uint entityHandle, ref String fileName);
+        internal extern static void GraphicsComponent_SetSprite(ref uint entityHandle, String fileName);
 
         /*  _________________________________________________________________________ */
         /*! GraphicsComponent_GetScale

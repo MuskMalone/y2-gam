@@ -62,7 +62,7 @@ namespace Object
             {
                 if (GetCurrentScene() == "Level1" && !isPlaying)
                 {
-                    PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
+                    //PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
                     firstTime = true;
                     isPlaying = true;
                 }

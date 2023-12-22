@@ -22,7 +22,7 @@ namespace Image
     {
         public static void SpawnPrefab(String prefabName, Vector2 spawnPosition)
         {
-            InternalCalls.GameplayComponent_SpawnPrefab(ref prefabName, ref spawnPosition);
+            InternalCalls.GameplayComponent_SpawnPrefab(prefabName, ref spawnPosition);
         }
 
         public static bool IsSwappable(uint entityHandle)
@@ -70,7 +70,7 @@ namespace Image
         public static uint GetIDFromTag(String tag)
         {
             uint id = 0;
-            InternalCalls.GameplayComponent_GetEntityIDByTag(ref id, ref tag);
+            InternalCalls.GameplayComponent_GetEntityIDByTag(ref id, tag);
             return id;
         }
 

@@ -126,10 +126,11 @@ namespace Image {
 
 	Destroys entity.
 	*/
-	static void GameplayComponent_SpawnPrefab(MonoString** fileName, Vec2& startPos) {
-		const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+	static void GameplayComponent_SpawnPrefab(MonoString* fileName, Vec2& startPos) {
+		const char* utf8Str = fileName != nullptr ? mono_string_to_utf8(fileName) : nullptr;
 		if (utf8Str != nullptr) {
 			PrefabsManager::GetInstance()->SpawnPrefab(utf8Str, startPos);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 #ifndef _INSTALLER
 		else {
@@ -218,9 +219,9 @@ namespace Image {
 
 		Get the ID of an entity by its tag.
 		*/
-		static void GameplayComponent_GetEntityIDByTag(uint32_t& entityID, MonoString** tag) {
+		static void GameplayComponent_GetEntityIDByTag(uint32_t& entityID, MonoString* tag) {
 			if (entityID >= 0 && entityID < MAX_ENTITIES) {
-				const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+				const char* utf8Str = tag != nullptr ? mono_string_to_utf8(tag) : nullptr;
 				if (utf8Str != nullptr) {
 					::gCoordinator = Coordinator::GetInstance();
 					for (auto& ent : gCoordinator->GetSystem<RenderSystem>()->mEntities) {
@@ -231,6 +232,7 @@ namespace Image {
 							}
 						}
 					}
+					mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 				}
 #ifndef _INSTALLER
 				else {
@@ -444,10 +446,11 @@ namespace Image {
 
 	Plays audio.
 	*/
-	static void EngineCore_PlayAudio(MonoString** audioFileName, int& loopCount) {
-		const char* utf8Str = *audioFileName != nullptr ? mono_string_to_utf8(*audioFileName) : nullptr;
+	static void EngineCore_PlayAudio(MonoString* audioFileName, int& loopCount) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
 			SoundManager::AudioPlay(utf8Str, loopCount);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
 #ifndef _INSTALLER
@@ -479,10 +482,11 @@ namespace Image {
 
 	Loads the specified scene.
 	*/
-	static void EngineCore_LoadScene(MonoString** sceneName) {
-		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
+	static void EngineCore_LoadScene(MonoString* sceneName) {
+		const char* utf8Str = sceneName != nullptr ? mono_string_to_utf8(sceneName) : nullptr;
 		if (utf8Str != nullptr) {
 			SceneManager::GetInstance()->LoadScene(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
 #ifndef _INSTALLER
@@ -504,10 +508,11 @@ namespace Image {
 
 	Saves the scene.
 	*/
-	static void EngineCore_SaveScene(MonoString** sceneName) {
-		const char* utf8Str = *sceneName != nullptr ? mono_string_to_utf8(*sceneName) : nullptr;
+	static void EngineCore_SaveScene(MonoString* sceneName) {
+		const char* utf8Str = sceneName != nullptr ? mono_string_to_utf8(sceneName) : nullptr;
 		if (utf8Str != nullptr) {
 			SceneManager::GetInstance()->SaveScene(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
 #ifndef _INSTALLER
@@ -528,10 +533,10 @@ namespace Image {
 
 	Gets the current scene name.
 	*/
-	static void EngineCore_GetCurrentScene(MonoString** sceneName) {
+	static MonoString* EngineCore_GetCurrentScene() {
 		auto scenemgr{ SceneManager::GetInstance() };
 		std::string sceneString{ (!scenemgr->IsSceneActive()) ? std::string{"No Scene Selected"} : scenemgr->GetSceneName() };
-		*sceneName = mono_string_new(mono_domain_get(), sceneString.c_str());
+		return mono_string_new(mono_domain_get(), sceneString.c_str());
 	}
 
 	/*  _________________________________________________________________________ */
@@ -562,14 +567,15 @@ namespace Image {
 
 	Sets text for the entity.
 	*/
-	static void EngineCore_SetText(uint32_t& entityID, MonoString** tag) {
+	static void EngineCore_SetText(uint32_t& entityID, MonoString* tag) {
 		if (entityID >= 0 && entityID < MAX_ENTITIES) {
-			const char* utf8Str = *tag != nullptr ? mono_string_to_utf8(*tag) : nullptr;
+			const char* utf8Str = tag != nullptr ? mono_string_to_utf8(tag) : nullptr;
 			if (utf8Str != nullptr) {
 				::gCoordinator = Coordinator::GetInstance();
 				if (gCoordinator->HasComponent<Text>(entityID)) {
-					gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(*tag);
+					gCoordinator->GetComponent<Text>(entityID).text = mono_string_to_utf8(tag);
 				}
+				mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 			}
 #ifndef _INSTALLER
 			else {
@@ -664,7 +670,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2& origin, Vec2& end, uint32_t& entityToIgnore, bool& hit, uint32_t& entityHandle,
-		MonoString** tag, MonoString** layer) {
+		MonoString* tag, MonoString* layer) {
 		::gCoordinator = Coordinator::GetInstance();
 		Physics::RayHit rh{};
 
@@ -679,12 +685,12 @@ namespace Image {
 
 					if (gCoordinator->HasComponent<Tag>(rh.entityID)) {
 						const char* str = gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
-						*tag = mono_string_new(mono_domain_get(), str);
+						tag = mono_string_new(mono_domain_get(), str);
 					}
 
 					if (gCoordinator->HasComponent<Layering>(rh.entityID)) {
 						const char* str = gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
-						*layer = mono_string_new(mono_domain_get(), str);
+						layer = mono_string_new(mono_domain_get(), str);
 					}
 				}
 			}
@@ -822,15 +828,16 @@ Get the collider dimensions of the entity in C#.
 
 	Sets the sprite for the entity.
 	*/
-	static void GraphicsComponent_SetSprite(uint32_t& entityID, MonoString** fileName) {
+	static void GraphicsComponent_SetSprite(uint32_t& entityID, MonoString* fileName) {
 		if (entityID >= 0 && entityID < MAX_ENTITIES) {
-			const char* utf8Str = *fileName != nullptr ? mono_string_to_utf8(*fileName) : nullptr;
+			const char* utf8Str = fileName != nullptr ? mono_string_to_utf8(fileName) : nullptr;
 			if (utf8Str != nullptr) {
 				::gCoordinator = Coordinator::GetInstance();
 				if (gCoordinator->HasComponent<Sprite>(entityID)) {
 					gCoordinator->GetComponent<Sprite>(entityID).spriteID =
-						SpriteManager::GetResourceID(mono_string_to_utf8(*fileName));
+						SpriteManager::GetResourceID(mono_string_to_utf8(fileName));
 				}
+				mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 			}
 #ifndef _INSTALLER
 			else {

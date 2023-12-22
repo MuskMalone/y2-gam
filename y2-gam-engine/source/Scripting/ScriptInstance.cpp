@@ -44,6 +44,7 @@ namespace Image {
     // The parameter is the entity id
     void* param{ &entityHandle };
     mScriptClass.CallMethod(mInstance, mConstructor, &param);
+    gcHandle = mono_gchandle_new(mInstance, false);
   }
 
   /*  _________________________________________________________________________ */
@@ -54,8 +55,7 @@ namespace Image {
   Calls the on create function from C#.
   */
   void ScriptInstance::CallOnCreate() {
-    if (mInstance != nullptr && mOnCreateMethod != nullptr)
-      mScriptClass.CallMethod(mInstance, mOnCreateMethod);
+     mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
   }
 
   /*  _________________________________________________________________________ */
@@ -70,8 +70,7 @@ namespace Image {
   */
   void ScriptInstance::CallOnUpdate(float dt) {
     void* dtParam{ &dt };
-    if (mInstance != nullptr && mOnUpdateMethod != nullptr && dtParam != nullptr)
-      mScriptClass.CallMethod(mInstance, mOnUpdateMethod, &dtParam);
+    mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, &dtParam);
   }
 
   /*  _________________________________________________________________________ */
@@ -82,7 +81,7 @@ namespace Image {
   Calls the on exit function from C#.
   */
   void ScriptInstance::CallOnExit() {
-    if (mInstance != nullptr && mOnExitMethod != nullptr)
-      mScriptClass.CallMethod(mInstance, mOnExitMethod);
+    mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnExitMethod);
+    mono_gchandle_free(gcHandle);
   }
 }

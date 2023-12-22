@@ -76,7 +76,7 @@ namespace Image
         */
         public void PlayAudio(string audioFileName, int loopCount)
         {
-            InternalCalls.EngineCore_PlayAudio(ref audioFileName, ref loopCount);
+            InternalCalls.EngineCore_PlayAudio(audioFileName, ref loopCount);
         }
 
         /*  _________________________________________________________________________ */
@@ -96,7 +96,7 @@ namespace Image
         */
         public void LoadScene(string sceneName)
         {
-            InternalCalls.EngineCore_LoadScene(ref sceneName);
+            InternalCalls.EngineCore_LoadScene(sceneName);
         }
 
         /*  _________________________________________________________________________ */
@@ -106,7 +106,7 @@ namespace Image
         */
         public void SaveScene(string sceneName)
         {
-            InternalCalls.EngineCore_SaveScene(ref sceneName);
+            InternalCalls.EngineCore_SaveScene(sceneName);
         }
 
         /*  _________________________________________________________________________ */
@@ -116,9 +116,7 @@ namespace Image
         */
         public string GetCurrentScene()
         {
-            String isEditorMode = "";
-            InternalCalls.EngineCore_GetCurrentScene(ref isEditorMode);
-            return (string)isEditorMode;
+            return (string)InternalCalls.EngineCore_GetCurrentScene(); ;
         }
             
 
@@ -141,7 +139,7 @@ namespace Image
         */
         public void SetText(string text)
         {
-            InternalCalls.EngineCore_SetText(ref entityID, ref text);
+            InternalCalls.EngineCore_SetText(ref entityID, text);
         }
 
         /*  _________________________________________________________________________ */
@@ -220,7 +218,7 @@ namespace Image
         */
         public void SetSprite(string fileName)
         {
-            InternalCalls.GraphicsComponent_SetSprite(ref entityID, ref fileName);
+            InternalCalls.GraphicsComponent_SetSprite(ref entityID, fileName);
         }
 
         /*  _________________________________________________________________________ */

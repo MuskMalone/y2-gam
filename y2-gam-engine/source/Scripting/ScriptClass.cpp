@@ -45,7 +45,7 @@ namespace Image {
 
   @return MonoObject*
 
-  Creates a new mono object by allocating memory for the instanc of the class.
+  Creates a new mono object by allocating memory for the instance of the class.
   */
   MonoObject* ScriptClass::Instantiate() const {
     // Allocate memory for an instance of the class
@@ -120,10 +120,9 @@ namespace Image {
     MonoObject* obj{ mono_runtime_invoke(method, instance, params, &exception) };
 
 #ifndef _INSTALLER
-    if (obj == nullptr) {
+    if (exception)
+      mono_print_unhandled_exception(exception);
       //LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Exception during method invocation in %s", __FUNCTION__);
-      return nullptr;
-    }
 #endif
 
       return obj;
