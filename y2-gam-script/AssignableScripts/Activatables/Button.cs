@@ -16,14 +16,13 @@
 /******************************************************************************/
 using Image;
 using System;
-using System.Net.WebSockets;
 
 namespace Object
 {
 
     public class Button : Entity
     {
-
+        public bool isPressed;
         private bool closeSpawn = true;
         private bool openSpawn = false;
 
@@ -61,10 +60,9 @@ namespace Object
 
         Called on creation of the button entity.
         */
-        // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            GameplayWrapper.IsPressed = false;
+            isPressed = false;
         }
 
 
@@ -82,19 +80,14 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-
-                Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f));
-                if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit) && (buttonHit.tag == "Player" || buttonHit.tag == "SwappableBox"))
+                Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 3);
+                if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit))
                 {
-                    GameplayWrapper.IsPressed = true;
-                }
-                else
-                {
-                    GameplayWrapper.IsPressed = false;
+                    isPressed = true;
                 }
 
                 // button pressed , openSpawn is not spawned , closedSpawn is spawned 
-                if (GameplayWrapper.IsPressed == true && openSpawn == false && closeSpawn == true)
+                if (isPressed == true && openSpawn == false && closeSpawn == true)
                 {
                     GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
 
@@ -104,7 +97,7 @@ namespace Object
 
 
                 // button not pressed , openSpawn is spawned , closedSpawn is not spawned
-                if (GameplayWrapper.IsPressed == false && closeSpawn == false && openSpawn == true)
+                if (isPressed == false && closeSpawn == false && openSpawn == true)
                 {
 
                     GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));

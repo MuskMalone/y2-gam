@@ -4,7 +4,7 @@
 \file       Main.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 23, 2023
+\date       Dec 26, 2023
 
 \brief      The main entity class is located here and has the getter setters 
             for all the required rigid body variables. Helper functions also
@@ -50,6 +50,19 @@ namespace Image
         public Entity()
         {
             entityID = 0;
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! As
+
+        @return T
+
+        For turning any generic Entity into its respective child class.
+        */
+        public T As<T>() where T : Entity, new()
+        {
+            object instance = InternalCalls.EngineCore_GetScriptInstance(ref entityID);
+            return instance as T;
         }
 
         #region EngineCore

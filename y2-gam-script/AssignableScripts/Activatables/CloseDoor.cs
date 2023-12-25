@@ -19,9 +19,10 @@ using System;
 
 namespace Object
 {
-
     public class CloseDoor : Entity
     {
+        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+
         /*  _________________________________________________________________________ */
         /*! CloseDoor
 
@@ -77,11 +78,9 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-
-                if (GameplayWrapper.IsPressed == true)
+                if (button.isPressed == true)
                 {
                     GameplayWrapper.DestroyEntity(entityID);
-
                 }
             }
         }

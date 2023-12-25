@@ -4,7 +4,7 @@
 \file       ScriptManager.hpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Dec 24, 2023
 
 \brief      Header file for the script manager. Highest level for scripts.
             It initalizes mono, loads assembly (.dll) files and creates
@@ -18,11 +18,13 @@
 
 #pragma once
 
-#include "Scripting/ScriptClass.hpp"
 #include "Core/Coordinator.hpp"
-#include "Scripting/ScriptInstance.hpp"
 #include "Components/Script.hpp"
+
+#include "Scripting/ScriptClass.hpp"
+#include "Scripting/ScriptInstance.hpp"
 #include "Scripting/ScriptCoordinator.hpp"
+#include "Scripting/ScriptFieldType.hpp"
 
 namespace Image {
   class ScriptManager {
@@ -38,14 +40,20 @@ namespace Image {
     static void OnExitEntity(Entity const& entity);
     static void RemoveEntity(Entity const& entity);
     
+    // Helpers
     static bool EntityClassExists(std::string const& className);
     static void PrintEntityInstances();
+
+    static FieldType MonoToScriptType(MonoType* monoType);
+    static std::string FieldTypeToString(FieldType fieldType);
 
     // Getters
     static MonoDomain* GetAppDomain() { return sAppDomain; }
     static std::unordered_map<std::string, ScriptClass> const& GetEntityClasses() { return sEntityClasses; };
     static std::map<Entity, ScriptInstance> const& GetEntityInstances() { return sEntityInstances; };
     static std::vector<const char *> const& GetAssignableScriptNames() { return sAssignableScriptNames; }
+    static ScriptInstance& GetEntityScriptInstance(Entity const& entity);
+    static MonoObject* GetEntityMonoInstanceObject(Entity const& entity);
 
   private:
     static char* LoadFile(std::string const& filePath, size_t& fileSize);
@@ -58,5 +66,6 @@ namespace Image {
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
     static std::map<Entity, ScriptInstance> sEntityInstances;
     static std::vector<const char*> sAssignableScriptNames;
+    static std::map<std::string, Field> sScriptFieldTypes;
   };
 }

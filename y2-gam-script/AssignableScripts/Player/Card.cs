@@ -312,8 +312,6 @@ namespace Object
 
         void FireCard()
         {
-            //Console.WriteLine("Card Fired");
-            //Console.WriteLine("Player Position" + GameplayWrapper.PlayerPos.X + ", " + GameplayWrapper.PlayerPos.Y);
             Translation = GameplayWrapper.PlayerPos;
             Collider = GameplayWrapper.PlayerPos;
             direction = MousePos - GameplayWrapper.PlayerPos;

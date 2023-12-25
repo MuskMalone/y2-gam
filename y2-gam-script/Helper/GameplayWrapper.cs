@@ -42,6 +42,11 @@ namespace Image
             InternalCalls.GameplayComponent_FireCard(ref startPos);
         }
 
+        public static void SlowdownTime(bool flag)
+        {
+            InternalCalls.GameplayComponent_SlowdownTime(ref flag);
+        }
+
         public static void DestroyEntity(uint entID)
         {
             InternalCalls.GameplayComponent_Destroy(ref entID);
@@ -74,23 +79,14 @@ namespace Image
             return id;
         }
 
-        public static void SlowdownTime(bool flag)
+        public static Entity FindEntityByName(String tag)
         {
-            InternalCalls.GameplayComponent_SlowdownTime(ref flag);
-        }
+            uint id = 0;
+            InternalCalls.GameplayComponent_GetEntityIDByTag(ref id, tag);
+            if (id == 0)
+                return null;
 
-        public static bool IsPressed
-        {
-            get
-            {
-                bool isPressed = true;
-                InternalCalls.GameplayComponent_GetPressed(ref isPressed);
-                return isPressed;
-            }
-            set
-            {
-                InternalCalls.GameplayComponent_SetPressed(ref value);
-            }
+            return new Entity(id);
         }
     }
 }

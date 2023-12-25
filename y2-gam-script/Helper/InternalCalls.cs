@@ -75,6 +75,9 @@ namespace Image
 
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static object EngineCore_GetScriptInstance(ref uint entityID);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

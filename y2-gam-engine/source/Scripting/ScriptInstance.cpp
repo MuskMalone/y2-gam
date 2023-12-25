@@ -4,7 +4,7 @@
 \file       ScriptInstance.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Dec 25, 2023
 
 \brief      The source file for specific script instances. The lowest level.
             It facilitates calling the specific funcitons in the instance.
@@ -55,7 +55,7 @@ namespace Image {
 
   Calls the on create function from C#.
   */
-  void ScriptInstance::CallOnCreate() {
+  void ScriptInstance::CallOnCreate() noexcept {
     mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
   }
@@ -70,7 +70,7 @@ namespace Image {
 
   Calls the on create update from C#. To be called every loop.
   */
-  void ScriptInstance::CallOnUpdate(float dt) {
+  void ScriptInstance::CallOnUpdate(float dt) noexcept {
     void* dtParam{ &dt };
     mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, &dtParam);
     //mScriptClass.CallThunkSingleArg(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, dt);
@@ -83,9 +83,61 @@ namespace Image {
 
   Calls the on exit function from C#.
   */
-  void ScriptInstance::CallOnExit() {
+  void ScriptInstance::CallOnExit() noexcept {
     mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnExitMethod);
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnExitMethod);
     mono_gchandle_free(gcHandle);
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! GetFieldValueFromNameInternal
+
+  @param fieldName
+  The field name to get its value from.
+
+  @return T&
+  Template reference for the value from its field name.
+
+  Internal function for using mono's field retrival function to get 
+  the field value.
+  */
+  bool ScriptInstance::GetFieldValueFromNameInternal(std::string const& fieldName, void* buffer) {
+    auto const& fields{ mScriptClass.GetFieldNameToTypeMap() };
+    for (std::pair<std::string, Image::Field> val : fields) {
+      if (val.first == fieldName) {
+        Field const& field{ val.second };
+        mono_field_get_value(mInstance, field.classField, buffer);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! SetFieldValueWithNameInternal
+
+  @param fieldName
+  The field name to set the value of.
+
+  @param val
+  Value to set.
+
+  @return bool
+  Returns if the operation was successful or not.
+
+  Sets the field value using mono method.
+  */
+  bool ScriptInstance::SetFieldValueWithNameInternal(std::string const& fieldName, void* value) {
+    auto const& fields{ mScriptClass.GetFieldNameToTypeMap() };
+    for (std::pair<std::string, Image::Field> val : fields) {
+      if (val.first == fieldName) {
+        Field const& field{ val.second };
+        mono_field_set_value(mInstance, field.classField, value);
+        return true;
+      }
+    }
+
+    return false;
   }
 }

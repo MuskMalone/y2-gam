@@ -4,7 +4,7 @@
 \file       ScriptClass.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Dec 24, 2023
 
 \brief      The source file for script classes. Allows for calling the
             functions of specific script instances.
@@ -52,7 +52,6 @@ namespace Image {
     MonoObject* classInstance = mono_object_new(ScriptManager::GetAppDomain(), mMonoClass);
 
     if (classInstance == nullptr) {
-      //std::cout << "Mono Exception: Failed to create instance of class" << "\n";
 #ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: Failed to create instance of class", __FUNCTION__);
 #endif
@@ -81,7 +80,8 @@ namespace Image {
 
     if (ret == nullptr) {
 #ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: method does not exist!" + name + std::to_string(numParameters), __FUNCTION__);
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Mono Exception: method does not exist!" 
+        + name + std::to_string(numParameters), __FUNCTION__);
 #endif
       std::exit(0);
     }
@@ -121,12 +121,41 @@ namespace Image {
       return obj;
   }
 
+  /*  _________________________________________________________________________ */
+  /*! CallThunkSingleArg
+
+  @param instance
+  The mono object instance.
+
+  @param method
+  The mono method.
+
+  @param arg
+  The float argument to pass in.
+
+  @return none.
+
+  Calls a unmanaged to managed thunk.
+  */
   void ScriptClass::CallThunkSingleArg(MonoObject* instance, MonoMethod* method, float arg) {
     MonoFunctionThunkSingle functionThunk{ static_cast<MonoFunctionThunkSingle>(mono_method_get_unmanaged_thunk(method)) };
     MonoException* exception{ nullptr };
     functionThunk(instance, arg, &exception);
   }
 
+  /*  _________________________________________________________________________ */
+  /*! CallThunkNoArg
+
+  @param instance
+  The mono object instance.
+
+  @param method
+  The mono method.
+
+  @return none.
+
+  Calls a unmanaged to managed thunk.
+  */
   void ScriptClass::CallThunkNoArg(MonoObject* instance, MonoMethod* method) {
     MonoFunctionThunkNone functionThunk{ static_cast<MonoFunctionThunkNone>(mono_method_get_unmanaged_thunk(method)) };
     MonoException* exception{ nullptr };

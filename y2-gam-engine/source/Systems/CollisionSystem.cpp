@@ -632,16 +632,6 @@ Computes the collision between two entities and returns an arbiter.
     }
 
     bool CollisionSystem::Raycast(Vec2 const& origin, Vec2 const& end, RayHit& rh, Entity entityToIgnore) {
-      /*
-      glDisable(GL_DEPTH_TEST);
-        glm::mat4 viewProjMtx{ gCoordinator->GetComponent<Camera>(gCoordinator->GetSystem<RenderSystem>()->GetCamera()).GetViewProjMtx() };
-        Renderer::RenderSceneBegin(viewProjMtx);
-        Renderer::DrawLine(glm::vec3(origin.x, origin.y, 0.f), glm::vec3(end.x, end.y, 0.f), glm::vec4(0, 1, 0, 1));
-        Renderer::DrawLine(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 10.f, 0.f), glm::vec4(0, 1, 0, 1));
-        Renderer::RenderSceneEnd();
-      glEnable(GL_DEPTH_TEST);
-      */
-
         float timeMin{ FLOAT_MAX };
         Entity eMin{};
         Vec2 cnMin{0, 0}, cpMin{0, 0};

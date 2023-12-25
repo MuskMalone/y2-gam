@@ -41,20 +41,11 @@ using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
-	bool isPressed;
 }
 
 namespace Image {
 
 #define IMAGE_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Image.InternalCalls::" #Name, Name)
-	// Temporary (to work on wrapping event system from cpp to cs during hols)
-	static void GameplayComponent_GetPressed(bool& pressed) {
-		pressed = ::isPressed;
-	}
-
-	static void GameplayComponent_SetPressed(bool& pressed) {
-		::isPressed = pressed;
-	}
 
 	/*  _________________________________________________________________________ */
 	/*! GameplayComponent_SpawnPrefab
@@ -321,6 +312,17 @@ namespace Image {
 	}
 
 	// For Engine Core
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetScriptInstance
+
+	@return 
+
+	Gets a script instance, by its entity ID.
+	*/
+	static MonoObject* EngineCore_GetScriptInstance(uint32_t& entityID) {
+		return ScriptManager::GetEntityMonoInstanceObject(entityID);
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_Quit
 
@@ -1097,8 +1099,6 @@ Get the collider dimensions of the entity in C#.
 	can access it.
 	*/
 	void ScriptCoordinator::RegisterFunctions() {
-		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPressed);
-		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SetPressed);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_SpawnPrefab);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_Destroy);
 		IMAGE_ADD_INTERNAL_CALL(GameplayComponent_GetPlayerPos);
@@ -1114,6 +1114,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
 		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetScriptInstance);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);

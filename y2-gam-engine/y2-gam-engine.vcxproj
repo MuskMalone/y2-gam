@@ -295,8 +295,10 @@
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
+    <ClInclude Include="include\Scripting\ScriptFieldType.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
     <ClInclude Include="include\Scripting\ScriptManager.hpp" />
+    <ClInclude Include="include\Scripting\ScriptMessagingWrapper.hpp" />
     <ClInclude Include="include\Systems\AnimationSystem.hpp" />
     <ClInclude Include="include\Systems\CollisionSystem.hpp" />
     <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
@@ -450,6 +452,7 @@
     <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
     <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
     <ClCompile Include="source\Scripting\ScriptManager.cpp" />
+    <ClCompile Include="source\Scripting\ScriptMessagingWrapper.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

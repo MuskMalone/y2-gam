@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 23, 2023
+\date       Dec 26, 2023
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -22,26 +22,17 @@ namespace Object
 {
     public class Player : Entity
     {
-        // Force Based
-        public readonly float JumpForce = 900000.0f;
-        public readonly float MovementForce = 70000.0f;
-        //public int Health = 1;
+        public Entity otherEntity;
+        public float JumpSpeed;
+        public float MovementSpeed;
+
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
-        //private bool waypointActivated = false;
-        public bool isGrounded = true;
-        private bool slowdownToggle = true;
 
-        //private Vector2 spawnPosition = new Vector2(0, 0);
-        //private Vector2 colliderPosition = new Vector2(0, 0);
-        //private bool jumped = false;
+        public bool isGrounded = true;
+        public bool slowdownToggle = true;
         bool godMode = false;
 
-        //For pausing 
-        //int temp_AnimationState = 0;
-        //Vector2 temp_pos;
-        //Vector2 temp_Force;
-        //Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
 
@@ -55,7 +46,7 @@ namespace Object
                 if (_isFacingRight != value)
                 {
                     _isFacingRight = value;
-                    FacingDirectionChanged = true; // Set another flag when isFacingRight changes
+                    FacingDirectionChanged = true;
                 }
             }
         }
@@ -95,14 +86,10 @@ namespace Object
 
         Called on creation of the player entity.
         */
-        // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
             isFacingRight = FacingDirection;
             FacingDirectionChanged = false;
-            //originalPosition = Translation;
-            //originalcolliderPosition = Collider;
-
         }
 
         /*  _________________________________________________________________________ */
@@ -123,8 +110,6 @@ namespace Object
                 {
                     dt = temp_dt;
                     PauseGame();
-
-                    //AnimationState = temp_AnimationState;
                 }
 
                 if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
@@ -141,10 +126,8 @@ namespace Object
                     {
                         //resume game
                         ResumeGame();
-                        //dt = temp_dt;
                         isPaused = false;
                     }
-                    //firstTime = false;
                 }
 
                 if (!isPaused)
@@ -212,8 +195,6 @@ namespace Object
                         Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                         {
-
-                            //Console.WriteLine("Player touched a waypoint!");
                             float waypointOffset = 2.0f;
                             float colliderOffset = 9.0f;
                             spawnPosition = Translation;
@@ -221,8 +202,6 @@ namespace Object
                             colliderPosition = Translation;
                             colliderPosition += new Vector2(waypointOffset, waypointOffset);
                             colliderPosition -= new Vector2(0, colliderOffset);
-                            //GameplayWrapper.SpawnPrefab("Waypoint", new Vector2(100, -33));
-
                         }
 
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
@@ -291,49 +270,31 @@ namespace Object
 
         void PauseGame()
         {
-            //pause the game
-            //temp_Force = Force;
-            //temp_pos = Translation;
-            //temp_velocity = Velocity;
-            ////temp_AnimationState = AnimationState;
-            //Force = new Vector2(0, 0);
-            //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            //Velocity = new Vector2(0, 0);
-            //AnimationState = temp_AnimationState;
             SaveScene("Level1");
         }
 
         void ResumeGame()
         {
-            //Force = temp_Force*temp_dt;
-            //Translation = temp_pos;
-            //Velocity = temp_velocity*temp_dt;
-            //AnimationState = temp_AnimationState;
             LoadScene("Level1");
         }
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
-            Velocity -= new Vector2(100, 0.0f) * dt;
+            Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            //Force += new Vector2(horizontalMovement, 0.0f) * dt;
-            Velocity += new Vector2(100, 0.0f) * dt;
+            Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 3400) * dt;
+            Velocity += new Vector2(0, JumpSpeed) * dt;
         }
 
         public void Respawn()
@@ -343,26 +304,24 @@ namespace Object
         }
         public void FlyLeft(float dt)
         {
-            Translation -= new Vector2(100, 0) * dt;
-            //AnimationState = (int)AnimationCodePlayer.RUN;
+            Translation -= new Vector2(MovementSpeed, 0) * dt;
             isFacingRight = false;
         }
 
         public void FlyRight(float dt)
         {
-            Translation += new Vector2(100, 0) * dt;
-            //AnimationState = (int)AnimationCodePlayer.RUN;
+            Translation += new Vector2(MovementSpeed, 0) * dt;
             isFacingRight = true;
         }
 
         public void FlyUp(float dt)
         {
-            Translation += new Vector2(0, 100) * dt;
+            Translation += new Vector2(0, MovementSpeed) * dt;
         }
 
         public void FlyDown(float dt)
         {
-            Translation += new Vector2(0, -100) * dt;
+            Translation += new Vector2(0, -MovementSpeed) * dt;
         }
     }
 }

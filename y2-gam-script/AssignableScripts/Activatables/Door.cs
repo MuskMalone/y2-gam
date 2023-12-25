@@ -19,9 +19,10 @@ using System;
 
 namespace Object
 {
-
     public class Door : Entity
     {
+        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+
         /*  _________________________________________________________________________ */
         /*! Door
 
@@ -77,8 +78,9 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                if (GameplayWrapper.IsPressed == false)
+                if (button.isPressed == false)
                 {
+                    //button.
                     PlayAudio("door_open.wav", 0);
                     GameplayWrapper.DestroyEntity(entityID);
                 }
@@ -96,6 +98,5 @@ namespace Object
         {
 
         }
-
     }
 }

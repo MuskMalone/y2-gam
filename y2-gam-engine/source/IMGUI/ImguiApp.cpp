@@ -22,6 +22,7 @@
 /******************************************************************************/
 
 #include "../include/pch.hpp"
+
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
@@ -46,7 +47,6 @@
 #include "Graphics/Renderer.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Scripting/ScriptManager.hpp"
-
 #include <Engine/CommandManager.hpp>
 #include <Engine/AssetManager.hpp>
 #include <Engine/SceneManager.hpp>
@@ -906,8 +906,8 @@ namespace Image {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
-                  ImGui::Text("Assigned Script");
-                  ImGui::Text(script.name.c_str());
+                  ImGui::Text("Assigned Script:");
+                  //ImGui::Text(script.name.c_str());
 
                   static int selectedOption = -1;
 
@@ -920,8 +920,7 @@ namespace Image {
                   }
 
                   static int previousOption = selectedOption; // Store the previous option
-
-                  ImGui::Combo("Name", 
+                  ImGui::Combo("Script Name", 
                     &selectedOption, 
                     ScriptManager::GetAssignableScriptNames().data(), 
                     static_cast<int>(ScriptManager::GetAssignableScriptNames().size()));
@@ -931,6 +930,40 @@ namespace Image {
                     script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
                     if (!prefabs) {
                         ScriptManager::OnCreateEntity(selectedEntity); 
+                    }
+                  }
+
+                  if (script.name != "No Script Assigned") {
+                    ScriptInstance& scriptInstance{ ScriptManager::GetEntityScriptInstance(selectedEntity) };
+                    std::map<std::string, Image::Field> const& fields{ scriptInstance.GetScriptClass().GetFieldNameToTypeMap() };
+                    for (std::pair<std::string, Image::Field> const& val : fields) {
+                      switch (val.second.fieldType) {
+                      case Image::FieldType::Float: {
+                        float dataFloat{ scriptInstance.GetFieldValueFromName<float>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        if (ImGui::DragFloat(val.first.c_str(), &dataFloat)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataFloat);
+                        }
+                        break;
+                      }
+                      case Image::FieldType::Double: {
+                        float dataDouble{ scriptInstance.GetFieldValueFromName<float>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        if (ImGui::DragFloat(val.first.c_str(), &dataDouble)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataDouble);
+                        }
+                        break;
+                      }
+                      case Image::FieldType::Bool: {
+                        bool dataBool{ scriptInstance.GetFieldValueFromName<bool>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::Checkbox(val.first.c_str(), &dataBool)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataBool);
+                        }
+                        break;
+                      }
+                      }
                     }
                   }
                                 
@@ -1817,5 +1850,4 @@ namespace Image {
         ImGui::End();
 
     }
-    
 }
