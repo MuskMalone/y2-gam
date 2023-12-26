@@ -22,19 +22,36 @@ namespace Object
 {
     public class Player : Entity
     {
+        // TO ADD: DRAG AND DROP SCRIPT ENTITIES VIA IMGUI
         public Entity otherEntity;
+
         public float JumpSpeed;
         public float MovementSpeed;
 
+        public Double DoubleVal;
+
+        public bool IsGrounded = true;
+        public bool SlowdownToggle = true;
+        public bool GodMode = false;
+
+        // For Testing
+        public char CharVal;
+        public byte ByteVal;
+        public short ShortVal;
+        public int IntVal;
+        public Int64 LongVal;
+        public UInt16 UShortVal;
+        public UInt32 UIntVal;
+        public UInt64 ULongVal;
+        public Vector2 Vec2Val;
+        public Vector3 Vec3Val;
+        public Vector4 Vec4Val;
+
+
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
-
-        public bool isGrounded = true;
-        public bool slowdownToggle = true;
-        bool godMode = false;
-
-        float temp_dt = 0f;
-        bool isPaused = false;
+        private float temp_dt = 0f;
+        private bool isPaused = false;
 
         // Direction related
         private bool _isFacingRight;
@@ -124,7 +141,6 @@ namespace Object
                     }
                     else
                     {
-                        //resume game
                         ResumeGame();
                         isPaused = false;
                     }
@@ -133,7 +149,7 @@ namespace Object
                 if (!isPaused)
                 {
 
-                    if (!godMode)
+                    if (!GodMode)
                     {
                         FacingDirection = isFacingRight;
 
@@ -144,13 +160,13 @@ namespace Object
                                 PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
                             new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
                         {
-                            isGrounded = true;
+                            IsGrounded = true;
                             AnimationState = (int)AnimationCodePlayer.IDLE;
                         }
 
                         else
                         {
-                            isGrounded = false;
+                            IsGrounded = false;
                             AnimationState = (int)AnimationCodePlayer.JUMP;
                         }
 
@@ -163,20 +179,20 @@ namespace Object
 
                         if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
                         {
-                            godMode = true;
+                            GodMode = true;
                             Gravity = new Vector2(0.0f, 0.0f);
                             Mass = 0;
                         }
 
                         if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
                         {
-                            GameplayWrapper.SlowdownTime(slowdownToggle);
-                            slowdownToggle = !slowdownToggle;
+                            GameplayWrapper.SlowdownTime(SlowdownToggle);
+                            SlowdownToggle = !SlowdownToggle;
                         }
 
                         if (Input.IsKeyPressed(KeyCode.KEY_W))
                         {
-                            if (isGrounded)
+                            if (IsGrounded)
                             {
                                 Jump(dt);
                             }

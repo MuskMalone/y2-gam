@@ -555,7 +555,6 @@ namespace Image {
     case FieldType::Short:   return "Short";
     case FieldType::Int:     return "Int";
     case FieldType::Long:    return "Long";
-    case FieldType::UByte:   return "UByte";
     case FieldType::UShort:  return "UShort";
     case FieldType::UInt:    return "UInt";
     case FieldType::ULong:   return "ULong";

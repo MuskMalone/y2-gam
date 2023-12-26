@@ -890,7 +890,7 @@ namespace Image {
                 ImGui::SameLine();
                 ImGui::SetCursorPosX(SAME_LINE_SPACING);
                 ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
-                char tempLayerName[256]; // Temp Buffer
+                char tempLayerName[256];
                 strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
                 tempLayerName[sizeof(tempLayerName) - 1] = '\0';
 
@@ -907,7 +907,6 @@ namespace Image {
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
                   ImGui::Text("Assigned Script:");
-                  //ImGui::Text(script.name.c_str());
 
                   static int selectedOption = -1;
 
@@ -938,6 +937,11 @@ namespace Image {
                     std::map<std::string, Image::Field> const& fields{ scriptInstance.GetScriptClass().GetFieldNameToTypeMap() };
                     for (std::pair<std::string, Image::Field> const& val : fields) {
                       switch (val.second.fieldType) {
+
+                      case Image::FieldType::None: {
+                        break;
+                      }
+
                       case Image::FieldType::Float: {
                         float dataFloat{ scriptInstance.GetFieldValueFromName<float>(val.first) };
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
@@ -946,20 +950,137 @@ namespace Image {
                         }
                         break;
                       }
+
                       case Image::FieldType::Double: {
-                        float dataDouble{ scriptInstance.GetFieldValueFromName<float>(val.first) };
+                        double dataDouble{ scriptInstance.GetFieldValueFromName<double>(val.first) };
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
-                        if (ImGui::DragFloat(val.first.c_str(), &dataDouble)) {
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_Double, &dataDouble)) {
                           scriptInstance.SetFieldValueWithName(val.first, dataDouble);
                         }
                         break;
                       }
+
                       case Image::FieldType::Bool: {
                         bool dataBool{ scriptInstance.GetFieldValueFromName<bool>(val.first) };
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
 
                         if (ImGui::Checkbox(val.first.c_str(), &dataBool)) {
                           scriptInstance.SetFieldValueWithName(val.first, dataBool);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Char: {
+                        char dataChar{ scriptInstance.GetFieldValueFromName<char>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S8, &dataChar)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataChar);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Byte: {
+                        byte dataByte{ scriptInstance.GetFieldValueFromName<byte>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U8, &dataByte)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataByte);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Short: {
+                        short dataShort{ scriptInstance.GetFieldValueFromName<short>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S16, &dataShort)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataShort);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Int: {
+                        int dataInt{ scriptInstance.GetFieldValueFromName<int>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S32, &dataInt)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataInt);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Long: {
+                        LONG dataLong{ scriptInstance.GetFieldValueFromName<LONG>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S32, &dataLong)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataLong);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::UShort: {
+                        USHORT dataUShort{ scriptInstance.GetFieldValueFromName<USHORT>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U16, &dataUShort)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataUShort);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::UInt: {
+                        UINT dataUInt{ scriptInstance.GetFieldValueFromName<UINT>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataUInt)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataUInt);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::ULong: {
+                        ULONG dataULong{ scriptInstance.GetFieldValueFromName<ULONG>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataULong)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataULong);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector2: {
+                        Vec2 dataVec2{ scriptInstance.GetFieldValueFromName<Vec2>(val.first) };
+                        float vec2Buffer[2] = { dataVec2.x, dataVec2.y };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat2(val.first.c_str(), vec2Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec2(vec2Buffer[0], vec2Buffer[1]));
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector3: {
+                        Vec3 dataVec3{ scriptInstance.GetFieldValueFromName<Vec3>(val.first) };
+                        float vec3Buffer[3] = { dataVec3.x, dataVec3.y, dataVec3.z };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat3(val.first.c_str(), vec3Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec3(vec3Buffer[0], vec3Buffer[1],
+                            vec3Buffer[2]));
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector4: {
+                        Vec4 dataVec4{ scriptInstance.GetFieldValueFromName<Vec4>(val.first) };
+                        float vec4Buffer[4] = { dataVec4.x, dataVec4.y, dataVec4.z, dataVec4.w };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat4(val.first.c_str(), vec4Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec4(vec4Buffer[0], vec4Buffer[1],
+                            vec4Buffer[2], vec4Buffer[3]));
                         }
                         break;
                       }
@@ -973,13 +1094,11 @@ namespace Image {
             ImGui::PopStyleColor(2);
         }
         ImGui::PopFont();
-
     }
     void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
         InspectorWindow(gSelectedPrefab, true);
-        ImGui::End();
-        
+        ImGui::End();      
     }
     void GameObjectInspectorWindow() {
         ImGui::Begin("Game Object Inspector");

@@ -29,7 +29,6 @@ namespace Image {
     Short,
     Int,
     Long,
-    UByte,
     UShort,
     UInt,
     ULong,
