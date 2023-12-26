@@ -4,7 +4,7 @@
 \file       InternalCalls.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 23, 2023
+\date       Dec 26, 2023
 
 \brief      All C# internal calls go here, where information from CPP code 
             can be accessed in C#, and vice versa
@@ -63,14 +63,6 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void UIComponent_GetIsUIButtonHover(ref uint entityID, ref bool outIsHover);
-        #endregion
-
-        #region Serialization
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void SerializationComponent_GetIsFacingRight(ref uint entityID, ref bool outFacingDirection);
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void SerializationComponent_SetIsFacingRight(ref uint entityID, ref bool facingDirection);
         #endregion
 
         #region EngineCore

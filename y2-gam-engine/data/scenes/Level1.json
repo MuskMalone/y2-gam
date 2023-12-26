@@ -12,8 +12,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectGameplaybgm",
-                "isFacingRight": true
+                "scriptName": "ObjectGameplaybgm",
+                "scriptTag": "BG"
             },
             "Sprite": {
                 "r": 1.0,
@@ -75,8 +75,8 @@
                 "lockRotate": true
             },
             "Script": {
-                "script": "ObjectPlayer",
-                "isFacingRight": true
+                "scriptName": "ObjectPlayer",
+                "scriptTag": "Player"
             },
             "Sprite": {
                 "r": 1.0,
@@ -601,8 +601,8 @@
                 "lockRotate": false
             },
             "Script": {
-                "script": "ObjectButton",
-                "isFacingRight": true
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button"
             },
             "Sprite": {
                 "r": 1.0,
@@ -960,8 +960,8 @@
                 "lockRotate": false
             },
             "Script": {
-                "script": "ObjectBasicEnemy",
-                "isFacingRight": true
+                "scriptName": "ObjectBasicEnemy",
+                "scriptTag": "Enemy"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1169,8 +1169,8 @@
                 "lockRotate": true
             },
             "Script": {
-                "script": "ObjectCard",
-                "isFacingRight": true
+                "scriptName": "ObjectCard",
+                "scriptTag": "Card"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1201,8 +1201,8 @@
                 "layering": "UI"
             },
             "Script": {
-                "script": "ObjectPauseMenu",
-                "isFacingRight": true
+                "scriptName": "ObjectPauseMenu",
+                "scriptTag": "pause_img"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1238,8 +1238,8 @@
                 "layering": "UI"
             },
             "Script": {
-                "script": "ObjectPmResumeGame",
-                "isFacingRight": true
+                "scriptName": "ObjectPmResumeGame",
+                "scriptTag": "resumegame_glow"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1275,8 +1275,8 @@
                 "layering": "UI"
             },
             "Script": {
-                "script": "ObjectPmMenu",
-                "isFacingRight": true
+                "scriptName": "ObjectPmMenu",
+                "scriptTag": "menu_glow"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1312,8 +1312,8 @@
                 "layering": "UI"
             },
             "Script": {
-                "script": "ObjectPmQuit",
-                "isFacingRight": true
+                "scriptName": "ObjectPmQuit",
+                "scriptTag": "quitgame_glow"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1349,8 +1349,8 @@
                 "layering": "UI"
             },
             "Script": {
-                "script": "ObjectPmHowToPlay",
-                "isFacingRight": true
+                "scriptName": "ObjectPmHowToPlay",
+                "scriptTag": "howtoplay_glow"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1427,8 +1427,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectArms",
-                "isFacingRight": true
+                "scriptName": "ObjectArms",
+                "scriptTag": "Name"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1480,8 +1480,8 @@
                 "lockRotate": false
             },
             "Script": {
-                "script": "ObjectExit",
-                "isFacingRight": true
+                "scriptName": "ObjectExit",
+                "scriptTag": "Exit"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1680,8 +1680,8 @@
                 "lockRotate": false
             },
             "Script": {
-                "script": "ObjectCloseDoor",
-                "isFacingRight": true
+                "scriptName": "ObjectCloseDoor",
+                "scriptTag": "CloseDoor"
             },
             "Sprite": {
                 "r": 1.0,

@@ -166,22 +166,6 @@ namespace Image
         }
         #endregion
 
-        #region Serialization
-        public bool FacingDirection
-        {
-            get
-            {
-                bool facingDirection = false;
-                InternalCalls.SerializationComponent_GetIsFacingRight(ref entityID, ref facingDirection);
-                return facingDirection;
-            }
-            set
-            {
-                InternalCalls.SerializationComponent_SetIsFacingRight(ref entityID, ref value);
-            }
-        }
-        #endregion
-
         #region UI
         public bool UIClicked
         {

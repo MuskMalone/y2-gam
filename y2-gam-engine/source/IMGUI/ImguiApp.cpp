@@ -1084,6 +1084,16 @@ namespace Image {
                         }
                         break;
                       }
+
+                      case Image::FieldType::Entity: {
+                        Entity dataEntity{ scriptInstance.GetFieldValueFromName<Entity>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataEntity)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataEntity);
+                        }
+                        break;
+                      }
                       }
                     }
                   }
@@ -1234,10 +1244,11 @@ namespace Image {
                   break;
             case 7: {
 
-              if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
+              if (!gCoordinator->HasComponent<Script>(selectedEntity) && gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
                 gCoordinator->AddComponent(
                   selectedEntity,
-                  Script{ "No Script Assigned" }, ignore);
+                  Script{ "No Script Assigned", scriptTag }, ignore);
                 if (!ignore) {
                     ScriptManager::OnCreateEntity(selectedEntity);
                 }

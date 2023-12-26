@@ -28,13 +28,13 @@ namespace Object
         public float JumpSpeed;
         public float MovementSpeed;
 
-        public Double DoubleVal;
-
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         public bool GodMode = false;
 
         // For Testing
+        public bool IsFacingRight;
+        public Double DoubleVal;
         public char CharVal;
         public byte ByteVal;
         public short ShortVal;
@@ -47,7 +47,6 @@ namespace Object
         public Vector3 Vec3Val;
         public Vector4 Vec4Val;
 
-
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
         private float temp_dt = 0f;
@@ -55,7 +54,7 @@ namespace Object
 
         // Direction related
         private bool _isFacingRight;
-        public bool isFacingRight
+        private bool isFacingRight
         {
             get { return _isFacingRight; }
             set
@@ -105,7 +104,8 @@ namespace Object
         */
         void OnCreate()
         {
-            isFacingRight = FacingDirection;
+            // Get the serialized IsFacingRight value
+            isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
         }
 
@@ -123,6 +123,8 @@ namespace Object
         {
             if (!IsEditorMode())
             {
+                IsFacingRight = isFacingRight;
+
                 if (isPaused)
                 {
                     dt = temp_dt;
@@ -151,8 +153,6 @@ namespace Object
 
                     if (!GodMode)
                     {
-                        FacingDirection = isFacingRight;
-
                         if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
                             new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
                                 PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
@@ -281,7 +281,7 @@ namespace Object
         */
         void OnExit()
         {
-            FacingDirection = isFacingRight;
+
         }
 
         void PauseGame()

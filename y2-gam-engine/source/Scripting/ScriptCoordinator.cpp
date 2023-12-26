@@ -274,43 +274,6 @@ namespace Image {
 			outIsHover = ::gCoordinator->GetComponent<UIImage>(entityID).isHover;
 	}
 
-	// For Serialization
-	/*  _________________________________________________________________________ */
-	/*! SerializationComponent_GetIsFacingRight
-
-	@param entityID
-	The ID of the entity.
-
-	@param outFacingDirection
-	Flag for if the entity is facing right or not.
-
-	@return none.
-
-	Gets the facing right flag in C#.
-	*/
-	static void SerializationComponent_GetIsFacingRight(uint32_t& entityID, bool& outFacingDirection) {
-		if (::gCoordinator->HasComponent<Script>(entityID))
-			outFacingDirection = ::gCoordinator->GetComponent<Script>(entityID).isFacingRight;
-	}
-
-	/*  _________________________________________________________________________ */
-	/*! SerializationComponent_SetIsFacingRight
-
-	@param entityID
-	The ID of the entity.
-
-	@param facingDirection
-	Flag for if the entity is facing right or not.
-
-	@return none.
-
-	Sets the facing right flag in C#.
-	*/
-	static void SerializationComponent_SetIsFacingRight(uint32_t& entityID, bool& facingDirection) {
-		if (::gCoordinator->HasComponent<Script>(entityID))
-			::gCoordinator->GetComponent<Script>(entityID).isFacingRight = facingDirection;
-	}
-
 	// For Engine Core
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetScriptInstance
@@ -1110,9 +1073,6 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
-
-		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_GetIsFacingRight);
-		IMAGE_ADD_INTERNAL_CALL(SerializationComponent_SetIsFacingRight);
 
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetScriptInstance);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
