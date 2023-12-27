@@ -19,6 +19,15 @@
 #include "Scripting/ScriptInstance.hpp"
 
 namespace Image {
+  ScriptInstance::ScriptInstance(ScriptClass scriptClass) : mInstance{ scriptClass.Instantiate() },
+    mConstructor{ scriptClass.GetMethod(".ctor", 1) },
+    mOnCreateMethod{ scriptClass.GetMethod("OnCreate", 0) },
+    mOnUpdateMethod{ scriptClass.GetMethod("OnUpdate", 1) },
+    mOnExitMethod{ scriptClass.GetMethod("OnExit", 0) },
+    mScriptClass{ scriptClass } {
+
+    gcHandle = mono_gchandle_new(mInstance, false);
+  }
   /*  _________________________________________________________________________ */
   /*! ScriptInstance
 
@@ -55,7 +64,9 @@ namespace Image {
 
   Calls the on create function from C#.
   */
-  void ScriptInstance::CallOnCreate() noexcept {
+  void ScriptInstance::CallOnCreate(Entity entityID) noexcept {
+    void* param{ &entityID };
+    mScriptClass.CallMethod(mInstance, mConstructor, &param);
     mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
   }

@@ -36,6 +36,7 @@ namespace Image {
     static void PopulateEntityClassesFromAssembly(MonoAssembly* assembly);
     static void OnCreateEntity(Entity const& entity);
     static void OnCreateEntityEvent(Event& event);
+    static void LoadEntityLinkage(Entity entity, std::string tag);
     static void OnUpdateEntity(Entity const& entity, float dt);
     static void OnExitEntity(Entity const& entity);
     static void RemoveEntity(Entity const& entity);
@@ -53,6 +54,8 @@ namespace Image {
     static std::map<Entity, ScriptInstance> const& GetEntityInstances() { return sEntityInstances; };
     static std::vector<const char *> const& GetAssignableScriptNames() { return sAssignableScriptNames; }
     static ScriptInstance& GetEntityScriptInstance(Entity const& entity);
+    static ScriptInstance& GetTagToRawScriptInstance(std::string const& tag);
+    static ScriptInstance& CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag);
     static MonoObject* GetEntityMonoInstanceObject(Entity const& entity);
 
   private:
@@ -65,6 +68,7 @@ namespace Image {
     static MonoDomain* sAppDomain;
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
     static std::map<Entity, ScriptInstance> sEntityInstances;
+    static std::map<std::string, ScriptInstance> sTagToRawInstances;
     static std::vector<const char*> sAssignableScriptNames;
     static std::map<std::string, Field> sScriptFieldTypes;
   };

@@ -72,8 +72,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "No Script Assigned",
-                "isFacingRight": true
+                "scriptName": "No Script Assigned",
+                "scriptTag": "settings"
             },
             "Sprite": {
                 "r": 1.0,

@@ -970,26 +970,6 @@ namespace Image {
                         break;
                       }
 
-                      case Image::FieldType::Char: {
-                        char dataChar{ scriptInstance.GetFieldValueFromName<char>(val.first) };
-                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
-
-                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S8, &dataChar)) {
-                          scriptInstance.SetFieldValueWithName(val.first, dataChar);
-                        }
-                        break;
-                      }
-
-                      case Image::FieldType::Byte: {
-                        byte dataByte{ scriptInstance.GetFieldValueFromName<byte>(val.first) };
-                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
-
-                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U8, &dataByte)) {
-                          scriptInstance.SetFieldValueWithName(val.first, dataByte);
-                        }
-                        break;
-                      }
-
                       case Image::FieldType::Short: {
                         short dataShort{ scriptInstance.GetFieldValueFromName<short>(val.first) };
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);

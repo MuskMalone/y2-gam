@@ -10,8 +10,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectMainMenubgm",
-                "isFacingRight": true
+                "scriptName": "ObjectMainMenubgm",
+                "scriptTag": "bg"
             },
             "Sprite": {
                 "r": 1.0,
@@ -80,8 +80,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectEnterLevelOne",
-                "isFacingRight": true
+                "scriptName": "ObjectEnterLevelOne",
+                "scriptTag": "start"
             },
             "Sprite": {
                 "r": 1.0,
@@ -117,8 +117,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectQuit",
-                "isFacingRight": true
+                "scriptName": "ObjectQuit",
+                "scriptTag": "quit"
             },
             "Sprite": {
                 "r": 1.0,
@@ -154,8 +154,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectSettings",
-                "isFacingRight": true
+                "scriptName": "ObjectSettings",
+                "scriptTag": "settings"
             },
             "Sprite": {
                 "r": 1.0,

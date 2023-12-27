@@ -6,8 +6,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectEnterLevelOne",
-                "isFacingRight": true
+                "scriptName": "ObjectEnterLevelOne",
+                "scriptTag": "Name"
             },
             "Sprite": {
                 "r": 1.0,

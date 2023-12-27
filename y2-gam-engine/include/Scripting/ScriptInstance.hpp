@@ -23,9 +23,10 @@ namespace Image {
   class ScriptInstance {
   public:
     ScriptInstance() = default;
+    ScriptInstance(ScriptClass scriptClass);
     ScriptInstance(ScriptClass scriptClass, Entity entityHandle);
 
-    void CallOnCreate() noexcept;
+    void CallOnCreate(Entity entityID) noexcept;
     void CallOnUpdate(float dt) noexcept;
     void CallOnExit() noexcept;
 

@@ -24,8 +24,6 @@ namespace Image {
     Float,
     Double,
     Bool,
-    Char,
-    Byte,
     Short,
     Int,
     Long,

@@ -64,6 +64,11 @@ namespace Serializer {
 				if (at == gComponentSerializer.end()) continue;
 				at->second(entity, itr->value);
 			}
+
+			if (gCoordinator->HasComponent<Tag>(entity) && gCoordinator->HasComponent<Script>(entity)) {
+				std::string tag = gCoordinator->GetComponent<Tag>(entity).tag;
+				ScriptManager::LoadEntityLinkage(entity, tag);
+			}
 		}
 	}
 	/*  _________________________________________________________________________ */
@@ -85,6 +90,11 @@ namespace Serializer {
 				auto at{ gComponentSerializer.find(itr->name.GetString()) };
 				if (at == gComponentSerializer.end()) continue;
 				at->second(entity, itr->value);
+			}
+
+			if (gCoordinator->HasComponent<Tag>(entity) && gCoordinator->HasComponent<Script>(entity)) {
+				std::string tag = gCoordinator->GetComponent<Tag>(entity).tag;
+				ScriptManager::LoadEntityLinkage(entity, tag);
 			}
 		}
 	}

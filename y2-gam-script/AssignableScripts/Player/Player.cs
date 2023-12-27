@@ -22,9 +22,6 @@ namespace Object
 {
     public class Player : Entity
     {
-        // TO ADD: DRAG AND DROP SCRIPT ENTITIES VIA IMGUI
-        public Entity otherEntity;
-
         public float JumpSpeed;
         public float MovementSpeed;
 
@@ -35,8 +32,6 @@ namespace Object
         // For Testing
         public bool IsFacingRight;
         public Double DoubleVal;
-        public char CharVal;
-        public byte ByteVal;
         public short ShortVal;
         public int IntVal;
         public Int64 LongVal;

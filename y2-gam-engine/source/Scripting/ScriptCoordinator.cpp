@@ -82,7 +82,7 @@ namespace Image {
 	Destroys entity.
 	*/
 	static void GameplayComponent_Destroy(uint32_t& entityID) {
-		gCoordinator->DestroyEntity(entityID);
+		::gCoordinator->DestroyEntity(entityID);
 		Image::ScriptManager::RemoveEntity(entityID);
 	}
 

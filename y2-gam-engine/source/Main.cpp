@@ -64,8 +64,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
-
-	
+	Image::ScriptManager::Init();
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -84,7 +83,6 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
-	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<Prefab>();
@@ -94,6 +92,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
 	coordinator->RegisterComponent<Tag>();
+	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Layering>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
@@ -101,6 +100,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	assetManager->Init();
 	PrefabsManager::GetInstance()->Init();
 	SceneManager::GetInstance()->Init();
+
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -178,7 +178,6 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	uiSystem->Init();
 
-
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
@@ -221,46 +220,22 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
-	//NodeManager::Initialize();
-	Image::ScriptManager::Init();
-
 #ifdef _INSTALLER
-	// REPLACE THIS SCENE WITH MAIN MENU AFTER IT IS DONE // REMEMBER PLS
 	SceneManager::GetInstance()->LoadScene("MainMenu");
 #endif
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		// Code to run the 'on update' function on entities with script components
-		//if (SceneManager::GetInstance()->IsSceneActive()) {
-		/*
-			for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-				if (e.first >= 0 && e.first < MAX_ENTITIES)
-					Image::ScriptManager::OnUpdateEntity(e.first, dt);
-			}
-		*/
-		//}
-
 		Image::SoundManager::AudioUpdate();
 		
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-		//gGameLoop.CheckToggleKey();
-		//prefabSystem->Update();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
-		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
-		//}
-	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
-
 		uiSystem->Update();
-
-		//NodeManager::Update();
-
 		windowManager->Update();
-
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
@@ -276,7 +251,6 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 		dt = frameController->EndFrameTime();
 		windowManager->UpdateWindowTitle(WINDOW_TITLE);
 	}
-	Image::ScriptManager::ExitMono();
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
 	imguiSystem->Destroy();
@@ -288,5 +262,6 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	assetManager->Exit();
 	PrefabsManager::GetInstance()->Exit();
 	layeringSystem->Exit();
+	Image::ScriptManager::ExitMono();
 	return 0;
 }

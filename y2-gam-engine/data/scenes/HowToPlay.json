@@ -8,8 +8,8 @@
                 "layering": "Default"
             },
             "Script": {
-                "script": "ObjectPmHowToPlayScene",
-                "isFacingRight": true
+                "scriptName": "ObjectPmHowToPlayScene",
+                "scriptTag": "bg"
             },
             "Sprite": {
                 "r": 1.0,

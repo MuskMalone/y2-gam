@@ -31,17 +31,16 @@ namespace Image {
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
   std::map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
+  std::map <std::string, ScriptInstance> ScriptManager::sTagToRawInstances{};
   std::vector<const char*> ScriptManager::sAssignableScriptNames{};
 
   std::map<std::string, Field> ScriptManager::sScriptFieldTypes {
     { "System.Single", {FieldType::Float, nullptr} },
     { "System.Double", {FieldType::Double, nullptr}  },
     { "System.Boolean", {FieldType::Bool, nullptr}  },
-    { "System.Char", {FieldType::Char, nullptr}  },
     { "System.Int16", {FieldType::Short, nullptr}  },
     { "System.Int32", {FieldType::Int, nullptr}  },
     { "System.Int64", {FieldType::Long, nullptr}  },
-    { "System.Byte", {FieldType::Byte, nullptr}  },
     { "System.UInt16", {FieldType::UShort, nullptr}  },
     { "System.UInt32", {FieldType::UInt, nullptr}  },
     { "System.UInt64", {FieldType::ULong, nullptr}  },
@@ -152,6 +151,18 @@ namespace Image {
   */
   ScriptInstance& ScriptManager::GetEntityScriptInstance(Entity const& entity) {
     return sEntityInstances[entity];
+  }
+
+  ScriptInstance& ScriptManager::GetTagToRawScriptInstance(std::string const& tag) {
+    return sTagToRawInstances[tag];
+  }
+
+  ScriptInstance& ScriptManager::CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag) {
+    if (EntityClassExists(scriptName)) {
+      sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
+      //std::cout << "Raw Instance for: " << scriptName << " created!\n";
+      return sTagToRawInstances[tag];
+    }
   }
 
   /*  _________________________________________________________________________ */
@@ -374,11 +385,14 @@ namespace Image {
   subscriber callback instead.
   */
   void ScriptManager::OnCreateEntity(Entity const& entity) {
+    /*
     ::gCoordinator = Coordinator::GetInstance();
+
     auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
     if (EntityClassExists(scriptComp.name)) {
       ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
       sEntityInstances[entity] = si;
+      //sTagToInstances[scriptComp.scriptTagged] = si;
       si.CallOnCreate();
 
 #ifndef _INSTALLER
@@ -393,6 +407,25 @@ namespace Image {
         , __FUNCTION__);
 #endif
     }
+    */
+
+    /*
+    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
+    if (::gCoordinator->HasComponent<Tag>(entity)) {
+      std::string tag = ::gCoordinator->GetComponent<Tag>(entity).tag;
+      auto it = sTagToRawInstances.find(tag);
+
+      if (it != sTagToRawInstances.end()) {
+        sEntityInstances[entity] = sTagToRawInstances[tag];
+        sEntityInstances[entity].CallOnCreate(entity);
+
+#ifndef _INSTALLER
+        LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
+          scriptComp.name + " created!", __FUNCTION__);
+#endif
+      }
+    }
+    */
   }
 
   namespace Hack {
@@ -420,10 +453,12 @@ namespace Image {
       if (Hack::entitiesScripted.find(entity) != Hack::entitiesScripted.end()) return;
       Hack::entitiesScripted[entity] = gCoordinator->GetComponent<Script>(entity).name;
 
+      /*
       auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
       if (EntityClassExists(scriptComp.name)) {
         ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
         sEntityInstances[entity] = si;
+        //sTagToInstances[scriptComp.scriptTagged] = si;
         si.CallOnCreate();
 
 #ifndef _INSTALLER
@@ -437,6 +472,39 @@ namespace Image {
           , __FUNCTION__);
 #endif
       }
+      */
+      /*
+      auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
+      if (::gCoordinator->HasComponent<Tag>(entity)) {
+        std::string tag = ::gCoordinator->GetComponent<Tag>(entity).tag;
+        auto it = sTagToRawInstances.find(tag);
+
+        if (it != sTagToRawInstances.end()) {
+          sEntityInstances[entity] = sTagToRawInstances[tag];
+          sEntityInstances[entity].CallOnCreate(entity);
+
+#ifndef _INSTALLER
+          LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
+            scriptComp.name + " created!", __FUNCTION__);
+#endif
+        }
+      }
+      */
+  }
+
+  void ScriptManager::LoadEntityLinkage(Entity entity, std::string tag) {
+    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
+    auto it = sTagToRawInstances.find(tag);
+
+    if (it != sTagToRawInstances.end()) {
+      sEntityInstances[entity] = sTagToRawInstances[tag];
+      sEntityInstances[entity].CallOnCreate(entity);
+
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
+        scriptComp.name + " created!", __FUNCTION__);
+#endif
+    }
   }
 
   /*  _________________________________________________________________________ */
@@ -484,6 +552,7 @@ namespace Image {
     auto it = sEntityInstances.find(entity);
     if (it != sEntityInstances.end()) {
       sEntityInstances.erase(it);
+      //sTagToInstances.erase(gCoordinator->GetComponent<Tag>(entity).tag);
     }
   }
 
@@ -550,8 +619,6 @@ namespace Image {
     case FieldType::Float:   return "Float";
     case FieldType::Double:  return "Double";
     case FieldType::Bool:    return "Bool";
-    case FieldType::Char:    return "Char";
-    case FieldType::Byte:    return "Byte";
     case FieldType::Short:   return "Short";
     case FieldType::Int:     return "Int";
     case FieldType::Long:    return "Long";
