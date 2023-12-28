@@ -19,7 +19,6 @@
 #include "../include/pch.hpp"
 
 #include "Scripting/ScriptManager.hpp"
-#include "mono/metadata/tabledefs.h"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
@@ -29,6 +28,9 @@ namespace Image {
 
   MonoDomain* ScriptManager::sRootDomain{ nullptr };
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
+#ifndef _INSTALLER
+  std::unique_ptr<filewatch::FileWatch<std::string>> ScriptManager::mAppAssemblyFileWatcher;
+#endif
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
   std::map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
   std::map <std::string, ScriptInstance> ScriptManager::sTagToRawInstances{};
@@ -62,6 +64,29 @@ namespace Image {
     ScriptCoordinator::RegisterFunctions();
     MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+#ifndef _INSTALLER
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts",
+      [](const std::string& path, const filewatch::Event change_type) {
+      std::cout << "File: " << path << " Event: ";
+      switch (change_type)
+      {
+      case filewatch::Event::added:
+        std::cout << "The file was added to the directory." << '\n';
+        break;
+      case filewatch::Event::removed:
+        std::cout << "The file was removed from the directory." << '\n';
+        break;
+      case filewatch::Event::modified:
+        std::cout << "The file was modified. This can be a change in the time stamp or attributes." << '\n';
+        break;
+      case filewatch::Event::renamed_old:
+        std::cout << "The file was renamed and this is the old name." << '\n';
+        break;
+      }
+      }
+    );
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -385,47 +410,7 @@ namespace Image {
   subscriber callback instead.
   */
   void ScriptManager::OnCreateEntity(Entity const& entity) {
-    /*
-    ::gCoordinator = Coordinator::GetInstance();
 
-    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-    if (EntityClassExists(scriptComp.name)) {
-      ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
-      sEntityInstances[entity] = si;
-      //sTagToInstances[scriptComp.scriptTagged] = si;
-      si.CallOnCreate();
-
-#ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " + 
-        scriptComp.name + " created!", __FUNCTION__);
-#endif
-
-    }
-    else {
-#ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
-        , __FUNCTION__);
-#endif
-    }
-    */
-
-    /*
-    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-    if (::gCoordinator->HasComponent<Tag>(entity)) {
-      std::string tag = ::gCoordinator->GetComponent<Tag>(entity).tag;
-      auto it = sTagToRawInstances.find(tag);
-
-      if (it != sTagToRawInstances.end()) {
-        sEntityInstances[entity] = sTagToRawInstances[tag];
-        sEntityInstances[entity].CallOnCreate(entity);
-
-#ifndef _INSTALLER
-        LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
-          scriptComp.name + " created!", __FUNCTION__);
-#endif
-      }
-    }
-    */
   }
 
   namespace Hack {
@@ -448,52 +433,14 @@ namespace Image {
       ::gCoordinator = Coordinator::GetInstance();
       Entity entity{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
       if (event.GetFail()) return;
-      if (!gCoordinator->HasComponent<Script>(entity)) return;
+      if (!::gCoordinator->HasComponent<Script>(entity)) return;
 
       if (Hack::entitiesScripted.find(entity) != Hack::entitiesScripted.end()) return;
-      Hack::entitiesScripted[entity] = gCoordinator->GetComponent<Script>(entity).name;
-
-      /*
-      auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-      if (EntityClassExists(scriptComp.name)) {
-        ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
-        sEntityInstances[entity] = si;
-        //sTagToInstances[scriptComp.scriptTagged] = si;
-        si.CallOnCreate();
-
-#ifndef _INSTALLER
-        LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
-          scriptComp.name + " created!", __FUNCTION__);
-#endif
-      }
-      else {
-#ifndef _INSTALLER
-        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
-          , __FUNCTION__);
-#endif
-      }
-      */
-      /*
-      auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-      if (::gCoordinator->HasComponent<Tag>(entity)) {
-        std::string tag = ::gCoordinator->GetComponent<Tag>(entity).tag;
-        auto it = sTagToRawInstances.find(tag);
-
-        if (it != sTagToRawInstances.end()) {
-          sEntityInstances[entity] = sTagToRawInstances[tag];
-          sEntityInstances[entity].CallOnCreate(entity);
-
-#ifndef _INSTALLER
-          LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
-            scriptComp.name + " created!", __FUNCTION__);
-#endif
-        }
-      }
-      */
+      Hack::entitiesScripted[entity] = ::gCoordinator->GetComponent<Script>(entity).name;
   }
 
   void ScriptManager::LoadEntityLinkage(Entity entity, std::string tag) {
-    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
+    auto const& scriptComp{ ::gCoordinator->GetComponent<Script>(entity) };
     auto it = sTagToRawInstances.find(tag);
 
     if (it != sTagToRawInstances.end()) {
@@ -552,7 +499,9 @@ namespace Image {
     auto it = sEntityInstances.find(entity);
     if (it != sEntityInstances.end()) {
       sEntityInstances.erase(it);
-      //sTagToInstances.erase(gCoordinator->GetComponent<Tag>(entity).tag);
+      if (::gCoordinator->HasComponent<Tag>(entity)) {
+        sTagToRawInstances.erase(::gCoordinator->GetComponent<Tag>(entity).tag);
+      }
     }
   }
 
@@ -582,7 +531,7 @@ namespace Image {
     std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
     std::cout << "Entity-Script Pairs in the Script Instance Map:\n";
     for (const auto& pair : sEntityInstances) {
-      std::cout << pair.first << ": " << gCoordinator->GetComponent<Script>(pair.first).name << "\n";
+      std::cout << pair.first << ": " << ::gCoordinator->GetComponent<Script>(pair.first).name << "\n";
     }
     std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
   }

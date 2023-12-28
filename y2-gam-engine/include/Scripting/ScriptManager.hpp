@@ -25,6 +25,11 @@
 #include "Scripting/ScriptInstance.hpp"
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Scripting/ScriptFieldType.hpp"
+#include "mono/metadata/tabledefs.h"
+
+#ifndef _INSTALLER
+#include "FileWatch.hpp"
+#endif
 
 namespace Image {
   class ScriptManager {
@@ -66,6 +71,9 @@ namespace Image {
   private:
     static MonoDomain* sRootDomain;
     static MonoDomain* sAppDomain;
+#ifndef _INSTALLER
+    static std::unique_ptr<filewatch::FileWatch<std::string>> mAppAssemblyFileWatcher;
+#endif
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
     static std::map<Entity, ScriptInstance> sEntityInstances;
     static std::map<std::string, ScriptInstance> sTagToRawInstances;

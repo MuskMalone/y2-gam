@@ -40,6 +40,9 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -94,5 +97,9 @@ xcopy "$(SolutionDir)y2-gam-script\bin\debug\y2-gam-script.dll" "$(SolutionDir)a
 ) ELSE (
 xcopy "$(SolutionDir)y2-gam-script\bin\release\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
 )</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
