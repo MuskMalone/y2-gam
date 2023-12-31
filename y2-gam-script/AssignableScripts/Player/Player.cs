@@ -24,6 +24,7 @@ namespace Object
     {
         // Force Based
         public readonly float JumpForce = 900000.0f;
+        //public readonly float MovementForce = 70000.0f;
         public readonly float MovementForce = 70000.0f;
         //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
@@ -47,6 +48,13 @@ namespace Object
 
         // Direction related
         private bool _isFacingRight;
+
+        //trying
+        //int accecounter = 0;
+        //int maxacce = 200;
+        int dtcounter = 0;
+        int isAccelerate = 0;
+       
         public bool isFacingRight
         {
             get { return _isFacingRight; }
@@ -119,6 +127,7 @@ namespace Object
         {
             if (!IsEditorMode())
             {
+                
                 if (isPaused)
                 {
                     dt = temp_dt;
@@ -204,10 +213,36 @@ namespace Object
                             MoveLeft(dt);
                         }
 
+                        else if(Input.IsKeyClicked(KeyCode.KEY_D))
+                        {
+                            dtcounter = 1;
+                            isAccelerate = 1;
+                        }
+
+                        else if (Input.IsKeyReleased(KeyCode.KEY_D) || Input.IsKeyReleased(KeyCode.KEY_A))
+                        {
+                            //dtcounter = 3;
+                            //isAccelerate = 2;
+                            Velocity *= 0.2f;
+                        }
+
                         else if (Input.IsKeyPressed(KeyCode.KEY_D))
                         {
-                            MoveRight(dt);
+                            MoveRight(dt, isAccelerate, ref dtcounter);
+                            if(dtcounter == 6)
+                            {
+                                isAccelerate = 0;
+                            }
                         }
+
+                        //else if(isAccelerate == 2 && isFacingRight)
+                        //{
+                        //    MoveRight(dt, isAccelerate, ref dtcounter);
+                        //    if(dtcounter == 0)
+                        //    {
+                        //        isAccelerate = 0;
+                        //    }
+                        //}
 
                         Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
                         if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
@@ -314,16 +349,53 @@ namespace Object
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
-            Velocity -= new Vector2(100, 0.0f) * dt;
+            //Velocity -= new Vector2(300, 0.0f) * dt;
+            if (isAccelerate == 1)
+            {
+                Console.WriteLine("Accelerated");
+                Velocity -= new Vector2(40 * dtcounter, 0.0f) * dt;
+                dtcounter++;
+            }
+            //else if(isAccelerate == 2)
+            //{
+            //    Console.WriteLine("Accelerated");
+            //    Velocity += new Vector2(90 * dtcounter, 0.0f) * dt;
+            //    dtcounter--;
+            //}
+            else
+            {
+                Console.WriteLine("Acceleratedfalse");
+                Velocity -= new Vector2(200, 0.0f) * dt;
+            }
             isFacingRight = false;    
         }
 
-        public void MoveRight(float dt)
+      
+        public void MoveRight(float dt, int isAccelerate, ref int dtcounter )
         {
+            
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             //Force += new Vector2(horizontalMovement, 0.0f) * dt;
-            Velocity += new Vector2(100, 0.0f) * dt;
+            if(isAccelerate == 1)
+            {
+                Console.WriteLine("Accelerated");
+                Velocity += new Vector2(40*dtcounter, 0.0f) * dt;
+                dtcounter++;
+            }
+            //else if(isAccelerate == 2)
+            //{
+            //    Console.WriteLine("Accelerated");
+            //    Velocity += new Vector2(90 * dtcounter, 0.0f) * dt;
+            //    dtcounter--;
+            //}
+            else
+            {
+                Console.WriteLine("Acceleratedfalse");
+                Velocity += new Vector2(200, 0.0f) * dt;
+            }
+            
+            
             isFacingRight = true;
         }
 
@@ -331,7 +403,8 @@ namespace Object
         {
             //Force += new Vector2(0, JumpForce) * dt;
             Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 3400) * dt;
+            //Velocity += new Vector2(0, 3400) * dt;
+            Velocity += new Vector2(0, 5000) * dt;
         }
 
         public void Respawn()
