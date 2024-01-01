@@ -26,7 +26,6 @@ std::vector<std::vector<int>> LayeringSystem::mCollisionMatrix;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
-
 }
 
 /*  _________________________________________________________________________ */
@@ -135,7 +134,18 @@ void LayeringSystem::ImguiLayeringWindow() {
 
       for (int j{}; j < MAX_LAYERS; ++j) {
         if (mLayerNames[j] == "") continue;
-        if (i >= j) continue;
+        if (i > j) continue;
+
+        if (i == j) {
+          ImGui::Checkbox(
+            ("##Checkbox" + std::to_string(i) + "_" + std::to_string(j)).c_str(),
+            reinterpret_cast<bool*>(&mCollisionMatrix[i][j])
+          );
+          ImGui::SameLine(0, 3);
+          ImGui::Text("Self");
+          ImGui::SameLine(0, 3);
+          continue;
+        }
 
         ImGui::Checkbox(
           ("##Checkbox" + std::to_string(i) + "_" + std::to_string(j)).c_str(),
@@ -335,8 +345,10 @@ bool LayeringSystem::IsCollidable(std::string const& lhsName, std::string const&
   int idx{};
 
   // For now, assume same layer collides with same layer
+  /*
   if (lhsName == rhsName)
     return true;
+  */
 
   for (auto const& str : mLayerNames) {
     if (lhsName == str) {
