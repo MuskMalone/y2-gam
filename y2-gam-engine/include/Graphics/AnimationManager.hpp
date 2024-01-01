@@ -15,7 +15,7 @@
 			written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-#include "../include/pch.hpp"
+//#include "../include/pch.hpp"
 using AnimationFrames = std::vector<AnimationFrame>;
 struct AnimationProperties : public ResProp{
 	std::string path;
@@ -29,7 +29,7 @@ class AnimationManager {
 public:
 	static ResourceID LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim);
 	static AnimationFrames& GetAnimationFrameList(ResourceID textureID);
-
+	
 	//for assetmanager
 	static ResourceID LoadAsset(rapidjson::Value const& obj);
 	static void SaveAsset(AssetID aid, AnimationProperties const& props, rapidjson::Value& obj);

@@ -222,6 +222,7 @@
     <ClInclude Include="include\Components\UIImage.hpp" />
     <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
+    <ClInclude Include="include\Core\ReflectionManager.hpp" />
     <ClInclude Include="include\Engine\AssetManager.hpp" />
     <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="include\Engine\StateManager.hpp" />
     <ClInclude Include="include\Engine\States\MainState.hpp" />
     <ClInclude Include="include\Engine\States\State.hpp" />
+    <ClInclude Include="include\Core\TypeReflection.hpp" />
     <ClInclude Include="include\Graphics\AnimationManager.hpp" />
     <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />

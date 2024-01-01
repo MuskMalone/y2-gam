@@ -520,7 +520,7 @@ namespace Image {
 
   Loads the sound asset.
   */
-  ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
+  ResourceID SoundManager::LoadAssetSoundProperties(SoundProperties const& props) {
     ResourceID key{ props.id };
     if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
     _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
@@ -554,7 +554,8 @@ namespace Image {
   Loads the sound asset on app open.
   */
   ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
-    return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
+    std::cout << "Load Asset for sound" << std::endl;
+    return LoadAssetSoundProperties(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
   }
 
   /*  _________________________________________________________________________ */

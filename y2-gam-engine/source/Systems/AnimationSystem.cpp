@@ -96,7 +96,7 @@ void AnimationSystem::Update(float dt) {
 		size_t& frameIdx { animation.currFrame };
 		//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this
-		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
+		AnimationFrames& frameList{ const_cast<AnimationFrames&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;
