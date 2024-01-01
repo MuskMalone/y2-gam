@@ -210,7 +210,7 @@ namespace Object
 
                         else if (Input.IsKeyPressed(KeyCode.KEY_A))
                         {
-                            MoveLeft(dt);
+                            MoveLeft(dt, isAccelerate, ref dtcounter);
                         }
 
                         else if(Input.IsKeyClicked(KeyCode.KEY_D))
@@ -223,13 +223,13 @@ namespace Object
                         {
                             //dtcounter = 3;
                             //isAccelerate = 2;
-                            Velocity *= 0.2f;
+                            Velocity *= 0.15f;
                         }
 
                         else if (Input.IsKeyPressed(KeyCode.KEY_D))
                         {
                             MoveRight(dt, isAccelerate, ref dtcounter);
-                            if(dtcounter == 6)
+                            if (dtcounter > 17)
                             {
                                 isAccelerate = 0;
                             }
@@ -344,8 +344,9 @@ namespace Object
             Velocity = temp_velocity*temp_dt;
             //AnimationState = temp_AnimationState;
         }
-        public void MoveLeft(float dt)
+        public void MoveLeft(float dt, int isAccelerate, ref int dtcounter)
         {
+            //Console.WriteLine("dt is" + dt);
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
             //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
@@ -353,8 +354,9 @@ namespace Object
             if (isAccelerate == 1)
             {
                 Console.WriteLine("Accelerated");
-                Velocity -= new Vector2(40 * dtcounter, 0.0f) * dt;
-                dtcounter++;
+                //Velocity -= new Vector2(Lerp(50, 300, 0.2f), 0.0f) * dt;
+                Velocity -= new Vector2(dtcounter*dtcounter, 0.0f) * dt;
+                dtcounter += 4;
             }
             //else if(isAccelerate == 2)
             //{
@@ -365,12 +367,15 @@ namespace Object
             else
             {
                 Console.WriteLine("Acceleratedfalse");
-                Velocity -= new Vector2(200, 0.0f) * dt;
+                Velocity -= new Vector2(300, 0.0f) * dt;
             }
             isFacingRight = false;    
         }
 
-      
+        float Lerp(float start, float end, float t)
+        {
+            return start + t * (end - start);
+        }
         public void MoveRight(float dt, int isAccelerate, ref int dtcounter )
         {
             
@@ -380,8 +385,9 @@ namespace Object
             if(isAccelerate == 1)
             {
                 Console.WriteLine("Accelerated");
-                Velocity += new Vector2(40*dtcounter, 0.0f) * dt;
-                dtcounter++;
+                //Velocity += new Vector2(Lerp(50, 300, 0.8f), 0.2f) * dt;
+                Velocity += new Vector2(dtcounter*dtcounter, 0.0f) * dt;
+                dtcounter += 4;
             }
             //else if(isAccelerate == 2)
             //{
@@ -392,7 +398,7 @@ namespace Object
             else
             {
                 Console.WriteLine("Acceleratedfalse");
-                Velocity += new Vector2(200, 0.0f) * dt;
+                Velocity += new Vector2(300, 0.0f) * dt;
             }
             
             
@@ -402,9 +408,11 @@ namespace Object
         public void Jump(float dt)
         {
             //Force += new Vector2(0, JumpForce) * dt;
-            Velocity -= new Vector2(0, Velocity.Y);
-            //Velocity += new Vector2(0, 3400) * dt;
-            Velocity += new Vector2(0, 5000) * dt;
+            //Velocity -= new Vector2(0, Velocity.Y);
+            ////Velocity += new Vector2(0, 3400) * dt;
+            //Velocity += new Vector2(0, 5000) * dt;
+            Velocity = new Vector2(Velocity.X, 70.0f);
+            isGrounded = false;
         }
 
         public void Respawn()
