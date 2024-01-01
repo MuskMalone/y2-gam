@@ -74,25 +74,22 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            //SetSprite("start_glow");
+            if (UIHover)
             {
+                Colour = new Vector4(1, 1, 1, 1);
                 //SetSprite("start_glow");
-                if (UIHover)
-                {
-                    Colour = new Vector4(1, 1, 1, 1);
-                    //SetSprite("start_glow");
-                }
-                else
-                {
-                    Colour = new Vector4(1, 1, 1, 0);
-                }
+            }
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 0);
+            }
 
-                if (UIClicked && firstTime)
-                {
-                    StopAudio();
-                    LoadScene("Level1");
-                    firstTime = false;
-                }
+            if (UIClicked && firstTime)
+            {
+                StopAudio();
+                LoadScene("Level1");
+                firstTime = false;
             }
         }
 

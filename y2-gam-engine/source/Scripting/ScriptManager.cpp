@@ -19,15 +19,18 @@
 #include "../include/pch.hpp"
 
 #include "Scripting/ScriptManager.hpp"
+#include "Engine/StateManager.hpp"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
+  static int num = 0;
 }
 
 namespace Image {
 
   MonoDomain* ScriptManager::sRootDomain{ nullptr };
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
+  std::string ScriptManager::sMainAssemblyFilePath{};
 #ifndef _INSTALLER
   std::unique_ptr<filewatch::FileWatch<std::string>> ScriptManager::mAppAssemblyFileWatcher;
 #endif
@@ -51,6 +54,20 @@ namespace Image {
     { "Image.Vector4", {FieldType::Vector4, nullptr}  },
     { "Image.Entity", {FieldType::Entity, nullptr}  },
   };
+  bool ScriptManager::AssemblyReloadPending{ false };
+
+  static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
+    if (!ScriptManager::AssemblyReloadPending && change_type == filewatch::Event::modified) {
+      ScriptManager::AssemblyReloadPending = true;
+
+      std::shared_ptr<StateManager> gStateManager = StateManager::GetInstance();
+      gStateManager->SubmitToMainThread([]()
+      {
+        ScriptManager::mAppAssemblyFileWatcher.reset();
+        ScriptManager::ReloadAssembly();
+      });
+    }
+  }
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -60,11 +77,20 @@ namespace Image {
   The main init. Calls the respective script related functions.
   */
   void ScriptManager::Init() {
+    sMainAssemblyFilePath = "../assets/scripts/y2-gam-script.dll";
+
+#ifndef _INSTALLER
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts", AssemblyFileSystemEvent);
+#endif
+    AssemblyReloadPending = false;
     InitMono();
     ScriptCoordinator::RegisterFunctions();
-    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+
 #ifndef _INSTALLER
+    /*
     mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
       "../assets/scripts",
       [](const std::string& path, const filewatch::Event change_type) {
@@ -86,6 +112,7 @@ namespace Image {
       }
       }
     );
+    */
 #endif
   }
 
@@ -290,11 +317,40 @@ namespace Image {
     mono_image_close(monoImage);
     delete[] fileData;
 
-//#ifdef _DEBUG
     PrintMonoAssemblyTypes(monoAssembly);
-//#endif
 
     return monoAssembly;
+  }
+
+  void ScriptManager::ReloadAssembly() {
+    std::cout << "Assembly Reloading\n";
+    mono_domain_set(mono_get_root_domain(), false);
+    mono_domain_unload(sAppDomain);
+
+    char appDomainName[] = "MyAppDomain";
+    // An app domain is a C# language feature
+    MonoDomain* appDomain = mono_domain_create_appdomain(appDomainName, nullptr);
+    if (appDomain == nullptr) {
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "App Domain Initialization Failed!", __FUNCTION__);
+#endif
+      return;
+    }
+    sAppDomain = appDomain;
+
+    mono_domain_set(sAppDomain, true);
+    Coordinator::GetInstance()->AddEventListener(FUNCTION_LISTENER(Events::System::ENTITY, ScriptManager::OnCreateEntityEvent));
+
+#ifndef _INSTALLER
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts", AssemblyFileSystemEvent);
+#endif
+    AssemblyReloadPending = false;
+
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
+    Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+
+    ScriptCoordinator::RegisterFunctions();
   }
 
   /*  _________________________________________________________________________ */

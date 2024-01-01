@@ -37,6 +37,8 @@ namespace Image {
     static void Init();
     static void ExitMono();
     static MonoAssembly* LoadCSharpAssembly(std::string const& assemblyFilePath);
+    static void ReloadAssembly();
+    //static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type);
     static void PrintMonoAssemblyTypes(MonoAssembly* assembly);
     static void PopulateEntityClassesFromAssembly(MonoAssembly* assembly);
     static void OnCreateEntity(Entity const& entity);
@@ -68,12 +70,16 @@ namespace Image {
     static void InitMono();
     static void Exit();
 
-  private:
-    static MonoDomain* sRootDomain;
-    static MonoDomain* sAppDomain;
+  public:
+    static bool AssemblyReloadPending;
 #ifndef _INSTALLER
     static std::unique_ptr<filewatch::FileWatch<std::string>> mAppAssemblyFileWatcher;
 #endif
+
+  private:
+    static MonoDomain* sRootDomain;
+    static MonoDomain* sAppDomain;
+    static std::string sMainAssemblyFilePath;
     static std::unordered_map<std::string, ScriptClass> sEntityClasses;
     static std::map<Entity, ScriptInstance> sEntityInstances;
     static std::map<std::string, ScriptInstance> sTagToRawInstances;

@@ -76,14 +76,11 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (button.isPressed == false)
             {
-                if (button.isPressed == false)
-                {
-                    //button.
-                    PlayAudio("door_open.wav", 0);
-                    GameplayWrapper.DestroyEntity(entityID);
-                }
+                //button.
+                PlayAudio("door_open.wav", 0);
+                GameplayWrapper.DestroyEntity(entityID);
             }
         }
 

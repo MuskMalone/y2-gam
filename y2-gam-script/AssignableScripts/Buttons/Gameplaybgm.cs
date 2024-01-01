@@ -58,23 +58,19 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (GetCurrentScene() == "Level1" && !isPlaying)
             {
-                if (GetCurrentScene() == "Level1" && !isPlaying)
-                {
-                    //PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
-                    firstTime = true;
-                    isPlaying = true;
-                }
-                //else if(firstTime && GetCurrentScene() != "Level1")
-                //{
-                //    StopAudio();
-                //    firstTime = false;
-                //}
-               
-
+                //PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
+                firstTime = true;
+                isPlaying = true;
             }
-            else if (firstTime)
+            //else if(firstTime && GetCurrentScene() != "Level1")
+            //{
+            //    StopAudio();
+            //    firstTime = false;
+            //}
+
+            if (firstTime)
             {
                 StopAudio();
                 firstTime = false;

@@ -78,36 +78,31 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 3);
+            if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit))
             {
-                Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 3);
-                if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit))
-                {
-                    isPressed = true;
-                }
-
-                // button pressed , openSpawn is not spawned , closedSpawn is spawned 
-                if (isPressed == true && openSpawn == false && closeSpawn == true)
-                {
-                    GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
-
-                    closeSpawn = false;
-                    openSpawn = true;
-                }
-
-
-                // button not pressed , openSpawn is spawned , closedSpawn is not spawned
-                if (isPressed == false && closeSpawn == false && openSpawn == true)
-                {
-
-                    GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));
-
-                    closeSpawn = true;
-                    openSpawn = false;
-                }
-
+                isPressed = true;
             }
 
+            // button pressed , openSpawn is not spawned , closedSpawn is spawned 
+            if (isPressed == true && openSpawn == false && closeSpawn == true)
+            {
+                GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
+
+                closeSpawn = false;
+                openSpawn = true;
+            }
+
+
+            // button not pressed , openSpawn is spawned , closedSpawn is not spawned
+            if (isPressed == false && closeSpawn == false && openSpawn == true)
+            {
+
+                GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));
+
+                closeSpawn = true;
+                openSpawn = false;
+            }
         }
 
         /*  _________________________________________________________________________ */

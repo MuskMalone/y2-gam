@@ -49,6 +49,7 @@ Updates the top state in the state stack with the given delta time.
 
 void StateManager::Update(float dt) {
 	if (mStates.empty()) return;
+	ExecuteMainThreadQueue();
 	mStates.top()->Update(dt);
 }
 /*  _________________________________________________________________________ */
@@ -78,4 +79,19 @@ void StateManager::Clear() {
 		mStates.top()->Exit();
 		mStates.pop();
 	}
+}
+
+void StateManager::SubmitToMainThread(const std::function<void()>& function) {
+	std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+
+	m_MainThreadQueue.emplace_back(function);
+}
+
+void StateManager::ExecuteMainThreadQueue() {
+	std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+
+	for (auto& func : m_MainThreadQueue)
+		func();
+
+	m_MainThreadQueue.clear();
 }

@@ -61,21 +61,17 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
-            {
-                //if(isPaused)
+            //if(isPaused)
 
-                if(Input.IsKeyClicked(KeyCode.KEY_Y))
-                {
-                    QuitGame();
-                }
-                //resume game
-                else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-                {
-                    //Colour = new Vector4(1, 1, 1, 0);
-                    GameplayWrapper.DestroyEntity(entityID);
-                }
-               
+            if(Input.IsKeyClicked(KeyCode.KEY_Y))
+            {
+                QuitGame();
+            }
+            //resume game
+            else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            {
+                //Colour = new Vector4(1, 1, 1, 0);
+                GameplayWrapper.DestroyEntity(entityID);
             }
         }
 

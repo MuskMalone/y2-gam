@@ -43,7 +43,7 @@ void EditorControlSystem::Init()
 void EditorControlSystem::Update(float dt)
 {
 	// Code to run the 'on update' function on entities with script components
-	if (SceneManager::GetInstance()->IsSceneActive()) {
+	if (!gCoordinator->GetSystem<RenderSystem>()->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
 		//trying out smth
 		std::vector<std::pair<Entity, ScriptInstance>> vscripts{};
 		auto const& mscripts{ Image::ScriptManager::GetEntityInstances() };

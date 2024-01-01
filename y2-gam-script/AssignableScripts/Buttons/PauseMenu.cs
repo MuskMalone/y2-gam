@@ -71,48 +71,45 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (!isPaused)
+            {
+                Colour = new Vector4(1, 0, 1, 0);
+
+            }
+                
+            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
             {
                 if (!isPaused)
                 {
-                    Colour = new Vector4(1, 0, 1, 0);
-
+                    PauseGame();
+                    isPaused = true;
                 }
-                
-                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+                else
                 {
-                    if (!isPaused)
-                    {
-                        PauseGame();
-                        isPaused = true;
-                    }
-                    else
-                    {
-                        ResumeGame();
-                        isPaused = false;
-                    }
-                    //firstTime = false;
+                    ResumeGame();
+                    isPaused = false;
                 }
+                //firstTime = false;
+            }
                 
 
-                //if (UIClicked)
-                //{
-                //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
-                //    {
-                //        Console.WriteLine("QUITCLICKED");
-                //        Colour = new Vector4(1, 0, 1, 0);
-                //    }
-                //}
-                //if (UIHover)
-                //{
-                //    Colour = new Vector4(1, 1, 0, 1);
-                //    //SetSprite("start_glow");
-                //}
-                //else
-                //{
-                //    Colour = new Vector4(1, 0, 1, 0);
-                //}
-            }
+            //if (UIClicked)
+            //{
+            //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
+            //    {
+            //        Console.WriteLine("QUITCLICKED");
+            //        Colour = new Vector4(1, 0, 1, 0);
+            //    }
+            //}
+            //if (UIHover)
+            //{
+            //    Colour = new Vector4(1, 1, 0, 1);
+            //    //SetSprite("start_glow");
+            //}
+            //else
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+            //}
         }
 
         /*  _________________________________________________________________________ */

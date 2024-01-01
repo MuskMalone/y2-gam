@@ -76,12 +76,9 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (button.isPressed == true)
             {
-                if (button.isPressed == true)
-                {
-                    GameplayWrapper.DestroyEntity(entityID);
-                }
+                GameplayWrapper.DestroyEntity(entityID);
             }
         }
 

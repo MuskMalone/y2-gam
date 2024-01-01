@@ -58,22 +58,19 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (GetCurrentScene() == "MainMenu" && !isPlaying)
             {
-                if (GetCurrentScene() == "MainMenu" && !isPlaying)
-                {
-                    PlayAudio("PM_Menu_Music_Loop.wav", -1);
-                    firstTime = true;
-                    isPlaying = true;
-                }
-                //else
-                //{
-                //    StopAudio();
-                    
-                //}
-                
+                PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                firstTime = true;
+                isPlaying = true;
             }
-            else if(firstTime)
+            //else
+            //{
+            //    StopAudio();
+                    
+            //}
+
+            if(firstTime)
             {
                 StopAudio();
                 firstTime = false;
