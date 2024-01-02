@@ -302,8 +302,10 @@ namespace Object
 
         public void Jump(float dt)
         {
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, JumpSpeed) * dt;
+            //Velocity -= new Vector2(0, Velocity.Y);
+            //Velocity += new Vector2(0, JumpSpeed) * dt;
+
+            Velocity = new Vector2(Velocity.X, JumpSpeed);
         }
 
         public void Respawn()

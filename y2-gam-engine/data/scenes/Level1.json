@@ -60,7 +60,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -90.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Player"
@@ -82,7 +82,7 @@
                 "IntVal": 0,
                 "IsFacingRight": false,
                 "IsGrounded": true,
-                "JumpSpeed": 0.0,
+                "JumpSpeed": 100.0,
                 "LongVal": 0,
                 "MovementSpeed": 300.0,
                 "ShortVal": 0,
@@ -991,7 +991,7 @@
                 "JumpForce": 3500000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 70000.0,
-                "TimeInState": 1.183332920074463,
+                "TimeInState": 0.0,
                 "VisionRange": 80.0,
                 "isGrounded": true
             },
