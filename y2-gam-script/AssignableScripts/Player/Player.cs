@@ -411,7 +411,7 @@ namespace Object
             //Velocity -= new Vector2(0, Velocity.Y);
             ////Velocity += new Vector2(0, 3400) * dt;
             //Velocity += new Vector2(0, 5000) * dt;
-            Velocity = new Vector2(Velocity.X, 70.0f);
+            Velocity = new Vector2(Velocity.X, 7000.0f *dt);
             isGrounded = false;
         }
 
