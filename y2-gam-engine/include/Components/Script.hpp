@@ -42,6 +42,12 @@ struct Script {
 
       // Retrieve Values
       for (std::pair<std::string, Image::Field> const& val : fields) {
+        
+        if (!obj.HasMember(val.first.c_str())) {
+          //std::cout << val.first.c_str() << "\n";
+          continue;
+        }
+        
         switch (val.second.fieldType) {
 
         case Image::FieldType::None: {

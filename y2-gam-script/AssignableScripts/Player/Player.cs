@@ -28,9 +28,10 @@ namespace Object
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         public bool GodMode = false;
+        public bool IsFacingRight;
 
         // For Testing
-        public bool IsFacingRight;
+        /*
         public Double DoubleVal;
         public short ShortVal;
         public int IntVal;
@@ -41,6 +42,7 @@ namespace Object
         public Vector2 Vec2Val;
         public Vector3 Vec3Val;
         public Vector4 Vec4Val;
+        */
 
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);

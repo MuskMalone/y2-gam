@@ -23,10 +23,10 @@ namespace Object
     public class Card : Entity
     {
         private Vector2 direction;
-        private float timeAlive = 0.0f;
+        public float timeAlive = 0.0f;
         private bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 3.5f;
+        public float MAX_TIME_ALIVE = 3.5f;
         private readonly float speed = 45.0f;
 
         private uint CardUIID;
@@ -166,8 +166,7 @@ namespace Object
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
                             if (GameplayWrapper.IsSwappable(swapRayCast.id))
-                            {
-                                ResetCardUI();
+                            {                             
                                 GameplayWrapper.Swap(entityID, swapRayCast.id);
 
                                 CardSwapAudioCounter++;
@@ -179,6 +178,7 @@ namespace Object
 
                                 ResetCardPos();
                                 ResetColour(swapRayCast.id);
+                                //ResetCardUI();
                             }
                         }
                     }
