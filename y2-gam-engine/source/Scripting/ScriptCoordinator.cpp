@@ -103,10 +103,10 @@ namespace Image {
 			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
 			if (tag.tag == "Player") {
 				player = e;
+				playerPos = ::gCoordinator->GetComponent<Collider>(player).position;
 				break;
 			}
 		}
-		playerPos = ::gCoordinator->GetComponent<Collider>(player).position;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -126,10 +126,10 @@ namespace Image {
 				auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
 				if (tag.tag == "Player") {
 					player = e;
+					playerID = player;
 					break;
 				}
 			}
-			playerID = player;
 		}
 
 		/*  _________________________________________________________________________ */
