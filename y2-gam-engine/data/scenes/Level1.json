@@ -609,7 +609,7 @@
             "Script": {
                 "scriptName": "ObjectButton",
                 "scriptTag": "Button",
-                "isPressed": true
+                "isPressed": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -975,7 +975,7 @@
                 "JumpForce": 3500000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 70000.0,
-                "TimeInState": 0.3666667640209198,
+                "TimeInState": 0.0,
                 "VisionRange": 80.0,
                 "isGrounded": true
             },
@@ -1162,8 +1162,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 10012.1181640625,
-                "posY": 10019.6142578125,
+                "posX": 9999.0,
+                "posY": 9999.0,
                 "rotation": 0.0,
                 "dimX": 9.105999946594238,
                 "dimY": 15.142999649047852
@@ -1187,6 +1187,13 @@
             "Script": {
                 "scriptName": "ObjectCard",
                 "scriptTag": "Card",
+                "Alive": false,
+                "CardUIID": 0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
+                "MAX_TIME_ALIVE": 2.0,
+                "speed": 100.0,
                 "timeAlive": 0.0
             },
             "Sprite": {
@@ -1201,8 +1208,8 @@
                 "Tag": "Card"
             },
             "Transform": {
-                "posX": 10012.1181640625,
-                "posY": 10019.6142578125,
+                "posX": 9999.0,
+                "posY": 9999.0,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1406,7 +1413,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 0.004761904943734407,
+                "a": 1.0,
                 "layer": 2,
                 "assetID": 1700911793527682100
             },
@@ -1420,8 +1427,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 0.9523810148239136,
-                "scaleY": 0.9523810148239136,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
                 "scaleZ": 1.0,
                 "elipse": false
             },

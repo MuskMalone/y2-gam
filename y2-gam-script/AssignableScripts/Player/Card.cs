@@ -24,13 +24,13 @@ namespace Object
     {
         private Vector2 direction;
         public float timeAlive = 0.0f;
-        private bool Alive = false;
+        public bool Alive = false;
 
-        public float MAX_TIME_ALIVE = 3.5f;
-        private readonly float speed = 45.0f;
+        public float MAX_TIME_ALIVE;
+        public float speed;
 
-        private uint CardUIID;
-        private Vector3 CardUIMaxScale;
+        public uint CardUIID;
+        public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
 
@@ -155,6 +155,24 @@ namespace Object
             {
                 if (Alive)
                 {
+                    // Card Related (Add time and velocity when alive)
+                    timeAlive += dt;
+                    Velocity += direction * speed * dt;
+
+                    SetEntityColour(CardUIID,
+                        new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
+
+                    SetScaleFromEntity(CardUIID, new Vector3(
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
+
+                    if ((timeAlive >= MAX_TIME_ALIVE))
+                    {
+                        ResetCardPos();
+                        ResetColour(HoveredID);
+                        ResetCardUI();
+                    }
+
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
                         PlayAudio("out_of_cards.wav", 0);
@@ -166,7 +184,10 @@ namespace Object
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
                             if (GameplayWrapper.IsSwappable(swapRayCast.id))
-                            {                             
+                            {
+                                timeAlive = 0.0f;
+                                ResetCardUI();
+
                                 GameplayWrapper.Swap(entityID, swapRayCast.id);
 
                                 CardSwapAudioCounter++;
@@ -178,7 +199,6 @@ namespace Object
 
                                 ResetCardPos();
                                 ResetColour(swapRayCast.id);
-                                //ResetCardUI();
                             }
                         }
                     }
@@ -222,24 +242,6 @@ namespace Object
                         ResetCardPos();
                     }
                     */
-
-                    // Card Related
-                    timeAlive += dt;
-                    Velocity += direction * speed * dt;
-
-                    SetEntityColour(CardUIID,
-                        new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
-
-                    SetScaleFromEntity(CardUIID, new Vector3(
-                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
-                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
-
-                    if ((timeAlive >= MAX_TIME_ALIVE))
-                    {
-                        ResetCardPos();
-                        ResetColour(HoveredID);
-                        ResetCardUI();
-                    }
                 }
 
                 else
