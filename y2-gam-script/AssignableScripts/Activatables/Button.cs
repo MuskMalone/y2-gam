@@ -23,8 +23,10 @@ namespace Object
     public class Button : Entity
     {
         public bool isPressed;
+        /*
         private bool closeSpawn = true;
         private bool openSpawn = false;
+        */
 
         /*  _________________________________________________________________________ */
         /*! Button
@@ -78,12 +80,13 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 3);
+            Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 1);
             if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit))
             {
                 isPressed = true;
             }
 
+            /*
             // button pressed , openSpawn is not spawned , closedSpawn is spawned 
             if (isPressed == true && openSpawn == false && closeSpawn == true)
             {
@@ -103,6 +106,7 @@ namespace Object
                 closeSpawn = true;
                 openSpawn = false;
             }
+            */
         }
 
         /*  _________________________________________________________________________ */

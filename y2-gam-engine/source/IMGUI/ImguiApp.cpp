@@ -1219,6 +1219,11 @@ namespace Image {
                 gCoordinator->AddComponent(
                   selectedEntity,
                   Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
+
+                if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                  std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
+                  gCoordinator->GetComponent<Script>(selectedEntity).scriptTagged = scriptTag;
+                }
               }
             }
                   break;
@@ -1319,6 +1324,17 @@ namespace Image {
               // Remove Tag component
               if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
                 gCoordinator->RemoveComponent<Tag>(selectedEntity);
+
+                // Dont allow script without tag
+                if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                  gCoordinator->RemoveComponent<Script>(selectedEntity);
+                  Image::ScriptManager::RemoveEntity(selectedEntity);
+                }
+              }
+
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Script>(selectedEntity);
+                Image::ScriptManager::RemoveEntity(selectedEntity);
               }
             }
                   break;

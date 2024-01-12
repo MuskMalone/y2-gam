@@ -670,11 +670,11 @@ Get the collider dimensions of the entity in C#.
 	Sets the sprite for the entity.
 	*/
 	static void GraphicsComponent_SetSprite(uint32_t& entityID, MonoString* fileName) {
-		const char* utf8Str = fileName != nullptr ? mono_string_to_utf8(fileName) : nullptr;
+		const char* utf8Str = (fileName != nullptr) ? mono_string_to_utf8(fileName) : nullptr;
 		if (utf8Str != nullptr) {
 			if (::gCoordinator->HasComponent<Sprite>(entityID)) {
-				::gCoordinator->GetComponent<Sprite>(entityID).spriteID =
-					SpriteManager::GetResourceID(mono_string_to_utf8(fileName));
+				::gCoordinator->GetComponent<Sprite>(entityID).spriteAssetID =
+					SpriteManager::GetResourceID(utf8Str);
 			}
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}

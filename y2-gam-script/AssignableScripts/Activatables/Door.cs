@@ -21,6 +21,7 @@ namespace Object
 {
     public class Door : Entity
     {
+        private bool firstTime;
         Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
 
         /*  _________________________________________________________________________ */
@@ -60,7 +61,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            firstTime = true;
         }
 
 
@@ -76,11 +77,13 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (button.isPressed == false)
+            if (button.isPressed == true && firstTime)
             {
-                //button.
                 PlayAudio("door_open.wav", 0);
-                GameplayWrapper.DestroyEntity(entityID);
+                SetSprite("gam200_door_open");
+                ColliderDimensions = new Vector2(0, 0);
+                Collider = new Vector2(9999, 9999);
+                firstTime = false;
             }
         }
 

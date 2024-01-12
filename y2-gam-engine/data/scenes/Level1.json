@@ -80,8 +80,8 @@
                 "GodMode": false,
                 "IsFacingRight": false,
                 "IsGrounded": true,
-                "JumpSpeed": 0.0,
-                "MovementSpeed": 225.0,
+                "JumpSpeed": 3500.0,
+                "MovementSpeed": 180.0,
                 "SlowdownToggle": true
             },
             "Sprite": {
@@ -638,9 +638,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 26.91089630126953,
-                "posY": -39.000003814697266,
-                "rotation": -1.392330659655272e-7,
+                "posX": 55.74625778198242,
+                "posY": -43.98820495605469,
+                "rotation": -1.4128366387922142e-7,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -673,8 +673,8 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": 26.91091537475586,
-                "posY": -39.29322814941406,
+                "posX": 55.74627685546875,
+                "posY": -44.281429290771484,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1704,8 +1704,8 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "ObjectCloseDoor",
-                "scriptTag": "CloseDoor"
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door"
             },
             "Sprite": {
                 "r": 1.0,
@@ -1714,6 +1714,9 @@
                 "a": 1.0,
                 "layer": 2,
                 "assetID": 1698953116624829600
+            },
+            "Tag": {
+                "Tag": "Door"
             },
             "Transform": {
                 "posX": 100.0,
