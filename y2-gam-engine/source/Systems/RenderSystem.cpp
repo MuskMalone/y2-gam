@@ -109,6 +109,9 @@ Initializes the rendering system, setting up necessary resources.
 */
 void RenderSystem::Init()
 {
+	GLint maxSSBOBindings;
+	glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS, &maxSSBOBindings);
+	std::cout << "Init max " << maxSSBOBindings<< std::endl;
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 

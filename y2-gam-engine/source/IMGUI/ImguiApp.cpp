@@ -1675,6 +1675,7 @@ namespace Image {
         static float physicsValues[gPercent] = {};
         static float collisionValues[gPercent] = {};
         static float renderValues[gPercent] = {};
+        static float guiValues[gPercent] = {};
         static int valueIndex{};
         valueIndex = (valueIndex + 1) % gPercent;
 
@@ -1717,6 +1718,15 @@ namespace Image {
         ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::Separator();
+
+        // Display Render Performance
+        ImGui::Text("GUI Performance");
+        guiValues[valueIndex] = frameController->GetProfilerValue(ENGINE_GUI_PROFILE) * static_cast<float>(gPercent);
+        float guiPerformance = frameController->GetProfilerValue(ENGINE_GUI_PROFILE);
+        ImGui::ProgressBar(guiPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(guiPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::Text("GUI Performance Graph");
+        ImGui::PlotLines("GUI", guiValues, IM_ARRAYSIZE(guiValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
         ImGui::PopFont();
         ImGui::End();

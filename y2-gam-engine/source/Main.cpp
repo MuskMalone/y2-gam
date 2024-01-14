@@ -12,6 +12,7 @@
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
+#include "Systems/ParticleSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -193,6 +194,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	animationSystem->Init();
 
+	auto particleSystem = coordinator->RegisterSystem<ParticleSystem>();
+	{
+		//Signature signature;
+		//signature.set(coordinator->GetComponentType<Sprite>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		//coordinator->SetSystemSignature<RenderSystem>(signature);
+	}
+
+	particleSystem->Init();
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -256,8 +267,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
 
+		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+		FrameRateController::GetInstance()->StartSubFrameTime();
 		uiSystem->Update();
-
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
 		//NodeManager::Update();
 
 		windowManager->Update();

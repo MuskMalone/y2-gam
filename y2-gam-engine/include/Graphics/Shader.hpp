@@ -23,15 +23,16 @@
 
 class Shader {
 public:
+	Shader(std::string const& shdrFile);
 	Shader(std::string const& vertFile, std::string const& fragFile);
 	~Shader();
 
+	void CreateComputeShader(std::string const& shdrFile);
 	void CreateShaderFromString(std::string const& vertSrc, std::string const& fragSrc);
 	void CreateShaderFromFile(std::string const& vertFile, std::string const& fragFile);
 
 	void Use() const;
 	void Unuse() const;
-
 
 	void SetUniform(std::string const& name, GLboolean val);
 	void SetUniform(std::string const& name, GLint val);

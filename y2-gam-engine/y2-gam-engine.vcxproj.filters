@@ -72,6 +72,7 @@
     <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
     <ClCompile Include="source\Systems\UISystem.cpp" />
     <ClCompile Include="source\Engine\CommandManager.cpp" />
+    <ClCompile Include="source\Systems\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\EventTypes.hpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="include\Properties.h" />
     <ClInclude Include="include\Core\TypeReflection.hpp" />
     <ClInclude Include="include\Core\ReflectionManager.hpp" />
+    <ClInclude Include="include\Systems\ParticleSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics\Shader.hpp">

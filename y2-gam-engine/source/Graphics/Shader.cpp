@@ -23,7 +23,10 @@
 
 #include "Graphics/Shader.hpp"
 
-
+//creates a compute shader
+Shader::Shader(std::string const& shdrFile) : pgmHdl{} {
+	CreateComputeShader(shdrFile);
+}
 /*  _________________________________________________________________________ */
 /*! Shader
 
@@ -50,6 +53,76 @@ Destructor for the Shader class. It deletes the shader program from OpenGL.
 */
 Shader::~Shader() {
 	glDeleteProgram(pgmHdl);
+}
+
+void Shader::CreateComputeShader(std::string const& compute_file_path)
+{
+	// On the C++ side, creating a compute shader works exactly like other shaders
+	// Create shader, store reference
+	GLuint ComputeShaderID = glCreateShader(GL_COMPUTE_SHADER);
+
+	// Parse shader string
+	std::string ComputeShaderCode;
+	std::ifstream ComputeShaderStream(compute_file_path, std::ios::in);
+	if (ComputeShaderStream.is_open())
+	{
+		std::stringstream sstr;
+		sstr << ComputeShaderStream.rdbuf();
+		ComputeShaderCode = sstr.str();
+		ComputeShaderStream.close();
+	}
+	else
+	{
+		printf("Impossible to open %s. Are you in the right directory!\n", compute_file_path);
+		getchar();
+		return;
+	}
+
+	// Init result variables to check return values
+	GLint Result = GL_FALSE;
+	int InfoLogLength;
+
+	// Compile Compute Shader
+	// Read shader as c_string
+	char const* ComputeSourcePointer = ComputeShaderCode.c_str();
+	// Read shader source into ComputeShaderID
+	glShaderSource(ComputeShaderID, 1, &ComputeSourcePointer, NULL);
+	// Compile shader
+	glCompileShader(ComputeShaderID);
+
+	// Check Compute Shader
+	// These functions get the requested shader information
+	glGetShaderiv(ComputeShaderID, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(ComputeShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0)
+	{
+		std::vector<char> ComputeShaderErrorMessage(InfoLogLength + 1);
+		glGetShaderInfoLog(ComputeShaderID, InfoLogLength, NULL, &ComputeShaderErrorMessage[0]);
+		printf("Compiling shader : %s\n", compute_file_path);
+		printf("%s\n", &ComputeShaderErrorMessage[0]);
+	}
+
+	// Link the program
+	GLuint ProgramID = glCreateProgram();
+	glAttachShader(ProgramID, ComputeShaderID);
+	glLinkProgram(ProgramID);
+
+	// Check the program
+	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0)
+	{
+		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+		printf("Linking program\n");
+		printf("%s\n", &ProgramErrorMessage[0]);
+	}
+
+	// Cleanup
+	glDetachShader(ProgramID, ComputeShaderID);
+	glDeleteShader(ComputeShaderID);
+
+	pgmHdl = ProgramID;
 }
 
 /*  _________________________________________________________________________ */
