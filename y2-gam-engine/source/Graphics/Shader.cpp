@@ -45,6 +45,10 @@ Shader::Shader(std::string const& vertFile, std::string const& fragFile)
 	CreateShaderFromFile(vertFile, fragFile);
 }
 
+Shader::Shader(std::string const& geomFile, std::string const& vertFile, std::string const& fragFile) :pgmHdl{}{
+	CreateShaderFromFile(geomFile, vertFile, fragFile);
+}
+
 /*  _________________________________________________________________________ */
 /*! ~Shader
 
@@ -125,6 +129,170 @@ void Shader::CreateComputeShader(std::string const& compute_file_path)
 	pgmHdl = ProgramID;
 }
 
+/*  _________________________________________________________________________ */
+/*! CreateShaderFromString
+
+@param vertSrc
+The source code for the vertex shader as a string.
+
+@param fragSrc
+The source code for the fragment shader as a string.
+
+This function creates a shader program from the provided vertex and fragment
+shader source strings.
+
+*/
+void Shader::CreateShaderFromString(std::string const& geomSrc, std::string const& vertSrc, std::string const& fragSrc) {
+	// Create an empty vertex shader handle
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	// Send the vertex shader source code to GL
+	// Note that std::string's .c_str is NULL character terminated.
+	const GLchar* source = vertSrc.c_str();
+	glShaderSource(vertexShader, 1, &source, 0);
+
+	// Compile the vertex shader
+	glCompileShader(vertexShader);
+
+
+	//Checks to see if compliation succeeded or failed
+	GLint isCompiled = 0;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled);
+	if (isCompiled == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> infoLog(maxLength);
+		glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
+
+		// Failed to compile, delete shader
+		glDeleteShader(vertexShader);
+
+		std::string str(infoLog.data());
+#ifndef _INSTALLER
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Vertex Shader compilation failure! " + str, __FUNCTION__);
+#endif
+		return;
+	}
+
+	// Create an empty fragment shader handle
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	// Send the fragment shader source code to GL
+	// Note that std::string's .c_str is NULL character terminated.
+	source = (const GLchar*)fragSrc.c_str();
+	glShaderSource(fragmentShader, 1, &source, 0);
+
+	// Compile the fragment shader
+	glCompileShader(fragmentShader);
+
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
+	if (isCompiled == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> infoLog(maxLength);
+		glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
+
+		// Failed to compile, delete both shaders to prevent leak
+		glDeleteShader(fragmentShader);
+		glDeleteShader(vertexShader);
+
+		std::string str(infoLog.data());
+#ifndef _INSTALLER
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Fragment Shader compilation failure! " + str, __FUNCTION__);
+#endif
+		return;
+	}
+
+	// Create an empty geometry shader handle
+	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+
+	// Send the geometry shader source code to GL
+	// Note that std::string's .c_str is NULL character terminated.
+	source = (const GLchar*)geomSrc.c_str();
+	glShaderSource(geometryShader, 1, &source, 0);
+
+	// Compile the geometry shader
+	glCompileShader(geometryShader);
+
+	glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &isCompiled);
+	if (isCompiled == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetShaderiv(geometryShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> infoLog(maxLength);
+		glGetShaderInfoLog(geometryShader, maxLength, &maxLength, &infoLog[0]);
+
+		// Failed to compile, delete shaders to prevent leak
+		glDeleteShader(geometryShader);
+		glDeleteShader(fragmentShader);
+		glDeleteShader(vertexShader);
+
+		std::string str(infoLog.data());
+#ifndef _INSTALLER
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Geometry Shader compilation failure! " + str, __FUNCTION__);
+#endif
+		return;
+	}
+
+	// Vertex and fragment shaders are successfully compiled.
+	// Now time to link them together into a program.
+	// Get a program object.
+	pgmHdl = glCreateProgram();
+#ifndef _INSTALLER
+	if (pgmHdl == 0) {
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Unable to create program handle!", __FUNCTION__);
+	}
+#endif
+
+	// Attach our shaders to our program
+	glAttachShader(pgmHdl, vertexShader);
+	glAttachShader(pgmHdl, fragmentShader);
+	glAttachShader(pgmHdl, geometryShader);
+
+	// Link our program
+	glLinkProgram(pgmHdl);
+
+	// Check if program is linked successully
+	GLint isLinked = 0;
+	glGetProgramiv(pgmHdl, GL_LINK_STATUS, (int*)&isLinked);
+	if (isLinked == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(pgmHdl, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(pgmHdl, maxLength, &maxLength, &infoLog[0]);
+
+		// Link failed, delete program and both shaders
+		glDeleteProgram(pgmHdl);
+		glDeleteShader(geometryShader);
+		glDeleteShader(fragmentShader);
+		glDeleteShader(vertexShader);
+
+#ifndef _INSTALLER
+		std::string str(infoLog.data());
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Shader link failure! " + str, __FUNCTION__);
+#endif
+		return;
+	}
+
+	// Always detach shaders after a successful link.
+	glDetachShader(pgmHdl, vertexShader);
+	glDetachShader(pgmHdl, fragmentShader);
+	glDetachShader(pgmHdl, geometryShader);
+#ifndef _INSTALLER
+	LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Succesfully Compiled and Linked!", __FUNCTION__);
+#endif
+}
 /*  _________________________________________________________________________ */
 /*! CreateShaderFromString
 
@@ -291,7 +459,54 @@ void Shader::CreateShaderFromFile(std::string const& vertFile, std::string const
 
 	CreateShaderFromString(vertSrc.str(), fragSrc.str());
 }
+/*  _________________________________________________________________________ */
+/*! CreateShaderFromFile
 
+@param vertFile
+The path to the vertex shader file.
+
+@param fragFile
+The path to the fragment shader file.
+
+This function reads the source code from the provided vertex and fragment shader
+files and creates a shader program.
+
+*/
+void Shader::CreateShaderFromFile(std::string const& geomFile, std::string const& vertFile, std::string const& fragFile) {
+	std::ifstream inVertFile{ vertFile };
+#ifndef _INSTALLER
+	if (!inVertFile) {
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open vertex file: " + vertFile, __FUNCTION__);
+	}
+#endif
+	std::stringstream vertSrc;
+	vertSrc << inVertFile.rdbuf();
+	inVertFile.close();
+
+	std::ifstream inFragFile{ fragFile };
+#ifndef _INSTALLER
+	if (!inFragFile) {
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open fragment file: " + fragFile, __FUNCTION__);
+	}
+#endif
+
+	std::stringstream fragSrc;
+	fragSrc << inFragFile.rdbuf();
+	inFragFile.close();
+
+	std::ifstream inGeomFile{ geomFile };
+#ifndef _INSTALLER
+	if (!inGeomFile) {
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Cannot open geometry file: " + fragFile, __FUNCTION__);
+	}
+#endif
+
+	std::stringstream geomSrc;
+	geomSrc << inGeomFile.rdbuf();
+	inGeomFile.close();
+
+	CreateShaderFromString(geomSrc.str(), vertSrc.str(), fragSrc.str());
+}
 /*  _________________________________________________________________________ */
 /*! Use
 

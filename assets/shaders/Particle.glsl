@@ -62,7 +62,6 @@ layout( local_size_x = 1000, local_size_y = 1, local_size_z = 1 ) in;
 // uniform control variables
 
 uniform float DT;
-uniform float timeElapsed;
 //variables to store the new emitter
 uniform int emtType; // type of emmission
 uniform vec4 emtVertices[4];
@@ -126,7 +125,7 @@ void main() {
     if (gid == 0){
         spawnParticle(Particle(
             vec4(1.0,1.0,1.0,1.0),
-            vec3(float(gid), float(gid), 1.0),
+            vec3(float(0), float(0), 1.0),
             vec2(0.0,0.0),
             vec2(10,10),
             0,0,0,0,

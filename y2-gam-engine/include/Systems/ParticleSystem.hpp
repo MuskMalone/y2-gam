@@ -4,9 +4,10 @@
 class ParticleSystem : public System
 {
     std::shared_ptr<Shader> mParticleShader;
-    GLuint emitterSSbo;
-    GLuint particleSSbo;
-    GLuint particleCountSSbo;
+    std::shared_ptr<Shader> mParticleRenderShader;
+    GLuint mEmitterSSbo;
+    GLuint mParticleSSbo;
+    GLuint mParticleCountSSbo;
 public:
 
     void Init();

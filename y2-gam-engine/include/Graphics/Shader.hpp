@@ -25,11 +25,14 @@ class Shader {
 public:
 	Shader(std::string const& shdrFile);
 	Shader(std::string const& vertFile, std::string const& fragFile);
+	Shader(std::string const& geomFile, std::string const& vertFile, std::string const& fragFile);
 	~Shader();
 
 	void CreateComputeShader(std::string const& shdrFile);
 	void CreateShaderFromString(std::string const& vertSrc, std::string const& fragSrc);
 	void CreateShaderFromFile(std::string const& vertFile, std::string const& fragFile);
+	void CreateShaderFromString(std::string const& geomSrc, std::string const& vertSrc, std::string const& fragSrc);
+	void CreateShaderFromFile(std::string const& geomFile, std::string const& vertFile, std::string const& fragFile);
 
 	void Use() const;
 	void Unuse() const;
