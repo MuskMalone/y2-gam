@@ -23,14 +23,14 @@ namespace Object
     public class Card : Entity
     {
         private Vector2 direction;
-        private float timeAlive = 0.0f;
-        private bool Alive = false;
+        public float timeAlive = 0.0f;
+        public bool Alive = false;
 
-        private readonly float MAX_TIME_ALIVE = 3.5f;
-        private readonly float speed = 45.0f;
+        public float MAX_TIME_ALIVE;
+        public float speed;
 
-        private uint CardUIID;
-        private Vector3 CardUIMaxScale;
+        public uint CardUIID;
+        public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
 
@@ -127,130 +127,128 @@ namespace Object
                 firstTime = false;
             }
 
-            if (!IsEditorMode())
+            if (isPaused)
             {
-                if (isPaused)
-                {
-                    dt = temp_dt;
-                    PauseGame();
-                    //AnimationState = temp_AnimationState;
-                }
+                dt = temp_dt;
+                PauseGame();
+            }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-                {
-                    if (!isPaused)
-                    {
-                        PauseGame();
-                        temp_dt = dt;
-                        dt = temp_dt;
-                        isPaused = true;
-                    }
-                    else
-                    {
-                        //resume game
-                        ResumeGame();
-                        //dt = temp_dt;
-                        isPaused = false;
-                    }
-                    //firstTime = false;
-                }
+            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            {
                 if (!isPaused)
                 {
-                    if (Alive)
+                    PauseGame();
+                    temp_dt = dt;
+                    dt = temp_dt;
+                    isPaused = true;
+                }
+                else
+                {
+                    //resume game
+                    ResumeGame();
+                    //dt = temp_dt;
+                    isPaused = false;
+                }
+                //firstTime = false;
+            }
+            if (!isPaused)
+            {
+                if (Alive)
+                {
+                    // Card Related (Add time and velocity when alive)
+                    timeAlive += dt;
+                    Velocity += direction * speed * dt;
+
+                    SetEntityColour(CardUIID,
+                        new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
+
+                    SetScaleFromEntity(CardUIID, new Vector3(
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
+                        (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
+
+                    if ((timeAlive >= MAX_TIME_ALIVE))
                     {
-                        if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
-                        {
-                            PlayAudio("out_of_cards.wav", 0);
-                        }
+                        ResetCardPos();
+                        ResetColour(HoveredID);
+                        ResetCardUI();
+                    }
 
-                        // Swap Related
-                        if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        PlayAudio("out_of_cards.wav", 0);
+                    }
+
+                    // Swap Related
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
+                    {
+                        if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
-                            if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
+                            if (GameplayWrapper.IsSwappable(swapRayCast.id))
                             {
-                                if (GameplayWrapper.IsSwappable(swapRayCast.id))
+                                timeAlive = 0.0f;
+                                ResetCardUI();
+
+                                GameplayWrapper.Swap(entityID, swapRayCast.id);
+
+                                CardSwapAudioCounter++;
+                                if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
                                 {
-                                    ResetCardUI();
-                                    GameplayWrapper.Swap(entityID, swapRayCast.id);
-
-                                    CardSwapAudioCounter++;
-                                    if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
-                                    {
-                                        CardSwapAudioCounter = 0;
-                                    }
-                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
-
-                                    ResetCardPos();
-                                    ResetColour(swapRayCast.id);
+                                    CardSwapAudioCounter = 0;
                                 }
+                                PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                                ResetCardPos();
+                                ResetColour(swapRayCast.id);
                             }
                         }
+                    }
 
-                        // Check for Hover
-                        if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
+                    // Check for Hover
+                    if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
+                    {
+                        Hovering = true;
+
+                        if (HoveredID != mouseRayCast.id)
                         {
-                            Hovering = true;
+                            ResetColour(HoveredID);
+                        }
 
-                            if (HoveredID != mouseRayCast.id)
-                            {
-                                ResetColour(HoveredID);
-                            }
+                        HoveredID = mouseRayCast.id;
 
-                            HoveredID = mouseRayCast.id;
-
-                            if (GameplayWrapper.IsSwappable(mouseRayCast.id))
-                            {
-                                SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
-                            }
-
-                            else
-                            {
-                                SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
-                            }
+                        if (GameplayWrapper.IsSwappable(mouseRayCast.id))
+                        {
+                            SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
                         }
 
                         else
                         {
-                            Hovering = false;
-                        }
-
-                        if (HoveringChanged && !Hovering)
-                        {
-                            ResetColour(HoveredID);
-                        }
-
-                        /*
-                        if (PhysicsWrapper.IsCollidedWithAnything(entityID))
-                        {
-                            ResetCardPos();
-                        }
-                        */
-
-                        // Card Related
-                        timeAlive += dt;
-                        Velocity += direction * speed * dt;
-
-                        SetEntityColour(CardUIID,
-                            new Vector4(1, 1, 1, (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, 1)));
-
-                        SetScaleFromEntity(CardUIID, new Vector3(
-                            (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
-                            (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
-
-                        if ((timeAlive >= MAX_TIME_ALIVE))
-                        {
-                            ResetCardPos();
-                            ResetColour(HoveredID);
-                            ResetCardUI();
+                            SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
                         }
                     }
 
                     else
                     {
-                        if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
-                        {
-                            FireCard();
-                        }
+                        Hovering = false;
+                    }
+
+                    if (HoveringChanged && !Hovering)
+                    {
+                        ResetColour(HoveredID);
+                    }
+
+                    /*
+                    if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+                    {
+                        ResetCardPos();
+                    }
+                    */
+                }
+
+                else
+                {
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        FireCard();
                     }
                 }
             }
@@ -312,8 +310,6 @@ namespace Object
 
         void FireCard()
         {
-            //Console.WriteLine("Card Fired");
-            //Console.WriteLine("Player Position" + GameplayWrapper.PlayerPos.X + ", " + GameplayWrapper.PlayerPos.Y);
             Translation = GameplayWrapper.PlayerPos;
             Collider = GameplayWrapper.PlayerPos;
             direction = MousePos - GameplayWrapper.PlayerPos;

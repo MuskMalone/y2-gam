@@ -61,13 +61,9 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (Input.IsKeyClicked(KeyCode.KEY_Q))
             {
-                if (Input.IsKeyClicked(KeyCode.KEY_Q))
-                {
-                    GameplayWrapper.DestroyEntity(entityID);
-                }
-              
+                GameplayWrapper.DestroyEntity(entityID);
             }
         }
 

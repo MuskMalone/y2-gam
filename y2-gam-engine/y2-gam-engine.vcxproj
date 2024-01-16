@@ -182,9 +182,10 @@
       <DisableSpecificWarnings>4505;4005;33010;4211;4201;26451;26495;26439;5205;4819;26819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>../include/pch.hpp</PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -212,6 +213,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Audio\Sound.hpp" />
+    <ClInclude Include="include\Components\Emitter.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Prefab.hpp" />
@@ -297,6 +299,7 @@
     <ClInclude Include="include\Scripting\NodeManager.hpp" />
     <ClInclude Include="include\Scripting\ScriptClass.hpp" />
     <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
+    <ClInclude Include="include\Scripting\ScriptFieldType.hpp" />
     <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
     <ClInclude Include="include\Scripting\ScriptManager.hpp" />
     <ClInclude Include="include\Systems\AnimationSystem.hpp" />
@@ -319,6 +322,7 @@
     <ClInclude Include="include\Graphics\VertexArray.hpp" />
     <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Graphics\SubTexture.hpp" />
+    <ClInclude Include="Vendor\FileWatch\FileWatch.hpp" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>

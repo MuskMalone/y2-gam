@@ -34,6 +34,7 @@
 #include "Components/UIImage.hpp"
 
 #include "Scripting/NodeManager.hpp"
+#include "Scripting/ScriptManager.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Systems/InputSystem.hpp>
 #include <Core/FrameRateController.hpp>
@@ -232,12 +233,17 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 		if (playerFound) {
 			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
-			Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
+			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
 
 			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
-			sceneCamera.UpdatePosition(playerPosition, playerScript.isFacingRight);
+
+			// Get Player Script Instance
+			std::map<Entity, ScriptInstance> instanceMap{ ScriptManager::GetEntityInstances() };
+			bool facingRight{ instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight") };
+
+			sceneCamera.UpdatePosition(playerPosition, facingRight);
 		}
 
 	}

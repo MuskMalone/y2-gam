@@ -38,7 +38,8 @@ namespace Image
         */
         public static bool IsKeyPressed(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsKeyPressed((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsKeyPressed(ref k);
         }
 
         /*  _________________________________________________________________________ */
@@ -54,7 +55,8 @@ namespace Image
         */
         public static bool IsKeyClicked(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsKeyClicked((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsKeyClicked(ref k);
         }
 
         /*  _________________________________________________________________________ */
@@ -70,7 +72,8 @@ namespace Image
         */
         public static bool IsKeyReleased(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsKeyReleased((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsKeyReleased(ref k);
         }
 
         /*  _________________________________________________________________________ */
@@ -86,7 +89,8 @@ namespace Image
         */
         public static bool IsMousePressed(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsMousePressed((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsMousePressed(ref k);
         }
 
         /*  _________________________________________________________________________ */
@@ -102,7 +106,8 @@ namespace Image
         */
         public static bool IsMouseClicked(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsMouseClicked((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsMouseClicked(ref k);
         }
 
         /*  _________________________________________________________________________ */
@@ -118,7 +123,8 @@ namespace Image
         */
         public static bool IsMouseReleased(KeyCode keyCode)
         {
-            return InternalCalls.Input_IsMouseReleased((int)keyCode);
+            int k = (int)keyCode;
+            return InternalCalls.Input_IsMouseReleased(ref k);
         }
     }
 }

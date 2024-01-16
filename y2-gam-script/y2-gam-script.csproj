@@ -40,6 +40,9 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignableScripts\Activatables\Button.cs" />
-    <Compile Include="AssignableScripts\Activatables\CloseDoor.cs" />
     <Compile Include="AssignableScripts\Activatables\Door.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />
@@ -94,5 +96,9 @@ xcopy "$(SolutionDir)y2-gam-script\bin\debug\y2-gam-script.dll" "$(SolutionDir)a
 ) ELSE (
 xcopy "$(SolutionDir)y2-gam-script\bin\release\y2-gam-script.dll" "$(SolutionDir)assets\scripts" /y
 )</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -48,13 +48,12 @@ void QuitHandler([[maybe_unused]] Event& event)
 }
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
-#ifndef _INSTALLER
-int main() 
-{
+#ifndef _DEBUG
+		int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+		{
 
 #else
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+		int main() {
 #endif
 
 	// Enable run-time memory check for debug builds.
@@ -66,8 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 	coordinator->Init();
-
-	
+	Image::ScriptManager::Init();
 	Image::SoundManager::AudioInit();
 
 	using namespace Physics;
@@ -86,16 +84,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	coordinator->RegisterComponent<RigidBody>();
 	coordinator->RegisterComponent<Transform>();
 	coordinator->RegisterComponent<Animation>();
-	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Node>();
 	coordinator->RegisterComponent<Text>();
 	coordinator->RegisterComponent<Prefab>();
 	coordinator->RegisterComponent<UIImage>();
 	coordinator->RegisterComponent<Swappable>();
+	coordinator->RegisterComponent<Emitter>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
 	coordinator->RegisterComponent<Tag>();
+	coordinator->RegisterComponent<Script>();
 	coordinator->RegisterComponent<Layering>();
 	coordinator->RegisterComponent<Serializer::SerializerComponent>();
 
@@ -103,6 +102,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	assetManager->Init();
 	PrefabsManager::GetInstance()->Init();
 	SceneManager::GetInstance()->Init();
+
 
 	auto entitySerializationSystem = coordinator->RegisterSystem<Serializer::EntitySerializationSystem>();
 	{
@@ -180,7 +180,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	uiSystem->Init();
 
-
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
@@ -196,10 +195,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	auto particleSystem = coordinator->RegisterSystem<ParticleSystem>();
 	{
-		//Signature signature;
-		//signature.set(coordinator->GetComponentType<Sprite>());
-		//signature.set(coordinator->GetComponentType<Transform>());
-		//coordinator->SetSystemSignature<RenderSystem>(signature);
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Emitter>());
+		coordinator->SetSystemSignature<RenderSystem>(signature);
 	}
 
 	particleSystem->Init();
@@ -233,38 +231,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	StateManager::GetInstance()->PushState<MainState>();
 	float dt = frameController->GetDeltaTime();
 
-	//NodeManager::Initialize();
-	Image::ScriptManager::Init();
-
 #ifdef _INSTALLER
-	// REPLACE THIS SCENE WITH MAIN MENU AFTER IT IS DONE // REMEMBER PLS
 	SceneManager::GetInstance()->LoadScene("MainMenu");
 #endif
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		// Code to run the 'on update' function on entities with script components
-		//if (SceneManager::GetInstance()->IsSceneActive()) {
-		/*
-			for (auto const& e : Image::ScriptManager::GetEntityInstances()) {
-				if (e.first >= 0 && e.first < MAX_ENTITIES)
-					Image::ScriptManager::OnUpdateEntity(e.first, dt);
-			}
-		*/
-		//}
-
 		Image::SoundManager::AudioUpdate();
 		
 		inputSystem->Update();
 
 		windowManager->ProcessEvents();
-		//gGameLoop.CheckToggleKey();
-		//prefabSystem->Update();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
-		//if (gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_MODE || gGameLoop.GetCurrentMode() == DecisionResults::IMGUI_PLAY_MODE) {
-		//}
-	//gGameLoop.Evaluate();
 		StateManager::GetInstance()->Render(dt);
 
 		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
@@ -274,7 +253,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//NodeManager::Update();
 
 		windowManager->Update();
-
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
@@ -290,7 +268,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		dt = frameController->EndFrameTime();
 		windowManager->UpdateWindowTitle(WINDOW_TITLE);
 	}
-	Image::ScriptManager::ExitMono();
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
 	imguiSystem->Destroy();
@@ -302,5 +279,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	assetManager->Exit();
 	PrefabsManager::GetInstance()->Exit();
 	layeringSystem->Exit();
+	Image::ScriptManager::ExitMono();
 	return 0;
 }

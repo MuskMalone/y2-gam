@@ -22,6 +22,7 @@
 /******************************************************************************/
 
 #include "../include/pch.hpp"
+
 #include "Imgui/ImguiApp.hpp"
 #include "IMGUI/ImguiComponent.hpp"
 #include "Math/MathUtils.h"
@@ -46,7 +47,6 @@
 #include "Graphics/Renderer.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Scripting/ScriptManager.hpp"
-
 #include <Engine/CommandManager.hpp>
 #include <Engine/AssetManager.hpp>
 #include <Engine/SceneManager.hpp>
@@ -913,7 +913,7 @@ namespace Image {
                 ImGui::SameLine();
                 ImGui::SetCursorPosX(SAME_LINE_SPACING);
                 ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
-                char tempLayerName[256]; // Temp Buffer
+                char tempLayerName[256];
                 strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
                 tempLayerName[sizeof(tempLayerName) - 1] = '\0';
 
@@ -929,8 +929,7 @@ namespace Image {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
-                  ImGui::Text("Assigned Script");
-                  ImGui::Text(script.name.c_str());
+                  ImGui::Text("Assigned Script:");
 
                   static int selectedOption = -1;
 
@@ -943,8 +942,7 @@ namespace Image {
                   }
 
                   static int previousOption = selectedOption; // Store the previous option
-
-                  ImGui::Combo("Name", 
+                  ImGui::Combo("Script Name", 
                     &selectedOption, 
                     ScriptManager::GetAssignableScriptNames().data(), 
                     static_cast<int>(ScriptManager::GetAssignableScriptNames().size()));
@@ -956,6 +954,152 @@ namespace Image {
                         ScriptManager::OnCreateEntity(selectedEntity); 
                     }
                   }
+
+                  if (script.name != "No Script Assigned") {
+                    ScriptInstance& scriptInstance{ ScriptManager::GetEntityScriptInstance(selectedEntity) };
+                    std::map<std::string, Image::Field> const& fields{ scriptInstance.GetScriptClass().GetFieldNameToTypeMap() };
+                    for (std::pair<std::string, Image::Field> const& val : fields) {
+                      switch (val.second.fieldType) {
+
+                      case Image::FieldType::None: {
+                        break;
+                      }
+
+                      case Image::FieldType::Float: {
+                        float dataFloat{ scriptInstance.GetFieldValueFromName<float>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        if (ImGui::DragFloat(val.first.c_str(), &dataFloat)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataFloat);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Double: {
+                        double dataDouble{ scriptInstance.GetFieldValueFromName<double>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_Double, &dataDouble)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataDouble);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Bool: {
+                        bool dataBool{ scriptInstance.GetFieldValueFromName<bool>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::Checkbox(val.first.c_str(), &dataBool)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataBool);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Short: {
+                        short dataShort{ scriptInstance.GetFieldValueFromName<short>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S16, &dataShort)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataShort);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Int: {
+                        int dataInt{ scriptInstance.GetFieldValueFromName<int>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S32, &dataInt)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataInt);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Long: {
+                        LONG dataLong{ scriptInstance.GetFieldValueFromName<LONG>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_S32, &dataLong)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataLong);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::UShort: {
+                        USHORT dataUShort{ scriptInstance.GetFieldValueFromName<USHORT>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U16, &dataUShort)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataUShort);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::UInt: {
+                        UINT dataUInt{ scriptInstance.GetFieldValueFromName<UINT>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataUInt)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataUInt);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::ULong: {
+                        ULONG dataULong{ scriptInstance.GetFieldValueFromName<ULONG>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataULong)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataULong);
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector2: {
+                        Vec2 dataVec2{ scriptInstance.GetFieldValueFromName<Vec2>(val.first) };
+                        float vec2Buffer[2] = { dataVec2.x, dataVec2.y };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat2(val.first.c_str(), vec2Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec2(vec2Buffer[0], vec2Buffer[1]));
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector3: {
+                        Vec3 dataVec3{ scriptInstance.GetFieldValueFromName<Vec3>(val.first) };
+                        float vec3Buffer[3] = { dataVec3.x, dataVec3.y, dataVec3.z };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat3(val.first.c_str(), vec3Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec3(vec3Buffer[0], vec3Buffer[1],
+                            vec3Buffer[2]));
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Vector4: {
+                        Vec4 dataVec4{ scriptInstance.GetFieldValueFromName<Vec4>(val.first) };
+                        float vec4Buffer[4] = { dataVec4.x, dataVec4.y, dataVec4.z, dataVec4.w };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH * 2);
+
+                        if (ImGui::DragFloat4(val.first.c_str(), vec4Buffer)) {
+                          scriptInstance.SetFieldValueWithName(val.first, Vec4(vec4Buffer[0], vec4Buffer[1],
+                            vec4Buffer[2], vec4Buffer[3]));
+                        }
+                        break;
+                      }
+
+                      case Image::FieldType::Entity: {
+                        Entity dataEntity{ scriptInstance.GetFieldValueFromName<Entity>(val.first) };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+
+                        if (ImGui::DragScalar(val.first.c_str(), ImGuiDataType_U32, &dataEntity)) {
+                          scriptInstance.SetFieldValueWithName(val.first, dataEntity);
+                        }
+                        break;
+                      }
+                      }
+                    }
+                  }
                                 
                   ImGui::TreePop();
               }
@@ -963,13 +1107,11 @@ namespace Image {
             ImGui::PopStyleColor(2);
         }
         ImGui::PopFont();
-
     }
     void PrefabInspectorWindow() {
         ImGui::Begin("Prefab Inspector");
         InspectorWindow(gSelectedPrefab, true);
-        ImGui::End();
-        
+        ImGui::End();      
     }
     void GameObjectInspectorWindow() {
         ImGui::Begin("Game Object Inspector");
@@ -1100,15 +1242,21 @@ namespace Image {
                 gCoordinator->AddComponent(
                   selectedEntity,
                   Tag{ "Entity " + std::to_string(selectedEntity) }, ignore);
+
+                if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                  std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
+                  gCoordinator->GetComponent<Script>(selectedEntity).scriptTagged = scriptTag;
+                }
               }
             }
                   break;
             case 7: {
 
-              if (!gCoordinator->HasComponent<Script>(selectedEntity)) {
+              if (!gCoordinator->HasComponent<Script>(selectedEntity) && gCoordinator->HasComponent<Tag>(selectedEntity)) {
+                std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
                 gCoordinator->AddComponent(
                   selectedEntity,
-                  Script{ "No Script Assigned" }, ignore);
+                  Script{ "No Script Assigned", scriptTag }, ignore);
                 if (!ignore) {
                     ScriptManager::OnCreateEntity(selectedEntity);
                 }
@@ -1199,6 +1347,17 @@ namespace Image {
               // Remove Tag component
               if (gCoordinator->HasComponent<Tag>(selectedEntity)) {
                 gCoordinator->RemoveComponent<Tag>(selectedEntity);
+
+                // Dont allow script without tag
+                if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                  gCoordinator->RemoveComponent<Script>(selectedEntity);
+                  Image::ScriptManager::RemoveEntity(selectedEntity);
+                }
+              }
+
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                gCoordinator->RemoveComponent<Script>(selectedEntity);
+                Image::ScriptManager::RemoveEntity(selectedEntity);
               }
             }
                   break;
@@ -1850,5 +2009,4 @@ namespace Image {
         ImGui::End();
 
     }
-    
 }

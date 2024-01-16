@@ -33,7 +33,13 @@ public:
 	void Render(float dt);
 	void Clear();
 
+	void ExecuteMainThreadQueue();
+	void SubmitToMainThread(const std::function<void()>& function);
+
 private:
+	std::vector<std::function<void()>> m_MainThreadQueue;
+	std::mutex m_MainThreadQueueMutex;
+
 	std::stack<std::unique_ptr<State>> mStates;
 	static std::shared_ptr<StateManager> _mSelf;
 };

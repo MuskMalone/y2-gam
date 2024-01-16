@@ -4,7 +4,7 @@
 \file       ScriptInstance.hpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Dec 25, 2023
 
 \brief      The header file for specific script instances. The lowest level.
             It facilitates calling the specific funcitons in the instance.
@@ -18,17 +18,67 @@
 #pragma once
 
 #include "ScriptClass.hpp"
-//#include "Core/Coordinator.hpp"
 
 namespace Image {
   class ScriptInstance {
   public:
     ScriptInstance() = default;
+    ScriptInstance(ScriptClass scriptClass);
     ScriptInstance(ScriptClass scriptClass, Entity entityHandle);
 
-    void CallOnCreate();
-    void CallOnUpdate(float dt);
-    void CallOnExit();
+    void CallOnCreate(Entity entityID) noexcept;
+    void CallOnUpdate(float dt) noexcept;
+    void CallOnExit() noexcept;
+
+    // Getters
+    inline ScriptClass& GetScriptClass() { return mScriptClass; }
+
+    /*  _________________________________________________________________________ */
+    /*! GetFieldValueFromName
+
+    @param fieldName
+    The field name to get its value from.
+
+    @return T
+    Template reference for the value from its field name.
+
+    Gets the field value from its field name of a specific script instance.
+    */
+    template <typename T>
+    inline T GetFieldValueFromName(std::string const& fieldName) {
+      bool success{ GetFieldValueFromNameInternal(fieldName, sFieldValueBuffer) };
+
+      if (!success) {
+        return T();
+      }
+
+      return *(T*)sFieldValueBuffer;
+    }
+
+    // Setters
+    /*  _________________________________________________________________________ */
+    /*! SetFieldValueWithName
+
+    @param fieldName
+    The field name to set the value of.
+
+    @param val
+    Value to set.
+
+    @return none.
+
+    Sets the field value from its field name of a specific script instance.
+    */
+    template <typename T>
+    inline void SetFieldValueWithName(std::string const& fieldName, const T& val) {
+      SetFieldValueWithNameInternal(fieldName, (void*)&val);
+    }
+
+    MonoObject* GetMonoInstanceObject() { return mInstance; }
+
+  private:
+    bool GetFieldValueFromNameInternal(std::string const& fieldName, void* buffer);
+    bool SetFieldValueWithNameInternal(std::string const& fieldName, void* value);
 
   private:
     MonoObject* mInstance{ nullptr };
@@ -37,5 +87,8 @@ namespace Image {
     MonoMethod* mOnUpdateMethod{ nullptr };
     MonoMethod* mOnExitMethod{ nullptr };
     ScriptClass mScriptClass{};
+    unsigned int gcHandle{};
+
+    inline static char sFieldValueBuffer[8];
   };
 }

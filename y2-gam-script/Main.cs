@@ -4,7 +4,7 @@
 \file       Main.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 23, 2023
+\date       Dec 26, 2023
 
 \brief      The main entity class is located here and has the getter setters 
             for all the required rigid body variables. Helper functions also
@@ -17,6 +17,7 @@
 /******************************************************************************/
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Image
 {
@@ -51,6 +52,19 @@ namespace Image
             entityID = 0;
         }
 
+        /*  _________________________________________________________________________ */
+        /*! As
+
+        @return T
+
+        For turning any generic Entity into its respective child class.
+        */
+        public T As<T>() where T : Entity, new()
+        {
+            object instance = InternalCalls.EngineCore_GetScriptInstance(ref entityID);
+            return instance as T;
+        }
+
         #region EngineCore
         /*  _________________________________________________________________________ */
         /*! MousePos
@@ -61,7 +75,8 @@ namespace Image
         {
             get
             {
-                InternalCalls.EngineCore_GetMousePos(out Vector2 mousePos);
+                Vector2 mousePos = new Vector2();
+                InternalCalls.EngineCore_GetMousePos(ref mousePos);
                 return mousePos;
             }
         }
@@ -74,7 +89,7 @@ namespace Image
         */
         public void PlayAudio(string audioFileName, int loopCount)
         {
-            InternalCalls.EngineCore_PlayAudio(out audioFileName, out loopCount);
+            InternalCalls.EngineCore_PlayAudio(audioFileName, ref loopCount);
         }
 
         /*  _________________________________________________________________________ */
@@ -94,7 +109,7 @@ namespace Image
         */
         public void LoadScene(string sceneName)
         {
-            InternalCalls.EngineCore_LoadScene(out sceneName);
+            InternalCalls.EngineCore_LoadScene(sceneName);
         }
 
         /*  _________________________________________________________________________ */
@@ -104,7 +119,7 @@ namespace Image
         */
         public void SaveScene(string sceneName)
         {
-            InternalCalls.EngineCore_SaveScene(out sceneName);
+            InternalCalls.EngineCore_SaveScene(sceneName);
         }
 
         /*  _________________________________________________________________________ */
@@ -114,8 +129,7 @@ namespace Image
         */
         public string GetCurrentScene()
         {
-            InternalCalls.EngineCore_GetCurrentScene(out String sceneName);
-            return (string)sceneName;
+            return (string)InternalCalls.EngineCore_GetCurrentScene(); ;
         }
             
 
@@ -126,7 +140,8 @@ namespace Image
         */
         public bool IsEditorMode()
         {
-            InternalCalls.EngineCore_IsEditorMode(out bool isEditorMode);
+            bool isEditorMode = false;
+            InternalCalls.EngineCore_IsEditorMode(ref isEditorMode);
             return isEditorMode;
         }
 
@@ -137,7 +152,7 @@ namespace Image
         */
         public void SetText(string text)
         {
-            InternalCalls.EngineCore_SetText(entityID, out text);
+            InternalCalls.EngineCore_SetText(ref entityID, text);
         }
 
         /*  _________________________________________________________________________ */
@@ -151,27 +166,13 @@ namespace Image
         }
         #endregion
 
-        #region Serialization
-        public bool FacingDirection
-        {
-            get
-            {
-                InternalCalls.SerializationComponent_GetIsFacingRight(ref entityID, out bool facingDirection);
-                return facingDirection;
-            }
-            set
-            {
-                InternalCalls.SerializationComponent_SetIsFacingRight(entityID, ref value);
-            }
-        }
-        #endregion
-
         #region UI
         public bool UIClicked
         {
             get
             {
-                InternalCalls.UIComponent_GetIsUIButtonClicked(ref entityID, out bool outIsClicked);
+                bool outIsClicked = false;
+                InternalCalls.UIComponent_GetIsUIButtonClicked(ref entityID, ref outIsClicked );
                 return outIsClicked;
             }
         }
@@ -180,7 +181,8 @@ namespace Image
         {
             get
             {
-                InternalCalls.UIComponent_GetIsUIButtonHover(ref entityID, out bool outIsHover);
+                bool outIsHover = false;
+                InternalCalls.UIComponent_GetIsUIButtonHover(ref entityID, ref outIsHover);
                 return outIsHover;
             }
         }
@@ -196,12 +198,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.AnimationComponent_GetAnimationState(ref entityID, out int animationState);
+                int animationState = 0;
+                InternalCalls.AnimationComponent_GetAnimationState(ref entityID, ref animationState);
                 return AnimationState;
             }
             set
             {
-                InternalCalls.AnimationComponent_SetAnimationState(entityID, ref value);
+                InternalCalls.AnimationComponent_SetAnimationState(ref entityID, ref value);
             }
         }
 
@@ -212,7 +215,7 @@ namespace Image
         */
         public void SetSprite(string fileName)
         {
-            InternalCalls.GraphicsComponent_SetSprite(entityID, out fileName);
+            InternalCalls.GraphicsComponent_SetSprite(ref entityID, fileName);
         }
 
         /*  _________________________________________________________________________ */
@@ -224,12 +227,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.GraphicsComponent_GetScale(ref entityID, out Vector3 scale);
+                Vector3 scale = new Vector3();
+                InternalCalls.GraphicsComponent_GetScale(ref entityID, ref scale);
                 return scale;
             }
             set
             {
-                InternalCalls.GraphicsComponent_SetScale(entityID, ref value);
+                InternalCalls.GraphicsComponent_SetScale(ref entityID, ref value);
             }
         }
 
@@ -242,12 +246,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.GraphicsComponent_GetRotation(ref entityID, out Vector3 rotation);
+                Vector3 rotation = new Vector3();
+                InternalCalls.GraphicsComponent_GetRotation(ref entityID, ref rotation );
                 return rotation;
             }
             set
             {
-                InternalCalls.GraphicsComponent_SetRotation(entityID, ref value);
+                InternalCalls.GraphicsComponent_SetRotation(ref entityID, ref value);
             }
         }
 
@@ -258,7 +263,8 @@ namespace Image
         */
         public Vector3 GetScaleFromEntity(uint id)
         {
-            InternalCalls.GraphicsComponent_GetScale(ref id, out Vector3 scale);
+            Vector3 scale = new Vector3();
+            InternalCalls.GraphicsComponent_GetScale(ref id, ref scale);
             return scale;
         }
 
@@ -269,7 +275,7 @@ namespace Image
         */
         public void SetScaleFromEntity(uint id, Vector3 value)
         {
-            InternalCalls.GraphicsComponent_SetScale(id, ref value);
+            InternalCalls.GraphicsComponent_SetScale(ref id, ref value);
         }
 
         /*  _________________________________________________________________________ */
@@ -281,7 +287,7 @@ namespace Image
         {
             set
             {
-                InternalCalls.GraphicsComponent_SetColour(entityID, ref value);
+                InternalCalls.GraphicsComponent_SetColour(ref entityID, ref value);
             }
         }
 
@@ -292,7 +298,7 @@ namespace Image
         */
         public void SetEntityColour(uint id, Vector4 col)
         {
-            InternalCalls.GraphicsComponent_SetColour(id, ref col);
+            InternalCalls.GraphicsComponent_SetColour(ref id, ref col);
         }
 
         #endregion
@@ -305,15 +311,16 @@ namespace Image
         */
         public Vector2 ColliderDimensions
         {
-            get
-            {
-                InternalCalls.PhysicsComponent_GetColliderDimensions(ref entityID, out Vector2 dim);
+            
+            get{
+                Vector2 dim = new Vector2();
+                InternalCalls.PhysicsComponent_GetColliderDimensions(ref entityID, ref dim);
                 return dim;
             }
 
             set
             {
-                InternalCalls.PhysicsComponent_SetColliderDimensions(entityID, ref value);
+                InternalCalls.PhysicsComponent_SetColliderDimensions(ref entityID, ref value);
             }
         }
 
@@ -326,12 +333,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.PhysicsComponent_GetColliderPos(ref entityID, out Vector2 pos);
+                Vector2 pos = new Vector2();
+                InternalCalls.PhysicsComponent_GetColliderPos(ref entityID, ref pos);
                 return pos;
             }
             set
             {
-                InternalCalls.PhysicsComponent_SetColliderPos(entityID, ref value);
+                InternalCalls.PhysicsComponent_SetColliderPos(ref entityID, ref value);
             }
         }
 
@@ -344,12 +352,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.TransformComponent_GetTranslation(ref entityID, out Vector2 translation);
+                Vector2 translation = new Vector2();
+                InternalCalls.TransformComponent_GetTranslation(ref entityID, ref translation);
                 return translation;
             }
             set
             {
-                InternalCalls.TransformComponent_SetTranslation(entityID, ref value);
+                InternalCalls.TransformComponent_SetTranslation(ref entityID, ref value);
             }
         }
 
@@ -362,12 +371,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.ForceComponent_GetForce(ref entityID, out Vector2 force);
+                Vector2 force = new Vector2();
+                InternalCalls.ForceComponent_GetForce(ref entityID, ref force );
                 return force;
             }
             set
             {
-                InternalCalls.ForceComponent_SetForce(entityID, ref value);
+                InternalCalls.ForceComponent_SetForce(ref entityID, ref value);
             }
         }
 
@@ -376,7 +386,7 @@ namespace Image
         {
             set
             {
-                InternalCalls.ForceComponent_SetGravity(entityID, ref value);
+                InternalCalls.ForceComponent_SetGravity(ref entityID, ref value);
             }
         }
         
@@ -390,12 +400,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.ForceComponent_GetMass(ref entityID, out float mass);
+                float mass = 0.0f;
+                InternalCalls.ForceComponent_GetMass(ref entityID, ref mass);
                 return mass;
             }
             set
             {
-                InternalCalls.ForceComponent_SetMass(entityID, ref value);
+                InternalCalls.ForceComponent_SetMass(ref entityID, ref value);
             }
         }
 
@@ -408,12 +419,13 @@ namespace Image
         {
             get
             {
-                InternalCalls.ForceComponent_GetVelocity(ref entityID, out Vector2 velocity);
+                Vector2 velocity = new Vector2();
+                InternalCalls.ForceComponent_GetVelocity(ref entityID, ref velocity);
                 return velocity;
             }
             set
             {
-                InternalCalls.ForceComponent_SetVelocity(entityID, ref value);
+                InternalCalls.ForceComponent_SetVelocity(ref entityID, ref value);
             }
         }
         #endregion

@@ -10,6 +10,7 @@
 #include <Components/Camera.hpp>
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
+#include <Components/Emitter.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/Layering.hpp>
 #include <Components/Node.hpp>
@@ -34,6 +35,9 @@ Coordinator::GetInstance()->AddComponent(entity, Collider{ obj });
 }
 static void EntityAddEditor(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Editor{ obj });
+}
+static void EntityAddEmitter(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, Emitter{ obj });
 }
 static void EntityAddGravity(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Gravity{ obj });
@@ -76,6 +80,7 @@ if constexpr (std::is_same_v<_type, Animation>) return "Animation";
 else if constexpr (std::is_same_v<_type, Camera>) return "Camera";
 else if constexpr (std::is_same_v<_type, Collider>) return "Collider";
 else if constexpr (std::is_same_v<_type, Editor>) return "Editor";
+else if constexpr (std::is_same_v<_type, Emitter>) return "Emitter";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
 else if constexpr (std::is_same_v<_type, Layering>) return "Layering";
 else if constexpr (std::is_same_v<_type, Node>) return "Node";
@@ -117,6 +122,13 @@ JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Editor>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Editor>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<Emitter>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<Emitter>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Emitter>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<Gravity>(entity)){
@@ -209,6 +221,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Camera", EntityAddCamera},
 {"Collider", EntityAddCollider},
 {"Editor", EntityAddEditor},
+{"Emitter", EntityAddEmitter},
 {"Gravity", EntityAddGravity},
 {"Layering", EntityAddLayering},
 {"Node", EntityAddNode},
@@ -228,6 +241,7 @@ if (Coordinator::GetInstance()->HasComponent<Animation>(entity)) { out["Animatio
 if (Coordinator::GetInstance()->HasComponent<Camera>(entity)) { out["Camera"] = std::any{ Coordinator::GetInstance()->GetComponent<Camera>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Collider>(entity)) { out["Collider"] = std::any{ Coordinator::GetInstance()->GetComponent<Collider>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Editor>(entity)) { out["Editor"] = std::any{ Coordinator::GetInstance()->GetComponent<Editor>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<Emitter>(entity)) { out["Emitter"] = std::any{ Coordinator::GetInstance()->GetComponent<Emitter>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Gravity>(entity)) { out["Gravity"] = std::any{ Coordinator::GetInstance()->GetComponent<Gravity>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Layering>(entity)) { out["Layering"] = std::any{ Coordinator::GetInstance()->GetComponent<Layering>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Node>(entity)) { out["Node"] = std::any{ Coordinator::GetInstance()->GetComponent<Node>(entity) }; }
@@ -249,6 +263,7 @@ if (c.first == "Animation") { Coordinator::GetInstance()->AddComponent<Animation
 if (c.first == "Camera") { Coordinator::GetInstance()->AddComponent<Camera>(e, std::any_cast<Camera>(c.second)); }
 if (c.first == "Collider") { Coordinator::GetInstance()->AddComponent<Collider>(e, std::any_cast<Collider>(c.second)); }
 if (c.first == "Editor") { Coordinator::GetInstance()->AddComponent<Editor>(e, std::any_cast<Editor>(c.second)); }
+if (c.first == "Emitter") { Coordinator::GetInstance()->AddComponent<Emitter>(e, std::any_cast<Emitter>(c.second)); }
 if (c.first == "Gravity") { Coordinator::GetInstance()->AddComponent<Gravity>(e, std::any_cast<Gravity>(c.second)); }
 if (c.first == "Layering") { Coordinator::GetInstance()->AddComponent<Layering>(e, std::any_cast<Layering>(c.second)); }
 if (c.first == "Node") { Coordinator::GetInstance()->AddComponent<Node>(e, std::any_cast<Node>(c.second)); }

@@ -3,28 +3,41 @@
   <ItemGroup>
     <ClCompile Include="..\lib\glad\src\glad.c" />
     <ClCompile Include="..\lib\stb\stb_image.cpp.cpp" />
+    <ClCompile Include="source\Audio\Sound.cpp" />
+    <ClCompile Include="source\Engine\AssetManager.cpp" />
+    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
+    <ClCompile Include="source\Engine\CommandManager.cpp" />
+    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
+    <ClCompile Include="source\Engine\SceneManager.cpp" />
+    <ClCompile Include="source\Graphics\AnimationManager.cpp" />
+    <ClCompile Include="source\Graphics\Camera.cpp" />
+    <ClCompile Include="source\Graphics\FontRenderer.cpp" />
+    <ClCompile Include="source\Graphics\Framebuffer.cpp" />
+    <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
+    <ClCompile Include="source\Engine\StateManager.cpp" />
+    <ClCompile Include="source\Engine\States\MainState.cpp" />
+    <ClCompile Include="source\Engine\States\State.cpp" />
     <ClCompile Include="source\Graphics\ElementBuffer.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Core\Coordinator.cpp" />
     <ClCompile Include="source\Core\FrameRateController.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Graphics\SpriteManager.cpp" />
+    <ClCompile Include="source\Graphics\VertexArray.cpp" />
+    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
+    <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
+    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
+    <ClCompile Include="source\Logging\backward.cpp" />
+    <ClCompile Include="source\Logging\LoggingSystem.cpp" />
     <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\pch.cpp" />
+    <ClCompile Include="source\Physics\Physics.cpp" />
+    <ClCompile Include="source\Scripting\NodeManager.cpp" />
+    <ClCompile Include="source\Scripting\ScriptClass.cpp" />
+    <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
+    <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
+    <ClCompile Include="source\Scripting\ScriptManager.cpp" />
     <ClCompile Include="source\Systems\AnimationSystem.cpp" />
-    <ClCompile Include="source\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="source\Systems\EditorControlSystem.cpp" />
-    <ClCompile Include="source\Systems\InputSystem.cpp" />
-    <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
-    <ClCompile Include="source\Systems\RenderSystem.cpp" />
-    <ClCompile Include="source\WindowManager.cpp" />
-    <ClCompile Include="source\Graphics\Texture.cpp" />
-    <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="source\Graphics\SubTexture.cpp" />
-    <ClCompile Include="source\Graphics\Framebuffer.cpp" />
-    <ClCompile Include="source\Core\Serialization\SerializationManager.cpp" />
-    <ClCompile Include="source\Engine\States\State.cpp" />
-    <ClCompile Include="source\Engine\StateManager.cpp" />
-    <ClCompile Include="source\Engine\States\MainState.cpp" />
-    <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
     <ClCompile Include="source\Math\Mat2.cpp" />
     <ClCompile Include="source\Math\Mat3.cpp" />
     <ClCompile Include="source\Math\Mat4.cpp" />
@@ -32,7 +45,21 @@
     <ClCompile Include="source\Math\Vec2.cpp" />
     <ClCompile Include="source\Math\Vec3.cpp" />
     <ClCompile Include="source\Math\Vec4.cpp" />
+    <ClCompile Include="source\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="source\Systems\EditorControlSystem.cpp" />
     <ClCompile Include="source\Systems\ImguiSystem.cpp" />
+    <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
+    <ClCompile Include="source\Systems\InputSystem.cpp" />
+    <ClCompile Include="source\Systems\LayeringSystem.cpp" />
+    <ClCompile Include="source\Systems\ParticleSystem.cpp" />
+    <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="source\Systems\RenderSystem.cpp" />
+    <ClCompile Include="source\Systems\TextSystem.cpp" />
+    <ClCompile Include="source\Systems\UISystem.cpp" />
+    <ClCompile Include="source\WindowManager.cpp" />
+    <ClCompile Include="source\Graphics\Texture.cpp" />
+    <ClCompile Include="source\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="source\Graphics\SubTexture.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Vendor\imgui-docking\backends\imgui_impl_win32.cpp" />
@@ -41,42 +68,38 @@
     <ClCompile Include="Vendor\imgui-docking\imgui_draw.cpp" />
     <ClCompile Include="Vendor\imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="Vendor\imgui-docking\imgui_widgets.cpp" />
-    <ClCompile Include="source\Graphics\FontRenderer.cpp" />
-    <ClCompile Include="source\Audio\Sound.cpp" />
-    <ClCompile Include="source\Scripting\ScriptClass.cpp" />
-    <ClCompile Include="source\Scripting\ScriptCoordinator.cpp" />
-    <ClCompile Include="source\Scripting\ScriptInstance.cpp" />
-    <ClCompile Include="source\Scripting\ScriptManager.cpp" />
-    <ClCompile Include="source\Logging\LoggingSystem.cpp" />
-    <ClCompile Include="source\Logging\backward.cpp" />
-    <ClCompile Include="source\Engine\PrefabsManager.cpp" />
-    <ClCompile Include="source\Graphics\VertexArray.cpp" />
-    <ClCompile Include="source\pch.cpp" />
-    <ClCompile Include="source\Systems\TextSystem.cpp" />
-    <ClCompile Include="source\Scripting\NodeManager.cpp" />
-    <ClCompile Include="source\Graphics\Camera.cpp" />
-    <ClCompile Include="source\DataMgmt\DecisionTree.cpp" />
-    <ClCompile Include="source\Engine\AssetManager.cpp" />
-    <ClCompile Include="source\Graphics\SpriteManager.cpp" />
-    <ClCompile Include="source\Graphics\AnimationManager.cpp" />
-    <ClCompile Include="source\Systems\LayeringSystem.cpp" />
-    <ClCompile Include="source\Physics\Physics.cpp" />
-    <ClCompile Include="source\IMGUI\AssetBrowser.cpp" />
-    <ClCompile Include="source\IMGUI\ImguiApp.cpp" />
-    <ClCompile Include="source\Engine\SceneManager.cpp" />
-    <ClCompile Include="source\IMGUI\PrefabsBrowser.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\GraphEditor.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImCurveEdit.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImGradient.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImGuizmo.cpp" />
     <ClCompile Include="Vendor\ImGuizmo-master\ImSequencer.cpp" />
-    <ClCompile Include="source\Systems\UISystem.cpp" />
-    <ClCompile Include="source\Engine\CommandManager.cpp" />
-    <ClCompile Include="source\Systems\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Audio\Sound.hpp" />
+    <ClInclude Include="include\Components\Layering.hpp" />
+    <ClInclude Include="include\Components\Node.hpp" />
+    <ClInclude Include="include\Components\Prefab.hpp" />
+    <ClInclude Include="include\Components\Script.hpp" />
+    <ClInclude Include="include\Components\Swappable.hpp" />
+    <ClInclude Include="include\Components\Text.hpp" />
+    <ClInclude Include="include\Components\Tag.hpp" />
+    <ClInclude Include="include\Components\UIImage.hpp" />
+    <ClInclude Include="include\Core\Component.hpp" />
     <ClInclude Include="include\Core\EventTypes.hpp" />
+    <ClInclude Include="include\Core\ReflectionManager.hpp" />
+    <ClInclude Include="include\Engine\AssetManager.hpp" />
+    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
     <ClInclude Include="include\Components\Animation.hpp" />
+    <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
+    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
+    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
+    <ClInclude Include="include\Engine\SceneManager.hpp" />
+    <ClInclude Include="include\Engine\StateManager.hpp" />
+    <ClInclude Include="include\Engine\States\MainState.hpp" />
+    <ClInclude Include="include\Engine\States\State.hpp" />
+    <ClInclude Include="include\Core\TypeReflection.hpp" />
+    <ClInclude Include="include\Graphics\AnimationManager.hpp" />
+    <ClInclude Include="include\Graphics\FontRenderer.hpp" />
     <ClInclude Include="include\Graphics\OrthoCamera.hpp" />
     <ClInclude Include="include\Graphics\ElementBuffer.hpp" />
     <ClInclude Include="include\Components\Collider.hpp" />
@@ -95,6 +118,11 @@
     <ClInclude Include="include\Core\EventManager.hpp" />
     <ClInclude Include="include\Core\FrameRateController.hpp" />
     <ClInclude Include="include\Core\Globals.hpp" />
+    <ClInclude Include="include\Engine\CommandManager.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
+    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
+    <ClInclude Include="include\Logging\backward.hpp" />
+    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
     <ClInclude Include="include\Physics\Physics.hpp" />
     <ClInclude Include="include\Core\System.hpp" />
     <ClInclude Include="include\Core\SystemManager.hpp" />
@@ -103,21 +131,12 @@
     <ClInclude Include="include\DataMgmt\QuadTree\Node.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp" />
     <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp" />
-    <ClInclude Include="include\Graphics\Shader.hpp" />
-    <ClInclude Include="include\Math\Collision.hpp" />
-    <ClInclude Include="include\Systems\AnimationSystem.hpp" />
-    <ClInclude Include="include\Systems\CollisionSystem.hpp" />
-    <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
-    <ClInclude Include="include\Systems\InputSystem.hpp" />
-    <ClInclude Include="include\Systems\PhysicsSystem.hpp" />
-    <ClInclude Include="include\Systems\RenderSystem.hpp" />
-    <ClInclude Include="include\Graphics\Renderer.hpp" />
-    <ClInclude Include="source\WindowManager.hpp" />
-    <ClInclude Include="include\Graphics\Texture.hpp" />
-    <ClInclude Include="include\Graphics\VertexArray.hpp" />
-    <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
-    <ClInclude Include="include\Graphics\SubTexture.hpp" />
     <ClInclude Include="include\Graphics\Framebuffer.hpp" />
+    <ClInclude Include="include\Graphics\Shader.hpp" />
+    <ClInclude Include="include\Graphics\SpriteManager.hpp" />
+    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
+    <ClInclude Include="include\Logging\LoggingSystem.hpp" />
+    <ClInclude Include="include\Math\Collision.hpp" />
     <ClInclude Include="include\Math\Mat2.h" />
     <ClInclude Include="include\Math\Mat3.h" />
     <ClInclude Include="include\Math\Mat4.h" />
@@ -125,6 +144,33 @@
     <ClInclude Include="include\Math\Vec2.h" />
     <ClInclude Include="include\Math\Vec3.h" />
     <ClInclude Include="include\Math\Vec4.h" />
+    <ClInclude Include="include\pch.hpp" />
+    <ClInclude Include="include\Properties.h" />
+    <ClInclude Include="include\Scripting\NodeManager.hpp" />
+    <ClInclude Include="include\Scripting\ScriptClass.hpp" />
+    <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
+    <ClInclude Include="include\Scripting\ScriptFieldType.hpp" />
+    <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
+    <ClInclude Include="include\Scripting\ScriptManager.hpp" />
+    <ClInclude Include="include\Systems\AnimationSystem.hpp" />
+    <ClInclude Include="include\Systems\CollisionSystem.hpp" />
+    <ClInclude Include="include\Systems\EditorControlSystem.hpp" />
+    <ClInclude Include="include\Systems\EntitySerializationSystem.hpp" />
+    <ClInclude Include="include\Systems\ImguiSystem.hpp" />
+    <ClInclude Include="include\Systems\InputSystem.hpp" />
+    <ClInclude Include="include\Systems\ParticleSystem.hpp" />
+    <ClInclude Include="include\Systems\PhysicsSystem.hpp" />
+    <ClInclude Include="include\Systems\RenderSystem.hpp" />
+    <ClInclude Include="include\Graphics\Renderer.hpp" />
+    <ClInclude Include="include\Core\Serialization\SerializationManager.hpp" />
+    <ClInclude Include="include\Systems\TextSystem.hpp" />
+    <ClInclude Include="include\Systems\UISystem.hpp" />
+    <ClInclude Include="source\WindowManager.hpp" />
+    <ClInclude Include="include\Graphics\Texture.hpp" />
+    <ClInclude Include="include\Graphics\VertexArray.hpp" />
+    <ClInclude Include="include\Graphics\VertexBuffer.hpp" />
+    <ClInclude Include="include\Graphics\SubTexture.hpp" />
+    <ClInclude Include="Vendor\FileWatch\FileWatch.hpp" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_glfw.h" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="Vendor\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
@@ -135,216 +181,13 @@
     <ClInclude Include="Vendor\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Vendor\imgui-docking\imstb_truetype.h" />
-    <ClInclude Include="include\pch.hpp" />
-    <ClInclude Include="include\Graphics\FontRenderer.hpp" />
-    <ClInclude Include="include\Audio\Sound.hpp" />
-    <ClInclude Include="include\Components\Script.hpp" />
-    <ClInclude Include="include\Scripting\ScriptClass.hpp" />
-    <ClInclude Include="include\Scripting\ScriptCoordinator.hpp" />
-    <ClInclude Include="include\Scripting\ScriptInstance.hpp" />
-    <ClInclude Include="include\Scripting\ScriptManager.hpp" />
-    <ClInclude Include="include\Logging\LoggingSystem.hpp" />
-    <ClInclude Include="include\Engine\PrefabsManager.hpp" />
-    <ClInclude Include="include\Components\Node.hpp" />
-    <ClInclude Include="include\Components\Text.hpp" />
-    <ClInclude Include="include\Systems\TextSystem.hpp" />
-    <ClInclude Include="include\Scripting\NodeManager.hpp" />
-    <ClInclude Include="include\Components\Tag.hpp" />
-    <ClInclude Include="include\DataMgmt\DecisionTree\DecisionTree.hpp" />
-    <ClInclude Include="include\Engine\AssetManager.hpp" />
-    <ClInclude Include="include\IMGUI\AssetBrowser.hpp" />
-    <ClInclude Include="include\Graphics\SpriteManager.hpp" />
-    <ClInclude Include="include\Graphics\AnimationManager.hpp" />
-    <ClInclude Include="include\Components\Layering.hpp" />
-    <ClInclude Include="include\Systems\LayeringSystem.hpp" />
-    <ClInclude Include="include\IMGUI\ImguiApp.hpp" />
-    <ClInclude Include="include\IMGUI\ImguiComponent.hpp" />
-    <ClInclude Include="include\Systems\ImguiSystem.hpp" />
-    <ClInclude Include="include\Engine\SceneManager.hpp" />
-    <ClInclude Include="include\Components\Prefab.hpp" />
-    <ClInclude Include="include\IMGUI\PrefabsBrowser.hpp" />
-    <ClInclude Include="include\Logging\backward.hpp" />
     <ClInclude Include="Vendor\ImGuizmo-master\GraphEditor.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImCurveEdit.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImGradient.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImGuizmo.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
-    <ClInclude Include="include\Components\UIImage.hpp" />
-    <ClInclude Include="include\Systems\UISystem.hpp" />
-    <ClInclude Include="include\Engine\CommandManager.hpp" />
-    <ClInclude Include="include\Components\Swappable.hpp" />
-    <ClInclude Include="include\Properties.h" />
-    <ClInclude Include="include\Core\TypeReflection.hpp" />
-    <ClInclude Include="include\Core\ReflectionManager.hpp" />
-    <ClInclude Include="include\Systems\ParticleSystem.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Graphics\Shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\PhysicsSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\RenderSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Gravity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Sprite.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\RigidBody.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Transform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\ComponentArray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\ComponentManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Coordinator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\EntityManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Event.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\EventManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\System.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\SystemManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Types.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\WindowManager.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DataMgmt\QuadTree.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DataMgmt\QuadTree\Node.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DataMgmt\QuadTree\Quadtree.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DataMgmt\QuadTree\Rect.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\Globals.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\CollisionSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\EditorControlSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Editor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Math\Collision.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Systems\InputSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\FrameRateController.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\ElementBuffer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\Renderer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\Texture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\VertexArray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\VertexBuffer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Graphics\OrthoCamera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="source\Systems\PhysicsSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\glad\src\glad.c">
-      <Filter>Source Files\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Core\Coordinator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Systems\CollisionSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Systems\EditorControlSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Systems\InputSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\stb\stb_image.cpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\ElementBuffer.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\Renderer.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Systems\RenderSystem.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\Shader.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\Texture.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Graphics\VertexBuffer.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Core\FrameRateController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClInclude Include="include\Core\Serialization\Serializer.hpp" />
-    <ClInclude Include="include\Core\Serialization\SerializationManager.hpp" />
-    <ClInclude Include="include\Engine\States\State.hpp" />
-    <ClInclude Include="include\Engine\StateManager.hpp" />
-    <ClInclude Include="include\Engine\States\MainState.hpp" />
-    <ClInclude Include="include\Core\Component.hpp" />
-    <ClInclude Include="include\Core\Serialization\SerializerComponent.hpp" />
-    <ClInclude Include="include\Systems\EntitySerializationSystem.hpp" />
+    <ClInclude Include="include\Systems\LayeringSystem.hpp" />
+    <ClInclude Include="include\Components\Emitter.hpp" />
   </ItemGroup>
 </Project>

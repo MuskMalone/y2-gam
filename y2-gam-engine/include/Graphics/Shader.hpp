@@ -49,6 +49,8 @@ public:
 	void SetUniform(std::string const& name, glm::mat3 const& val);
 	void SetUniform(std::string const& name, glm::mat4 const& val);
 	void SetUniform(std::string const& name, int* val, unsigned int count);
+
+	unsigned int PgmHdl() { return pgmHdl; };
 private:
 	unsigned int pgmHdl;
 };

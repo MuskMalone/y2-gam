@@ -4,7 +4,7 @@
 \file       ScriptManager.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Sep 23, 2023
+\date       Dec 24, 2023
 
 \brief      Source file for the script manager. Highest level for scripts.
             It initalizes mono, loads assembly (.dll) files and creates
@@ -17,19 +17,57 @@
 /******************************************************************************/
 
 #include "../include/pch.hpp"
+
 #include "Scripting/ScriptManager.hpp"
+#include "Engine/StateManager.hpp"
 
 namespace {
   std::shared_ptr<Coordinator> gCoordinator;
+  static int num = 0;
 }
 
 namespace Image {
 
   MonoDomain* ScriptManager::sRootDomain{ nullptr };
   MonoDomain* ScriptManager::sAppDomain{ nullptr };
+  std::string ScriptManager::sMainAssemblyFilePath{};
+#ifndef _INSTALLER
+  std::unique_ptr<filewatch::FileWatch<std::string>> ScriptManager::mAppAssemblyFileWatcher;
+#endif
   std::unordered_map<std::string, ScriptClass> ScriptManager::sEntityClasses{};
   std::map<Entity, ScriptInstance> ScriptManager::sEntityInstances{};
+  std::map <std::string, ScriptInstance> ScriptManager::sTagToRawInstances{};
   std::vector<const char*> ScriptManager::sAssignableScriptNames{};
+
+  std::map<std::string, Field> ScriptManager::sScriptFieldTypes {
+    { "System.Single", {FieldType::Float, nullptr} },
+    { "System.Double", {FieldType::Double, nullptr}  },
+    { "System.Boolean", {FieldType::Bool, nullptr}  },
+    { "System.Int16", {FieldType::Short, nullptr}  },
+    { "System.Int32", {FieldType::Int, nullptr}  },
+    { "System.Int64", {FieldType::Long, nullptr}  },
+    { "System.UInt16", {FieldType::UShort, nullptr}  },
+    { "System.UInt32", {FieldType::UInt, nullptr}  },
+    { "System.UInt64", {FieldType::ULong, nullptr}  },
+    { "Image.Vector2", {FieldType::Vector2, nullptr}  },
+    { "Image.Vector3", {FieldType::Vector3, nullptr}  },
+    { "Image.Vector4", {FieldType::Vector4, nullptr}  },
+    { "Image.Entity", {FieldType::Entity, nullptr}  },
+  };
+  bool ScriptManager::AssemblyReloadPending{ false };
+
+  static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
+    if (!ScriptManager::AssemblyReloadPending && change_type == filewatch::Event::modified) {
+      ScriptManager::AssemblyReloadPending = true;
+
+      std::shared_ptr<StateManager> gStateManager = StateManager::GetInstance();
+      gStateManager->SubmitToMainThread([]()
+      {
+        ScriptManager::mAppAssemblyFileWatcher.reset();
+        ScriptManager::ReloadAssembly();
+      });
+    }
+  }
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -39,10 +77,43 @@ namespace Image {
   The main init. Calls the respective script related functions.
   */
   void ScriptManager::Init() {
+    sMainAssemblyFilePath = "../assets/scripts/y2-gam-script.dll";
+
+#ifndef _INSTALLER
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts", AssemblyFileSystemEvent);
+#endif
+    AssemblyReloadPending = false;
     InitMono();
     ScriptCoordinator::RegisterFunctions();
-    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly("../assets/scripts/y2-gam-script.dll") };
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+
+#ifndef _INSTALLER
+    /*
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts",
+      [](const std::string& path, const filewatch::Event change_type) {
+      std::cout << "File: " << path << " Event: ";
+      switch (change_type)
+      {
+      case filewatch::Event::added:
+        std::cout << "The file was added to the directory." << '\n';
+        break;
+      case filewatch::Event::removed:
+        std::cout << "The file was removed from the directory." << '\n';
+        break;
+      case filewatch::Event::modified:
+        std::cout << "The file was modified. This can be a change in the time stamp or attributes." << '\n';
+        break;
+      case filewatch::Event::renamed_old:
+        std::cout << "The file was renamed and this is the old name." << '\n';
+        break;
+      }
+      }
+    );
+    */
+#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -99,6 +170,13 @@ namespace Image {
     Coordinator::GetInstance()->AddEventListener(FUNCTION_LISTENER(Events::System::ENTITY, ScriptManager::OnCreateEntityEvent));
   }
 
+  /*  _________________________________________________________________________ */
+  /*! ExitMono
+
+  @return none.
+
+  The clean up function for exiting script related components.
+  */
   void ScriptManager::ExitMono() {
     for (auto const& e : GetEntityInstances()) {
       Image::ScriptManager::OnExitEntity(e.first);
@@ -110,6 +188,47 @@ namespace Image {
     sAssignableScriptNames.clear(); // Clear the vector
 
     Exit();
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! GetEntityScriptInstance
+  
+  @param entity
+  The entity with a script component.
+
+  @return ScriptInstance&
+  Reference to the script instance.
+
+  Gets the script instance of a particular entity (that has the script component).
+  */
+  ScriptInstance& ScriptManager::GetEntityScriptInstance(Entity const& entity) {
+    return sEntityInstances[entity];
+  }
+
+  ScriptInstance& ScriptManager::GetTagToRawScriptInstance(std::string const& tag) {
+    return sTagToRawInstances[tag];
+  }
+
+  ScriptInstance& ScriptManager::CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag) {
+    if (EntityClassExists(scriptName)) {
+      sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
+      //std::cout << "Raw Instance for: " << scriptName << " created!\n";
+      return sTagToRawInstances[tag];
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! GetEntityMonoInstanceObject
+
+  @param entity
+  The entity with a script component.
+
+  @return MonoObject*
+
+  Gets the mono instance object.
+  */
+  MonoObject* ScriptManager::GetEntityMonoInstanceObject(Entity const& entity) {
+    return GetEntityScriptInstance(entity).GetMonoInstanceObject();
   }
 
   /*  _________________________________________________________________________ */
@@ -198,11 +317,40 @@ namespace Image {
     mono_image_close(monoImage);
     delete[] fileData;
 
-//#ifdef _DEBUG
     PrintMonoAssemblyTypes(monoAssembly);
-//#endif
 
     return monoAssembly;
+  }
+
+  void ScriptManager::ReloadAssembly() {
+    std::cout << "Assembly Reloading\n";
+    mono_domain_set(mono_get_root_domain(), false);
+    mono_domain_unload(sAppDomain);
+
+    char appDomainName[] = "MyAppDomain";
+    // An app domain is a C# language feature
+    MonoDomain* appDomain = mono_domain_create_appdomain(appDomainName, nullptr);
+    if (appDomain == nullptr) {
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "App Domain Initialization Failed!", __FUNCTION__);
+#endif
+      return;
+    }
+    sAppDomain = appDomain;
+
+    mono_domain_set(sAppDomain, true);
+    Coordinator::GetInstance()->AddEventListener(FUNCTION_LISTENER(Events::System::ENTITY, ScriptManager::OnCreateEntityEvent));
+
+#ifndef _INSTALLER
+    mAppAssemblyFileWatcher = std::make_unique<filewatch::FileWatch<std::string>>(
+      "../assets/scripts", AssemblyFileSystemEvent);
+#endif
+    AssemblyReloadPending = false;
+
+    MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
+    Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
+
+    ScriptCoordinator::RegisterFunctions();
   }
 
   /*  _________________________________________________________________________ */
@@ -228,8 +376,6 @@ namespace Image {
       std::string nsName{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]) };
       std::string className{ mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]) };
 
-      //std::cout << "Namespace: " << nsName << "\n";
-      //std::cout << "Class Name: " << className << "\n";
 #ifndef _INSTALLER
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Namespace: " + nsName, __FUNCTION__);
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Class Name: " + className, __FUNCTION__);
@@ -287,17 +433,21 @@ namespace Image {
       ScriptClass sc{ nsName, className, monoClass };
 
       if (isEntity) {
+        void* iter = nullptr;
+        while (MonoClassField* field = mono_class_get_fields(monoClass, &iter)) {
+          const char* fieldName = mono_field_get_name(field);
+          uint32_t flags = mono_field_get_flags(field);
+          if (flags & FIELD_ATTRIBUTE_PUBLIC) {
+            MonoType* type = mono_field_get_type(field);
+            std::cout << "Name: " << fieldName << ", Type: " << FieldTypeToString(MonoToScriptType(type)) << "\n";
+
+            sc.mFieldNameToTypeMap[fieldName] = { MonoToScriptType(type), field };
+          }
+        }
+
         sEntityClasses[finalName] = sc;
       }
     }
-
-#ifdef _DEBUG
-      //for (auto const& pair : sEntityClasses) {
-      //    ScriptClass const& value{ pair.second };
-      //  //std::cout << "Key: " << pair.first << ", Namespace: " << value.GetNamespace() 
-      //  //  << ", Class: " << value.GetClassName() << "\n";
-      //}
-#endif
   }
 
   /*  _________________________________________________________________________ */
@@ -316,29 +466,8 @@ namespace Image {
   subscriber callback instead.
   */
   void ScriptManager::OnCreateEntity(Entity const& entity) {
-    ::gCoordinator = Coordinator::GetInstance();
-    auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-    if (EntityClassExists(scriptComp.name)) {
-      ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
-      sEntityInstances[entity] = si;
-      si.CallOnCreate();
 
-      //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
-#ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " + 
-        scriptComp.name + " created!", __FUNCTION__);
-#endif
-
-    }
-    else {
-      //std::cout << "Entity Script does not exist!" << "\n";
-#ifndef _INSTALLER
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
-        , __FUNCTION__);
-#endif
-    }
   }
-
 
   namespace Hack {
     std::map<Entity, std::string> entitiesScripted;
@@ -360,32 +489,25 @@ namespace Image {
       ::gCoordinator = Coordinator::GetInstance();
       Entity entity{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
       if (event.GetFail()) return;
-      if (!gCoordinator->HasComponent<Script>(entity)) return;
+      if (!::gCoordinator->HasComponent<Script>(entity)) return;
 
       if (Hack::entitiesScripted.find(entity) != Hack::entitiesScripted.end()) return;
-      Hack::entitiesScripted[entity] = gCoordinator->GetComponent<Script>(entity).name;
+      Hack::entitiesScripted[entity] = ::gCoordinator->GetComponent<Script>(entity).name;
+  }
 
-      auto const& scriptComp{ gCoordinator->GetComponent<Script>(entity) };
-      if (EntityClassExists(scriptComp.name)) {
-        ScriptInstance si{ sEntityClasses[scriptComp.name], entity };
-        sEntityInstances[entity] = si;
-        si.CallOnCreate();
+  void ScriptManager::LoadEntityLinkage(Entity entity, std::string tag) {
+    auto const& scriptComp{ ::gCoordinator->GetComponent<Script>(entity) };
+    auto it = sTagToRawInstances.find(tag);
 
-        //std::cout << "Entity w script component named " << scriptComp.name << " created!" << "\n";
+    if (it != sTagToRawInstances.end()) {
+      sEntityInstances[entity] = sTagToRawInstances[tag];
+      sEntityInstances[entity].CallOnCreate(entity);
+
 #ifndef _INSTALLER
-        LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
-          scriptComp.name + " created!", __FUNCTION__);
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
+        scriptComp.name + " created!", __FUNCTION__);
 #endif
-      }
-      else {
-        //std::cout << "Entity Script does not exist!" << "\n";
-#ifndef _INSTALLER
-        LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Entity Script does not exist!"
-          , __FUNCTION__);
-#endif
-      }
-
-      //every item added to the ecs will be marked as an entity to serialize
+    }
   }
 
   /*  _________________________________________________________________________ */
@@ -402,16 +524,7 @@ namespace Image {
   This function is called on update loop for the entity.
   */
   void ScriptManager::OnUpdateEntity(Entity const& entity, float dt) {
-    auto it = sEntityInstances.find(entity);
-
-    if (it != sEntityInstances.end()) {
-      sEntityInstances[entity].CallOnUpdate(dt);
-    }
-#ifndef _INSTALLER
-    else {
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "ENTITY COULD NOT BE FOUND", __FUNCTION__);
-    }
-#endif
+     sEntityInstances[entity].CallOnUpdate(dt);
   }
 
   /*  _________________________________________________________________________ */
@@ -442,6 +555,9 @@ namespace Image {
     auto it = sEntityInstances.find(entity);
     if (it != sEntityInstances.end()) {
       sEntityInstances.erase(it);
+      if (::gCoordinator->HasComponent<Tag>(entity)) {
+        sTagToRawInstances.erase(::gCoordinator->GetComponent<Tag>(entity).tag);
+      }
     }
   }
 
@@ -459,26 +575,66 @@ namespace Image {
   bool ScriptManager::EntityClassExists(std::string const& className) {
     return (sEntityClasses.find(className) != sEntityClasses.end()) ? true : false;
   }
+  
+  /*  _________________________________________________________________________ */
+  /*! PrintEntityInstances
 
+  @return none.
+
+  Prints all the entity script pairs in the script instance map.
+  */
   void ScriptManager::PrintEntityInstances() {
     std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
     std::cout << "Entity-Script Pairs in the Script Instance Map:\n";
     for (const auto& pair : sEntityInstances) {
-      std::cout << pair.first << ": " << gCoordinator->GetComponent<Script>(pair.first).name << "\n";
+      std::cout << pair.first << ": " << ::gCoordinator->GetComponent<Script>(pair.first).name << "\n";
     }
     std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
   }
 
   /*  _________________________________________________________________________ */
-  /*! FillAssignableScriptNames
+  /*! MonoToScriptType
 
-  @return none.
+  @param monoType
+  The mono type.
 
-  Fills the vector of assignable script names.
+  @return FieldType
+  The field type.
+
+  Converts a monoType to a FieldType.
   */
-  /*
-  void ScriptManager::FillAssignableScriptNames() {
-    
+  FieldType ScriptManager::MonoToScriptType(MonoType* monoType) {
+    const char* typeName = mono_type_get_name(monoType);
+    return sScriptFieldTypes[typeName].fieldType;
   }
+
+  /*  _________________________________________________________________________ */
+  /*! FieldTypeToString
+
+  @param fieldType
+  The field type.
+
+  @return std::string
+
+  Converts a FieldType to a std::string.
   */
+  std::string ScriptManager::FieldTypeToString(FieldType fieldType) {
+    switch (fieldType) {
+    case FieldType::None:    return "None";
+    case FieldType::Float:   return "Float";
+    case FieldType::Double:  return "Double";
+    case FieldType::Bool:    return "Bool";
+    case FieldType::Short:   return "Short";
+    case FieldType::Int:     return "Int";
+    case FieldType::Long:    return "Long";
+    case FieldType::UShort:  return "UShort";
+    case FieldType::UInt:    return "UInt";
+    case FieldType::ULong:   return "ULong";
+    case FieldType::Vector2: return "Vector2";
+    case FieldType::Vector3: return "Vector3";
+    case FieldType::Vector4: return "Vector4";
+    case FieldType::Entity:  return "Entity";
+    }
+    return "None";
+  }
 }

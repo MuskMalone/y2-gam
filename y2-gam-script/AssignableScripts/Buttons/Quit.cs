@@ -57,22 +57,19 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (UIClicked && firstTime)
             {
-                if (UIClicked && firstTime)
-                {
-                    QuitGame();
-                    firstTime = false;
-                }
+                QuitGame();
+                firstTime = false;
+            }
 
-                if (UIHover)
-                {
-                    Colour = new Vector4(1, 1, 1, 1);
-                }
-                else
-                {
-                    Colour = new Vector4(1, 0, 1, 0);
-                }
+            if (UIHover)
+            {
+                Colour = new Vector4(1, 1, 1, 1);
+            }
+            else
+            {
+                Colour = new Vector4(1, 0, 1, 0);
             }
         }
 

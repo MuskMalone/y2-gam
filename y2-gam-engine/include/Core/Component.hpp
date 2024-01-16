@@ -2,6 +2,7 @@
 #include <Components/Camera.hpp>
 #include <Components/Collider.hpp>
 #include <Components/Editor.hpp>
+#include <Components/Emitter.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/Layering.hpp>
 #include <Components/Node.hpp>

@@ -93,46 +93,43 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
             {
-                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
-                {
-                    cardFired = true;
-                }
+                cardFired = true;
+            }
 
-                if (cardFired)
-                {
-                    Colour = new Vector4(1, 1, 1, 1);
-                    timeAlive += dt;
-                }
+            if (cardFired)
+            {
+                Colour = new Vector4(1, 1, 1, 1);
+                timeAlive += dt;
+            }
 
-                else
-                {
-                    Colour = new Vector4(1, 1, 1, 0);
-                }
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 0);
+            }
 
-                if ((timeAlive >= MAX_TIME_ALIVE))
-                {
-                    cardFired = false;
-                    timeAlive = 0.0f;
-                }
+            if ((timeAlive >= MAX_TIME_ALIVE))
+            {
+                cardFired = false;
+                timeAlive = 0.0f;
+            }
 
-                float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
-                MousePos.X - GameplayWrapper.PlayerPos.X);
+            float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
+            MousePos.X - GameplayWrapper.PlayerPos.X);
 
-                Vector2 armPosition = GameplayWrapper.PlayerPos
-                    + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
+            Vector2 armPosition = GameplayWrapper.PlayerPos
+                + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
 
-                Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
+            Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
 
-                isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
+            isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
 
-                if (FacingDirectionChanged)
-                {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                    offsetAwayFromBody = -offsetAwayFromBody;
-                }
+            if (FacingDirectionChanged)
+            {
+                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                FacingDirectionChanged = false; // Reset the flag
+                offsetAwayFromBody = -offsetAwayFromBody;
             }
         }
 

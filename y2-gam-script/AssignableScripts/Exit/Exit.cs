@@ -75,15 +75,11 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!IsEditorMode())
+            Vector2 exitEnd = new Vector2(Collider.X - (Scale.X / 2.0f), Collider.Y );
+            if (PhysicsWrapper.Raycast(Collider, exitEnd, entityID, out RaycastHit exitHit) && exitHit.tag == "Player")
             {
-                Vector2 exitEnd = new Vector2(Collider.X - (Scale.X / 2.0f), Collider.Y );
-                if (PhysicsWrapper.Raycast(Collider, exitEnd, entityID, out RaycastHit exitHit) && exitHit.tag == "Player")
-                {
-                    //Console.WriteLine("Exit");
-                    LoadScene("MainMenu");
-                }
-
+                //Console.WriteLine("Exit");
+                LoadScene("MainMenu");
             }
         }
 

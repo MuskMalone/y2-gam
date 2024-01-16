@@ -4,6 +4,7 @@ struct Particle {
     vec3 pos;     // 12 bytes
 
     vec2 vel;     // 8 bytes
+    vec2 gravity; // 8 bytes
     vec2 size;    // 8 bytes (vec2 is aligned to 8 bytes)
     float rot;    // 4 bytes
     float age;    // 4 bytes
