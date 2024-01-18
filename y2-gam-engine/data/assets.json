@@ -464,6 +464,22 @@
             "idxY": 0.0,
             "dimX": 2067.0,
             "dimY": 683.0
+        },
+        "1705483032734269100": {
+            "id": 1705483032734295400,
+            "path": "../assets\\Textures\\backgrounds\\game200_lvl2castle_wip.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 6282.0,
+            "dimY": 1456.0
+        },
+        "1705617118815166700": {
+            "id": 1705617118815195300,
+            "path": "../assets\\Textures\\tiles\\gam200_backstage_tile_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 163.0,
+            "dimY": 124.0
         }
     },
     "classAnimationManager": {
