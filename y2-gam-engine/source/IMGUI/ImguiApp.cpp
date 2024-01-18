@@ -1081,6 +1081,43 @@ namespace Image {
                   ImGui::TreePop();
               }
             }
+            if (gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                std::string treeNodeLabel = "Camera##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    Camera& camera = gCoordinator->GetComponent<Camera>(selectedEntity);
+
+                    //// Position
+                    //ImGui::Text("Position");
+                    //ImGui::InputFloat3("##Position", glm::value_ptr(camera.mPos));
+
+                    //// Rotation
+                    //ImGui::Text("Rotation");
+                    //ImGui::SliderFloat("##Rotation", &camera.mRot, -360.0f, 360.0f);
+
+                    //// Zoom Level
+                    //ImGui::Text("Zoom Level");
+                    //ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
+
+                    // Camera Settings
+                    ImGui::Text("Camera Settings");
+                    ImGui::InputFloat("Offset X", &camera.mSettings.offsetX);
+                    ImGui::InputFloat("Offset Y", &camera.mSettings.offsetY);
+                    ImGui::InputFloat("Velocity Threshold", &camera.mSettings.velocityThreshold);
+                    ImGui::InputFloat("Camera Speed", &camera.mSettings.cameraSpeed);
+
+                    // Horizontal Boundary
+                    ImGui::Text("Horizontal Boundary");
+                    ImGui::SliderFloat("##Horiz Min", &camera.mSettings.horizontalBoundary.x, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Horiz Max", &camera.mSettings.horizontalBoundary.y, -1000.0f, 1000.0f);
+
+                    // Vertical Boundary
+                    ImGui::Text("Vertical Boundary");
+                    ImGui::SliderFloat("##Vert Min", &camera.mSettings.verticalBoundary.x, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Vert Max", &camera.mSettings.verticalBoundary.y, -1000.0f, 1000.0f);
+
+                    ImGui::TreePop();
+                }
+            }
             ImGui::PopStyleColor(2);
         }
         ImGui::PopFont();
@@ -1107,7 +1144,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera"};
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1273,6 +1310,26 @@ namespace Image {
               }
             }
                    break;
+
+            case 11: {
+                if (!gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                    float aspectRatio = static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT);
+                    float zoomFactor = 0.5f; // Example zoom factor
+
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        Camera{
+                            aspectRatio,
+                            static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor,
+                            static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor,
+                            static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor,
+                            static_cast<float>(WORLD_LIMIT_Y) * zoomFactor
+                        },
+                        ignore
+                    );
+                }
+            }
+                   break;
             }
           }
           ImGui::SameLine();
@@ -1367,6 +1424,13 @@ namespace Image {
               }
             }
                    break;
+
+            case 11: {
+                if (gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Camera>(selectedEntity);
+                }
+            }
+                   break;
             }
           }
           ImGui::Separator();
@@ -1381,6 +1445,7 @@ namespace Image {
           ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
           ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
 
           //ImGui::PopFont();
           //ImGui::End();

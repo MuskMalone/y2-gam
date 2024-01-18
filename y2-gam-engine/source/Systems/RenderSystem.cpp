@@ -192,7 +192,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		mFramebuffers[0]->Bind();
 	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-	//Renderer::SetClearColor({ 1.f, 0.f, 0.f, 1.f });
 
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -232,24 +231,29 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 
 		if (playerFound) {
+
 			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
+
 			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
-
-			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
-			sceneCamera.mTargetEntity = mPlayer;
-
 			// Get Player Script Instance
 			std::map<Entity, ScriptInstance> instanceMap{ ScriptManager::GetEntityInstances() };
 			bool facingRight{ instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight") };
 
-			sceneCamera.UpdatePosition(playerPosition, facingRight);
+			if (gCoordinator->HasComponent<Camera>(mPlayer)) {
+				mSceneCamera = mPlayer;
+
+				Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mPlayer) };
+				sceneCamera.mTargetEntity = mPlayer;
+				sceneCamera.UpdatePosition(playerPosition, facingRight);
+			}
 		}
 
 	}
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+
 	glDisable(GL_DEPTH_TEST);
 
 	Renderer::RenderSceneBegin(viewProjMtx);

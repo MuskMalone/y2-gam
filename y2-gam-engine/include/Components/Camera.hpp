@@ -66,6 +66,8 @@ public:
 		float offsetY{ 0.f };
 		float velocityThreshold{ 0.2f };
 		float cameraSpeed{ 0.05f };
+		glm::vec2 horizontalBoundary{ -310.f, 310.f };
+		glm::vec2 verticalBoundary{ 0.0f, 1.f };
 
 		//function to Load settings TODO IMPLEMENT
 	} mSettings;

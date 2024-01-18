@@ -103,12 +103,12 @@ void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight)
 
 	//TODO CHANGE THIS
 
-	glm::vec2 horizontalBoundary {-310.f, 310.f};
-	glm::vec2 verticalBoundary { 0.0f, 1.f };
+	//glm::vec2 horizontalBoundary {-310.f, 310.f};
+	//glm::vec2 verticalBoundary { 0.0f, 1.f };
 
 	//clamping
-	mPos.x = std::max(horizontalBoundary.x, std::min(mPos.x, horizontalBoundary.y));
-	mPos.y = std::max(verticalBoundary.x, std::min(mPos.y, verticalBoundary.y));
+	mPos.x = std::max(mSettings.horizontalBoundary.x, std::min(mPos.x, mSettings.horizontalBoundary.y));
+	mPos.y = std::max(mSettings.verticalBoundary.x, std::min(mPos.y, mSettings.verticalBoundary.y));
 
 	float camSpeed = mSettings.cameraSpeed;
 	glm::vec3 currentCamPos = GetPosition();
