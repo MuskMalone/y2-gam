@@ -1100,20 +1100,20 @@ namespace Image {
 
                     // Camera Settings
                     ImGui::Text("Camera Settings");
-                    ImGui::InputFloat("Offset X", &camera.mSettings.offsetX);
-                    ImGui::InputFloat("Offset Y", &camera.mSettings.offsetY);
-                    ImGui::InputFloat("Velocity Threshold", &camera.mSettings.velocityThreshold);
-                    ImGui::InputFloat("Camera Speed", &camera.mSettings.cameraSpeed);
+                    ImGui::InputFloat("Offset X", &camera.offsetX);
+                    ImGui::InputFloat("Offset Y", &camera.offsetY);
+                    ImGui::InputFloat("Velocity Threshold", &camera.velocityThreshold);
+                    ImGui::InputFloat("Camera Speed", &camera.cameraSpeed);
 
                     // Horizontal Boundary
                     ImGui::Text("Horizontal Boundary");
-                    ImGui::SliderFloat("##Horiz Min", &camera.mSettings.horizontalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Horiz Max", &camera.mSettings.horizontalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Horiz Min", &camera.horizontalBoundary.x, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Horiz Max", &camera.horizontalBoundary.y, -1000.0f, 1000.0f);
 
                     // Vertical Boundary
                     ImGui::Text("Vertical Boundary");
-                    ImGui::SliderFloat("##Vert Min", &camera.mSettings.verticalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Vert Max", &camera.mSettings.verticalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Vert Min", &camera.verticalBoundary.x, -1000.0f, 1000.0f);
+                    ImGui::SliderFloat("##Vert Max", &camera.verticalBoundary.y, -1000.0f, 1000.0f);
 
                     ImGui::TreePop();
                 }

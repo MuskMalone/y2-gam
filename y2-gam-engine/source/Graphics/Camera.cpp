@@ -57,17 +57,6 @@ Camera::Camera(float ar, float left, float right, float bottom, float top)
 
 /*  _________________________________________________________________________ */
 /*!
-\brief Camera Constructor (JSON)
-
-Constructs a Camera object using parameters from a JSON object.
-\param obj JSON object containing camera parameters.
-*/
-Camera::Camera([[maybe_unused]] rapidjson::Value const& obj) {
-
-}
-
-/*  _________________________________________________________________________ */
-/*!
 \brief SetProjectionMtx
 
 Updates the camera's projection matrix using the given view boundaries.
@@ -99,18 +88,13 @@ Updates the camera's position based on the target's position and velocity. Adjus
 */
 void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight) {
 	float direction = isFacingRight ? 1.0f : -1.0f;
-	mOffset.x = direction * mSettings.offsetX;
-
-	//TODO CHANGE THIS
-
-	//glm::vec2 horizontalBoundary {-310.f, 310.f};
-	//glm::vec2 verticalBoundary { 0.0f, 1.f };
+	mOffset.x = direction * offsetX;
 
 	//clamping
-	mPos.x = std::max(mSettings.horizontalBoundary.x, std::min(mPos.x, mSettings.horizontalBoundary.y));
-	mPos.y = std::max(mSettings.verticalBoundary.x, std::min(mPos.y, mSettings.verticalBoundary.y));
+	mPos.x = std::max(horizontalBoundary.x, std::min(mPos.x, horizontalBoundary.y));
+	mPos.y = std::max(verticalBoundary.x, std::min(mPos.y, verticalBoundary.y));
 
-	float camSpeed = mSettings.cameraSpeed;
+	float camSpeed = cameraSpeed;
 	glm::vec3 currentCamPos = GetPosition();
 	glm::vec3 targetCamPos = targetPosition + mOffset;
 	glm::vec3 newCamPos = currentCamPos;
