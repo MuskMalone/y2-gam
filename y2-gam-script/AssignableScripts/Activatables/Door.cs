@@ -22,7 +22,9 @@ namespace Object
     public class Door : Entity
     {
         private bool firstTime;
-        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+        public Button button;
+        string[] but = { "Button","Button1", "Button2", "Button3" };
+        //Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
 
         /*  _________________________________________________________________________ */
         /*! Door
@@ -61,6 +63,13 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
+            foreach (string s in but)
+            {
+                if (GameplayWrapper.FindEntityByName(s) != null)
+                {
+                    button = GameplayWrapper.FindEntityByName(s).As<Button>();
+                }
+            }
             firstTime = true;
         }
 

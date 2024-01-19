@@ -902,6 +902,7 @@ namespace Image {
                 ImGui::TreePop();
               }
             }
+            
             if (gCoordinator->HasComponent<Script>(selectedEntity)) {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
