@@ -16,7 +16,6 @@
 
 using Image;
 using Object;
-using System;
 
 public class EnemyIdleState : EnemyBaseState
 {
@@ -35,7 +34,7 @@ public class EnemyIdleState : EnemyBaseState
         }
 
         // Calculate losRayEnd based on isFacingRight
-        float offset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
+        float offset = enemy.IsFacingRight ? enemy.VisionRange : -enemy.VisionRange;
         Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + offset, enemy.Collider.Y);
 
         // Perform the raycast
@@ -44,7 +43,7 @@ public class EnemyIdleState : EnemyBaseState
         // Check the raycast result for "Player" tag
         if (losRayCast.tag == "Player")
         {
-            float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+            float attackOffset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
             Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
             PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 

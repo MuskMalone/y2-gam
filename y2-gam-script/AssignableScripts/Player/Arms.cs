@@ -21,11 +21,11 @@ namespace Object
 {
     public class Arms : Entity
     {
-        private float timeAlive = 0.0f;
-        private float MAX_TIME_ALIVE = 0.5f;
-        private float lengthOfArm = 2.0f;
+        public float timeAlive = 0.0f;
+        public float MAX_TIME_ALIVE;
+        public float lengthOfArm;
         private float offsetAwayFromBody = -10.0f;
-        private bool cardFired = false;
+        public bool alive = false;
 
         private bool _isFacingRight;
         public bool isFacingRight
@@ -79,6 +79,7 @@ namespace Object
         void OnCreate()
         {
             Colour = new Vector4(1, 1, 1, 0);
+            Scale = new Vector3(30, 30, 1);
         }
 
         /*  _________________________________________________________________________ */
@@ -95,10 +96,10 @@ namespace Object
         {
             if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
             {
-                cardFired = true;
+                alive = true;
             }
-
-            if (cardFired)
+            
+            if (alive)
             {
                 Colour = new Vector4(1, 1, 1, 1);
                 timeAlive += dt;
@@ -111,8 +112,8 @@ namespace Object
 
             if ((timeAlive >= MAX_TIME_ALIVE))
             {
-                cardFired = false;
                 timeAlive = 0.0f;
+                alive = false;
             }
 
             float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,

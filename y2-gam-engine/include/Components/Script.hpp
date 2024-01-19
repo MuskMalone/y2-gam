@@ -33,6 +33,7 @@ struct Script {
 	Script(std::string scriptName, std::string tag) : name{ scriptName }, scriptTagged{ tag } {}
 
 	Script(rapidjson::Value const& obj) {
+    std::cout << "This got called\n";
 		name = obj["scriptName"].GetString();
 		scriptTagged = obj["scriptTag"].GetString();
 
@@ -144,7 +145,6 @@ struct Script {
 
 	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
-
 		sm->InsertValue(obj, "scriptName", name);
 		sm->InsertValue(obj, "scriptTag", scriptTagged);
 

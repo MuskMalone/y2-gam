@@ -212,7 +212,7 @@ namespace Image {
   ScriptInstance& ScriptManager::CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag) {
     if (EntityClassExists(scriptName)) {
       sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
-      //std::cout << "Raw Instance for: " << scriptName << " created!\n";
+      std::cout << "Raw Instance for: " << scriptName << " created!\n";
       return sTagToRawInstances[tag];
     }
   }
@@ -346,11 +346,9 @@ namespace Image {
       "../assets/scripts", AssemblyFileSystemEvent);
 #endif
     AssemblyReloadPending = false;
-
+    ScriptCoordinator::RegisterFunctions();
     MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
-
-    ScriptCoordinator::RegisterFunctions();
   }
 
   /*  _________________________________________________________________________ */

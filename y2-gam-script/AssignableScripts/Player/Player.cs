@@ -24,7 +24,6 @@ namespace Object
     {
         public float JumpSpeed;
         public float MovementSpeed;
-
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         public bool GodMode = false;

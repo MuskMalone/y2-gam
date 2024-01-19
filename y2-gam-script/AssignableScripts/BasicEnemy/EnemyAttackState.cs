@@ -30,7 +30,7 @@ public class EnemyAttackState : EnemyBaseState
     {
         enemy.AnimationState = (int)AnimationCodeEnemy.ATTACK;
         
-        float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+        float attackOffset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
         Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
         PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
