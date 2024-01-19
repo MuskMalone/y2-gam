@@ -45,8 +45,8 @@
                 "Tag": "Card UI"
             },
             "Transform": {
-                "posX": -361.07098388671875,
-                "posY": 137.32101440429688,
+                "posX": 135.0,
+                "posY": 760.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -55,6 +55,11 @@
                 "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -70,11 +75,11 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -147.17352294921875,
-                "posY": 81.54261779785156,
+                "posX": -214.597412109375,
+                "posY": -2.60693359375,
                 "rotation": 0.0,
-                "dimX": 50.0,
-                "dimY": 50.0
+                "dimX": 7.0,
+                "dimY": 32.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -90,11 +95,17 @@
                 "mass": 10.0,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Script": {
-                "scriptName": "No Script Assigned",
-                "scriptTag": "Name"
+                "scriptName": "ObjectPlayer",
+                "scriptTag": "Player",
+                "GodMode": false,
+                "IsFacingRight": false,
+                "IsGrounded": true,
+                "JumpSpeed": 3500.0,
+                "MovementSpeed": 180.0,
+                "SlowdownToggle": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -109,8 +120,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": -147.17352294921875,
-                "posY": 81.54261779785156,
+                "posX": -214.597412109375,
+                "posY": 8.548736572265625,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -370,7 +381,7 @@
             "Collider": {
                 "collider": 0,
                 "posX": -334.0,
-                "posY": 0.0,
+                "posY": -0.5213775634765625,
                 "rotation": 0.0,
                 "dimX": 75.0,
                 "dimY": 35.0
@@ -386,7 +397,7 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
@@ -404,7 +415,7 @@
             },
             "Transform": {
                 "posX": -334.0,
-                "posY": 0.0,
+                "posY": -0.5213775634765625,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -484,7 +495,7 @@
                 "dimX": 68.03600311279297,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 3.4028234663852886e38,
                 "posX": -264.0,
                 "posY": -89.0,
                 "lockRotate": false
