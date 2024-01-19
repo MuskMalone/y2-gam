@@ -106,7 +106,7 @@ namespace Image
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, ref uint optionalEntityID,
-           ref bool hit, ref uint entityHandle, String tag, String layer);
+           ref bool hit, ref uint entityHandle, out String tag, out String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, ref bool collidedOrNot);

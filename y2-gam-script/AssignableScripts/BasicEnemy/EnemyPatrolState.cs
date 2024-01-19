@@ -22,7 +22,6 @@ public class EnemyPatrolState : EnemyBaseState
 {
     public override void EnterState(BasicEnemy enemy)
     {
-        enemy.IsFacingRight = !enemy.IsFacingRight;
         enemy.SetText("Patrol State");
         enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
     }
@@ -81,13 +80,11 @@ public class EnemyPatrolState : EnemyBaseState
         //else
         //{
 
-        //Console.WriteLine(losRayCast.layer);
         if (losRayCast.layer == "Default")
         {
             enemy.SwitchState(enemy.IdleState);
         }
-
-            
+     
         if (enemy.IsFacingRight)
         {
             enemy.MoveRight(dt);

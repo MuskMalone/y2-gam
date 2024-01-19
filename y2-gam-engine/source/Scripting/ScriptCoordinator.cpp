@@ -537,7 +537,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2& origin, Vec2& end, uint32_t& entityToIgnore, bool& hit, uint32_t& entityHandle,
-		MonoString* tag, MonoString* layer) {
+		MonoString** tag, MonoString** layer) {
 		Physics::RayHit rh{};
 		hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, entityToIgnore);
 			
@@ -546,12 +546,12 @@ namespace Image {
 
 			if (::gCoordinator->HasComponent<Tag>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
-				tag = mono_string_new(mono_domain_get(), str);
+				*tag = mono_string_new(mono_domain_get(), str);
 			}
 
 			if (::gCoordinator->HasComponent<Layering>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
-				layer = mono_string_new(mono_domain_get(), str);
+				*layer = mono_string_new(mono_domain_get(), str);
 			}
 		}
 	}

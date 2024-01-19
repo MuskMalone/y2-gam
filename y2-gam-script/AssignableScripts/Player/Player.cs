@@ -147,15 +147,24 @@ namespace Object
 
                 if (!GodMode)
                 {
+                    RaycastHit centreRayCast = new RaycastHit();
+                    RaycastHit leftRayCast = new RaycastHit();
+                    RaycastHit rightRayCast = new RaycastHit();
+
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
                         AnimationState = (int)AnimationCodePlayer.IDLE;
+
+                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes")
+                        {
+                            Respawn();
+                        }
                     }
 
                     else
@@ -163,6 +172,8 @@ namespace Object
                         IsGrounded = false;
                         AnimationState = (int)AnimationCodePlayer.JUMP;
                     }
+
+                    //Console.WriteLine(leftRayCast.tag);
 
                     if (FacingDirectionChanged)
                     {
@@ -218,18 +229,6 @@ namespace Object
                     if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                     {
                         Respawn();
-                    }
-
-                    Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                    Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                    if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                    {
-                        if (spikeHit.tag == "Spikes")
-                        {
-                            Respawn();
-                        }
                     }
 
                     if (Translation.Y <= -99.0f)
