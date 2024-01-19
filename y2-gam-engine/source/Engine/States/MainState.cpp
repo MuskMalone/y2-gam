@@ -31,11 +31,8 @@ void MainState::Update(float dt) {
 		mIsStep = !mIsStep;
 	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
-	//todo tch: hacky way to do this pls change
-	coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 
 	if (!renderSystem->IsEditorMode()) {
-		//std::cout << renderSystem->IsEditorMode() << std::endl;
 		if (mIsStep) {
 			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
 				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
@@ -49,6 +46,7 @@ void MainState::Update(float dt) {
 			accumulatedTime += dt;
 			if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 			if (accumulatedTime >= tdt) {
+				coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
 				FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
