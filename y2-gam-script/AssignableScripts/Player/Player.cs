@@ -23,7 +23,8 @@ namespace Object
     public class Player : Entity
     {
         // Force Based
-        public readonly float JumpForce = 900000.0f;
+        public readonly float JumpSpeed = 120.0f;
+        //public readonly float JumpForce = 900000.0f;
         public readonly float MovementForce = 70000.0f;
         //public int Health = 1;
         private Vector2 spawnPosition = new Vector2(-400, -27);
@@ -222,7 +223,9 @@ namespace Object
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
+            //Force -= new Vector2(horizontalMovement, 0.0f) * dt;
+            //Velocity -= new Vector2(300.0f, 0.0f) * dt;
+            Velocity = new Vector2(-60.0f, Velocity.Y);
             isFacingRight = false;
         }
 
@@ -230,15 +233,18 @@ namespace Object
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.6f;
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Force += new Vector2(horizontalMovement, 0.0f) * dt;
+            //Force += new Vector2(horizontalMovement, 0.0f) * dt;
+            //Velocity += new Vector2(300.0f, 0.0f) * dt;
+            Velocity = new Vector2(60.0f, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
             //Force += new Vector2(0, JumpForce) * dt;
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, 2100) * dt;
+            //Velocity -= new Vector2(0, Velocity.Y);
+            //Velocity += new Vector2(0, 2100) * dt;
+            Velocity = new Vector2(Velocity.X, JumpSpeed);
         }
 
         public void Respawn()
