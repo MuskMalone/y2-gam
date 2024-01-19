@@ -161,6 +161,16 @@ namespace Object
                     MoveRight(dt);
                 }
 
+                else if(Input.IsKeyReleased(KeyCode.KEY_A))
+                {
+                    Velocity *= 0.2f;
+                }
+
+                else if (Input.IsKeyReleased(KeyCode.KEY_D))
+                {
+                    Velocity *= 0.2f;
+                }
+
                 Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
                 if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
                 {
