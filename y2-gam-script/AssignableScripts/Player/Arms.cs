@@ -94,7 +94,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+            if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
             {
                 alive = true;
 

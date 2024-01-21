@@ -172,13 +172,15 @@ namespace Object
                         ResetCardUI();
                     }
 
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    /*
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
-                        PlayAudio("out_of_cards.wav", 0);
+                        //PlayAudio("out_of_cards.wav", 0);
                     }
+                    */
 
                     // Swap Related
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
                     {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
@@ -245,7 +247,7 @@ namespace Object
 
                 else
                 {
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
                         FireCard();
                     }
