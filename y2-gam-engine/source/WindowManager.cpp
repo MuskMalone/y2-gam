@@ -32,6 +32,7 @@ void WindowManager::Init(
 
 #ifdef _INSTALLER
 	//start in fullscreen mode
+	
 const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
 	// Create OpenGL Context

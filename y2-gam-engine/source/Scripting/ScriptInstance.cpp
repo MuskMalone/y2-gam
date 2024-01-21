@@ -67,7 +67,8 @@ namespace Image {
   void ScriptInstance::CallOnCreate(Entity entityID) noexcept {
     void* param{ &entityID };
     mScriptClass.CallMethod(mInstance, mConstructor, &param);
-    mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
+    if (gcHandle != NULL)
+      mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnCreateMethod);
   }
 
@@ -83,7 +84,8 @@ namespace Image {
   */
   void ScriptInstance::CallOnUpdate(float dt) noexcept {
     void* dtParam{ &dt };
-    mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, &dtParam);
+    if (gcHandle != NULL)
+      mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, &dtParam);
     //mScriptClass.CallThunkSingleArg(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, dt);
   }
 
@@ -95,7 +97,8 @@ namespace Image {
   Calls the on exit function from C#.
   */
   void ScriptInstance::CallOnExit() noexcept {
-    mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnExitMethod);
+    if (gcHandle != NULL)
+      mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnExitMethod);
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnExitMethod);
     mono_gchandle_free(gcHandle);
   }
