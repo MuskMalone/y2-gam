@@ -16,6 +16,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 
 namespace Object
 {
@@ -28,6 +29,7 @@ namespace Object
         private bool IsKeyPressed = false;
         public bool GodMode = false;
         public bool IsFacingRight;
+        public float MaxHorizontalVelocity;
 
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
@@ -274,6 +276,10 @@ namespace Object
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
             Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
+            if (Velocity.X <= -MaxHorizontalVelocity)
+            {
+                Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
+            }
             isFacingRight = false;
         }
 
@@ -281,6 +287,10 @@ namespace Object
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
             Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
+            if (Velocity.X >= MaxHorizontalVelocity)
+            {
+                Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
+            }
             isFacingRight = true;
         }
 
