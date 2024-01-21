@@ -33,6 +33,10 @@ namespace Object
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
 
+        //pause
+        private bool isPaused = false;
+        private float temp_dt = 0f;
+
         // Direction related
         //public bool directionChanged = false;
         private bool _isFacingRight;
@@ -119,25 +123,55 @@ namespace Object
         {
             if (!IsEditorMode())
             {
-                // Workaround for now
-                if (Math.Abs(Velocity.Y) > 1.0f)
+                if (isPaused)
                 {
-                    isGrounded = false;
+                    dt = 0f;
+                    //PauseGame();
+
+                    //AnimationState = temp_AnimationState;
                 }
 
-                else
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
                 {
-                    isGrounded = true;
+                    if (!isPaused)
+                    {
+
+                        //PauseGame();
+                        temp_dt = dt;
+                        dt = 0f;
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        //resume game
+                        //ResumeGame();
+                        dt = temp_dt;
+                        isPaused = false;
+                    }
                 }
 
-                if (FacingDirectionChanged)
+                if (!isPaused)
                 {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                }
+                    // Workaround for now
+                    if (Math.Abs(Velocity.Y) > 1.0f)
+                    {
+                        isGrounded = false;
+                    }
 
-                TimeInState += dt;
-                currentState.UpdateState(this, dt);
+                    else
+                    {
+                        isGrounded = true;
+                    }
+
+                    if (FacingDirectionChanged)
+                    {
+                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                        FacingDirectionChanged = false; // Reset the flag
+                    }
+
+                    TimeInState += dt;
+                    currentState.UpdateState(this, dt);
+                }
             }
         }
         void OnExit()

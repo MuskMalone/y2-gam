@@ -33,6 +33,9 @@ namespace Object
         private bool slowdownToggle = true;
         //private bool jumped = false;
 
+        //pause
+        private bool isPaused = false;
+        private float temp_dt = 0f;
         // Direction related
         private bool _isFacingRight;
         public bool isFacingRight
@@ -103,7 +106,34 @@ namespace Object
         void OnUpdate(float dt)
         {
             if (!IsEditorMode())
-            {
+            { if (isPaused)
+                {
+                    dt = 0f;
+                    //PauseGame();
+
+                    //AnimationState = temp_AnimationState;
+                }
+
+                if (Input.IsKeyClicked(KeyCode.KEY_P))
+                {
+                    if (!isPaused)
+                    {
+
+                        //PauseGame();
+                        temp_dt = dt;
+                        dt = 0f;
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        //resume game
+                        //ResumeGame();
+                        dt = temp_dt;
+                        isPaused = false;
+                    }
+                }
+               
+
                 FacingDirection = isFacingRight;
                 
                 if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2), Collider.Y),
@@ -137,38 +167,41 @@ namespace Object
                     FacingDirectionChanged = false; // Reset the flag
                 }
 
-                if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                if (!isPaused)
                 {
-                    GameplayWrapper.SlowdownTime(slowdownToggle);
-                    slowdownToggle = !slowdownToggle;                  
-                }
-
-                if (Input.IsKeyPressed(KeyCode.KEY_W))
-                {
-                    if (isGrounded)
+                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
                     {
-                        Jump(dt);
+                        GameplayWrapper.SlowdownTime(slowdownToggle);
+                        slowdownToggle = !slowdownToggle;
                     }
-                }
 
-                else if (Input.IsKeyPressed(KeyCode.KEY_A))
-                {
-                    MoveLeft(dt);
-                }
+                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    {
+                        if (isGrounded)
+                        {
+                            Jump(dt);
+                        }
+                    }
 
-                else if (Input.IsKeyPressed(KeyCode.KEY_D))
-                {
-                    MoveRight(dt);
-                }
+                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    {
+                        MoveLeft(dt);
+                    }
 
-                else if(Input.IsKeyReleased(KeyCode.KEY_A))
-                {
-                    Velocity *= 0.2f;
-                }
+                    else if (Input.IsKeyPressed(KeyCode.KEY_D))
+                    {
+                        MoveRight(dt);
+                    }
 
-                else if (Input.IsKeyReleased(KeyCode.KEY_D))
-                {
-                    Velocity *= 0.2f;
+                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    {
+                        Velocity *= 0.2f;
+                    }
+
+                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        Velocity *= 0.2f;
+                    }
                 }
 
                 Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
