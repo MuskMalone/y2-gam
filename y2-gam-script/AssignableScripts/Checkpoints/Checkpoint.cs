@@ -23,6 +23,7 @@ namespace Object
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         public float Range;
+        private bool Activated = false;
 
         /*  _________________________________________________________________________ */
         /*! Checkpoint
@@ -77,9 +78,17 @@ namespace Object
         void OnUpdate(float dt)
         {
             if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) && 
-                (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range))
+                (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && !Activated)
             {
                 AnimationState = (int)AnimationCodeCheckpoint.ACTIVATED;
+                float waypointOffset = 2.0f;
+                float colliderOffset = 9.0f;
+                player.spawnPosition = player.Translation;
+                player.spawnPosition += new Vector2(waypointOffset, waypointOffset);
+                player.colliderPosition = player.Translation;
+                player.colliderPosition += new Vector2(waypointOffset, waypointOffset);
+                player.colliderPosition -= new Vector2(0, colliderOffset);
+                Activated = true;
             }
         }
 

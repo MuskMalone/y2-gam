@@ -29,8 +29,9 @@ namespace Object
         public bool GodMode = false;
         public bool IsFacingRight;
 
-        private Vector2 spawnPosition = new Vector2(-400, -27);
-        private Vector2 colliderPosition = new Vector2(-400, -36);
+        public Vector2 spawnPosition = new Vector2(-400, -27);
+        public Vector2 colliderPosition = new Vector2(-400, -36);
+
         private float temp_dt = 0f;
         private bool isPaused = false;
 
@@ -147,7 +148,8 @@ namespace Object
                         IsGrounded = true;
                         AnimationState = (int)AnimationCodePlayer.IDLE;
 
-                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes")
+                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
+                            centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
                             Respawn();
                         }
@@ -206,19 +208,9 @@ namespace Object
                         MoveRight(dt);
                     }
 
-                    Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
-                    {
-                        float waypointOffset = 2.0f;
-                        float colliderOffset = 9.0f;
-                        spawnPosition = Translation;
-                        spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition = Translation;
-                        colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition -= new Vector2(0, colliderOffset);
-                    }
-
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
+                        out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                     {
                         Respawn();
                     }

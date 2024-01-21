@@ -2421,14 +2421,6 @@
             "Tag": {
                 "Tag": "Enemy"
             },
-            "Text": {
-                "fontName": "Arial",
-                "scale": 0.05000000074505806,
-                "text": "Idle State",
-                "coloX": 1.0,
-                "coloY": 1.0,
-                "coloZ": 1.0
-            },
             "Transform": {
                 "posX": 242.58799743652344,
                 "posY": -31.49799919128418,
