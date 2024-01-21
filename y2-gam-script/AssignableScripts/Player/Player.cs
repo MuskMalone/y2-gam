@@ -25,6 +25,7 @@ namespace Object
         public float MovementSpeed;
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
+        private bool IsKeyPressed = false;
         public bool GodMode = false;
         public bool IsFacingRight;
 
@@ -158,8 +159,6 @@ namespace Object
                         AnimationState = (int)AnimationCodePlayer.JUMP;
                     }
 
-                    //Console.WriteLine(leftRayCast.tag);
-
                     if (FacingDirectionChanged)
                     {
                         Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
@@ -174,11 +173,19 @@ namespace Object
                         Mass = 0;
                     }
 
-                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
                     {
-                        //Console.WriteLine("Hello space is pressed");
-                        GameplayWrapper.SlowdownTime(SlowdownToggle);
-                        SlowdownToggle = !SlowdownToggle;
+                        if (!IsKeyPressed)
+                        {
+                            GameplayWrapper.SlowdownTime(SlowdownToggle);
+                            SlowdownToggle = !SlowdownToggle;
+                            IsKeyPressed = true;
+                        }
+                    }
+
+                    else
+                    {
+                        IsKeyPressed = false;
                     }
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))

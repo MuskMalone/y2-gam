@@ -22,6 +22,7 @@ namespace Object
     public class Checkpoint : Entity
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        public float Range;
 
         /*  _________________________________________________________________________ */
         /*! Checkpoint
@@ -75,7 +76,11 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-
+            if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) && 
+                (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range))
+            {
+                AnimationState = (int)AnimationCodeCheckpoint.ACTIVATED;
+            }
         }
 
         /*  _________________________________________________________________________ */

@@ -35,6 +35,11 @@ namespace Image
         CLOSED,
         OPEN
     }
+    public enum AnimationCodeCheckpoint
+    {
+        NOT_ACTIVATED,
+        ACTIVATED
+    }
 
     // These key codes are pulled from GLFW
     public enum KeyCode
