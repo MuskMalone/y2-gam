@@ -210,6 +210,16 @@ namespace Object
                         MoveRight(dt);
                     }
 
+                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    {
+                        Velocity *= 0.2f;
+                    }
+
+                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        Velocity *= 0.2f;
+                    }
+
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
                         new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
                         out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
@@ -275,29 +285,32 @@ namespace Object
         public void MoveLeft(float dt)
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
-            if (Velocity.X <= -MaxHorizontalVelocity)
-            {
-                Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
-            }
+            //Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
+            //if (Velocity.X <= -MaxHorizontalVelocity)
+            //{
+            //    Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
+            //}
+            Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
-            if (Velocity.X >= MaxHorizontalVelocity)
-            {
-                Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
-            }
+            //Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
+            //if (Velocity.X >= MaxHorizontalVelocity)
+            //{
+            //    Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
+            //}
+            Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, JumpSpeed) * dt;
+            //Velocity -= new Vector2(0, Velocity.Y);
+            //Velocity += new Vector2(0, JumpSpeed) * dt;
+            Velocity = new Vector2 (Velocity.X, JumpSpeed);
         }
 
         public void Respawn()

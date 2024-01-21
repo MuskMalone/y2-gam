@@ -60,7 +60,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -90.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Player"
@@ -80,9 +80,9 @@
                 "GodMode": false,
                 "IsFacingRight": true,
                 "IsGrounded": true,
-                "JumpSpeed": 3500.0,
+                "JumpSpeed": 120.0,
                 "MaxHorizontalVelocity": 45.0,
-                "MovementSpeed": 180.0,
+                "MovementSpeed": 80.0,
                 "SlowdownToggle": true,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
@@ -494,7 +494,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 1
             },
@@ -549,7 +549,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1638,7 +1638,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
