@@ -23,6 +23,12 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/ScriptInstance.hpp"
 #include "Components/Tag.hpp"
+#include "Math/MathUtils.h"
+#include "mono/jit/jit.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "basetsd.h"
+
 
 struct Script {
   std::string name;

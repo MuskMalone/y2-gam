@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Dec 26, 2023
+\date       Jan 21, 2024
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -16,7 +16,6 @@
 /******************************************************************************/
 
 using Image;
-using System;
 
 namespace Object
 {
@@ -28,20 +27,6 @@ namespace Object
         public bool SlowdownToggle = true;
         public bool GodMode = false;
         public bool IsFacingRight;
-
-        // For Testing
-        /*
-        public Double DoubleVal;
-        public short ShortVal;
-        public int IntVal;
-        public Int64 LongVal;
-        public UInt16 UShortVal;
-        public UInt32 UIntVal;
-        public UInt64 ULongVal;
-        public Vector2 Vec2Val;
-        public Vector3 Vec3Val;
-        public Vector4 Vec4Val;
-        */
 
         private Vector2 spawnPosition = new Vector2(-400, -27);
         private Vector2 colliderPosition = new Vector2(-400, -36);
@@ -152,9 +137,9 @@ namespace Object
                     RaycastHit rightRayCast = new RaycastHit();
 
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
                         new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                     {

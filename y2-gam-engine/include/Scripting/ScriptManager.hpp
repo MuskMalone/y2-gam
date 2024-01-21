@@ -26,6 +26,9 @@
 #include "Scripting/ScriptCoordinator.hpp"
 #include "Scripting/ScriptFieldType.hpp"
 #include "mono/metadata/tabledefs.h"
+#include "mono/jit/jit.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
 
 #ifndef _INSTALLER
 #include "FileWatch.hpp"
@@ -38,7 +41,9 @@ namespace Image {
     static void ExitMono();
     static MonoAssembly* LoadCSharpAssembly(std::string const& assemblyFilePath);
     static void ReloadAssembly();
-    //static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type);
+#ifndef _INSTALLER
+    static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type);
+#endif
     static void PrintMonoAssemblyTypes(MonoAssembly* assembly);
     static void PopulateEntityClassesFromAssembly(MonoAssembly* assembly);
     static void OnCreateEntity(Entity const& entity);

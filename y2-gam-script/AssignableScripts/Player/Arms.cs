@@ -97,6 +97,23 @@ namespace Object
             if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
             {
                 alive = true;
+
+                isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
+
+                if (FacingDirectionChanged)
+                {
+                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                    FacingDirectionChanged = false; // Reset the flag
+                    offsetAwayFromBody = -offsetAwayFromBody;
+                }
+
+                float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
+                MousePos.X - GameplayWrapper.PlayerPos.X);
+
+                Vector2 armPosition = GameplayWrapper.PlayerPos
+                    + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
+
+                Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
             }
             
             if (alive)
@@ -114,23 +131,6 @@ namespace Object
             {
                 timeAlive = 0.0f;
                 alive = false;
-            }
-
-            float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
-            MousePos.X - GameplayWrapper.PlayerPos.X);
-
-            Vector2 armPosition = GameplayWrapper.PlayerPos
-                + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
-
-            Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
-
-            isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
-
-            if (FacingDirectionChanged)
-            {
-                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                FacingDirectionChanged = false; // Reset the flag
-                offsetAwayFromBody = -offsetAwayFromBody;
             }
         }
 

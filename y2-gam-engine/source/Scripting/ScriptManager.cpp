@@ -56,7 +56,8 @@ namespace Image {
   };
   bool ScriptManager::AssemblyReloadPending{ false };
 
-  static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
+#ifndef _INSTALLER
+  void ScriptManager::AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
     if (!ScriptManager::AssemblyReloadPending && change_type == filewatch::Event::modified) {
       ScriptManager::AssemblyReloadPending = true;
 
@@ -68,6 +69,7 @@ namespace Image {
       });
     }
   }
+#endif
 
   /*  _________________________________________________________________________ */
   /*! Init

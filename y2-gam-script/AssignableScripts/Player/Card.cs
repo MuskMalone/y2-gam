@@ -49,9 +49,6 @@ namespace Object
             }
         }
 
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
         public bool HoveringChanged { get; private set; }
