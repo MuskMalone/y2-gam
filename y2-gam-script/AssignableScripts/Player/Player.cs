@@ -198,9 +198,14 @@ namespace Object
                         {
                             Jump(dt);
                         }
+
+                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            Velocity = new Vector2(0.0f, Velocity.Y);
+                        }
                     }
 
-                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
                     }
