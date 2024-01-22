@@ -113,16 +113,16 @@ void RenderSystem::Init()
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	//Array to track the existence of different camera types
+	//array to track the existence of different camera types
 	bool cameraExists[static_cast<int>(CameraType::NumCameraTypes)] = { false };
 
-	//Iterate over entities to check for existing cameras
+	//iterate over entities to check for existing cameras
 	for (auto const& entity : mEntities) {
 		if (::gCoordinator->HasComponent<Camera>(entity)) {
 			Camera& cameraComp = ::gCoordinator->GetComponent<Camera>(entity);
 			cameraExists[static_cast<int>(cameraComp.type)] = true;
 
-			//Store the entity ID based on camera type
+			//store the entity ID based on camera type
 			switch (cameraComp.type) {
 			case CameraType::MainCamera: mCamera = entity; break;
 			case CameraType::SceneCamera: mSceneCamera = entity; break;
@@ -132,36 +132,42 @@ void RenderSystem::Init()
 		}
 	}
 
-	mCamera = ::gCoordinator->CreateEntity();
-	mSceneCamera = ::gCoordinator->CreateEntity();
-
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
-	::gCoordinator->AddComponent(
-		mCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
-	);
 
-	float const zoomFactor{ 0.5f };
-	::gCoordinator->AddComponent(
-		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::MainCamera)]) {
+		mCamera = ::gCoordinator->CreateEntity();
+		::gCoordinator->AddComponent(
+			mCamera,
+			Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
+		);
+	}
 
-	//Create prefab editor camera
-	const float pfHeight{ 50 };
+	if (!cameraExists[static_cast<int>(CameraType::SceneCamera)]) {
+		mSceneCamera = ::gCoordinator->CreateEntity();
+		float zoomFactor{ 0.5f };
+		::gCoordinator->AddComponent(
+			mSceneCamera,
+			Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
+		);
+	}
 
-	mPrefabEditorCamera = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent(
-		mPrefabEditorCamera,
-		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::PrefabEditorCamera)]) {
+		mPrefabEditorCamera = ::gCoordinator->CreateEntity();
+		const float pfHeight = 50;
+		::gCoordinator->AddComponent(
+			mPrefabEditorCamera,
+			Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
+		);
+	}
 
-	//create UI camera
-	mUICamera = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent(
-		mUICamera,
-		Camera{ aspectRatio, 0.f, ENGINE_SCREEN_WIDTH, 0.f, ENGINE_SCREEN_HEIGHT }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::UICamera)]) {
+		mUICamera = ::gCoordinator->CreateEntity();
+		::gCoordinator->AddComponent(
+			mUICamera,
+			Camera{ aspectRatio, 0.f, ENGINE_SCREEN_WIDTH, 0.f, ENGINE_SCREEN_HEIGHT }
+		);
+	}
+
 
 	Renderer::Init();
 
