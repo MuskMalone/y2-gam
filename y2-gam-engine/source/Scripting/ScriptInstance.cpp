@@ -84,7 +84,7 @@ namespace Image {
   */
   void ScriptInstance::CallOnUpdate(float dt) noexcept {
     void* dtParam{ &dt };
-    if (gcHandle != NULL)
+   if (gcHandle != NULL)
       mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, &dtParam);
     //mScriptClass.CallThunkSingleArg(mono_gchandle_get_target(gcHandle), mOnUpdateMethod, dt);
   }
