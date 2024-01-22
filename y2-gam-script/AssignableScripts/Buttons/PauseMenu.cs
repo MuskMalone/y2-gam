@@ -79,19 +79,21 @@ namespace Object
 
             }
                 
-            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE) && !IsKeyPressed)
+            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
-                IsKeyPressed = true;
-
-                if (!isPaused)
+                if (!IsKeyPressed)
                 {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        ResumeGame();
+                        isPaused = false;
+                    }
+                    IsKeyPressed = true;
                 }
             }
 
