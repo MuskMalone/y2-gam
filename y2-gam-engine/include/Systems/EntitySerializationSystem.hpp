@@ -41,6 +41,8 @@ namespace Serializer {
 
 		//this flushes to a json object
 		void FlushEntities(Serializer::JSONObj& obj);
+
+		void FlushEntities(Serializer::JSONObj& obj, std::set<Entity> const& entities);
 	private:
 		void EntityEventListener(Event& event);
 	};
