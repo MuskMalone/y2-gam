@@ -134,10 +134,34 @@ namespace Serializer {
 */
 	void EntitySerializationSystem::FlushEntities(Serializer::JSONObj& obj) {
 		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		static int camidx = 0;
+		camidx = 0;
 		if (!obj.IsArray()) return;
+
 		for (auto const& entity : mEntities) {
 			JSONObj entityObj{ JSON_OBJ_TYPE };
 			SerializeEntity(entity, entityObj);
+			if (gCoordinator->HasComponent<Camera>(entity)) {
+				std::cout << "saved ent has cam" << camidx++ << std::endl;
+			}
+
+			if (!entityObj.ObjectEmpty())
+				sm->PushToArray(obj, entityObj);
+		}
+	}
+	void EntitySerializationSystem::FlushEntities(Serializer::JSONObj& obj, std::set<Entity> const& entities) {
+		std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
+		static int camidx = 0;
+		camidx = 0;
+		if (!obj.IsArray()) return;
+
+		for (auto const& entity : entities) {
+			JSONObj entityObj{ JSON_OBJ_TYPE };
+			SerializeEntity(entity, entityObj);
+			if (gCoordinator->HasComponent<Camera>(entity)) {
+				std::cout << "saved ent has cam" << camidx++ << std::endl;
+			}
+
 			if (!entityObj.ObjectEmpty())
 				sm->PushToArray(obj, entityObj);
 		}

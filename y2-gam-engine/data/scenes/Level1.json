@@ -8,6 +8,110 @@
     ],
     "Entities": [
         {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
+            "Camera": {
+                "type": -858993460,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 1.0
+            }
+        },
+        {
             "Layering": {
                 "layering": "Default"
             },
@@ -1679,6 +1783,14 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1705730292079873600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
                 "posX": 100.0,
@@ -1713,7 +1825,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door"

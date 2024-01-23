@@ -546,6 +546,22 @@
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1705730292079873600": {
+            "id": 1705730292079919400,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_RUN_Spritesheet.png",
+            "frameCount": 8,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1705730446678488800": {
+            "id": 1705730446678534400,
+            "path": "../assets\\Textures\\gam200_door_closed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 104.0,
+            "dimY": 476.0
         }
     }
 }
