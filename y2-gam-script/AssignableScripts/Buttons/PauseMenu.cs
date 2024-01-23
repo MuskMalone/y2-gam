@@ -6,8 +6,10 @@ namespace Object
 {
     public class PauseMenu : Entity
     {
-        //bool firstTime = true;
+        private bool IsKeyPressed = false;
         bool isPaused = false;
+        
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -77,21 +79,29 @@ namespace Object
 
             }
                 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
-                if (!isPaused)
+                if (!IsKeyPressed)
                 {
-                    PauseGame();
-                    isPaused = true;
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        ResumeGame();
+                        isPaused = false;
+                    }
+                    IsKeyPressed = true;
                 }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
             }
-                
+
+            else
+            {
+                IsKeyPressed = false;
+            }
+
 
             //if (UIClicked)
             //{

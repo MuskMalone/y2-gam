@@ -3,8 +3,8 @@
 \par        Image Engine
 \file       Button.cs
 
-\author      (@digipen.edu)
-\date       Oct 24, 2023
+\author     (@digipen.edu)
+\date       Jan 21, 2024
 
 \brief      The main script for button activation. Has OnCreate and OnUpdate 
             functions.
@@ -15,7 +15,6 @@
 */
 /******************************************************************************/
 using Image;
-using System;
 
 namespace Object
 {
@@ -23,10 +22,9 @@ namespace Object
     public class Button : Entity
     {
         public bool isPressed;
-        /*
-        private bool closeSpawn = true;
-        private bool openSpawn = false;
-        */
+        private Vector2 buttonMid;
+        private Vector2 buttonLeft;
+        private Vector2 buttonRight;
 
         /*  _________________________________________________________________________ */
         /*! Button
@@ -65,6 +63,9 @@ namespace Object
         void OnCreate()
         {
             isPressed = false;
+            buttonMid = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 1);
+            buttonLeft = new Vector2(Translation.X - (Scale.X / 2.0f) + 2.0f, Translation.Y + (Scale.Y / 2.0f) + 1);
+            buttonRight = new Vector2(Translation.X + (Scale.X / 2.0f) - 2.0f, Translation.Y + (Scale.Y / 2.0f) + 1);
         }
 
 
@@ -80,33 +81,17 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            Vector2 buttonEnd = new Vector2(Translation.X, Translation.Y + (Scale.Y / 2.0f) + 1);
-            if (PhysicsWrapper.Raycast(Collider, buttonEnd, entityID, out RaycastHit buttonHit))
+            if (PhysicsWrapper.Raycast(Collider, buttonMid, entityID, out RaycastHit buttMid) ||
+                PhysicsWrapper.Raycast(Collider, buttonLeft, entityID, out RaycastHit buttLeft) ||
+                PhysicsWrapper.Raycast(Collider, buttonRight, entityID, out RaycastHit buttRight))
             {
                 isPressed = true;
             }
 
-            /*
-            // button pressed , openSpawn is not spawned , closedSpawn is spawned 
-            if (isPressed == true && openSpawn == false && closeSpawn == true)
+            else
             {
-                GameplayWrapper.SpawnPrefab("OpenDoor", new Vector2(100, -33));
-
-                closeSpawn = false;
-                openSpawn = true;
+                isPressed = false;
             }
-
-
-            // button not pressed , openSpawn is spawned , closedSpawn is not spawned
-            if (isPressed == false && closeSpawn == false && openSpawn == true)
-            {
-
-                GameplayWrapper.SpawnPrefab("CloseDoor", new Vector2(100, -33));
-
-                closeSpawn = true;
-                openSpawn = false;
-            }
-            */
         }
 
         /*  _________________________________________________________________________ */

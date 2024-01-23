@@ -17,7 +17,6 @@
 using Image;
 using Object;
 using System;
-using System.Runtime.CompilerServices;
 
 public class EnemyPatrolState : EnemyBaseState
 {
@@ -30,12 +29,11 @@ public class EnemyPatrolState : EnemyBaseState
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
         // Calculate offsets based on isFacingRight
-        float forwardOffset = enemy.isFacingRight ? 50.0f : -50.0f;
-        float visionOffset = enemy.isFacingRight ? enemy.VisionRange : -enemy.VisionRange;
+        float visionOffset = enemy.IsFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
         // Position that is 10 pixels in front of the enemy
-        Vector2 groundRayPos = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Collider.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
-        PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
+        //Vector2 groundRayPos = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Collider.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
+        //PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
 
         // Raycast for line of sight
         Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y);
@@ -43,7 +41,9 @@ public class EnemyPatrolState : EnemyBaseState
 
         if (losRayCast.tag == "Player")
         {
-            float attackOffset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+            /*
+            Console.WriteLine("Player Detected");
+            float attackOffset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
             Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
             PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
 
@@ -51,17 +51,20 @@ public class EnemyPatrolState : EnemyBaseState
             {
                 enemy.SwitchState(enemy.AttackState);
             }
+            */
+            /*
             else
             {
                 enemy.SwitchState(enemy.ChaseState);
             }
+            */
         }
 
         // Perform movement based on the groundRayCast result
-        String platformTag = "PLATFORMS";
+        /*
         if (groundRayCast.tag != platformTag)
         {
-            if (enemy.isFacingRight)
+            if (enemy.IsFacingRight)
             {
                 enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
                 enemy.MoveLeft(dt);
@@ -73,16 +76,22 @@ public class EnemyPatrolState : EnemyBaseState
             }
             enemy.SwitchState(enemy.IdleState);
         }
+        */
+        //else
+        //{
+
+        if (losRayCast.layer == "Default")
+        {
+            enemy.SwitchState(enemy.IdleState);
+        }
+     
+        if (enemy.IsFacingRight)
+        {
+            enemy.MoveRight(dt);
+        }
         else
         {
-            if (enemy.isFacingRight)
-            {
-                enemy.MoveRight(dt);
-            }
-            else
-            {
-                enemy.MoveLeft(dt);
-            }
+            enemy.MoveLeft(dt);
         }
     }
 

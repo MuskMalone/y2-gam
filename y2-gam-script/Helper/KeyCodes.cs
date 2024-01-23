@@ -30,6 +30,16 @@ namespace Image
         RUN,
         JUMP
     }
+    public enum AnimationCodeDoor
+    {
+        CLOSED,
+        OPEN
+    }
+    public enum AnimationCodeCheckpoint
+    {
+        NOT_ACTIVATED,
+        ACTIVATED
+    }
 
     // These key codes are pulled from GLFW
     public enum KeyCode

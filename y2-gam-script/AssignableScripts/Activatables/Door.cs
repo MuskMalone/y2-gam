@@ -3,8 +3,8 @@
 \par        Image Engine
 \file       Door.cs
 
-\author      (@digipen.edu)
-\date       Oct 24, 2023
+\author     (@digipen.edu)
+\date       Jan 21, 2024
 
 \brief      The main script for destroying open door. Has OnCreate and OnUpdate 
             functions.
@@ -21,10 +21,9 @@ namespace Object
 {
     public class Door : Entity
     {
-        private bool firstTime;
-        public Button button;
-        string[] but = { "Button","Button1", "Button2", "Button3" };
-        //Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+        private bool previousButtonState;
+        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+        private float doorColliderYOffset = 300.0f;
 
         /*  _________________________________________________________________________ */
         /*! Door
@@ -63,14 +62,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-            foreach (string s in but)
-            {
-                if (GameplayWrapper.FindEntityByName(s) != null)
-                {
-                    button = GameplayWrapper.FindEntityByName(s).As<Button>();
-                }
-            }
-            firstTime = true;
+
         }
 
 
@@ -86,13 +78,19 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (button.isPressed == true && firstTime)
+            if (button.isPressed == true && !previousButtonState)
             {
                 PlayAudio("door_open.wav", 0);
-                SetSprite("gam200_door_open");
-                ColliderDimensions = new Vector2(0, 0);
-                Collider = new Vector2(9999, 9999);
-                firstTime = false;
+                AnimationState = (int)AnimationCodeDoor.OPEN;
+                previousButtonState = true;
+                Collider = new Vector2(Collider.X, Collider.Y - doorColliderYOffset);
+            }
+
+            else if (!button.isPressed && previousButtonState)
+            {
+                AnimationState = (int)AnimationCodeDoor.CLOSED;
+                previousButtonState = false;
+                Collider = new Vector2(Collider.X, Collider.Y + doorColliderYOffset);
             }
         }
 

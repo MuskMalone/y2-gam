@@ -22,13 +22,13 @@ namespace Object
 {
     public class BasicEnemy : Entity
     {
-        public bool IsFacingRight;
-        public float JumpCooldown = 0.2f;
-        public float MovementForce = 70000.0f;
-        public float JumpForce = 3500000.0f;
-        public float VisionRange = 80.0f;
-        public float AttackRange = 70.0f;
+        public float JumpCooldown;
+        public float MovementForce;
+        public float JumpForce;
+        public float VisionRange;
+        public float AttackRange;
         public bool isGrounded = true;
+        public bool IsFacingRight;
 
         //For pausing 
         //int temp_AnimationState = 0;
@@ -37,14 +37,14 @@ namespace Object
         Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
+
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
 
         // Direction related
-        //public bool directionChanged = false;
-        private bool _isFacingRight;
-        public bool isFacingRight
+         bool _isFacingRight;
+        private bool isFacingRight
         {
             get { return _isFacingRight; }
             set
@@ -52,7 +52,7 @@ namespace Object
                 if (_isFacingRight != value)
                 {
                     _isFacingRight = value;
-                    FacingDirectionChanged = true; // Set another flag when isFacingRight changes
+                    FacingDirectionChanged = true;
                 }
             }
         }
@@ -150,7 +150,6 @@ namespace Object
                     dt = temp_dt;
                     isPaused = false;
                 }
-                //firstTime = false;
             }
             if (!isPaused)
             {
@@ -215,7 +214,6 @@ namespace Object
             Force = new Vector2(0, 0);
             Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
             Velocity = new Vector2(0, 0);
-            //AnimationState = temp_AnimationState;
         }
 
         void ResumeGame()
@@ -223,7 +221,6 @@ namespace Object
             Force = temp_Force;
             Translation = temp_pos;
             Velocity = temp_velocity;
-            //AnimationState = temp_AnimationState;
         }
         /*  _________________________________________________________________________ */
         /*! SwitchState
@@ -245,20 +242,20 @@ namespace Object
         public void MoveLeft(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Force -= new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity -= new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
             float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Force += new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity += new Vector2(horizontalMovement, 0.0f) * dt;
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            Force += new Vector2(0, JumpForce) * dt;
+            Velocity += new Vector2(0, JumpForce) * dt;
         }
     }
 }

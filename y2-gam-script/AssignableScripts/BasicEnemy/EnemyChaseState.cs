@@ -104,7 +104,7 @@ public class EnemyChaseState : EnemyBaseState
                 }
 
                 // Calculate losRayEnd based on isFacingRight
-                float offset = enemy.isFacingRight ? enemy.AttackRange : -enemy.AttackRange;
+                float offset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
                 Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + offset, enemy.Collider.Y);
 
                 // Perform the raycast

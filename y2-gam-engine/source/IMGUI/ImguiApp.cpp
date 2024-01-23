@@ -929,7 +929,14 @@ namespace Image {
                     previousOption = selectedOption;
                     script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
                     if (!prefabs) {
-                        ScriptManager::OnCreateEntity(selectedEntity); 
+                      /*
+                        ScriptManager::ReloadAssembly();
+                        //ScriptManager::CreateScriptInstanceWithTag(script.name, script.scriptTagged);
+                        //ScriptManager::LoadEntityLinkage(selectedEntity, script.scriptTagged);
+                        SceneManager::GetInstance()->SaveScene();
+                        SceneManager::GetInstance()->LoadScene(SceneManager::GetInstance()->GetSceneName());  
+                        ScriptManager::OnCreateEntity(selectedEntity);
+                        */
                     }
                   }
 
@@ -1125,6 +1132,10 @@ namespace Image {
             //ImGui::SetNextItemWidth(50.0f);
             if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
               tagComponent.tag = tag;
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
+                gCoordinator->GetComponent<Script>(selectedEntity).scriptTagged = scriptTag;
+              }
               memset(tag, 0, sizeof(tag)); // Clear the input
             }
           }

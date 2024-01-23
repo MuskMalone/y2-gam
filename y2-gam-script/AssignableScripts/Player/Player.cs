@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Dec 26, 2023
+\date       Jan 21, 2024
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -24,28 +24,16 @@ namespace Object
     {
         public float JumpSpeed;
         public float MovementSpeed;
-
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
+        private bool IsKeyPressed = false;
         public bool GodMode = false;
         public bool IsFacingRight;
+        public float MaxHorizontalVelocity;
 
-        // For Testing
-        /*
-        public Double DoubleVal;
-        public short ShortVal;
-        public int IntVal;
-        public Int64 LongVal;
-        public UInt16 UShortVal;
-        public UInt32 UIntVal;
-        public UInt64 ULongVal;
-        public Vector2 Vec2Val;
-        public Vector3 Vec3Val;
-        public Vector4 Vec4Val;
-        */
+        public Vector2 spawnPosition = new Vector2(-400, -27);
+        public Vector2 colliderPosition = new Vector2(-400, -36);
 
-        private Vector2 spawnPosition = new Vector2(-400, -27);
-        private Vector2 colliderPosition = new Vector2(-400, -36);
         private float temp_dt = 0f;
         private bool isPaused = false;
 
@@ -148,15 +136,25 @@ namespace Object
 
                 if (!GodMode)
                 {
+                    RaycastHit centreRayCast = new RaycastHit();
+                    RaycastHit leftRayCast = new RaycastHit();
+                    RaycastHit rightRayCast = new RaycastHit();
+
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
                         AnimationState = (int)AnimationCodePlayer.IDLE;
+
+                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
+                            centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
+                        {
+                            Respawn();
+                        }
                     }
 
                     else
@@ -179,11 +177,19 @@ namespace Object
                         Mass = 0;
                     }
 
-                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
                     {
-                        //Console.WriteLine("Hello space is pressed");
-                        GameplayWrapper.SlowdownTime(SlowdownToggle);
-                        SlowdownToggle = !SlowdownToggle;
+                        if (!IsKeyPressed)
+                        {
+                            GameplayWrapper.SlowdownTime(SlowdownToggle);
+                            SlowdownToggle = !SlowdownToggle;
+                            IsKeyPressed = true;
+                        }
+                    }
+
+                    else
+                    {
+                        IsKeyPressed = false;
                     }
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
@@ -192,9 +198,14 @@ namespace Object
                         {
                             Jump(dt);
                         }
+
+                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            Velocity = new Vector2(0.0f, Velocity.Y);
+                        }
                     }
 
-                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
                     }
@@ -204,33 +215,21 @@ namespace Object
                         MoveRight(dt);
                     }
 
-                    Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
+                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
                     {
-                        float waypointOffset = 2.0f;
-                        float colliderOffset = 9.0f;
-                        spawnPosition = Translation;
-                        spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition = Translation;
-                        colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition -= new Vector2(0, colliderOffset);
+                        Velocity *= 0.2f;
                     }
 
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        Velocity *= 0.2f;
+                    }
+
+                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
+                        out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                     {
                         Respawn();
-                    }
-
-                    Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                    Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                    if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                    {
-                        if (spikeHit.tag == "Spikes")
-                        {
-                            Respawn();
-                        }
                     }
 
                     if (Translation.Y <= -99.0f)
@@ -291,21 +290,32 @@ namespace Object
         public void MoveLeft(float dt)
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
+            //Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
+            //if (Velocity.X <= -MaxHorizontalVelocity)
+            //{
+            //    Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
+            //}
+            Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
+            //Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
+            //if (Velocity.X >= MaxHorizontalVelocity)
+            //{
+            //    Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
+            //}
+            Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, JumpSpeed) * dt;
+            //Velocity -= new Vector2(0, Velocity.Y);
+            //Velocity += new Vector2(0, JumpSpeed) * dt;
+            Velocity = new Vector2 (Velocity.X, JumpSpeed);
         }
 
         public void Respawn()

@@ -562,6 +562,38 @@
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1705820098030170700": {
+            "id": 1705820098030216200,
+            "path": "../assets\\Textures\\gam200_door_closed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 104.0,
+            "dimY": 476.0
+        },
+        "1705820099352356100": {
+            "id": 1705820099352401800,
+            "path": "../assets\\Textures\\gam200_door_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 220.0,
+            "dimY": 473.0
+        },
+        "1705820138424112000": {
+            "id": 1705820138424161900,
+            "path": "../assets\\Textures\\gam200_checkpoint_activated.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 121.0,
+            "dimY": 177.0
+        },
+        "1705820144100428400": {
+            "id": 1705820144100474300,
+            "path": "../assets\\Textures\\gam200_checkpoint_noflag.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 85.0,
+            "dimY": 177.0
         }
     }
 }

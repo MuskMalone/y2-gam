@@ -258,6 +258,7 @@
     <ClInclude Include="include\Engine\CommandManager.hpp" />
     <ClInclude Include="include\IMGUI\ImguiApp.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="include\IMGUI\ImguiComponent.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>

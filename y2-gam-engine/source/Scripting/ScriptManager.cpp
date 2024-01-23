@@ -56,7 +56,8 @@ namespace Image {
   };
   bool ScriptManager::AssemblyReloadPending{ false };
 
-  static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
+#ifndef _INSTALLER
+  void ScriptManager::AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
     if (!ScriptManager::AssemblyReloadPending && change_type == filewatch::Event::modified) {
       ScriptManager::AssemblyReloadPending = true;
 
@@ -68,6 +69,7 @@ namespace Image {
       });
     }
   }
+#endif
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -212,7 +214,7 @@ namespace Image {
   ScriptInstance& ScriptManager::CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag) {
     if (EntityClassExists(scriptName)) {
       sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
-      //std::cout << "Raw Instance for: " << scriptName << " created!\n";
+      std::cout << "Raw Instance for: " << scriptName << " created!\n";
       return sTagToRawInstances[tag];
     }
   }
@@ -346,11 +348,9 @@ namespace Image {
       "../assets/scripts", AssemblyFileSystemEvent);
 #endif
     AssemblyReloadPending = false;
-
+    ScriptCoordinator::RegisterFunctions();
     MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
-
-    ScriptCoordinator::RegisterFunctions();
   }
 
   /*  _________________________________________________________________________ */

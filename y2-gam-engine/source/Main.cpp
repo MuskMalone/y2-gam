@@ -226,16 +226,14 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		Image::SoundManager::AudioUpdate();
-		
 		inputSystem->Update();
-
 		windowManager->ProcessEvents();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
 		uiSystem->Update();
 		windowManager->Update();
+		Image::SoundManager::AudioUpdate();
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
