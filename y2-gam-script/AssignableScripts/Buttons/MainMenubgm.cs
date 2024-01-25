@@ -7,6 +7,7 @@ namespace Object
     {
         bool firstTime = true;
         bool isPlaying = false;
+        
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -70,11 +71,11 @@ namespace Object
                     
             //}
 
-            if(firstTime)
-            {
-                StopAudio();
-                firstTime = false;
-            }
+            //if(firstTime)
+            //{
+                //StopAudio();
+                //firstTime = false;
+            //}
         }
 
         /*  _________________________________________________________________________ */
@@ -86,7 +87,7 @@ namespace Object
         */
         void OnExit()
         {
-
+            StopAudio();
         }
     }
 }

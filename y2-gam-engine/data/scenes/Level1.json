@@ -84,10 +84,10 @@
                 "MaxHorizontalVelocity": 45.0,
                 "MovementSpeed": 80.0,
                 "SlowdownToggle": true,
-                "colliderPositionX": -411.5027160644531,
-                "colliderPositionY": -35.01696014404297,
-                "spawnPositionX": -411.5027160644531,
-                "spawnPositionY": -26.0169620513916
+                "colliderPositionX": -400.0,
+                "colliderPositionY": -36.0,
+                "spawnPositionX": -400.0,
+                "spawnPositionY": -27.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -1139,9 +1139,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 92,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -2381,7 +2381,7 @@
                 "collider": 0,
                 "posX": 234.9188232421875,
                 "posY": -38.67788314819336,
-                "rotation": -3.1414952278137207,
+                "rotation": 0.00016242725541815162,
                 "dimX": 12.928000450134277,
                 "dimY": 28.64299964904785
             },
@@ -2410,7 +2410,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 0.06666667014360428,
+                "TimeInState": 0.0,
                 "VisionRange": 33.0,
                 "isGrounded": true
             },
@@ -2427,8 +2427,8 @@
                 "Tag": "Enemy"
             },
             "Transform": {
-                "posX": 234.9188232421875,
-                "posY": -38.67788314819336,
+                "posX": 232.91900634765625,
+                "posY": -33.0,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
