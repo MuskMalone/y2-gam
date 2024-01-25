@@ -78,7 +78,7 @@ namespace Object
                 Colour = new Vector4(1, 0, 1, 0);
 
             }
-                
+            /*
             if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
                 if (!IsKeyPressed)
@@ -101,7 +101,7 @@ namespace Object
             {
                 IsKeyPressed = false;
             }
-
+            */
 
             //if (UIClicked)
             //{
