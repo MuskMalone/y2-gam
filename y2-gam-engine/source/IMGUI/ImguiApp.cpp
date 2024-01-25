@@ -64,7 +64,7 @@ namespace {
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
     bool gSnap = false;
-    float gSnapVal = 1.f;
+    float gSnapVal = 0.5f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
     //std::string gCurrentScene = "";
@@ -499,33 +499,53 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(selectedEntity);
-              
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                    ImGui::Checkbox("Enable Snapping", &gSnap);
+                    if (gSnap) {
+                        if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                            ImGui::InputFloat("Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                            ImGui::InputFloat("Angle Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                            ImGui::InputFloat("Scale Snap", &gSnapVal);
+                        }
+                    }
                     if (prefabs) {
                         Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                     }
                     else {
@@ -549,58 +569,70 @@ namespace Image {
 
                         // Position X
                         ImGui::Text("Position");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos X", &transform.position.x);
                         CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
                         CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
 
                         // Position Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Y", &transform.position.y);
                         CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
 
                         // Position Z
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Z", &transform.position.z);
                         CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
                         CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
                     }
@@ -665,13 +697,16 @@ namespace Image {
 
             }
             if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode("Animation")) {
                     Animation& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
                     ImGui::Text("Speed per frame");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Speed", &anim.speed);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
                     //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
@@ -758,7 +793,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
                 std::string treeNodeLabel = "Collider##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(selectedEntity);
                     ImGui::Text("Type");
@@ -766,48 +803,48 @@ namespace Image {
                     ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
                     //Pos
                     ImGui::Text("Position");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos X", &collider.position.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                     // Rotation
                     ImGui::Text("Rotation");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     decltype(collider.rotation) crotDeg{Degree(collider.rotation)};
                     ImGui::InputFloat("##Collider Rot", &crotDeg);
                     collider.rotation = glm::radians(crotDeg);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
 
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, IMGUI_MAX_SCALE);
 
                     }
                     else {
                         ImGui::Text("Diameter");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
                         collider.dimension.y = collider.dimension.x;
                     }
@@ -816,7 +853,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
                 std::string treeNodeLabel = "RigidBody##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(selectedEntity);
                     // Mass
@@ -830,24 +869,24 @@ namespace Image {
 
                     // Velocity
                     ImGui::Text("Velocity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, IMGUI_MAX_VELOCITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, IMGUI_MAX_VELOCITY);
 
                     //Friction
                     ImGui::Text("Friction");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Friction", &rigidBody.friction);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
 
                     const char* items[] = { "False", "True" };
@@ -864,20 +903,23 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
                 std::string treeNodeLabel = "Gravity##" + std::to_string(selectedEntity);
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(selectedEntity);
                     //Force
                     ImGui::Text("Gravity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force X", &gravity.force.x, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
@@ -1942,7 +1984,6 @@ namespace Image {
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
-
         }
         ImGui::SameLine();
         if (ImGui::RadioButton("Rotate", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
