@@ -168,7 +168,7 @@ namespace Object
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
-                        ResetColour(HoveredID);
+                        //ResetColour(HoveredID);
                         ResetCardUI();
                     }
 
@@ -199,7 +199,7 @@ namespace Object
                                 PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
 
                                 ResetCardPos();
-                                ResetColour(swapRayCast.id);
+                                //ResetColour(swapRayCast.id);
                             }
                         }
                     }
@@ -209,13 +209,14 @@ namespace Object
                     {
                         Hovering = true;
 
-                        if (HoveredID != mouseRayCast.id)
-                        {
-                            ResetColour(HoveredID);
-                        }
+                        //if (HoveredID != mouseRayCast.id)
+                        //{
+                            //ResetColour(HoveredID);
+                        //}
 
                         HoveredID = mouseRayCast.id;
 
+                        /*
                         if (GameplayWrapper.IsSwappable(mouseRayCast.id))
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
@@ -225,6 +226,7 @@ namespace Object
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
                         }
+                        */
                     }
 
                     else
@@ -232,10 +234,10 @@ namespace Object
                         Hovering = false;
                     }
 
-                    if (HoveringChanged && !Hovering)
-                    {
-                        ResetColour(HoveredID);
-                    }
+                    //if (HoveringChanged && !Hovering)
+                    //{
+                        //ResetColour(HoveredID);
+                    //}
 
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))
