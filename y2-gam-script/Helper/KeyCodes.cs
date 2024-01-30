@@ -35,6 +35,12 @@ namespace Image
         CLOSED,
         OPEN
     }
+    public enum AnimationCodeButton
+    {
+        CLOSED,
+        MIDWAY,
+        OPEN
+    }
     public enum AnimationCodeCheckpoint
     {
         NOT_ACTIVATED,

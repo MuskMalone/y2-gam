@@ -578,6 +578,30 @@
             "idxCoordY": 0.0,
             "dimX": 85.0,
             "dimY": 177.0
+        },
+        "1706241684624811400": {
+            "id": 1706241684624840800,
+            "path": "../assets\\Textures\\gam200_button_midway.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 64.0
+        },
+        "1706241685990117500": {
+            "id": 1706241685990145700,
+            "path": "../assets\\Textures\\gam200_button_unpressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 68.0
+        },
+        "1706243405768460700": {
+            "id": 1706243405768512300,
+            "path": "../assets\\Textures\\gam200_button_pressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 52.0
         }
     }
 }

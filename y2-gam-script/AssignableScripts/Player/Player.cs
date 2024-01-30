@@ -106,6 +106,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            Console.WriteLine("Script Running");
             IsFacingRight = isFacingRight;
 
             if (isPaused)
@@ -225,12 +226,14 @@ namespace Object
                         Velocity *= 0.2f;
                     }
 
+                    /*
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
                         new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
                         out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                     {
                         Respawn();
                     }
+                    */
 
                     if (Translation.Y <= -99.0f)
                     {
