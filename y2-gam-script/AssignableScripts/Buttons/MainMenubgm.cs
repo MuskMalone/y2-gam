@@ -5,7 +5,6 @@ namespace Object
 {
     public class MainMenubgm : Entity
     {
-        bool firstTime = true;
         bool isPlaying = false;
         
         /*  _________________________________________________________________________ */
@@ -62,7 +61,6 @@ namespace Object
             if (GetCurrentScene() == "MainMenu" && !isPlaying)
             {
                 PlayAudio("PM_Menu_Music_Loop.wav", -1);
-                firstTime = true;
                 isPlaying = true;
             }
             //else

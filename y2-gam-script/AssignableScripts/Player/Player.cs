@@ -106,7 +106,6 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            Console.WriteLine("Script Running");
             IsFacingRight = isFacingRight;
 
             if (isPaused)

@@ -67,8 +67,20 @@ namespace {
     float gSnapVal = 1.f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
+    bool paused = false;
     //std::string gCurrentScene = "";
 }
+#define STOP_SCENE_DONOTUSE \
+  if (SceneManager::GetInstance()->IsSceneActive()) {\
+    if (!renderSystem->IsEditorMode()) {\
+      /*std::cout << "Stop to toggle to editer mode" << std::endl;*/\
+      renderSystem->ToggleEditorMode();\
+      ImGui::SetWindowFocus("Image Game Engine");\
+    }\
+    SceneManager::GetInstance()->ResetScene();\
+    paused = false;\
+  }\
+
 namespace Image {
     /*  _________________________________________________________________________ */
     /*! AppRender
@@ -180,7 +192,7 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-            static bool paused = false;
+            //static bool paused = false;
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
                     if (!paused) SceneManager::GetInstance()->ModifyScene();
@@ -200,17 +212,7 @@ namespace Image {
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-                if (SceneManager::GetInstance()->IsSceneActive()) {
-                    if (!renderSystem->IsEditorMode()) {
-                        //std::cout << "Stop to toggle to editer mode" << std::endl;
-                        renderSystem->ToggleEditorMode();
-                        ImGui::SetWindowFocus("Image Game Engine");
-
-                    }
-                    SceneManager::GetInstance()->ResetScene();
-                    paused = false;
-
-                }
+                STOP_SCENE_DONOTUSE
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();
@@ -1686,7 +1688,19 @@ namespace Image {
                 //    SceneManager::GetInstance()->ExitScene(gCurrentScene);
                 //}
                 std::string currentScene = (basePath / payLoadPath).stem().string();
+                static bool open = false;
+                ImGui::OpenPopup("current scene still running");
+                if (!renderSystem->IsEditorMode()) {
+                  if (ImGui::BeginPopupModal("current scene still running")) {
+                    ImGui::Text("stop current scene");
 
+                    if (ImGui::Button("Close")) {
+                      open = false;
+                    }
+
+                    ImGui::EndPopup();
+                  }
+                }
                 SceneManager::GetInstance()->LoadScene(currentScene);
             }
             if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("PrefabsInstance")) {
