@@ -55,6 +55,7 @@
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
+#include <Systems/ParticleSystem.hpp>
 
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
@@ -1104,6 +1105,108 @@ namespace Image {
                   ImGui::TreePop();
               }
             }
+            if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                std::string treeNodeLabel = "Emitter System##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    if (ImGui::Button("Add Emitter")) {
+                        // Button 1 logic
+                                // Generate and print a random number
+                        EmitterProxy ep{};
+                        ParticleSystem::AddEmitter(ep, selectedEntity);
+                    }
+                    auto & emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (size_t i{}; i < emitterSystem.emitters.size(); ++i ) {
+                        auto& emitter = emitterSystem.emitters[i];
+                        bool changed = false; // Flag to track if any field has changed
+                        // Display text beside the checkbox\
+
+                        // Draw a separator line
+                        ImGui::Separator();
+                        // Display text beside the button
+                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) + "##" + std::to_string(i)).c_str());
+
+                        // Place the next item (text) on the same line as the previous item (button)
+                        ImGui::SameLine();
+
+                        // Create a checkbox
+                        if (ImGui::Checkbox((std::string("Draw Emitter") + "##" + std::to_string(i)).c_str(), &emitter.drawEmitterVertices)) {
+                            // Checkbox logic
+                            changed = true;
+                        }
+
+                        // Create the "Remove" button
+                        if (ImGui::Button((std::string("Remove") + "##" + std::to_string(i)).c_str())) {
+                            // Button logic
+                            ParticleSystem::RemoveEmitter(i, selectedEntity);
+                            break;
+                        }
+                        // Edit vertex count
+                        const char* vCounts[] = { "Point", "Line", "Rect" };
+                        int vCountIdx = (emitter.vCount == 1) ? 0 : (emitter.vCount == 2) ? 1 : 2;
+                        if (ImGui::Combo((std::string("vCount") + "##" + std::to_string(i)).c_str(), &vCountIdx, vCounts, IM_ARRAYSIZE(vCounts))) {
+                            emitter.vCount = (vCountIdx == 0) ? 1 : (vCountIdx == 1) ? 2 : 4;
+                            changed = true;
+                        }
+
+                        // Edit vertices based on vCount
+                        if (emitter.vCount == 1) {
+                            // Edit only one vertex
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 2) {
+                            // Edit two vertices (e.g., start and end of a line)
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Vertex 1") + "##" + std::to_string(i)).c_str(), &emitter.vertices[1].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 4) {
+                            // Edit two vertices and calculate the others (e.g., top-left and bottom-right of a rectangle)
+                            changed |= ImGui::DragFloat2((std::string("Top Left Vertex") + "##" + std::to_string(i)).c_str(), & emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Bottom Right Vertex") + "##" + std::to_string(i)).c_str(), &emitter.vertices[2].x, 0.01f);
+
+                            if (changed) {
+                                // Calculate the other two vertices based on top-left and bottom-right
+                                emitter.vertices[1] = glm::vec4(emitter.vertices[2].x, emitter.vertices[0].y, emitter.vertices[0].z, 1.0f); // Top Right
+                                emitter.vertices[3] = glm::vec4(emitter.vertices[0].x, emitter.vertices[2].y, emitter.vertices[2].z, 1.0f); // Bottom Left
+                            }
+                        }
+
+                        // Edit color
+                        changed |= ImGui::ColorEdit4((std::string("Color") + "##" + std::to_string(i)).c_str(), &(emitter.col.r));
+
+                        // Edit gravity
+                        changed |= ImGui::DragFloat2((std::string("Gravity") + "##" + std::to_string(i)).c_str(), &emitter.gravity.x, 0.01f);
+
+                        // Edit size
+                        changed |= ImGui::DragFloat2((std::string("Size") + "##" + std::to_string(i)).c_str(), &emitter.size.x, 0.01f);
+
+                        // Edit other properties
+                        changed |= ImGui::DragFloat((std::string("Rotation") + "##" + std::to_string(i)).c_str(), &emitter.rot, 0.01f, -360.0f, 360.0f);
+                        changed |= ImGui::DragFloat((std::string("Lifetime") + "##" + std::to_string(i)).c_str(), &emitter.lifetime, 0.01f, 0.0f, 100.0f);
+                        changed |= ImGui::DragFloat((std::string("Angular Velocity") + "##" + std::to_string(i)).c_str(), &emitter.angvel, 0.01f);
+                        changed |= ImGui::DragFloat((std::string("Speed") + "##" + std::to_string(i)).c_str(), &emitter.speed, 0.01f);
+
+                        // Edit frequency
+                        changed |= ImGui::DragFloat((std::string("Frequency") + "##" + std::to_string(i)).c_str(), &emitter.frequency, 0.01f, 0.0f, 100.0f);
+
+                        // Type of emission dropdown
+                        const char* types[] = { "Smoke", "Fire", "Burst", "Burst with Gravity", "Gradual Emission" };
+                        changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+
+                        // Preset dropdown
+                        const char* presets[] = { "Preset 1", "Preset 2", "Preset 3" };
+                        changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
+
+                        // Check for changes and call the callback function if needed
+                        if (changed) {
+                            Event event(Events::Particles::EMITTER);
+                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, selectedEntity));
+                            Coordinator::GetInstance()->SendEvent(event);
+                            //OnEmitterProxyChanged(emitter);
+                        }
+                    }
+                    ImGui::TreePop();
+                }
+            }
             ImGui::PopStyleColor(2);
         }
         ImGui::PopFont();
@@ -1130,7 +1233,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Emitter System"};
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1296,6 +1399,15 @@ namespace Image {
               }
             }
                    break;
+            case 11: {
+                if (!gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        EmitterSystem{}, ignore);
+                }
+            }
+                   break;
+
             }
           }
           ImGui::SameLine();
@@ -1390,6 +1502,16 @@ namespace Image {
               }
             }
                    break;
+            case 11: {
+                if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    auto const& emitter{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (int i{}; i < emitter.emitters.size(); ++i) {
+                        ParticleSystem::RemoveEmitter(i, selectedEntity);
+                    }
+                    gCoordinator->RemoveComponent<EmitterSystem>(selectedEntity);
+                }
+            }
+                   break;
             }
           }
           ImGui::Separator();
@@ -1404,7 +1526,7 @@ namespace Image {
           ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
           ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
-
+          ImGui::Text("Emitter System Component %s", gCoordinator->HasComponent<EmitterSystem>(selectedEntity) ? "True" : "False");
           //ImGui::PopFont();
           //ImGui::End();
 

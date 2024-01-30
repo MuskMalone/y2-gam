@@ -89,7 +89,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<Prefab>();
 	coordinator->RegisterComponent<UIImage>();
 	coordinator->RegisterComponent<Swappable>();
-	coordinator->RegisterComponent<Emitter>();
+	coordinator->RegisterComponent<EmitterSystem>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -196,8 +196,8 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	auto particleSystem = coordinator->RegisterSystem<ParticleSystem>();
 	{
 		Signature signature;
-		signature.set(coordinator->GetComponentType<Emitter>());
-		coordinator->SetSystemSignature<RenderSystem>(signature);
+		signature.set(coordinator->GetComponentType<EmitterSystem>());
+		coordinator->SetSystemSignature<ParticleSystem>(signature);
 	}
 
 	particleSystem->Init();

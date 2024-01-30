@@ -213,7 +213,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Audio\Sound.hpp" />
-    <ClInclude Include="include\Components\Emitter.hpp" />
+    <ClInclude Include="include\Components\EmitterSystem.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Prefab.hpp" />

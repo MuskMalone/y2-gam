@@ -96,3 +96,14 @@ namespace Events::Physics::Raycast {
 namespace Events::Physics::Raycast::Debug {
 	const ParamId RAYCAST_DEBUGGED = "Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED"_hash;
 }
+
+namespace Events::Particles {
+	const EventId EMITTER = "Events::Particles::EMITTER"_hash;
+}
+
+namespace Events::Particles::Emitter {
+	const ParamId EMITTER_ADDED = "Events::Particles::Emitter::EMITTER_ADDED"_hash;
+	const ParamId BEFORE_EMITTER_DESTROY = "Events::Particles::Emitter::BEFORE_EMITTER_DESTROYED"_hash;
+	const ParamId EMITTER_DESTROYED = "Events::Particles::Emitter::EMITTER_DESTROYED"_hash;
+	const ParamId EMITTERPROXY_CHANGED = "Events::Particles::Emitter::EMITTERPROXY_CHANGED"_hash;
+}

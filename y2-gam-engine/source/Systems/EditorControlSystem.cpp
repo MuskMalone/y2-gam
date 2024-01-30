@@ -80,10 +80,10 @@ void EditorControlSystem::Update(float dt)
 #endif
 
 #ifndef _INSTALLER
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
-		inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
-		::gCoordinator->CloneEntity(Testing::lastInserted);
-	}
+	//if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::RB)) &&
+	//	inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, static_cast<size_t>(GLFW_KEY_LEFT_CONTROL))) {
+	//	::gCoordinator->CloneEntity(Testing::lastInserted);
+	//}
 #endif
 	// NODE RELATED START
 	// Temporarily Disabled

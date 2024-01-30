@@ -188,6 +188,6 @@
     <ClInclude Include="Vendor\ImGuizmo-master\ImSequencer.h" />
     <ClInclude Include="Vendor\ImGuizmo-master\ImZoomSlider.h" />
     <ClInclude Include="include\Systems\LayeringSystem.hpp" />
-    <ClInclude Include="include\Components\Emitter.hpp" />
+    <ClInclude Include="include\Components\EmitterSystem.hpp" />
   </ItemGroup>
 </Project>

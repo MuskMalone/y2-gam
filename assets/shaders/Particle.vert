@@ -10,7 +10,7 @@ struct Particle {
     float age;    // 4 bytes
     float lifetime; // 4 bytes
     float angvel;  // 4 bytes
-
+    int emtIdx;
     bool alive;   // 4 bytes (bool is often aligned to 4 bytes, same as float)
     // Possibly padding here to align the structure size to a multiple of 16 bytes
 };
@@ -19,6 +19,7 @@ layout(std430, binding = 14) buffer Pctls {
     Particle Particles[];
 };
 
+uniform mat4 vertView;
 uniform mat4 vertProjection;
 out mat4 vertTransform;
 out vec4 vertFragColor;
@@ -55,7 +56,7 @@ void main() {
     if (!Particles[gl_VertexID].alive) {
         vertTransform = mat4(0.0);
     } else {
-        vertTransform = vertProjection * translate(Particles[gl_VertexID].pos) * rotate(Particles[gl_VertexID].rot) * scale(Particles[gl_VertexID].size);
+        vertTransform = vertProjection * vertView * translate(Particles[gl_VertexID].pos) * rotate(Particles[gl_VertexID].rot) * scale(Particles[gl_VertexID].size);
         vertFragColor = Particles[gl_VertexID].col;
     }
 }

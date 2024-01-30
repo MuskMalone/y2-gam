@@ -1,91 +1,92 @@
 #include "../include/pch.hpp"
 #include "Systems/ParticleSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/InputSystem.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
 #define MAX_BUFFER 5000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
-namespace GLSLStructs {
-	
-	//1-1 map of the structs in Particle.glsl
-    struct alignas(16) Emitter {
-        glm::vec4 vertices[4]; // 4 vec4s, each vec4 is 4 floats
-        glm::vec4 color;          // vec3
-        glm::vec2 gravity;
-        float time;
-        float frequency;
-        int type;
-        int vCount;
-        bool alive;
-        char padding1[7];      // Padding to align to 16 bytes
-    };
 
-    struct alignas(16) Particle {
-        glm::vec4 col;          // vec4
-        glm::vec3 pos;          // vec3
-        float padding0;        // Padding for alignment
-        glm::vec2 vel;          // vec2
-        glm::vec2 gravity;
-        glm::vec2 size;         // vec2
-        float rot;
-        float age;
-        float lifetime;
-        float angvel;
-        bool alive;
-        char padding1[3];      // Padding to align to 16 bytes
-    };
-
-}
 void ParticleSystem::EventListener(Event& event) {
     auto coordinator = Coordinator::GetInstance();
     //if Emitter is added
-    Entity e{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
-    if (event.GetFail()) return;
-    if (coordinator->HasComponent<Emitter>(e)) {
-        //add a new Emitter
-        EmitterAction(coordinator->GetComponent<Emitter>(e), 1);
-    }
+    std::pair<int, Entity> e{ event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTER_ADDED) };
+    if (!event.GetFail()){
+        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+            //add a new Emitter
+            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 1);
+        }
+        return;
+	}
 
     //if emitter is destroyed
-    e = event.GetParam<Entity>(Events::System::Entity::BEFORE_COMPONENT_REMOVE);
-    if (event.GetFail()) return;
-    if (coordinator->HasComponent<Emitter>(e)) {
-        EmitterAction(coordinator->GetComponent<Emitter>(e), -1);
+    e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::BEFORE_EMITTER_DESTROY);
+    if (!event.GetFail()) {
+        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], -1);
+        }
+        return;
     }
 
-    //if emitter is destroyed
-    e = event.GetParam<Entity>(Events::System::Entity::BEFORE_DESTROYED);
-    if (event.GetFail()) return;
-    if (coordinator->HasComponent<Emitter>(e)) {
-        EmitterAction(coordinator->GetComponent<Emitter>(e), -1);
+    //if emitter is changed
+    e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTERPROXY_CHANGED);
+    if (!event.GetFail()) {
+        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 0);
+        }
+        return;
     }
 }
 void ParticleSystem::Init() {
+    GLuint zero = 0;
+    glGenBuffers(1, &mRandomIdxSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomIdxSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLuint), NULL, GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), &zero);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
 	glGenBuffers(1, &mParticleCountSSbo);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLuint), NULL, GL_DYNAMIC_DRAW);
-
-	// Initialize particleIdx to 0
-	GLuint zero = 0;
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), &zero);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     //I'm only going to comment one of these, because the other SSBOs are essentially the same
 // Generate the initial buffer
     glGenBuffers(1, &mEmitterSSbo);
-    // Bind to graphics card memory
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, mEmitterSSbo);
-    // Allocate necessary storage 
-    // This might also be able to dump data at the same time. Needs testing though.
-    // If it ain't broke, don't fix it
     glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Emitter), NULL, GL_STATIC_DRAW);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     // Do it again, twice.
     glGenBuffers(1, &mParticleSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleSSbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
-
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+    std::vector<float> randomData(MAX_BUFFER);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(-1.0, 1.0);
+    for (size_t i = 0; i < MAX_BUFFER; ++i) {
+        randomData[i] = dis(gen);
+    }
+    glGenBuffers(1, &mRandomSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(float), NULL, GL_STATIC_DRAW);
+    float* ptr = (float*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(float), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+    if (ptr) {
+        // Copy the data to the SSBO
+        std::memcpy(ptr, randomData.data(), MAX_BUFFER * sizeof(float));
+        // Unmap the buffer
+        glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    }
+    // Unbind the buffer (optional, for cleanup)
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 11, mRandomIdxSSbo);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 12, mRandomSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 13, mEmitterSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 14, mParticleSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 15, mParticleCountSSbo);
@@ -97,24 +98,24 @@ void ParticleSystem::Init() {
     for (uint64_t i{}; i < MAX_BUFFER; ++i) { mEmitterIdxQueue.push(i); }
 
     auto coordinator = Coordinator::GetInstance();
-    coordinator->AddEventListener(METHOD_LISTENER(Events::System::ENTITY, ParticleSystem::EventListener));
+    coordinator->AddEventListener(METHOD_LISTENER(Events::Particles::EMITTER, ParticleSystem::EventListener));
 }
 
-void ParticleSystem::EmitterAction(Emitter & emitter, int action) {
+void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
     mParticleShader->Use();
 
     //gets the first available idx for emitter;
     if (action == 1) {
-        emitter.EmitterIdx() = mEmitterIdxQueue.front();
+        emitter.idx = mEmitterIdxQueue.front();
         mEmitterIdxQueue.pop();
     }
     //push the available id back in the queue
     else if (action == -1) {
-        mEmitterIdxQueue.push(emitter.EmitterIdx());
+        mEmitterIdxQueue.push(emitter.idx);
     }
 
     mParticleShader->SetUniform("spawnEmitter", action);
-    mParticleShader->SetUniform("emtTargetIdx", static_cast<GLint>(emitter.EmitterIdx()));
+    mParticleShader->SetUniform("emtTargetIdx", static_cast<GLint>(emitter.idx));
     
     if (action >= 0) {
         //sets the vertices
@@ -134,11 +135,19 @@ void ParticleSystem::EmitterAction(Emitter & emitter, int action) {
         };
         glUniform4fv(uEmtverticesLoc, 4, vertices);
 
-        mParticleShader->SetUniform("uEmtcol", emitter.color);
+        mParticleShader->SetUniform("uEmtcol", emitter.col);
+
         mParticleShader->SetUniform("uEmtgravity", emitter.gravity);
+        mParticleShader->SetUniform("uEmtsize", emitter.size);
+        mParticleShader->SetUniform("uEmtrot", emitter.rot);
+        mParticleShader->SetUniform("uEmtlifetime", emitter.lifetime);
+        mParticleShader->SetUniform("uEmtangvel", emitter.angvel);
+        mParticleShader->SetUniform("uEmtspeed", emitter.speed);
+
         mParticleShader->SetUniform("uEmtfrequency", emitter.frequency);
         mParticleShader->SetUniform("uEmttype", emitter.type);
         mParticleShader->SetUniform("uEmtvCount", emitter.vCount);
+        mParticleShader->SetUniform("uEmtpreset", emitter.preset);
     }
 
     glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
@@ -152,6 +161,31 @@ void ParticleSystem::EmitterAction(Emitter & emitter, int action) {
 }
 
 void ParticleSystem::Update(float dt) {
+    auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
+    //if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB))) {
+    //    // Create a random engine and use it to generate a number
+    //    std::random_device rd;  // Obtain a random number from hardware
+    //    std::mt19937 eng(rd()); // Seed the generator
+    //    std::uniform_int_distribution<> distr(-200, 200); // Define the range
+
+    //    // Generate and print a random number
+    //    EmitterProxy ep{
+    //        {{distr(eng), distr(eng), 1, 0},{},{},{}},
+    //        {1,1,0,1},
+
+    //        {0,0},
+    //        {10,10}, 
+    //        0,
+    //        3.f,
+    //        0,
+    //        0.f,
+    //        0,
+    //        0,
+    //        1,1,1,0
+    //    };
+    //    EmitterAction(ep, 1); //adds the particle
+    //}
+
     static float timeElapsed = 0.f;
     timeElapsed += dt;
     mParticleShader->Use();
@@ -171,11 +205,53 @@ void ParticleSystem::Update(float dt) {
     auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
     glm::mat4 projection{ cam.GetProjMtx() };
     mParticleRenderShader->SetUniform("vertProjection", projection);
+    mParticleRenderShader->SetUniform("vertView", cam.GetViewMtx());
     glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
     Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
     mParticleRenderShader->Unuse();
-}
 
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
+    //float* vels = (float*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(float), GL_MAP_READ_BIT);
+    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomIdxSSbo);
+    //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
+    //std::cout << *idx << "partrandidx\n";
+    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
+
+
+}
+void ParticleSystem::DrawDebug() {
+    for (auto const& e : mEntities) {
+        auto const& emitterSystem{ Coordinator::GetInstance()->GetComponent<EmitterSystem>(e) };
+        for (auto const& emitter : emitterSystem.emitters) {
+            if (emitter.drawEmitterVertices) {
+                switch (emitter.vCount) {
+                case 1: {
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
+                } break;
+                case 2: {
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawLine(emitter.vertices[0], emitter.vertices[1], emitter.col);
+                } break;
+                case 4: {
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawLine(emitter.vertices[0], emitter.vertices[1], emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawLine(emitter.vertices[1], emitter.vertices[2], emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[2].x,emitter.vertices[2].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawLine(emitter.vertices[2], emitter.vertices[3], emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[3].x,emitter.vertices[3].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawLine(emitter.vertices[3], emitter.vertices[0], emitter.col);
+                }break;
+                }
+
+            }
+        }
+    }
+}
 void ParticleSystem::Destroy() {
 
 }
