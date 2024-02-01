@@ -36,6 +36,7 @@ class RenderSystem : public System
 {
 public:
 	void Init();
+	void PostInit();
 
 	void Update(float dt);
 

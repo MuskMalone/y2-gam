@@ -181,6 +181,8 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 #ifndef _INSTALLER
 	imguiSystem->Init(windowManager->GetContext());
 #endif
+	renderSystem->PostInit();
+
 	auto animationSystem = coordinator->RegisterSystem<AnimationSystem>();
 	{
 		Signature signature;

@@ -64,6 +64,7 @@ ImFont* mainfont = nullptr;
     void ImGuiSystem::Init(GLFWwindow* window){
         gCoordinator = Coordinator::GetInstance();
         ::gCoordinator->AddEventListener(METHOD_LISTENER(Events::System::ENTITY, ImGuiSystem::ImguiEventListener));
+        ::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Camera::CAMERA_CREATED, ImGuiSystem::CameraCreationListener));
         glfwSetErrorCallback(glfw_error_callback);
         if (!glfwInit())
             return;
@@ -161,4 +162,13 @@ ImFont* mainfont = nullptr;
         Entity e{ event.GetParam<Entity>(Events::System::Entity::CREATE) };
         if (event.GetFail()) return;
         gCoordinator->AddComponent<ImguiComponent>(e, {});
+
+
+    }
+
+    void ImGuiSystem::CameraCreationListener(Event& event) {
+        Entity cameraEntity = event.GetParam<Entity>(Events::Camera::Created::SCENE_CAMERA_ID);
+        if (!event.GetFail()) {
+            gCoordinator->AddComponent<ImguiComponent>(cameraEntity, {});
+        }
     }

@@ -94,3 +94,12 @@ namespace Events::Physics::Raycast {
 namespace Events::Physics::Raycast::Debug {
 	const ParamId RAYCAST_DEBUGGED = "Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED"_hash;
 }
+
+namespace Events::Camera {
+	const EventId CAMERA_CREATED = "Events::Camera::CAMERA_CREATED"_hash;
+}
+
+namespace Events::Camera::Created {
+	const ParamId MAIN_CAMERA_ID = "Events::Camera::Created::MAIN_CAMERA_ID"_hash;
+	const ParamId SCENE_CAMERA_ID = "Events::Camera::Created::SCENE_CAMERA_ID"_hash;
+}

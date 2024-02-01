@@ -143,12 +143,12 @@ void RenderSystem::Init()
 	}
 
 	if (!cameraExists[static_cast<int>(CameraType::SceneCamera)]) {
-		mSceneCamera = ::gCoordinator->CreateEntity();
-		float zoomFactor{ 0.5f };
-		::gCoordinator->AddComponent(
-			mSceneCamera,
-			Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
-		);
+		//mSceneCamera = ::gCoordinator->CreateEntity();
+		//float zoomFactor{ 0.5f };
+		//::gCoordinator->AddComponent(
+		//	mSceneCamera,
+		//	Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
+		//);
 	}
 
 	if (!cameraExists[static_cast<int>(CameraType::PrefabEditorCamera)]) {
@@ -190,6 +190,12 @@ void RenderSystem::Init()
 
 }
 
+void RenderSystem::PostInit() {
+	Event cameraEvent(Events::Camera::CAMERA_CREATED);
+	cameraEvent.SetParam(Events::Camera::Created::SCENE_CAMERA_ID, mSceneCamera);
+	gCoordinator->SendEvent(cameraEvent);
+}
+
 /*  _________________________________________________________________________ */
 /*!
 \brief Update Function
@@ -200,6 +206,7 @@ Updates the rendering system based on the given delta time.
 */
 void RenderSystem::Update([[maybe_unused]] float dt)
 {
+
 #ifndef _INSTALLER
 	static bool showEditor{ true };
 	auto inputSystem = ::gCoordinator->GetSystem<InputSystem>();
@@ -244,74 +251,79 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		});
 
 	//quick patch TODO REFACTOR CAMERA
-	//bool playerFound{ false };
-	//if (!mEditorMode) {
-	//	for (auto const& e : mEntities) {
-	//		if (!::gCoordinator->HasComponent<Tag>(e)) continue;
-	//		auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
-	//		if (tag.tag == "Player") {
-	//			mPlayer = e;
-	//			playerFound = true;
-	//		}
-	//	}
+	bool playerFound{ false };
+	if (!mEditorMode) {
+		for (auto const& e : mEntities) {
+			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+			if (tag.tag == "Player") {
+				mPlayer = e;
+				playerFound = true;
+			}
+		}
 
-	//	if (playerFound) {
+		if (playerFound) {
 
-	//		Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
+			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
 
-	//		//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
-	//		glm::vec3 playerPosition{ playerTransform.position };
-	//		// Get Player Script Instance
-	//		std::map<Entity, ScriptInstance> instanceMap{ ScriptManager::GetEntityInstances() };
-	//		bool facingRight{ instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight") };
+			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
+			glm::vec3 playerPosition{ playerTransform.position };
 
-	//		if (gCoordinator->HasComponent<Camera>(mPlayer)) {
-	//			mSceneCamera = mPlayer;
+			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
+			sceneCamera.mTargetEntity = mPlayer;
 
-	//			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mPlayer) };
-	//			sceneCamera.mTargetEntity = mPlayer;
-	//			sceneCamera.UpdatePosition(playerPosition, facingRight);
-	//		}
-	//	}
+			// Get Player Script Instance
+			std::map<Entity, ScriptInstance> instanceMap{ ScriptManager::GetEntityInstances() };
+			bool facingRight{ instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight") };
 
-	//}
+			sceneCamera.UpdatePosition(playerPosition, facingRight);
+			//if (gCoordinator->HasComponent<Camera>(mPlayer)) {
+			//	mSceneCamera = mPlayer;
 
-	Entity currentCameraEntity = mSceneCamera;
-    bool playerFound = false;
+			//	Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mPlayer) };
+			//	sceneCamera.mTargetEntity = mPlayer;
+			//	sceneCamera.UpdatePosition(playerPosition, facingRight);
+			//}
+		}
 
-    if (!mEditorMode) {
-        for (auto const& e : mEntities) {
-            if (!::gCoordinator->HasComponent<Tag>(e)) continue;
-            auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
-            if (tag.tag == "Player") {
-                playerFound = true;
-                mPlayer = e;
-                break;
-            }
-        }
+	}
 
-        if (playerFound && ::gCoordinator->HasComponent<Camera>(mPlayer)) {
-            currentCameraEntity = mPlayer;
-        }
-    }
+	//Entity currentCameraEntity = mSceneCamera;
+ //   bool playerFound = false;
+
+ //   if (!mEditorMode) {
+ //       for (auto const& e : mEntities) {
+ //           if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+ //           auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+ //           if (tag.tag == "Player") {
+ //               playerFound = true;
+ //               mPlayer = e;
+ //               break;
+ //           }
+ //       }
+
+ //       if (playerFound && ::gCoordinator->HasComponent<Camera>(mPlayer)) {
+ //           currentCameraEntity = mPlayer;
+ //       }
+ //   }
 
     // Use currentCameraEntity for rendering and updating the camera position
-    if (playerFound) {
-        Transform const& playerTransform = ::gCoordinator->GetComponent<Transform>(mPlayer);
-        glm::vec3 playerPosition = playerTransform.position;
-        
-        std::map<Entity, ScriptInstance> instanceMap = ScriptManager::GetEntityInstances();
-        bool facingRight = instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight");
+    //if (playerFound) {
+    //    Transform const& playerTransform = ::gCoordinator->GetComponent<Transform>(mPlayer);
+    //    glm::vec3 playerPosition = playerTransform.position;
+    //    
+    //    std::map<Entity, ScriptInstance> instanceMap = ScriptManager::GetEntityInstances();
+    //    bool facingRight = instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight");
 
-        Camera& sceneCamera = ::gCoordinator->GetComponent<Camera>(currentCameraEntity);
-        sceneCamera.mTargetEntity = mPlayer;
-        sceneCamera.UpdatePosition(playerPosition, facingRight);
-    }
+    //    Camera& sceneCamera = ::gCoordinator->GetComponent<Camera>(currentCameraEntity);
+    //    sceneCamera.mTargetEntity = mPlayer;
+    //    sceneCamera.UpdatePosition(playerPosition, facingRight);
+    //}
 
 	//glm::mat4 viewProjMtx = ::gCoordinator->GetComponent<Camera>(currentCameraEntity).GetViewProjMtx();
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
-		::gCoordinator->GetComponent<Camera>(currentCameraEntity).GetViewProjMtx();
+		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
 
 	glDisable(GL_DEPTH_TEST);
 

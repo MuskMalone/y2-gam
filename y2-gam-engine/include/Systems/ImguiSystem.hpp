@@ -37,4 +37,5 @@ public:
 
 private:
     void ImguiEventListener(Event& event);
+    void CameraCreationListener(Event& event);
 };
