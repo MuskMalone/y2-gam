@@ -62,7 +62,7 @@ void SceneManager::ModifyScene(std::string const& scnpath) {
 	std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 	sm->GetDoc(filename).RemoveMember(lvlKey);
 	JSONObj entArr{ JSON_ARR_TYPE };
-	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities(entArr);
+	coordinator->GetSystem<Serializer::EntitySerializationSystem>()->FlushEntities(entArr, mEntities);
 	sm->InsertValue(lvlKey, entArr);
 
 }
@@ -73,14 +73,19 @@ void SceneManager::SaveScene(std::string const& scnpath) {
 	Serializer::SerializationManager::GetInstance()->FlushJSON(filename);
 }
 void SceneManager::ExitScene(std::string const& scnpath) {
+	static int camidx = 0;
+
 	mSceneListenerStart = false;
 	mCurrentScene.clear();
 	auto coordinator{ Coordinator::GetInstance() };
-
+	camidx = 0;
 	for (auto const& e : mEntities) {
 		if (e >= 0 && e < MAX_ENTITIES) {
 			if (gCoordinator->HasComponent<Script>(e)) {
 				Image::ScriptManager::RemoveEntity(e);
+			}
+			if (gCoordinator->HasComponent<Camera>(e)) {
+				std::cout << "removed ent has cam" << camidx++ << std::endl;
 			}
 
 			coordinator->DestroyEntity(e);
