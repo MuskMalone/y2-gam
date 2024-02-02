@@ -494,7 +494,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -549,7 +549,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -605,7 +605,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1648,7 +1648,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2445,6 +2445,34 @@
                 "rotZ": 0.00930639635771513,
                 "scaleX": 40.0,
                 "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700928706423252000
+            },
+            "Tag": {
+                "Tag": "PauseMenu"
+            },
+            "Transform": {
+                "posX": 234.68104553222656,
+                "posY": -162.4451904296875,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 275.0,
+                "scaleY": 120.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

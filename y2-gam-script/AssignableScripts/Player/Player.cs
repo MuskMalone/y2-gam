@@ -110,88 +110,88 @@ namespace Object
 
             if (isPaused)
             {
-                dt = temp_dt;
-                PauseGame();
+                dt = 0f;
+                //PauseGame();
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
+                    //ResumeGame();
                     isPaused = false;
                 }
             }
 
-            if (!isPaused)
+            
+
+            if (!GodMode)
             {
+                RaycastHit centreRayCast = new RaycastHit();
+                RaycastHit leftRayCast = new RaycastHit();
+                RaycastHit rightRayCast = new RaycastHit();
 
-                if (!GodMode)
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
+                    new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
+                    new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                    new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                 {
-                    RaycastHit centreRayCast = new RaycastHit();
-                    RaycastHit leftRayCast = new RaycastHit();
-                    RaycastHit rightRayCast = new RaycastHit();
+                    IsGrounded = true;
+                    AnimationState = (int)AnimationCodePlayer.IDLE;
 
-                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
-                            PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
-                            PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
+                    if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
+                        centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                     {
-                        IsGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
-
-                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
-                            centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
-                        {
-                            Respawn();
-                        }
+                        Respawn();
                     }
+                }
 
-                    else
+                else
+                {
+                    IsGrounded = false;
+                    AnimationState = (int)AnimationCodePlayer.JUMP;
+                }
+
+                if (FacingDirectionChanged)
+                {
+                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                    FacingDirectionChanged = false; // Reset the flag
+                }
+
+
+                if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
+                {
+                    GodMode = true;
+                    Gravity = new Vector2(0.0f, 0.0f);
+                    Mass = 0;
+                }
+
+                if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                {
+                    if (!IsKeyPressed)
                     {
-                        IsGrounded = false;
-                        AnimationState = (int)AnimationCodePlayer.JUMP;
+                        GameplayWrapper.SlowdownTime(SlowdownToggle);
+                        SlowdownToggle = !SlowdownToggle;
+                        IsKeyPressed = true;
                     }
+                }
 
-                    if (FacingDirectionChanged)
-                    {
-                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                        FacingDirectionChanged = false; // Reset the flag
-                    }
+                else
+                {
+                    IsKeyPressed = false;
+                }
 
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
-                    {
-                        GodMode = true;
-                        Gravity = new Vector2(0.0f, 0.0f);
-                        Mass = 0;
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
-                    {
-                        if (!IsKeyPressed)
-                        {
-                            GameplayWrapper.SlowdownTime(SlowdownToggle);
-                            SlowdownToggle = !SlowdownToggle;
-                            IsKeyPressed = true;
-                        }
-                    }
-
-                    else
-                    {
-                        IsKeyPressed = false;
-                    }
-
+                if (!isPaused)
+                {
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
                     {
                         if (IsGrounded)
@@ -225,47 +225,48 @@ namespace Object
                         Velocity *= 0.2f;
                     }
 
-                    /*
-                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
-                        out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
-                    {
-                        Respawn();
-                    }
-                    */
-
-                    if (Translation.Y <= -99.0f)
-                    {
-                        Respawn();
-                    }
                 }
-
-                else
+                /*
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
+                    new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
+                    out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
                 {
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
-                    ColliderDimensions = new Vector2(0f, 0f);
+                    Respawn();
+                }
+                */
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
-                    {
-                        FlyUp(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_A))
-                    {
-                        FlyLeft(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_D))
-                    {
-                        FlyRight(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_S))
-                    {
-                        FlyDown(dt);
-                    }
+                if (Translation.Y <= -99.0f)
+                {
+                    Respawn();
                 }
             }
+
+            else
+            {
+                AnimationState = (int)AnimationCodePlayer.IDLE;
+                ColliderDimensions = new Vector2(0f, 0f);
+
+                if (Input.IsKeyPressed(KeyCode.KEY_W))
+                {
+                    FlyUp(dt);
+                }
+
+                if (Input.IsKeyPressed(KeyCode.KEY_A))
+                {
+                    FlyLeft(dt);
+                }
+
+                if (Input.IsKeyPressed(KeyCode.KEY_D))
+                {
+                    FlyRight(dt);
+                }
+
+                if (Input.IsKeyPressed(KeyCode.KEY_S))
+                {
+                    FlyDown(dt);
+                }
+            }
+            
         }
 
         /*  _________________________________________________________________________ */
@@ -280,15 +281,15 @@ namespace Object
 
         }
 
-        void PauseGame()
-        {
-            SaveScene("Level1");
-        }
+        //void PauseGame()
+        //{
+        //    SaveScene("Level1");
+        //}
 
-        void ResumeGame()
-        {
-            LoadScene("Level1");
-        }
+        //void ResumeGame()
+        //{
+        //    LoadScene("Level1");
+        //}
         public void MoveLeft(float dt)
         {
             AnimationState = (int)AnimationCodePlayer.RUN;
