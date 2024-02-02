@@ -22,6 +22,7 @@ namespace Object
 {
     public class Card : Entity
     {
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         private Vector2 direction;
         public float timeAlive = 0.0f;
         public bool Alive = false;
@@ -180,26 +181,44 @@ namespace Object
                     */
 
                     // Swap Related
+                    if(Input.IsKeyClicked(KeyCode.KEY_Q))
+                    {
+                        timeAlive = 0.0f;
+                        ResetCardUI();
+                        GameplayWrapper.Swap(entityID, player.entityID);
+                        CardSwapAudioCounter++;
+                        if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                        {
+                            CardSwapAudioCounter = 0;
+                        }
+                        PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                        ResetCardPos();
+                    }
+
                     if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
                     {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
-                            if (GameplayWrapper.IsSwappable(swapRayCast.id))
+                            if (swapRayCast.id != player.entityID)
                             {
-                                timeAlive = 0.0f;
-                                ResetCardUI();
-
-                                GameplayWrapper.Swap(entityID, swapRayCast.id);
-
-                                CardSwapAudioCounter++;
-                                if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                if (GameplayWrapper.IsSwappable(swapRayCast.id))
                                 {
-                                    CardSwapAudioCounter = 0;
-                                }
-                                PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                                    timeAlive = 0.0f;
+                                    ResetCardUI();
 
-                                ResetCardPos();
-                                //ResetColour(swapRayCast.id);
+                                    GameplayWrapper.Swap(entityID, swapRayCast.id);
+
+                                    CardSwapAudioCounter++;
+                                    if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                    {
+                                        CardSwapAudioCounter = 0;
+                                    }
+                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                                    ResetCardPos();
+                                    //ResetColour(swapRayCast.id);
+                                }
                             }
                         }
                     }
