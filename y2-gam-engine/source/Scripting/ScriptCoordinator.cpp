@@ -847,6 +847,44 @@ Get the collider dimensions of the entity in C#.
 		}
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_GetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param outRotation
+	The current rotation of the entity.
+
+	@return none.
+
+	Get the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_GetRotation(uint32_t& entityID, float& outRotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			outRotation = ::gCoordinator->GetComponent<Transform>(entityID).rotation.z;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_SetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param rotation
+	Updated rotation of the entity.
+
+	@return none.
+
+	Set the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_SetRotation(uint32_t& entityID, float& rotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			::gCoordinator->GetComponent<Transform>(entityID).rotation.z = rotation;
+		}
+	}
+
 	// For Force
 
 	/*  _________________________________________________________________________ */
@@ -1119,6 +1157,8 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetRotation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetRotation);
 
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetForce);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetForce);

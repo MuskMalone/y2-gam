@@ -402,6 +402,7 @@ void RenderSystem::RenderUI() {
 
 		if (ui.enabled) {
 			// Constrain position within screen bounds
+			/*
 			float minX = 0 + transform.scale.x / 2.0f; // Left boundary
 			float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
 			float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
@@ -409,7 +410,7 @@ void RenderSystem::RenderUI() {
 
 			transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
 			transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
-
+			*/
 			if (!::gCoordinator->HasComponent<Text>(entity)) {
 				if (sprite.GetSpriteID())
 					Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
@@ -429,7 +430,7 @@ void RenderSystem::RenderUI() {
 	// For text with UI component
 	for (auto const& entity : uiEntities) {
 		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
-	
+		/*
 		// Constrain position within screen bounds
 		float minX = 0 + transform.scale.x / 2.0f; // Left boundary
 		float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
@@ -438,7 +439,7 @@ void RenderSystem::RenderUI() {
 
 		transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
 		transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
-
+		*/
 		if (::gCoordinator->HasComponent<Text>(entity)) {
 			auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
 			float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };

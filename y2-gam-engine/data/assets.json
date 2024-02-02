@@ -464,6 +464,14 @@
             "idxY": 0.0,
             "dimX": 2067.0,
             "dimY": 683.0
+        },
+        "1706865272271207300": {
+            "id": 1706865272271266200,
+            "path": "../assets\\Textures\\UI\\DAA2402_level_transition_face.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 177.0,
+            "dimY": 166.0
         }
     },
     "classAnimationManager": {

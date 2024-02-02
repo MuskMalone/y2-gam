@@ -302,6 +302,12 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void TransformComponent_SetTranslation(ref uint entityHandle, ref Vector2 translation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_GetRotation(ref uint entityHandle, ref float rotation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_SetRotation(ref uint entityHandle, ref float rotation);
         #endregion
 
         #region Force

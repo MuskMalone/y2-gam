@@ -361,6 +361,19 @@ namespace Image
                 InternalCalls.TransformComponent_SetTranslation(ref entityID, ref value);
             }
         }
+        public float Transform_Rotation
+        {
+            get
+            {
+                float rot = 0;
+                InternalCalls.TransformComponent_GetRotation(ref entityID, ref rot);
+                return rot;
+            }
+            set
+            {
+                InternalCalls.TransformComponent_SetRotation(ref entityID, ref value);
+            }
+        }
 
         /*  _________________________________________________________________________ */
         /*! Force
