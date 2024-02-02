@@ -95,6 +95,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_Quit();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static float EngineCore_GetFPS();
         #endregion
 
         #region Pathfinding

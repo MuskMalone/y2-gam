@@ -30,6 +30,8 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+std::vector<const char*> TextSystem::FontTypes{};
+
 /*  _________________________________________________________________________ */
 /*! Init
 
@@ -56,6 +58,9 @@ void TextSystem::Init() {
 	Image::FontRenderer::SetFontSize("Getho");
 	Image::FontRenderer::GenerateBitmap("Getho");
 
+	FontTypes.push_back("Arial");
+	FontTypes.push_back("Lato");
+	FontTypes.push_back("Getho");
 }
 
 /*  _________________________________________________________________________ */

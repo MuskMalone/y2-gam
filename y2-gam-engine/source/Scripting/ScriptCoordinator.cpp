@@ -41,6 +41,7 @@ using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
+	auto frameController = FrameRateController::GetInstance();
 }
 
 namespace Image {
@@ -296,6 +297,18 @@ namespace Image {
 	static void EngineCore_Quit() {
 		Event e{ Events::Window::QUIT };
 		::gCoordinator->SendEvent(e);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetFPS
+
+	@return float
+	The current FPS of the application.
+
+	Gets the fps of the application.
+	*/
+	static float EngineCore_GetFPS() {
+		return ::frameController->GetFps();
 	}
 
 	/*  _________________________________________________________________________ */
@@ -1084,6 +1097,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetFPS);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 
