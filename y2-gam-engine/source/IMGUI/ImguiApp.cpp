@@ -314,6 +314,15 @@ namespace Image {
         }
 
         for (auto const& entity : mEntities) {
+            //ImGui::NewLine();
+            static std::shared_ptr<Texture> objectIcon = Texture::Create("../Icon/ObjectIcon.png");
+            std::shared_ptr<Texture> icon = objectIcon;
+            static float size = 15.f;
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+            ImGui::Image(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+            ImGui::PopStyleColor();
+            //set image object here
+            ImGui::SameLine();
             std::string displayName = std::to_string(entity);
             if (gCoordinator->HasComponent<Tag>(entity)) {
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(entity);

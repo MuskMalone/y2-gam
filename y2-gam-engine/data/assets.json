@@ -480,6 +480,14 @@
             "idxY": 0.0,
             "dimX": 163.0,
             "dimY": 124.0
+        },
+        "1706837932178363300": {
+            "id": 1706837932178432700,
+            "path": "../assets\\Textures\\backgrounds\\game200_basement_lvl2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1842.0,
+            "dimY": 650.0
         }
     },
     "classAnimationManager": {
