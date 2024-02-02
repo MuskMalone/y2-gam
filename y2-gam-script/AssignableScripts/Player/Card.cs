@@ -22,6 +22,8 @@ namespace Object
 {
     public class Card : Entity
     {
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+
         private Vector2 direction;
         public float timeAlive = 0.0f;
         public bool Alive = false;
@@ -190,6 +192,11 @@ namespace Object
                                 ResetCardUI();
 
                                 GameplayWrapper.Swap(entityID, swapRayCast.id);
+
+                                if (swapRayCast.id == player.entityID)
+                                {
+                                    player.PlayAppearAnimation = true;
+                                }
 
                                 CardSwapAudioCounter++;
                                 if (CardSwapAudioCounter >= MAX_AUDIO_FILES)

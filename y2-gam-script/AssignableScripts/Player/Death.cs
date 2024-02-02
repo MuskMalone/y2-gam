@@ -62,7 +62,7 @@ namespace Object
         */
         void OnCreate()
         {
-            Translation = new Vector2(832.334f, 440f); //The centre of the UI screen space
+            //Translation = new Vector2(832.334f, 440f); //The centre of the UI screen space
         }
 
 
@@ -82,6 +82,7 @@ namespace Object
             {
                 Colour = new Vector4(1, 1, 1, 1);
                 Scale = new Vector3(Scale.X + ScaleSpeed, Scale.Y + ScaleSpeed, 0);
+                Translation = new Vector2(player.Translation.X, player.Translation.Y);
                 TimeInState += dt;
 
                 if (TimeInState >= MaxDuration)
@@ -95,7 +96,7 @@ namespace Object
             {
                 Colour = new Vector4(1, 1, 1, 0);
                 Scale = new Vector3(0, 0, 0);
-                Translation = new Vector2(832.334f, 440f); //The centre of the UI screen space
+                Translation = new Vector2(player.Translation.X, player.Translation.Y);
             }
         }
 

@@ -610,6 +610,30 @@
             "idxCoordY": 0.0,
             "dimX": 155.0,
             "dimY": 52.0
+        },
+        "1706897385432403900": {
+            "id": 1706897385432446500,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_APPEAR.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1706900374940601200": {
+            "id": 1706900374940637000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706900377831135900": {
+            "id": 1706900377831163400,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     }
 }

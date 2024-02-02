@@ -77,13 +77,19 @@
             "Script": {
                 "scriptName": "ObjectPlayer",
                 "scriptTag": "Player",
+                "Dead": false,
                 "GodMode": false,
                 "IsFacingRight": true,
                 "IsGrounded": true,
                 "JumpSpeed": 120.0,
+                "MaxAppearTime": 0.0,
                 "MaxHorizontalVelocity": 45.0,
+                "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
+                "PlayAppearAnimation": false,
+                "PlayAppearTimer": 0.0,
                 "PlayDeathAnimation": false,
+                "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
@@ -495,7 +501,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -550,7 +556,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -606,7 +612,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1150,9 +1156,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 32,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1649,7 +1655,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2472,7 +2478,7 @@
             "Text": {
                 "fontName": "Lato",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 68.7002",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2503,7 +2509,7 @@
                 "scriptName": "ObjectDeath",
                 "scriptTag": "Death",
                 "MaxDuration": 2.700000047683716,
-                "ScaleSpeed": 20.0,
+                "ScaleSpeed": 10.0,
                 "TimeInState": 0.0
             },
             "Sprite": {
@@ -2528,11 +2534,6 @@
                 "scaleY": 0.0,
                 "scaleZ": 0.0,
                 "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
             }
         }
     ]

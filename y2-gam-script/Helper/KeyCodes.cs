@@ -28,7 +28,9 @@ namespace Image
     {
         IDLE,
         RUN,
-        JUMP
+        JUMP,
+        APPEAR,
+        DEAD
     }
     public enum AnimationCodeDoor
     {

@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Jan 21, 2024
+\date       Feb 3, 2024
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -32,11 +32,20 @@ namespace Object
         public float MaxHorizontalVelocity;
         public bool PlayDeathAnimation = false;
 
+        public bool PlayAppearAnimation = false;
+        public float PlayAppearTimer = 0.0f;
+        public float MaxAppearTime;
+
+        public bool Dead = false;
+        public float RespawnTimer = 0.0f;
+        public float MaxRespawnTime;
+
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
 
         private float temp_dt = 0f;
         private bool isPaused = false;
+        private bool firstTime = true;
 
         // Direction related
         private bool _isFacingRight;
@@ -134,9 +143,22 @@ namespace Object
 
             if (!isPaused)
             {
-
-                if (!GodMode)
+                if (!GodMode && !Dead)
                 {
+                    firstTime = true;
+
+                    if (PlayAppearAnimation)
+                    {
+                        AnimationState = (int)AnimationCodePlayer.APPEAR;
+                        PlayAppearTimer += dt;
+
+                        if (PlayAppearTimer >= MaxAppearTime)
+                        {
+                            PlayAppearAnimation = false;
+                            PlayAppearTimer = 0;
+                        }
+                    }
+
                     RaycastHit centreRayCast = new RaycastHit();
                     RaycastHit leftRayCast = new RaycastHit();
                     RaycastHit rightRayCast = new RaycastHit();
@@ -149,19 +171,25 @@ namespace Object
                         new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.IDLE;
+                        }
 
                         if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
                             centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
-                            Respawn();
+                            Dead = true;
                         }
                     }
 
                     else
                     {
                         IsGrounded = false;
-                        AnimationState = (int)AnimationCodePlayer.JUMP;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.JUMP;
+                        }
                     }
 
                     if (FacingDirectionChanged)
@@ -226,24 +254,38 @@ namespace Object
                         Velocity *= 0.2f;
                     }
 
-                    /*
-                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
-                        out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
-                    {
-                        Respawn();
-                    }
-                    */
-
                     if (Translation.Y <= -99.0f)
                     {
+                        Dead = true;
+                    }
+                }
+
+                else if (!GodMode && Dead)
+                {
+                    RespawnTimer += dt;
+                    AnimationState = (int)AnimationCodePlayer.DEAD;
+
+                    if (RespawnTimer >= 0.5 && firstTime)
+                    {
+                        PlayDeathAnimation = true;
+                        firstTime = false;
+                    }
+
+                    if (RespawnTimer >= MaxRespawnTime)
+                    {
                         Respawn();
+                        Dead = false;
+                        RespawnTimer = 0;
                     }
                 }
 
                 else
                 {
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                    if (!PlayAppearAnimation)
+                    {
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                    }
+
                     ColliderDimensions = new Vector2(0f, 0f);
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
@@ -292,38 +334,33 @@ namespace Object
         }
         public void MoveLeft(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            //Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
-            //if (Velocity.X <= -MaxHorizontalVelocity)
-            //{
-            //    Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
-            //}
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
             Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            //Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
-            //if (Velocity.X >= MaxHorizontalVelocity)
-            //{
-            //    Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
-            //}
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
             Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            //Velocity -= new Vector2(0, Velocity.Y);
-            //Velocity += new Vector2(0, JumpSpeed) * dt;
             Velocity = new Vector2 (Velocity.X, JumpSpeed);
         }
 
         public void Respawn()
         {
-            PlayDeathAnimation = true;
             Translation = spawnPosition;
             Collider = colliderPosition;
         }
