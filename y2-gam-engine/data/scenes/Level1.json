@@ -494,7 +494,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -549,7 +549,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -605,7 +605,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1463,7 +1463,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2292,6 +2292,38 @@
                 "rotZ": 0.0,
                 "scaleX": 275.0,
                 "scaleY": 120.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "No Script Assigned",
+                "scriptTag": "resumePm"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756888403567100
+            },
+            "Tag": {
+                "Tag": "resumePm"
+            },
+            "Transform": {
+                "posX": 282.1906433105469,
+                "posY": -173.5016632080078,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 42.0,
+                "scaleY": 8.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
