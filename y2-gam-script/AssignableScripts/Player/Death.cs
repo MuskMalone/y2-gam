@@ -22,11 +22,13 @@ namespace Object
     {
         public float TimeInState;
         public float MaxDuration;
+        public float BackToLifeDuration;
 
         public float TargetScale;
         public float StartingScale;
         public float DeathAnimationSequence = 0;
         private float MAX_DEATH_SEQUENCE = 3;
+        public bool PlayLifeAnimation = false;
 
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
 
@@ -119,6 +121,7 @@ namespace Object
                 if (TimeInState >= MaxDuration)
                 {
                     player.PlayDeathAnimation = false;
+                    PlayLifeAnimation = true;
                     TimeInState = 0;
                     DeathAnimationSequence++;
 
@@ -126,6 +129,21 @@ namespace Object
                     {
                         DeathAnimationSequence = 0;
                     }
+                }
+            }
+
+            else if (PlayLifeAnimation)
+            {
+                float t = TimeInState / BackToLifeDuration;
+                Translation = new Vector2(player.Translation.X, player.Translation.Y);
+                float easedScale = EaseInQuart(TargetScale, StartingScale, t);
+                Scale = new Vector3(easedScale, easedScale, 0);
+                TimeInState += dt;
+
+                if (TimeInState >= BackToLifeDuration)
+                {
+                    PlayLifeAnimation = false;
+                    TimeInState = 0;
                 }
             }
 
