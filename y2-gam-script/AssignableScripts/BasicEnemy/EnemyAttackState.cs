@@ -38,6 +38,12 @@ public class EnemyAttackState : EnemyBaseState
         {
             enemy.SwitchState(enemy.IdleState);
         }
+
+        else if (attackRayCast.tag == "Player")
+        {
+            Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+            player.Dead = true;
+        }
     }
 
     public override void EnterOnCollision(BasicEnemy enemy)
