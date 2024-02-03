@@ -1,15 +1,28 @@
 #pragma once
 #include <rapidjson/document.h>
 #include <pch.hpp>
-#define EMT_TYPE_SMOKE 0
-#define EMT_TYPE_FIRE 1
-#define EMT_TYPE_BURST 2
-#define EMT_TYPE_BURSTGRAV 3
-#define EMT_TYPE_GRADUAL 4
 
-#define EMT_SHAPE_POINT 1
-#define EMT_SHAPE_LINE 2
-#define EMT_SHAPE_RECT 3
+#define VCOUNT_POINT 1 //point
+#define VCOUNT_LINE 2 //line
+#define VCOUNT_QUAD 4 //quad
+#define VCOUNT_ELLIPSE 5//circle
+
+//type of emmission for all emitter types or points
+#define EMT_TYPE_GRADUAL 0
+
+//type of emissions for lines
+#define EMT_TYPE_RAIN 1 //particles are fired with random angle wrt normal of line
+#define EMT_TYPE_LAZER 2 //fires particles in a line in normal of line
+
+//type of emissions for quads
+#define EMT_TYPE_DUST 4
+#define EMT_TYPE_DISINTEGRATE 5 // the tetricity block disintegrate
+
+//presets for emitters
+#define ALPHA_OVER_LIFETIME 0
+#define SIZE_OVER_LIFETIME 1
+#define ALPHA_SIZE_OVER_LIFETIME 2
+
 namespace GLSLStructs {
 
     //1-1 map of the structs in Particle.glsl
@@ -30,13 +43,14 @@ namespace GLSLStructs {
         int type;               // 4 bytes
         int vCount;             // 4 bytes
         int preset;             // 4 bytes
+        int particlesPerFrame;  // 4 bytes
 
         bool alive;             // 1 byte (in practice, often treated as 4 bytes for alignment)
         char padding[3];        // 3 bytes of padding to align to 4 bytes
 
         // Additional padding at the end to align the entire structure size to a multiple of 16 bytes
         // If you add more data, make sure to calculate and adjust the padding as needed
-        char endPadding[12];    // 12 bytes of padding to align the structure size to a multiple of 16 bytes
+        char endPadding[9];    // 9 bytes of padding to align the structure size to a multiple of 16 bytes
     };
 
     struct alignas(16) Particle {
@@ -78,6 +92,7 @@ struct EmitterProxy {
     // 1 for point, 2 for line, 4 for rect
     int vCount{ 1 };       // 4 bytes
     int preset;    // 4 bytes //alpha over lifetime etc
+    int particlesPerFrame; // 4 bytes
     int idx;
     bool drawEmitterVertices{ false };
     // Padding might be added here to align the entire structure size

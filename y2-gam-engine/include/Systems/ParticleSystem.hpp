@@ -5,6 +5,7 @@
 
 class ParticleSystem : public System
 {
+    std::shared_ptr<Shader> mEmitterShader;
     std::shared_ptr<Shader> mParticleShader;
     std::shared_ptr<Shader> mParticleRenderShader;
     GLuint mEmitterSSbo;

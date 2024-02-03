@@ -92,6 +92,8 @@ void ParticleSystem::Init() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 15, mParticleCountSSbo);
     // Ensures accesses to the SSBOs "reflect" writes from compute shader
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+
+    mEmitterShader = std::make_shared<Shader>("../assets/shaders/Emitter.glsl");
 	mParticleShader = std::make_shared<Shader>("../assets/shaders/Particle.glsl");
     mParticleRenderShader = std::make_shared<Shader>("../assets/shaders/Particle.geom", "../assets/shaders/Particle.vert", "../assets/shaders/Particle.frag");
 
@@ -102,7 +104,7 @@ void ParticleSystem::Init() {
 }
 
 void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
-    mParticleShader->Use();
+    mEmitterShader->Use();
 
     //gets the first available idx for emitter;
     if (action == 1) {
@@ -113,13 +115,12 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
     else if (action == -1) {
         mEmitterIdxQueue.push(emitter.idx);
     }
-
-    mParticleShader->SetUniform("spawnEmitter", action);
-    mParticleShader->SetUniform("emtTargetIdx", static_cast<GLint>(emitter.idx));
+    mEmitterShader->SetUniform("spawnEmitter", action);
+    mEmitterShader->SetUniform("emtTargetIdx", static_cast<GLint>(emitter.idx));
     
     if (action >= 0) {
         //sets the vertices
-        GLint uEmtverticesLoc = glGetUniformLocation(mParticleShader->PgmHdl(), "uEmtvertices");
+        GLint uEmtverticesLoc = glGetUniformLocation(mEmitterShader->PgmHdl(), "uEmtvertices");
 
         //sets the emitter shape
         auto const& v{ emitter.vertices };
@@ -135,62 +136,39 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
         };
         glUniform4fv(uEmtverticesLoc, 4, vertices);
 
-        mParticleShader->SetUniform("uEmtcol", emitter.col);
+        mEmitterShader->SetUniform("uEmtcol", emitter.col);
 
-        mParticleShader->SetUniform("uEmtgravity", emitter.gravity);
-        mParticleShader->SetUniform("uEmtsize", emitter.size);
-        mParticleShader->SetUniform("uEmtrot", emitter.rot);
-        mParticleShader->SetUniform("uEmtlifetime", emitter.lifetime);
-        mParticleShader->SetUniform("uEmtangvel", emitter.angvel);
-        mParticleShader->SetUniform("uEmtspeed", emitter.speed);
+        mEmitterShader->SetUniform("uEmtgravity", emitter.gravity);
+        mEmitterShader->SetUniform("uEmtsize", emitter.size);
+        mEmitterShader->SetUniform("uEmtrot", emitter.rot);
+        mEmitterShader->SetUniform("uEmtlifetime", emitter.lifetime);
+        mEmitterShader->SetUniform("uEmtangvel", emitter.angvel);
+        mEmitterShader->SetUniform("uEmtspeed", emitter.speed);
 
-        mParticleShader->SetUniform("uEmtfrequency", emitter.frequency);
-        mParticleShader->SetUniform("uEmttype", emitter.type);
-        mParticleShader->SetUniform("uEmtvCount", emitter.vCount);
-        mParticleShader->SetUniform("uEmtpreset", emitter.preset);
+        mEmitterShader->SetUniform("uEmtfrequency", emitter.frequency);
+        mEmitterShader->SetUniform("uEmttype", emitter.type);
+        mEmitterShader->SetUniform("uEmtvCount", emitter.vCount);
+        mEmitterShader->SetUniform("uEmtpreset", emitter.preset);
+        mEmitterShader->SetUniform("uEmtparticlesPerFrame", emitter.particlesPerFrame);
     }
 
-    glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
+    glDispatchCompute(1, 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     //set the flags back
     //mParticleShader->SetUniform("spawnEmitter", 0);
-    mParticleShader->SetUniform("emtTargetIdx", -1);
+    mEmitterShader->SetUniform("emtTargetIdx", -1);
 
-    mParticleShader->Unuse();
+    mEmitterShader->Unuse();
 }
 
 void ParticleSystem::Update(float dt) {
     auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    //if (inputSystem->CheckKey(InputSystem::InputKeyState::MOUSE_CLICKED, static_cast<size_t>(MouseButtons::LB))) {
-    //    // Create a random engine and use it to generate a number
-    //    std::random_device rd;  // Obtain a random number from hardware
-    //    std::mt19937 eng(rd()); // Seed the generator
-    //    std::uniform_int_distribution<> distr(-200, 200); // Define the range
-
-    //    // Generate and print a random number
-    //    EmitterProxy ep{
-    //        {{distr(eng), distr(eng), 1, 0},{},{},{}},
-    //        {1,1,0,1},
-
-    //        {0,0},
-    //        {10,10}, 
-    //        0,
-    //        3.f,
-    //        0,
-    //        0.f,
-    //        0,
-    //        0,
-    //        1,1,1,0
-    //    };
-    //    EmitterAction(ep, 1); //adds the particle
-    //}
 
     static float timeElapsed = 0.f;
     timeElapsed += dt;
     mParticleShader->Use();
 
-    mParticleShader->SetUniform("uTimeElapsed", timeElapsed);
 	mParticleShader->SetUniform("DT", dt);
 	mParticleShader->SetUniform("bufferMaxCount", MAX_BUFFER);
 	//1000 is the number of elements per grp
@@ -209,6 +187,9 @@ void ParticleSystem::Update(float dt) {
     glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
     Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
     mParticleRenderShader->Unuse();
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mEmitterSSbo);
+    //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
+    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
     //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
     //float* vels = (float*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(float), GL_MAP_READ_BIT);
@@ -218,9 +199,6 @@ void ParticleSystem::Update(float dt) {
     //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
     //std::cout << *idx << "partrandidx\n";
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-
-
 }
 void ParticleSystem::DrawDebug() {
     for (auto const& e : mEntities) {
@@ -253,5 +231,9 @@ void ParticleSystem::DrawDebug() {
     }
 }
 void ParticleSystem::Destroy() {
-
+    glDeleteBuffers(1, &mRandomIdxSSbo);
+    glDeleteBuffers(1, &mRandomSSbo);
+    glDeleteBuffers(1, &mEmitterSSbo);
+    glDeleteBuffers(1, &mParticleSSbo);
+    glDeleteBuffers(1, &mParticleCountSSbo);
 }

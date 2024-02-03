@@ -273,6 +273,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	imguiSystem->Destroy();
 #endif
 	Renderer::Shutdown();
+	particleSystem->Destroy();
 	windowManager->Shutdown();
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();

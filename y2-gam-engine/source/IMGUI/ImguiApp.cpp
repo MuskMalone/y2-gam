@@ -1111,7 +1111,24 @@ namespace Image {
                     if (ImGui::Button("Add Emitter")) {
                         // Button 1 logic
                                 // Generate and print a random number
-                        EmitterProxy ep{};
+                        EmitterProxy ep{
+                            {{},{},{},{}}, // Vertices
+							{1.0f, 1.0f, 1.0f, 1.0f}, // Color
+							{0.0f, 0.0f}, // Gravity
+							{5.0f, 5.0f}, // Size
+                            0.0f, // Rotation
+                            60.0f, // Lifetime
+                            0.0f, // Angular Velocity
+                            10.0f, // Speed
+                            0.0f, // Time: DO NOT CHANGE THIS
+                            0.f, // Emission Frequency
+                            0, // Type of Emission
+                            1, // vCount
+                            0, // Preset
+                            50, // Particles per frame
+                            0, // emitter index for ssbo
+                            true // Draw Emitter
+                        };
                         ParticleSystem::AddEmitter(ep, selectedEntity);
                     }
                     auto & emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
@@ -1123,7 +1140,7 @@ namespace Image {
                         // Draw a separator line
                         ImGui::Separator();
                         // Display text beside the button
-                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) + "##" + std::to_string(i)).c_str());
+                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) ).c_str());
 
                         // Place the next item (text) on the same line as the previous item (button)
                         ImGui::SameLine();
@@ -1146,6 +1163,8 @@ namespace Image {
                         if (ImGui::Combo((std::string("vCount") + "##" + std::to_string(i)).c_str(), &vCountIdx, vCounts, IM_ARRAYSIZE(vCounts))) {
                             emitter.vCount = (vCountIdx == 0) ? 1 : (vCountIdx == 1) ? 2 : 4;
                             changed = true;
+
+                            emitter.type = 0; //reset the type to gradual emission
                         }
 
                         // Edit vertices based on vCount
@@ -1187,13 +1206,40 @@ namespace Image {
 
                         // Edit frequency
                         changed |= ImGui::DragFloat((std::string("Frequency") + "##" + std::to_string(i)).c_str(), &emitter.frequency, 0.01f, 0.0f, 100.0f);
-
+                        changed |= ImGui::DragInt((std::string("Particle Rate") + "##" + std::to_string(i)).c_str(), &emitter.particlesPerFrame, 1, 1, 1000);
                         // Type of emission dropdown
-                        const char* types[] = { "Smoke", "Fire", "Burst", "Burst with Gravity", "Gradual Emission" };
-                        changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+
+                        switch (emitter.vCount) {
+                        case 1: {
+                            const char* types[] = { "Gradual" };
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+
+                        }break;
+                        case 2: {
+                            const char* types[] = { "Gradual", "Rain", "Lazer"};
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+                        }break;
+                        case 4: {
+                            const char* types[] = { "Gradual", "Dust", "Disintegrate" };
+                            int typeidx;
+                            switch (emitter.type) {
+                            case 0: typeidx = 0; break;
+                            case 4: typeidx = 1; break;
+                            case 5: typeidx = 2; break;
+                            }
+                            if (ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &typeidx, types, IM_ARRAYSIZE(types))) {
+                                switch (typeidx) {
+                                case 0: emitter.type = 0; break;
+                                case 1: emitter.type = 4; break;
+                                case 2: emitter.type = 5; break;
+                                }
+                                changed = true;
+                            }                       
+                        }break;
+                        }
 
                         // Preset dropdown
-                        const char* presets[] = { "Preset 1", "Preset 2", "Preset 3" };
+                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Over Lifetime" };
                         changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
 
                         // Check for changes and call the callback function if needed

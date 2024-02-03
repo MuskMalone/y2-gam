@@ -2,15 +2,26 @@
 #extension GL_ARB_compute_shader : enable
 #extension GL_ARB_shader_storage_buffer_object : enable
 
-#define EMT_TYPE_SMOKE 0
-#define EMT_TYPE_FIRE 1
-#define EMT_TYPE_BURST 2
-#define EMT_TYPE_BURSTGRAV 3
-#define EMT_TYPE_GRADUAL 4
+#define VCOUNT_POINT 1 //point
+#define VCOUNT_LINE 2 //line
+#define VCOUNT_QUAD 4 //quad
+#define VCOUNT_ELLIPSE 5//circle
 
-#define EMT_SHAPE_POINT 1
-#define EMT_SHAPE_LINE 2
-#define EMT_SHAPE_RECT 3
+//type of emmission for all emitter types or points
+#define EMT_TYPE_GRADUAL 0
+
+//type of emissions for lines
+#define EMT_TYPE_RAIN 1 //particles are fired with random angle wrt normal of line
+#define EMT_TYPE_LAZER 2 //fires particles in a line in normal of line
+
+//type of emissions for quads
+#define EMT_TYPE_DUST 4
+#define EMT_TYPE_DISINTEGRATE 5 // the tetricity block disintegrate
+
+//presets for emitters
+#define ALPHA_OVER_LIFETIME 0
+#define SIZE_OVER_LIFETIME 1
+#define ALPHA_SIZE_OVER_LIFETIME 2
 
 struct Particle {
     vec4 col;     // 16 bytes
@@ -47,6 +58,7 @@ struct Emitter {
     // 1 for point, 2 for line, 4 for rect
     int vCount;       // 4 bytes
     int preset;    // 4 bytes //alpha over lifetime etc
+    int particlesPerFrame; // 4 bytes
 
     bool alive;       // 4 bytes (bools are often treated as 4 bytes for alignment)
     
@@ -73,40 +85,15 @@ layout( local_size_x = 1000, local_size_y = 1, local_size_z = 1 ) in;
 
 // uniform control variables
 uniform float DT;
-uniform float uTimeElapsed;
-//variables to store the new emitter
-uniform vec4 uEmtvertices[4]; // Each vec4 is 16 bytes, total 64 bytes
-uniform vec4 uEmtcol;         // 16 bytes (vec3 is aligned like vec4)
-
-uniform vec2 uEmtgravity; // 8 bytes
-uniform vec2 uEmtsize;    // 8 bytes (vec2 is aligned to 8 bytes)
-uniform float uEmtrot;    // 4 bytes
-uniform float uEmtlifetime; // 4 bytes
-uniform float uEmtangvel;  // 4 bytes
-uniform float uEmtspeed;
-
-uniform float uEmtfrequency;  // 4 bytes
-// type of emmission
-//0: smoke
-//1: fire
-//2: burst
-//3: burst with gravity
-//4: gradual emission
-uniform int uEmttype;         // 4 bytes
-// 1 for point, 2 for line, 4 for rect
-uniform int uEmtvCount;       // 4 byte
-uniform int uEmtpreset;
-uniform int emtTargetIdx = -1;
 
 uniform uint bufferMaxCount;
 
-uniform int spawnEmitter = 0;
-
 //from -1 to 1
 float random(){ //retun
-    uint idx = atomicAdd(randIdx, uint(1));
-    atomicCompSwap(randIdx, bufferMaxCount, uint(0));
-	return RandomFloats[idx];
+atomicAdd(randIdx, uint(1));
+atomicCompSwap(randIdx, bufferMaxCount, uint(0));
+	return RandomFloats[randIdx];
+    //return 1.0;
 }
 
 //from 0 to 1
@@ -126,30 +113,25 @@ vec2 randDir(float startAngle, float endAngle, float magnitude){
 
     return (vec2(1,0) * rotmat) * magnitude;
 }
-vec2 randDirInRange(vec2 baseDir, float angleRange, float magnitude) {
+vec2 randDirInRange(vec2 baseDir, float angleDegree, float magnitude) {
     
+    float angleRange = radians(angleDegree);
     // Normalize the base direction
     vec2 normBaseDir = normalize(baseDir);
-
-    // Calculate the angle of the base direction
-    float baseAngle = atan(normBaseDir.y, normBaseDir.x);
 
     // Generate a random angle offset within the specified range
     float angleOffset = randRange(vec2(-angleRange / 2.0, angleRange / 2.0));
 
-    // Calculate the final angle
-    float finalAngle = baseAngle + angleOffset;
-
     // Create a rotation matrix
-    float s = sin(finalAngle);
-    float c = cos(finalAngle);
+    float s = sin(angleOffset);
+    float c = cos(angleOffset);
     mat2 rotMat = mat2(
         c, -s,
         s, c
     );
 
     // Apply the rotation and scale by magnitude
-    return (vec2(1, 0) * rotMat) * magnitude;
+    return (normBaseDir * rotMat) * magnitude;
 }
 void spawnParticle(Particle pctl){
     uint idx = atomicAdd(usableParticleCount, uint(1));
@@ -171,15 +153,20 @@ void spawnParticlePoint(uint emtidx){
         true
     ));
 }
-void spawnParticleRange(uint emtidx, int vtx1, int vtx2){
+
+//emtidz is the indx of the Emitter
+//vtx1 and vtx2 are the indices of the vertices
+//angleRange is the range of angles in degrees wrt to normal
+void spawnParticleRange(uint emtidx, int vtx1, int vtx2, float angleRange){
     //rotate by 90 degrees to find normal;
     vec2 vec = vec2(Emitters[emtidx].vertices[vtx2] - Emitters[emtidx].vertices[vtx1]);
+    vec2 nml = normalize(vec2(-vec.y, vec.x));
     vec2 point = vec2(Emitters[emtidx].vertices[vtx1]) + (rand() * vec);
     
     spawnParticle(Particle(
         Emitters[emtidx].col, //
         vec3(point, 0),
-        randDir(0, 360, Emitters[emtidx].speed), // velocity
+        randDirInRange(nml, angleRange, Emitters[emtidx].speed), // velocity
         Emitters[emtidx].gravity,
         Emitters[emtidx].size,
         Emitters[emtidx].rot, 
@@ -192,126 +179,136 @@ void spawnParticleRange(uint emtidx, int vtx1, int vtx2){
 }
 
 void spawnEmitterParticle(uint emtidx){
-    if (Emitters[emtidx].vCount == 1){ // is point
-        spawnParticlePoint(emtidx);
-    }
-    else if (Emitters[emtidx].vCount == 2){// is line
-        spawnParticleRange(emtidx, 0, 1);
-    }
-    else if (Emitters[emtidx].vCount == 4){// is quad
-        int randCode = int(randRange(vec2(0, 8)));
-        if (randCode%2 == 1){
-            int start, end;
-            if (randCode == 1) {start = 0; end = 1;}
-            else if (randCode == 3) {start = 0; end = 1;}
-            else if (randCode == 5) {start = 0; end = 1;}
-            else if (randCode == 7) {start = 0; end = 1;}
-
-
-            spawnParticleRange(emtidx, start, end);
-        }
-        else{
-            int start, end, i;
-            if (randCode == 0) {start = 0; end = 90; i = 0;}
-            else if (randCode == 2) {start = 90; end = 180;i = 1;}
-            else if (randCode == 4) {start = 180; end = 270;i = 2;}
-            else if (randCode == 8) {start = 270; end = 360;i = 3;}
-
-            spawnParticle(Particle(
-                Emitters[emtidx].col, //
-                vec3(Emitters[emtidx].vertices[i]),
-                randDir(start, end, Emitters[emtidx].speed), // velocity
-                Emitters[emtidx].gravity,
-                Emitters[emtidx].size,
-                Emitters[emtidx].rot, 
-                0, 
-                Emitters[emtidx].lifetime, 
-                Emitters[emtidx].angvel, 
-                int(emtidx),
-                true
-            ));
+    int type = Emitters[emtidx].type;
+    int vCount = Emitters[emtidx].vCount;
+    int particlesPerFrame = Emitters[emtidx].particlesPerFrame;
+    if (vCount == 1){ // is point
+        if (type == EMT_TYPE_GRADUAL){
+            //inside the if block so that lesser comparisions per loop
+            for (int i = 0; i < particlesPerFrame; ++i){
+                spawnParticlePoint(emtidx);
+            }
         }
     }
+    else if (vCount == 2){// is line
+        if (type == EMT_TYPE_GRADUAL){
+            for (int i = 0; i < particlesPerFrame; ++i){
+                spawnParticleRange(emtidx, 0, 1, 360);
+            }
+        }
+        else if (type == EMT_TYPE_RAIN){
+            for (int i = 0; i < particlesPerFrame; ++i){
+                spawnParticleRange(emtidx, 0, 1, 30);}
+        }
+		else if (type == EMT_TYPE_LAZER){
+            for (int i = 0; i < particlesPerFrame; ++i){
+                spawnParticleRange(emtidx, 0, 1, 0);}
+        }
+    }
+    else if (vCount == 4){// is quad
+        if (type == EMT_TYPE_GRADUAL){
+            for (int i = 0; i < particlesPerFrame; ++i){
+                int randCode = int(randRange(vec2(1, 4.99)));
+                int start, end, angle;
+                if (randCode == 1) {start = 0; end = 1;}
+                else if (randCode == 2) {start = 1; end = 2;}
+                else if (randCode == 3) {start = 2; end = 3;}
+                else if (randCode == 4) {start = 3; end = 0;}
+                spawnParticleRange(emtidx, start, end, 180);}
+        }
+        else if (type == EMT_TYPE_DUST){
+            vec4 maxVert = max(Emitters[emtidx].vertices[0], Emitters[emtidx].vertices[2]); // max values from top left and bottom right
+            vec4 minVert = min(Emitters[emtidx].vertices[0], Emitters[emtidx].vertices[2]); // min values from top left and bottom right
+
+            for (int i = 0; i < particlesPerFrame; ++i){
+                
+                vec2 point = vec2(randRange(vec2(minVert.x, maxVert.x)), randRange(vec2(minVert.y, maxVert.y)));
+                spawnParticle(Particle(
+				    Emitters[emtidx].col, //
+				    vec3(point, 0),
+				    randDir(0, 360, Emitters[emtidx].speed), // velocity
+				    Emitters[emtidx].gravity,
+				    Emitters[emtidx].size,
+				    Emitters[emtidx].rot, 
+				    0, 
+				    Emitters[emtidx].lifetime, 
+				    Emitters[emtidx].angvel, 
+				    int(emtidx),
+				    true
+			    ));}
+        }
+        else if (type == EMT_TYPE_DISINTEGRATE){
+            
+            vec2 maxVert = vec2(max(Emitters[emtidx].vertices[0], Emitters[emtidx].vertices[2])); // max values from top left and bottom right
+            vec2 minVert = vec2(min(Emitters[emtidx].vertices[0], Emitters[emtidx].vertices[2])); // min values from top left and bottom right
+            vec2 center = (maxVert + minVert) / 2;
+            vec2 dims = maxVert - minVert;
+            vec2 invdims = dims / float(particlesPerFrame);
+
+            for (int i = 0; i < particlesPerFrame; ++i){
+                for (int j = 0; j < particlesPerFrame; ++j){
+                    vec2 point = vec2(minVert) + (vec2(invdims) * vec2(float(i), float(j)) + vec2(invdims * 0.5));
+                    spawnParticle(Particle(
+				        Emitters[emtidx].col, //
+				        vec3(point, 0),
+				        randDir(0, 360, Emitters[emtidx].speed),
+				        Emitters[emtidx].gravity,
+				        invdims,
+				        Emitters[emtidx].rot, 
+				        0, 
+				        Emitters[emtidx].lifetime, 
+				        Emitters[emtidx].angvel, 
+				        int(emtidx),
+				        true
+			        ));
+                }
+            }
+        }
+
+
+    }
+}
+
+float linearLerp(float a, float b, float t){
+	return a + (b - a) * t;
 }
 
 void main() {
     // gid used as index into SSBO to find the particle
     // that any particular instance is controlling
     uint gid = gl_GlobalInvocationID.x;
-    if (emtTargetIdx >= 0 && gid == 0){ //only one thread edits the emitter
-        if (spawnEmitter == 1){ // spawn emitter
-            Emitters[emtTargetIdx].vertices[0] = uEmtvertices[0]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[1] = uEmtvertices[1]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[2] = uEmtvertices[2]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[3] = uEmtvertices[3]; // Each vec4 is 16 bytes, total 64 bytes
-
-            Emitters[emtTargetIdx].col = uEmtcol;         // 16 bytes (vec3 is aligned like vec4)
-
-            Emitters[emtTargetIdx].gravity = uEmtgravity; // 8 bytes
-            Emitters[emtTargetIdx].size = uEmtsize;    // 8 bytes (vec2 is aligned to 8 bytes)
-            Emitters[emtTargetIdx].rot = uEmtrot;    // 4 bytes
-            Emitters[emtTargetIdx].lifetime = uEmtlifetime; // 4 bytes
-            Emitters[emtTargetIdx].angvel = uEmtangvel;  // 4 bytes
-
-            Emitters[emtTargetIdx].speed = uTimeElapsed; // just to keep uTimeElapsed around
-            Emitters[emtTargetIdx].speed = uEmtspeed;
-
-            Emitters[emtTargetIdx].time = 0.0;       // 4 bytes, but due to the vec3 above, you can expect padding here
-            Emitters[emtTargetIdx].frequency = uEmtfrequency;  // 4 bytes
-            Emitters[emtTargetIdx].type = uEmttype;         // 4 bytes
-            Emitters[emtTargetIdx].vCount = uEmtvCount;       // 4 bytes
-            Emitters[emtTargetIdx].preset = uEmtpreset;
-            Emitters[emtTargetIdx].alive = true;       // 4 bytes (bools are often treated as 4 bytes for alignment)
-
-            
-        }
-        
-        else if (spawnEmitter == -1){ //delete emitter
-            Emitters[emtTargetIdx].alive = false;       // 4 bytes (bools are often treated as 4 bytes for alignment)
-        }
-        else{ //edit emitter
-            Emitters[emtTargetIdx].vertices[0] = uEmtvertices[0]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[1] = uEmtvertices[1]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[2] = uEmtvertices[2]; // Each vec4 is 16 bytes, total 64 bytes
-            Emitters[emtTargetIdx].vertices[3] = uEmtvertices[3]; // Each vec4 is 16 bytes, total 64 bytes
-
-            Emitters[emtTargetIdx].col = uEmtcol;         // 16 bytes (vec3 is aligned like vec4)
-
-            Emitters[emtTargetIdx].gravity = uEmtgravity; // 8 bytes
-            Emitters[emtTargetIdx].size = uEmtsize;    // 8 bytes (vec2 is aligned to 8 bytes)
-            Emitters[emtTargetIdx].rot = uEmtrot;    // 4 bytes
-            Emitters[emtTargetIdx].lifetime = uEmtlifetime; // 4 bytes
-            Emitters[emtTargetIdx].angvel = uEmtangvel;  // 4 bytes
-            Emitters[emtTargetIdx].speed = uEmtspeed;
-
-            Emitters[emtTargetIdx].frequency = uEmtfrequency;  // 4 bytes
-            Emitters[emtTargetIdx].type = uEmttype;         // 4 bytes
-            Emitters[emtTargetIdx].vCount = uEmtvCount;       // 4 bytes
-            Emitters[emtTargetIdx].preset = uEmtpreset;
-        }
-        return;
-    }else{
-        if (Emitters[gid].alive == true){
+    if (Emitters[gid].alive == true){
         //for each emitter
         Emitters[gid].time += DT;
         if (Emitters[gid].time >= Emitters[gid].frequency){
             Emitters[gid].time = 0.0;
             spawnEmitterParticle(gid);
         }
-        }
-
+    }
         
-        if (Particles[gid].alive == true){
-            Particles[gid].age += DT;
-            Particles[gid].vel += Particles[gid].gravity;
-            Particles[gid].pos += vec3(Particles[gid].vel, 0) * DT;
-            
-            //if particles are dead
-            if (Particles[gid].age >= Particles[gid].lifetime){
-                Particles[gid].alive = false;
-            }
+    if (Particles[gid].alive == true){
+		//for each particle
+//        Particles[gid].col = vec4(255, 255, 255, 255);
+//        Particles[gid].vel += vec2(randRange(vec2(10, 15)), randRange(vec2(10, 15)));
+//        Particles[gid].size = vec2(1,1);
 
+        Particles[gid].age += DT;
+        Particles[gid].vel += Particles[gid].gravity;
+        Particles[gid].pos += vec3(Particles[gid].vel, 0) * DT;
+        
+//        switch(Emitters[Particles[gid].emtIdx].preset){
+//        case ALPHA_OVER_LIFETIME:
+//			Particles[gid].col.a = linearLerp(Emitters[Particles[gid].emtIdx].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
+//			break;
+//        case SIZE_OVER_LIFETIME:
+//            break;
+//        case ALPHA_SIZE_OVER_LIFETIME:
+//            break;
+//        }
+        //if particles are dead
+        if (Particles[gid].age >= Particles[gid].lifetime){
+            Particles[gid].alive = false;
         }
-    
+
     }
 }
