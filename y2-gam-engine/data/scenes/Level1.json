@@ -44,7 +44,9 @@
                 "states": [
                     1700480657025096500,
                     1698992900427510800,
-                    1700480697547170400
+                    1700480697547170400,
+                    1706897385432403900,
+                    1706900374940601200
                 ],
                 "currFrame": 3,
                 "speed": 0.07999999821186066,
@@ -82,7 +84,7 @@
                 "IsFacingRight": true,
                 "IsGrounded": true,
                 "JumpSpeed": 120.0,
-                "MaxAppearTime": 0.0,
+                "MaxAppearTime": 0.5,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
@@ -501,7 +503,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -556,7 +558,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -612,7 +614,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1655,7 +1657,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2427,7 +2429,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 1.5333325862884521,
+                "TimeInState": 0.0,
                 "VisionRange": 33.0,
                 "isGrounded": true
             },
@@ -2533,6 +2535,38 @@
                 "scaleX": 0.0,
                 "scaleY": 0.0,
                 "scaleZ": 0.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "UI"
+            },
+            "Script": {
+                "scriptName": "ObjectCursor",
+                "scriptTag": "Cursor"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Cursor"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
                 "elipse": false
             }
         }

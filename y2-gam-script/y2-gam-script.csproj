@@ -80,6 +80,7 @@
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />
     <Compile Include="AssignableScripts\Player\Card.cs" />
     <Compile Include="AssignableScripts\Player\Death.cs" />
+    <Compile Include="AssignableScripts\Utility\Cursor.cs" />
     <Compile Include="AssignableScripts\Utility\FPSDisplay.cs" />
     <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />

@@ -472,6 +472,14 @@
             "idxY": 0.0,
             "dimX": 177.0,
             "dimY": 166.0
+        },
+        "1706938658190170500": {
+            "id": 1706938658190200700,
+            "path": "../assets\\Textures\\UI\\target_cursor.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     },
     "classAnimationManager": {
