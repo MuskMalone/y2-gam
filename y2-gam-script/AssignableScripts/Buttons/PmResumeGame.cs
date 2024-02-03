@@ -7,7 +7,7 @@ namespace Object
     public class PmResumeGame : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
+        public bool isRPaused = false;
         bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -49,34 +49,34 @@ namespace Object
 
         }
 
-        void PauseGame()
-        {
+        //void PauseGame()
+        //{
 
-            if (UIHover)
-            {
-                //Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
+        //    if (UIHover)
+        //    {
+        //        //Console.WriteLine("Quitgame Hovered Over");
+        //        Colour = new Vector4(1, 1, 1, 1);
 
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked && firstTime)
-            {
-                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-                StopAudio();
-                LoadScene("Level1");
-                isPaused = false;
-                ResumeGame();
-                firstTime = false;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        Colour = new Vector4(1, 0, 1, 0);
+        //    }
+        //    if (UIClicked && firstTime)
+        //    {
+        //        //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+        //        //StopAudio();
+        //        //LoadScene("Level1");
+        //        isRPaused = false;
+        //        ResumeGame();
+        //        firstTime = false;
+        //    }
+        //}
 
-        void ResumeGame()
-        {
-            Colour = new Vector4(1, 0, 1, 0);
-        }
+        //void ResumeGame()
+        //{
+        //    Colour = new Vector4(1, 0, 1, 0);
+        //}
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -89,31 +89,47 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
+            if(UIClicked && firstTime)
             {
-                Colour = new Vector4(1, 0, 1, 0);
-
-            }
-            else
-            {
-                PauseGame();
+                isRPaused = false;
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if(Input.IsKeyClicked(KeyCode.KEY_P))
             {
-                if (!isPaused)
+                if(!isRPaused)
                 {
-                    SaveScene("Level1");
-                    PauseGame();
-                    isPaused = true;
+                    isRPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
-                    isPaused = false;
+                    isRPaused = false;
                 }
-                //firstTime = false;
             }
+            //if (!isPaused)
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+
+            //}
+            //else
+            //{
+            //    PauseGame();
+            //}
+
+            //if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        SaveScene("Level1");
+            //        PauseGame();
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
 
 
             //if (UIClicked)
