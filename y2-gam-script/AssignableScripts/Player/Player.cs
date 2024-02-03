@@ -31,6 +31,7 @@ namespace Object
         public bool IsFacingRight;
         public float MaxHorizontalVelocity;
         public bool PlayDeathAnimation = false;
+        public float PlayDeathAnimHowLongAfter;
 
         public bool PlayAppearAnimation = false;
         public float PlayAppearTimer = 0.0f;
@@ -265,7 +266,7 @@ namespace Object
                     RespawnTimer += dt;
                     AnimationState = (int)AnimationCodePlayer.DEAD;
 
-                    if (RespawnTimer >= 0.5 && firstTime)
+                    if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
