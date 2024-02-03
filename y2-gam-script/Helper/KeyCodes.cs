@@ -22,7 +22,8 @@ namespace Image
     {
         WALK,
         RUN,
-        ATTACK
+        ATTACK,
+        DEAD
     }
     public enum AnimationCodePlayer
     {
@@ -31,6 +32,12 @@ namespace Image
         JUMP,
         APPEAR,
         DEAD
+    }
+    public enum AnimationCodeSwappable
+    {
+        DISAPPEAR,
+        APPEAR,
+        STATIC
     }
     public enum AnimationCodeDoor
     {

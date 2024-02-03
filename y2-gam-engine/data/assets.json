@@ -642,6 +642,54 @@
             "idxCoordY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1706958918751709200": {
+            "id": 1706958918751752500,
+            "path": "../assets\\Textures\\ANIM\\Anvil_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958921514429100": {
+            "id": 1706958921514477800,
+            "path": "../assets\\Textures\\ANIM\\Anvil_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958923818396500": {
+            "id": 1706958923818421600,
+            "path": "../assets\\Textures\\ANIM\\Box_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958927068181100": {
+            "id": 1706958927068223000,
+            "path": "../assets\\Textures\\ANIM\\Box_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706960279690233900": {
+            "id": 1706960279690273800,
+            "path": "../assets\\Textures\\gam200_swappable_box.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706963288764716700": {
+            "id": 1706963288764764700,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     }
 }

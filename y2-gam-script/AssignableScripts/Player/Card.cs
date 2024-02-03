@@ -35,6 +35,7 @@ namespace Object
         public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
+        bool collidedOrNot = false;
 
         private uint HoveredID;
         private bool _isHovered;
@@ -156,6 +157,8 @@ namespace Object
             {
                 if (Alive)
                 {
+                    InternalCalls.PhysicsComponent_Collided(ref entityID, ref collidedOrNot);
+                    Console.WriteLine(collidedOrNot);
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;

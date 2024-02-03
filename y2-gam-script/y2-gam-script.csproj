@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignableScripts\Activatables\Swappable.cs" />
     <Compile Include="AssignableScripts\Activatables\Button.cs" />
     <Compile Include="AssignableScripts\Activatables\Door.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
