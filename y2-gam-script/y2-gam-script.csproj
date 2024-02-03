@@ -66,6 +66,7 @@
     <Compile Include="AssignableScripts\Buttons\Gameplaybgm.cs" />
     <Compile Include="AssignableScripts\Buttons\MainMenubgm.cs" />
     <Compile Include="AssignableScripts\Buttons\PauseMenu.cs" />
+    <Compile Include="AssignableScripts\Buttons\PauseMenu2.cs" />
     <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlay.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlayScene.cs" />
