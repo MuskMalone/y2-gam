@@ -41,11 +41,7 @@ Initializes the font renderer and loads the fonts, for future use.
 */
 void TextSystem::Init() {
 	Image::FontRenderer::Init();
-	/*
-	Image::FontRenderer::LoadFont("../assets/fonts/alegreya/AlegreyaSansSC-ThinItalic.ttf", "AlegreyaThin");
-	Image::FontRenderer::SetFontSize("AlegreyaThin");
-	Image::FontRenderer::GenerateBitmap("AlegreyaThin");
-	*/
+
 	Image::FontRenderer::LoadFont("../assets/fonts/arial/arial.ttf", "Arial");
 	Image::FontRenderer::SetFontSize("Arial");
 	Image::FontRenderer::GenerateBitmap("Arial");
@@ -58,9 +54,30 @@ void TextSystem::Init() {
 	Image::FontRenderer::SetFontSize("Getho");
 	Image::FontRenderer::GenerateBitmap("Getho");
 
+	Image::FontRenderer::LoadFont("../assets/fonts/Asap_Condensed/AsapCondensed-Medium.ttf", "AsapMedium");
+	Image::FontRenderer::SetFontSize("AsapMedium");
+	Image::FontRenderer::GenerateBitmap("AsapMedium");
+
+	Image::FontRenderer::LoadFont("../assets/fonts/Asap_Condensed/AsapCondensed-Regular.ttf", "AsapRegular");
+	Image::FontRenderer::SetFontSize("AsapRegular");
+	Image::FontRenderer::GenerateBitmap("AsapRegular");
+
+	Image::FontRenderer::LoadFont("../assets/fonts/Asap_Condensed/AsapCondensed-Bold.ttf", "AsapBold");
+	Image::FontRenderer::SetFontSize("AsapBold");
+	Image::FontRenderer::GenerateBitmap("AsapBold");
+
+	Image::FontRenderer::LoadFont("../assets/fonts/Asap_Condensed/AsapCondensed-SemiBold.ttf", "AsapSemiBold");
+	Image::FontRenderer::SetFontSize("AsapSemiBold");
+	Image::FontRenderer::GenerateBitmap("AsapSemiBold");
+
 	FontTypes.push_back("Arial");
 	FontTypes.push_back("Lato");
 	FontTypes.push_back("Getho");
+
+	FontTypes.push_back("AsapMedium");
+	FontTypes.push_back("AsapRegular");
+	FontTypes.push_back("AsapBold");
+	FontTypes.push_back("AsapSemiBold");
 }
 
 /*  _________________________________________________________________________ */
