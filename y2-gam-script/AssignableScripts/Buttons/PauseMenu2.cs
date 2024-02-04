@@ -12,7 +12,7 @@ namespace Object
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         private Vector2 temp_translation;
-        private Vector2 temp_translation2;
+        //private Vector2 temp_translation2;
         
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -91,10 +91,10 @@ namespace Object
             //    PauseGame();
             //}
 
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
 
             if (!isPaused)
             {

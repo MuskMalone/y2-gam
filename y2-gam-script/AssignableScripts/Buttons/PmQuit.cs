@@ -7,7 +7,10 @@ namespace Object
     public class PmQuit : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
+        private bool isPaused = false;
+        public bool quitClicked = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        private Vector2 temp_translation;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -45,38 +48,39 @@ namespace Object
 
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
         void PauseGame()
         {
-            
-            if (UIHover)
-            {
-                //Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
-               
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked)
-            {
-                GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
-                
-                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-                {
-                    ResumeGame();
-                    isPaused = false;
-                    //firstTime = false;
-                }
-            }
+            Translation = new Vector2(1202, 425);
+            //if (UIHover)
+            //{
+            //    //Console.WriteLine("Quitgame Hovered Over");
+            //    Colour = new Vector4(1, 1, 1, 1);
+
+            //}
+            //else
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+            ////}
+            //if (UIClicked)
+            //{
+            //    GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
+
+            //    if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //        //firstTime = false;
+            //    }
+            //}
         }
 
         void ResumeGame()
         {
-            Colour = new Vector4(1, 0, 1, 0);
+            //Colour = new Vector4(1, 0, 1, 0);
+            Translation = temp_translation;
         }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
@@ -97,10 +101,15 @@ namespace Object
             }
             else
             {
-                PauseGame();
+                //PauseGame();
+                Colour = new Vector4(1, 1, 1, 1);
+                if (UIClicked)
+                {
+                    quitClicked = true; 
+                }
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
