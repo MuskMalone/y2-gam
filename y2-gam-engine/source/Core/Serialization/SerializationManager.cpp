@@ -72,7 +72,9 @@ namespace Serializer {
 
 		//creates an empty file
 		std::ofstream ofs{p};
+		ofs.imbue(std::locale("C"));
 		ofs.close();
+		ofs.imbue(std::locale("C"));
 		ifs.open(p);
 		return ifs;
 	}
@@ -154,7 +156,9 @@ namespace Serializer {
 	bool SerializationManager::FlushJSON(std::string const& name) {
 		path = mPath + name + mExt;
 		if (mDocumentMap.find(path) == mDocumentMap.end()) return false;
-		std::ofstream jsonFile{path};
+		std::ofstream jsonFile{};
+		jsonFile.imbue(std::locale(""));
+		jsonFile.open(path);
 		if (!jsonFile.is_open()) return false;
 		rapidjson::StringBuffer strbuf;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(strbuf);

@@ -1902,10 +1902,10 @@ namespace Image {
         }
         ImGui::EndChild();
         //std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
-        auto input = gCoordinator->GetSystem<InputSystem>();
-        if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_UP)) {
-            SceneManager::GetInstance()->LoadScene("HowToPlay");
-        }
+        //auto input = gCoordinator->GetSystem<InputSystem>();
+        //if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_UP)) {
+        //    SceneManager::GetInstance()->LoadScene("HowToPlay");
+        //}
         //tch: for scene to drag drop
         if (ImGui::BeginDragDropTarget()) {
             //std::cout << "Began drag-drop target." << std::endl;
