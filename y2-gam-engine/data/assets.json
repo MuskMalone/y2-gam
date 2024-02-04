@@ -74,6 +74,16 @@
             "id": 1707024626733990700,
             "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_4.wav",
             "stream": false
+        },
+        "1707058828199428400": {
+            "id": 1707058828199465200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding.wav",
+            "stream": false
+        },
+        "1707058829704876200": {
+            "id": 1707058829704914400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {

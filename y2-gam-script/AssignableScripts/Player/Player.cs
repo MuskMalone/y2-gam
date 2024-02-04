@@ -47,6 +47,8 @@ namespace Object
         private float temp_dt = 0f;
         private bool isPaused = false;
         private bool firstTime = true;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 6;
 
         // Direction related
         private bool _isFacingRight;
@@ -234,24 +236,71 @@ namespace Object
                         }
                     }
 
+                    if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    {
+                        Console.WriteLine("A was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        Velocity *= 0.2f;
+                    }
+
+
+                    if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        Console.WriteLine("D was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        Velocity *= 0.2f;
+                    }
+
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
+                        Console.WriteLine("A was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio("PlayerRunningFloor.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" || 
+                            leftRayCast.layer == "Scaffolding" || 
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
+                        Console.WriteLine("D was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio("PlayerRunningFloor.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
-                    {
-                        Velocity *= 0.2f;
-                    }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
+
+                    if (!IsGrounded)
                     {
-                        Velocity *= 0.2f;
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
                     }
 
                     if (Translation.Y <= -99.0f)
@@ -264,7 +313,11 @@ namespace Object
                 {
                     RespawnTimer += dt;
                     AnimationState = (int)AnimationCodePlayer.DEAD;
-                    PlayAudio("PlayerDeath_1.wav", 0);
+
+                    if (firstTime)
+                    {
+                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                    }                   
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
                     {
@@ -364,6 +417,13 @@ namespace Object
         {
             Translation = spawnPosition;
             Collider = colliderPosition;
+
+            DeathAudioIncrement++;
+
+            if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+            {
+                DeathAudioIncrement = 1;
+            }
         }
         public void FlyLeft(float dt)
         {

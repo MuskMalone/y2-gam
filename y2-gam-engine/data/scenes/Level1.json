@@ -138,7 +138,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Scaffolding"
             },
             "RigidBody": {
                 "dimX": 30.0,
@@ -236,7 +236,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Scaffolding"
             },
             "RigidBody": {
                 "dimX": 30.0,
@@ -285,7 +285,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Scaffolding"
             },
             "RigidBody": {
                 "dimX": 30.0,
@@ -739,7 +739,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Scaffolding"
             },
             "RigidBody": {
                 "dimX": 30.0,
@@ -777,7 +777,7 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 355.713623046875,
+                "posX": 355.9767761230469,
                 "posY": -15.0,
                 "rotation": 0.0,
                 "dimX": 30.0,
@@ -788,7 +788,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Scaffolding"
             },
             "RigidBody": {
                 "dimX": 30.0,
@@ -811,7 +811,7 @@
                 "Tag": "ScaffoldingTall_1"
             },
             "Transform": {
-                "posX": 355.7136535644531,
+                "posX": 355.976806640625,
                 "posY": -27.564712524414063,
                 "posZ": -1.0,
                 "rotX": 0.0,
@@ -1740,7 +1740,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "Sprite": {
                 "r": 1.0,

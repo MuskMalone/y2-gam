@@ -79,6 +79,15 @@ namespace Image
         internal extern static void EngineCore_StopAudio();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_StopAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_ResumeAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PauseAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_LoadScene(String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

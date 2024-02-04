@@ -398,12 +398,6 @@ namespace Image {
       isAudioPlaying.push_back(std::pair<std::pair<std::string, FMOD::Channel*>, bool>(first, true));
     }
 
-    if (result != FMOD_OK) {
-      std::string str(FMOD_ErrorString(result));
-      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
-      return;
-    }
-
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
       std::string str(FMOD_ErrorString(result));
@@ -438,6 +432,74 @@ namespace Image {
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Resume Group", __FUNCTION__);
     }
 #endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioStopChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Stops the audio that is playing from a given filename. The channel will
+  not be able to used after stopping.
+  */
+  void SoundManager::AudioStopChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        itr.first.second->setVolume(0.0f);
+        itr.first.second->stop();
+        itr.second = false;
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioResumeChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Resumes channel.
+  */
+  void SoundManager::AudioResumeChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        bool isPaused{};
+        itr.first.second->getPaused(&isPaused);
+        if (isPaused) {
+          itr.first.second->setPaused(false);
+        }
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPauseChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Pauses channel.
+  */
+  void SoundManager::AudioPauseChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        bool isPaused{};
+        itr.first.second->getPaused(&isPaused);
+        if (!isPaused) {
+          itr.first.second->setPaused(true);
+        }
+        break;
+      }
+    }
   }
 
   /*  _________________________________________________________________________ */
