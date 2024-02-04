@@ -79,8 +79,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 214.0,
-                "posY": 14.00748062133789,
+                "posX": 192.0,
+                "posY": 37.00748062133789,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -105,7 +105,7 @@
                 "scriptName": "ObjectPlayer",
                 "scriptTag": "Player",
                 "GodMode": false,
-                "IsFacingRight": false,
+                "IsFacingRight": true,
                 "IsGrounded": true,
                 "JumpSpeed": 120.0,
                 "MaxHorizontalVelocity": 45.0,
@@ -129,8 +129,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 214.0,
-                "posY": 23.50748062133789,
+                "posX": 192.0,
+                "posY": 46.50748062133789,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -144,8 +144,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -361.5,
-                "posY": -257.0,
+                "posX": -380.5,
+                "posY": -243.5,
                 "rotation": 0.0,
                 "dimX": 310.0,
                 "dimY": 15.0
@@ -178,8 +178,8 @@
                 "Tag": "Base"
             },
             "Transform": {
-                "posX": -361.5,
-                "posY": -257.0,
+                "posX": -380.5,
+                "posY": -243.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -193,8 +193,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -874.5346069335938,
-                "posY": -152.443115234375,
+                "posX": -892.0,
+                "posY": -148.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 230.0
@@ -227,8 +227,8 @@
                 "Tag": "Left Border"
             },
             "Transform": {
-                "posX": -874.5346069335938,
-                "posY": -152.443115234375,
+                "posX": -892.0,
+                "posY": -148.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -242,8 +242,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 260.0,
-                "posY": 196.0,
+                "posX": 240.0,
+                "posY": 207.5,
                 "rotation": 0.0,
                 "dimX": 36.0,
                 "dimY": 250.0
@@ -276,8 +276,8 @@
                 "Tag": "Right Border"
             },
             "Transform": {
-                "posX": 260.0,
-                "posY": 196.0,
+                "posX": 240.0,
+                "posY": 207.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -291,8 +291,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -844.5,
-                "posY": -244.5,
+                "posX": -862.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -325,8 +325,8 @@
                 "Tag": "Spike"
             },
             "Transform": {
-                "posX": -844.5,
-                "posY": -244.5,
+                "posX": -862.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -340,8 +340,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 145.65191650390625,
-                "posY": 83.35287475585938,
+                "posX": 126.65191650390625,
+                "posY": 92.85287475585938,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -374,8 +374,8 @@
                 "Tag": "Box1"
             },
             "Transform": {
-                "posX": 145.65191650390625,
-                "posY": 83.35287475585938,
+                "posX": 126.65191650390625,
+                "posY": 92.85287475585938,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -389,8 +389,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -15.02099609375,
-                "posY": -56.60420227050781,
+                "posX": -40.81726837158203,
+                "posY": -43.56678771972656,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -423,8 +423,8 @@
                 "Tag": "Button1"
             },
             "Transform": {
-                "posX": -15.02099609375,
-                "posY": -56.60420227050781,
+                "posX": -40.81726837158203,
+                "posY": -43.56678771972656,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -438,8 +438,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -450.0672607421875,
-                "posY": -241.03366088867188,
+                "posX": -447.0672607421875,
+                "posY": -228.03366088867188,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -472,8 +472,8 @@
                 "Tag": "Waypoint1"
             },
             "Transform": {
-                "posX": -450.0672607421875,
-                "posY": -241.03366088867188,
+                "posX": -447.0672607421875,
+                "posY": -228.03366088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -487,8 +487,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -795.0,
-                "posY": -118.0,
+                "posX": -807.0,
+                "posY": -105.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -521,8 +521,8 @@
                 "Tag": "Waypoint2"
             },
             "Transform": {
-                "posX": -795.0,
-                "posY": -118.0,
+                "posX": -807.0,
+                "posY": -105.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -536,8 +536,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -714.0,
-                "posY": -34.0,
+                "posX": -731.5,
+                "posY": -21.0,
                 "rotation": 0.0,
                 "dimX": 305.5,
                 "dimY": 35.0
@@ -570,8 +570,8 @@
                 "Tag": "Plat1"
             },
             "Transform": {
-                "posX": -714.0,
-                "posY": -34.0,
+                "posX": -731.5,
+                "posY": -21.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -585,8 +585,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -798.0,
-                "posY": -150.5,
+                "posX": -815.5,
+                "posY": -137.5,
                 "rotation": 0.0,
                 "dimX": 138.0,
                 "dimY": 50.0
@@ -619,8 +619,8 @@
                 "Tag": "Plat2"
             },
             "Transform": {
-                "posX": -798.0,
-                "posY": -150.5,
+                "posX": -815.5,
+                "posY": -137.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -634,8 +634,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -799.5,
-                "posY": -244.5,
+                "posX": -817.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -668,8 +668,8 @@
                 "Tag": "Spike2"
             },
             "Transform": {
-                "posX": -799.5,
-                "posY": -244.5,
+                "posX": -817.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -683,8 +683,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -754.5,
-                "posY": -244.5,
+                "posX": -772.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -717,8 +717,8 @@
                 "Tag": "Spike3"
             },
             "Transform": {
-                "posX": -754.5,
-                "posY": -244.5,
+                "posX": -772.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -732,8 +732,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -709.5,
-                "posY": -244.5,
+                "posX": -727.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -766,8 +766,8 @@
                 "Tag": "Spike4"
             },
             "Transform": {
-                "posX": -709.5,
-                "posY": -244.5,
+                "posX": -727.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -781,8 +781,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -664.5,
-                "posY": -244.5,
+                "posX": -682.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -815,8 +815,8 @@
                 "Tag": "Spike5"
             },
             "Transform": {
-                "posX": -664.5,
-                "posY": -244.5,
+                "posX": -682.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -830,8 +830,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -619.5,
-                "posY": -244.5,
+                "posX": -637.0,
+                "posY": -237.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -864,8 +864,8 @@
                 "Tag": "Spike6"
             },
             "Transform": {
-                "posX": -619.5,
-                "posY": -244.5,
+                "posX": -637.0,
+                "posY": -237.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -879,10 +879,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -399.5,
-                "posY": -34.0,
+                "posX": -418.0,
+                "posY": -21.0,
                 "rotation": 0.0,
-                "dimX": 265.0,
+                "dimX": 263.0,
                 "dimY": 35.0
             },
             "Gravity": {
@@ -913,13 +913,13 @@
                 "Tag": "Plat3"
             },
             "Transform": {
-                "posX": -399.5,
-                "posY": -34.0,
+                "posX": -418.0,
+                "posY": -21.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 265.0,
+                "scaleX": 263.0,
                 "scaleY": 35.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -928,8 +928,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -539.0,
-                "posY": -150.5,
+                "posX": -557.0,
+                "posY": -137.5,
                 "rotation": 0.0,
                 "dimX": 299.0,
                 "dimY": 50.0
@@ -962,8 +962,8 @@
                 "Tag": "Plat4"
             },
             "Transform": {
-                "posX": -539.0,
-                "posY": -150.5,
+                "posX": -557.0,
+                "posY": -137.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -977,8 +977,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -291.0,
-                "posY": -150.5,
+                "posX": -310.5,
+                "posY": -137.5,
                 "rotation": 0.0,
                 "dimX": 172.0,
                 "dimY": 50.0
@@ -1011,8 +1011,8 @@
                 "Tag": "Plat5"
             },
             "Transform": {
-                "posX": -291.0,
-                "posY": -150.5,
+                "posX": -310.5,
+                "posY": -137.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1026,8 +1026,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -477.0,
-                "posY": 8.5,
+                "posX": -496.0,
+                "posY": 21.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 50.0
@@ -1060,8 +1060,8 @@
                 "Tag": "Wall1"
             },
             "Transform": {
-                "posX": -477.0,
-                "posY": 8.5,
+                "posX": -496.0,
+                "posY": 21.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1075,8 +1075,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -644.5,
-                "posY": 8.5,
+                "posX": -663.0,
+                "posY": 21.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 50.0
@@ -1109,8 +1109,8 @@
                 "Tag": "Wall2"
             },
             "Transform": {
-                "posX": -644.5,
-                "posY": 8.5,
+                "posX": -663.0,
+                "posY": 21.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1124,8 +1124,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -561.0,
-                "posY": 34.5,
+                "posX": -579.5,
+                "posY": 46.0,
                 "rotation": 0.0,
                 "dimX": 152.0,
                 "dimY": 15.0
@@ -1158,8 +1158,8 @@
                 "Tag": "Ceiling1"
             },
             "Transform": {
-                "posX": -561.0,
-                "posY": 34.5,
+                "posX": -579.5,
+                "posY": 46.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1173,8 +1173,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -452.5,
-                "posY": -118.0,
+                "posX": -471.0,
+                "posY": -105.0,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 15.0
@@ -1207,8 +1207,8 @@
                 "Tag": "Plat6"
             },
             "Transform": {
-                "posX": -452.5,
-                "posY": -118.0,
+                "posX": -471.0,
+                "posY": -105.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1222,8 +1222,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -655.0,
-                "posY": -118.0,
+                "posX": -672.5,
+                "posY": -105.0,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 15.0
@@ -1256,8 +1256,8 @@
                 "Tag": "Plat7"
             },
             "Transform": {
-                "posX": -655.0,
-                "posY": -118.0,
+                "posX": -672.5,
+                "posY": -105.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1271,8 +1271,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -259.5,
-                "posY": -85.5,
+                "posX": -279.0,
+                "posY": -72.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 80.0
@@ -1305,8 +1305,8 @@
                 "Tag": "Wall3"
             },
             "Transform": {
-                "posX": -259.5,
-                "posY": -85.5,
+                "posX": -279.0,
+                "posY": -72.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1320,8 +1320,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -181.5,
-                "posY": -182.0,
+                "posX": -201.0,
+                "posY": -168.5,
                 "rotation": 0.0,
                 "dimX": 47.0,
                 "dimY": 50.0
@@ -1354,8 +1354,8 @@
                 "Tag": "Plat8"
             },
             "Transform": {
-                "posX": -181.5,
-                "posY": -182.0,
+                "posX": -201.0,
+                "posY": -168.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1369,8 +1369,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -181.5,
-                "posY": -254.0,
+                "posX": -200.5,
+                "posY": -241.0,
                 "rotation": 0.0,
                 "dimX": 50.0,
                 "dimY": 40.0
@@ -1403,8 +1403,8 @@
                 "Tag": "Plat9"
             },
             "Transform": {
-                "posX": -181.5,
-                "posY": -254.0,
+                "posX": -200.5,
+                "posY": -241.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1418,8 +1418,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -64.5,
-                "posY": -120.0,
+                "posX": -84.0,
+                "posY": -107.0,
                 "rotation": 0.0,
                 "dimX": 187.0,
                 "dimY": 112.0
@@ -1452,8 +1452,8 @@
                 "Tag": "Plat10"
             },
             "Transform": {
-                "posX": -64.5,
-                "posY": -120.0,
+                "posX": -85.0,
+                "posY": -107.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1467,10 +1467,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -64.5,
-                "posY": -270.0,
+                "posX": -84.0,
+                "posY": -256.5,
                 "rotation": 0.0,
-                "dimX": 184.0,
+                "dimX": 183.0,
                 "dimY": 40.0
             },
             "Gravity": {
@@ -1501,13 +1501,13 @@
                 "Tag": "Plat11"
             },
             "Transform": {
-                "posX": -64.5,
-                "posY": -270.0,
+                "posX": -84.0,
+                "posY": -256.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 187.0,
+                "scaleX": 183.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -1516,8 +1516,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 167.5,
-                "posY": -215.0,
+                "posX": 147.5,
+                "posY": -202.0,
                 "rotation": 0.0,
                 "dimX": 100.0,
                 "dimY": 150.0
@@ -1550,8 +1550,8 @@
                 "Tag": "Plat12"
             },
             "Transform": {
-                "posX": 167.5,
-                "posY": -215.0,
+                "posX": 147.5,
+                "posY": -202.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1565,8 +1565,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 50.0,
-                "posY": -275.5,
+                "posX": 30.0,
+                "posY": -261.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -1599,8 +1599,8 @@
                 "Tag": "Spike7"
             },
             "Transform": {
-                "posX": 50.0,
-                "posY": -275.5,
+                "posX": 30.0,
+                "posY": -261.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1614,8 +1614,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 95.0,
-                "posY": -275.5,
+                "posX": 75.0,
+                "posY": -261.5,
                 "rotation": 0.0,
                 "dimX": 45.0,
                 "dimY": 15.0
@@ -1648,8 +1648,8 @@
                 "Tag": "Spike8"
             },
             "Transform": {
-                "posX": 95.0,
-                "posY": -275.5,
+                "posX": 75.0,
+                "posY": -261.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1663,8 +1663,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -82.0,
-                "posY": -31.5,
+                "posX": -102.0,
+                "posY": -18.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 65.0
@@ -1697,8 +1697,8 @@
                 "Tag": "Plat13"
             },
             "Transform": {
-                "posX": -82.0,
-                "posY": -31.5,
+                "posX": -102.0,
+                "posY": -18.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1712,8 +1712,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -23.0,
-                "posY": 216.5,
+                "posX": -42.5,
+                "posY": 235.5,
                 "rotation": 0.0,
                 "dimX": 103.0,
                 "dimY": 300.0
@@ -1746,8 +1746,8 @@
                 "Tag": "Plat14"
             },
             "Transform": {
-                "posX": -23.0,
-                "posY": 216.5,
+                "posX": -42.5,
+                "posY": 235.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1761,11 +1761,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 142.5,
-                "posY": 2.5,
+                "posX": 122.5,
+                "posY": 15.5,
                 "rotation": 0.0,
-                "dimX": 51.0,
-                "dimY": 140.0
+                "dimX": 50.0,
+                "dimY": 139.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1795,14 +1795,14 @@
                 "Tag": "Plat15"
             },
             "Transform": {
-                "posX": 142.5,
-                "posY": 2.5,
+                "posX": 122.5,
+                "posY": 15.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 51.0,
-                "scaleY": 140.0,
+                "scaleX": 50.0,
+                "scaleY": 139.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -1810,11 +1810,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 109.0,
-                "posY": 2.5,
+                "posX": 89.5,
+                "posY": 15.5,
                 "rotation": 0.0,
                 "dimX": 16.0,
-                "dimY": 25.0
+                "dimY": 24.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1844,14 +1844,14 @@
                 "Tag": "Plat16"
             },
             "Transform": {
-                "posX": 109.0,
-                "posY": 2.5,
+                "posX": 89.5,
+                "posY": 15.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 16.0,
-                "scaleY": 25.0,
+                "scaleY": 24.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -1859,10 +1859,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 253.5,
-                "posY": -35.5,
+                "posX": 232.5,
+                "posY": -22.5,
                 "rotation": 0.0,
-                "dimX": 171.0,
+                "dimX": 170.0,
                 "dimY": 59.0
             },
             "Gravity": {
@@ -1893,13 +1893,13 @@
                 "Tag": "Plat17"
             },
             "Transform": {
-                "posX": 253.5,
-                "posY": -35.5,
+                "posX": 232.5,
+                "posY": -22.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 171.0,
+                "scaleX": 170.0,
                 "scaleY": 62.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -1908,10 +1908,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 274.0,
-                "posY": -102.5,
+                "posX": 254.0,
+                "posY": -89.5,
                 "rotation": 0.0,
-                "dimX": 125.0,
+                "dimX": 124.0,
                 "dimY": 75.0
             },
             "Gravity": {
@@ -1942,14 +1942,14 @@
                 "Tag": "Plat18"
             },
             "Transform": {
-                "posX": 274.0,
-                "posY": -102.5,
+                "posX": 254.0,
+                "posY": -89.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 125.0,
-                "scaleY": 75.0,
+                "scaleX": 124.0,
+                "scaleY": 74.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -1957,8 +1957,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 360.0,
-                "posY": -129.0,
+                "posX": 339.0,
+                "posY": -116.5,
                 "rotation": 0.0,
                 "dimX": 46.0,
                 "dimY": 62.0
@@ -1991,8 +1991,8 @@
                 "Tag": "Plat19"
             },
             "Transform": {
-                "posX": 360.0,
-                "posY": -129.0,
+                "posX": 339.0,
+                "posY": -116.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2006,8 +2006,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 408.0,
-                "posY": -159.5,
+                "posX": 387.0,
+                "posY": -146.5,
                 "rotation": 0.0,
                 "dimX": 50.0,
                 "dimY": 3.0
@@ -2040,8 +2040,8 @@
                 "Tag": "Plat20"
             },
             "Transform": {
-                "posX": 408.0,
-                "posY": -159.5,
+                "posX": 387.0,
+                "posY": -146.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2055,8 +2055,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 524.0,
-                "posY": -251.0,
+                "posX": 503.0,
+                "posY": -238.0,
                 "rotation": 0.0,
                 "dimX": 188.0,
                 "dimY": 4.0
@@ -2089,8 +2089,8 @@
                 "Tag": "Plat21"
             },
             "Transform": {
-                "posX": 524.0,
-                "posY": -251.0,
+                "posX": 503.0,
+                "posY": -238.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2104,8 +2104,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 361.5,
-                "posY": -96.5,
+                "posX": 340.5,
+                "posY": -84.0,
                 "rotation": 0.0,
                 "dimX": 49.0,
                 "dimY": 3.0
@@ -2138,8 +2138,8 @@
                 "Tag": "Plat22"
             },
             "Transform": {
-                "posX": 361.5,
-                "posY": -96.5,
+                "posX": 340.5,
+                "posY": -84.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2153,8 +2153,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 254.0,
-                "posY": -4.5,
+                "posX": 233.5,
+                "posY": 8.0,
                 "rotation": 0.0,
                 "dimX": 172.0,
                 "dimY": 3.0
@@ -2187,8 +2187,8 @@
                 "Tag": "Plat23"
             },
             "Transform": {
-                "posX": 254.0,
-                "posY": -4.5,
+                "posX": 233.5,
+                "posY": 8.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2202,8 +2202,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 422.5,
-                "posY": -211.0,
+                "posX": 401.0,
+                "posY": -198.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 100.0
@@ -2236,8 +2236,8 @@
                 "Tag": "Plat24"
             },
             "Transform": {
-                "posX": 422.5,
-                "posY": -211.0,
+                "posX": 401.0,
+                "posY": -198.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2251,8 +2251,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 608.5,
-                "posY": -260.5,
+                "posX": 587.0,
+                "posY": -247.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -2285,8 +2285,8 @@
                 "Tag": "Plat25"
             },
             "Transform": {
-                "posX": 608.5,
-                "posY": -260.5,
+                "posX": 587.0,
+                "posY": -247.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2300,8 +2300,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 640.5,
-                "posY": -266.0,
+                "posX": 619.0,
+                "posY": -253.5,
                 "rotation": 0.0,
                 "dimX": 49.0,
                 "dimY": 4.0
@@ -2334,8 +2334,8 @@
                 "Tag": "Plat26"
             },
             "Transform": {
-                "posX": 640.5,
-                "posY": -266.0,
+                "posX": 619.0,
+                "posY": -253.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2349,8 +2349,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 656.5,
-                "posY": -275.5,
+                "posX": 634.5,
+                "posY": -263.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -2383,8 +2383,8 @@
                 "Tag": "Plat27"
             },
             "Transform": {
-                "posX": 656.5,
-                "posY": -275.5,
+                "posX": 634.5,
+                "posY": -263.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2398,8 +2398,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 703.0,
-                "posY": -295.0,
+                "posX": 681.0,
+                "posY": -282.0,
                 "rotation": 0.0,
                 "dimX": 78.0,
                 "dimY": 30.0
@@ -2432,8 +2432,8 @@
                 "Tag": "Plat28"
             },
             "Transform": {
-                "posX": 703.0,
-                "posY": -295.0,
+                "posX": 681.0,
+                "posY": -282.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2447,8 +2447,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 802.0,
-                "posY": -304.5,
+                "posX": 780.0,
+                "posY": -291.5,
                 "rotation": 0.0,
                 "dimX": 120.0,
                 "dimY": 15.0
@@ -2481,8 +2481,8 @@
                 "Tag": "Plat29"
             },
             "Transform": {
-                "posX": 802.0,
-                "posY": -304.5,
+                "posX": 780.0,
+                "posY": -291.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2496,8 +2496,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 707.0,
-                "posY": -127.5,
+                "posX": 686.5,
+                "posY": -114.5,
                 "rotation": 0.0,
                 "dimX": 280.0,
                 "dimY": 34.0
@@ -2530,8 +2530,8 @@
                 "Tag": "Plat30"
             },
             "Transform": {
-                "posX": 707.0,
-                "posY": -127.5,
+                "posX": 686.5,
+                "posY": -114.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2545,8 +2545,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 848.0,
-                "posY": -184.0,
+                "posX": 826.5,
+                "posY": -170.5,
                 "rotation": 0.0,
                 "dimX": 8.0,
                 "dimY": 78.0
@@ -2579,8 +2579,8 @@
                 "Tag": "Plat31"
             },
             "Transform": {
-                "posX": 848.0,
-                "posY": -184.0,
+                "posX": 826.5,
+                "posY": -170.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2594,8 +2594,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 862.5,
-                "posY": -252.0,
+                "posX": 841.0,
+                "posY": -239.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 90.0
@@ -2628,8 +2628,8 @@
                 "Tag": "Plat32"
             },
             "Transform": {
-                "posX": 862.5,
-                "posY": -252.0,
+                "posX": 841.0,
+                "posY": -239.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2643,8 +2643,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 437.0,
-                "posY": 123.0,
+                "posX": 416.0,
+                "posY": 136.5,
                 "rotation": 0.0,
                 "dimX": 18.0,
                 "dimY": 320.0
@@ -2677,8 +2677,8 @@
                 "Tag": "Plat33"
             },
             "Transform": {
-                "posX": 437.0,
-                "posY": 123.0,
+                "posX": 416.0,
+                "posY": 136.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2692,8 +2692,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 135.5,
-                "posY": 280.5,
+                "posX": 115.5,
+                "posY": 293.0,
                 "rotation": 0.0,
                 "dimX": 213.0,
                 "dimY": 15.0
@@ -2726,8 +2726,8 @@
                 "Tag": "Plat34"
             },
             "Transform": {
-                "posX": 135.5,
-                "posY": 280.5,
+                "posX": 115.5,
+                "posY": 293.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2741,8 +2741,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 492.0,
-                "posY": -27.5,
+                "posX": 471.0,
+                "posY": -14.5,
                 "rotation": 0.0,
                 "dimX": 92.0,
                 "dimY": 19.0
@@ -2775,8 +2775,8 @@
                 "Tag": "Plat35"
             },
             "Transform": {
-                "posX": 492.0,
-                "posY": -27.5,
+                "posX": 471.0,
+                "posY": -14.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2790,57 +2790,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 353.0,
-                "posY": 285.5,
-                "rotation": 0.0,
-                "dimX": 150.0,
-                "dimY": 15.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "Layering": {
-                "layering": "Platform"
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Tag": {
-                "Tag": "Plat36"
-            },
-            "Transform": {
-                "posX": 353.0,
-                "posY": 285.5,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 150.0,
-                "scaleY": 15.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": 646.0,
-                "posY": 11.0,
+                "posX": 624.5,
+                "posY": 23.5,
                 "rotation": 0.0,
                 "dimX": 157.0,
                 "dimY": 96.0
@@ -2873,8 +2824,8 @@
                 "Tag": "Plat37"
             },
             "Transform": {
-                "posX": 646.0,
-                "posY": 11.0,
+                "posX": 624.5,
+                "posY": 23.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2888,8 +2839,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 741.0,
-                "posY": -27.0,
+                "posX": 719.5,
+                "posY": -14.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 20.0
@@ -2922,8 +2873,8 @@
                 "Tag": "Plat38"
             },
             "Transform": {
-                "posX": 741.0,
-                "posY": -27.0,
+                "posX": 719.5,
+                "posY": -14.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2937,8 +2888,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 622.5,
-                "posY": 140.5,
+                "posX": 601.5,
+                "posY": 153.5,
                 "rotation": 0.0,
                 "dimX": 353.0,
                 "dimY": 15.0
@@ -2971,8 +2922,8 @@
                 "Tag": "Plat39"
             },
             "Transform": {
-                "posX": 622.5,
-                "posY": 140.5,
+                "posX": 601.5,
+                "posY": 153.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2986,8 +2937,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 806.5,
-                "posY": 90.0,
+                "posX": 785.5,
+                "posY": 103.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 90.0
@@ -3020,8 +2971,8 @@
                 "Tag": "Plat40"
             },
             "Transform": {
-                "posX": 806.5,
-                "posY": 90.0,
+                "posX": 785.5,
+                "posY": 103.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3035,8 +2986,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 783.5,
-                "posY": 43.5,
+                "posX": 762.5,
+                "posY": 56.5,
                 "rotation": 0.0,
                 "dimX": 35.0,
                 "dimY": 3.0
@@ -3069,8 +3020,8 @@
                 "Tag": "Plat41"
             },
             "Transform": {
-                "posX": 783.5,
-                "posY": 43.5,
+                "posX": 762.5,
+                "posY": 56.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3084,8 +3035,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 784.0,
-                "posY": 34.0,
+                "posX": 762.5,
+                "posY": 47.0,
                 "rotation": 0.0,
                 "dimX": 32.0,
                 "dimY": 16.0
@@ -3118,8 +3069,8 @@
                 "Tag": "Plat42"
             },
             "Transform": {
-                "posX": 784.0,
-                "posY": 34.0,
+                "posX": 762.5,
+                "posY": 47.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3133,8 +3084,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 807.5,
-                "posY": -2.0,
+                "posX": 785.5,
+                "posY": 11.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 70.0
@@ -3167,8 +3118,8 @@
                 "Tag": "Plat43"
             },
             "Transform": {
-                "posX": 807.5,
-                "posY": -2.0,
+                "posX": 785.5,
+                "posY": 11.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3182,8 +3133,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 846.5,
-                "posY": -70.5,
+                "posX": 824.5,
+                "posY": -57.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 80.0
@@ -3216,8 +3167,8 @@
                 "Tag": "Plat44"
             },
             "Transform": {
-                "posX": 846.5,
-                "posY": -70.5,
+                "posX": 824.5,
+                "posY": -57.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3231,8 +3182,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 827.0,
-                "posY": -29.5,
+                "posX": 805.0,
+                "posY": -16.5,
                 "rotation": 0.0,
                 "dimX": 24.0,
                 "dimY": 15.0
@@ -3265,8 +3216,8 @@
                 "Tag": "Plat45"
             },
             "Transform": {
-                "posX": 827.0,
-                "posY": -29.5,
+                "posX": 805.0,
+                "posY": -16.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3280,8 +3231,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -852.5,
-                "posY": -118.0,
+                "posX": -857.5,
+                "posY": -106.0,
                 "rotation": 0.0,
                 "dimX": 20.0,
                 "dimY": 14.0
@@ -3314,8 +3265,8 @@
                 "Tag": "Anvil"
             },
             "Transform": {
-                "posX": -852.5,
-                "posY": -118.0,
+                "posX": -857.5,
+                "posY": -106.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3329,8 +3280,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 185.0,
-                "posY": 4.5,
+                "posX": 168.5,
+                "posY": 17.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3363,8 +3314,8 @@
                 "Tag": "Waypoint3"
             },
             "Transform": {
-                "posX": 185.0,
-                "posY": 4.5,
+                "posX": 168.5,
+                "posY": 17.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3378,8 +3329,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 300.5,
-                "posY": 4.5,
+                "posX": 288.5,
+                "posY": 17.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3412,8 +3363,8 @@
                 "Tag": "Waypoint4"
             },
             "Transform": {
-                "posX": 300.5,
-                "posY": 4.5,
+                "posX": 288.5,
+                "posY": 17.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3437,8 +3388,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -551.0,
-                "posY": -109.0,
+                "posX": -556.5,
+                "posY": -98.5,
                 "rotation": 0.0,
                 "dimX": 13.0,
                 "dimY": 28.0
@@ -3484,8 +3435,8 @@
                 "Tag": "Jester"
             },
             "Transform": {
-                "posX": -552.5,
-                "posY": -102.0,
+                "posX": -558.0,
+                "posY": -91.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3499,9 +3450,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -227.5,
-                "posY": -183.0,
-                "rotation": 3.1415908336639404,
+                "posX": -247.0,
+                "posY": -170.0,
+                "rotation": 3.141592502593994,
                 "dimX": 45.00006866455078,
                 "dimY": 14.999994277954102
             },
@@ -3533,8 +3484,8 @@
                 "Tag": "Spike9"
             },
             "Transform": {
-                "posX": -227.5,
-                "posY": -183.0,
+                "posX": -247.0,
+                "posY": -170.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3548,9 +3499,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -135.49998474121094,
-                "posY": -183.50001525878906,
-                "rotation": -3.1415908336639404,
+                "posX": -154.99998474121094,
+                "posY": -170.50001525878906,
+                "rotation": 3.141592502593994,
                 "dimX": 45.0,
                 "dimY": 15.0
             },
@@ -3582,12 +3533,12 @@
                 "Tag": "Spike10"
             },
             "Transform": {
-                "posX": -135.49998474121094,
-                "posY": -183.50001525878906,
+                "posX": -154.99998474121094,
+                "posY": -170.50001525878906,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -180.0,
+                "rotZ": 180.0,
                 "scaleX": 45.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
@@ -3597,8 +3548,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -49.5,
-                "posY": -242.5,
+                "posX": -67.5,
+                "posY": -228.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3631,8 +3582,8 @@
                 "Tag": "Waypoint5"
             },
             "Transform": {
-                "posX": -49.5,
-                "posY": -242.5,
+                "posX": -67.5,
+                "posY": -228.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3646,8 +3597,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 478.0,
-                "posY": -10.0,
+                "posX": 472.0,
+                "posY": 2.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3680,8 +3631,8 @@
                 "Tag": "Button2"
             },
             "Transform": {
-                "posX": 478.0,
-                "posY": -10.0,
+                "posX": 472.0,
+                "posY": 2.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3695,8 +3646,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 784.5,
-                "posY": 52.5,
+                "posX": 768.0,
+                "posY": 65.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3729,8 +3680,8 @@
                 "Tag": "Button3"
             },
             "Transform": {
-                "posX": 784.5,
-                "posY": 52.5,
+                "posX": 768.0,
+                "posY": 65.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3744,8 +3695,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 822.5,
-                "posY": -102.5,
+                "posX": 798.5,
+                "posY": -90.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3778,8 +3729,8 @@
                 "Tag": "Button4"
             },
             "Transform": {
-                "posX": 822.5,
-                "posY": -102.5,
+                "posX": 798.5,
+                "posY": -90.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3793,8 +3744,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 667.5,
-                "posY": -102.0,
+                "posX": 665.0,
+                "posY": -90.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3827,8 +3778,8 @@
                 "Tag": "Box2"
             },
             "Transform": {
-                "posX": 667.5,
-                "posY": -102.0,
+                "posX": 665.0,
+                "posY": -90.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3864,8 +3815,8 @@
                 "Tag": "Wateranim1"
             },
             "Transform": {
-                "posX": 73.60699462890625,
-                "posY": -23.342506408691406,
+                "posX": 50.60699462890625,
+                "posY": -8.842506408691406,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3888,8 +3839,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 11.764747619628906,
-                "posY": -212.81175231933594,
+                "posX": -16.735252380371094,
+                "posY": -199.81175231933594,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -3922,8 +3873,8 @@
                 "Tag": "Door1"
             },
             "Transform": {
-                "posX": 11.764747619628906,
-                "posY": -212.81175231933594,
+                "posX": -16.735252380371094,
+                "posY": -199.81175231933594,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3946,8 +3897,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 260.0,
-                "posY": 34.0,
+                "posX": 241.5,
+                "posY": 45.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -3980,8 +3931,8 @@
                 "Tag": "Door2"
             },
             "Transform": {
-                "posX": 260.0,
-                "posY": 34.0,
+                "posX": 241.5,
+                "posY": 45.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -4004,8 +3955,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 629.0,
-                "posY": -73.0,
+                "posX": 623.0,
+                "posY": -61.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -4038,8 +3989,8 @@
                 "Tag": "Door3"
             },
             "Transform": {
-                "posX": 629.0,
-                "posY": -73.0,
+                "posX": 623.0,
+                "posY": -61.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -4063,7 +4014,7 @@
             "Collider": {
                 "collider": 0,
                 "posX": 595.5,
-                "posY": 96.5,
+                "posY": 107.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -4097,7 +4048,7 @@
             },
             "Transform": {
                 "posX": 595.5,
-                "posY": 96.5,
+                "posY": 107.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -4120,8 +4071,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 703.5,
-                "posY": -74.0,
+                "posX": 702.0,
+                "posY": -61.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -4154,14 +4105,63 @@
                 "Tag": "Door5"
             },
             "Transform": {
-                "posX": 703.5,
-                "posY": -74.0,
+                "posX": 702.0,
+                "posY": -61.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 33.0,
                 "scaleY": 72.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 332.5,
+                "posY": 297.5,
+                "rotation": 0.0,
+                "dimX": 149.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Platform"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Plat36"
+            },
+            "Transform": {
+                "posX": 332.5,
+                "posY": 297.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 149.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

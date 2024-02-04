@@ -63,7 +63,7 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
-    bool gSnap = false;
+    bool gSnap = true;
     float gSnapVal = 0.5f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
