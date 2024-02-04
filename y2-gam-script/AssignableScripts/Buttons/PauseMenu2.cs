@@ -106,6 +106,7 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 1);
                 
             }
+
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 //if (!IsKeyPressed)

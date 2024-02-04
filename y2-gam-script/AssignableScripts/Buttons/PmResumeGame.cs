@@ -8,7 +8,7 @@ namespace Object
     {
         //bool firstTime = true;
         public bool isRPaused = false;
-
+        private Vector2 temp_translation;
         //private bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -47,7 +47,7 @@ namespace Object
 
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
         //void PauseGame()
@@ -91,8 +91,20 @@ namespace Object
         void OnUpdate(float dt)
         {
             //if(UIClicked && firstTime)
+
+            if (!isRPaused)
+            {
+                Colour = new Vector4(1, 0, 1, 0);
+            }
+            else
+            {
+
+                Colour = new Vector4(1, 1, 1, 1);
+            }
+
             if (UIClicked)
             {
+                Translation = temp_translation;
                 isRPaused = false;
             }
 
@@ -100,6 +112,7 @@ namespace Object
             {
                 if(!isRPaused)
                 {
+                    Translation = new Vector2(1200, 381);
                     isRPaused = true;
                 }
                 else

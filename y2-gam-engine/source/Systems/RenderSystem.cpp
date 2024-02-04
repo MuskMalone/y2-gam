@@ -401,7 +401,7 @@ void RenderSystem::RenderUI() {
 		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
 
 		if (ui.enabled) {
-			// Constrain position within screen bounds
+			 //Constrain position within screen bounds
 			float minX = 0 + transform.scale.x / 2.0f; // Left boundary
 			float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
 			float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary

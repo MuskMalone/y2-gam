@@ -9,8 +9,9 @@ namespace Object
         //bool firstTime = true;
         private bool isPaused = false;
         private Vector2 temp_translation;
-        private Vector2 temp_translation2;
+        //private Vector2 temp_translation2;
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -121,6 +122,10 @@ namespace Object
                 }
             }
 
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
 
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {

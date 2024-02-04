@@ -11,6 +11,7 @@ namespace Object
         public bool quitClicked = false;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         private Vector2 temp_translation;
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -108,6 +109,11 @@ namespace Object
                 {
                     quitClicked = true; 
                 }
+            }
+
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
             }
 
             if (Input.IsKeyClicked(KeyCode.KEY_P))

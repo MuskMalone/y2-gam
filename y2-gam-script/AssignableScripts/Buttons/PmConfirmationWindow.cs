@@ -63,7 +63,7 @@ namespace Object
         void OnUpdate(float dt)
         {
             //if(isPaused)
-            Console.WriteLine("QuitClicked= " + quit.quitClicked);
+            //Console.WriteLine("QuitClicked= " + quit.quitClicked);
             if (quit.quitClicked == true)
             {
                 Colour = new Vector4(1, 1, 1, 1);
@@ -78,12 +78,12 @@ namespace Object
                     //Colour = new Vector4(1, 1, 1, 0);
                     //GameplayWrapper.DestroyEntity(entityID);
                     quit.quitClicked = false;
-                    Console.WriteLine("2QuitClicked= " + quit.quitClicked);
+                    //Console.WriteLine("2QuitClicked= " + quit.quitClicked);
                 }
             }
             else if (quit.quitClicked == false)
             {
-                Console.WriteLine("here");
+                //Console.WriteLine("here");
                 Colour = new Vector4(1, 0, 1, 0);
             }
 
