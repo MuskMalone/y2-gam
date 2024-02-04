@@ -61,7 +61,7 @@ namespace Object
         */
         void OnCreate()
         {
-
+            AnimationState = (int)AnimationCodeCheckpoint.NOT_ACTIVATED;
         }
 
 

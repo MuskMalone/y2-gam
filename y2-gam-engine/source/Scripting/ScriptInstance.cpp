@@ -97,10 +97,11 @@ namespace Image {
   Calls the on exit function from C#.
   */
   void ScriptInstance::CallOnExit() noexcept {
-    if (gcHandle != NULL)
+    if (gcHandle != NULL) {
       mScriptClass.CallMethod(mono_gchandle_get_target(gcHandle), mOnExitMethod);
+      mono_gchandle_free(gcHandle);
+    }
     //mScriptClass.CallThunkNoArg(mono_gchandle_get_target(gcHandle), mOnExitMethod);
-    mono_gchandle_free(gcHandle);
   }
 
   /*  _________________________________________________________________________ */

@@ -222,6 +222,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 #ifdef _INSTALLER
 	SceneManager::GetInstance()->LoadScene("MainMenu");
+	ShowCursor(false);
 #endif
 
 	while (!quit && !windowManager->ShouldClose())

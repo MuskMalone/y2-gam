@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Jan 21, 2024
+\date       Feb 3, 2024
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -30,12 +30,25 @@ namespace Object
         public bool GodMode = false;
         public bool IsFacingRight;
         public float MaxHorizontalVelocity;
+        public bool PlayDeathAnimation = false;
+        public float PlayDeathAnimHowLongAfter;
+
+        public bool PlayAppearAnimation = false;
+        public float PlayAppearTimer = 0.0f;
+        public float MaxAppearTime;
+
+        public bool Dead = false;
+        public float RespawnTimer = 0.0f;
+        public float MaxRespawnTime;
 
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
 
         private float temp_dt = 0f;
         private bool isPaused = false;
+        private bool firstTime = true;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 6;
 
         // Direction related
         private bool _isFacingRight;
@@ -118,7 +131,6 @@ namespace Object
             {
                 if (!isPaused)
                 {
-
                     PauseGame();
                     temp_dt = dt;
                     dt = temp_dt;
@@ -133,9 +145,22 @@ namespace Object
 
             if (!isPaused)
             {
-
-                if (!GodMode)
+                if (!GodMode && !Dead)
                 {
+                    firstTime = true;
+
+                    if (PlayAppearAnimation)
+                    {
+                        AnimationState = (int)AnimationCodePlayer.APPEAR;
+                        PlayAppearTimer += dt;
+
+                        if (PlayAppearTimer >= MaxAppearTime)
+                        {
+                            PlayAppearAnimation = false;
+                            PlayAppearTimer = 0;
+                        }
+                    }
+
                     RaycastHit centreRayCast = new RaycastHit();
                     RaycastHit leftRayCast = new RaycastHit();
                     RaycastHit rightRayCast = new RaycastHit();
@@ -148,19 +173,25 @@ namespace Object
                         new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.IDLE;
+                        }
 
                         if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
                             centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
-                            Respawn();
+                            Dead = true;
                         }
                     }
 
                     else
                     {
                         IsGrounded = false;
-                        AnimationState = (int)AnimationCodePlayer.JUMP;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.JUMP;
+                        }
                     }
 
                     if (FacingDirectionChanged)
@@ -205,42 +236,110 @@ namespace Object
                         }
                     }
 
+                    if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    {
+                        Console.WriteLine("A was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        Velocity *= 0.2f;
+                    }
+
+
+                    if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        Console.WriteLine("D was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        Velocity *= 0.2f;
+                    }
+
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
+                        Console.WriteLine("A was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio("PlayerRunningFloor.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" || 
+                            leftRayCast.layer == "Scaffolding" || 
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
+                        Console.WriteLine("D was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio("PlayerRunningFloor.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
-                    {
-                        Velocity *= 0.2f;
-                    }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
-                    {
-                        Velocity *= 0.2f;
-                    }
 
-                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2.0f) + 1.0f, Collider.Y), 
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2.0f) - 1.0f, Collider.Y), entityID, 
-                        out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
+                    if (!IsGrounded)
                     {
-                        Respawn();
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename("PlayerRunningFloor.wav");
                     }
 
                     if (Translation.Y <= -99.0f)
                     {
+                        Dead = true;
+                    }
+                }
+
+                else if (!GodMode && Dead)
+                {
+                    RespawnTimer += dt;
+                    AnimationState = (int)AnimationCodePlayer.DEAD;
+
+                    if (firstTime)
+                    {
+                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                    }                   
+
+                    if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
+                    {
+                        PlayDeathAnimation = true;
+                        firstTime = false;
+                    }
+
+                    if (RespawnTimer >= MaxRespawnTime)
+                    {
                         Respawn();
+                        Dead = false;
+                        RespawnTimer = 0;
                     }
                 }
 
                 else
                 {
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                    if (!PlayAppearAnimation)
+                    {
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                    }
+
                     ColliderDimensions = new Vector2(0f, 0f);
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
@@ -289,32 +388,28 @@ namespace Object
         }
         public void MoveLeft(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            //Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
-            //if (Velocity.X <= -MaxHorizontalVelocity)
-            //{
-            //    Velocity = new Vector2(-MaxHorizontalVelocity, Velocity.Y);
-            //}
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
             Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            //Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
-            //if (Velocity.X >= MaxHorizontalVelocity)
-            //{
-            //    Velocity = new Vector2(MaxHorizontalVelocity, Velocity.Y);
-            //}
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
             Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            //Velocity -= new Vector2(0, Velocity.Y);
-            //Velocity += new Vector2(0, JumpSpeed) * dt;
             Velocity = new Vector2 (Velocity.X, JumpSpeed);
         }
 
@@ -322,6 +417,13 @@ namespace Object
         {
             Translation = spawnPosition;
             Collider = colliderPosition;
+
+            DeathAudioIncrement++;
+
+            if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+            {
+                DeathAudioIncrement = 1;
+            }
         }
         public void FlyLeft(float dt)
         {

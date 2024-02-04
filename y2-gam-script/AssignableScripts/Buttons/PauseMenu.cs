@@ -53,8 +53,8 @@ namespace Object
         void PauseGame()
         {
             Colour = new Vector4(1, 1, 1, 1);
-            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
-            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
+            GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
+            GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
         }
 
         void ResumeGame()
@@ -78,7 +78,7 @@ namespace Object
                 Colour = new Vector4(1, 0, 1, 0);
 
             }
-                
+            
             if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
                 if (!IsKeyPressed)
@@ -101,7 +101,7 @@ namespace Object
             {
                 IsKeyPressed = false;
             }
-
+            
 
             //if (UIClicked)
             //{

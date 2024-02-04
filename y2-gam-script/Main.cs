@@ -103,6 +103,36 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! StopAudioFromFilename
+
+        Stops audio channel, given its filename.
+        */
+        public void StopAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_StopAudioWithFilename(audioFileName);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! ResumeAudioFromFilename
+
+        Resumes audio channel, given its filename.
+        */
+        public void ResumeAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_ResumeAudioWithFilename(audioFileName);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! PauseAudioFromFilename
+
+        Pauses audio channel, given its filename.
+        */
+        public void PauseAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_PauseAudioWithFilename(audioFileName);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! LoadScene
 
         Loads the specified scene.
@@ -359,6 +389,19 @@ namespace Image
             set
             {
                 InternalCalls.TransformComponent_SetTranslation(ref entityID, ref value);
+            }
+        }
+        public float Transform_Rotation
+        {
+            get
+            {
+                float rot = 0;
+                InternalCalls.TransformComponent_GetRotation(ref entityID, ref rot);
+                return rot;
+            }
+            set
+            {
+                InternalCalls.TransformComponent_SetRotation(ref entityID, ref value);
             }
         }
 

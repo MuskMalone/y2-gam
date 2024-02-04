@@ -79,6 +79,15 @@ namespace Image
         internal extern static void EngineCore_StopAudio();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_StopAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_ResumeAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PauseAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_LoadScene(String sceneName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -95,6 +104,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_Quit();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static float EngineCore_GetFPS();
         #endregion
 
         #region Pathfinding
@@ -299,6 +311,12 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void TransformComponent_SetTranslation(ref uint entityHandle, ref Vector2 translation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_GetRotation(ref uint entityHandle, ref float rotation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_SetRotation(ref uint entityHandle, ref float rotation);
         #endregion
 
         #region Force

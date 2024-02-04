@@ -451,6 +451,118 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+/*! RenderTextUI
+
+@param fontname
+Name of the font.
+
+@param text
+The text to display.
+
+@param xPos
+X-coordinate on screen.
+
+@param yPos
+Y-coordinate on screen.
+
+@param scale
+Scale for the font.
+
+@param color
+Color of the font.
+
+@return none.
+
+The text render function. Loops through the characters in the user passed in
+string, then positions them according to their bearing and size. Specifically 
+for UI elements (used in UIImage).
+*/
+  void FontRenderer::RenderTextUI(std::string fontName, std::string text, float xPos, float yPos,
+    float scale, Vec3 color) {
+    if (sFaces.find(fontName) == sFaces.end()) {
+#ifndef _INSTALLER
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Font " + fontName + " does not exist", __FUNCTION__);
+#endif
+      std::exit(EXIT_FAILURE);
+    }
+
+    yPos = -yPos;
+
+    FaceObject const& currFace{ sFaces[fontName] };
+    std::shared_ptr<Texture>const& currTex{ sBitmap[fontName] };
+
+    //float worldLimitX{ static_cast<float>(WORLD_LIMIT_X) };
+    //float worldLimitY{ static_cast<float>(WORLD_LIMIT_Y) };
+    //OrthoCamera cam(16/9, -worldLimitX, worldLimitX, worldLimitY, -worldLimitY);
+
+    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetUICamera()) };
+    glm::mat4 projection{ cam.GetProjMtx() };
+    glm::mat4 flipY{ glm::mat4(1.0f) };
+    flipY[1][1] = -1.0f;
+    projection = projection * flipY;
+
+    sShaderPgm->Use();
+    sShaderPgm->SetUniform("uTextColor", color.x, color.y, color.z);
+    sShaderPgm->SetUniform("uProjection", projection);
+    currFace.vao->Bind();
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glDisable(GL_DEPTH_TEST);
+
+    // update VBO for each character
+    std::vector<float> vertices{};
+    std::size_t verticesPerCharacter{ static_cast<size_t>(4 * 4) };
+    vertices.reserve(verticesPerCharacter * text.length());
+    vertices.clear();
+    int index{};
+    for (char const& ch : text) {
+      Character currChar{ (sCharacters[fontName])[ch] };
+
+      float xpos{ xPos + currChar.bearing.x * scale };
+      float ypos{ yPos - (currChar.size.y + currChar.bearing.y) * scale };
+
+      float width{ currChar.size.x * scale };
+      float height{ currChar.size.y * scale };
+
+      float arr[4 * 4] = {
+        xpos + width, ypos + height, currChar.uMax, currChar.vMin,
+        xpos + width, ypos + 2.f * height, currChar.uMax, currChar.vMax,
+        xpos, ypos + 2.f * height, currChar.uMin, currChar.vMax,
+        xpos, ypos + height, currChar.uMin, currChar.vMin
+      };
+
+      auto insertPosition{ vertices.begin() + (index * verticesPerCharacter) };
+      vertices.insert(insertPosition, arr, arr + std::size(arr));
+
+      xPos += (currChar.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+      index++;
+    }
+
+    // bind the bitmap font texture
+    currTex->Bind(0);
+
+    currFace.vbo->Bind();
+    currFace.vbo->SetData(vertices.data(),
+      static_cast<unsigned int>(vertices.size() * sizeof(float)));
+    currFace.ebo->Bind();
+    size_t eboSizePerChar{ 6 };
+
+    // Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Bind();
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(eboSizePerChar * text.length()),
+      GL_UNSIGNED_INT, NULL);
+    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer()->Unbind();
+
+    glEnable(GL_DEPTH_TEST);
+    //glDisable(GL_BLEND);
+    currFace.vao->Unbind();
+    currFace.ebo->Unbind();
+    currFace.vbo->Unbind();
+    sShaderPgm->Unuse();
+  }
+
+  /*  _________________________________________________________________________ */
   /*! GetTextWidth
 
   @param fontname

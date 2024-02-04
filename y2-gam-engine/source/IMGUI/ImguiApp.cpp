@@ -40,6 +40,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/TextSystem.hpp"
 #include "Systems/ImguiSystem.hpp"
 #include "Logging/LoggingSystem.hpp"
 #include <Core/Globals.hpp>
@@ -67,8 +68,20 @@ namespace {
     float gSnapVal = 0.5f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
+    bool paused = false;
     //std::string gCurrentScene = "";
 }
+#define STOP_SCENE_DONOTUSE \
+  if (SceneManager::GetInstance()->IsSceneActive()) {\
+    if (!renderSystem->IsEditorMode()) {\
+      /*std::cout << "Stop to toggle to editer mode" << std::endl;*/\
+      renderSystem->ToggleEditorMode();\
+      ImGui::SetWindowFocus("Image Game Engine");\
+    }\
+    SceneManager::GetInstance()->ResetScene();\
+    paused = false;\
+  }\
+
 namespace Image {
     /*  _________________________________________________________________________ */
     /*! AppRender
@@ -180,7 +193,7 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-            static bool paused = false;
+            //static bool paused = false;
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
                     if (!paused) SceneManager::GetInstance()->ModifyScene();
@@ -200,17 +213,7 @@ namespace Image {
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-                if (SceneManager::GetInstance()->IsSceneActive()) {
-                    if (!renderSystem->IsEditorMode()) {
-                        //std::cout << "Stop to toggle to editer mode" << std::endl;
-                        renderSystem->ToggleEditorMode();
-                        ImGui::SetWindowFocus("Image Game Engine");
-
-                    }
-                    SceneManager::GetInstance()->ResetScene();
-                    paused = false;
-
-                }
+                STOP_SCENE_DONOTUSE
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();
@@ -937,10 +940,10 @@ namespace Image {
               std::string treeNodeLabel = "Text##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                 Text& text = gCoordinator->GetComponent<Text>(selectedEntity);
-                ImGui::Text("Text to Display");
-                ImGui::SameLine();
-                ImGui::SetCursorPosX(SAME_LINE_SPACING);
-                ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                ImGui::Text("Display");
+                //ImGui::SameLine();
+                //ImGui::SetCursorPosX(SAME_LINE_SPACING);
+                ImGui::SetNextItemWidth(3 * TEXT_BOX_WIDTH);
                 char tempLayerName[256];
                 strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
                 tempLayerName[sizeof(tempLayerName) - 1] = '\0';
@@ -950,6 +953,42 @@ namespace Image {
                   text.text = tempLayerName;
                 }
 
+                ImGui::Text("Font Family");
+                auto fontSystem{ gCoordinator->GetSystem<TextSystem>() };
+
+                static int selectedOption = -1;
+
+                // Find the initial index for selectedOption based on the name of the script
+                for (int i{}; i < fontSystem->FontTypes.size(); ++i) {
+                  if (text.fontName == fontSystem->FontTypes[i]) {
+                    selectedOption = i;
+                    break;
+                  }
+                }
+
+                static int previousOption = selectedOption; // Store the previous option
+                ImGui::Combo("Font Name",
+                  &selectedOption,
+                  fontSystem->FontTypes.data(),
+                  fontSystem->FontTypes.size());
+
+                if (selectedOption != previousOption) {
+                  previousOption = selectedOption;
+                  text.fontName = fontSystem->FontTypes[selectedOption];
+                }
+
+                //Color
+                ImGui::Text("Color");
+                ImGui::ColorPicker3("Color Picker", &text.color.x);
+
+                // Scale
+                ImGui::Text("Scale");
+                ImGui::SetNextItemWidth(50.f);
+                ImGui::InputFloat("##Scale", &text.scale);
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(100.f);
+                ImGui::SliderFloat("Scale", &text.scale, 0.01f, 5.f);
+
                 ImGui::TreePop();
               }
             }
@@ -958,7 +997,7 @@ namespace Image {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
-                  ImGui::Text("Assigned Script:");
+                  ImGui::Text("Assigned Script");
 
                   static int selectedOption = -1;
 
@@ -1738,6 +1777,19 @@ namespace Image {
                 //    SceneManager::GetInstance()->ExitScene(gCurrentScene);
                 //}
                 std::string currentScene = (basePath / payLoadPath).stem().string();
+                static bool open = false;
+                ImGui::OpenPopup("current scene still running");
+                if (!renderSystem->IsEditorMode()) {
+                  if (ImGui::BeginPopupModal("current scene still running")) {
+                    ImGui::Text("stop current scene");
+
+                    if (ImGui::Button("Close")) {
+                      open = false;
+                    }
+
+                    ImGui::EndPopup();
+                  }
+                }
 
                 SceneManager::GetInstance()->LoadScene(currentScene);
             }

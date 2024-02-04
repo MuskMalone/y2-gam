@@ -92,6 +92,16 @@ namespace Object
             {
                 isPressed = false;
             }
+
+            if (isPressed)
+            {
+                AnimationState = (int)AnimationCodeButton.OPEN;
+            }
+
+            else
+            {
+                AnimationState = (int)AnimationCodeButton.CLOSED;
+            }
         }
 
         /*  _________________________________________________________________________ */

@@ -54,6 +54,36 @@
             "id": 1701089634283258000,
             "path": "../assets\\audio\\sfx\\enemy_killed.wav",
             "stream": false
+        },
+        "1707024617133273000": {
+            "id": 1707024617133321400,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_1.wav",
+            "stream": false
+        },
+        "1707024621867743400": {
+            "id": 1707024621867789000,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_2.wav",
+            "stream": false
+        },
+        "1707024623669922500": {
+            "id": 1707024623669965200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_3.wav",
+            "stream": false
+        },
+        "1707024626733943200": {
+            "id": 1707024626733990700,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_4.wav",
+            "stream": false
+        },
+        "1707058828199428400": {
+            "id": 1707058828199465200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding.wav",
+            "stream": false
+        },
+        "1707058829704876200": {
+            "id": 1707058829704914400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {
@@ -465,6 +495,22 @@
             "dimX": 2067.0,
             "dimY": 683.0
         },
+        "1706865272271207300": {
+            "id": 1706865272271266200,
+            "path": "../assets\\Textures\\UI\\DAA2402_level_transition_face.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 177.0,
+            "dimY": 166.0
+        },
+        "1706938658190170500": {
+            "id": 1706938658190200700,
+            "path": "../assets\\Textures\\UI\\target_cursor.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
         "1705483032734269100": {
             "id": 1705483032734295400,
             "path": "../assets\\Textures\\backgrounds\\game200_lvl2castle_wip.png",
@@ -666,6 +712,118 @@
             "idxCoordY": 0.0,
             "dimX": 222.0,
             "dimY": 480.0
+        },
+        "1706241684624811400": {
+            "id": 1706241684624840800,
+            "path": "../assets\\Textures\\gam200_button_midway.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 64.0
+        },
+        "1706241685990117500": {
+            "id": 1706241685990145700,
+            "path": "../assets\\Textures\\gam200_button_unpressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 68.0
+        },
+        "1706243405768460700": {
+            "id": 1706243405768512300,
+            "path": "../assets\\Textures\\gam200_button_pressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 52.0
+        },
+        "1706897385432403900": {
+            "id": 1706897385432446500,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_APPEAR.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1706900374940601200": {
+            "id": 1706900374940637000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706900377831135900": {
+            "id": 1706900377831163400,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958918751709200": {
+            "id": 1706958918751752500,
+            "path": "../assets\\Textures\\ANIM\\Anvil_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958921514429100": {
+            "id": 1706958921514477800,
+            "path": "../assets\\Textures\\ANIM\\Anvil_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958923818396500": {
+            "id": 1706958923818421600,
+            "path": "../assets\\Textures\\ANIM\\Box_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958927068181100": {
+            "id": 1706958927068223000,
+            "path": "../assets\\Textures\\ANIM\\Box_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706960279690233900": {
+            "id": 1706960279690273800,
+            "path": "../assets\\Textures\\gam200_swappable_box.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706963288764716700": {
+            "id": 1706963288764764700,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017805757956700": {
+            "id": 1707017805758005900,
+            "path": "../assets\\Textures\\ANIM\\Box_512.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017811603344400": {
+            "id": 1707017811603372300,
+            "path": "../assets\\Textures\\ANIM\\ANVIL_512.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     }
 }

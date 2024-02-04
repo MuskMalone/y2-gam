@@ -22,6 +22,8 @@ namespace Object
 {
     public class Card : Entity
     {
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+
         private Vector2 direction;
         public float timeAlive = 0.0f;
         public bool Alive = false;
@@ -33,6 +35,7 @@ namespace Object
         public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
+        bool collidedOrNot = false;
 
         private uint HoveredID;
         private bool _isHovered;
@@ -154,6 +157,8 @@ namespace Object
             {
                 if (Alive)
                 {
+                    InternalCalls.PhysicsComponent_Collided(ref entityID, ref collidedOrNot);
+                    Console.WriteLine(collidedOrNot);
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;
@@ -168,7 +173,7 @@ namespace Object
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
-                        ResetColour(HoveredID);
+                        //ResetColour(HoveredID);
                         ResetCardUI();
                     }
 
@@ -191,6 +196,11 @@ namespace Object
 
                                 GameplayWrapper.Swap(entityID, swapRayCast.id);
 
+                                if (swapRayCast.id == player.entityID)
+                                {
+                                    player.PlayAppearAnimation = true;
+                                }
+
                                 CardSwapAudioCounter++;
                                 if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
                                 {
@@ -199,7 +209,7 @@ namespace Object
                                 PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
 
                                 ResetCardPos();
-                                ResetColour(swapRayCast.id);
+                                //ResetColour(swapRayCast.id);
                             }
                         }
                     }
@@ -209,13 +219,14 @@ namespace Object
                     {
                         Hovering = true;
 
-                        if (HoveredID != mouseRayCast.id)
-                        {
-                            ResetColour(HoveredID);
-                        }
+                        //if (HoveredID != mouseRayCast.id)
+                        //{
+                            //ResetColour(HoveredID);
+                        //}
 
                         HoveredID = mouseRayCast.id;
 
+                        /*
                         if (GameplayWrapper.IsSwappable(mouseRayCast.id))
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
@@ -225,6 +236,7 @@ namespace Object
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
                         }
+                        */
                     }
 
                     else
@@ -232,10 +244,10 @@ namespace Object
                         Hovering = false;
                     }
 
-                    if (HoveringChanged && !Hovering)
-                    {
-                        ResetColour(HoveredID);
-                    }
+                    //if (HoveringChanged && !Hovering)
+                    //{
+                        //ResetColour(HoveredID);
+                    //}
 
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))

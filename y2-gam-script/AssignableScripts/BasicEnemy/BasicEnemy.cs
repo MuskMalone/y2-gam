@@ -29,6 +29,9 @@ namespace Object
         public float AttackRange;
         public bool isGrounded = true;
         public bool IsFacingRight;
+        public bool EnemyDeath = false;
+        public float EnemyDeathTimer = 0;
+        public float HowLongDisplayEnemyDeath;
 
         //For pausing 
         //int temp_AnimationState = 0;
@@ -194,9 +197,22 @@ namespace Object
 
                 if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
                 {
-                    PlayAudio("enemy_killed.wav", 0);
-                    GameplayWrapper.DestroyEntity(entityID);
+                    EnemyDeath = true;
                 } 
+
+                if (EnemyDeath)
+                {
+                    EnemyDeathTimer += dt;
+                    AnimationState = (int)AnimationCodeEnemy.DEAD;
+
+                    if (EnemyDeathTimer >= HowLongDisplayEnemyDeath)
+                    {
+                        EnemyDeath = false;
+                        EnemyDeathTimer = 0;
+                        PlayAudio("enemy_killed.wav", 0);
+                        GameplayWrapper.DestroyEntity(entityID);
+                    }
+                }
             }
         }
         void OnExit()

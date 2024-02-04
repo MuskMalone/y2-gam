@@ -19,14 +19,14 @@ void InputSystem::Init()
 bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	bool out{ false };
 	switch (state) {
+	case InputKeyState::KEY_RELEASED:
+		out = mButtonsReleased.test(static_cast<std::size_t>(key));
+		break;
 	case InputKeyState::KEY_PRESSED:
 		out= mButtonsPressed.test(static_cast<std::size_t>(key));
 		break;
 	case InputKeyState::KEY_CLICKED:
 		out = mButtonsClicked.test(static_cast<std::size_t>(key));
-		break;
-	case InputKeyState::KEY_RELEASED:
-		out = mButtonsReleased.test(static_cast<std::size_t>(key));
 		break;
 	case InputKeyState::MOUSE_PRESSED:
 		out = mMouseButtonsPressed.test(static_cast<std::size_t>(key));

@@ -41,7 +41,7 @@ public class EnemyPatrolState : EnemyBaseState
 
         if (losRayCast.tag == "Player")
         {
-            /*
+            
             Console.WriteLine("Player Detected");
             float attackOffset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
             Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
@@ -50,14 +50,7 @@ public class EnemyPatrolState : EnemyBaseState
             if (attackRayCast.tag == "Player")
             {
                 enemy.SwitchState(enemy.AttackState);
-            }
-            */
-            /*
-            else
-            {
-                enemy.SwitchState(enemy.ChaseState);
-            }
-            */
+            }         
         }
 
         // Perform movement based on the groundRayCast result

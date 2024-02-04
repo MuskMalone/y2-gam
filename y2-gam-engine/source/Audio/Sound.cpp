@@ -18,9 +18,9 @@
 #include <Windows.h>
 
 namespace Image {
-
   // Static Initialization
   FMOD::System* SoundManager::sSystem{ nullptr };
+  std::vector<std::pair<std::pair<std::string, FMOD::Channel*>, bool>> SoundManager::isAudioPlaying;
   std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
   std::map<std::string, ResourceID> SoundManager::sSoundResourceMap;
   std::map<Sound, std::string> SoundManager::sGroupMap;
@@ -128,6 +128,13 @@ namespace Image {
   Should be called in the engine's release function.
   */
   void SoundManager::AudioExit() {
+    /*
+    if (!isAudioPlaying.empty()) {
+      for (std::pair<std::string, FMOD::Channel*> pair : isAudioPlaying) {
+        delete[] pair.second;
+      }
+    }
+    */
     FMOD_RESULT result;
     result = sSystem->release();
 
@@ -346,6 +353,11 @@ namespace Image {
   should be in from just the filename.
   */
   void SoundManager::AudioPlay(std::string filename, int loops) {
+    for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+      if (pair.first.first == filename && pair.second) {
+        return;
+      }
+    }
 
     Sound const& audio{ GetAsset(GetResourceID(filename)) };
 
@@ -363,7 +375,28 @@ namespace Image {
 #endif
     auto am{ AssetManager::GetInstance() };
     SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
-    result = sSystem->playSound(audio, group, false, NULL);
+
+    bool found = false;
+    for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+      if (pair.first.first == filename) {
+        found = true;
+        pair.second = true;
+        result = sSystem->playSound(audio, group, false, &pair.first.second);
+        pair.first.second->setCallback(OnSoundFinished);
+        break;
+      }
+    }
+
+    if (!found) {
+      FMOD::Channel* channel{ nullptr };
+      result = sSystem->playSound(audio, group, false, &channel);
+
+      // Register the callback for when the sound finishes playing
+      result = channel->setCallback(OnSoundFinished);
+
+      std::pair<std::string, FMOD::Channel*> first = std::pair<std::string, FMOD::Channel*>(filename, channel);
+      isAudioPlaying.push_back(std::pair<std::pair<std::string, FMOD::Channel*>, bool>(first, true));
+    }
 
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
@@ -399,6 +432,74 @@ namespace Image {
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Resume Group", __FUNCTION__);
     }
 #endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioStopChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Stops the audio that is playing from a given filename. The channel will
+  not be able to used after stopping.
+  */
+  void SoundManager::AudioStopChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        itr.first.second->setVolume(0.0f);
+        itr.first.second->stop();
+        itr.second = false;
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioResumeChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Resumes channel.
+  */
+  void SoundManager::AudioResumeChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        bool isPaused{};
+        itr.first.second->getPaused(&isPaused);
+        if (isPaused) {
+          itr.first.second->setPaused(false);
+        }
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPauseChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Pauses channel.
+  */
+  void SoundManager::AudioPauseChannelFromFilename(std::string filename) {
+    for (auto& itr : isAudioPlaying) {
+      if (itr.first.first == filename) {
+        bool isPaused{};
+        itr.first.second->getPaused(&isPaused);
+        if (!isPaused) {
+          itr.first.second->setPaused(true);
+        }
+        break;
+      }
+    }
   }
 
   /*  _________________________________________________________________________ */
@@ -631,5 +732,19 @@ namespace Image {
 
     sm->InsertValue(obj, "stream", false);
     return id;
+  }
+
+  FMOD_RESULT F_CALLBACK SoundManager::OnSoundFinished(FMOD_CHANNELCONTROL* channelControl, FMOD_CHANNELCONTROL_TYPE controlType,
+    FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2) {
+    if (callbackType == FMOD_CHANNELCONTROL_CALLBACK_END) {
+      for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+        if (pair.first.second == reinterpret_cast<FMOD::Channel*>(channelControl)) {
+          pair.second = false;
+          break;
+        }
+      }
+    }
+
+    return FMOD_OK;
   }
 }
