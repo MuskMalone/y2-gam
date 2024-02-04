@@ -18,9 +18,9 @@
 #include <Windows.h>
 
 namespace Image {
-
   // Static Initialization
   FMOD::System* SoundManager::sSystem{ nullptr };
+  std::vector<std::pair<std::pair<std::string, FMOD::Channel*>, bool>> SoundManager::isAudioPlaying;
   std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
   std::map<std::string, ResourceID> SoundManager::sSoundResourceMap;
   std::map<Sound, std::string> SoundManager::sGroupMap;
@@ -128,6 +128,13 @@ namespace Image {
   Should be called in the engine's release function.
   */
   void SoundManager::AudioExit() {
+    /*
+    if (!isAudioPlaying.empty()) {
+      for (std::pair<std::string, FMOD::Channel*> pair : isAudioPlaying) {
+        delete[] pair.second;
+      }
+    }
+    */
     FMOD_RESULT result;
     result = sSystem->release();
 
@@ -346,6 +353,11 @@ namespace Image {
   should be in from just the filename.
   */
   void SoundManager::AudioPlay(std::string filename, int loops) {
+    for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+      if (pair.first.first == filename && pair.second) {
+        return;
+      }
+    }
 
     Sound const& audio{ GetAsset(GetResourceID(filename)) };
 
@@ -363,7 +375,34 @@ namespace Image {
 #endif
     auto am{ AssetManager::GetInstance() };
     SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
-    result = sSystem->playSound(audio, group, false, NULL);
+
+    bool found = false;
+    for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+      if (pair.first.first == filename) {
+        found = true;
+        pair.second = true;
+        result = sSystem->playSound(audio, group, false, &pair.first.second);
+        pair.first.second->setCallback(OnSoundFinished);
+        break;
+      }
+    }
+
+    if (!found) {
+      FMOD::Channel* channel{ nullptr };
+      result = sSystem->playSound(audio, group, false, &channel);
+
+      // Register the callback for when the sound finishes playing
+      result = channel->setCallback(OnSoundFinished);
+
+      std::pair<std::string, FMOD::Channel*> first = std::pair<std::string, FMOD::Channel*>(filename, channel);
+      isAudioPlaying.push_back(std::pair<std::pair<std::string, FMOD::Channel*>, bool>(first, true));
+    }
+
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+      return;
+    }
 
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
@@ -632,5 +671,19 @@ namespace Image {
 
     sm->InsertValue(obj, "stream", false);
     return id;
+  }
+
+  FMOD_RESULT F_CALLBACK SoundManager::OnSoundFinished(FMOD_CHANNELCONTROL* channelControl, FMOD_CHANNELCONTROL_TYPE controlType,
+    FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2) {
+    if (callbackType == FMOD_CHANNELCONTROL_CALLBACK_END) {
+      for (std::pair<std::pair<std::string, FMOD::Channel*>, bool>& pair : isAudioPlaying) {
+        if (pair.first.second == reinterpret_cast<FMOD::Channel*>(channelControl)) {
+          pair.second = false;
+          break;
+        }
+      }
+    }
+
+    return FMOD_OK;
   }
 }

@@ -19,6 +19,7 @@
 */
 /******************************************************************************/
 #pragma once
+#include <functional>
 
 enum class DecisionResults {
     IMGUI_MODE,

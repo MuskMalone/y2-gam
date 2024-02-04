@@ -41,6 +41,7 @@ using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
+	auto frameController = FrameRateController::GetInstance();
 }
 
 namespace Image {
@@ -299,6 +300,18 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetFPS
+
+	@return float
+	The current FPS of the application.
+
+	Gets the fps of the application.
+	*/
+	static float EngineCore_GetFPS() {
+		return ::frameController->GetFps();
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetMousePos
 
 	@param outMousePos
@@ -519,6 +532,7 @@ namespace Image {
 		collidedOrNot = collided;
 	}
 
+
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_GetRaycast
 
@@ -537,7 +551,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2& origin, Vec2& end, uint32_t& entityToIgnore, bool& hit, uint32_t& entityHandle,
-		MonoString* tag, MonoString* layer) {
+		MonoString** tag, MonoString** layer) {
 		Physics::RayHit rh{};
 		hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, entityToIgnore);
 			
@@ -546,12 +560,12 @@ namespace Image {
 
 			if (::gCoordinator->HasComponent<Tag>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
-				tag = mono_string_new(mono_domain_get(), str);
+				*tag = mono_string_new(mono_domain_get(), str);
 			}
 
 			if (::gCoordinator->HasComponent<Layering>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
-				layer = mono_string_new(mono_domain_get(), str);
+				*layer = mono_string_new(mono_domain_get(), str);
 			}
 		}
 	}
@@ -834,6 +848,44 @@ Get the collider dimensions of the entity in C#.
 		}
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_GetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param outRotation
+	The current rotation of the entity.
+
+	@return none.
+
+	Get the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_GetRotation(uint32_t& entityID, float& outRotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			outRotation = ::gCoordinator->GetComponent<Transform>(entityID).rotation.z;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_SetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param rotation
+	Updated rotation of the entity.
+
+	@return none.
+
+	Set the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_SetRotation(uint32_t& entityID, float& rotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			::gCoordinator->GetComponent<Transform>(entityID).rotation.z = rotation;
+		}
+	}
+
 	// For Force
 
 	/*  _________________________________________________________________________ */
@@ -1084,6 +1136,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetFPS);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 
@@ -1105,6 +1158,8 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetRotation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetRotation);
 
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetForce);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetForce);

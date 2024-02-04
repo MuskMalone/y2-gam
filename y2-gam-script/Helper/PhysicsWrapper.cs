@@ -22,9 +22,6 @@ namespace Image
     [StructLayout(LayoutKind.Sequential)]
     public struct RaycastHit
     {
-        //public Vector2 normal;
-        //public Vector2 point;
-        //public float distance;
         public uint id;
         public string tag;
         public string layer;
@@ -41,11 +38,11 @@ namespace Image
         {
             bool hit = false;
             uint entID = 0;
-            String tagString = "";
-            String layerString = "";
+            //string tagString = "";
+            //string layerString = "";
 
             InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, ref optionalEntityID,
-                ref hit, ref entID, tagString, layerString);
+                ref hit, ref entID, out String tagString, out String layerString);
             
             if (hit)
             {

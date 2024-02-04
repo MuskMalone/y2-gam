@@ -271,6 +271,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
 		}
 	}
+	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
@@ -403,6 +404,7 @@ void RenderSystem::RenderUI() {
 
 		if (ui.enabled) {
 			// Constrain position within screen bounds
+			/*
 			float minX = 0 + transform.scale.x / 2.0f; // Left boundary
 			float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
 			float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
@@ -410,19 +412,47 @@ void RenderSystem::RenderUI() {
 
 			transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
 			transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
-
-			if (sprite.GetSpriteID())
-				Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
-			else {
-				if (transform.elipse)
-					Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-				else
-					Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+			*/
+			if (!::gCoordinator->HasComponent<Text>(entity)) {
+				if (sprite.GetSpriteID())
+					Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
+				else {
+					if (transform.elipse)
+						Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+					else
+						Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+				}
 			}
+
 		}
 	}
 
 	Renderer::RenderSceneEnd();
+
+	// For text with UI component
+	for (auto const& entity : uiEntities) {
+		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
+		/*
+		// Constrain position within screen bounds
+		float minX = 0 + transform.scale.x / 2.0f; // Left boundary
+		float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
+		float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
+		float maxY = ENGINE_SCREEN_HEIGHT - transform.scale.y / 2.0f; // Top boundary
+
+		transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
+		transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
+		*/
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
+
+		if (::gCoordinator->HasComponent<Text>(entity)) {
+			auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
+			float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };
+			Image::FontRenderer::RenderTextUI(textToPrint.fontName, textToPrint.text, transform.position.x - (lengthOfText / 2.f),
+				transform.position.y, textToPrint.scale, textToPrint.color);
+		}
+	}
 }
 
 /*  _________________________________________________________________________ */

@@ -19,5 +19,4 @@ public:
 	void Update(float dt) override; 
 	void Render(float dt) override;
 private:
-	bool mIsStep{false};
 };

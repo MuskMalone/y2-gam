@@ -23,6 +23,12 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/ScriptInstance.hpp"
 #include "Components/Tag.hpp"
+#include "Math/MathUtils.h"
+#include "mono/jit/jit.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "basetsd.h"
+
 
 struct Script {
   std::string name;
@@ -33,6 +39,7 @@ struct Script {
 	Script(std::string scriptName, std::string tag) : name{ scriptName }, scriptTagged{ tag } {}
 
 	Script(rapidjson::Value const& obj) {
+    std::cout << "This got called\n";
 		name = obj["scriptName"].GetString();
 		scriptTagged = obj["scriptTag"].GetString();
 
@@ -144,7 +151,6 @@ struct Script {
 
 	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
-
 		sm->InsertValue(obj, "scriptName", name);
 		sm->InsertValue(obj, "scriptTag", scriptTagged);
 

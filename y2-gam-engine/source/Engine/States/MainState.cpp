@@ -9,7 +9,6 @@
 #include <Engine/PrefabsManager.hpp>
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-	mIsStep = false;
 	using namespace Serializer;
 	//coordinator->GetSystem<Serializer::EntitySerializationSystem>()->LoadEntities("LevelData");
 	//SceneManager::GetInstance()->LoadScene("Scene1");
@@ -27,28 +26,24 @@ void MainState::Update(float dt) {
 
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	auto inputSystem = coordinator->GetSystem<InputSystem>();
-	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_BACKSPACE))
-		mIsStep = !mIsStep;
 	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
-	//todo tch: hacky way to do this pls change
-	coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 
 	if (!renderSystem->IsEditorMode()) {
-		//std::cout << renderSystem->IsEditorMode() << std::endl;
-		if (mIsStep) {
-			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
-				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
-				coordinator->GetSystem<CollisionSystem>()->Update(tdt);
-				coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
-			}
-		}
-		else {
+		//if (mIsStep) {
+			//if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_0)) {
+				//coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
+				//coordinator->GetSystem<CollisionSystem>()->Update(tdt);
+				//coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
+			//}
+		//}
+		//else {
 			static float accumulatedTime = 0.f;
 			const float maxAccumulation{ 0.1f };
 			accumulatedTime += dt;
 			if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 			if (accumulatedTime >= tdt) {
+				coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
 				FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
@@ -60,7 +55,7 @@ void MainState::Update(float dt) {
 				FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
 				accumulatedTime -= tdt;
 			}
-		}
+		//}
 	}
 	else {
 		coordinator->GetSystem<PrefabsSystem>()->Update();

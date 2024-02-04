@@ -22,13 +22,38 @@ namespace Image
     {
         WALK,
         RUN,
-        ATTACK
+        ATTACK,
+        DEAD
     }
     public enum AnimationCodePlayer
     {
         IDLE,
         RUN,
-        JUMP
+        JUMP,
+        APPEAR,
+        DEAD
+    }
+    public enum AnimationCodeSwappable
+    {
+        STATIC,
+        DISAPPEAR,
+        APPEAR,      
+    }
+    public enum AnimationCodeDoor
+    {
+        CLOSED,
+        OPEN
+    }
+    public enum AnimationCodeButton
+    {
+        CLOSED,
+        MIDWAY,
+        OPEN
+    }
+    public enum AnimationCodeCheckpoint
+    {
+        NOT_ACTIVATED,
+        ACTIVATED
     }
 
     // These key codes are pulled from GLFW

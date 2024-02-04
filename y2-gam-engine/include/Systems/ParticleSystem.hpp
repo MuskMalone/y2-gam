@@ -5,7 +5,9 @@
 
 class ParticleSystem : public System
 {
+    //this is for adding emitters to the system
     std::shared_ptr<Shader> mEmitterShader;
+    std::shared_ptr<Shader> mEmitterStepShader;
     std::shared_ptr<Shader> mParticleShader;
     std::shared_ptr<Shader> mParticleRenderShader;
     GLuint mEmitterSSbo;
@@ -29,6 +31,7 @@ public:
         event.SetParam(Events::Particles::Emitter::EMITTER_ADDED, std::pair<int, Entity>(emitter.emitters.size() - 1, entity));
         Coordinator::GetInstance()->SendEvent(event);
     }
+
     static inline void RemoveEmitter(int idx, Entity entity) {
         auto& emitter{ Coordinator::GetInstance()->GetComponent<EmitterSystem>(entity) };
         if (idx >= emitter.emitters.size()) return;
@@ -47,6 +50,7 @@ public:
 
     void Init();
     void Update(float dt);
+    void Draw();
     void DrawDebug();
     void Destroy();
 };

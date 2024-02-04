@@ -80,6 +80,7 @@ void SceneManager::ExitScene(std::string const& scnpath) {
 	for (auto const& e : mEntities) {
 		if (e >= 0 && e < MAX_ENTITIES) {
 			if (gCoordinator->HasComponent<Script>(e)) {
+				Image::ScriptManager::OnExitEntity(e);
 				Image::ScriptManager::RemoveEntity(e);
 			}
 

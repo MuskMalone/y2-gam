@@ -63,6 +63,8 @@ namespace Image {
     static void SetFontSize(std::string name, int fontSize = 100);
     static void RenderText(std::string fontname, std::string text, 
       float xPos, float yPos, float scale, Vec3 color);
+    static void RenderTextUI(std::string fontname, std::string text,
+      float xPos, float yPos, float scale, Vec3 color);
     static float GetTextWidth(std::string fontname, std::string text, float scale);
 
   private:

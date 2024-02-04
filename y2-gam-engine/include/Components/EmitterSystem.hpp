@@ -55,7 +55,7 @@ namespace GLSLStructs {
 
     struct alignas(16) Particle {
         glm::vec4 col;          // vec4
-        glm::vec3 pos;          // vec3
+        glm::vec4 pos;          // vec3
         glm::vec2 vel;          // vec2
         glm::vec2 gravity;
         glm::vec2 size;         // vec2

@@ -6,8 +6,10 @@ namespace Object
 {
     public class PauseMenu : Entity
     {
-        //bool firstTime = true;
+        private bool IsKeyPressed = false;
         bool isPaused = false;
+        
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -51,8 +53,8 @@ namespace Object
         void PauseGame()
         {
             Colour = new Vector4(1, 1, 1, 1);
-            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
-            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
+            GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
+            GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
         }
 
         void ResumeGame()
@@ -76,22 +78,30 @@ namespace Object
                 Colour = new Vector4(1, 0, 1, 0);
 
             }
-                
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            
+            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
-                if (!isPaused)
+                if (!IsKeyPressed)
                 {
-                    PauseGame();
-                    isPaused = true;
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        ResumeGame();
+                        isPaused = false;
+                    }
+                    IsKeyPressed = true;
                 }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
             }
-                
+
+            else
+            {
+                IsKeyPressed = false;
+            }
+            
 
             //if (UIClicked)
             //{

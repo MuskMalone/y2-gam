@@ -233,14 +233,12 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 #ifdef _INSTALLER
 	SceneManager::GetInstance()->LoadScene("MainMenu");
+	ShowCursor(false);
 #endif
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		Image::SoundManager::AudioUpdate();
-		
 		inputSystem->Update();
-
 		windowManager->ProcessEvents();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
@@ -253,6 +251,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 		//NodeManager::Update();
 
 		windowManager->Update();
+		Image::SoundManager::AudioUpdate();
 		auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER

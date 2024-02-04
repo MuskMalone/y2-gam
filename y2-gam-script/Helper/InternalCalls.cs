@@ -95,6 +95,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_Quit();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static float EngineCore_GetFPS();
         #endregion
 
         #region Pathfinding
@@ -106,7 +109,7 @@ namespace Image
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, ref uint optionalEntityID,
-           ref bool hit, ref uint entityHandle, String tag, String layer);
+           ref bool hit, ref uint entityHandle, out String tag, out String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, ref bool collidedOrNot);
@@ -299,6 +302,12 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void TransformComponent_SetTranslation(ref uint entityHandle, ref Vector2 translation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_GetRotation(ref uint entityHandle, ref float rotation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_SetRotation(ref uint entityHandle, ref float rotation);
         #endregion
 
         #region Force

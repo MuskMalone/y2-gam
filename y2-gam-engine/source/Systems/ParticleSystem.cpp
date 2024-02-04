@@ -94,6 +94,7 @@ void ParticleSystem::Init() {
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     mEmitterShader = std::make_shared<Shader>("../assets/shaders/Emitter.glsl");
+    mEmitterStepShader = std::make_shared<Shader>("../assets/shaders/EmitterStep.glsl");
 	mParticleShader = std::make_shared<Shader>("../assets/shaders/Particle.glsl");
     mParticleRenderShader = std::make_shared<Shader>("../assets/shaders/Particle.geom", "../assets/shaders/Particle.vert", "../assets/shaders/Particle.frag");
 
@@ -167,28 +168,32 @@ void ParticleSystem::Update(float dt) {
 
     static float timeElapsed = 0.f;
     timeElapsed += dt;
-    mParticleShader->Use();
 
+    mEmitterStepShader->Use();
+
+    mEmitterStepShader->SetUniform("DT", dt);
+    mEmitterStepShader->SetUniform("bufferMaxCount", MAX_BUFFER);
+    //1000 is the number of elements per grp
+    glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
+    glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+    mEmitterStepShader->Unuse();
+
+    mParticleShader->Use();
 	mParticleShader->SetUniform("DT", dt);
-	mParticleShader->SetUniform("bufferMaxCount", MAX_BUFFER);
+	//mParticleShader->SetUniform("bufferMaxCount", MAX_BUFFER);
 	//1000 is the number of elements per grp
 	glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
     mParticleShader->Unuse();
-    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Bind();
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    mParticleRenderShader->Use();
-    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
-    glm::mat4 projection{ cam.GetProjMtx() };
-    mParticleRenderShader->SetUniform("vertProjection", projection);
-    mParticleRenderShader->SetUniform("vertView", cam.GetViewMtx());
-    glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
-    Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
-    mParticleRenderShader->Unuse();
+
+    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Bind();
+    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
     //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mEmitterSSbo);
     //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
+    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleSSbo);
+    //GLSLStructs::Particle* vels = (GLSLStructs::Particle*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Particle), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
     //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
@@ -199,6 +204,18 @@ void ParticleSystem::Update(float dt) {
     //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
     //std::cout << *idx << "partrandidx\n";
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+}
+void ParticleSystem::Draw() {
+    //glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    mParticleRenderShader->Use();
+    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+
+    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+    mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
+    glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
+	mParticleRenderShader->Unuse();
 }
 void ParticleSystem::DrawDebug() {
     for (auto const& e : mEntities) {
