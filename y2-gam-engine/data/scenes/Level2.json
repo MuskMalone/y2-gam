@@ -446,7 +446,7 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -447.0672607421875,
+                "posX": -446.5672607421875,
                 "posY": -228.03366088867188,
                 "rotation": 0.0,
                 "dimX": 15.0,
@@ -468,6 +468,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectCheckpoint",
+                "scriptTag": "Waypoint1",
+                "Range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -480,7 +485,7 @@
                 "Tag": "Waypoint1"
             },
             "Transform": {
-                "posX": -447.0672607421875,
+                "posX": -446.5672607421875,
                 "posY": -228.03366088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -517,6 +522,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectCheckpoint",
+                "scriptTag": "Waypoint2",
+                "Range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -531,7 +541,7 @@
             "Transform": {
                 "posX": -807.0,
                 "posY": -105.0,
-                "posZ": 0.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -3289,7 +3299,7 @@
             "Collider": {
                 "collider": 0,
                 "posX": 168.5,
-                "posY": 17.0,
+                "posY": 17.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -3310,20 +3320,25 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectCheckpoint",
+                "scriptTag": "Waypoint3",
+                "Range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953111881673300
+                "assetID": 1698953117858423800
             },
             "Tag": {
                 "Tag": "Waypoint3"
             },
             "Transform": {
                 "posX": 168.5,
-                "posY": 17.0,
+                "posY": 17.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3359,13 +3374,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectCheckpoint",
+                "scriptTag": "Waypoint4",
+                "Range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953111881673300
+                "assetID": 1698953117858423800
             },
             "Tag": {
                 "Tag": "Waypoint4"
@@ -3581,13 +3601,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectCheckpoint",
+                "scriptTag": "Waypoint5",
+                "Range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953111881673300
+                "assetID": 1698953117858423800
             },
             "Tag": {
                 "Tag": "Waypoint5"
