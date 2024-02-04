@@ -9,9 +9,11 @@ namespace Object
         //private bool IsKeyPressed = false;
         bool isPaused = false;
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
         private Vector2 temp_translation;
         private Vector2 temp_translation2;
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
