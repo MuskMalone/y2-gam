@@ -48,7 +48,7 @@ namespace Object
 
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
         //void PauseGame()
@@ -76,13 +76,17 @@ namespace Object
             //Colour = new Vector4(1, 1, 1, 1);
             //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
             //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
-            temp_translation2 = new Vector2(player.Translation.X, 2);
-            Translation = temp_translation2;
+            //temp_translation2 = new Vector2(player.Translation.X + 1200, 490);
+
+            //temp_translation2 = new Vector2(player.Translation.X + 1057, 482);
+            //Translation = temp_translation2;
+            Translation = new Vector2(1200, 469);
         }
 
         void ResumeGame()
         {
             //Colour = new Vector4(1, 0, 1, 0);
+
             Translation = temp_translation;
         }
         //void ResumeGame()
@@ -101,21 +105,22 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            //if (!isPaused)
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-
-            //}
-            //else
-            //{
-            //    PauseGame();
-            //}
-            if (UIClicked)
+            if (!isPaused)
             {
-                StopAudio();
-                LoadScene("MainMenu");
-                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+                Colour = new Vector4(1, 0, 1, 0);
+
             }
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 1);
+                if (UIClicked)
+                {
+                    StopAudio();
+                    LoadScene("MainMenu");
+                    //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+                }
+            }
+
 
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {

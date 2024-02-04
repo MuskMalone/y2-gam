@@ -11,7 +11,7 @@ namespace Object
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         private Vector2 temp_translation;
         private Vector2 temp_translation2;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -57,8 +57,9 @@ namespace Object
             //Colour = new Vector4(1, 1, 1, 1);
             //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
             //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
-            temp_translation2 = new Vector2(player.Translation.X, 2);
-            Translation = temp_translation2;
+            //temp_translation2 = new Vector2(player.Translation.X + 1000, 460);
+            //Translation = temp_translation2;
+            Translation = new Vector2(1000, 460);
         }
 
         void ResumeGame()
@@ -92,22 +93,31 @@ namespace Object
             //{
             //    isPaused = false;
             //}
+
+            if (!isPaused)
+            {
+                Colour = new Vector4(1, 0, 1, 0);
+
+            }
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 1);
+                
+            }
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 //if (!IsKeyPressed)
                 //{
-                    if (!isPaused)
-                    {
-                        PauseGame();
-                        
-                        isPaused = true;
-                    }
-                    else
-                    {
-                        ResumeGame();
-                        
-                        isPaused = false;
-                    }
+                if (!isPaused)
+                {
+                    PauseGame();
+                    isPaused = true;
+                }
+                else
+                {                       
+                    ResumeGame();
+                    isPaused = false;
+                }
                     //IsKeyPressed = true;
                 //}
             }
