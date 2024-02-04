@@ -1167,11 +1167,11 @@ namespace Image {
                             0.0f, // Angular Velocity
                             10.0f, // Speed
                             0.0f, // Time: DO NOT CHANGE THIS
-                            0.f, // Emission Frequency
+                            0.1f, // Emission Frequency
                             0, // Type of Emission
                             1, // vCount
                             0, // Preset
-                            50, // Particles per frame
+                            1, // Particles per frame
                             0, // emitter index for ssbo
                             true // Draw Emitter
                         };

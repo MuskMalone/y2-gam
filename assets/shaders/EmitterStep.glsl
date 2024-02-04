@@ -86,13 +86,11 @@ layout( local_size_x = 1000, local_size_y = 1, local_size_z = 1 ) in;
 // uniform control variables
 uniform float DT;
 
-uniform uint bufferMaxCount;
-
+uniform uint bufferMaxCount = 5000000;
 //from -1 to 1
 float random(){ //retun
-atomicAdd(randIdx, uint(1));
-atomicCompSwap(randIdx, bufferMaxCount, uint(0));
-	return RandomFloats[randIdx];
+    atomicAdd(randIdx, uint(1));
+	return RandomFloats[randIdx % bufferMaxCount];
     //return 1.0;
 }
 
@@ -135,9 +133,7 @@ vec2 randDirInRange(vec2 baseDir, float angleDegree, float magnitude) {
 }
 void spawnParticle(Particle pctl){
     uint idx = atomicAdd(usableParticleCount, uint(1));
-    atomicCompSwap(usableParticleCount, bufferMaxCount, uint(0));
-    Particles[idx] = pctl;
-    Particles[idx].alive = true;
+    Particles[idx % bufferMaxCount] = pctl;
 }
 void spawnParticlePoint(uint emtidx){
     spawnParticle(Particle(

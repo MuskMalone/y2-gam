@@ -187,6 +187,7 @@ void ParticleSystem::Update(float dt) {
     mParticleShader->Unuse();
 
     //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Bind();
+    //Draw();
     //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
     //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mEmitterSSbo);
     //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
@@ -204,6 +205,10 @@ void ParticleSystem::Update(float dt) {
     //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
     //std::cout << *idx << "partrandidx\n";
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
+    GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 void ParticleSystem::Draw() {
     //glEnable(GL_DEPTH_TEST);
