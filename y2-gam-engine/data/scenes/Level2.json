@@ -104,12 +104,20 @@
             "Script": {
                 "scriptName": "ObjectPlayer",
                 "scriptTag": "Player",
+                "Dead": false,
                 "GodMode": false,
-                "IsFacingRight": true,
+                "IsFacingRight": false,
                 "IsGrounded": true,
                 "JumpSpeed": 120.0,
+                "MaxAppearTime": 0.5,
                 "MaxHorizontalVelocity": 45.0,
+                "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
+                "PlayAppearAnimation": false,
+                "PlayAppearTimer": 0.0,
+                "PlayDeathAnimHowLongAfter": 0.0,
+                "PlayDeathAnimation": false,
+                "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
@@ -1860,7 +1868,7 @@
             "Collider": {
                 "collider": 0,
                 "posX": 232.5,
-                "posY": -22.5,
+                "posY": -23.0,
                 "rotation": 0.0,
                 "dimX": 170.0,
                 "dimY": 59.0
@@ -1894,7 +1902,7 @@
             },
             "Transform": {
                 "posX": 232.5,
-                "posY": -22.5,
+                "posY": -23.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -1912,7 +1920,7 @@
                 "posY": -89.5,
                 "rotation": 0.0,
                 "dimX": 124.0,
-                "dimY": 75.0
+                "dimY": 74.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3414,6 +3422,9 @@
                 "scriptName": "ObjectBasicEnemy",
                 "scriptTag": "Jester",
                 "AttackRange": 33.0,
+                "EnemyDeath": false,
+                "EnemyDeathTimer": 0.0,
+                "HowLongDisplayEnemyDeath": 0.0,
                 "IsFacingRight": false,
                 "JumpCooldown": 0.20000000298023224,
                 "JumpForce": 3000.0,
