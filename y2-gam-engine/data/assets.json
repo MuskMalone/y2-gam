@@ -488,6 +488,30 @@
             "idxY": 0.0,
             "dimX": 1842.0,
             "dimY": 650.0
+        },
+        "1707035851214188800": {
+            "id": 1707035851214223400,
+            "path": "../assets\\Textures\\gam sewer_water short 1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707035856609045200": {
+            "id": 1707035865510300300,
+            "path": "../assets\\Textures\\gam sewer_water short 2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036026741800000": {
+            "id": 1707036026741829500,
+            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
         }
     },
     "classAnimationManager": {
@@ -602,6 +626,38 @@
             "idxCoordY": 0.0,
             "dimX": 85.0,
             "dimY": 177.0
+        },
+        "1707036292815710700": {
+            "id": 1707036292815747600,
+            "path": "../assets\\Textures\\gam sewer_water short 1.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036294029570900": {
+            "id": 1707036294029611100,
+            "path": "../assets\\Textures\\gam sewer_water short 2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036334731623100": {
+            "id": 1707036334731673300,
+            "path": "../assets\\Textures\\gam dungeon door_open purple.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1707036348349429900": {
+            "id": 1707036348349463700,
+            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
         }
     }
 }
