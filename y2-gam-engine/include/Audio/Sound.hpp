@@ -14,6 +14,7 @@
 */
 /******************************************************************************/
 #pragma once
+
 namespace Image {
 
   typedef FMOD::Sound* Sound;
@@ -60,8 +61,11 @@ namespace Image {
 
   private:
     static FMOD::System* sSystem;
+    static std::vector<std::pair<std::pair<std::string, FMOD::Channel*>, bool>> isAudioPlaying;
     static std::map<ResourceID, std::pair<Sound, SoundProperties>> _mSoundAssets;
     static std::map<std::string, ResourceID> sSoundResourceMap;
     static std::map<Sound, std::string> sGroupMap;
+    static FMOD_RESULT F_CALLBACK OnSoundFinished(FMOD_CHANNELCONTROL* channelControl,
+      FMOD_CHANNELCONTROL_TYPE controlType, FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2);
   };
 }

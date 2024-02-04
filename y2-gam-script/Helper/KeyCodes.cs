@@ -35,9 +35,9 @@ namespace Image
     }
     public enum AnimationCodeSwappable
     {
+        STATIC,
         DISAPPEAR,
-        APPEAR,
-        STATIC
+        APPEAR,      
     }
     public enum AnimationCodeDoor
     {

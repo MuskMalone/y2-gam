@@ -129,7 +129,6 @@ namespace Object
             {
                 if (!isPaused)
                 {
-
                     PauseGame();
                     temp_dt = dt;
                     dt = temp_dt;
@@ -265,6 +264,7 @@ namespace Object
                 {
                     RespawnTimer += dt;
                     AnimationState = (int)AnimationCodePlayer.DEAD;
+                    PlayAudio("PlayerDeath_1.wav", 0);
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
                     {

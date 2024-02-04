@@ -54,6 +54,26 @@
             "id": 1701089634283258000,
             "path": "../assets\\audio\\sfx\\enemy_killed.wav",
             "stream": false
+        },
+        "1707024617133273000": {
+            "id": 1707024617133321400,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_1.wav",
+            "stream": false
+        },
+        "1707024621867743400": {
+            "id": 1707024621867789000,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_2.wav",
+            "stream": false
+        },
+        "1707024623669922500": {
+            "id": 1707024623669965200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_3.wav",
+            "stream": false
+        },
+        "1707024626733943200": {
+            "id": 1707024626733990700,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_4.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {
@@ -686,6 +706,22 @@
         "1706963288764716700": {
             "id": 1706963288764764700,
             "path": "../assets\\Textures\\ANIM\\ANIM_J_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017805757956700": {
+            "id": 1707017805758005900,
+            "path": "../assets\\Textures\\ANIM\\Box_512.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017811603344400": {
+            "id": 1707017811603372300,
+            "path": "../assets\\Textures\\ANIM\\ANVIL_512.png",
             "frameCount": 2,
             "idxCoordY": 0.0,
             "dimX": 512.0,

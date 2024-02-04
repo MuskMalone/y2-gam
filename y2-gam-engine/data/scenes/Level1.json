@@ -125,70 +125,6 @@
             }
         },
         {
-            "Animation": {
-                "states": [
-                    1706958927068181100,
-                    1706958923818396500,
-                    1706960279690233900
-                ],
-                "currFrame": 5,
-                "speed": 0.07999999821186066,
-                "currState": 1
-            },
-            "Collider": {
-                "collider": 0,
-                "posX": -353.03509521484375,
-                "posY": -45.80078125,
-                "rotation": -4.711854457855225,
-                "dimX": 14.999999046325684,
-                "dimY": 14.999999046325684
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": -90.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 14.999999046325684,
-                "dimY": 14.999999046325684,
-                "rotation": -4.711925029754639,
-                "mass": 50.0,
-                "posX": -353.0345764160156,
-                "posY": -45.801063537597656,
-                "lockRotate": false
-            },
-            "Script": {
-                "scriptName": "ObjectSwappable",
-                "scriptTag": "SwappableBox"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Swappable": {},
-            "Tag": {
-                "Tag": "SwappableBox"
-            },
-            "Transform": {
-                "posX": -353.2375183105469,
-                "posY": -31.4285888671875,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": -0.011498764157295227,
-                "scaleX": 44.4640007019043,
-                "scaleY": 43.42900085449219,
-                "scaleZ": 14.999998092651367,
-                "elipse": false
-            }
-        },
-        {
             "Collider": {
                 "collider": 0,
                 "posX": -330.54144287109375,
@@ -413,106 +349,6 @@
             }
         },
         {
-            "Collider": {
-                "collider": 0,
-                "posX": -64.74446868896484,
-                "posY": -45.50028610229492,
-                "rotation": 3.1416609287261963,
-                "dimX": 15.0,
-                "dimY": 15.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": -90.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": 3.141633987426758,
-                "mass": 50.0,
-                "posX": -64.74427032470703,
-                "posY": -45.50038146972656,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698953133123376400
-            },
-            "Swappable": {},
-            "Tag": {
-                "Tag": "SwappableBox"
-            },
-            "Transform": {
-                "posX": -64.74446868896484,
-                "posY": -45.50027084350586,
-                "posZ": -1.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 179.9909210205078,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": -49.749267578125,
-                "posY": -30.502052307128906,
-                "rotation": -1.5706957578659058,
-                "dimX": 14.99999713897705,
-                "dimY": 14.99999713897705
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": -90.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 14.99999713897705,
-                "dimY": 14.99999713897705,
-                "rotation": -1.5707199573516846,
-                "mass": 50.0,
-                "posX": -49.7486572265625,
-                "posY": -30.502185821533203,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698953133123376400
-            },
-            "Swappable": {},
-            "Tag": {
-                "Tag": "SwappableBox"
-            },
-            "Transform": {
-                "posX": -49.74925231933594,
-                "posY": -30.50196075439453,
-                "posZ": -1.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": -89.99781036376953,
-                "scaleX": 14.99999713897705,
-                "scaleY": 14.99999713897705,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
             "Animation": {
                 "states": [
                     1705820144100428400,
@@ -683,56 +519,6 @@
                 "scaleX": 15.0,
                 "scaleY": 7.0,
                 "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": -47.66095733642578,
-                "posY": -45.50063705444336,
-                "rotation": 1.5707974433898926,
-                "dimX": 15.0,
-                "dimY": 15.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": -90.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": 1.5707873106002808,
-                "mass": 50.0,
-                "posX": -47.66088104248047,
-                "posY": -45.50068664550781,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1698953133123376400
-            },
-            "Swappable": {},
-            "Tag": {
-                "Tag": "SwappableBox"
-            },
-            "Transform": {
-                "posX": -47.66093444824219,
-                "posY": -45.793861389160156,
-                "posZ": -1.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 90.00257873535156,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
-                "scaleZ": 14.99960994720459,
                 "elipse": false
             }
         },
@@ -2332,8 +2118,8 @@
                 "Tag": "pattern1"
             },
             "Transform": {
-                "posX": -1.0,
-                "posY": -31.819000244140625,
+                "posX": 18.187467575073242,
+                "posY": -30.63886070251465,
                 "posZ": -3.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2441,7 +2227,7 @@
                 "scriptTag": "Enemy",
                 "AttackRange": 33.0,
                 "EnemyDeath": false,
-                "EnemyDeathTimer": 0.5,
+                "EnemyDeathTimer": 0.0,
                 "HowLongDisplayEnemyDeath": 0.5,
                 "IsFacingRight": true,
                 "JumpCooldown": 0.20000000298023224,

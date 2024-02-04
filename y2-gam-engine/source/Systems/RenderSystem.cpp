@@ -440,6 +440,10 @@ void RenderSystem::RenderUI() {
 		transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
 		transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
 		*/
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
+
 		if (::gCoordinator->HasComponent<Text>(entity)) {
 			auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
 			float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };
