@@ -512,6 +512,14 @@
             "idxY": 0.0,
             "dimX": 222.0,
             "dimY": 480.0
+        },
+        "1707073231219371800": {
+            "id": 1707073231219397700,
+            "path": "../assets\\Textures\\backgrounds\\gam sewer no lights.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 9302.0,
+            "dimY": 3330.0
         }
     },
     "classAnimationManager": {

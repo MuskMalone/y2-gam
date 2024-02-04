@@ -15,7 +15,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1706837932178363300
+                "assetID": 1707073231219371800
             },
             "Tag": {
                 "Tag": "BG"
@@ -27,8 +27,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 1842.0,
-                "scaleY": 650.0,
+                "scaleX": 1860.0,
+                "scaleY": 666.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3858,7 +3858,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707035851214188800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Wateranim1"
