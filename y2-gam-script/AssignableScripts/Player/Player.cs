@@ -33,7 +33,7 @@ namespace Object
 
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
-
+        
         private float temp_dt = 0f;
         private bool isPaused = false;
 

@@ -1,6 +1,6 @@
 ﻿using Image;
 using System;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+//using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
@@ -8,7 +8,8 @@ namespace Object
     {
         //bool firstTime = true;
         public bool isRPaused = false;
-        bool firstTime = true;
+
+        //private bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -89,7 +90,8 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if(UIClicked && firstTime)
+            //if(UIClicked && firstTime)
+            if (UIClicked)
             {
                 isRPaused = false;
             }

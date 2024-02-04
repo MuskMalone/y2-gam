@@ -494,7 +494,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -549,7 +549,7 @@
                     1705820144100428400,
                     1705820138424112000
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -605,7 +605,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1463,7 +1463,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2266,11 +2266,11 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "Script": {
                 "scriptName": "ObjectPauseMenu2",
-                "scriptTag": "PauseMenu"
+                "scriptTag": "PauseMenu2"
             },
             "Sprite": {
                 "r": 1.0,
@@ -2281,7 +2281,7 @@
                 "assetID": 1700928706423252000
             },
             "Tag": {
-                "Tag": "PauseMenu"
+                "Tag": "PauseMenu2"
             },
             "Transform": {
                 "posX": 234.68104553222656,
@@ -2301,8 +2301,9 @@
                 "layering": "Default"
             },
             "Script": {
-                "scriptName": "No Script Assigned",
-                "scriptTag": "resumePm"
+                "scriptName": "ObjectPmResumeGame",
+                "scriptTag": "PmResumeGame",
+                "isRPaused": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -2313,17 +2314,54 @@
                 "assetID": 1700756888403567100
             },
             "Tag": {
-                "Tag": "resumePm"
+                "Tag": "PmResumeGame"
             },
             "Transform": {
                 "posX": 282.1906433105469,
-                "posY": -173.5016632080078,
+                "posY": 4.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 42.0,
                 "scaleY": 8.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmMenu",
+                "scriptTag": "PmMenu"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1700756896520626400
+            },
+            "Tag": {
+                "Tag": "PmMenu"
+            },
+            "Transform": {
+                "posX": 266.0,
+                "posY": -161.31507873535156,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 26.072999954223633,
+                "scaleY": 7.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

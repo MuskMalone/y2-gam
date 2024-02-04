@@ -7,7 +7,10 @@ namespace Object
     public class PmMenu : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
+        private bool isPaused = false;
+        private Vector2 temp_translation;
+        private Vector2 temp_translation2;
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -48,31 +51,44 @@ namespace Object
 
         }
 
+        //void PauseGame()
+        //{
+
+        //    //if (UIHover)
+        //    //{
+        //    //    //Console.WriteLine("Quitgame Hovered Over");
+        //    //    Colour = new Vector4(1, 1, 1, 1);
+
+        //    //}
+        //    //else
+        //    //{
+        //    //    Colour = new Vector4(1, 0, 1, 0);
+        //    //}
+        //    if (UIClicked)
+        //    {
+        //        StopAudio();
+        //        LoadScene("MainMenu");
+        //        //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+        //    }
+        //}
         void PauseGame()
         {
-
-            if (UIHover)
-            {
-                //Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
-
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked)
-            {
-                StopAudio();
-                LoadScene("MainMenu");
-                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-            }
+            //Colour = new Vector4(1, 1, 1, 1);
+            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
+            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
+            temp_translation2 = new Vector2(player.Translation.X, 2);
+            Translation = temp_translation2;
         }
 
         void ResumeGame()
         {
-            Colour = new Vector4(1, 0, 1, 0);
+            //Colour = new Vector4(1, 0, 1, 0);
+            Translation = temp_translation;
         }
+        //void ResumeGame()
+        //{
+        //    Colour = new Vector4(1, 0, 1, 0);
+        //}
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -85,17 +101,23 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
-            {
-                Colour = new Vector4(1, 0, 1, 0);
+            //if (!isPaused)
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
 
-            }
-            else
+            //}
+            //else
+            //{
+            //    PauseGame();
+            //}
+            if (UIClicked)
             {
-                PauseGame();
+                StopAudio();
+                LoadScene("MainMenu");
+                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {

@@ -1,6 +1,6 @@
 ﻿using Image;
 using System;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+//using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
@@ -11,7 +11,7 @@ namespace Object
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         private Vector2 temp_translation;
         private Vector2 temp_translation2;
-
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -57,12 +57,14 @@ namespace Object
             //Colour = new Vector4(1, 1, 1, 1);
             //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
             //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
-            
+            temp_translation2 = new Vector2(player.Translation.X, 2);
+            Translation = temp_translation2;
         }
 
         void ResumeGame()
         {
             //Colour = new Vector4(1, 0, 1, 0);
+            Translation = temp_translation;
         }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
@@ -76,12 +78,20 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
-            {
-                //Colour = new Vector4(1, 0, 1, 0);
+            //if (!isPaused)
+            //{
+            //    //Colour = new Vector4(1, 0, 1, 0);
+            //    ResumeGame();
+            //}
+            //else
+            //{
+            //    PauseGame();
+            //}
 
-            }
-
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 //if (!IsKeyPressed)
@@ -89,14 +99,13 @@ namespace Object
                     if (!isPaused)
                     {
                         PauseGame();
-                        temp_translation2 = new Vector2(player.Translation.X, 2);
-                        Translation = temp_translation2;
+                        
                         isPaused = true;
                     }
                     else
                     {
                         ResumeGame();
-                        Translation = temp_translation;
+                        
                         isPaused = false;
                     }
                     //IsKeyPressed = true;
