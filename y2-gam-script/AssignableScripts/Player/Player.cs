@@ -25,6 +25,7 @@ namespace Object
         //public string Name;
         public float JumpSpeed;
         public float MovementSpeed;
+        public bool IsFacingRight;
         //public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
@@ -208,7 +209,7 @@ namespace Object
                             centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
                             Dead = true;
-                        }           
+                        }
                     }
 
                     else
@@ -259,146 +260,147 @@ namespace Object
                         IsKeyPressed = false;
                     }
 
-                if (!isPaused)
-                {
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    if (!isPaused)
                     {
-                        if (IsGrounded)
+                        if (Input.IsKeyPressed(KeyCode.KEY_W))
                         {
-                            Jump(dt);
+                            if (IsGrounded)
+                            {
+                                Jump(dt);
+                            }
+
+                            if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                            {
+                                Velocity = new Vector2(0.0f, Velocity.Y);
+                            }
                         }
 
-                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                         {
-                            Velocity = new Vector2(0.0f, Velocity.Y);
+                            //Console.WriteLine("A was released");
+                            PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                            PauseAudioWithFilename("PlayerRunningFloor.wav");
+                            Velocity *= 0.2f;
+                        }
+
+                        if (Input.IsKeyPressed(KeyCode.KEY_A))
+                        {
+                            MoveLeft(dt);
+                            //Console.WriteLine("A was Pressed");
+                            if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                                leftRayCast.layer == "Platform" ||
+                                rightRayCast.layer == "Platform"))
+                            {
+                                PlayAudio("PlayerRunningFloor.wav", 0);
+                                ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                            }
+
+                            else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                                leftRayCast.layer == "Scaffolding" ||
+                                rightRayCast.layer == "Scaffolding"))
+                            {
+                                PlayAudio("PlayerRunningScaffolding.wav", 0);
+                                ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            }
+                        }
+
+                        else if (Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            MoveRight(dt);
+                            //Console.WriteLine("D was Pressed");
+                            if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                                leftRayCast.layer == "Platform" ||
+                                rightRayCast.layer == "Platform"))
+                            {
+                                PlayAudio("PlayerRunningFloor.wav", 0);
+                                ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                            }
+
+                            else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                                leftRayCast.layer == "Scaffolding" ||
+                                rightRayCast.layer == "Scaffolding"))
+                            {
+                                PlayAudio("PlayerRunningScaffolding.wav", 0);
+                                ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            }
+                        }
+
+                        if (!IsGrounded)
+                        {
+                            PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                            PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        }
+
+                        if (isFacingRight)
+                        {
+                            // Cast the ray from the right side of the head
+                            playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
+                        }
+                        else
+                        {
+                            // Cast the ray from the left side of the head
+                            playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
+                        }
+
+                        if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                        {
+                            Dead = true;
                         }
                     }
 
-                    if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
+                    else if (!GodMode && Dead)
                     {
-                        //Console.WriteLine("A was released");
-                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename("PlayerRunningFloor.wav");
-                        Velocity *= 0.2f;
-                    }
-                    
-                    if (Input.IsKeyPressed(KeyCode.KEY_A))
-                    {
-                        MoveLeft(dt);
-                        //Console.WriteLine("A was Pressed");
-                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
-                            leftRayCast.layer == "Platform" ||
-                            rightRayCast.layer == "Platform"))
+                        RespawnTimer += dt;
+                        AnimationState = (int)AnimationCodePlayer.DEAD;
+
+                        if (firstTime)
                         {
-                            PlayAudio("PlayerRunningFloor.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                            Console.WriteLine("Death Audio: " + DeathAudioIncrement);
+                            PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
                         }
 
-                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" || 
-                            leftRayCast.layer == "Scaffolding" || 
-                            rightRayCast.layer == "Scaffolding"))
+                        if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
                         {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            PlayDeathAnimation = true;
+                            firstTime = false;
+                        }
+
+                        if (RespawnTimer >= MaxRespawnTime)
+                        {
+                            Respawn();
+                            Dead = false;
+                            RespawnTimer = 0;
                         }
                     }
 
-                    else if (Input.IsKeyPressed(KeyCode.KEY_D))
-                    {
-                        MoveRight(dt);
-                        //Console.WriteLine("D was Pressed");
-                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
-                            leftRayCast.layer == "Platform" ||
-                            rightRayCast.layer == "Platform"))
-                        {
-                            PlayAudio("PlayerRunningFloor.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
-                        }
-
-                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
-                            leftRayCast.layer == "Scaffolding" ||
-                            rightRayCast.layer == "Scaffolding"))
-                        {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
-                        }
-                    }
-
-                    if (!IsGrounded)
-                    {
-                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename("PlayerRunningFloor.wav");
-                    }
-
-                    if (isFacingRight)
-                    {
-                        // Cast the ray from the right side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
-                    }
                     else
                     {
-                        // Cast the ray from the left side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
-                    }
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.IDLE;
+                        }
 
-                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                    {
-                        Dead = true;
-                    }
-                }
+                        ColliderDimensions = new Vector2(0f, 0f);
 
-                else if (!GodMode && Dead)
-                {
-                    RespawnTimer += dt;
-                    AnimationState = (int)AnimationCodePlayer.DEAD;
+                        if (Input.IsKeyPressed(KeyCode.KEY_W))
+                        {
+                            FlyUp(dt);
+                        }
 
-                    if (firstTime)
-                    {
-                        Console.WriteLine("Death Audio: " + DeathAudioIncrement);
-                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
-                    }                   
+                        if (Input.IsKeyPressed(KeyCode.KEY_A))
+                        {
+                            FlyLeft(dt);
+                        }
 
-                    if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
-                    {
-                        PlayDeathAnimation = true;
-                        firstTime = false;
-                    }
+                        if (Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            FlyRight(dt);
+                        }
 
-                    if (RespawnTimer >= MaxRespawnTime)
-                    {
-                        Respawn();
-                        Dead = false;
-                        RespawnTimer = 0;
-                    }
-                }
-
-                else
-                {
-                    if (!PlayAppearAnimation)
-                    {
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
-                    }
-
-                    ColliderDimensions = new Vector2(0f, 0f);
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
-                    {
-                        FlyUp(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_A))
-                    {
-                        FlyLeft(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_D))
-                    {
-                        FlyRight(dt);
-                    }
-
-                    if (Input.IsKeyPressed(KeyCode.KEY_S))
-                    {
-                        FlyDown(dt);
+                        if (Input.IsKeyPressed(KeyCode.KEY_S))
+                        {
+                            FlyDown(dt);
+                        }
                     }
                 }
             }
