@@ -74,10 +74,10 @@
                 "offsetY": 0.0,
                 "velocityThreshold": 0.20000000298023224,
                 "cameraSpeed": 0.05000000074505806,
-                "horizontalBoundaryX": -514.9249877929688,
-                "horizontalBoundaryY": 310.0,
-                "verticalBoundaryX": -223.88099670410156,
-                "verticalBoundaryY": 299.50799560546875
+                "horizontalBoundaryX": -320.89599609375,
+                "horizontalBoundaryY": 317.4630126953125,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": -81.08899688720703
             },
             "Collider": {
                 "collider": 0,
@@ -1157,9 +1157,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 29,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -2198,7 +2198,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 1.1666662693023682,
+                "TimeInState": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
             },
@@ -2473,7 +2473,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 44.5879",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
