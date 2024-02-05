@@ -180,7 +180,7 @@ namespace Object
                     /*
                     if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
-                        //PlayAudio("out_of_cards.wav", 0);
+                        PlayAudio("out_of_cards.wav", 0);
                     }
                     */
 

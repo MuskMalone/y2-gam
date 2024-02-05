@@ -24,7 +24,7 @@ namespace Object
     {
         public float JumpSpeed;
         public float MovementSpeed;
-        public bool IsGrounded = true;
+        //public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
@@ -65,6 +65,23 @@ namespace Object
             }
         }
         public bool FacingDirectionChanged { get; private set; }
+
+        // Grounded related
+        private bool _isGrounded;
+        private bool IsGrounded
+        {
+            get { return _isGrounded; }
+            set
+            {
+                if (_isGrounded != value)
+                {
+                    _isGrounded = value;
+                    GroundedStatusChanged = true;
+                }
+            }
+        }
+        public bool GroundedStatusChanged { get; private set; }
+
 
         /*  _________________________________________________________________________ */
         /*! Player
@@ -166,11 +183,11 @@ namespace Object
                     RaycastHit rightRayCast = new RaycastHit();
 
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
                         if (!PlayAppearAnimation)
@@ -198,6 +215,16 @@ namespace Object
                     {
                         Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
                         FacingDirectionChanged = false; // Reset the flag
+                    }
+
+                    if (GroundedStatusChanged)
+                    {
+                        if (IsGrounded)
+                        {
+                            PlayAudio("player_hit_the_ground.wav", 0);
+                        }
+
+                        GroundedStatusChanged = false;
                     }
 
 
@@ -236,23 +263,14 @@ namespace Object
                         }
                     }
 
-                    if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                     {
                         Console.WriteLine("A was released");
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         PauseAudioWithFilename("PlayerRunningFloor.wav");
                         Velocity *= 0.2f;
                     }
-
-
-                    if (Input.IsKeyReleased(KeyCode.KEY_D))
-                    {
-                        Console.WriteLine("D was released");
-                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename("PlayerRunningFloor.wav");
-                        Velocity *= 0.2f;
-                    }
-
+                    
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
@@ -295,8 +313,6 @@ namespace Object
                         }
                     }
 
-
-
                     if (!IsGrounded)
                     {
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
@@ -316,6 +332,7 @@ namespace Object
 
                     if (firstTime)
                     {
+                        Console.WriteLine("Death Audio: " + DeathAudioIncrement);
                         PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
                     }                   
 
@@ -374,7 +391,8 @@ namespace Object
         */
         void OnExit()
         {
-
+            StopAudioWithFilename("PlayerRunningScaffolding.wav");
+            StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
         void PauseGame()

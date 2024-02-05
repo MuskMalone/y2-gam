@@ -84,6 +84,21 @@
             "id": 1707058829704914400,
             "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor.wav",
             "stream": false
+        },
+        "1707101793572517600": {
+            "id": 1707101793572554700,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_5.wav",
+            "stream": false
+        },
+        "1707101795733893200": {
+            "id": 1707101795733933100,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_6.wav",
+            "stream": false
+        },
+        "1707101843445956200": {
+            "id": 1707101843446039400,
+            "path": "../assets\\audio\\sfx\\CheckpointActivation\\Flag.wav",
+            "stream": false
         }
     },
     "classSpriteManager": {

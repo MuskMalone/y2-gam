@@ -36,13 +36,11 @@ public class EnemyPatrolState : EnemyBaseState
         //PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
 
         // Raycast for line of sight
-        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y);
-        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y + (enemy.Scale.Y / 3.0f));
+        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y + (enemy.Scale.Y / 3.0f)), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
 
         if (losRayCast.tag == "Player")
         {
-            
-            Console.WriteLine("Player Detected");
             float attackOffset = enemy.IsFacingRight ? enemy.AttackRange : -enemy.AttackRange;
             Vector2 attackRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + attackOffset, enemy.Collider.Y);
             PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y), attackRayEnd, enemy.entityID, out RaycastHit attackRayCast);
@@ -73,7 +71,7 @@ public class EnemyPatrolState : EnemyBaseState
         //else
         //{
 
-        if (losRayCast.layer == "Default")
+        if (losRayCast.layer == "Scaffolding")
         {
             enemy.SwitchState(enemy.IdleState);
         }

@@ -176,28 +176,21 @@ namespace Object
                 TimeInState += dt;
                 currentState.UpdateState(this, dt);
 
-                //Vector2 enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));       
+                RaycastHit centreRayCast = new RaycastHit();
+                RaycastHit leftRayCast = new RaycastHit();
+                RaycastHit rightRayCast = new RaycastHit();
 
-                //if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                //{   
-                //    GameplayWrapper.DestroyEntity(entityID);
-                //}
-                Vector2 enemyHead;
-
-                if (isFacingRight)
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out leftRayCast) ||
+                            PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out rightRayCast) ||
+                            PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out centreRayCast))
                 {
-                    // Cast the ray from the right side of the head
-                    enemyHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 2.5f));
-                }
-                else
-                {
-                    // Cast the ray from the left side of the head
-                    enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));
-                }
-
-                if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                {
-                    EnemyDeath = true;
+                    if (centreRayCast.tag == "Anvil" || leftRayCast.tag == "Anvil" || rightRayCast.tag == "Anvil")
+                    {
+                        EnemyDeath = true;
+                    }                  
                 } 
 
                 if (EnemyDeath)
