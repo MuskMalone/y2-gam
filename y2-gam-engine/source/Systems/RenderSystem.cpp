@@ -285,6 +285,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 				sceneCamera.horizontalBoundary = cam.horizontalBoundary;
 				sceneCamera.verticalBoundary = cam.verticalBoundary;
+				sceneCamera.mZoomLevel = cam.mZoomLevel;
 			}
 
 			sceneCamera.UpdatePosition(playerPosition, facingRight);

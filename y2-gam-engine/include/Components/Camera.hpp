@@ -90,6 +90,7 @@ public:
 	Camera(rapidjson::Value const& obj) {
 
 		type = static_cast<CameraType>(obj["type"].GetInt());
+		mZoomLevel = obj["mZoomLevel"].GetFloat();
 		offsetX = obj["offsetX"].GetFloat();
 		offsetY = obj["offsetY"].GetFloat();
 		velocityThreshold = obj["velocityThreshold"].GetFloat();
@@ -102,6 +103,7 @@ public:
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 		sm->InsertValue(obj, "type", static_cast<int>(type));
+		sm->InsertValue(obj, "mZoomLevel", mZoomLevel);
 		sm->InsertValue(obj, "offsetX", offsetX );
 		sm->InsertValue(obj, "offsetY", offsetY );
 		sm->InsertValue(obj, "velocityThreshold", velocityThreshold);

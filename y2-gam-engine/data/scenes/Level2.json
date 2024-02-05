@@ -119,6 +119,7 @@
             },
             "Camera": {
                 "type": -858993460,
+                "mZoomLevel": 1.3029999732971191,
                 "offsetX": 30.0,
                 "offsetY": 0.0,
                 "velocityThreshold": 0.20000000298023224,

@@ -96,12 +96,15 @@ void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight)
 
 	float camSpeed = cameraSpeed;
 	glm::vec3 currentCamPos = GetPosition();
-	glm::vec3 targetCamPos = targetPosition + mOffset;
+	glm::vec3 targetCamPos = targetPosition + glm::vec3{offsetX, offsetY, 0.f};
 	glm::vec3 newCamPos = currentCamPos;
 
 	newCamPos.x = Lerp(currentCamPos.x, targetCamPos.x, camSpeed);
 	newCamPos.y = Lerp(currentCamPos.y, targetCamPos.y, camSpeed);
 	SetPosition(newCamPos);
+	//Update Zoom
+
+	UpdateProjectionMtx();
 }
 
 /*  _________________________________________________________________________ */
