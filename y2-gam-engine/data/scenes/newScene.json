@@ -336,6 +336,84 @@
                 "scaleZ": 1.0,
                 "elipse": false
             }
+        },
+        {
+            "EmitterSystem": {
+                "emitters": [
+                    {
+                        "vertices": [
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 5.0,
+                        "sizeY": 5.0,
+                        "rot": 0.0,
+                        "lifetime": 60.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 0.10000000149011612,
+                        "type": 0,
+                        "vCount": 1,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": true
+                    }
+                ]
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
         }
     ]
 }

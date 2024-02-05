@@ -31,7 +31,8 @@ void ParticleSystem::EventListener(Event& event) {
                 //add a new Emitter
                 auto& emitters{ coordinator->GetComponent<EmitterSystem>(e).emitters };
                 for (auto& emitter : emitters) {
-                    EmitterAction(emitter, 1);
+                    if (emitter.idx == -1)
+                        EmitterAction(emitter, 1);
                 }
             }
             return;
@@ -55,7 +56,8 @@ void ParticleSystem::EventListener(Event& event) {
             if (coordinator->HasComponent<EmitterSystem>(e)) {
                 auto& emitters{ coordinator->GetComponent<EmitterSystem>(e).emitters };
                 for (auto& emitter : emitters) {
-                    EmitterAction(emitter, -1);
+                    if (emitter.idx != -1)
+                        EmitterAction(emitter, -1);
                 }
             }
             return;

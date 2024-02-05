@@ -1172,7 +1172,7 @@ namespace Image {
                             1, // vCount
                             0, // Preset
                             1, // Particles per frame
-                            0, // emitter index for ssbo
+                            -1, // emitter index for ssbo
                             true // Draw Emitter
                         };
                         ParticleSystem::AddEmitter(ep, selectedEntity);

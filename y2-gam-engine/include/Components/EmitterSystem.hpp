@@ -93,7 +93,7 @@ struct EmitterProxy {
     int vCount{ 1 };       // 4 bytes
     int preset;    // 4 bytes //alpha over lifetime etc
     int particlesPerFrame; // 4 bytes
-    int idx;
+    int idx{-1};
     bool drawEmitterVertices{ false };
     // Padding might be added here to align the entire structure size
 };
@@ -105,35 +105,35 @@ struct EmitterSystem
 
         for (size_t i{}; i < obj["emitters"].Size(); ++i) {
             EmitterProxy ep{};
-            for (size_t j{}; j < obj["emitters"]["vertices"].Size(); ++j) {
+            for (size_t j{}; j < obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"].Size(); ++j) {
                 ep.vertices[j].x = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["x"].GetFloat();
 				ep.vertices[j].y = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["y"].GetFloat();
 				ep.vertices[j].z = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["z"].GetFloat();
 				ep.vertices[j].w = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["w"].GetFloat();
             }
-            ep.col.x = obj["emitters"]["colX"].GetFloat();
-            ep.col.y = obj["emitters"]["colY"].GetFloat();
-            ep.col.z = obj["emitters"]["colZ"].GetFloat();
-            ep.col.w = obj["emitters"]["colW"].GetFloat();
+            ep.col.x = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["colX"].GetFloat();
+            ep.col.y = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["colY"].GetFloat();
+            ep.col.z = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["colZ"].GetFloat();
+            ep.col.w = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["colW"].GetFloat();
 
-            ep.gravity.x = obj["emitters"]["gravityX"].GetFloat();
-            ep.gravity.y = obj["emitters"]["gravityY"].GetFloat();
+            ep.gravity.x = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["gravityX"].GetFloat();
+            ep.gravity.y = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["gravityY"].GetFloat();
 
-            ep.size.x = obj["emitters"]["sizeX"].GetFloat();
-            ep.size.y = obj["emitters"]["sizeY"].GetFloat();
+            ep.size.x = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["sizeX"].GetFloat();
+            ep.size.y = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["sizeY"].GetFloat();
 
-            ep.rot = obj["emitters"]["rot"].GetFloat();
-            ep.lifetime = obj["emitters"]["lifetime"].GetFloat();
-            ep.angvel = obj["emitters"]["angvel"].GetFloat();
-            ep.speed = obj["emitters"]["speed"].GetFloat();
+            ep.rot = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["rot"].GetFloat();
+            ep.lifetime = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["lifetime"].GetFloat();
+            ep.angvel = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["angvel"].GetFloat();
+            ep.speed = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["speed"].GetFloat();
 
-            ep.frequency = obj["emitters"]["frequency"].GetFloat();
+            ep.frequency = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["frequency"].GetFloat();
 
-            ep.type = obj["emitters"]["type"].GetInt();
-            ep.vCount = obj["emitters"]["vCount"].GetInt();
-            ep.preset = obj["emitters"]["preset"].GetInt();
-            ep.particlesPerFrame = obj["emitters"]["particlesPerFrame"].GetInt();
-            ep.drawEmitterVertices = obj["emitters"]["drawEmitterVertices"].GetBool();
+            ep.type = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["type"].GetInt();
+            ep.vCount = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vCount"].GetInt();
+            ep.preset = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["preset"].GetInt();
+            ep.particlesPerFrame = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["particlesPerFrame"].GetInt();
+            ep.drawEmitterVertices = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["drawEmitterVertices"].GetBool();
 
             emitters.emplace_back(ep);
         }
