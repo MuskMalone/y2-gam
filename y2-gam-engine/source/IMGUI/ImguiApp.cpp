@@ -1239,9 +1239,9 @@ namespace Image {
                     //ImGui::Text("Rotation");
                     //ImGui::SliderFloat("##Rotation", &camera.mRot, -360.0f, 360.0f);
 
-                    //// Zoom Level
-                    //ImGui::Text("Zoom Level");
-                    //ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
+                    // Zoom Level
+                    ImGui::Text("Zoom Level");
+                    ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
 
                     // Camera Settings
                     ImGui::Text("Camera Settings");
@@ -1252,13 +1252,13 @@ namespace Image {
 
                     // Horizontal Boundary
                     ImGui::Text("Horizontal Boundary");
-                    ImGui::SliderFloat("##Horiz Min", &camera.horizontalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Horiz Max", &camera.horizontalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::InputFloat("Horiz Min", &camera.horizontalBoundary.x);
+                    ImGui::InputFloat("Horiz Max", &camera.horizontalBoundary.y);
 
                     // Vertical Boundary
                     ImGui::Text("Vertical Boundary");
-                    ImGui::SliderFloat("##Vert Min", &camera.verticalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Vert Max", &camera.verticalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::InputFloat("Vert Min", &camera.verticalBoundary.x);
+                    ImGui::InputFloat("Vert Max", &camera.verticalBoundary.y);
 
                     ImGui::TreePop();
                 }

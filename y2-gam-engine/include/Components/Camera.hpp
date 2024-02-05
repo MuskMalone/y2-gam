@@ -68,7 +68,7 @@ public:
 
 	//CAMERA SETTINGS
 	//struct CameraSettings {
-	float offsetX{ 30.f };
+	float offsetX{ 0.f };
 	float offsetY{ 0.f };
 	float velocityThreshold{ 0.2f };
 	float cameraSpeed{ 0.05f };
