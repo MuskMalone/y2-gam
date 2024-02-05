@@ -1,17 +1,19 @@
 ﻿using Image;
 using System;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+//using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
-    public class PmMenu : Entity
+    public class PauseMenu2 : Entity
     {
-        //bool firstTime = true;
-        private bool isPaused = false;
-        private Vector2 temp_translation;
-        //private Vector2 temp_translation2;
+        //private bool IsKeyPressed = false;
+        bool isPaused = false;
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
+        private Vector2 temp_translation;
+        //private Vector2 temp_translation2;
+        
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -19,7 +21,7 @@ namespace Object
 
         Default constructor for the EnterLevelOne entity. Inherits from entity class.
         */
-        public PmMenu() : base()
+        public PauseMenu2() : base()
         {
 
         }
@@ -34,7 +36,7 @@ namespace Object
 
         Non-default, single-arg constructor for a EnterLevelOne entity.
         */
-        public PmMenu(uint entityHandle) : base(entityHandle)
+        public PauseMenu2(uint entityHandle) : base(entityHandle)
         {
             entityID = entityHandle;
         }
@@ -52,48 +54,21 @@ namespace Object
             temp_translation = Translation;
         }
 
-        //void PauseGame()
-        //{
-
-        //    //if (UIHover)
-        //    //{
-        //    //    //Console.WriteLine("Quitgame Hovered Over");
-        //    //    Colour = new Vector4(1, 1, 1, 1);
-
-        //    //}
-        //    //else
-        //    //{
-        //    //    Colour = new Vector4(1, 0, 1, 0);
-        //    //}
-        //    if (UIClicked)
-        //    {
-        //        StopAudio();
-        //        LoadScene("MainMenu");
-        //        //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-        //    }
-        //}
         void PauseGame()
         {
             //Colour = new Vector4(1, 1, 1, 1);
             //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
             //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
-            //temp_translation2 = new Vector2(player.Translation.X + 1200, 490);
-
-            //temp_translation2 = new Vector2(player.Translation.X + 1057, 482);
+            //temp_translation2 = new Vector2(player.Translation.X + 1000, 460);
             //Translation = temp_translation2;
-            Translation = new Vector2(1200, 469);
+            Translation = new Vector2(1000, 460);
         }
 
         void ResumeGame()
         {
             //Colour = new Vector4(1, 0, 1, 0);
-
             Translation = temp_translation;
         }
-        //void ResumeGame()
-        //{
-        //    Colour = new Vector4(1, 0, 1, 0);
-        //}
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -106,6 +81,21 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            //if (!isPaused)
+            //{
+            //    //Colour = new Vector4(1, 0, 1, 0);
+            //    ResumeGame();
+            //}
+            //else
+            //{
+            //    PauseGame();
+            //}
+
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
+
             if (!isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
@@ -114,37 +104,31 @@ namespace Object
             else
             {
                 Colour = new Vector4(1, 1, 1, 1);
-                if (UIClicked)
-                {
-                    StopAudio();
-                    LoadScene("MainMenu");
-                    //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-                }
+                
             }
-
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
-            //else
-            //{
-            //    isPaused = true;
-            //}
 
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
+                //if (!IsKeyPressed)
+                //{
                 if (!isPaused)
                 {
                     PauseGame();
                     isPaused = true;
                 }
                 else
-                {
+                {                       
                     ResumeGame();
                     isPaused = false;
                 }
-                //firstTime = false;
+                    //IsKeyPressed = true;
+                //}
             }
+
+            //else
+            //{
+            //    IsKeyPressed = false;
+            //}
 
 
             //if (UIClicked)
@@ -179,5 +163,6 @@ namespace Object
         }
     }
 }
+
 
 

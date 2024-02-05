@@ -29,7 +29,6 @@ namespace Object
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
-        public bool IsFacingRight;
         public float MaxHorizontalVelocity;
         public bool PlayDeathAnimation = false;
         public float PlayDeathAnimHowLongAfter;
@@ -51,6 +50,7 @@ namespace Object
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
         private bool _isFacingRight;
@@ -140,24 +140,30 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            if (isPaused)
+            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            if (resume.isRPaused == false)
             {
-                dt = temp_dt;
-                PauseGame();
+                isPaused = false;
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (isPaused)
+            {
+                dt = 0f;
+                //PauseGame();
+            }
+
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
+                    //ResumeGame();
                     isPaused = false;
                 }
             }
@@ -253,6 +259,8 @@ namespace Object
                         IsKeyPressed = false;
                     }
 
+                if (!isPaused)
+                {
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
                     {
                         if (IsGrounded)
@@ -409,15 +417,15 @@ namespace Object
             StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
-        void PauseGame()
-        {
-            SaveScene("Level1");
-        }
+        //void PauseGame()
+        //{
+        //    SaveScene("Level1");
+        //}
 
-        void ResumeGame()
-        {
-            LoadScene("Level1");
-        }
+        //void ResumeGame()
+        //{
+        //    LoadScene("Level1");
+        //}
         public void MoveLeft(float dt)
         {
             if (!PlayAppearAnimation)

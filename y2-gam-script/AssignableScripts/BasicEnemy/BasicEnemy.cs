@@ -35,12 +35,12 @@ namespace Object
 
         //For pausing 
         //int temp_AnimationState = 0;
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
+        //Vector2 temp_pos;
+        //Vector2 temp_Force;
+        //Vector2 temp_velocity;
         float temp_dt = 0f;
-        bool isPaused = false;
-
+        private bool isPaused = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
@@ -131,25 +131,31 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
+            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
+
             if (isPaused)
             {
-                dt = temp_dt;
-                PauseGame();
+                dt = 0f;
+                //PauseGame();
                 //AnimationState = temp_AnimationState;
             }
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
                     //resume game
-                    ResumeGame();
+                    //ResumeGame();
                     dt = temp_dt;
                     isPaused = false;
                 }
@@ -213,24 +219,24 @@ namespace Object
 
         }
 
-        void PauseGame()
-        {
-            //pause the game
-            temp_Force = Force;
-            temp_pos = Translation;
-            temp_velocity = Velocity;
-            //temp_AnimationState = AnimationState;
-            Force = new Vector2(0, 0);
-            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            Velocity = new Vector2(0, 0);
-        }
+        //void PauseGame()
+        //{
+        //    //pause the game
+        //    temp_Force = Force;
+        //    temp_pos = Translation;
+        //    temp_velocity = Velocity;
+        //    //temp_AnimationState = AnimationState;
+        //    Force = new Vector2(0, 0);
+        //    Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+        //    Velocity = new Vector2(0, 0);
+        //}
 
-        void ResumeGame()
-        {
-            Force = temp_Force;
-            Translation = temp_pos;
-            Velocity = temp_velocity;
-        }
+        //void ResumeGame()
+        //{
+        //    Force = temp_Force;
+        //    Translation = temp_pos;
+        //    Velocity = temp_velocity;
+        //}
         /*  _________________________________________________________________________ */
         /*! SwitchState
         

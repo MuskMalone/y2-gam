@@ -8,6 +8,7 @@ namespace Object
     {
         //bool firstTime = true;
         //bool isPaused = true;
+        PmQuit quit = GameplayWrapper.FindEntityByName("PmQuit").As<PmQuit>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -62,17 +63,31 @@ namespace Object
         void OnUpdate(float dt)
         {
             //if(isPaused)
+            //Console.WriteLine("QuitClicked= " + quit.quitClicked);
+            if (quit.quitClicked == true)
+            {
+                Colour = new Vector4(1, 1, 1, 1);
+                if (Input.IsKeyClicked(KeyCode.KEY_Y))
+                {
+                    QuitGame();
+                }
+                //resume game
+                else if (Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_P))
+                {
+                    
+                    //Colour = new Vector4(1, 1, 1, 0);
+                    //GameplayWrapper.DestroyEntity(entityID);
+                    quit.quitClicked = false;
+                    //Console.WriteLine("2QuitClicked= " + quit.quitClicked);
+                }
+            }
+            else if (quit.quitClicked == false)
+            {
+                //Console.WriteLine("here");
+                Colour = new Vector4(1, 0, 1, 0);
+            }
 
-            if(Input.IsKeyClicked(KeyCode.KEY_Y))
-            {
-                QuitGame();
-            }
-            //resume game
-            else if(Input.IsKeyClicked(KeyCode.KEY_N) || Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-            {
-                //Colour = new Vector4(1, 1, 1, 0);
-                GameplayWrapper.DestroyEntity(entityID);
-            }
+           
         }
 
         /*  _________________________________________________________________________ */

@@ -61,10 +61,13 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (Input.IsKeyClicked(KeyCode.KEY_Q))
+            //if (Input.IsKeyClicked(KeyCode.KEY_Q))
+            //{
+            if(UIClicked)
             {
-                GameplayWrapper.DestroyEntity(entityID);
+                LoadScene("Level1");
             }
+            //}
         }
 
         /*  _________________________________________________________________________ */
