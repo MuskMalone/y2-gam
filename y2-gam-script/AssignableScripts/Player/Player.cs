@@ -324,6 +324,22 @@ namespace Object
                     {
                         Dead = true;
                     }
+
+                    if (isFacingRight)
+                    {
+                        // Cast the ray from the right side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
+                    }
+                    else
+                    {
+                        // Cast the ray from the left side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
+                    }
+
+                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                    {
+                        Dead = true;
+                    }
                 }
 
                 else if (!GodMode && Dead)
@@ -341,22 +357,6 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
-                    }
-                    */
-                    if (isFacingRight)
-                    {
-                        // Cast the ray from the right side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
-                    }
-                    else
-                    {
-                        // Cast the ray from the left side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
-                    }
-
-                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                    {
-                        Respawn();
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)
