@@ -1196,6 +1196,29 @@ namespace Image {
                         }
                         break;
                       }
+
+                      case Image::FieldType::String: {
+                        char* str{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
+
+                        std::string dataString{ str };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        bool confirmOnEnter = false;
+                        char inputBuffer[256] = "";
+                        ImGui::InputText(dataString.c_str(), inputBuffer, sizeof(inputBuffer));
+                        ImGui::Text(val.first.c_str());
+
+                        if (ImGui::IsItemActive() && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
+                          confirmOnEnter = true;
+                        }
+
+                        if (confirmOnEnter) {
+                          std::string dataString{ inputBuffer };
+                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
+                          scriptInstance.SetFieldValueWithName(val.first, &monoString);
+                          confirmOnEnter = false;
+                        }
+                        break;
+                      }
                       }
                     }
                   }

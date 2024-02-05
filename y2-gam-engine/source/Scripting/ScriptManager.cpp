@@ -53,6 +53,7 @@ namespace Image {
     { "Image.Vector3", {FieldType::Vector3, nullptr}  },
     { "Image.Vector4", {FieldType::Vector4, nullptr}  },
     { "Image.Entity", {FieldType::Entity, nullptr}  },
+    { "System.String", {FieldType::String, nullptr} }
   };
   bool ScriptManager::AssemblyReloadPending{ false };
 
@@ -634,6 +635,7 @@ namespace Image {
     case FieldType::Vector3: return "Vector3";
     case FieldType::Vector4: return "Vector4";
     case FieldType::Entity:  return "Entity";
+    case FieldType::String:  return "String";
     }
     return "None";
   }

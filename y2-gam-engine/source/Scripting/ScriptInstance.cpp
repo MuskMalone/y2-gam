@@ -149,8 +149,15 @@ namespace Image {
       if (val.first == fieldName) {
         Field const& field{ val.second };
         //mono_field_set_value(mInstance, field.classField, value);
-        mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, value);
-        
+        if (field.fieldType == FieldType::String) {
+          std::string test{ mono_string_to_utf8(reinterpret_cast<MonoString*>(value)) };
+          MonoString* monoString = mono_string_new(mono_domain_get(), reinterpret_cast<char*>(value));
+          mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, &monoString);
+        }
+        else {
+          mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, value);
+        }
+
         return true;
       }
     }

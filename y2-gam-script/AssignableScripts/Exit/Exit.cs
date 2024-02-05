@@ -79,7 +79,7 @@ namespace Object
             if (PhysicsWrapper.Raycast(Collider, exitEnd, entityID, out RaycastHit exitHit) && exitHit.tag == "Player")
             {
                 //Console.WriteLine("Exit");
-                LoadScene("MainMenu");
+                LoadScene("Level2");
             }
         }
 
