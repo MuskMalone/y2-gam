@@ -41,6 +41,8 @@ struct Animation {
 	//AssetID assetID{};
 	uint64_t currState{};
 	std::vector<AssetID> states;
+	bool isPlaying{ true };
+
 	Animation() = default;
 	Animation(float s, size_t cf, uint64_t cs)
 		: speed{ s }, currFrame{ cf }, currState{ cs } {}//, stateMap{ sm } {}
@@ -50,6 +52,7 @@ struct Animation {
 		currState = obj["currState"].GetUint64();
 		speed = { obj["speed"].GetFloat() };
 		currFrame = { obj["currFrame"].GetUint64() };
+		isPlaying = { obj["isPlaying"].GetBool()};
 
 		for (size_t i{}; i < obj["states"].Size(); ++i) {
 			states.emplace_back(obj["states"][static_cast<rapidjson::SizeType>(i)].GetUint64());
@@ -67,6 +70,7 @@ struct Animation {
 		sm->InsertValue(obj, "currFrame", currFrame);
 		sm->InsertValue(obj, "speed", speed);
 		sm->InsertValue(obj, "currState", static_cast<int>(currState));
+		sm->InsertValue(obj, "isPlaying", isPlaying);
 		return true;
 	}
 	ResourceID GetAnimationID() {

@@ -115,7 +115,8 @@
                 ],
                 "currFrame": 4,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Camera": {
                 "type": -858993460,
@@ -3432,7 +3433,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -3846,7 +3848,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Layering": {
                 "layering": "Default"
@@ -3883,7 +3886,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -3941,7 +3945,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -3999,7 +4004,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -4057,7 +4063,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -4115,7 +4122,8 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -4221,7 +4229,8 @@
                 ],
                 "currFrame": 3,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Collider": {
                 "collider": 0,
@@ -4290,7 +4299,8 @@
                 ],
                 "currFrame": 3,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 0,
+                "isPlaying": true
             },
             "Layering": {
                 "layering": "Default"
