@@ -7,6 +7,7 @@
 #include <Systems/AnimationSystem.hpp>
 #include <Systems/RenderSystem.hpp>
 #include <Systems/EntitySerializationSystem.hpp>
+#include <Systems/ParticleSystem.hpp>
 
 #include <Core/Component.hpp>
 

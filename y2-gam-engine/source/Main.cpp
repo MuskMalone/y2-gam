@@ -12,6 +12,7 @@
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
+#include "Systems/ParticleSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -88,6 +89,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<Prefab>();
 	coordinator->RegisterComponent<UIImage>();
 	coordinator->RegisterComponent<Swappable>();
+	coordinator->RegisterComponent<EmitterSystem>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -191,6 +193,15 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	animationSystem->Init();
 
+	auto particleSystem = coordinator->RegisterSystem<ParticleSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<EmitterSystem>());
+		coordinator->SetSystemSignature<ParticleSystem>(signature);
+	}
+
+	particleSystem->Init();
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -232,7 +243,13 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
 		StateManager::GetInstance()->Render(dt);
+
+		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+		FrameRateController::GetInstance()->StartSubFrameTime();
 		uiSystem->Update();
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
+		//NodeManager::Update();
+
 		windowManager->Update();
 		Image::SoundManager::AudioUpdate();
 		auto stopTime = std::chrono::high_resolution_clock::now();
@@ -255,6 +272,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	imguiSystem->Destroy();
 #endif
 	Renderer::Shutdown();
+	particleSystem->Destroy();
 	windowManager->Shutdown();
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();

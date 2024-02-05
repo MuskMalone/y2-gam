@@ -23,6 +23,7 @@
 
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/ParticleSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
@@ -355,7 +356,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
 		}
 	}
-
+	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
@@ -373,7 +374,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	RenderUI();
 
 	glEnable(GL_DEPTH_TEST);
-
+	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {
 		mFramebuffers[0]->Unbind();

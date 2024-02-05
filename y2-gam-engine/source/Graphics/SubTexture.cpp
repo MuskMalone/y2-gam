@@ -45,6 +45,21 @@ SubTexture::SubTexture(std::shared_ptr<Texture> const& tex, glm::vec2 const& max
 	mTexCoords[3] = { min.x, max.y };
 }
 
+void SubTexture::SetTexCoords(SpriteProperties const& props) {
+	//glm::vec2 min{ (idxCoord.x* size.x) / tex->GetWidth(), (idxCoord.y* size.y) / tex->GetHeight() };
+	//glm::vec2 max{ ((idxCoord.x + 1)* size.x) / tex->GetWidth(), ((idxCoord.y + 1)* size.y) / tex->GetHeight() };
+
+	glm::vec2 min{ (props.idx.x* props.dim.x) / mTex->GetWidth(), (props.idx.y* props.dim.y) / mTex->GetHeight() };
+	glm::vec2 max{ ((props.idx.x + 1)* props.dim.x) / mTex->GetWidth(), ((props.idx.y + 1)* props.dim.y) / mTex->GetHeight() };
+
+	mTexCoords[0] = { min.x, min.y };
+	mTexCoords[1] = { max.x, min.y };
+	mTexCoords[2] = { max.x, max.y };
+	mTexCoords[3] = { min.x, max.y };
+
+	mProps = props;
+}
+
 /*  _________________________________________________________________________ */
 /*! GetTexture
 

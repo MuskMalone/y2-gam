@@ -73,11 +73,13 @@ namespace Events::System {
 namespace Events::System::Entity {
 
 	const ParamId CREATE = "Events::System::Entity::CREATE"_hash;
+	const ParamId BEFORE_DESTROYED = "Events::System::Entity::BEFORE_DESTROYED"_hash;
 #undef DELETE
 	const ParamId DESTROYED = "Events::System::Entity::DESTROYED"_hash;
 #define DELETE                           (0x00010000L)
 	const ParamId COMPONENT_ADD = "Events::System::Entity::COMPONENT_ADD"_hash;
 	const ParamId COMPONENT_REMOVE = "Events::System::Entity::COMPONENT_REMOVE"_hash;
+	const ParamId BEFORE_COMPONENT_REMOVE = "Events::System::Entity::BEFORE_COMPONENT_REMOVE"_hash;
 }
 
 namespace Events::Physics {
@@ -93,4 +95,15 @@ namespace Events::Physics::Raycast {
 
 namespace Events::Physics::Raycast::Debug {
 	const ParamId RAYCAST_DEBUGGED = "Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED"_hash;
+}
+
+namespace Events::Particles {
+	const EventId EMITTER = "Events::Particles::EMITTER"_hash;
+}
+
+namespace Events::Particles::Emitter {
+	const ParamId EMITTER_ADDED = "Events::Particles::Emitter::EMITTER_ADDED"_hash;
+	const ParamId BEFORE_EMITTER_DESTROY = "Events::Particles::Emitter::BEFORE_EMITTER_DESTROYED"_hash;
+	const ParamId EMITTER_DESTROYED = "Events::Particles::Emitter::EMITTER_DESTROYED"_hash;
+	const ParamId EMITTERPROXY_CHANGED = "Events::Particles::Emitter::EMITTERPROXY_CHANGED"_hash;
 }

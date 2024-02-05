@@ -41,6 +41,7 @@ public:
 	float GetProfilerValue(size_t key);
 	void ScaleDeltaTime(float factor);
 	inline float GetFps() { return mFps;  }
+
 	inline float GetDeltaTime() { return mDeltaTime; }
 	inline float GetTargetDT() { return mTargetDeltaTime; }
 

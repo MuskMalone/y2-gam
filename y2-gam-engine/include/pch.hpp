@@ -49,6 +49,8 @@
 #include <vector>
 #include <any>
 #include <stack>
+#include <numeric>
+#include <iterator>
 
 #include <stb_image.h>
 

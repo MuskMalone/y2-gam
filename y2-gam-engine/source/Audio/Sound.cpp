@@ -621,7 +621,7 @@ namespace Image {
 
   Loads the sound asset.
   */
-  ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
+  ResourceID SoundManager::LoadAssetSoundProperties(SoundProperties const& props) {
     ResourceID key{ props.id };
     if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
     _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
@@ -655,7 +655,8 @@ namespace Image {
   Loads the sound asset on app open.
   */
   ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
-    return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
+    std::cout << "Load Asset for sound" << std::endl;
+    return LoadAssetSoundProperties(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
   }
 
   /*  _________________________________________________________________________ */
@@ -672,7 +673,7 @@ namespace Image {
 
   Serializes asset.
   */
-  void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
+  void SoundManager::SaveAsset(AssetID aid, SoundProperties const& props, rapidjson::Value &obj) {
     _mSoundAssets[aid].second.stream = props.stream;
     Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
   }

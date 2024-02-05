@@ -40,3 +40,9 @@ D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReferenc
 D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
 D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
 D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb

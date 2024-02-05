@@ -95,6 +95,7 @@ namespace Globals {
 #define ENGINE_COLLISION_PROFILE 1
 #define ENGINE_RENDER_PROFILE 2
 #define ENGINE_INPUT_PROFILE 3
+#define ENGINE_GUI_PROFILE 4
 
 //from here on are serialized globals
 #define GVC_AT(I) Globals::GlobalValContainer::GetInstance()->At(I)

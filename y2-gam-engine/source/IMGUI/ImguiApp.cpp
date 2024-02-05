@@ -56,6 +56,7 @@
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
+#include <Systems/ParticleSystem.hpp>
 
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
@@ -219,6 +220,27 @@ namespace Image {
             ImGui::EndMainMenuBar();
         }
     }
+
+    void RemoveUnusedAssets(Entity entity)
+    {
+        if (gCoordinator->HasComponent<Sprite>(entity))
+        {
+            auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+            SceneManager::GetInstance()->RemoveAsset(sprite.spriteAssetID);
+           
+        }
+        if (gCoordinator->HasComponent<Animation>(entity))
+        {
+            Animation& anim = gCoordinator->GetComponent<Animation>(entity);
+            std::cout << "anim size" << anim.states.size() << std::endl;
+            for (size_t i{}; i < anim.states.size(); ++i)
+            {
+                std::cout << "animstate[i]" << anim.states[i] << "i = " << i;
+                SceneManager::GetInstance()->RemoveAsset(anim.states[i]);
+            }
+            //std::cout << "anim size2" << anim.states.size() << std::endl;
+        }
+    }
     /*  _________________________________________________________________________ */
     /*! HierarchyWindow
 
@@ -305,7 +327,7 @@ namespace Image {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 //put before u destroy the entity
             CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
-
+            RemoveUnusedAssets(gSelectedEntity);
             gCoordinator->DestroyEntity(gSelectedEntity);
             Image::ScriptManager::RemoveEntity(gSelectedEntity);
             gSelectedEntity = MAX_ENTITIES;
@@ -337,6 +359,7 @@ namespace Image {
                 gSelectedEntity = entity;
             }
 
+
             if (ImGui::BeginDragDropTarget()) {
                 //std::cout << "Began drag-drop target." << std::endl;
 
@@ -366,11 +389,12 @@ namespace Image {
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
                     droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    //std::cout << droppedAid << std::endl;
+                    std::cout << "droppedAID" << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
                         //anim.assetID = droppedAid;
                         anim.states.emplace_back(droppedAid);
+
                     }
                     else {
                         Animation a{
@@ -1216,6 +1240,155 @@ namespace Image {
                     ImGui::TreePop();
                 }
             }
+
+            if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                std::string treeNodeLabel = "Emitter System##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    if (ImGui::Button("Add Emitter")) {
+                        // Button 1 logic
+                                // Generate and print a random number
+                        EmitterProxy ep{
+                            {{},{},{},{}}, // Vertices
+							{1.0f, 1.0f, 1.0f, 1.0f}, // Color
+							{0.0f, 0.0f}, // Gravity
+							{5.0f, 5.0f}, // Size
+                            0.0f, // Rotation
+                            60.0f, // Lifetime
+                            0.0f, // Angular Velocity
+                            10.0f, // Speed
+                            0.0f, // Time: DO NOT CHANGE THIS
+                            0.1f, // Emission Frequency
+                            0, // Type of Emission
+                            1, // vCount
+                            0, // Preset
+                            1, // Particles per frame
+                            0, // emitter index for ssbo
+                            true // Draw Emitter
+                        };
+                        ParticleSystem::AddEmitter(ep, selectedEntity);
+                    }
+                    auto & emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (size_t i{}; i < emitterSystem.emitters.size(); ++i ) {
+                        auto& emitter = emitterSystem.emitters[i];
+                        bool changed = false; // Flag to track if any field has changed
+                        // Display text beside the checkbox\
+
+                        // Draw a separator line
+                        ImGui::Separator();
+                        // Display text beside the button
+                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) ).c_str());
+
+                        // Place the next item (text) on the same line as the previous item (button)
+                        ImGui::SameLine();
+
+                        // Create a checkbox
+                        if (ImGui::Checkbox((std::string("Draw Emitter") + "##" + std::to_string(i)).c_str(), &emitter.drawEmitterVertices)) {
+                            // Checkbox logic
+                            changed = true;
+                        }
+
+                        // Create the "Remove" button
+                        if (ImGui::Button((std::string("Remove") + "##" + std::to_string(i)).c_str())) {
+                            // Button logic
+                            ParticleSystem::RemoveEmitter(i, selectedEntity);
+                            break;
+                        }
+                        // Edit vertex count
+                        const char* vCounts[] = { "Point", "Line", "Rect" };
+                        int vCountIdx = (emitter.vCount == 1) ? 0 : (emitter.vCount == 2) ? 1 : 2;
+                        if (ImGui::Combo((std::string("vCount") + "##" + std::to_string(i)).c_str(), &vCountIdx, vCounts, IM_ARRAYSIZE(vCounts))) {
+                            emitter.vCount = (vCountIdx == 0) ? 1 : (vCountIdx == 1) ? 2 : 4;
+                            changed = true;
+
+                            emitter.type = 0; //reset the type to gradual emission
+                        }
+
+                        // Edit vertices based on vCount
+                        if (emitter.vCount == 1) {
+                            // Edit only one vertex
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 2) {
+                            // Edit two vertices (e.g., start and end of a line)
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Vertex 1") + "##" + std::to_string(i)).c_str(), &emitter.vertices[1].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 4) {
+                            // Edit two vertices and calculate the others (e.g., top-left and bottom-right of a rectangle)
+                            changed |= ImGui::DragFloat2((std::string("Top Left Vertex") + "##" + std::to_string(i)).c_str(), & emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Bottom Right Vertex") + "##" + std::to_string(i)).c_str(), &emitter.vertices[2].x, 0.01f);
+
+                            if (changed) {
+                                // Calculate the other two vertices based on top-left and bottom-right
+                                emitter.vertices[1] = glm::vec4(emitter.vertices[2].x, emitter.vertices[0].y, emitter.vertices[0].z, 1.0f); // Top Right
+                                emitter.vertices[3] = glm::vec4(emitter.vertices[0].x, emitter.vertices[2].y, emitter.vertices[2].z, 1.0f); // Bottom Left
+                            }
+                        }
+
+                        // Edit color
+                        changed |= ImGui::ColorEdit4((std::string("Color") + "##" + std::to_string(i)).c_str(), &(emitter.col.r));
+
+                        // Edit gravity
+                        changed |= ImGui::DragFloat2((std::string("Gravity") + "##" + std::to_string(i)).c_str(), &emitter.gravity.x, 0.01f);
+
+                        // Edit size
+                        changed |= ImGui::DragFloat2((std::string("Size") + "##" + std::to_string(i)).c_str(), &emitter.size.x, 0.01f);
+
+                        // Edit other properties
+                        changed |= ImGui::DragFloat((std::string("Rotation") + "##" + std::to_string(i)).c_str(), &emitter.rot, 0.01f, -360.0f, 360.0f);
+                        changed |= ImGui::DragFloat((std::string("Lifetime") + "##" + std::to_string(i)).c_str(), &emitter.lifetime, 0.01f, 0.0f, 100.0f);
+                        changed |= ImGui::DragFloat((std::string("Angular Velocity") + "##" + std::to_string(i)).c_str(), &emitter.angvel, 0.01f);
+                        changed |= ImGui::DragFloat((std::string("Speed") + "##" + std::to_string(i)).c_str(), &emitter.speed, 0.01f);
+
+                        // Edit frequency
+                        changed |= ImGui::DragFloat((std::string("Frequency") + "##" + std::to_string(i)).c_str(), &emitter.frequency, 0.01f, 0.0f, 100.0f);
+                        changed |= ImGui::DragInt((std::string("Particle Rate") + "##" + std::to_string(i)).c_str(), &emitter.particlesPerFrame, 1, 1, 1000);
+                        // Type of emission dropdown
+
+                        switch (emitter.vCount) {
+                        case 1: {
+                            const char* types[] = { "Gradual" };
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+
+                        }break;
+                        case 2: {
+                            const char* types[] = { "Gradual", "Rain", "Lazer"};
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+                        }break;
+                        case 4: {
+                            const char* types[] = { "Gradual", "Dust", "Disintegrate" };
+                            int typeidx;
+                            switch (emitter.type) {
+                            case 0: typeidx = 0; break;
+                            case 4: typeidx = 1; break;
+                            case 5: typeidx = 2; break;
+                            }
+                            if (ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &typeidx, types, IM_ARRAYSIZE(types))) {
+                                switch (typeidx) {
+                                case 0: emitter.type = 0; break;
+                                case 1: emitter.type = 4; break;
+                                case 2: emitter.type = 5; break;
+                                }
+                                changed = true;
+                            }                       
+                        }break;
+                        }
+
+                        // Preset dropdown
+                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Over Lifetime" };
+                        changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
+
+                        // Check for changes and call the callback function if needed
+                        if (changed) {
+                            Event event(Events::Particles::EMITTER);
+                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, selectedEntity));
+                            Coordinator::GetInstance()->SendEvent(event);
+                            //OnEmitterProxyChanged(emitter);
+                        }
+                    }
+                    ImGui::TreePop();
+                }
+            }
             ImGui::PopStyleColor(2);
         }
         ImGui::PopFont();
@@ -1242,7 +1415,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera", "Emitter System" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1432,6 +1605,15 @@ namespace Image {
                 }
             }
                    break;
+            case 12: {
+                if (!gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        EmitterSystem{}, ignore);
+                }
+            }
+                   break;
+
             }
           }
           ImGui::SameLine();
@@ -1533,6 +1715,16 @@ namespace Image {
                 }
             }
                    break;
+            case 12: {
+                if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    auto const& emitter{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (int i{}; i < emitter.emitters.size(); ++i) {
+                        ParticleSystem::RemoveEmitter(i, selectedEntity);
+                    }
+                    gCoordinator->RemoveComponent<EmitterSystem>(selectedEntity);
+                }
+            }
+                   break;
             }
           }
           ImGui::Separator();
@@ -1548,7 +1740,7 @@ namespace Image {
           ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
           ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
-
+          ImGui::Text("Emitter System Component %s", gCoordinator->HasComponent<EmitterSystem>(selectedEntity) ? "True" : "False");
           //ImGui::PopFont();
           //ImGui::End();
 
@@ -1828,7 +2020,10 @@ namespace Image {
         }
         ImGui::EndChild();
         //std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
-
+        //auto input = gCoordinator->GetSystem<InputSystem>();
+        //if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_UP)) {
+        //    SceneManager::GetInstance()->LoadScene("HowToPlay");
+        //}
         //tch: for scene to drag drop
         if (ImGui::BeginDragDropTarget()) {
             //std::cout << "Began drag-drop target." << std::endl;
@@ -1843,20 +2038,9 @@ namespace Image {
                 //}
                 std::string currentScene = (basePath / payLoadPath).stem().string();
                 static bool open = false;
-                ImGui::OpenPopup("current scene still running");
-                if (!renderSystem->IsEditorMode()) {
-                  if (ImGui::BeginPopupModal("current scene still running")) {
-                    ImGui::Text("stop current scene");
-
-                    if (ImGui::Button("Close")) {
-                      open = false;
-                    }
-
-                    ImGui::EndPopup();
-                  }
-                }
 
                 SceneManager::GetInstance()->LoadScene(currentScene);
+
             }
             if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("PrefabsInstance")) {
                 if (SceneManager::GetInstance()->IsSceneActive()) {
@@ -1991,6 +2175,7 @@ namespace Image {
         static float physicsValues[gPercent] = {};
         static float collisionValues[gPercent] = {};
         static float renderValues[gPercent] = {};
+        static float guiValues[gPercent] = {};
         static int valueIndex{};
         valueIndex = (valueIndex + 1) % gPercent;
 
@@ -2033,6 +2218,15 @@ namespace Image {
         ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::Separator();
+
+        // Display Render Performance
+        ImGui::Text("GUI Performance");
+        guiValues[valueIndex] = frameController->GetProfilerValue(ENGINE_GUI_PROFILE) * static_cast<float>(gPercent);
+        float guiPerformance = frameController->GetProfilerValue(ENGINE_GUI_PROFILE);
+        ImGui::ProgressBar(guiPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(guiPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::Text("GUI Performance Graph");
+        ImGui::PlotLines("GUI", guiValues, IM_ARRAYSIZE(guiValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
         ImGui::PopFont();
         ImGui::End();

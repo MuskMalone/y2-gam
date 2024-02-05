@@ -74,31 +74,6 @@
             "id": 1707024626733990700,
             "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_4.wav",
             "stream": false
-        },
-        "1707058828199428400": {
-            "id": 1707058828199465200,
-            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding.wav",
-            "stream": false
-        },
-        "1707058829704876200": {
-            "id": 1707058829704914400,
-            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor.wav",
-            "stream": false
-        },
-        "1707101793572517600": {
-            "id": 1707101793572554700,
-            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_5.wav",
-            "stream": false
-        },
-        "1707101795733893200": {
-            "id": 1707101795733933100,
-            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_6.wav",
-            "stream": false
-        },
-        "1707101843445956200": {
-            "id": 1707101843446039400,
-            "path": "../assets\\audio\\sfx\\CheckpointActivation\\Flag.wav",
-            "stream": false
         }
     },
     "SpriteManager": {
@@ -525,62 +500,6 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
-        },
-        "1705483032734269100": {
-            "id": 1705483032734295400,
-            "path": "../assets\\Textures\\backgrounds\\game200_lvl2castle_wip.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 6282.0,
-            "dimY": 1456.0
-        },
-        "1705617118815166700": {
-            "id": 1705617118815195300,
-            "path": "../assets\\Textures\\tiles\\gam200_backstage_tile_3.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 163.0,
-            "dimY": 124.0
-        },
-        "1706837932178363300": {
-            "id": 1706837932178432700,
-            "path": "../assets\\Textures\\backgrounds\\game200_basement_lvl2.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 1842.0,
-            "dimY": 650.0
-        },
-        "1707035851214188800": {
-            "id": 1707035851214223400,
-            "path": "../assets\\Textures\\gam sewer_water short 1.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 101.0,
-            "dimY": 120.0
-        },
-        "1707035856609045200": {
-            "id": 1707035865510300300,
-            "path": "../assets\\Textures\\gam sewer_water short 2.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 101.0,
-            "dimY": 120.0
-        },
-        "1707036026741800000": {
-            "id": 1707036026741829500,
-            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 222.0,
-            "dimY": 480.0
-        },
-        "1707073231219371800": {
-            "id": 1707073231219397700,
-            "path": "../assets\\Textures\\backgrounds\\gam sewer no lights.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 9302.0,
-            "dimY": 3330.0
         }
     },
     "AnimationManager": {
@@ -695,38 +614,6 @@
             "idxCoordY": 0.0,
             "dimX": 85.0,
             "dimY": 177.0
-        },
-        "1707036292815710700": {
-            "id": 1707036292815747600,
-            "path": "../assets\\Textures\\gam sewer_water short 1.png",
-            "frameCount": 2,
-            "idxCoordY": 0.0,
-            "dimX": 101.0,
-            "dimY": 120.0
-        },
-        "1707036294029570900": {
-            "id": 1707036294029611100,
-            "path": "../assets\\Textures\\gam sewer_water short 2.png",
-            "frameCount": 2,
-            "idxCoordY": 0.0,
-            "dimX": 101.0,
-            "dimY": 120.0
-        },
-        "1707036334731623100": {
-            "id": 1707036334731673300,
-            "path": "../assets\\Textures\\gam dungeon door_open purple.png",
-            "frameCount": 2,
-            "idxCoordY": 0.0,
-            "dimX": 222.0,
-            "dimY": 480.0
-        },
-        "1707036348349429900": {
-            "id": 1707036348349463700,
-            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
-            "frameCount": 2,
-            "idxCoordY": 0.0,
-            "dimX": 222.0,
-            "dimY": 480.0
         },
         "1706241684624811400": {
             "id": 1706241684624840800,

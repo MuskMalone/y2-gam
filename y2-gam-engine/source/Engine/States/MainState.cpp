@@ -69,6 +69,7 @@ void MainState::Render(float dt) {
 	FrameRateController::GetInstance()->StartSubFrameTime();
 	coordinator->GetSystem<AnimationSystem>()->Update(dt);
 	coordinator->GetSystem<RenderSystem>()->Update(dt);
+	coordinator->GetSystem<ParticleSystem>()->Update(dt);
 	FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 
 }
