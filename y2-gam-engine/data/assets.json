@@ -623,6 +623,22 @@
             "idxY": 0.0,
             "dimX": 85.0,
             "dimY": 58.0
+        },
+        "1707151748551518600": {
+            "id": 1707151748551552800,
+            "path": "../assets\\Textures\\DAA2402_howtoplay.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1707154487715059300": {
+            "id": 1707154487715132900,
+            "path": "../assets\\Textures\\DAA2402_howtoplay_BackbuttonGlow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     },
     "AnimationManager": {

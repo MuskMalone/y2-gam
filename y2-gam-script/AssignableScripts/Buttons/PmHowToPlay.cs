@@ -9,8 +9,9 @@ namespace Object
         //bool firstTime = true;
         private bool isPaused = false;
         private Vector2 temp_translation;
-
+        public bool htpClicked = false;
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
 
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -105,8 +106,9 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
-                    SaveScene("Level1");
-                    LoadScene("HowToPlay");
+                    htpClicked = true;
+                    //SaveScene("Level1");
+                    //LoadScene("HowToPlay");
                     //StopAudio();
                     //LoadScene("HowToPlay");
                     //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));

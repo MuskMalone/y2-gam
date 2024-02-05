@@ -8,6 +8,9 @@ namespace Object
     {
         //bool firstTime = true;
         //bool isPaused = false;
+        PmHowToPlay htp = GameplayWrapper.FindEntityByName("PmHowToPlay").As<PmHowToPlay>();
+        //PauseMenu pm = GameplayWrapper.FindEntityByName("PauseMenu").As<PauseMenu>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -63,9 +66,14 @@ namespace Object
         {
             //if (Input.IsKeyClicked(KeyCode.KEY_Q))
             //{
-            if(UIClicked)
+            if (htp.htpClicked == true)
             {
-                LoadScene("Level1");
+                Colour = new Vector4(1, 1, 1, 1);
+
+            }
+            else
+            {
+                Colour = new Vector4(1, 0, 1, 0);
             }
             //}
         }

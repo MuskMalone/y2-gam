@@ -6,8 +6,9 @@ namespace Object
 {
     public class PauseMenu : Entity
     {
-        private bool IsKeyPressed = false;
-        bool isPaused = false;
+        //private bool IsKeyPressed = false;
+        //bool isPaused = false;
+        PmHowToPlay htp = GameplayWrapper.FindEntityByName("PmHowToPlay").As<PmHowToPlay>();
         
 
         /*  _________________________________________________________________________ */
@@ -52,14 +53,14 @@ namespace Object
 
         void PauseGame()
         {
-            Colour = new Vector4(1, 1, 1, 1);
-            GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
-            GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
+            //Colour = new Vector4(1, 1, 1, 1);
+            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
+            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
         }
 
         void ResumeGame()
         {
-            Colour = new Vector4(1, 0, 1, 0);
+            //Colour = new Vector4(1, 0, 1, 0);
         }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
@@ -73,35 +74,21 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
-            {
-                Colour = new Vector4(1, 0, 1, 0);
+           
 
-            }
-            
-            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
+            if (htp.htpClicked == true)
             {
-                if (!IsKeyPressed)
+                Colour = new Vector4(1, 1, 1, 1);
+                if (UIClicked)
                 {
-                    if (!isPaused)
-                    {
-                        PauseGame();
-                        isPaused = true;
-                    }
-                    else
-                    {
-                        ResumeGame();
-                        isPaused = false;
-                    }
-                    IsKeyPressed = true;
+                    htp.htpClicked = false;
                 }
             }
-
             else
             {
-                IsKeyPressed = false;
+                Colour = new Vector4(1, 0, 1, 0);
             }
-            
+
 
             //if (UIClicked)
             //{
