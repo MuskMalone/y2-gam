@@ -75,7 +75,8 @@ namespace Object
             //    //}
             //    //LoadScene("HowToPlay");
             //}
-            Translation = new Vector2(1205, 345);
+            //Translation = new Vector2(1205, 345);
+            Translation = new Vector2(1310, 345);
         }
 
         void ResumeGame()

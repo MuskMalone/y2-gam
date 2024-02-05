@@ -54,7 +54,8 @@ namespace Object
 
         void PauseGame()
         {
-            Translation = new Vector2(1202, 425);
+            Translation = new Vector2(1309, 426);
+            //Translation = new Vector2(1202, 425);
             //Translation = new Vector2(1500, 500);
             //if (UIHover)
             //{
