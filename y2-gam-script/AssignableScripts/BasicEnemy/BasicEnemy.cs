@@ -37,7 +37,7 @@ namespace Object
         //Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
-
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
@@ -127,6 +127,12 @@ namespace Object
         void OnUpdate(float dt)
         {
             IsFacingRight = isFacingRight;
+
+            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
 
             if (isPaused)
             {

@@ -22,13 +22,13 @@ namespace Object
 {
     public class Player : Entity
     {
-        public float JumpSpeed;
+        public float JumpSpeed;        public bool IsFacingRight;
+
         public float MovementSpeed;
         public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
-        public bool IsFacingRight;
         public float MaxHorizontalVelocity;
 
         public Vector2 spawnPosition = new Vector2(-400, -27);
@@ -36,6 +36,7 @@ namespace Object
         
         private float temp_dt = 0f;
         private bool isPaused = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
         private bool _isFacingRight;
@@ -107,6 +108,12 @@ namespace Object
         void OnUpdate(float dt)
         {
             IsFacingRight = isFacingRight;
+
+            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
 
             if (isPaused)
             {

@@ -126,6 +126,10 @@ namespace Object
             {
                 isPaused = false;
             }
+            //else
+            //{
+            //    isPaused = true;
+            //}
 
             if (Input.IsKeyClicked(KeyCode.KEY_P))
             {

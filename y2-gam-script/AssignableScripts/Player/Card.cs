@@ -51,6 +51,7 @@ namespace Object
 
         float temp_dt = 0f;
         bool isPaused = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public bool HoveringChanged { get; private set; }
 
         private List<string> CardSwapAudio = new List<string>();
@@ -124,6 +125,12 @@ namespace Object
                 CardUIMaxScale = GetScaleFromEntity(CardUIID);
                 firstTime = false;
                 ResetCardPos();
+            }
+
+            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
             }
 
             if (isPaused)
