@@ -60,55 +60,6 @@
         },
         {
             "Collider": {
-                "collider": 0,
-                "posX": 0.8777532577514648,
-                "posY": -40.33168029785156,
-                "rotation": 0.0,
-                "dimX": 100.0,
-                "dimY": 16.320999145507813
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
-                "lockRotate": true
-            },
-            "Sprite": {
-                "r": 0.8540540337562561,
-                "g": 0.24005843698978424,
-                "b": 0.24005843698978424,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Tag": {
-                "Tag": "Name"
-            },
-            "Transform": {
-                "posX": 0.8777532577514648,
-                "posY": -40.33168029785156,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 16.320999145507813,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
                 "collider": 1,
                 "posX": -23.9185791015625,
                 "posY": 106.77283477783203,
@@ -343,7 +294,7 @@
                     {
                         "vertices": [
                             {
-                                "x": 0.0,
+                                "x": 100.0,
                                 "y": 0.0,
                                 "z": 0.0,
                                 "w": 0.0
@@ -352,38 +303,38 @@
                                 "x": 0.0,
                                 "y": 0.0,
                                 "z": 0.0,
-                                "w": 0.0
+                                "w": 1.0
                             },
                             {
                                 "x": 0.0,
-                                "y": 0.0,
+                                "y": 100.0,
                                 "z": 0.0,
                                 "w": 0.0
                             },
                             {
-                                "x": 0.0,
-                                "y": 0.0,
+                                "x": 100.0,
+                                "y": 100.0,
                                 "z": 0.0,
-                                "w": 0.0
+                                "w": 1.0
                             }
                         ],
                         "colX": 1.0,
                         "colY": 1.0,
                         "colZ": 1.0,
-                        "colW": 1.0,
+                        "colW": 0.0117647061124444,
                         "gravityX": 0.0,
                         "gravityY": 0.0,
-                        "sizeX": 5.0,
-                        "sizeY": 5.0,
+                        "sizeX": 10.1899995803833,
+                        "sizeY": 10.069999694824219,
                         "rot": 0.0,
-                        "lifetime": 60.0,
-                        "angvel": 0.0,
-                        "speed": 10.0,
-                        "frequency": 0.10000000149011612,
-                        "type": 0,
-                        "vCount": 1,
-                        "preset": 0,
-                        "particlesPerFrame": 1,
+                        "lifetime": 5.059999942779541,
+                        "angvel": 0.11999999731779099,
+                        "speed": 6.150000095367432,
+                        "frequency": 0.0,
+                        "type": 4,
+                        "vCount": 4,
+                        "preset": 2,
+                        "particlesPerFrame": 44,
                         "drawEmitterVertices": true
                     }
                 ]
@@ -403,8 +354,8 @@
                 "Tag": "Name"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -102.78411102294922,
+                "posY": -44.58708190917969,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
