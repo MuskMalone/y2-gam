@@ -44,6 +44,7 @@ namespace Object
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
 
+        private Vector2 playerHead;
         private float temp_dt = 0f;
         private bool isPaused = false;
         private bool firstTime = true;
@@ -235,7 +236,7 @@ namespace Object
                         Mass = 0;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))
                     {
                         if (!IsKeyPressed)
                         {
@@ -340,6 +341,22 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
+                    }
+                    */
+                    if (isFacingRight)
+                    {
+                        // Cast the ray from the right side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
+                    }
+                    else
+                    {
+                        // Cast the ray from the left side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
+                    }
+
+                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                    {
+                        Respawn();
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)

@@ -35,7 +35,6 @@ namespace Object
         public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
-        bool collidedOrNot = false;
 
         private uint HoveredID;
         private bool _isHovered;
@@ -157,8 +156,6 @@ namespace Object
             {
                 if (Alive)
                 {
-                    InternalCalls.PhysicsComponent_Collided(ref entityID, ref collidedOrNot);
-                    Console.WriteLine(collidedOrNot);
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;
@@ -185,31 +182,45 @@ namespace Object
                     */
 
                     // Swap Related
+                    if(Input.IsKeyClicked(KeyCode.KEY_Q))
+                    {
+                        timeAlive = 0.0f;
+                        ResetCardUI();
+                        GameplayWrapper.Swap(entityID, player.entityID);
+                        player.PlayAppearAnimation = true;
+                        CardSwapAudioCounter++;
+                        if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                        {
+                            CardSwapAudioCounter = 0;
+                        }
+                        PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                        ResetCardPos();
+                    }
+
                     if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
                     {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
-                            if (GameplayWrapper.IsSwappable(swapRayCast.id))
+                            if (swapRayCast.id != player.entityID)
                             {
-                                timeAlive = 0.0f;
-                                ResetCardUI();
-
-                                GameplayWrapper.Swap(entityID, swapRayCast.id);
-
-                                if (swapRayCast.id == player.entityID)
+                                if (GameplayWrapper.IsSwappable(swapRayCast.id))
                                 {
-                                    player.PlayAppearAnimation = true;
-                                }
+                                    timeAlive = 0.0f;
+                                    ResetCardUI();
 
-                                CardSwapAudioCounter++;
-                                if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
-                                {
-                                    CardSwapAudioCounter = 0;
-                                }
-                                PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                                    GameplayWrapper.Swap(entityID, swapRayCast.id);
 
-                                ResetCardPos();
-                                //ResetColour(swapRayCast.id);
+                                    CardSwapAudioCounter++;
+                                    if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                    {
+                                        CardSwapAudioCounter = 0;
+                                    }
+                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                                    ResetCardPos();
+                                    //ResetColour(swapRayCast.id);
+                                }
                             }
                         }
                     }
