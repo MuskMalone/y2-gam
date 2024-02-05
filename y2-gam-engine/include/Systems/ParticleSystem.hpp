@@ -10,8 +10,10 @@ class ParticleSystem : public System
     std::shared_ptr<Shader> mEmitterStepShader;
     std::shared_ptr<Shader> mParticleShader;
     std::shared_ptr<Shader> mParticleRenderShader;
+    
     GLuint mEmitterSSbo;
     GLuint mParticleSSbo;
+    GLuint mParticleStartSSbo;
     GLuint mParticleCountSSbo;
 
     //for randomness in glsl

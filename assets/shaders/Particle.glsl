@@ -19,9 +19,10 @@
 #define EMT_TYPE_DISINTEGRATE 5 // the tetricity block disintegrate
 
 //presets for emitters
-#define ALPHA_OVER_LIFETIME 0
-#define SIZE_OVER_LIFETIME 1
-#define ALPHA_SIZE_OVER_LIFETIME 2
+#define ALPHA_OVER_LIFETIME 0 //decreasing alpha over lifetime
+#define SIZE_OVER_LIFETIME 1 //decreasing size over lifetime
+#define ALPHA_SIZE_DECR_OVER_LIFETIME 2  //decreasing alpha and size over lifetime
+#define ALPHA_SIZE_INCR_OVER_LIFETIME 3  //increasing alpha and size over lifetime
 
 struct Particle {
     vec4 col;     // 16 bytes
@@ -67,6 +68,8 @@ struct Emitter {
 //they are the same size owo
 layout( std430, binding=13 ) buffer Emts
 { Emitter Emitters[]; };
+layout( std430, binding=10 ) buffer PctlsStrt
+{ Particle ParticlesStart[]; };
 layout( std430, binding=14 ) buffer Pctls
 { Particle Particles[]; };
 
@@ -79,6 +82,16 @@ uniform float DT;
 
 uniform uint bufferMaxCount;
 
+//lerp
+vec2 linearLerp(vec2 a, vec2 b, float t){
+	return a + (b - a) * t;
+}
+vec3 linearLerp(vec3 a, vec3 b, float t){
+	return a + (b - a) * t;
+}
+vec4 linearLerp(vec4 a, vec4 b, float t){
+	return a + (b - a) * t;
+}
 float linearLerp(float a, float b, float t){
 	return a + (b - a) * t;
 }
@@ -94,15 +107,27 @@ void main() {
         Particles[gid].vel += Particles[gid].gravity;
         Particles[gid].pos += vec4(Particles[gid].vel, 0, 1) * DT;
         
-//        switch(Emitters[Particles[gid].emtIdx].preset){
-//        case ALPHA_OVER_LIFETIME:
-//			Particles[gid].col.a = linearLerp(Emitters[Particles[gid].emtIdx].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
-//			break;
-//        case SIZE_OVER_LIFETIME:
-//            break;
-//        case ALPHA_SIZE_OVER_LIFETIME:
-//            break;
-//        }
+        switch(Emitters[Particles[gid].emtIdx].preset){
+        case ALPHA_OVER_LIFETIME:{
+            Particles[gid].col.a = linearLerp(ParticlesStart[gid].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
+            }
+			break;
+        case SIZE_OVER_LIFETIME:{
+            Particles[gid].size = linearLerp(ParticlesStart[gid].size, vec2(0, 0), Particles[gid].age / Particles[gid].lifetime);
+            }
+            break;
+        case ALPHA_SIZE_DECR_OVER_LIFETIME:{
+            Particles[gid].col.a = linearLerp(ParticlesStart[gid].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
+
+            Particles[gid].size = linearLerp(ParticlesStart[gid].size, vec2(0, 0), Particles[gid].age / Particles[gid].lifetime);
+            }
+            break;
+        case ALPHA_SIZE_INCR_OVER_LIFETIME:{
+                Particles[gid].col.a = linearLerp(ParticlesStart[gid].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
+                Particles[gid].size += vec2(0.1) * DT;
+            }
+            break;
+        }
         //if particles are dead
         if (Particles[gid].age >= Particles[gid].lifetime){
             Particles[gid].alive = false;

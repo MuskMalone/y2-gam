@@ -4,7 +4,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
-#define MAX_BUFFER 5000000
+#define MAX_BUFFER 2000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
 
@@ -102,6 +102,11 @@ void ParticleSystem::Init() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    glGenBuffers(1, &mParticleStartSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleStartSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     std::vector<float> randomData(MAX_BUFFER);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -122,6 +127,7 @@ void ParticleSystem::Init() {
     // Unbind the buffer (optional, for cleanup)
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, mParticleStartSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 11, mRandomIdxSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 12, mRandomSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 13, mEmitterSSbo);
@@ -233,7 +239,7 @@ void ParticleSystem::Update(float dt) {
     //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleSSbo);
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleStartSSbo);
     //GLSLStructs::Particle* vels = (GLSLStructs::Particle*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Particle), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
@@ -298,4 +304,5 @@ void ParticleSystem::Destroy() {
     glDeleteBuffers(1, &mEmitterSSbo);
     glDeleteBuffers(1, &mParticleSSbo);
     glDeleteBuffers(1, &mParticleCountSSbo);
+    glDeleteBuffers(1, &mParticleStartSSbo);
 }
