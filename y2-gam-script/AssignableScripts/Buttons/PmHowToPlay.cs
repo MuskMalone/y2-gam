@@ -9,6 +9,9 @@ namespace Object
         //bool firstTime = true;
         private bool isPaused = false;
         private Vector2 temp_translation;
+
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -91,8 +94,7 @@ namespace Object
         Called on every update.
         */
         void OnUpdate(float dt)
-        {
-            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        {       
             if (!isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);

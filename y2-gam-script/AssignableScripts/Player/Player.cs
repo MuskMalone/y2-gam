@@ -52,6 +52,7 @@ namespace Object
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
@@ -152,7 +153,7 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+            
             if (resume.isRPaused == false)
             {
                 isPaused = false;

@@ -33,6 +33,8 @@ namespace Object
         public float EnemyDeathTimer = 0;
         public float HowLongDisplayEnemyDeath;
 
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
         //For pausing 
         //int temp_AnimationState = 0;
         //Vector2 temp_pos;
@@ -131,7 +133,6 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
             if (resume.isRPaused == false)
             {
                 isPaused = false;

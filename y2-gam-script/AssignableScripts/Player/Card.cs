@@ -23,6 +23,7 @@ namespace Object
     public class Card : Entity
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         private Vector2 direction;
         public float timeAlive = 0.0f;
@@ -129,7 +130,6 @@ namespace Object
                 ResetCardPos();
             }
 
-            PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
             if (resume.isRPaused == false)
             {
                 isPaused = false;

@@ -28,6 +28,44 @@
                 "layering": "Default"
             },
             "Script": {
+                "scriptName": "ObjectPmResumeGame",
+                "scriptTag": "PmResumeGame",
+                "isRPaused": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1700756888403567100
+            },
+            "Tag": {
+                "Tag": "PmResumeGame"
+            },
+            "Transform": {
+                "posX": 1200.0,
+                "posY": 381.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 235.50999450683594,
+                "scaleY": 45.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
                 "scriptName": "ObjectGameplaybgm",
                 "scriptTag": "BG"
             },
@@ -2225,44 +2263,6 @@
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
-            "Script": {
-                "scriptName": "ObjectPmResumeGame",
-                "scriptTag": "PmResumeGame",
-                "isRPaused": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 0.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1700756888403567100
-            },
-            "Tag": {
-                "Tag": "PmResumeGame"
-            },
-            "Transform": {
-                "posX": 1200.0,
-                "posY": 381.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 235.50999450683594,
-                "scaleY": 45.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
             }
         },
         {
