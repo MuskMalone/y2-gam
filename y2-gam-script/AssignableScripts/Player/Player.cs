@@ -51,6 +51,7 @@ namespace Object
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
+        private string FootTrack;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
@@ -125,6 +126,16 @@ namespace Object
             // Get the serialized IsFacingRight value
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
+
+            if (GetCurrentScene() == "Level1")
+            {
+                FootTrack = "PlayerRunningFloor.wav";
+            }
+
+            else if (GetCurrentScene() == "Level2")
+            {
+                FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -277,7 +288,7 @@ namespace Object
                     {
                         //Console.WriteLine("A was released");
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        PauseAudioWithFilename(FootTrack);
                         Velocity *= 0.2f;
                     }
 
@@ -289,8 +300,8 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio("PlayerRunningFloor.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
@@ -310,8 +321,8 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio("PlayerRunningFloor.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningFloor.wav");
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
@@ -326,7 +337,7 @@ namespace Object
                     if (!IsGrounded)
                     {
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename("PlayerRunningFloor.wav");
+                        PauseAudioWithFilename(FootTrack);
                     }
 
                     if (isFacingRight)
@@ -353,7 +364,6 @@ namespace Object
 
                     if (firstTime)
                     {
-                        Console.WriteLine("Death Audio: " + DeathAudioIncrement);
                         PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
                     }
 

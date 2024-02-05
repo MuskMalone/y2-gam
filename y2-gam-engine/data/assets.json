@@ -99,6 +99,16 @@
             "id": 1707101843446039400,
             "path": "../assets\\audio\\sfx\\CheckpointActivation\\Flag.wav",
             "stream": false
+        },
+        "1707135730566952000": {
+            "id": 1707135730567002300,
+            "path": "../assets\\audio\\music\\Level2_BGM.wav",
+            "stream": false
+        },
+        "1707135840442435300": {
+            "id": 1707135840442494100,
+            "path": "../assets\\audio\\sfx\\PlayerRunningFloor.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

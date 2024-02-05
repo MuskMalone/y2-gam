@@ -78,6 +78,9 @@ namespace Image {
     musicGroup = Image::SoundManager::AudioCreateGroup();
     sfxGroup = Image::SoundManager::AudioCreateGroup();
 
+    Image::SoundManager::AudioSetGroupVolume(musicGroup, 0.1f);
+    Image::SoundManager::AudioSetGroupVolume(sfxGroup, 0.2f);
+
     //Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
     //Image::SoundManager::AudioPauseGroup(::bgmGroup);
 

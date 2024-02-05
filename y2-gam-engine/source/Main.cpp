@@ -68,6 +68,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	Image::ScriptManager::Init();
 	Image::SoundManager::AudioInit();
 
+
 	using namespace Physics;
 	using namespace Collision;
 

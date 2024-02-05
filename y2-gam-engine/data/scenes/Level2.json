@@ -4438,8 +4438,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -4666,6 +4666,38 @@
                 "enabled": true,
                 "isClicked": false,
                 "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectGameplaybgm",
+                "scriptTag": "BG"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.19607843458652496,
+                "layer": 2,
+                "assetID": 1700668929720510100
+            },
+            "Tag": {
+                "Tag": "BG"
+            },
+            "Transform": {
+                "posX": 0.291748046875,
+                "posY": -0.5864715576171875,
+                "posZ": -4.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 888.0,
+                "scaleY": 130.25,
+                "scaleZ": 15.0,
+                "elipse": false
             }
         }
     ]

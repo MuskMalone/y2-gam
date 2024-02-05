@@ -140,7 +140,7 @@
             "Transform": {
                 "posX": -401.6593017578125,
                 "posY": -28.280948638916016,
-                "posZ": -1.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -1157,9 +1157,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 29,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -2198,7 +2198,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 1.1666662693023682,
+                "TimeInState": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
             },
@@ -2217,7 +2217,7 @@
             "Transform": {
                 "posX": 236.9390106201172,
                 "posY": -32.97687911987305,
-                "posZ": -1.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.00930639635771513,
@@ -2473,7 +2473,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 44.5879",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2525,10 +2525,10 @@
             "Transform": {
                 "posX": -401.6593017578125,
                 "posY": -28.28095054626465,
-                "posZ": 0.0,
+                "posZ": 1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.0,
+                "rotZ": -0.8999999761581421,
                 "scaleX": 0.0,
                 "scaleY": 0.0,
                 "scaleZ": 0.0,
@@ -2561,8 +2561,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
