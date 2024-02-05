@@ -372,6 +372,7 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
+                        GameplayWrapper.FindEntityByName("Card").As<Card>().Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)
