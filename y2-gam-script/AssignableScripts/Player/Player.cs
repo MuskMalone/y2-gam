@@ -196,11 +196,12 @@ namespace Object
                             AnimationState = (int)AnimationCodePlayer.IDLE;
                         }
 
-                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
+                        if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
+                            (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
                             centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
                             Dead = true;
-                        }
+                        }           
                     }
 
                     else
@@ -266,7 +267,7 @@ namespace Object
 
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                     {
-                        Console.WriteLine("A was released");
+                        //Console.WriteLine("A was released");
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         PauseAudioWithFilename("PlayerRunningFloor.wav");
                         Velocity *= 0.2f;
@@ -275,7 +276,7 @@ namespace Object
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
-                        Console.WriteLine("A was Pressed");
+                        //Console.WriteLine("A was Pressed");
                         if (IsGrounded && (centreRayCast.layer == "Platform" ||
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
@@ -296,7 +297,7 @@ namespace Object
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
-                        Console.WriteLine("D was Pressed");
+                        //Console.WriteLine("D was Pressed");
                         if (IsGrounded && (centreRayCast.layer == "Platform" ||
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
@@ -318,11 +319,6 @@ namespace Object
                     {
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         PauseAudioWithFilename("PlayerRunningFloor.wav");
-                    }
-
-                    if (Translation.Y <= -99.0f)
-                    {
-                        Dead = true;
                     }
 
                     if (isFacingRight)
