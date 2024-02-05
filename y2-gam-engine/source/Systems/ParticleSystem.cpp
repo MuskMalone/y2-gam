@@ -4,38 +4,75 @@
 #include "Systems/InputSystem.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
-#define MAX_BUFFER 5000000
+#define MAX_BUFFER 2000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
 
 void ParticleSystem::EventListener(Event& event) {
     auto coordinator = Coordinator::GetInstance();
-    //if Emitter is added
-    std::pair<int, Entity> e{ event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTER_ADDED) };
-    if (!event.GetFail()){
-        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
-            //add a new Emitter
-            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 1);
+    //if Emitter is added via gui
+    {
+        std::pair<int, Entity> e{ event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTER_ADDED) };
+        if (!event.GetFail()) {
+            if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+                //add a new Emitter
+                EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 1);
+            }
+            return;
         }
-        return;
-	}
+    }
+
+    //if emitter is added via serialization
+    {
+        Entity e{ event.GetParam<Entity>(Events::System::Entity::COMPONENT_ADD) };
+        if (!event.GetFail()) {
+
+            if (coordinator->HasComponent<EmitterSystem>(e)) {
+                //add a new Emitter
+                auto& emitters{ coordinator->GetComponent<EmitterSystem>(e).emitters };
+                for (auto& emitter : emitters) {
+                    if (emitter.idx == -1)
+                        EmitterAction(emitter, 1);
+                }
+            }
+            return;
+        }
+    }
 
     //if emitter is destroyed
-    e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::BEFORE_EMITTER_DESTROY);
-    if (!event.GetFail()) {
-        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
-            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], -1);
+    {
+        std::pair<int, Entity> e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::BEFORE_EMITTER_DESTROY);
+        if (!event.GetFail()) {
+            if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+                EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], -1);
+            }
+            return;
         }
-        return;
+    }
+    // destroy comes from system
+    {
+        Entity e{ event.GetParam<Entity>(Events::System::Entity::BEFORE_DESTROYED) };
+        if (!event.GetFail()) {
+            if (coordinator->HasComponent<EmitterSystem>(e)) {
+                auto& emitters{ coordinator->GetComponent<EmitterSystem>(e).emitters };
+                for (auto& emitter : emitters) {
+                    if (emitter.idx != -1)
+                        EmitterAction(emitter, -1);
+                }
+            }
+            return;
+        }
     }
 
     //if emitter is changed
-    e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTERPROXY_CHANGED);
-    if (!event.GetFail()) {
-        if (coordinator->HasComponent<EmitterSystem>(e.second)) {
-            EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 0);
+    {
+        std::pair<int, Entity> e = event.GetParam<std::pair<int, Entity>>(Events::Particles::Emitter::EMITTERPROXY_CHANGED);
+        if (!event.GetFail()) {
+            if (coordinator->HasComponent<EmitterSystem>(e.second)) {
+                EmitterAction(coordinator->GetComponent<EmitterSystem>(e.second).emitters[e.first], 0);
+            }
+            return;
         }
-        return;
     }
 }
 void ParticleSystem::Init() {
@@ -65,6 +102,11 @@ void ParticleSystem::Init() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    glGenBuffers(1, &mParticleStartSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleStartSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     std::vector<float> randomData(MAX_BUFFER);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -85,6 +127,7 @@ void ParticleSystem::Init() {
     // Unbind the buffer (optional, for cleanup)
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, mParticleStartSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 11, mRandomIdxSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 12, mRandomSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 13, mEmitterSSbo);
@@ -101,7 +144,10 @@ void ParticleSystem::Init() {
     for (uint64_t i{}; i < MAX_BUFFER; ++i) { mEmitterIdxQueue.push(i); }
 
     auto coordinator = Coordinator::GetInstance();
+
+    //listens for events for particles and entity
     coordinator->AddEventListener(METHOD_LISTENER(Events::Particles::EMITTER, ParticleSystem::EventListener));
+    coordinator->AddEventListener(METHOD_LISTENER(Events::System::ENTITY, ParticleSystem::EventListener));
 }
 
 void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
@@ -193,7 +239,7 @@ void ParticleSystem::Update(float dt) {
     //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleSSbo);
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleStartSSbo);
     //GLSLStructs::Particle* vels = (GLSLStructs::Particle*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Particle), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
@@ -206,9 +252,9 @@ void ParticleSystem::Update(float dt) {
     //std::cout << *idx << "partrandidx\n";
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
-    GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
-    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
+    //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
+    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 void ParticleSystem::Draw() {
     //glEnable(GL_DEPTH_TEST);
@@ -258,4 +304,5 @@ void ParticleSystem::Destroy() {
     glDeleteBuffers(1, &mEmitterSSbo);
     glDeleteBuffers(1, &mParticleSSbo);
     glDeleteBuffers(1, &mParticleCountSSbo);
+    glDeleteBuffers(1, &mParticleStartSSbo);
 }

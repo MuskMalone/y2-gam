@@ -1285,7 +1285,7 @@ namespace Image {
                             1, // vCount
                             0, // Preset
                             1, // Particles per frame
-                            0, // emitter index for ssbo
+                            -1, // emitter index for ssbo
                             true // Draw Emitter
                         };
                         ParticleSystem::AddEmitter(ep, selectedEntity);
@@ -1398,7 +1398,7 @@ namespace Image {
                         }
 
                         // Preset dropdown
-                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Over Lifetime" };
+                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Decreasing Over Lifetime", "Alpha Size Increasing Over Lifetime"};
                         changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
 
                         // Check for changes and call the callback function if needed
