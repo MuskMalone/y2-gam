@@ -101,9 +101,92 @@ struct EmitterSystem
 {
     using Emitters = std::vector<EmitterProxy>;
 	EmitterSystem() = default;
-	EmitterSystem([[maybe_unused]] rapidjson::Value const& obj) {}
+	EmitterSystem([[maybe_unused]] rapidjson::Value const& obj) {
+
+        for (size_t i{}; i < obj["emitters"].Size(); ++i) {
+            EmitterProxy ep{};
+            for (size_t j{}; j < obj["emitters"]["vertices"].Size(); ++j) {
+                ep.vertices[j].x = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["x"].GetFloat();
+				ep.vertices[j].y = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["y"].GetFloat();
+				ep.vertices[j].z = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["z"].GetFloat();
+				ep.vertices[j].w = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["vertices"][static_cast<rapidjson::SizeType>(j)]["w"].GetFloat();
+            }
+            ep.col.x = obj["emitters"]["colX"].GetFloat();
+            ep.col.y = obj["emitters"]["colY"].GetFloat();
+            ep.col.z = obj["emitters"]["colZ"].GetFloat();
+            ep.col.w = obj["emitters"]["colW"].GetFloat();
+
+            ep.gravity.x = obj["emitters"]["gravityX"].GetFloat();
+            ep.gravity.y = obj["emitters"]["gravityY"].GetFloat();
+
+            ep.size.x = obj["emitters"]["sizeX"].GetFloat();
+            ep.size.y = obj["emitters"]["sizeY"].GetFloat();
+
+            ep.rot = obj["emitters"]["rot"].GetFloat();
+            ep.lifetime = obj["emitters"]["lifetime"].GetFloat();
+            ep.angvel = obj["emitters"]["angvel"].GetFloat();
+            ep.speed = obj["emitters"]["speed"].GetFloat();
+
+            ep.frequency = obj["emitters"]["frequency"].GetFloat();
+
+            ep.type = obj["emitters"]["type"].GetInt();
+            ep.vCount = obj["emitters"]["vCount"].GetInt();
+            ep.preset = obj["emitters"]["preset"].GetInt();
+            ep.particlesPerFrame = obj["emitters"]["particlesPerFrame"].GetInt();
+            ep.drawEmitterVertices = obj["emitters"]["drawEmitterVertices"].GetBool();
+
+            emitters.emplace_back(ep);
+        }
+    }
 	bool Serialize([[maybe_unused]] rapidjson::Value& obj) {
-		return false;
+        std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+
+        //sm->InsertValue(obj, "assetID", assetID);
+        Serializer::JSONObj emitterArr{JSON_ARR_TYPE};
+        for (auto const& emitter : emitters) {
+            Serializer::JSONObj emitterObj{JSON_OBJ_TYPE};
+            Serializer::JSONObj vertices{JSON_ARR_TYPE};
+            {
+                for (size_t i{}; i < 4; ++i) {
+                    Serializer::JSONObj vertex{JSON_OBJ_TYPE};
+                    sm->InsertValue(vertex, "x", emitter.vertices[i].x);
+                    sm->InsertValue(vertex, "y", emitter.vertices[i].y);
+                    sm->InsertValue(vertex, "z", emitter.vertices[i].z);
+                    sm->InsertValue(vertex, "w", emitter.vertices[i].w);
+                    sm->PushToArray(vertices, vertex);
+                }
+                sm->InsertValue(emitterObj, "vertices", vertices);
+            }
+            sm->InsertValue(emitterObj, "colX", emitter.col.x);
+            sm->InsertValue(emitterObj, "colY", emitter.col.y);
+            sm->InsertValue(emitterObj, "colZ", emitter.col.z);
+            sm->InsertValue(emitterObj, "colW", emitter.col.w);
+
+            sm->InsertValue(emitterObj, "gravityX", emitter.gravity.x);
+            sm->InsertValue(emitterObj, "gravityY", emitter.gravity.y);
+
+            sm->InsertValue(emitterObj, "sizeX", emitter.size.x);
+            sm->InsertValue(emitterObj, "sizeY", emitter.size.y);
+
+            sm->InsertValue(emitterObj, "rot", emitter.rot);
+            sm->InsertValue(emitterObj, "lifetime", emitter.lifetime);
+            sm->InsertValue(emitterObj, "angvel", emitter.angvel);
+            sm->InsertValue(emitterObj, "speed", emitter.speed);
+
+            sm->InsertValue(emitterObj, "frequency", emitter.frequency);
+
+            sm->InsertValue(emitterObj, "type", emitter.type);
+            sm->InsertValue(emitterObj, "vCount", emitter.vCount);
+            sm->InsertValue(emitterObj, "preset", emitter.preset);
+            sm->InsertValue(emitterObj, "particlesPerFrame", emitter.particlesPerFrame);
+
+            sm->InsertValue(emitterObj, "drawEmitterVertices", emitter.drawEmitterVertices);
+
+
+            sm->PushToArray(emitterArr, emitterObj);
+        }
+        sm->InsertValue(obj, "emitters", emitterArr);
+		return true;
 	}
     //do not use
     inline void AddEmitter(EmitterProxy const& e) { emitters.push_back(e); }
