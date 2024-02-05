@@ -472,6 +472,30 @@
             "idxY": 0.0,
             "dimX": 812.0,
             "dimY": 432.0
+        },
+        "1707116513468451400": {
+            "id": 1707116513468480500,
+            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 358.0,
+            "dimY": 66.0
+        },
+        "1707117444851733600": {
+            "id": 1707117444851765800,
+            "path": "../assets\\Textures\\HowToPlay2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1047.0,
+            "dimY": 587.0
+        },
+        "1707118000656503100": {
+            "id": 1707118000656535400,
+            "path": "../assets\\Textures\\Back.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 85.0,
+            "dimY": 58.0
         }
     },
     "classAnimationManager": {

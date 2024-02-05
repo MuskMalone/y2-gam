@@ -36,7 +36,7 @@ namespace Object
         //Vector2 temp_Force;
         //Vector2 temp_velocity;
         float temp_dt = 0f;
-        bool isPaused = false;
+        private bool isPaused = false;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
