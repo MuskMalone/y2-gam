@@ -75,7 +75,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
-	frameController->Init(240, true);
+	frameController->Init(60, true);
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 	coordinator->RegisterComponent<Editor>();
 	coordinator->RegisterComponent<Collider>();
@@ -246,36 +246,39 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 		accumulatedTime += dt;
 		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 		if (accumulatedTime >= tdt) {
-		inputSystem->Update();
-		windowManager->ProcessEvents();
-		frameController->StartFrameTime();
-		StateManager::GetInstance()->Update(dt);
-		StateManager::GetInstance()->Render(dt);
+			inputSystem->Update();
+			windowManager->ProcessEvents();
+			frameController->StartFrameTime();
+			StateManager::GetInstance()->Update(dt);
+			StateManager::GetInstance()->Render(dt);
 
-		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-		FrameRateController::GetInstance()->StartSubFrameTime();
-		uiSystem->Update();
-		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
-		//NodeManager::Update();
+			std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+			FrameRateController::GetInstance()->StartSubFrameTime();
+			uiSystem->Update();
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
+			//NodeManager::Update();
 
-		windowManager->Update();
-		Image::SoundManager::AudioUpdate();
-		auto stopTime = std::chrono::high_resolution_clock::now();
+			windowManager->Update();
+			Image::SoundManager::AudioUpdate();
+			auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
-		static bool isEditor{ true };
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
-			isEditor = !isEditor;
-		}
-		if (isEditor) {
-			imguiSystem->Update(dt);
-		}
+			static bool isEditor{ true };
+			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+				isEditor = !isEditor;
+			}
+			if (isEditor) {
+				imguiSystem->Update(dt);
+			}
 #endif
 
-		dt = frameController->EndFrameTime();
-		windowManager->UpdateWindowTitle(WINDOW_TITLE);
-		accumulatedTime -= tdt;
+			dt = frameController->EndFrameTime();
+			windowManager->UpdateWindowTitle(WINDOW_TITLE);
+			accumulatedTime -= tdt;
 		}
+		dt = frameController->GetDeltaTime();
+		if (dt < tdt)
+			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
 	}
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
