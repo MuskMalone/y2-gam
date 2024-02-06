@@ -99,12 +99,12 @@ float FrameRateController::EndFrameTime() {
 	static std::deque<float> fpsQueue;
 	int targetFpsInt = static_cast<int>(mTargetFps);
 	//gets the fps
-	/*fpsQueue.push_back(1.f / mDeltaTime);
+	fpsQueue.push_back(1.f / mDeltaTime);
 	if (fpsQueue.size() > targetFpsInt) {
 		fpsQueue.pop_front();
 	}
-	mFps = { std::accumulate(fpsQueue.begin(), fpsQueue.end(), 0.f) / mTargetFps};*/
-	mFps = 1 / mDeltaTime;
+	mFps = { std::accumulate(fpsQueue.begin(), fpsQueue.end(), 0.f) / mTargetFps};
+	//mFps = 1 / mDeltaTime;
 	//std::cout << mDeltaTime << " "<<mFps << std::endl;
 	if (isGameSlow) {
 		return mDeltaTime * slowFactor;
