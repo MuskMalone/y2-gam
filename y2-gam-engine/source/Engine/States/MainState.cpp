@@ -76,10 +76,12 @@ void MainState::Render(float dt) {
 	//if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 	//if (accumulatedTime >= tdt) {
 		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
+
 		FrameRateController::GetInstance()->StartSubFrameTime();
-		coordinator->GetSystem<AnimationSystem>()->Update(dt);
-		coordinator->GetSystem<RenderSystem>()->Update(dt);
-		coordinator->GetSystem<ParticleSystem>()->Update(dt);
+		coordinator->GetSystem<AnimationSystem>()->Update(tdt);
+		coordinator->GetSystem<RenderSystem>()->Update(tdt);
+		coordinator->GetSystem<ParticleSystem>()->Update(tdt);
 		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 	//	accumulatedTime -= tdt;
 	//}

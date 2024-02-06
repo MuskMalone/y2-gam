@@ -371,9 +371,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 
 	Renderer::RenderSceneEnd();
-
-	RenderUI();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
+	RenderUI();
+
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();

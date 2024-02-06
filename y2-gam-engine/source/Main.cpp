@@ -75,7 +75,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	std::shared_ptr<WindowManager> windowManager{WindowManager::GetInstance()};
 	windowManager->Init("ENGINE", ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, 0, 0);
 	std::shared_ptr<FrameRateController> frameController {FrameRateController::GetInstance()};
-	frameController->Init(60, true);
+	frameController->Init(240, true);
 	coordinator->AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 	coordinator->RegisterComponent<Editor>();
 	coordinator->RegisterComponent<Collider>();
@@ -239,6 +239,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	while (!quit && !windowManager->ShouldClose())
 	{
+		float dt = frameController->GetDeltaTime();
 		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 		static float accumulatedTime = 0.f;
 		const float maxAccumulation{ 0.1f };

@@ -23,7 +23,7 @@
 //
 //#define LOGGINGSYSTEM
 //default m_traceFlag true: enable stacktracing false: disable stacktracing
-#define DEFAULT_TRACE false
+#define DEFAULT_TRACE true
 #define DEFAULT_DEBUG false
 #define DEFAULT_LOGLEVEL INFO_LEVEL
 #define DEFAULT_STACKTRACENUM 5
