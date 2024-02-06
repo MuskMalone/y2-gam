@@ -203,10 +203,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -380.5,
+                "posX": -419.5,
                 "posY": -243.5,
                 "rotation": 0.0,
-                "dimX": 310.0,
+                "dimX": 388.0,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -237,7 +237,7 @@
                 "Tag": "Base"
             },
             "Transform": {
-                "posX": -380.5,
+                "posX": -419.5,
                 "posY": -243.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
