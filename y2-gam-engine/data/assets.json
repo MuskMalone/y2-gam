@@ -881,6 +881,14 @@
             "idxCoordY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1707186215576318200": {
+            "id": 1707186215576350000,
+            "path": "../assets\\Textures\\ANIM\\sewer water long spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2000.0,
+            "dimY": 1000.0
         }
     }
 }
