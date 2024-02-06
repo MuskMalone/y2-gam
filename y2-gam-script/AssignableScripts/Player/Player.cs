@@ -53,6 +53,8 @@ namespace Object
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
+        bool resetAnimationState = true;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
@@ -189,12 +191,19 @@ namespace Object
 
                     if (PlayAppearAnimation)
                     {
+                        if (resetAnimationState == true)
+                        {
+                            GameplayWrapper.ResetAnimationState(entityID);
+                            resetAnimationState = false;
+                        }
+                        
                         AnimationState = (int)AnimationCodePlayer.APPEAR;
                         PlayAppearTimer += dt;
 
                         if (PlayAppearTimer >= MaxAppearTime)
                         {
                             PlayAppearAnimation = false;
+                            resetAnimationState = true;
                             PlayAppearTimer = 0;
                         }
                     }

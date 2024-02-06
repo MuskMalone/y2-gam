@@ -163,6 +163,10 @@ namespace Image
         #endregion
 
         #region Graphics
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_ResetAnimationState(ref uint entityHandle);
+
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 

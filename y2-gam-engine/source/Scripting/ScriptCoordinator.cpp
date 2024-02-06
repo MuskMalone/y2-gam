@@ -31,6 +31,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 
 #include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
@@ -700,6 +701,12 @@ Get the collider dimensions of the entity in C#.
 	}
 
 	// For Graphics
+	static void AnimationComponent_ResetAnimationState(uint32_t& entityID) {
+		if (::gCoordinator->HasComponent<Animation>(entityID)) {
+			::gCoordinator->GetSystem<AnimationSystem>()->ResetFrame(entityID);
+		}
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -1216,6 +1223,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_ResetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetSprite);

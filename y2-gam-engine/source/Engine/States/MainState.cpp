@@ -7,6 +7,8 @@
 #include <Systems/InputSystem.hpp>
 #include <Engine/SceneManager.hpp>
 #include <Engine/PrefabsManager.hpp>
+#include "../source/WindowManager.hpp"
+
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	using namespace Serializer;
@@ -28,6 +30,8 @@ void MainState::Update(float dt) {
 	auto inputSystem = coordinator->GetSystem<InputSystem>();
 	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
+	std::shared_ptr<WindowManager> windowManager{ WindowManager::GetInstance() };
+
 
 	if (!renderSystem->IsEditorMode()) {
 		//if (mIsStep) {
@@ -43,6 +47,7 @@ void MainState::Update(float dt) {
 			accumulatedTime += dt;
 			if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 			if (accumulatedTime >= tdt) {
+				//windowManager->ProcessEvents();
 				coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
@@ -53,6 +58,7 @@ void MainState::Update(float dt) {
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
 				FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
+				//windowManager->Update();
 				accumulatedTime -= tdt;
 			}
 		//}

@@ -239,7 +239,11 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		inputSystem->Update();
+		static float accumulatedTime = 0.f;
+		const float maxAccumulation{ 0.1f };
+		accumulatedTime += dt;
+		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+		if (accumulatedTime >= frameController->GetTargetDT()) {
 		windowManager->ProcessEvents();
 		frameController->StartFrameTime();
 		StateManager::GetInstance()->Update(dt);
@@ -267,6 +271,10 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 		dt = frameController->EndFrameTime();
 		windowManager->UpdateWindowTitle(WINDOW_TITLE);
+
+			inputSystem->Update();
+			accumulatedTime += frameController->GetTargetDT();
+		}
 	}
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
