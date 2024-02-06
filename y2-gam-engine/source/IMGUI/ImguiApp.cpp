@@ -65,8 +65,8 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
-    bool gSnap = false;
-    float gSnapVal = 1.f;
+    bool gSnap = true;
+    float gSnapVal = 0.5f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
     bool paused = false;
@@ -339,6 +339,15 @@ namespace Image {
         }
 
         for (auto const& entity : mEntities) {
+            //ImGui::NewLine();
+            static std::shared_ptr<Texture> objectIcon = Texture::Create("../Icon/ObjectIcon.png");
+            std::shared_ptr<Texture> icon = objectIcon;
+            static float size = 15.f;
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+            ImGui::Image(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+            ImGui::PopStyleColor();
+            //set image object here
+            ImGui::SameLine();
             std::string displayName = std::to_string(entity);
             if (gCoordinator->HasComponent<Tag>(entity)) {
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(entity);
@@ -526,33 +535,53 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(selectedEntity);
-              
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                    ImGui::Checkbox("Enable Snapping", &gSnap);
+                    if (gSnap) {
+                        if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                            ImGui::InputFloat("Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                            ImGui::InputFloat("Angle Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                            ImGui::InputFloat("Scale Snap", &gSnapVal);
+                        }
+                    }
                     if (prefabs) {
                         Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                     }
                     else {
@@ -576,58 +605,70 @@ namespace Image {
 
                         // Position X
                         ImGui::Text("Position");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos X", &transform.position.x);
                         CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
                         CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
 
                         // Position Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Y", &transform.position.y);
                         CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
 
                         // Position Z
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Z", &transform.position.z);
                         CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
                         CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
                     }
@@ -692,13 +733,16 @@ namespace Image {
 
             }
             if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode("Animation")) {
                     Animation& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
                     ImGui::Text("Speed per frame");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Speed", &anim.speed);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
                     //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
@@ -785,7 +829,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
                 std::string treeNodeLabel = "Collider##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(selectedEntity);
                     ImGui::Text("Type");
@@ -793,48 +839,48 @@ namespace Image {
                     ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
                     //Pos
                     ImGui::Text("Position");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos X", &collider.position.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                     // Rotation
                     ImGui::Text("Rotation");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     decltype(collider.rotation) crotDeg{Degree(collider.rotation)};
                     ImGui::InputFloat("##Collider Rot", &crotDeg);
                     collider.rotation = glm::radians(crotDeg);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
 
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, IMGUI_MAX_SCALE);
 
                     }
                     else {
                         ImGui::Text("Diameter");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
                         collider.dimension.y = collider.dimension.x;
                     }
@@ -843,7 +889,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
                 std::string treeNodeLabel = "RigidBody##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(selectedEntity);
                     // Mass
@@ -857,24 +905,24 @@ namespace Image {
 
                     // Velocity
                     ImGui::Text("Velocity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, IMGUI_MAX_VELOCITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, IMGUI_MAX_VELOCITY);
 
                     //Friction
                     ImGui::Text("Friction");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Friction", &rigidBody.friction);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
 
                     const char* items[] = { "False", "True" };
@@ -891,20 +939,23 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
                 std::string treeNodeLabel = "Gravity##" + std::to_string(selectedEntity);
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(selectedEntity);
                     //Force
                     ImGui::Text("Gravity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force X", &gravity.force.x, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
@@ -965,6 +1016,7 @@ namespace Image {
                 ImGui::TreePop();
               }
             }
+            
             if (gCoordinator->HasComponent<Script>(selectedEntity)) {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
@@ -1144,6 +1196,29 @@ namespace Image {
                         }
                         break;
                       }
+
+                      case Image::FieldType::String: {
+                        char* str{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
+
+                        std::string dataString{ str };
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        bool confirmOnEnter = false;
+                        char inputBuffer[256] = "";
+                        ImGui::InputText(dataString.c_str(), inputBuffer, sizeof(inputBuffer));
+                        ImGui::Text(val.first.c_str());
+
+                        if (ImGui::IsItemActive() && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
+                          confirmOnEnter = true;
+                        }
+
+                        if (confirmOnEnter) {
+                          std::string dataString{ inputBuffer };
+                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
+                          scriptInstance.SetFieldValueWithName(val.first, &monoString);
+                          confirmOnEnter = false;
+                        }
+                        break;
+                      }
                       }
                     }
                   }
@@ -1151,6 +1226,44 @@ namespace Image {
                   ImGui::TreePop();
               }
             }
+            if (gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                std::string treeNodeLabel = "Camera##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    Camera& camera = gCoordinator->GetComponent<Camera>(selectedEntity);
+
+                    //// Position
+                    //ImGui::Text("Position");
+                    //ImGui::InputFloat3("##Position", glm::value_ptr(camera.mPos));
+
+                    //// Rotation
+                    //ImGui::Text("Rotation");
+                    //ImGui::SliderFloat("##Rotation", &camera.mRot, -360.0f, 360.0f);
+
+                    // Zoom Level
+                    ImGui::Text("Zoom Level");
+                    ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
+
+                    // Camera Settings
+                    ImGui::Text("Camera Settings");
+                    ImGui::InputFloat("Offset X", &camera.offsetX);
+                    ImGui::InputFloat("Offset Y", &camera.offsetY);
+                    ImGui::InputFloat("Velocity Threshold", &camera.velocityThreshold);
+                    ImGui::InputFloat("Camera Speed", &camera.cameraSpeed);
+
+                    // Horizontal Boundary
+                    ImGui::Text("Horizontal Boundary");
+                    ImGui::InputFloat("Horiz Min", &camera.horizontalBoundary.x);
+                    ImGui::InputFloat("Horiz Max", &camera.horizontalBoundary.y);
+
+                    // Vertical Boundary
+                    ImGui::Text("Vertical Boundary");
+                    ImGui::InputFloat("Vert Min", &camera.verticalBoundary.x);
+                    ImGui::InputFloat("Vert Max", &camera.verticalBoundary.y);
+
+                    ImGui::TreePop();
+                }
+            }
+
             if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
                 std::string treeNodeLabel = "Emitter System##" + std::to_string(selectedEntity);
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
@@ -1325,7 +1438,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Emitter System"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera", "Emitter System" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1495,7 +1608,27 @@ namespace Image {
               }
             }
                    break;
+
             case 11: {
+                if (!gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                    float aspectRatio = static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT);
+                    float zoomFactor = 0.5f; // Example zoom factor
+
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        Camera{
+                            aspectRatio,
+                            static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor,
+                            static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor,
+                            static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor,
+                            static_cast<float>(WORLD_LIMIT_Y) * zoomFactor
+                        },
+                        ignore
+                    );
+                }
+            }
+                   break;
+            case 12: {
                 if (!gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
                     gCoordinator->AddComponent(
                         selectedEntity,
@@ -1598,7 +1731,14 @@ namespace Image {
               }
             }
                    break;
+
             case 11: {
+                if (gCoordinator->HasComponent<Camera>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Camera>(selectedEntity);
+                }
+            }
+                   break;
+            case 12: {
                 if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
                     auto const& emitter{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
                     for (int i{}; i < emitter.emitters.size(); ++i) {
@@ -1622,6 +1762,7 @@ namespace Image {
           ImGui::Text("UIImage Component: %s", gCoordinator->HasComponent<UIImage>(selectedEntity) ? "True" : "False");
           ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
           ImGui::Text("Emitter System Component %s", gCoordinator->HasComponent<EmitterSystem>(selectedEntity) ? "True" : "False");
           //ImGui::PopFont();
           //ImGui::End();
@@ -2186,7 +2327,6 @@ namespace Image {
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
-
         }
         ImGui::SameLine();
         if (ImGui::RadioButton("Rotate", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {

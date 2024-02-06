@@ -7,6 +7,8 @@
 #include <Systems/InputSystem.hpp>
 #include <Engine/SceneManager.hpp>
 #include <Engine/PrefabsManager.hpp>
+#include "../source/WindowManager.hpp"
+
 void MainState::Init() {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	using namespace Serializer;
@@ -28,6 +30,8 @@ void MainState::Update(float dt) {
 	auto inputSystem = coordinator->GetSystem<InputSystem>();
 	float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 	auto renderSystem = coordinator->GetSystem<RenderSystem>();
+	std::shared_ptr<WindowManager> windowManager{ WindowManager::GetInstance() };
+
 
 	if (!renderSystem->IsEditorMode()) {
 		//if (mIsStep) {

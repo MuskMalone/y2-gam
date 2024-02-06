@@ -676,7 +676,7 @@ Initializes the CollisionSystem, setting up the Quadtree and other necessary com
     void CollisionSystem::Init() {
         gCoordinator = Coordinator::GetInstance();
         using namespace DataMgmt;
-        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-WORLD_LIMIT_X), static_cast<float>(-WORLD_LIMIT_Y)), Vec2(static_cast<float>(WORLD_LIMIT_X), static_cast<float>(WORLD_LIMIT_Y)))};
+        mQuadtree = DataMgmt::Quadtree<Entity>{ 0, Rect(Vec2(static_cast<float>(-6000), static_cast<float>(-6000)), Vec2(static_cast<float>(6000), static_cast<float>(6000)))};
         mLookupTable[ColliderLookupKey{ ColliderType::BOX, ColliderType::BOX }] = BoxBoxCollide;
         mLookupTable[ColliderLookupKey{ ColliderType::CIRCLE, ColliderType::BOX }] = CircleBoxCollide;
         mLookupTable[ColliderLookupKey{ ColliderType::BOX, ColliderType::CIRCLE }] = BoxCircleCollide;

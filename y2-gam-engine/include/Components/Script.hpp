@@ -144,6 +144,12 @@ struct Script {
           scriptInstance.SetFieldValueWithName(val.first, dataEntity);
           break;
         }
+
+        case Image::FieldType::String: {
+          std::string dataString{ static_cast<std::string>(obj[val.first.c_str()].GetString()) };
+          scriptInstance.SetFieldValueWithName(val.first, mono_string_new(mono_domain_get(), dataString.c_str()));
+          break;
+        }
         }
       }
     }
@@ -247,6 +253,12 @@ struct Script {
         case Image::FieldType::Entity: {
           Entity dataEntity{ scriptInstance.GetFieldValueFromName<Entity>(val.first) };
           sm->InsertValue(obj, val.first, dataEntity);
+          break;
+        }
+
+        case Image::FieldType::String: {
+          char* dataString{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
+          sm->InsertValue(obj, val.first, std::string(dataString));
           break;
         }
         }

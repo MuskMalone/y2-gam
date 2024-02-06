@@ -31,6 +31,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 
 #include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
@@ -363,6 +364,72 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_StopAudioWithFilename
+
+	@return none.
+
+	Stops audio channel with filename.
+	*/
+	static void EngineCore_StopAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioStopChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_ResumeAudioWithFilename
+
+	@return none.
+
+	Resumes audio channel with filename.
+	*/
+	static void EngineCore_ResumeAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioResumeChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PauseAudioWithFilename
+
+	@return none.
+
+	Pauses audio channel with filename.
+	*/
+	static void EngineCore_PauseAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPauseChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_LoadScene
 
 	@param sceneName
@@ -634,6 +701,12 @@ Get the collider dimensions of the entity in C#.
 	}
 
 	// For Graphics
+	static void AnimationComponent_ResetAnimationState(uint32_t& entityID) {
+		if (::gCoordinator->HasComponent<Animation>(entityID)) {
+			::gCoordinator->GetSystem<AnimationSystem>()->ResetFrame(entityID);
+		}
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -1130,6 +1203,9 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PauseAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SaveScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetCurrentScene);
@@ -1147,6 +1223,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_ResetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetSprite);

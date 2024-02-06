@@ -114,36 +114,61 @@ void RenderSystem::Init()
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
 
-	mCamera = ::gCoordinator->CreateEntity();
-	mSceneCamera = ::gCoordinator->CreateEntity();
+	//array to track the existence of different camera types
+	bool cameraExists[static_cast<int>(CameraType::NumCameraTypes)] = { false };
+
+	//iterate over entities to check for existing cameras
+	for (auto const& entity : mEntities) {
+		if (::gCoordinator->HasComponent<Camera>(entity)) {
+			Camera& cameraComp = ::gCoordinator->GetComponent<Camera>(entity);
+			cameraExists[static_cast<int>(cameraComp.type)] = true;
+
+			//store the entity ID based on camera type
+			switch (cameraComp.type) {
+			case CameraType::MainCamera: mCamera = entity; break;
+			case CameraType::SceneCamera: mSceneCamera = entity; break;
+			case CameraType::PrefabEditorCamera: mPrefabEditorCamera = entity; break;
+			case CameraType::UICamera: mUICamera = entity; break;
+			}
+		}
+	}
 
 	float aspectRatio{ static_cast<float>(ENGINE_SCREEN_WIDTH) / static_cast<float>(ENGINE_SCREEN_HEIGHT) };
-	::gCoordinator->AddComponent(
-		mCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
-	);
 
-	float const zoomFactor{ 0.5f };
-	::gCoordinator->AddComponent(
-		mSceneCamera,
-		Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::MainCamera)]) {
+		mCamera = ::gCoordinator->CreateEntity();
+		::gCoordinator->AddComponent(
+			mCamera,
+			Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio, static_cast<float>(-WORLD_LIMIT_Y), static_cast<float>(WORLD_LIMIT_Y) }
+		);
+	}
 
-	//Create prefab editor camera
-	const float pfHeight{ 50 };
+	if (!cameraExists[static_cast<int>(CameraType::SceneCamera)]) {
+		mSceneCamera = ::gCoordinator->CreateEntity();
+		float zoomFactor{ 0.5f };
+		::gCoordinator->AddComponent(
+			mSceneCamera,
+			Camera{ aspectRatio, static_cast<float>(-WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * aspectRatio * zoomFactor, static_cast<float>(-WORLD_LIMIT_Y) * zoomFactor, static_cast<float>(WORLD_LIMIT_Y) * zoomFactor }
+		);
+	}
 
-	mPrefabEditorCamera = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent(
-		mPrefabEditorCamera,
-		Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::PrefabEditorCamera)]) {
+		mPrefabEditorCamera = ::gCoordinator->CreateEntity();
+		const float pfHeight = 50;
+		::gCoordinator->AddComponent(
+			mPrefabEditorCamera,
+			Camera{ aspectRatio, -pfHeight * aspectRatio, pfHeight * aspectRatio, -pfHeight, pfHeight }
+		);
+	}
 
-	//create UI camera
-	mUICamera = ::gCoordinator->CreateEntity();
-	::gCoordinator->AddComponent(
-		mUICamera,
-		Camera{ aspectRatio, 0.f, ENGINE_SCREEN_WIDTH, 0.f, ENGINE_SCREEN_HEIGHT }
-	);
+	if (!cameraExists[static_cast<int>(CameraType::UICamera)]) {
+		mUICamera = ::gCoordinator->CreateEntity();
+		::gCoordinator->AddComponent(
+			mUICamera,
+			Camera{ aspectRatio, 0.f, ENGINE_SCREEN_WIDTH, 0.f, ENGINE_SCREEN_HEIGHT }
+		);
+	}
+
 
 	Renderer::Init();
 
@@ -193,7 +218,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		mFramebuffers[0]->Bind();
 	}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
-	//Renderer::SetClearColor({ 1.f, 0.f, 0.f, 1.f });
 
 	Renderer::ClearColor();
 	Renderer::ClearDepth();
@@ -222,35 +246,97 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	//quick patch TODO REFACTOR CAMERA
 	bool playerFound{ false };
+	bool cameraFound{ false };
+	Entity camSettings{};
 	if (!mEditorMode) {
 		for (auto const& e : mEntities) {
+			if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
+				camSettings = e;
+				cameraFound = true;
+				
+			}
+
 			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
 			auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
 			if (tag.tag == "Player") {
 				mPlayer = e;
 				playerFound = true;
 			}
+
 		}
 
 		if (playerFound) {
+
 			Transform const& playerTransform{ ::gCoordinator->GetComponent<Transform>(mPlayer) };
+
 			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
 
-			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
+			Camera& sceneCamera { ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
 
 			// Get Player Script Instance
 			std::map<Entity, ScriptInstance> instanceMap{ ScriptManager::GetEntityInstances() };
 			bool facingRight{ instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight") };
 
+			if (cameraFound) {
+
+				Camera& cam{ ::gCoordinator->GetComponent<Camera>(camSettings) };
+
+				sceneCamera.horizontalBoundary = cam.horizontalBoundary;
+				sceneCamera.verticalBoundary = cam.verticalBoundary;
+				sceneCamera.mZoomLevel = cam.mZoomLevel;
+			}
+
 			sceneCamera.UpdatePosition(playerPosition, facingRight);
+			//if (gCoordinator->HasComponent<Camera>(mPlayer)) {
+			//	mSceneCamera = mPlayer;
+
+			//	Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mPlayer) };
+			//	sceneCamera.mTargetEntity = mPlayer;
+			//	sceneCamera.UpdatePosition(playerPosition, facingRight);
+			//}
 		}
 
 	}
 
+	//Entity currentCameraEntity = mSceneCamera;
+ //   bool playerFound = false;
+
+ //   if (!mEditorMode) {
+ //       for (auto const& e : mEntities) {
+ //           if (!::gCoordinator->HasComponent<Tag>(e)) continue;
+ //           auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
+ //           if (tag.tag == "Player") {
+ //               playerFound = true;
+ //               mPlayer = e;
+ //               break;
+ //           }
+ //       }
+
+ //       if (playerFound && ::gCoordinator->HasComponent<Camera>(mPlayer)) {
+ //           currentCameraEntity = mPlayer;
+ //       }
+ //   }
+
+ //   // Use currentCameraEntity for rendering and updating the camera position
+ //   if (playerFound) {
+ //       Transform const& playerTransform = ::gCoordinator->GetComponent<Transform>(mPlayer);
+ //       glm::vec3 playerPosition = playerTransform.position;
+ //       
+ //       std::map<Entity, ScriptInstance> instanceMap = ScriptManager::GetEntityInstances();
+ //       bool facingRight = instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight");
+
+ //       Camera& sceneCamera = ::gCoordinator->GetComponent<Camera>(currentCameraEntity);
+ //       sceneCamera.mTargetEntity = mPlayer;
+ //       sceneCamera.UpdatePosition(playerPosition, facingRight);
+ //   }
+
+	//glm::mat4 viewProjMtx = ::gCoordinator->GetComponent<Camera>(currentCameraEntity).GetViewProjMtx();
+
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
+
 	glDisable(GL_DEPTH_TEST);
 
 	Renderer::RenderSceneBegin(viewProjMtx);

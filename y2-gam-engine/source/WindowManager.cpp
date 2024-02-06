@@ -88,7 +88,6 @@ void WindowManager::ProcessEvents()
 	event.SetParam(Events::Window::Input::KEY_PRESS,mButtons & mPrevButtons);
 	event.SetParam(Events::Window::Input::MOUSE_PRESS, mMouseButtons & mPrevMouseButtons);
 	gCoordinator->SendEvent(event);
-
 }
 void WindowManager::UpdateWindowTitle(std::string str) {
 	glfwSetWindowTitle(mWindow, str.c_str());

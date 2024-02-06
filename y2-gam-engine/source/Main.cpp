@@ -36,7 +36,7 @@
 #else
 #include <Windows.h>
 #endif
-
+extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
 namespace {
 	static bool quit = false;
 }
@@ -67,6 +67,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->Init();
 	Image::ScriptManager::Init();
 	Image::SoundManager::AudioInit();
+
 
 	using namespace Physics;
 	using namespace Collision;

@@ -5,8 +5,7 @@ namespace Object
 {
     public class Gameplaybgm : Entity
     {
-        bool isPlaying = false;
-
+        bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -58,11 +57,21 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (GetCurrentScene() == "Level1" && !isPlaying)
+            if (firstTime)
             {
-                PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
-                isPlaying = true;
+                if (GetCurrentScene() == "Level1")
+                {
+                    PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
+                }
+
+                else if (GetCurrentScene() == "Level2")
+                {
+                    PlayAudio("Level2_BGM.wav", -1);
+                }
+
+                firstTime = false;
             }
+
             //else if(firstTime && GetCurrentScene() != "Level1")
             //{
             //    StopAudio();

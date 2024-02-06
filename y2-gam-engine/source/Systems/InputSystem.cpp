@@ -19,14 +19,14 @@ void InputSystem::Init()
 bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	bool out{ false };
 	switch (state) {
+	case InputKeyState::KEY_RELEASED:
+		out = mButtonsReleased.test(static_cast<std::size_t>(key));
+		break;
 	case InputKeyState::KEY_PRESSED:
 		out= mButtonsPressed.test(static_cast<std::size_t>(key));
 		break;
 	case InputKeyState::KEY_CLICKED:
 		out = mButtonsClicked.test(static_cast<std::size_t>(key));
-		break;
-	case InputKeyState::KEY_RELEASED:
-		out = mButtonsReleased.test(static_cast<std::size_t>(key));
 		break;
 	case InputKeyState::MOUSE_PRESSED:
 		out = mMouseButtonsPressed.test(static_cast<std::size_t>(key));
@@ -43,7 +43,14 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 MousePosition InputSystem::GetMousePos() const {
 	return mMousePos;
 }
+
 MousePosition InputSystem::GetWorldMousePos() const {
+	Entity cameraEntity = ::gCoordinator->GetSystem<RenderSystem>()->GetCamera();
+	if (!::gCoordinator->HasComponent<Camera>(cameraEntity)) {
+		// Handle the error or return a default value
+		return MousePosition{ 0, 0 }; // Example default value
+	}
+
 	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };
 
 	float screenWidth{ mEditorMousePos.second.first };

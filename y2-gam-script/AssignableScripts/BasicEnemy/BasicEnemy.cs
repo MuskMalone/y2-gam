@@ -33,14 +33,16 @@ namespace Object
         public float EnemyDeathTimer = 0;
         public float HowLongDisplayEnemyDeath;
 
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
         //For pausing 
         //int temp_AnimationState = 0;
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
+        //Vector2 temp_pos;
+        //Vector2 temp_Force;
+        //Vector2 temp_velocity;
         float temp_dt = 0f;
-        bool isPaused = false;
-
+        private bool isPaused = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
@@ -131,25 +133,30 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
+
             if (isPaused)
             {
-                dt = temp_dt;
-                PauseGame();
+                dt = 0f;
+                //PauseGame();
                 //AnimationState = temp_AnimationState;
             }
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
                     //resume game
-                    ResumeGame();
+                    //ResumeGame();
                     dt = temp_dt;
                     isPaused = false;
                 }
@@ -176,28 +183,21 @@ namespace Object
                 TimeInState += dt;
                 currentState.UpdateState(this, dt);
 
-                //Vector2 enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));       
+                RaycastHit centreRayCast = new RaycastHit();
+                RaycastHit leftRayCast = new RaycastHit();
+                RaycastHit rightRayCast = new RaycastHit();
 
-                //if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                //{   
-                //    GameplayWrapper.DestroyEntity(entityID);
-                //}
-                Vector2 enemyHead;
-
-                if (isFacingRight)
+                if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out leftRayCast) ||
+                            PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out rightRayCast) ||
+                            PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 1), entityID, out centreRayCast))
                 {
-                    // Cast the ray from the right side of the head
-                    enemyHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 2.5f));
-                }
-                else
-                {
-                    // Cast the ray from the left side of the head
-                    enemyHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 2.5f));
-                }
-
-                if (PhysicsWrapper.Raycast(Collider, enemyHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
-                {
-                    EnemyDeath = true;
+                    if (centreRayCast.tag == "Anvil" || leftRayCast.tag == "Anvil" || rightRayCast.tag == "Anvil")
+                    {
+                        EnemyDeath = true;
+                    }                  
                 } 
 
                 if (EnemyDeath)
@@ -220,24 +220,24 @@ namespace Object
 
         }
 
-        void PauseGame()
-        {
-            //pause the game
-            temp_Force = Force;
-            temp_pos = Translation;
-            temp_velocity = Velocity;
-            //temp_AnimationState = AnimationState;
-            Force = new Vector2(0, 0);
-            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            Velocity = new Vector2(0, 0);
-        }
+        //void PauseGame()
+        //{
+        //    //pause the game
+        //    temp_Force = Force;
+        //    temp_pos = Translation;
+        //    temp_velocity = Velocity;
+        //    //temp_AnimationState = AnimationState;
+        //    Force = new Vector2(0, 0);
+        //    Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+        //    Velocity = new Vector2(0, 0);
+        //}
 
-        void ResumeGame()
-        {
-            Force = temp_Force;
-            Translation = temp_pos;
-            Velocity = temp_velocity;
-        }
+        //void ResumeGame()
+        //{
+        //    Force = temp_Force;
+        //    Translation = temp_pos;
+        //    Velocity = temp_velocity;
+        //}
         /*  _________________________________________________________________________ */
         /*! SwitchState
         

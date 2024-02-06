@@ -52,3 +52,9 @@ C:\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.
 C:\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
 C:\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Debug\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Debug\y2-gam-script.pdb

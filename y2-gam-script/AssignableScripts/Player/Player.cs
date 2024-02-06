@@ -22,13 +22,14 @@ namespace Object
 {
     public class Player : Entity
     {
+        //public string Name;
         public float JumpSpeed;
         public float MovementSpeed;
-        public bool IsGrounded = true;
+        public bool IsFacingRight;
+        //public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
-        public bool IsFacingRight;
         public float MaxHorizontalVelocity;
         public bool PlayDeathAnimation = false;
         public float PlayDeathAnimHowLongAfter;
@@ -44,9 +45,17 @@ namespace Object
         public Vector2 spawnPosition = new Vector2(-400, -27);
         public Vector2 colliderPosition = new Vector2(-400, -36);
 
+        private Vector2 playerHead;
         private float temp_dt = 0f;
         private bool isPaused = false;
         private bool firstTime = true;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 6;
+        private string FootTrack;
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
+        bool resetAnimationState = true;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
         private bool _isFacingRight;
@@ -63,6 +72,23 @@ namespace Object
             }
         }
         public bool FacingDirectionChanged { get; private set; }
+
+        // Grounded related
+        private bool _isGrounded;
+        private bool IsGrounded
+        {
+            get { return _isGrounded; }
+            set
+            {
+                if (_isGrounded != value)
+                {
+                    _isGrounded = value;
+                    GroundedStatusChanged = true;
+                }
+            }
+        }
+        public bool GroundedStatusChanged { get; private set; }
+
 
         /*  _________________________________________________________________________ */
         /*! Player
@@ -103,6 +129,16 @@ namespace Object
             // Get the serialized IsFacingRight value
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
+
+            if (GetCurrentScene() == "Level1")
+            {
+                FootTrack = "PlayerRunningFloor.wav";
+            }
+
+            else if (GetCurrentScene() == "Level2")
+            {
+                FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -119,24 +155,30 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            if (isPaused)
+            
+            if (resume.isRPaused == false)
             {
-                dt = temp_dt;
-                PauseGame();
+                isPaused = false;
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (isPaused)
+            {
+                dt = 0f;
+                //PauseGame();
+            }
+
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
+                    //ResumeGame();
                     isPaused = false;
                 }
             }
@@ -149,12 +191,19 @@ namespace Object
 
                     if (PlayAppearAnimation)
                     {
+                        if (resetAnimationState == true)
+                        {
+                            GameplayWrapper.ResetAnimationState(entityID);
+                            resetAnimationState = false;
+                        }
+                        
                         AnimationState = (int)AnimationCodePlayer.APPEAR;
                         PlayAppearTimer += dt;
 
                         if (PlayAppearTimer >= MaxAppearTime)
                         {
                             PlayAppearAnimation = false;
+                            resetAnimationState = true;
                             PlayAppearTimer = 0;
                         }
                     }
@@ -164,11 +213,11 @@ namespace Object
                     RaycastHit rightRayCast = new RaycastHit();
 
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
                         if (!PlayAppearAnimation)
@@ -176,7 +225,8 @@ namespace Object
                             AnimationState = (int)AnimationCodePlayer.IDLE;
                         }
 
-                        if (centreRayCast.tag == "Spikes" || leftRayCast.tag == "Spikes" || rightRayCast.tag == "Spikes" ||
+                        if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
+                            (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
                             centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         {
                             Dead = true;
@@ -198,6 +248,16 @@ namespace Object
                         FacingDirectionChanged = false; // Reset the flag
                     }
 
+                    if (GroundedStatusChanged)
+                    {
+                        if (IsGrounded)
+                        {
+                            PlayAudio("player_hit_the_ground.wav", 0);
+                        }
+
+                        GroundedStatusChanged = false;
+                    }
+
 
                     if (Input.IsKeyPressed(KeyCode.KEY_0) && (Input.IsKeyPressed(KeyCode.KEY_9)))
                     {
@@ -206,7 +266,7 @@ namespace Object
                         Mass = 0;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))
                     {
                         if (!IsKeyPressed)
                         {
@@ -234,27 +294,74 @@ namespace Object
                         }
                     }
 
+                    if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        //Console.WriteLine("A was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename(FootTrack);
+                        Velocity *= 0.2f;
+                    }
+
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
+                        //Console.WriteLine("A was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
+                        //Console.WriteLine("D was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_A))
+                    if (!IsGrounded)
                     {
-                        Velocity *= 0.2f;
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename(FootTrack);
                     }
 
-                    else if (Input.IsKeyReleased(KeyCode.KEY_D))
+                    if (isFacingRight)
                     {
-                        Velocity *= 0.2f;
+                        // Cast the ray from the right side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
+                    }
+                    else
+                    {
+                        // Cast the ray from the left side of the head
+                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
                     }
 
-                    if (Translation.Y <= -99.0f)
+                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
                     {
                         Dead = true;
                     }
@@ -264,12 +371,17 @@ namespace Object
                 {
                     RespawnTimer += dt;
                     AnimationState = (int)AnimationCodePlayer.DEAD;
-                    PlayAudio("PlayerDeath_1.wav", 0);
+
+                    if (firstTime)
+                    {
+                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                    }
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
+                        GameplayWrapper.FindEntityByName("Card").As<Card>().Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)
@@ -321,18 +433,19 @@ namespace Object
         */
         void OnExit()
         {
-
+            StopAudioWithFilename("PlayerRunningScaffolding.wav");
+            StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
-        void PauseGame()
-        {
-            SaveScene("Level1");
-        }
+        //void PauseGame()
+        //{
+        //    SaveScene("Level1");
+        //}
 
-        void ResumeGame()
-        {
-            LoadScene("Level1");
-        }
+        //void ResumeGame()
+        //{
+        //    LoadScene("Level1");
+        //}
         public void MoveLeft(float dt)
         {
             if (!PlayAppearAnimation)
@@ -364,6 +477,13 @@ namespace Object
         {
             Translation = spawnPosition;
             Collider = colliderPosition;
+
+            DeathAudioIncrement++;
+
+            if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+            {
+                DeathAudioIncrement = 1;
+            }
         }
         public void FlyLeft(float dt)
         {

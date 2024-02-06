@@ -33,7 +33,8 @@ namespace Image {
     Vector2,
     Vector3,
     Vector4,
-    Entity
+    Entity,
+    String
   };
 
   struct Field {

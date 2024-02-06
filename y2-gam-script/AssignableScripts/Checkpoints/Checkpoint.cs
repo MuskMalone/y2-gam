@@ -81,6 +81,7 @@ namespace Object
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && !Activated)
             {
                 AnimationState = (int)AnimationCodeCheckpoint.ACTIVATED;
+                PlayAudio("Flag.wav", 0);
                 float waypointOffset = 2.0f;
                 float colliderOffset = 9.0f;
                 player.spawnPosition = player.Translation;
