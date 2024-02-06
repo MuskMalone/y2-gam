@@ -278,9 +278,10 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			accumulatedTime -= tdt;
 			dt = frameController->EndFrameTime();
 		}
-		else {
+		else if (dt < tdt) {
 			frameController->StartFrameTime();
-			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
+			float dtDiff = tdt - dt;
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long long>(dtDiff * 1000.f)));
 			dt = frameController->EndFrameTime();
 
 		}
