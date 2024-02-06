@@ -62,10 +62,8 @@ Updates the animation system based on the given delta time. This function handle
 void AnimationSystem::Update(float dt) {
 	for (auto const& entity : mEntities)
 	{
-
-		auto& animation = gCoordinator->GetComponent<Animation>(entity);
-		if (!animation.isPlaying) continue;
 		auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+		auto& animation = gCoordinator->GetComponent<Animation>(entity);
 		if (animation.states.empty()) continue;
 		if (animation.currState >= animation.states.size()) animation.currState = animation.states.size() - 1;
 		size_t& frameIdx { animation.currFrame };

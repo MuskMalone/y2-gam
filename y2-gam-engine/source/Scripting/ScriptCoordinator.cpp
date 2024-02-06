@@ -707,8 +707,7 @@ Get the collider dimensions of the entity in C#.
 	The ID of the entity.
 
 	@param outAnimationState
-	The current 
-	state of the entity.
+	The current animation state of the entity.
 
 	@return none.
 

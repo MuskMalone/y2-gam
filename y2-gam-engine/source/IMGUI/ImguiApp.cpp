@@ -744,11 +744,6 @@ namespace Image {
                     ImGui::SameLine();
                     ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
-                    ImGui::Text("Animation Playing");
-                    bool isPlaying = anim.isPlaying;
-                    if (ImGui::Checkbox("##isPlaying", &isPlaying))
-                        anim.isPlaying = isPlaying;
-                    
                     auto am{ AssetManager::GetInstance() };
                     //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
                     ImGui::Text("States:");

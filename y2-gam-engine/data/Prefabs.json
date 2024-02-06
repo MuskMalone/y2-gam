@@ -7,8 +7,7 @@
                 ],
                 "currFrame": 1,
                 "speed": 0.07999999821186066,
-                "currState": 0,
-                "isPlaying": true
+                "currState": 0
             },
             "Collider": {
                 "collider": 0,
