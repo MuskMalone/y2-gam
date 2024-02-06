@@ -28,12 +28,6 @@ C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Release\y2-g
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
 C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
-C:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
-C:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
-C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
-C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
-C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
-C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
 D:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
 D:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
 D:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
@@ -46,3 +40,9 @@ C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam
 C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
 C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb
+C:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.dll
+C:\GitHub\y2-gam\y2-gam-script\bin\Release\y2-gam-script.pdb
+C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.AssemblyReference.cache
+C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.dll
+C:\GitHub\y2-gam\y2-gam-script\obj\Release\y2-gam-script.pdb

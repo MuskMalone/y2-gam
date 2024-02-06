@@ -88,6 +88,12 @@ namespace Image
 
             return new Entity(id);
         }
+
+        public static void ResetAnimationState(uint entity)
+        {
+            uint ent = entity;
+            InternalCalls.AnimationComponent_ResetAnimationState(ref ent);
+        }
     }
 }
 
