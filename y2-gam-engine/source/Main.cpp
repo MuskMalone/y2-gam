@@ -244,15 +244,17 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 		static float accumulatedTime = 0.f;
 		const float maxAccumulation{ 0.1f };
 		accumulatedTime += dt;
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(accumulatedTime) +" " + std::to_string(dt), __FUNCTION__);
 		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
 		if (accumulatedTime >= tdt) {
+		frameController->StartFrameTime();
+			//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "running" + std::to_string(accumulatedTime) +"," + std::to_string(dt) +"fps:" + std::to_string(frameController->GetFps()), __FUNCTION__);
 			inputSystem->Update();
 			windowManager->ProcessEvents();
-			frameController->StartFrameTime();
-			StateManager::GetInstance()->Update(dt);
-			StateManager::GetInstance()->Render(dt);
+			StateManager::GetInstance()->Update(tdt);
+			StateManager::GetInstance()->Render(tdt);
 
-			std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+			std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 			FrameRateController::GetInstance()->StartSubFrameTime();
 			uiSystem->Update();
 			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
@@ -268,17 +270,28 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 				isEditor = !isEditor;
 			}
 			if (isEditor) {
-				imguiSystem->Update(dt);
+				imguiSystem->Update(tdt);
 			}
 #endif
 
-			dt = frameController->EndFrameTime();
 			windowManager->UpdateWindowTitle(WINDOW_TITLE);
 			accumulatedTime -= tdt;
+			dt = frameController->EndFrameTime();
+		}
+		else {
+			frameController->StartFrameTime();
+			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
+			dt = frameController->EndFrameTime();
+
 		}
 		dt = frameController->GetDeltaTime();
-		if (dt < tdt)
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(dt), __FUNCTION__);
+
+		/*if (dt < tdt) {
 			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
+			
+			LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Hello sleep", __FUNCTION__);
+		}*/
 	}
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
