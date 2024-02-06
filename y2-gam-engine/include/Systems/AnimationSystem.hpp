@@ -30,6 +30,7 @@ class AnimationSystem : public System
 public:
 	void Init();
 	void Update(float dt);
+	void ResetFrame(Entity e);
 
 private:
 	//TODO REMOVE ------------TEMP------------------

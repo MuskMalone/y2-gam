@@ -91,3 +91,16 @@ void AnimationSystem::Update(float dt) {
 		}
 	}
 }
+
+void AnimationSystem::ResetFrame(Entity entity) {
+	if (gCoordinator->HasComponent<Animation>(entity)) {
+		auto& animation = gCoordinator->GetComponent<Animation>(entity);
+		animation.currFrame = 0;
+		if (!animation.states.empty() && animation.currState < animation.states.size()) {
+			auto& frameList = const_cast<AnimationFrames&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState]));
+			if (!frameList.empty()) {
+				frameList[0].elapsedTime = 0.0f; // Reset elapsed time of the first frame
+			}
+		}
+	}
+}
