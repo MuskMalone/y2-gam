@@ -623,6 +623,22 @@
             "idxY": 0.0,
             "dimX": 85.0,
             "dimY": 58.0
+        },
+        "1707151748551518600": {
+            "id": 1707151748551552800,
+            "path": "../assets\\Textures\\DAA2402_howtoplay.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1707154487715059300": {
+            "id": 1707154487715132900,
+            "path": "../assets\\Textures\\DAA2402_howtoplay_BackbuttonGlow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     },
     "AnimationManager": {
@@ -889,6 +905,30 @@
             "idxCoordY": 0.0,
             "dimX": 2000.0,
             "dimY": 1000.0
+        },
+        "1707293942982333800": {
+            "id": 1707293942982393300,
+            "path": "../assets\\Textures\\UI\\gam map empty.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293945637399000": {
+            "id": 1707293945637432300,
+            "path": "../assets\\Textures\\UI\\gam map king.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293948351258000": {
+            "id": 1707293948351290100,
+            "path": "../assets\\Textures\\UI\\gam map robin.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
         }
     }
 }

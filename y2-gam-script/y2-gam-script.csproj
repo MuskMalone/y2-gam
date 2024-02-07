@@ -60,7 +60,6 @@
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyBaseState.cs" />
-    <Compile Include="AssignableScripts\BasicEnemy\EnemyChaseState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyDefaultState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
@@ -84,6 +83,9 @@
     <Compile Include="AssignableScripts\Player\Death.cs" />
     <Compile Include="AssignableScripts\Utility\Cursor.cs" />
     <Compile Include="AssignableScripts\Utility\FPSDisplay.cs" />
+    <Compile Include="AssignableScripts\Utility\KingButton.cs" />
+    <Compile Include="AssignableScripts\Utility\LevelSelect.cs" />
+    <Compile Include="AssignableScripts\Utility\RobinButton.cs" />
     <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
