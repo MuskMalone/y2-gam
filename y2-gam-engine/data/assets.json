@@ -608,14 +608,6 @@
             "dimX": 358.0,
             "dimY": 66.0
         },
-        "1707117444851733600": {
-            "id": 1707117444851765800,
-            "path": "../assets\\Textures\\HowToPlay2.png",
-            "idxX": 0.0,
-            "idxY": 0.0,
-            "dimX": 1047.0,
-            "dimY": 587.0
-        },
         "1707118000656503100": {
             "id": 1707118000656535400,
             "path": "../assets\\Textures\\Back.png",
@@ -802,13 +794,13 @@
             "dimX": 256.0,
             "dimY": 256.0
         },
-        "1706900374940601200": {
-            "id": 1706900374940637000,
-            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg_Red.png",
+        "1707186215576318200": {
+            "id": 1707186215576350000,
+            "path": "../assets\\Textures\\ANIM\\sewer water long spritesheet.png",
             "frameCount": 2,
             "idxCoordY": 0.0,
-            "dimX": 512.0,
-            "dimY": 512.0
+            "dimX": 2000.0,
+            "dimY": 1000.0
         },
         "1706900377831135900": {
             "id": 1706900377831163400,
@@ -881,14 +873,6 @@
             "idxCoordY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
-        },
-        "1707186215576318200": {
-            "id": 1707186215576350000,
-            "path": "../assets\\Textures\\ANIM\\sewer water long spritesheet.png",
-            "frameCount": 2,
-            "idxCoordY": 0.0,
-            "dimX": 2000.0,
-            "dimY": 1000.0
         }
     }
 }

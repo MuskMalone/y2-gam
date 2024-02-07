@@ -662,6 +662,10 @@ namespace Image {
     return LoadAssetSoundProperties(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
   }
 
+
+  void SoundManager::UnloadAsset(AssetManager::Asset const& asset) {
+
+  }
   /*  _________________________________________________________________________ */
   /*! SaveAsset
 

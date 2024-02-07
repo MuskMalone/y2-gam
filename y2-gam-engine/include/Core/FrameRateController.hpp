@@ -32,7 +32,7 @@ public:
 
 	void Init(int fps, bool vsync);
 	void StartFrameTime();
-	float EndFrameTime();
+	float EndFrameTime(bool updateDt = false);
 
 	void AccumulateDt();
 

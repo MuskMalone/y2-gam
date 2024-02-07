@@ -31,6 +31,7 @@ public:
 	void Init();
 	void Update(float dt);
 	void ResetFrame(Entity e);
+	void CheckAssetValidity();
 
 private:
 	//TODO REMOVE ------------TEMP------------------

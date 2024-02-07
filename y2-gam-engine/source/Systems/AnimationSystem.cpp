@@ -35,6 +35,7 @@
 #include "Graphics/AnimationManager.hpp"
 #include "Core/FrameRateController.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Engine/SceneManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -69,6 +70,14 @@ void AnimationSystem::Update(float dt) {
 		size_t& frameIdx { animation.currFrame };
 		//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this
+
+		//this check is to remove any invalid asset ids
+		if (!AssetManager::GetInstance()->IsAssetExist(animation.states[animation.currState])) {
+			animation.states.erase(animation.states.begin() + animation.currState);
+			if (animation.currState != 0) animation.currState--;
+			continue;
+		}
+
 		AnimationFrames& frameList{ const_cast<AnimationFrames&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
 
 		if (frameIdx >= frameList.size())
@@ -102,5 +111,23 @@ void AnimationSystem::ResetFrame(Entity entity) {
 				frameList[0].elapsedTime = 0.0f; // Reset elapsed time of the first frame
 			}
 		}
+	}
+}
+
+void AnimationSystem::CheckAssetValidity()
+{
+	bool changed{ false };
+	for (auto const& e : mEntities) {
+		auto& animation = gCoordinator->GetComponent<Animation>(e);
+		//this check is to remove any invalid asset ids
+		if (animation.states.empty()) continue;
+		if (!AssetManager::GetInstance()->IsAssetExist(animation.states[animation.currState])) {
+			animation.states.erase(animation.states.begin() + animation.currState);
+			if (animation.currState != 0) animation.currState--;
+			changed = true;
+		}
+	}
+	if (changed) {
+		SceneManager::GetInstance()->SaveScene();
 	}
 }

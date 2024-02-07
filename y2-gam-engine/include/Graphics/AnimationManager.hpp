@@ -28,10 +28,12 @@ struct AnimationProperties : public ResProp{
 class AnimationManager {
 public:
 	static ResourceID LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim);
+	static void UnloadAnimation(ResourceID rid);
 	static AnimationFrames& GetAnimationFrameList(ResourceID textureID);
 	
 	//for assetmanager
 	static ResourceID LoadAsset(rapidjson::Value const& obj);
+	static void UnloadAsset(AssetManager::Asset const& asset);
 	static void SaveAsset(AssetID aid, AnimationProperties const& props, rapidjson::Value& obj);
 	static AnimationFrames const& GetAsset(ResourceID);
 	static AnimationProperties& GetAssetProperties(ResourceID);

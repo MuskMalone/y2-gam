@@ -40,6 +40,7 @@
 #include <Systems/InputSystem.hpp>
 #include <Core/FrameRateController.hpp>
 #include <Graphics/AnimationManager.hpp>
+#include <Engine/SceneManager.hpp>
 
 // Static Initialization
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
@@ -575,4 +576,23 @@ void RenderSystem::DebugRay(Event& event) {
 		glm::vec4>>(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED);
 
 	mRays.push_back(pos);
+}
+
+void RenderSystem::CheckAssetValidity()
+{
+	bool changed{ false };
+	for (auto const& e : mEntities) {
+		auto& sprite = gCoordinator->GetComponent<Sprite>(e);
+		//this check is to remove any invalid asset ids
+		if (!AssetManager::GetInstance()->IsAssetExist(sprite.spriteAssetID)) {
+			sprite.spriteAssetID = 0;
+			
+			//set the anim spriteid just to be safe
+			sprite.spriteID = 0;
+			changed = true;
+		}
+	}
+	if (changed) {
+		SceneManager::GetInstance()->SaveScene();
+	}
 }

@@ -65,7 +65,13 @@ ResourceID AnimationManager::LoadAnimation(std::string const& path, ResourceID r
 	mAnimationFrameLists[rid] = std::move(ap);
 	return rid; 
 }
-
+void AnimationManager::UnloadAnimation(ResourceID rid) {
+	auto& ap{ mAnimationFrameLists[rid] };
+	for (auto const& sid : ap.frames) {
+		SpriteManager::UnloadSprite(sid.spriteID);
+	}
+	mAnimationFrameLists.erase(rid);
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Retrieves the list of animation frames for a given animation.
@@ -104,6 +110,9 @@ ResourceID AnimationManager::LoadAsset(rapidjson::Value const& obj) {
 	return key;
 }
 
+void AnimationManager::UnloadAsset(AssetManager::Asset const& asset) {
+	UnloadAnimation(asset.resourceId);
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Saves the animation properties to a JSON object.
@@ -201,4 +210,5 @@ ResourceID AnimationManager::AddAsset(rapidjson::Value& obj, std::string const& 
 	return rid;
 
 }
+
 

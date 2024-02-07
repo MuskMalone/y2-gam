@@ -148,9 +148,9 @@
                 "layering": "Default"
             },
             "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
                 "a": 1.0,
                 "layer": 2,
                 "assetID": 0
@@ -158,14 +158,22 @@
             "Tag": {
                 "Tag": "Name"
             },
+            "Text": {
+                "fontName": "Arial",
+                "scale": 0.10899999737739563,
+                "text": "Im the entity with emittersystem",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 1.0
+            },
             "Transform": {
-                "posX": -229.0,
-                "posY": -41.0,
+                "posX": -191.0,
+                "posY": -79.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
+                "scaleX": 50.25600051879883,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false

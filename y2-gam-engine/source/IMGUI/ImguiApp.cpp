@@ -417,20 +417,23 @@ namespace Image {
         //Cant delete stuff with script
         // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
-        if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
-            if (gSelectedEntity != MAX_ENTITIES) {
-                //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+        if (ImGui::IsWindowFocused()) {
+            if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
+                if (gSelectedEntity != MAX_ENTITIES) {
+                    //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
 
                     gCoordinator->DestroyEntity(gSelectedEntity);
                     Image::ScriptManager::RemoveEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
-                //}
-                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-                  //ScriptManager::RemoveEntity(gSelectedEntity);
-                //}
+                    //}
+                    //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                      //ScriptManager::RemoveEntity(gSelectedEntity);
+                    //}
+                }
             }
         }
+
  
             //if (ImGui::BeginPopupContextItem()) {
             //    if (gSelectedEntity != MAX_ENTITIES && ImGui::MenuItem("Destroy Entity")) {

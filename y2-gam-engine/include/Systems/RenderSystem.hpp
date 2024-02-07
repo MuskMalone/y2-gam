@@ -52,6 +52,7 @@ public:
 	bool GetDebugMode() const { return mDebugMode; };
 	bool IsEditorMode()const;
 	static void DebugRay(Event& event);
+	void CheckAssetValidity();
 
 private:
 	bool mDebugMode{ false };

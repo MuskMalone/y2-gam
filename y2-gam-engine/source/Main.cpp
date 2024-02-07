@@ -271,12 +271,14 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			}
 			if (isEditor) {
 				imguiSystem->Update(tdt);
+				renderSystem->CheckAssetValidity();
+				animationSystem->CheckAssetValidity();
 			}
 #endif
 
 			windowManager->UpdateWindowTitle(WINDOW_TITLE);
 			accumulatedTime -= tdt;
-			dt = frameController->EndFrameTime();
+			dt = frameController->EndFrameTime(true);
 		}
 		else if (dt < tdt) {
 			frameController->StartFrameTime();
@@ -285,7 +287,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			dt = frameController->EndFrameTime();
 
 		}
-		dt = frameController->GetDeltaTime();
+		//dt = frameController->GetDeltaTime();
 		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(dt), __FUNCTION__);
 
 		/*if (dt < tdt) {

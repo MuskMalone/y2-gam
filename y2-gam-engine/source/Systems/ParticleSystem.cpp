@@ -4,7 +4,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
-#define MAX_BUFFER 2000000
+#define MAX_BUFFER 1000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
 void ParticleSystem::EventListener(Event& event) {
