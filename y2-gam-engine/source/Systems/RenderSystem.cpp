@@ -373,6 +373,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 	RenderUI();
+
+
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {

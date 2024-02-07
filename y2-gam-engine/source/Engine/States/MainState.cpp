@@ -42,12 +42,12 @@ void MainState::Update(float dt) {
 			//}
 		//}
 		//else {
-			static float accumulatedTime = 0.f;
-			const float maxAccumulation{ 0.1f };
-			accumulatedTime += dt;
-			if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
-			if (accumulatedTime >= tdt) {
-				//windowManager->ProcessEvents();
+			//static float accumulatedTime = 0.f;
+			//const float maxAccumulation{ 0.1f };
+			//accumulatedTime += dt;
+			//if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+			//if (accumulatedTime >= tdt) {
+
 				coordinator->GetSystem<EditorControlSystem>()->Update(tdt);
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PreCollisionUpdate(tdt);
@@ -58,9 +58,8 @@ void MainState::Update(float dt) {
 				FrameRateController::GetInstance()->StartSubFrameTime();
 				coordinator->GetSystem<PhysicsSystem>()->PostCollisionUpdate(tdt);
 				FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_PHYSICS_PROFILE);
-				//windowManager->Update();
-				accumulatedTime -= tdt;
-			}
+			//	accumulatedTime -= tdt;
+			//}
 		//}
 	}
 	else {
@@ -70,12 +69,20 @@ void MainState::Update(float dt) {
 	//mCollisionSystem->Debug(); // for debug
 }
 void MainState::Render(float dt) {
+	//float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
+	//static float accumulatedTime = 0.f;
+	//const float maxAccumulation{ 0.1f };
+	//accumulatedTime += dt;
+	//if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+	//if (accumulatedTime >= tdt) {
+		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
+		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 
-	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-	FrameRateController::GetInstance()->StartSubFrameTime();
-	coordinator->GetSystem<AnimationSystem>()->Update(dt);
-	coordinator->GetSystem<RenderSystem>()->Update(dt);
-	coordinator->GetSystem<ParticleSystem>()->Update(dt);
-	FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
-
+		FrameRateController::GetInstance()->StartSubFrameTime();
+		coordinator->GetSystem<AnimationSystem>()->Update(tdt);
+		coordinator->GetSystem<RenderSystem>()->Update(tdt);
+		coordinator->GetSystem<ParticleSystem>()->Update(tdt);
+		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
+	//	accumulatedTime -= tdt;
+	//}
 }

@@ -1276,7 +1276,7 @@ namespace Image {
 							{0.0f, 0.0f}, // Gravity
 							{5.0f, 5.0f}, // Size
                             0.0f, // Rotation
-                            60.0f, // Lifetime
+                            5.0f, // Lifetime
                             0.0f, // Angular Velocity
                             10.0f, // Speed
                             0.0f, // Time: DO NOT CHANGE THIS

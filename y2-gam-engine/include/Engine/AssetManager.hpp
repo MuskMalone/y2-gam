@@ -77,6 +77,7 @@ public:
 		_system::LoadAsset(sm->At(cmFileName, sysKey)[key.c_str()]);
 		return aid;
 	}
+
 	template <typename _system>
 	AssetID ChangeAssetResource(AssetID aid, std::string const& path) {
 
@@ -165,7 +166,13 @@ public:
 		LoadAsset<_system>(key);
 		return key;
 	}
+	template <typename _system>
+	AssetID DeleteAsset(AssetID) {
+		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+		using namespace Serializer;
 
+
+	}
 	
 private:
 	std::map<AssetID, Asset> mAssets;

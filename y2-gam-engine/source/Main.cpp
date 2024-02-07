@@ -36,7 +36,7 @@
 #else
 #include <Windows.h>
 #endif
-
+extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
 namespace {
 	static bool quit = false;
 }
@@ -239,42 +239,60 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		//static float accumulatedTime = 0.f;
-		//const float maxAccumulation{ 0.1f };
-		//accumulatedTime += dt;
-		//if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
-		//if (accumulatedTime >= frameController->GetTargetDT()) {
-		windowManager->ProcessEvents();
+		float dt = frameController->GetDeltaTime();
+		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
+		static float accumulatedTime = 0.f;
+		const float maxAccumulation{ 0.1f };
+		accumulatedTime += dt;
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(accumulatedTime) +" " + std::to_string(dt), __FUNCTION__);
+		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+		if (accumulatedTime >= tdt) {
 		frameController->StartFrameTime();
-		StateManager::GetInstance()->Update(dt);
-		StateManager::GetInstance()->Render(dt);
+			//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "running" + std::to_string(accumulatedTime) +"," + std::to_string(dt) +"fps:" + std::to_string(frameController->GetFps()), __FUNCTION__);
+			inputSystem->Update();
+			windowManager->ProcessEvents();
+			StateManager::GetInstance()->Update(tdt);
+			StateManager::GetInstance()->Render(tdt);
 
-		std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
-		FrameRateController::GetInstance()->StartSubFrameTime();
-		uiSystem->Update();
-		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
-		//NodeManager::Update();
+			std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
+			FrameRateController::GetInstance()->StartSubFrameTime();
+			uiSystem->Update();
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
+			//NodeManager::Update();
 
-		windowManager->Update();
-		Image::SoundManager::AudioUpdate();
-		auto stopTime = std::chrono::high_resolution_clock::now();
+			windowManager->Update();
+			Image::SoundManager::AudioUpdate();
+			auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
-		static bool isEditor{ true };
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
-			isEditor = !isEditor;
-		}
-		if (isEditor) {
-			imguiSystem->Update(dt);
-		}
+			static bool isEditor{ true };
+			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+				isEditor = !isEditor;
+			}
+			if (isEditor) {
+				imguiSystem->Update(tdt);
+			}
 #endif
 
-		dt = frameController->EndFrameTime();
-		windowManager->UpdateWindowTitle(WINDOW_TITLE);
+			windowManager->UpdateWindowTitle(WINDOW_TITLE);
+			accumulatedTime -= tdt;
+			dt = frameController->EndFrameTime();
+		}
+		else if (dt < tdt) {
+			frameController->StartFrameTime();
+			float dtDiff = tdt - dt;
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long long>(dtDiff * 1000.f)));
+			dt = frameController->EndFrameTime();
 
-			inputSystem->Update();
-		//	accumulatedTime += frameController->GetTargetDT();
-		//}
+		}
+		dt = frameController->GetDeltaTime();
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(dt), __FUNCTION__);
+
+		/*if (dt < tdt) {
+			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
+			
+			LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Hello sleep", __FUNCTION__);
+		}*/
 	}
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER

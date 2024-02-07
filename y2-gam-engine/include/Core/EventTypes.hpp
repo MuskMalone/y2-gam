@@ -69,6 +69,10 @@ namespace Events::Window::Resized {
 
 namespace Events::System {
 	const EventId ENTITY = "Events::System::ENTITY"_hash;
+	const EventId SCENE = "Events::System::SCENE"_hash;
+}
+namespace Events::System::Scene {
+
 }
 namespace Events::System::Entity {
 

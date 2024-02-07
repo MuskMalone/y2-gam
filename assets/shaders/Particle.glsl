@@ -106,6 +106,7 @@ void main() {
         Particles[gid].age += DT;
         Particles[gid].vel += Particles[gid].gravity;
         Particles[gid].pos += vec4(Particles[gid].vel, 0, 1) * DT;
+        Particles[gid].rot += Particles[gid].angvel * DT;
         
         switch(Emitters[Particles[gid].emtIdx].preset){
         case ALPHA_OVER_LIFETIME:{
@@ -124,7 +125,7 @@ void main() {
             break;
         case ALPHA_SIZE_INCR_OVER_LIFETIME:{
                 Particles[gid].col.a = linearLerp(ParticlesStart[gid].col.a, 0, Particles[gid].age / Particles[gid].lifetime);
-                Particles[gid].size += vec2(0.1) * DT;
+                Particles[gid].size = linearLerp(vec2(0), ParticlesStart[gid].size, Particles[gid].age / Particles[gid].lifetime);
             }
             break;
         }

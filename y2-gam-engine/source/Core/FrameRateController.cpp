@@ -104,7 +104,7 @@ float FrameRateController::EndFrameTime() {
 		fpsQueue.pop_front();
 	}
 	mFps = { std::accumulate(fpsQueue.begin(), fpsQueue.end(), 0.f) / mTargetFps};
-
+	//mFps = 1 / mDeltaTime;
 	//std::cout << mDeltaTime << " "<<mFps << std::endl;
 	if (isGameSlow) {
 		return mDeltaTime * slowFactor;

@@ -7,7 +7,6 @@
 #define MAX_BUFFER 2000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
-
 void ParticleSystem::EventListener(Event& event) {
     auto coordinator = Coordinator::GetInstance();
     //if Emitter is added via gui

@@ -131,7 +131,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 188.5,
+                "posX": 194.0,
                 "posY": 26.00748062133789,
                 "rotation": 0.0,
                 "dimX": 7.0,
@@ -188,7 +188,7 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 188.5,
+                "posX": 194.0,
                 "posY": 35.50748062133789,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
@@ -449,8 +449,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -44.31726837158203,
-                "posY": -46.56678771972656,
+                "posX": -40.31726837158203,
+                "posY": -49.06678771972656,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 7.0
@@ -483,8 +483,8 @@
                 "Tag": "Button1"
             },
             "Transform": {
-                "posX": -44.31726837158203,
-                "posY": -46.56678771972656,
+                "posX": -40.31726837158203,
+                "posY": -49.06678771972656,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -535,8 +535,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 10.0,
+                "scaleY": 18.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -581,8 +581,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 10.0,
+                "scaleY": 18.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3267,14 +3267,14 @@
                 "Tag": "Waypoint3"
             },
             "Transform": {
-                "posX": 168.5,
-                "posY": 17.5,
+                "posX": 169.0,
+                "posY": 18.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 10.0,
+                "scaleY": 18.5,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3319,8 +3319,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 10.0,
+                "scaleY": 18.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3538,8 +3538,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 10.0,
+                "scaleY": 18.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -4675,6 +4675,84 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 46.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "EmitterSystem": {
+                "emitters": [
+                    {
+                        "vertices": [
+                            {
+                                "x": 151.0,
+                                "y": -127.08000183105469,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 165.0,
+                                "y": -126.97000122070313,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 0.6988416910171509,
+                        "colY": 0.8918620347976685,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": -0.05000000074505806,
+                        "sizeX": 0.3799999952316284,
+                        "sizeY": 0.3799999952316284,
+                        "rot": 0.0,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 6.070000171661377,
+                        "frequency": 0.10000000149011612,
+                        "type": 0,
+                        "vCount": 2,
+                        "preset": 2,
+                        "particlesPerFrame": 472,
+                        "drawEmitterVertices": false
+                    }
+                ]
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 236.0,
+                "posY": -117.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
