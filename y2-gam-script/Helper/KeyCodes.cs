@@ -56,6 +56,13 @@ namespace Image
         ACTIVATED
     }
 
+    public enum AnimationCodeLevelSelect
+    {
+        NONE,
+        ROBIN,
+        KING
+    }
+
     // These key codes are pulled from GLFW
     public enum KeyCode
     {

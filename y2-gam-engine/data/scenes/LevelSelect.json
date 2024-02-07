@@ -1,0 +1,127 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Animation": {
+                "states": [
+                    1707293942982333800,
+                    1707293948351258000,
+                    1707293945637399000
+                ],
+                "currFrame": 1,
+                "speed": 1.0,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "UI"
+            },
+            "Script": {
+                "scriptName": "ObjectLevelSelect",
+                "scriptTag": "Background",
+                "CurrentAnimationIndex": 0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Background"
+            },
+            "Transform": {
+                "posX": 800.0,
+                "posY": 450.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 1600.0,
+                "scaleY": 900.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": true,
+                "isHover": true
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectRobinButton",
+                "scriptTag": "Robin"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Robin"
+            },
+            "Transform": {
+                "posX": 262.5,
+                "posY": 483.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 400.0,
+                "scaleY": 350.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKingButton",
+                "scriptTag": "King"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "King"
+            },
+            "Transform": {
+                "posX": 1232.0,
+                "posY": 704.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 400.0,
+                "scaleY": 350.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        }
+    ]
+}

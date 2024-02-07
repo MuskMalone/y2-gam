@@ -22,6 +22,7 @@ namespace Object
     public class EnterLevelOne : Entity
     {
         bool firstTime = true;
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -74,12 +75,11 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            //SetSprite("start_glow");
             if (UIHover)
             {
                 Colour = new Vector4(1, 1, 1, 1);
-                //SetSprite("start_glow");
             }
+
             else
             {
                 Colour = new Vector4(1, 1, 1, 0);
@@ -88,7 +88,7 @@ namespace Object
             if (UIClicked && firstTime)
             {
                 StopAudio();
-                LoadScene("Level1");
+                LoadScene("LevelSelect");
                 firstTime = false;
             }
         }

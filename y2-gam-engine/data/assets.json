@@ -905,6 +905,30 @@
             "idxCoordY": 0.0,
             "dimX": 2000.0,
             "dimY": 1000.0
+        },
+        "1707293942982333800": {
+            "id": 1707293942982393300,
+            "path": "../assets\\Textures\\UI\\gam map empty.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293945637399000": {
+            "id": 1707293945637432300,
+            "path": "../assets\\Textures\\UI\\gam map king.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293948351258000": {
+            "id": 1707293948351290100,
+            "path": "../assets\\Textures\\UI\\gam map robin.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
         }
     }
 }
