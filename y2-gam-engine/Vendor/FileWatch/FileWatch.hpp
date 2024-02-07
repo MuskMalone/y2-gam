@@ -19,10 +19,10 @@
 //	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
+#pragma warning(push, 0)
 
 #ifndef FILEWATCHER_H
 #define FILEWATCHER_H
-
 #include <cstdio>
 #include <fstream>
 #ifdef _WIN32
@@ -1244,3 +1244,4 @@ namespace filewatch {
 	template<class StringType> constexpr typename FileWatch<StringType>::C FileWatch<StringType>::_this_directory[];
 }
 #endif
+#pragma warning(pop) // Restore the previous warning state

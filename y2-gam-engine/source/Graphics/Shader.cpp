@@ -77,8 +77,9 @@ void Shader::CreateComputeShader(std::string const& compute_file_path)
 	}
 	else
 	{
-		printf("Impossible to open %s. Are you in the right directory!\n", compute_file_path);
-		getchar();
+		printf("Impossible to open %s. Are you in the right directory!\n", compute_file_path.c_str());
+		int d = getchar();
+		UNREFERENCED_PARAMETER(d);
 		return;
 	}
 
@@ -102,7 +103,7 @@ void Shader::CreateComputeShader(std::string const& compute_file_path)
 	{
 		std::vector<char> ComputeShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(ComputeShaderID, InfoLogLength, NULL, &ComputeShaderErrorMessage[0]);
-		printf("Compiling shader : %s\n", compute_file_path);
+		printf("Compiling shader : %s\n", compute_file_path.c_str());
 		printf("%s\n", &ComputeShaderErrorMessage[0]);
 	}
 

@@ -48,7 +48,7 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	Entity cameraEntity = ::gCoordinator->GetSystem<RenderSystem>()->GetCamera();
 	if (!::gCoordinator->HasComponent<Camera>(cameraEntity)) {
 		// Handle the error or return a default value
-		return MousePosition{ 0, 0 }; // Example default value
+		return MousePosition{ 0.f, 0.f }; // Example default value
 	}
 
 	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera()) };

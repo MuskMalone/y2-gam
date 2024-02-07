@@ -363,7 +363,7 @@ bool IsFileValid(std::string const& systemType, std::string const& ext) {
   else if (AssetBrowserFindStr(systemType, "Animation")) {
     return (ext == "wav" || ext == "ogg" || ext == "mp3");
   }
-
+  return false;
 }
 void AssetPropertiesWindow(std::set<Entity> const& mEntities) {
   ImGui::Begin("Asset Properties");

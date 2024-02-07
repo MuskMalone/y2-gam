@@ -49,9 +49,11 @@ void QuitHandler([[maybe_unused]] Event& event)
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
 #ifndef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:28251)
 		int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 		{
-
+#pragma warning(pop)
 #else
 		int main() {
 #endif
@@ -239,7 +241,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		float dt = frameController->GetDeltaTime();
+		dt = frameController->GetDeltaTime();
 		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
 		static float accumulatedTime = 0.f;
 		const float maxAccumulation{ 0.1f };
@@ -254,7 +256,6 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			StateManager::GetInstance()->Update(tdt);
 			StateManager::GetInstance()->Render(tdt);
 
-			std::shared_ptr<Coordinator> coordinator{ Coordinator::GetInstance() };
 			FrameRateController::GetInstance()->StartSubFrameTime();
 			uiSystem->Update();
 			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);

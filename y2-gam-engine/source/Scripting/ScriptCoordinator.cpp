@@ -230,12 +230,12 @@ namespace Image {
 	Set slowdown time to true or false.
 	*/
 	static void GameplayComponent_SlowdownTime(bool& flag) {
-		auto frameController{ FrameRateController::GetInstance() };
+		auto frameController1{ FrameRateController::GetInstance() };
 		if (flag) {
-			frameController->ScaleDeltaTime(0.4f);
+			frameController1->ScaleDeltaTime(0.4f);
 		}
 		else {
-			frameController->ScaleDeltaTime(0.f);
+			frameController1->ScaleDeltaTime(0.f);
 		}
 	}
 

@@ -109,7 +109,7 @@ void ParticleSystem::Init() {
     std::vector<float> randomData(MAX_BUFFER);
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(-1.0, 1.0);
+    std::uniform_real_distribution<float> dis(-1.0f, 1.0f);
     for (size_t i = 0; i < MAX_BUFFER; ++i) {
         randomData[i] = dis(gen);
     }
@@ -140,7 +140,7 @@ void ParticleSystem::Init() {
 	mParticleShader = std::make_shared<Shader>("../assets/shaders/Particle.glsl");
     mParticleRenderShader = std::make_shared<Shader>("../assets/shaders/Particle.geom", "../assets/shaders/Particle.vert", "../assets/shaders/Particle.frag");
 
-    for (uint64_t i{}; i < MAX_BUFFER; ++i) { mEmitterIdxQueue.push(i); }
+    for (uint64_t i{}; i < MAX_BUFFER; ++i) { mEmitterIdxQueue.push(static_cast<unsigned int>(i)); }
 
     auto coordinator = Coordinator::GetInstance();
 

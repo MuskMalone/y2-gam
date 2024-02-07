@@ -997,7 +997,7 @@ namespace Image {
                 ImGui::Combo("Font Name",
                   &selectedOption,
                   fontSystem->FontTypes.data(),
-                  fontSystem->FontTypes.size());
+                  static_cast<int>(fontSystem->FontTypes.size()));
 
                 if (selectedOption != previousOption) {
                   previousOption = selectedOption;
@@ -1215,8 +1215,8 @@ namespace Image {
                         }
 
                         if (confirmOnEnter) {
-                          std::string dataString{ inputBuffer };
-                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
+                          std::string dataString1{ inputBuffer };
+                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString1.c_str());
                           scriptInstance.SetFieldValueWithName(val.first, &monoString);
                           confirmOnEnter = false;
                         }
@@ -1316,7 +1316,7 @@ namespace Image {
                         // Create the "Remove" button
                         if (ImGui::Button((std::string("Remove") + "##" + std::to_string(i)).c_str())) {
                             // Button logic
-                            ParticleSystem::RemoveEmitter(i, selectedEntity);
+                            ParticleSystem::RemoveEmitter(static_cast<int>(i), selectedEntity);
                             break;
                         }
                         // Edit vertex count
@@ -1407,7 +1407,7 @@ namespace Image {
                         // Check for changes and call the callback function if needed
                         if (changed) {
                             Event event(Events::Particles::EMITTER);
-                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, selectedEntity));
+                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(static_cast<int>(i), selectedEntity));
                             Coordinator::GetInstance()->SendEvent(event);
                             //OnEmitterProxyChanged(emitter);
                         }

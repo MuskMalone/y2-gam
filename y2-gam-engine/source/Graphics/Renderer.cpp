@@ -430,6 +430,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 	std::shared_ptr<Texture> tex = subtex->GetTexture();
 	if (subtex->GetProperties().id == 1698985226353418500) {
 		int i = 1;
+		UNREFERENCED_PARAMETER(i);
 	}
 	float texIdx = 0.f;
 

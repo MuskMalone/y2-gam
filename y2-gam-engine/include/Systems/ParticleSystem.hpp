@@ -30,7 +30,7 @@ public:
         auto& emitter{ Coordinator::GetInstance()->GetComponent<EmitterSystem>(entity) };
         emitter.AddEmitter(e);
         Event event(Events::Particles::EMITTER);
-        event.SetParam(Events::Particles::Emitter::EMITTER_ADDED, std::pair<int, Entity>(emitter.emitters.size() - 1, entity));
+        event.SetParam(Events::Particles::Emitter::EMITTER_ADDED, std::pair<int, Entity>(static_cast<int>(emitter.emitters.size() - 1), entity));
         Coordinator::GetInstance()->SendEvent(event);
     }
 

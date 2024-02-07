@@ -1,7 +1,7 @@
 #pragma once
 #include <rapidjson/document.h>
 #include <pch.hpp>
-
+#pragma 
 #define VCOUNT_POINT 1 //point
 #define VCOUNT_LINE 2 //line
 #define VCOUNT_QUAD 4 //quad
@@ -22,7 +22,8 @@
 #define ALPHA_OVER_LIFETIME 0
 #define SIZE_OVER_LIFETIME 1
 #define ALPHA_SIZE_OVER_LIFETIME 2
-
+#pragma warning(push)
+#pragma warning(disable : 4324)
 namespace GLSLStructs {
 
     //1-1 map of the structs in Particle.glsl
@@ -68,6 +69,7 @@ namespace GLSLStructs {
     };
 
 }
+#pragma warning(pop)
 struct EmitterProxy {
     glm::vec4 vertices[4]; // Each vec4 is 16 bytes, total 64 bytes
     glm::vec4 col;         // 16 bytes (vec3 is aligned like vec4)

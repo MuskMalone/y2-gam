@@ -89,7 +89,7 @@ namespace Globals {
 //i saw in glfw3.h that the max GLenum goes up to ~380ish
 //hence this is gonna be for a bitset
 //each key enum will be the bitshift for a bitset<ENGINE_KEYS_COUNT>
-#define ENGINE_KEYS_COUNT 400
+#define ENGINE_KEYS_COUNT 1000
 #define ENGINE_MOUSEKEYS_COUNT 3
 #define ENGINE_PHYSICS_PROFILE 0
 #define ENGINE_COLLISION_PROFILE 1
