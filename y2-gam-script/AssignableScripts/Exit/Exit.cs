@@ -82,7 +82,9 @@ namespace Object
                 //Console.WriteLine("Exit");
                 if (GetCurrentScene() == "Level1")
                 {
-                    LoadScene("Level1Transition");
+                    //load lvl2 till lvl1transition player script is ok
+                    LoadScene("Level2");
+                    //LoadScene("Level1Transition");
 
                 }
                 else if (GetCurrentScene() == "Level1Transition")

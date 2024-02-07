@@ -120,7 +120,7 @@
                 "y": -300.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Player"
             },
             "RigidBody": {
                 "dimX": 15.0,
