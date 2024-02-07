@@ -55,7 +55,7 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "No Script Assigned",
+                "scriptName": "ObjectExit",
                 "scriptTag": "Exit"
             },
             "Sprite": {
@@ -82,101 +82,79 @@
                 "elipse": false
             }
         },
-      {
-        "Animation": {
-          "states": [
-            1700480657025096500,
-            1698992900427510800,
-            1700480697547170400,
-            1706897385432403900,
-            1706900374940601200
-          ],
-          "currFrame": 0,
-          "speed": 0.07999999821186066,
-          "currState": 0
+        {
+            "Animation": {
+                "states": [
+                    1700480657025096500,
+                    1698992900427510800,
+                    1700480697547170400,
+                    1706897385432403900,
+                    1706900374940601200
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Camera": {
+                "type": -858993460,
+                "mZoomLevel": 0.5019999742507935,
+                "offsetX": 30.0,
+                "offsetY": 0.0,
+                "velocityThreshold": 0.20000000298023224,
+                "cameraSpeed": 0.05000000074505806,
+                "horizontalBoundaryX": -310.0,
+                "horizontalBoundaryY": 310.0,
+                "verticalBoundaryX": 0.0,
+                "verticalBoundaryY": 0.0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": -718.0,
+                "posY": -123.0,
+                "rotation": 0.0,
+                "dimX": 7.0,
+                "dimY": 32.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -300.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Player"
+            },
+            "Transform": {
+                "posX": -718.0,
+                "posY": -114.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": -50.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
         },
-        "Camera": {
-          "type": -858993460,
-          "mZoomLevel": 0.5019999742507935,
-          "offsetX": 30.0,
-          "offsetY": 0.0,
-          "velocityThreshold": 0.20000000298023224,
-          "cameraSpeed": 0.05000000074505806,
-          "horizontalBoundaryX": -310.0,
-          "horizontalBoundaryY": 310.0,
-          "verticalBoundaryX": 0.0,
-          "verticalBoundaryY": 0.0
-        },
-        "Collider": {
-          "collider": 0,
-          "posX": -718.0,
-          "posY": -123.0,
-          "rotation": 0.0,
-          "dimX": 7.0,
-          "dimY": 32.0
-        },
-        "Gravity": {
-          "x": 0.0,
-          "y": -300.0
-        },
-        "Layering": {
-          "layering": "Default"
-        },
-        "RigidBody": {
-          "dimX": 15.0,
-          "dimY": 15.0,
-          "rotation": 0.0,
-          "mass": 10.0,
-          "posX": 0.0,
-          "posY": 0.0,
-          "lockRotate": true
-        },
-        "Script": {
-          "scriptName": "ObjectPlayer",
-          "scriptTag": "Player",
-          "Dead": false,
-          "GodMode": false,
-          "IsFacingRight": true,
-          "JumpSpeed": 120.0,
-          "MaxAppearTime": 0.4000000059604645,
-          "MaxHorizontalVelocity": 45.0,
-          "MaxRespawnTime": 3.0,
-          "MovementSpeed": 80.0,
-          "PlayAppearAnimation": false,
-          "PlayAppearTimer": 0.0,
-          "PlayDeathAnimHowLongAfter": 0.30000001192092896,
-          "PlayDeathAnimation": false,
-          "RespawnTimer": 0.0,
-          "SlowdownToggle": true,
-          "colliderPositionX": -400.0,
-          "colliderPositionY": -36.0,
-          "spawnPositionX": -400.0,
-          "spawnPositionY": -27.0
-        },
-        "Sprite": {
-          "r": 1.0,
-          "g": 1.0,
-          "b": 1.0,
-          "a": 1.0,
-          "layer": 2,
-          "assetID": 0
-        },
-        "Tag": {
-          "Tag": "Player"
-        },
-        "Transform": {
-          "posX": -718.0,
-          "posY": -114.0,
-          "posZ": 0.0,
-          "rotX": 0.0,
-          "rotY": 0.0,
-          "rotZ": 0.0,
-          "scaleX": -50.0,
-          "scaleY": 50.0,
-          "scaleZ": 15.0,
-          "elipse": false
-        }
-      },
         {
             "Collider": {
                 "collider": 0,
