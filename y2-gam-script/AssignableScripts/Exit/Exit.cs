@@ -22,6 +22,7 @@ namespace Object
 
     public class Exit : Entity
     {
+        private string scene;
         /*  _________________________________________________________________________ */
         /*! Exit
 
@@ -59,7 +60,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            scene = GetCurrentScene();
         }
 
 
@@ -75,11 +76,20 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            Vector2 exitEnd = new Vector2(Collider.X - (Scale.X / 2.0f), Collider.Y );
+            Vector2 exitEnd = new Vector2(Collider.X - (Scale.X / 2.0f), Collider.Y);
             if (PhysicsWrapper.Raycast(Collider, exitEnd, entityID, out RaycastHit exitHit) && exitHit.tag == "Player")
             {
                 //Console.WriteLine("Exit");
-                LoadScene("Level2");
+                if (GetCurrentScene() == "Level1")
+                {
+                    LoadScene("Level1Transition");
+
+                }
+                else if (GetCurrentScene() == "Level1Transition")
+                {
+                    LoadScene("Level2");
+
+                }
             }
         }
 
