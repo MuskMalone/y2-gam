@@ -639,6 +639,14 @@
             "idxY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1707365885707810800": {
+            "id": 1707365885707851400,
+            "path": "../assets\\Textures\\key_purple.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     },
     "AnimationManager": {

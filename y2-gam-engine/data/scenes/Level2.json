@@ -131,8 +131,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 194.0,
-                "posY": 26.00748062133789,
+                "posX": 186.0,
+                "posY": 27.50748062133789,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -160,6 +160,7 @@
                 "GodMode": false,
                 "IsFacingRight": false,
                 "JumpSpeed": 120.0,
+                "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
@@ -188,8 +189,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 194.0,
-                "posY": 35.50748062133789,
+                "posX": 186.0,
+                "posY": 37.00748062133789,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3816,6 +3817,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectLockedDoor",
+                "scriptTag": "Door2",
+                "Range": 25.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -4748,6 +4754,52 @@
             "Transform": {
                 "posX": 236.0,
                 "posY": -117.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 210.5,
+                "posY": 63.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectKey",
+                "scriptTag": "Key",
+                "Range": 10.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1707365885707810800
+            },
+            "Tag": {
+                "Tag": "Key"
+            },
+            "Transform": {
+                "posX": 143.5,
+                "posY": 94.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
