@@ -128,10 +128,10 @@
                 "PlayDeathAnimation": false,
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
-                "colliderPositionX": -400.0,
-                "colliderPositionY": -36.0,
-                "spawnPositionX": -400.0,
-                "spawnPositionY": -27.0
+                "colliderPositionX": -591.5,
+                "colliderPositionY": -123.5,
+                "spawnPositionX": -592.5,
+                "spawnPositionY": -114.5
             },
             "Sprite": {
                 "r": 1.0,
@@ -163,7 +163,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 4,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -196,9 +196,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 248,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -217,7 +217,7 @@
             "Transform": {
                 "posX": 99999.0,
                 "posY": 99999.0,
-                "posZ": 3.0,
+                "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -561,7 +561,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 99.84276",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -673,7 +673,7 @@
             "Transform": {
                 "posX": 0.0,
                 "posY": 0.0,
-                "posZ": 0.0,
+                "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -869,8 +869,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -672.0,
-                "posY": -117.5,
+                "posX": -198.5,
+                "posY": 212.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
@@ -882,7 +882,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 0
             },
@@ -890,8 +890,8 @@
                 "Tag": "colide"
             },
             "Transform": {
-                "posX": -672.0,
-                "posY": -117.5,
+                "posX": -198.5,
+                "posY": 212.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
