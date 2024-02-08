@@ -23,6 +23,10 @@ namespace Object
         LevelSelect lvlSelect = GameplayWrapper.FindEntityByName("Background").As<LevelSelect>();
         bool hovered = false;
 
+        public float LoadingScreenTimer = 0;
+        public float MAX_LOADING_SCREEN_DISPLAY_TIME;
+        bool TimerStart = false;
+
         /*  _________________________________________________________________________ */
         /*! RobinButton
 
@@ -75,23 +79,39 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (UIHover)
+            if (!TimerStart)
             {
-                lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.ROBIN;
-                hovered = true;
-
-                if (UIClicked)
+                if (UIHover)
                 {
-                    LoadScene("Level1");
+                    lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.ROBIN;
+                    hovered = true;
+
+                    if (UIClicked)
+                    {
+                        TimerStart = true;
+                    }
                 }
+
+                else
+                {
+                    if (hovered)
+                    {
+                        lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
+                        hovered = false;
+                    }
+                }
+
             }
 
             else
             {
-                if (hovered)
+                LoadingScreenTimer += dt;
+                lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.ROBINLOAD;
+
+                if (LoadingScreenTimer >= MAX_LOADING_SCREEN_DISPLAY_TIME)
                 {
-                    lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
-                    hovered = false;
+                    LoadingScreenTimer = 0;
+                    LoadScene("Level1");
                 }
             }
         }

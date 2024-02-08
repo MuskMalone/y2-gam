@@ -6,7 +6,9 @@
                 "states": [
                     1707293942982333800,
                     1707293948351258000,
-                    1707293945637399000
+                    1707293945637399000,
+                    1707360010272530700,
+                    1707360008139696600
                 ],
                 "currFrame": 1,
                 "speed": 1.0,
@@ -55,7 +57,9 @@
             },
             "Script": {
                 "scriptName": "ObjectRobinButton",
-                "scriptTag": "Robin"
+                "scriptTag": "Robin",
+                "LoadingScreenTimer": 0.0,
+                "MAX_LOADING_SCREEN_DISPLAY_TIME": 4.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -92,7 +96,9 @@
             },
             "Script": {
                 "scriptName": "ObjectKingButton",
-                "scriptTag": "King"
+                "scriptTag": "King",
+                "LoadingScreenTimer": 0.0,
+                "MAX_LOADING_SCREEN_DISPLAY_TIME": 4.0
             },
             "Sprite": {
                 "r": 1.0,

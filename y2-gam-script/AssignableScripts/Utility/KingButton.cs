@@ -24,6 +24,10 @@ namespace Object
         LevelSelect lvlSelect = GameplayWrapper.FindEntityByName("Background").As<LevelSelect>();
         bool hovered = false;
 
+        public float LoadingScreenTimer = 0;
+        public float MAX_LOADING_SCREEN_DISPLAY_TIME;
+        bool TimerStart = false;
+
         /*  _________________________________________________________________________ */
         /*! KingButton
 
@@ -76,23 +80,38 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (UIHover)
+            if (!TimerStart)
             {
-                lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.KING;
-                hovered = true;
-
-                if (UIClicked)
+                if (UIHover)
                 {
-                    LoadScene("Level2");
+                    lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.KING;
+                    hovered = true;
+
+                    if (UIClicked)
+                    {
+                        TimerStart = true;
+                    }
+                }
+
+                else
+                {
+                    if (hovered)
+                    {
+                        lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
+                        hovered = false;
+                    }
                 }
             }
 
             else
-            {
-                if (hovered)
+            { 
+                LoadingScreenTimer += dt;
+                lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.KINGLOAD;
+
+                if (LoadingScreenTimer >= MAX_LOADING_SCREEN_DISPLAY_TIME)
                 {
-                    lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
-                    hovered = false;
+                    LoadingScreenTimer = 0;
+                    LoadScene("Level2");
                 }
             }
         }

@@ -66,7 +66,9 @@ namespace Image
     {
         NONE,
         ROBIN,
-        KING
+        KING,
+        KINGLOAD,
+        ROBINLOAD
     }
 
     // These key codes are pulled from GLFW
