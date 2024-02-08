@@ -24,6 +24,9 @@
 // SOFTWARE.
 //
 
+#pragma warning(push)
+#pragma warning(disable : 4245)
+#pragma warning(disable : 4189)
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -1109,3 +1112,4 @@ bool EditOptions(Options& options)
 }
 
 } // namespace
+#pragma warning(pop)

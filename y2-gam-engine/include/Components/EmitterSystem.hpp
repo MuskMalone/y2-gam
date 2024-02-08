@@ -195,7 +195,7 @@ struct EmitterSystem
     //do not use
     inline void RemoveEmitter(int idx) { if (idx < emitters.size()) emitters.erase(emitters.begin() + idx); }
     //do not use
-    Emitters const& GetEmitters() { return emitters; }
+    Emitters const& GetEmitters() const { return emitters; }
     //do not use
     Emitters emitters;
 
