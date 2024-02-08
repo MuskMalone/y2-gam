@@ -124,6 +124,10 @@ namespace Image
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, ref bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_CollidedEntity(ref uint lhsEntityHandle, ref uint rhsEntityHandle,
+            ref bool collidedOrNot);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, ref Vector2 dim);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

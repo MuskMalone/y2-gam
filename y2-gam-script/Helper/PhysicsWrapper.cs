@@ -34,6 +34,13 @@ namespace Image
             InternalCalls.PhysicsComponent_Collided(ref entityID, ref isCollided);
             return isCollided;
         }
+
+        public static bool IsCollidedEntity(uint lhsEntityID, uint rhsEntityID)
+        {
+            bool isCollided = false;
+            InternalCalls.PhysicsComponent_CollidedEntity(ref lhsEntityID, ref rhsEntityID, ref isCollided);
+            return isCollided;
+        }
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             bool hit = false;
