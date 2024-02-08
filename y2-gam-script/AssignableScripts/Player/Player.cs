@@ -226,9 +226,7 @@ namespace Object
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
                         new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast)||
-                            PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 3), entityID, out upRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
                         if (!PlayAppearAnimation)
@@ -256,19 +254,25 @@ namespace Object
                                 Dead = true;
                             }
                         }
-                        else if (upRayCast.tag != null && upRayCast.tag.Contains("Spike"))
-                        {
-                            if (PhysicsWrapper.IsCollidedEntity(upRayCast.id, entityID))
-                            {
-                                Dead = true;
-                            }
-                        }
+                        
                         //if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
                         //    (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
                         //    centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
                         //{
                         //    Dead = true;
                         //}
+                    }
+                    else if(PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 3), entityID, out upRayCast))
+                    {
+                        IsGrounded = false;
+                        if (upRayCast.tag != null && upRayCast.tag.Contains("Spike"))
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(upRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
                     }
 
                     else
