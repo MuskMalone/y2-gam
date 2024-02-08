@@ -73,6 +73,10 @@ namespace Image
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+
+        internal extern static void EngineCore_GetUIMousePos(ref Vector2 outMousePos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

@@ -73,7 +73,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            Translation = new Vector2(MousePos.X, MousePos.Y);
+            Translation = new Vector2(MousePosUI.X, MousePosUI.Y);
         }
 
         /*  _________________________________________________________________________ */
