@@ -82,6 +82,7 @@
     <Compile Include="AssignableScripts\Player\Card.cs" />
     <Compile Include="AssignableScripts\Player\Death.cs" />
     <Compile Include="AssignableScripts\Utility\Cursor.cs" />
+    <Compile Include="AssignableScripts\Utility\Cutscene.cs" />
     <Compile Include="AssignableScripts\Utility\FPSDisplay.cs" />
     <Compile Include="AssignableScripts\Utility\KingButton.cs" />
     <Compile Include="AssignableScripts\Utility\LevelSelect.cs" />

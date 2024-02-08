@@ -993,6 +993,38 @@
             "idxCoordY": 0.0,
             "dimX": 120.0,
             "dimY": 120.0
+        },
+        "1707393648820918400": {
+            "id": 1707393648820975100,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 1.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393651369475400": {
+            "id": 1707393651369516500,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 2.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393653966122400": {
+            "id": 1707393653966177500,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 3.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393656264756000": {
+            "id": 1707393656264798600,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 4.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
         }
     }
 }

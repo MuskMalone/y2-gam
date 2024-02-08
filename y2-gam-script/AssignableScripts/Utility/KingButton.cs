@@ -80,7 +80,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!TimerStart)
+            if (!TimerStart && !lvlSelect.LoadingScreenActive)
             {
                 if (UIHover)
                 {
@@ -90,6 +90,7 @@ namespace Object
                     if (UIClicked)
                     {
                         TimerStart = true;
+                        lvlSelect.LoadingScreenActive = true;
                     }
                 }
 
@@ -103,8 +104,8 @@ namespace Object
                 }
             }
 
-            else
-            { 
+            else if (TimerStart)
+            {
                 LoadingScreenTimer += dt;
                 lvlSelect.CurrentAnimationIndex = (int)AnimationCodeLevelSelect.KINGLOAD;
 
