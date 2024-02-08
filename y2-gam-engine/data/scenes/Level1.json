@@ -2229,7 +2229,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 1.8999989032745361,
+                "TimeInState": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
             },

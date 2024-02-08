@@ -57,6 +57,7 @@
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
 #include <Systems/ParticleSystem.hpp>
+#include <Core/ReflectionManager.hpp>
 
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
@@ -2149,14 +2150,22 @@ namespace Image {
             columnCount = 1;
         }
         ImGui::Columns(columnCount, 0, false);
+        static std::string selectedFP;
         for (auto& directoryPath : std::filesystem::directory_iterator(currentDirectory)) {
             auto const& path = directoryPath.path();
             auto relativePath = std::filesystem::relative(path, assetDirectory);
             std::string filenameString = relativePath.filename().string();
+            std::string filepathString = path.string();
             auto fileName = directoryPath.path().filename().string();
             ImGui::PushID(filenameString.c_str());
             std::shared_ptr<Texture> icon = directoryPath.is_directory() ? directroyIcon : fileIcon;
-            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+            if (!selectedFP.empty() && std::filesystem::equivalent(selectedFP, filepathString) ){
+                ImGui::PushStyleColor(ImGuiCol_Button, { 1,0,1,1 });
+            }
+            else {
+                ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+
+            }
             ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
             ImGui::PopStyleColor();
             if (ImGui::BeginDragDropSource()) {
@@ -2169,6 +2178,30 @@ namespace Image {
                 if (directoryPath.is_directory()) {
                     currentDirectory /= path.filename();
 
+                }
+                else {
+                    selectedFP = filepathString;
+                }
+            }
+            auto input = Coordinator::GetInstance()->GetSystem<InputSystem>();
+            auto const& renderSystem{ Coordinator::GetInstance()->GetSystem<RenderSystem>() };
+            if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode() && selectedFP.size()) {
+                if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
+                    std::vector<AssetID> aidVec{};
+                    std::string sysType;
+                    for (auto const& a : AssetManager::GetInstance()->GetAllAssets()) {
+                        if (std::filesystem::equivalent(selectedFP, a.second.path)) {
+                            aidVec.push_back(a.first);
+                            sysType = a.second.systemType;
+                        }
+                    }
+                    if (aidVec.size() > 0) {
+                        std::filesystem::remove(selectedFP);
+                        for (auto aid : aidVec) {
+                            ReflectionManager::InvokeSingletonClassFunction<AssetID>("AssetManager", sysType + "DeleteAsset", aid);
+                        }
+                    }
+                    selectedFP.clear();
                 }
             }
             ImGui::TextWrapped(filenameString.c_str());

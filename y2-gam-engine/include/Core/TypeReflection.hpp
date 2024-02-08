@@ -10,7 +10,10 @@ RTTR_REGISTRATION {
         .method("GetInstance", &AssetManager::GetInstance)
         .method("SoundManagerLoadAsset", &AssetManager::LoadAsset<Image::SoundManager>)
         .method("AnimationManagerLoadAsset", &AssetManager::LoadAsset<AnimationManager>)
-        .method("SpriteManagerLoadAsset", &AssetManager::LoadAsset<SpriteManager>);
+        .method("SpriteManagerLoadAsset", &AssetManager::LoadAsset<SpriteManager>)
+        .method("SoundManagerDeleteAsset", &AssetManager::DeleteAsset<Image::SoundManager>)
+        .method("AnimationManagerDeleteAsset", &AssetManager::DeleteAsset<AnimationManager>)
+        .method("SpriteManagerDeleteAsset", &AssetManager::DeleteAsset<SpriteManager>);
 
     //method registration
     rttr::registration::class_<Image::SoundManager>("SoundManager")

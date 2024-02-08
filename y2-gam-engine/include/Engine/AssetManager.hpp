@@ -174,7 +174,7 @@ public:
 		return key;
 	}
 	template <typename _system>
-	void DeleteAsset(AssetID aid) {
+	AssetID DeleteAsset(AssetID aid) {
 		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
 		using namespace Serializer;
 
@@ -196,7 +196,7 @@ public:
 
 		}
 		
-
+		return aid;
 	}
 
 	bool IsAssetExist(AssetID aid) { return (mAssets.find(aid) != mAssets.end()); }
