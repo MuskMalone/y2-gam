@@ -639,6 +639,22 @@
             "idxY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1707359403519729900": {
+            "id": 1707359403519780200,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_jester.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707359405263766500": {
+            "id": 1707359405263842300,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_king.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
         }
     },
     "AnimationManager": {
@@ -925,6 +941,22 @@
         "1707293948351258000": {
             "id": 1707293948351290100,
             "path": "../assets\\Textures\\UI\\gam map robin.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707360008139696600": {
+            "id": 1707360008139737600,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_jester.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707360010272530700": {
+            "id": 1707360010272590500,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_king.jpg",
             "frameCount": 2,
             "idxCoordY": 0.0,
             "dimX": 2314.0,

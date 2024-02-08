@@ -154,7 +154,6 @@ namespace Object
         void OnUpdate(float dt)
         {
             IsFacingRight = isFacingRight;
-
             
             if (resume.isRPaused == false)
             {

@@ -56,6 +56,12 @@ namespace Image
         ACTIVATED
     }
 
+    public enum AnimationCodeLoadingScreen
+    {
+        JESTER,
+        KING
+    }
+
     public enum AnimationCodeLevelSelect
     {
         NONE,

@@ -44,6 +44,8 @@ namespace Image {
     static void AudioStopChannelFromFilename(std::string filename);
     static void AudioResumeChannelFromFilename(std::string filename);
     static void AudioPauseChannelFromFilename(std::string filename);
+    static void AudioPauseAll();
+    static void AudioResumeAll();
     static void AudioStopGroup(SoundGroup const& group);
     static void AudioPauseGroup(SoundGroup const& group);
     static void AudioSetGroupVolume(SoundGroup const& group, float volume);
