@@ -591,7 +591,7 @@ namespace Image {
 
 	@return none.
 
-	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	Get the collided information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
 	static void PhysicsComponent_Collided(uint32_t& entityID, bool& collidedOrNot) {
@@ -600,6 +600,20 @@ namespace Image {
 		collidedOrNot = collided;
 	}
 
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_CollidedEntity
+
+	@param
+
+	@return none.
+
+	Get the collided information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_CollidedEntity(uint32_t& lhsEntityID, uint32_t& rhsEntityID, bool& collidedOrNot) {
+		bool isCollided{ Physics::IsCollided(lhsEntityID, rhsEntityID) };
+		collidedOrNot = isCollided;
+	}
 
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_GetRaycast
@@ -1219,6 +1233,7 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedEntity);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
