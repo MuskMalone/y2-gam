@@ -19,7 +19,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1700712327935657900
             },
             "Tag": {
                 "Tag": "bg"
@@ -38,7 +38,7 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
+                "isClicked": true,
                 "isHover": true
             }
         },

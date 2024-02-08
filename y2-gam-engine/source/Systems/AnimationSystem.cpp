@@ -128,6 +128,7 @@ void AnimationSystem::CheckAssetValidity()
 		}
 	}
 	if (changed) {
+		//std::cout << "changed anim\n";
 		SceneManager::GetInstance()->SaveScene();
 	}
 }

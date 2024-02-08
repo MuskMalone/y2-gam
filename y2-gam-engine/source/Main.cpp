@@ -256,9 +256,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			StateManager::GetInstance()->Update(tdt);
 			StateManager::GetInstance()->Render(tdt);
 
-			FrameRateController::GetInstance()->StartSubFrameTime();
 			uiSystem->Update();
-			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
 			//NodeManager::Update();
 
 			windowManager->Update();
@@ -266,6 +264,8 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 			auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
+			FrameRateController::GetInstance()->StartSubFrameTime();
+
 			static bool isEditor{ true };
 			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
 				isEditor = !isEditor;
@@ -275,6 +275,8 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 				renderSystem->CheckAssetValidity();
 				animationSystem->CheckAssetValidity();
 			}
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
+
 #endif
 
 			windowManager->UpdateWindowTitle(WINDOW_TITLE);

@@ -584,7 +584,7 @@ void RenderSystem::CheckAssetValidity()
 	for (auto const& e : mEntities) {
 		auto& sprite = gCoordinator->GetComponent<Sprite>(e);
 		//this check is to remove any invalid asset ids
-		if (!AssetManager::GetInstance()->IsAssetExist(sprite.spriteAssetID)) {
+		if (!AssetManager::GetInstance()->IsAssetExist(sprite.spriteAssetID) && sprite.spriteAssetID != 0) {
 			sprite.spriteAssetID = 0;
 			
 			//set the anim spriteid just to be safe
@@ -593,6 +593,7 @@ void RenderSystem::CheckAssetValidity()
 		}
 	}
 	if (changed) {
+		//std::cout << "changed sprite\n";
 		SceneManager::GetInstance()->SaveScene();
 	}
 }
