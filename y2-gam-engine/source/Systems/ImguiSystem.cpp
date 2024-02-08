@@ -97,6 +97,7 @@ ImFont* mainfont = nullptr;
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init(glsl_version);
+
         return;
     }
     /*  _________________________________________________________________________ */
@@ -110,6 +111,7 @@ ImFont* mainfont = nullptr;
     application GUI, and updates platform windows.
     */
     void ImGuiSystem::Update(float dt){
+
         ImGuiIO& io = ImGui::GetIO();
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();

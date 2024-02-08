@@ -22,6 +22,7 @@ namespace Object
     public class LevelSelect : Entity
     {
         public int CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
+        public bool LoadingScreenActive = false;
 
         /*  _________________________________________________________________________ */
         /*! LevelSelect

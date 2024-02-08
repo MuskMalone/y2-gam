@@ -88,7 +88,7 @@ namespace Object
             if (UIClicked && firstTime)
             {
                 StopAudio();
-                LoadScene("LevelSelect");
+                LoadScene("Cutscene");
                 firstTime = false;
             }
         }

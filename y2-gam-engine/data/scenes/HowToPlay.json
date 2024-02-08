@@ -13,7 +13,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707117444851733600
+                "assetID": 1707151748551518600
             },
             "Tag": {
                 "Tag": "bg"
@@ -50,7 +50,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707118000656503100
+                "assetID": 1707154487715059300
             },
             "Tag": {
                 "Tag": "PmHowToPlayScene"
@@ -62,8 +62,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 130.0,
-                "scaleY": 84.53600311279297,
+                "scaleX": 300.0,
+                "scaleY": 300.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },

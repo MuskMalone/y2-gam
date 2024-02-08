@@ -44,6 +44,7 @@ public:
 	glm::vec3 const& GetPosition() const;
 
 	void UpdatePosition(glm::vec3 const& targetPos, bool isFacingRight);
+	void UpdateZoom(float zoom);
 	void SetPosition(glm::vec3 const& pos);
 	void SetRotation(float rot);
 	void ZoomIn();

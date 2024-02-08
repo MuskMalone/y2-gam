@@ -26,6 +26,7 @@ namespace Object
         public float lengthOfArm;
         private float offsetAwayFromBody = -10.0f;
         public bool alive = false;
+        bool resetAnimationState = true;
 
         private bool _isFacingRight;
         public bool isFacingRight
@@ -118,6 +119,12 @@ namespace Object
             
             if (alive)
             {
+                if (resetAnimationState == true)
+                {
+                    GameplayWrapper.ResetAnimationState(entityID);
+                    resetAnimationState = false;
+                }
+
                 Colour = new Vector4(1, 1, 1, 1);
                 timeAlive += dt;
             }
@@ -131,6 +138,7 @@ namespace Object
             {
                 timeAlive = 0.0f;
                 alive = false;
+                resetAnimationState = true;
             }
         }
 

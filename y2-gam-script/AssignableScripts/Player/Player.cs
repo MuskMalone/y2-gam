@@ -358,17 +358,7 @@ namespace Object
                         PauseAudioWithFilename(FootTrack);
                     }
 
-                    if (isFacingRight)
-                    {
-                        // Cast the ray from the right side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y - (Scale.X / 3.0f));
-                    }
-                    else
-                    {
-                        // Cast the ray from the left side of the head
-                        playerHead = new Vector2(Collider.X, Collider.Y + (Scale.X / 3.0f));
-                    }
-
+                    playerHead = new Vector2(Collider.X, Collider.Y + (Scale.Y / 2.0f) + 1);
                     if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
                     {
                         Dead = true;

@@ -57,7 +57,6 @@
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
 #include <Systems/ParticleSystem.hpp>
-#include <Core/ReflectionManager.hpp>
 
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
@@ -202,7 +201,6 @@ namespace Image {
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
-                    if (paused) SoundManager::AudioResumeAll();
                     paused = false;
                 }
             }
@@ -213,15 +211,10 @@ namespace Image {
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
                     paused = true;
-                    SoundManager::AudioPauseAll();
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-              if (SceneManager::GetInstance()->IsSceneActive()) {
-                if (!renderSystem->IsEditorMode()) {
-                  renderSystem->ToggleEditorMode(); ImGui::SetWindowFocus("Image Game Engine");
-                } SceneManager::GetInstance()->ResetScene(); paused = false;
-              }
+                STOP_SCENE_DONOTUSE
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();
@@ -424,23 +417,20 @@ namespace Image {
         //Cant delete stuff with script
         // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
-        if (ImGui::IsWindowFocused()) {
-            if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
-                if (gSelectedEntity != MAX_ENTITIES) {
-                    //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+        if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
+            if (gSelectedEntity != MAX_ENTITIES) {
+                //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                     CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
 
                     gCoordinator->DestroyEntity(gSelectedEntity);
                     Image::ScriptManager::RemoveEntity(gSelectedEntity);
                     gSelectedEntity = MAX_ENTITIES;
-                    //}
-                    //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
-                      //ScriptManager::RemoveEntity(gSelectedEntity);
-                    //}
-                }
+                //}
+                //if (gCoordinator->HasComponent<Script>(gSelectedEntity)) {
+                  //ScriptManager::RemoveEntity(gSelectedEntity);
+                //}
             }
         }
-
  
             //if (ImGui::BeginPopupContextItem()) {
             //    if (gSelectedEntity != MAX_ENTITIES && ImGui::MenuItem("Destroy Entity")) {
@@ -1004,7 +994,7 @@ namespace Image {
                 ImGui::Combo("Font Name",
                   &selectedOption,
                   fontSystem->FontTypes.data(),
-                  static_cast<int>(fontSystem->FontTypes.size()));
+                  fontSystem->FontTypes.size());
 
                 if (selectedOption != previousOption) {
                   previousOption = selectedOption;
@@ -1222,8 +1212,8 @@ namespace Image {
                         }
 
                         if (confirmOnEnter) {
-                          std::string dataString1{ inputBuffer };
-                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString1.c_str());
+                          std::string dataString{ inputBuffer };
+                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
                           scriptInstance.SetFieldValueWithName(val.first, &monoString);
                           confirmOnEnter = false;
                         }
@@ -1323,7 +1313,7 @@ namespace Image {
                         // Create the "Remove" button
                         if (ImGui::Button((std::string("Remove") + "##" + std::to_string(i)).c_str())) {
                             // Button logic
-                            ParticleSystem::RemoveEmitter(static_cast<int>(i), selectedEntity);
+                            ParticleSystem::RemoveEmitter(i, selectedEntity);
                             break;
                         }
                         // Edit vertex count
@@ -1414,7 +1404,7 @@ namespace Image {
                         // Check for changes and call the callback function if needed
                         if (changed) {
                             Event event(Events::Particles::EMITTER);
-                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(static_cast<int>(i), selectedEntity));
+                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, selectedEntity));
                             Coordinator::GetInstance()->SendEvent(event);
                             //OnEmitterProxyChanged(emitter);
                         }
@@ -1924,6 +1914,7 @@ namespace Image {
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         auto frameController = FrameRateController::GetInstance();
+
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
@@ -2156,22 +2147,14 @@ namespace Image {
             columnCount = 1;
         }
         ImGui::Columns(columnCount, 0, false);
-        static std::string selectedFP;
         for (auto& directoryPath : std::filesystem::directory_iterator(currentDirectory)) {
             auto const& path = directoryPath.path();
             auto relativePath = std::filesystem::relative(path, assetDirectory);
             std::string filenameString = relativePath.filename().string();
-            std::string filepathString = path.string();
             auto fileName = directoryPath.path().filename().string();
             ImGui::PushID(filenameString.c_str());
             std::shared_ptr<Texture> icon = directoryPath.is_directory() ? directroyIcon : fileIcon;
-            if (!selectedFP.empty() && std::filesystem::equivalent(selectedFP, filepathString) ){
-                ImGui::PushStyleColor(ImGuiCol_Button, { 1,0,1,1 });
-            }
-            else {
-                ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
-
-            }
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
             ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
             ImGui::PopStyleColor();
             if (ImGui::BeginDragDropSource()) {
@@ -2184,30 +2167,6 @@ namespace Image {
                 if (directoryPath.is_directory()) {
                     currentDirectory /= path.filename();
 
-                }
-                else {
-                    selectedFP = filepathString;
-                }
-            }
-            auto input = Coordinator::GetInstance()->GetSystem<InputSystem>();
-            auto const& renderSystem{ Coordinator::GetInstance()->GetSystem<RenderSystem>() };
-            if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode() && selectedFP.size()) {
-                if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
-                    std::vector<AssetID> aidVec{};
-                    std::string sysType;
-                    for (auto const& a : AssetManager::GetInstance()->GetAllAssets()) {
-                        if (std::filesystem::equivalent(selectedFP, a.second.path)) {
-                            aidVec.push_back(a.first);
-                            sysType = a.second.systemType;
-                        }
-                    }
-                    if (aidVec.size() > 0) {
-                        std::filesystem::remove(selectedFP);
-                        for (auto aid : aidVec) {
-                            ReflectionManager::InvokeSingletonClassFunction<AssetID>("AssetManager", sysType + "DeleteAsset", aid);
-                        }
-                    }
-                    selectedFP.clear();
                 }
             }
             ImGui::TextWrapped(filenameString.c_str());

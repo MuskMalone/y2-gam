@@ -61,7 +61,7 @@ namespace Object
             //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
             //temp_translation2 = new Vector2(player.Translation.X + 1000, 460);
             //Translation = temp_translation2;
-            Translation = new Vector2(1000, 460);
+            Translation = new Vector2(895, 460);
         }
 
         void ResumeGame()

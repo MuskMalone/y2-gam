@@ -597,3 +597,17 @@ void RenderSystem::CheckAssetValidity()
 		SceneManager::GetInstance()->SaveScene();
 	}
 }
+
+void RenderSystem::SetSceneCameraZoom(float zoom) {
+	//Entity camSettings{};
+	for (auto const& e : mEntities) {
+		if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
+			//camSettings = e;
+			auto& cam = gCoordinator->GetComponent<Camera>(e);
+			zoom = std::max(cam.mMinZoom, std::min(zoom, cam.mMaxZoom));
+			cam.UpdateZoom(zoom);
+			break;
+		}
+
+	}
+}
