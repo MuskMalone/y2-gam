@@ -90,7 +90,6 @@ namespace Object
                 }
            
             }
-            Console.WriteLine(PhysicsWrapper.IsCollidedWithAnything(entityID));
 
             //exitEnd = new Vector2(Collider.X - (Scale.Y / 2.0f), Collider.Y);
             if (PhysicsWrapper.IsCollidedWithAnything(entityID))
