@@ -58,10 +58,10 @@ public class EnemyIdleState : EnemyBaseState
             {
                 enemy.SwitchState(enemy.AttackState);
             }
-            else
-            {
-                enemy.SwitchState(enemy.ChaseState);
-            }
+            //else
+            //{
+                //enemy.SwitchState(enemy.ChaseState);
+            //}
         }
     }
 

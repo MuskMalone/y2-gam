@@ -506,6 +506,30 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+  /*! AudioPauseAll
+
+  @return none.
+
+  Pauses all audio.
+  */
+  void SoundManager::AudioPauseAll() {
+    AudioPauseGroup(sfxGroup);
+    AudioPauseGroup(musicGroup);
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioResumeAll
+   
+  @return none.
+
+  Resumes all audio.
+  */
+  void SoundManager::AudioResumeAll() {
+    AudioResumeGroup(sfxGroup);
+    AudioResumeGroup(musicGroup);
+  }
+
+  /*  _________________________________________________________________________ */
   /*! AudioStopGroup
 
   @param group

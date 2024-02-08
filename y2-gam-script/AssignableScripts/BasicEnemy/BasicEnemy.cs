@@ -71,7 +71,7 @@ namespace Object
         public EnemyDefaultState DefaultState = new EnemyDefaultState();
         public EnemyPatrolState PatrolState = new EnemyPatrolState();
         public EnemyAttackState AttackState = new EnemyAttackState();
-        public EnemyChaseState ChaseState = new EnemyChaseState();
+        //public EnemyChaseState ChaseState = new EnemyChaseState();
         public EnemyIdleState IdleState = new EnemyIdleState();
 
 
