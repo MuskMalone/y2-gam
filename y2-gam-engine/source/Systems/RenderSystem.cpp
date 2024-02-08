@@ -342,10 +342,18 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 }
 
-//this is super hacky
+ /*  _________________________________________________________________________ */
+ /*!
+	 \brief RenderPrefab
+
+	The function binds a specific framebuffer, sets clear color, and if the prefab has transform and sprite components, it processes animations and draws the sprite.
+	Additionally, if a collider component is present, it draws the collider shape. The function also handles custom drawing for different sprite states and collider types.
+
+	 \param prefab entity to be rendered
+ */
+
 void RenderSystem::RenderPrefab(Entity prefab) {
 	//tch: hack to check if its a valid entity for drawing
-	//xavier todo: pls change this to a more ecs implementation in the future!!!
 	//if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
@@ -416,6 +424,14 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	mFramebuffers[1]->Unbind();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief RenderUI
+
+Renders UI elements by collecting entities with UIImage and Transform components, sorting them, and rendering each UI component.
+
+\param event The event data that includes the positions the raycast were fired.
+*/
 void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
@@ -557,11 +573,19 @@ void RenderSystem::CheckAssetValidity()
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief SetSceneCameraZoom Function
+
+Set zoom for scene camera
+
+\param zoom amount to set the zoom
+*/
 void RenderSystem::SetSceneCameraZoom(float zoom) {
 	//Entity camSettings{};
 	for (auto const& e : mEntities) {
 		if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
-			//camSettings = e;
+
 			auto& cam = gCoordinator->GetComponent<Camera>(e);
 			zoom = std::max(cam.mMinZoom, std::min(zoom, cam.mMaxZoom));
 			cam.UpdateZoom(zoom);
