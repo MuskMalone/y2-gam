@@ -80,14 +80,23 @@ namespace Object
             if (PhysicsWrapper.Raycast(Collider, exitEnd, entityID, out RaycastHit exitHit) && exitHit.tag == "Player")
             {
                 //Console.WriteLine("Exit");
-                if (GetCurrentScene() == "Level1")
+                if (scene == "Level1")
                 {
+                    
                     //load lvl2 till lvl1transition player script is ok
-                    LoadScene("Level2");
-                    //LoadScene("Level1Transition");
+                    //LoadScene("Level2");
+                    LoadScene("Level1Transition");
 
                 }
-                else if (GetCurrentScene() == "Level1Transition")
+           
+            }
+            Console.WriteLine(PhysicsWrapper.IsCollidedWithAnything(entityID));
+
+            //exitEnd = new Vector2(Collider.X - (Scale.Y / 2.0f), Collider.Y);
+            if (PhysicsWrapper.IsCollidedWithAnything(entityID))
+            {
+                    Console.WriteLine("come here please");
+                if (scene == "Level1Transition")
                 {
                     LoadScene("Level2");
 

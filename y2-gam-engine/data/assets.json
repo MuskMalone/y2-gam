@@ -929,6 +929,14 @@
             "idxCoordY": 0.0,
             "dimX": 2314.0,
             "dimY": 1300.0
+        },
+        "1707305393690677100": {
+            "id": 1707305393690718800,
+            "path": "../assets\\Textures\\ANIM\\gam 200 flag_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     }
 }

@@ -786,27 +786,29 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
             //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
 
-        }
-        //2 is the id of the player
-        //ArbiterVec av{ Physics::IsCollided(2) };
-        ArbiterVec av{ Physics::IsIntersected(2) };
-        for (auto const& a : av) {
-            for (uint64_t i{}; i < a.contactsCount; ++i) {
-                Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 1,1 }, { 1,0,1,1 });
+            ArbiterVec av{ Physics::IsIntersected(e) };
+            for (auto const& a : av) {
+                for (uint64_t i{}; i < a.contactsCount; ++i) {
+                    Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 5,5 }, { 0,1,1,1 });
+                }
             }
-        }
-        ArbiterVec av2{ Physics::IsCollided(2) };
-        for (auto const& a : av2) {
-            for (uint64_t i{}; i < a.contactsCount; ++i) {
-                Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 1,1 }, { 1,0,1,1 });
-                Renderer::DrawLine({ a.contacts[i].position.x, a.contacts[i].position.y, 10 },
+            ArbiterVec av2{ Physics::IsCollided(e) };
+            for (auto const& a : av2) {
+                for (uint64_t i{}; i < a.contactsCount; ++i) {
+                    Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 5,5 }, { 1,0,1,1 });
+                    Renderer::DrawLine({ a.contacts[i].position.x, a.contacts[i].position.y, 10 },
                     {
                         a.contacts[i].position.x + a.contacts[i].normal.x * 2.f,
                         a.contacts[i].position.y + a.contacts[i].normal.y * 2.f,
                         10
                     }, { 1,1,0,1 });
+                }
             }
+
         }
+        //2 is the id of the player
+        //ArbiterVec av{ Physics::IsCollided(2) };
+
         //Renderer::RenderSceneEnd();
 
     }

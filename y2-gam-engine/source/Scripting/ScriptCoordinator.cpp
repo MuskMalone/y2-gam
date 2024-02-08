@@ -595,7 +595,8 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_Collided(uint32_t& entityID, bool& collidedOrNot) {
-		bool collided{ ::gCoordinator->GetSystem<Collision::CollisionSystem>()->IsIntersected(entityID).size() > 0 };
+		auto vec{ Physics::IsCollided(entityID) };
+		bool collided{ vec.size() > 0 };
 		collidedOrNot = collided;
 	}
 
