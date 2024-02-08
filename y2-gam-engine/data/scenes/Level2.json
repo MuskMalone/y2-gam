@@ -3382,7 +3382,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -10.0
+                "y": -90.0
             },
             "Layering": {
                 "layering": "Enemy"
@@ -3398,18 +3398,18 @@
             },
             "Script": {
                 "scriptName": "ObjectBasicEnemy",
-                "scriptTag": "Jester",
-                "AttackRange": 33.0,
+                "scriptTag": "Enemy",
+                "AttackRange": 40.0,
                 "EnemyDeath": false,
                 "EnemyDeathTimer": 0.0,
-                "HowLongDisplayEnemyDeath": 0.0,
+                "HowLongDisplayEnemyDeath": 0.5,
                 "IsFacingRight": false,
                 "JumpCooldown": 0.20000000298023224,
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
                 "TimeInState": 0.0,
-                "VisionRange": 33.0,
+                "VisionRange": 50.0,
                 "isGrounded": true
             },
             "Sprite": {
@@ -3421,7 +3421,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Jester"
+                "Tag": "Enemy"
             },
             "Transform": {
                 "posX": -558.0,
@@ -3739,7 +3739,7 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 665.0,
+                "posX": 629.0,
                 "posY": -90.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
@@ -3773,7 +3773,7 @@
                 "Tag": "Box2"
             },
             "Transform": {
-                "posX": 665.0,
+                "posX": 629.0,
                 "posY": -90.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -3897,7 +3897,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 623.0,
+                "posX": 597.0,
                 "posY": -61.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
@@ -3931,7 +3931,7 @@
                 "Tag": "Door3"
             },
             "Transform": {
-                "posX": 623.0,
+                "posX": 597.0,
                 "posY": -61.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -4013,7 +4013,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 702.0,
+                "posX": 659.0,
                 "posY": -61.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
@@ -4047,7 +4047,7 @@
                 "Tag": "Door5"
             },
             "Transform": {
-                "posX": 702.0,
+                "posX": 659.0,
                 "posY": -61.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -4809,7 +4809,7 @@
                     1707366674554159600
                 ],
                 "currFrame": 1,
-                "speed": 0.15000000596046448,
+                "speed": 0.10000000149011612,
                 "currState": 0
             },
             "Layering": {
@@ -4844,12 +4844,12 @@
                 "states": [
                     1707366674554159600
                 ],
-                "currFrame": 0,
-                "speed": 0.15000000596046448,
+                "currFrame": 1,
+                "speed": 0.10000000149011612,
                 "currState": 0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Environment"
             },
             "Sprite": {
                 "r": 1.0,
@@ -4969,6 +4969,114 @@
                 "rotZ": 0.0,
                 "scaleX": 32.0,
                 "scaleY": 32.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1707366674554159600
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Environment"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Wateranim5"
+            },
+            "Transform": {
+                "posX": 720.5,
+                "posY": -79.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 37.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1707366674554159600
+                ],
+                "currFrame": 0,
+                "speed": 0.2329999953508377,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Environment"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Wateranim6"
+            },
+            "Transform": {
+                "posX": 664.5,
+                "posY": 85.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 28.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1707366674554159600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Wateranim7"
+            },
+            "Transform": {
+                "posX": -338.5,
+                "posY": -96.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 33.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
