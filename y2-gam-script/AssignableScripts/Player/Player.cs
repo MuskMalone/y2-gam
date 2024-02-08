@@ -219,26 +219,56 @@ namespace Object
                     RaycastHit centreRayCast = new RaycastHit();
                     RaycastHit leftRayCast = new RaycastHit();
                     RaycastHit rightRayCast = new RaycastHit();
+                    RaycastHit upRayCast = new RaycastHit();
 
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
                         new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
                         new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast)||
+                            PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 3), entityID, out upRayCast))
                     {
                         IsGrounded = true;
                         if (!PlayAppearAnimation)
                         {
                             AnimationState = (int)AnimationCodePlayer.IDLE;
                         }
-
-                        if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
-                            (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
-                            centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
+                        if (centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) 
                         {
-                            Dead = true;
+                            if (PhysicsWrapper.IsCollidedEntity(centreRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
                         }
+                        else if (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) 
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(leftRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
+                        else if (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike"))
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(rightRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
+                        else if (upRayCast.tag != null && upRayCast.tag.Contains("Spike"))
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(upRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
+                        //if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
+                        //    (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
+                        //    centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
+                        //{
+                        //    Dead = true;
+                        //}
                     }
 
                     else
