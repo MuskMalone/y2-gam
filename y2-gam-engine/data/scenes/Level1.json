@@ -31,7 +31,7 @@
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
                 "scriptTag": "PmResumeGame",
-                "isRPaused": true
+                "isRPaused": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -160,10 +160,10 @@
                 "PlayDeathAnimation": false,
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
-                "colliderPositionX": -411.9852294921875,
-                "colliderPositionY": -35.27470397949219,
-                "spawnPositionX": -411.9852294921875,
-                "spawnPositionY": -26.274702072143555
+                "colliderPositionX": -400.0,
+                "colliderPositionY": -36.0,
+                "spawnPositionX": -400.0,
+                "spawnPositionY": -27.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -542,9 +542,9 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 2,
+                "currFrame": 0,
                 "speed": 0.12999999523162842,
-                "currState": 1
+                "currState": 0
             },
             "Gravity": {
                 "x": 0.0,
@@ -653,7 +653,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1197,9 +1197,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 95,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1462,7 +1462,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2238,7 +2238,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 1.0833330154418945,
+                "TimeInState": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
             },
@@ -2337,8 +2337,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2449,8 +2449,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2475,7 +2475,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 74.42566",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2519,7 +2519,7 @@
                 "b": 1.0,
                 "a": 0.0,
                 "layer": 2,
-                "assetID": 1706865272271207300
+                "assetID": 1707402984357905900
             },
             "Tag": {
                 "Tag": "Death"
