@@ -4407,8 +4407,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -4483,7 +4483,7 @@
             "UIImage": {
                 "enabled": true,
                 "isClicked": false,
-                "isHover": true
+                "isHover": false
             }
         },
         {
@@ -4860,7 +4860,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Name"
+                "Tag": "Wateranim4"
             },
             "Transform": {
                 "posX": 687.0,
@@ -4871,6 +4871,104 @@
                 "rotZ": 0.0,
                 "scaleX": 53.0,
                 "scaleY": 68.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -471.0,
+                "posY": -54.5,
+                "rotation": 0.0,
+                "dimX": 32.0,
+                "dimY": 32.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Platform"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Plat46"
+            },
+            "Transform": {
+                "posX": -471.0,
+                "posY": -54.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 32.0,
+                "scaleY": 32.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -672.5,
+                "posY": -54.5,
+                "rotation": 0.0,
+                "dimX": 32.0,
+                "dimY": 32.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Platform"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Plat47"
+            },
+            "Transform": {
+                "posX": -672.5,
+                "posY": -54.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 32.0,
+                "scaleY": 32.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
