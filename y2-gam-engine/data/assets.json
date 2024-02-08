@@ -639,6 +639,14 @@
             "idxY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1707364236947512100": {
+            "id": 1707364236947550500,
+            "path": "../assets\\Textures\\flag pole_empty.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     },
     "AnimationManager": {
@@ -937,6 +945,22 @@
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1707364242017229000": {
+            "id": 1707364242017257400,
+            "path": "../assets\\Textures\\flag pole_empty.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1707366674554159600": {
+            "id": 1707366674554199700,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
         }
     }
 }

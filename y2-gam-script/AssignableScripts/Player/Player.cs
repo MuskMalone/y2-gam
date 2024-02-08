@@ -42,8 +42,8 @@ namespace Object
         public float RespawnTimer = 0.0f;
         public float MaxRespawnTime;
 
-        public Vector2 spawnPosition = new Vector2(-400, -27);
-        public Vector2 colliderPosition = new Vector2(-400, -36);
+        public Vector2 spawnPosition;
+        public Vector2 colliderPosition;
 
         private Vector2 playerHead;
         private float temp_dt = 0f;
@@ -132,11 +132,15 @@ namespace Object
 
             if (GetCurrentScene() == "Level1")
             {
+                spawnPosition = new Vector2(-400, -27);
+                colliderPosition = new Vector2(-400, -36);
                 FootTrack = "PlayerRunningFloor.wav";
             }
 
             else if (GetCurrentScene() == "Level2")
             {
+                spawnPosition = new Vector2(184.5f, 165.5f);
+                colliderPosition = new Vector2(183.0f, 156.0f);
                 FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
             }
         }

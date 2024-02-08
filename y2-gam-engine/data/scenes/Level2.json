@@ -131,8 +131,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 193.0,
-                "posY": 229.00747680664063,
+                "posX": 183.0,
+                "posY": 156.0,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -170,10 +170,10 @@
                 "PlayDeathAnimation": false,
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
-                "colliderPositionX": -400.0,
-                "colliderPositionY": -36.0,
-                "spawnPositionX": -400.0,
-                "spawnPositionY": -27.0
+                "colliderPositionX": 183.0,
+                "colliderPositionY": 156.0,
+                "spawnPositionX": 184.5,
+                "spawnPositionY": 165.5
             },
             "Sprite": {
                 "r": 1.0,
@@ -188,8 +188,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 193.0,
-                "posY": 238.50747680664063,
+                "posX": 184.5,
+                "posY": 165.5,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -496,6 +496,15 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1707364242017229000,
+                    1707305393690677100
+                ],
+                "currFrame": 0,
+                "speed": 0.12999999523162842,
+                "currState": 0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -523,25 +532,34 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953117858423800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Waypoint1"
             },
             "Transform": {
                 "posX": -446.5672607421875,
-                "posY": -228.03366088867188,
+                "posY": -227.53366088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 18.0,
+                "scaleX": 30.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1707364242017229000,
+                    1707305393690677100
+                ],
+                "currFrame": 1,
+                "speed": 0.12999999523162842,
+                "currState": 0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -569,20 +587,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953117858423800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Waypoint2"
             },
             "Transform": {
                 "posX": -807.0,
-                "posY": -105.0,
+                "posY": -104.0,
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 18.0,
+                "scaleX": 30.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3234,6 +3252,15 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1707364242017229000,
+                    1707305393690677100
+                ],
+                "currFrame": 0,
+                "speed": 0.12999999523162842,
+                "currState": 0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -3261,25 +3288,34 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953117858423800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Waypoint3"
             },
             "Transform": {
                 "posX": 169.0,
-                "posY": 18.5,
+                "posY": 18.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 18.5,
+                "scaleX": 30.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1707364242017229000,
+                    1707305393690677100
+                ],
+                "currFrame": 0,
+                "speed": 0.12999999523162842,
+                "currState": 0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -3307,20 +3343,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953117858423800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Waypoint4"
             },
             "Transform": {
                 "posX": 288.5,
-                "posY": 17.5,
+                "posY": 18.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 18.0,
+                "scaleX": 30.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3499,6 +3535,15 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1707364242017229000,
+                    1707305393690677100
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -3526,20 +3571,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953117858423800
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Waypoint5"
             },
             "Transform": {
                 "posX": -67.5,
-                "posY": -228.5,
+                "posY": -228.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 10.0,
-                "scaleY": 18.0,
+                "scaleX": 30.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -4743,7 +4788,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Name"
+                "Tag": "WaterParticle3"
             },
             "Transform": {
                 "posX": 236.0,

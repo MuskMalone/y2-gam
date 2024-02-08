@@ -71,13 +71,13 @@
                     1706897385432403900,
                     1706900374940601200
                 ],
-                "currFrame": 2,
+                "currFrame": 4,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Camera": {
                 "type": -858993460,
-                "mZoomLevel": 0.9990000128746033,
+                "mZoomLevel": 1.2910000085830688,
                 "offsetX": 30.0,
                 "offsetY": 0.0,
                 "velocityThreshold": 0.20000000298023224,
@@ -163,7 +163,7 @@
                 "states": [
                     1700790935381564100
                 ],
-                "currFrame": 1,
+                "currFrame": 4,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -195,7 +195,7 @@
                 "scriptName": "ObjectCard",
                 "scriptTag": "Card",
                 "Alive": false,
-                "CardUIID": 269,
+                "CardUIID": 248,
                 "CardUIMaxScaleX": 100.0,
                 "CardUIMaxScaleY": 100.0,
                 "CardUIMaxScaleZ": 1.0,
@@ -217,7 +217,7 @@
             "Transform": {
                 "posX": 99999.0,
                 "posY": 99999.0,
-                "posZ": -1.0,
+                "posZ": 3.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -265,7 +265,7 @@
                 "states": [
                     1700930523778839900
                 ],
-                "currFrame": 3,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -561,7 +561,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 104.5734",
+                "text": "FPS: 99.84276",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -643,8 +643,8 @@
                 "Tag": "Cursor"
             },
             "Transform": {
-                "posX": -809.4970092773438,
-                "posY": 3.4264450073242188,
+                "posX": -882.0494995117188,
+                "posY": 38.26262664794922,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -663,7 +663,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 0.0,
+                "a": 1.0,
                 "layer": 2,
                 "assetID": 1705483032734269100
             },
@@ -816,8 +816,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 60.0,
-                "posY": -349.5,
+                "posX": 65.5,
+                "posY": -384.5,
                 "rotation": 0.0,
                 "dimX": 1500.0,
                 "dimY": 15.0
@@ -854,8 +854,8 @@
                 "Tag": "Exit"
             },
             "Transform": {
-                "posX": 60.0,
-                "posY": -349.5,
+                "posX": 65.5,
+                "posY": -384.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
