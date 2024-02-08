@@ -6,6 +6,14 @@
     ],
     "Entities": [
         {
+            "Animation": {
+                "states": [
+                    1707366674554159600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Layering": {
                 "layering": "Default"
             },
@@ -3374,7 +3382,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -556.5,
+                "posX": -596.0,
                 "posY": -98.5,
                 "rotation": 0.0,
                 "dimX": 13.0,
@@ -3424,7 +3432,7 @@
                 "Tag": "Enemy"
             },
             "Transform": {
-                "posX": -558.0,
+                "posX": -597.5,
                 "posY": -91.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -5055,7 +5063,7 @@
                 "currState": 0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Environment"
             },
             "Sprite": {
                 "r": 1.0,
@@ -5071,11 +5079,47 @@
             "Transform": {
                 "posX": -338.5,
                 "posY": -96.5,
-                "posZ": 0.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 25.0,
+                "scaleY": 33.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1707366674554159600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Wateranim8"
+            },
+            "Transform": {
+                "posX": -558.0,
+                "posY": -96.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
                 "scaleY": 33.0,
                 "scaleZ": 15.0,
                 "elipse": false
