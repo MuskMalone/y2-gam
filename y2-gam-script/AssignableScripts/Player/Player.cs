@@ -46,6 +46,7 @@ namespace Object
         public Vector2 colliderPosition = new Vector2(-400, -36);
 
         public bool KeyCollected = false;
+        //public int numKey = 0;
 
         private Vector2 playerHead;
         private float temp_dt = 0f;

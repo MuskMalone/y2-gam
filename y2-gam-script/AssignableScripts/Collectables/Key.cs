@@ -7,7 +7,7 @@ namespace Object
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         public float Range;
-        //public bool Collected = false;
+       
         public Key() : base()
         {
 
@@ -28,8 +28,10 @@ namespace Object
             if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) &&
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && !player.KeyCollected)
             {
-                Console.WriteLine("COLLECTEDDDDDDDDDDDDDDDDDDDDDDDD");
+                Console.WriteLine("Key Collected");
+                //player.numKey++;
                 player.KeyCollected = true;
+                GameplayWrapper.DestroyEntity(entityID);
             }
         }
 
