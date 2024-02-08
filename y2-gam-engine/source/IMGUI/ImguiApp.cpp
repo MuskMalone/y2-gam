@@ -202,6 +202,7 @@ namespace Image {
                    // std::cout << "Play to toggle to editer play mode" << std::endl;
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
+                    if (paused) SoundManager::AudioResumeAll();
                     paused = false;
                 }
             }
@@ -212,10 +213,15 @@ namespace Image {
                     renderSystem->ToggleEditorMode();
                     ImGui::SetWindowFocus("Image Game Engine");
                     paused = true;
+                    SoundManager::AudioPauseAll();
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-                STOP_SCENE_DONOTUSE
+              if (SceneManager::GetInstance()->IsSceneActive()) {
+                if (!renderSystem->IsEditorMode()) {
+                  renderSystem->ToggleEditorMode(); ImGui::SetWindowFocus("Image Game Engine");
+                } SceneManager::GetInstance()->ResetScene(); paused = false;
+              }
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();

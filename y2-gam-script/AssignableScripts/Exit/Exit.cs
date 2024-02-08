@@ -95,7 +95,6 @@ namespace Object
             //exitEnd = new Vector2(Collider.X - (Scale.Y / 2.0f), Collider.Y);
             if (PhysicsWrapper.IsCollidedWithAnything(entityID))
             {
-                    Console.WriteLine("come here please");
                 if (scene == "Level1Transition")
                 {
                     LoadScene("Level2");
