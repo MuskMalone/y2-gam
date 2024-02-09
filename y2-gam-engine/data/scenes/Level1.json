@@ -26,7 +26,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
@@ -150,6 +150,7 @@
                 "GodMode": false,
                 "IsFacingRight": true,
                 "JumpSpeed": 120.0,
+                "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
@@ -2563,10 +2564,15 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

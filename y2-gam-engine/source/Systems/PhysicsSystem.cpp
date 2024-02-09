@@ -369,9 +369,9 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
         ArbiterKey arbiterKey2{ e2, e1 };
         size_t id1{ murmur64((void*)&arbiterKey1, sizeof(ArbiterKey)) };
         size_t id2{ murmur64((void*)&arbiterKey2, sizeof(ArbiterKey)) };
-        if (mArbiterTable.find(id1) != mArbiterTable.end()) return false;
-        if (mArbiterTable.find(id2) != mArbiterTable.end()) return false;
-        return true;
+        if (mArbiterTable.find(id1) != mArbiterTable.end()) return true;
+        if (mArbiterTable.find(id2) != mArbiterTable.end()) return true;
+        return false;
     }
     bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2, Arbiter& a) {
         ArbiterKey arbiterKey1{ e1, e2 };

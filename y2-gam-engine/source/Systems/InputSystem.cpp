@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       InputSystem.cpp
+
+\author     Team Hemp
+\date       Sep 10, 2023
+
+\brief      Input System
+
+			System manages all the input and various functions for getting
+			mouse position in various different coordinate systems.
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "../include/pch.hpp"
 
 #include "Systems/InputSystem.hpp"
@@ -11,11 +29,28 @@ namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
 }
 
+/*  _________________________________________________________________________ */
+/*!
+	\brief Init
+
+	Initializes the Input System by acquiring a global Coordinator instance and setting up event listeners for input events.
+*/
 void InputSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::INPUT, InputSystem::InputListener));
 }
+
+/*  _________________________________________________________________________ */
+/*!
+	\brief CheckKey
+
+	Checks if a specific key is in a given state (e.g., pressed, released, clicked).
+
+	\param state The state of the key to check.
+	\param key The key code to check the state of.
+	\return Returns true if the key is in the specified state; otherwise, false.
+*/
 bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	bool out{ false };
 	switch (state) {
@@ -40,10 +75,28 @@ bool InputSystem::CheckKey(InputKeyState state, size_t key) const {
 	}
 	return out;
 }
+
+/*  _________________________________________________________________________ */
+/*!
+	\brief GetMousePos
+
+	Retrieves the current position of the mouse cursor.
+
+	\return Returns a `MousePosition` struct containing the x and y screen coordinates of the mouse cursor.
+*/
 MousePosition InputSystem::GetMousePos() const {
 	return mMousePos;
 }
 
+
+/*  _________________________________________________________________________ */
+/*!
+	\brief GetWorldMousePos
+
+	Converts the current mouse position to world coordinates.
+
+	\return Returns a `MousePosition` struct containing the x and y world coordinates of the mouse cursor.
+*/
 MousePosition InputSystem::GetWorldMousePos() const {
 	Entity cameraEntity = ::gCoordinator->GetSystem<RenderSystem>()->GetCamera();
 	if (!::gCoordinator->HasComponent<Camera>(cameraEntity)) {
@@ -66,6 +119,14 @@ MousePosition InputSystem::GetWorldMousePos() const {
 	return { worldPos.x, worldPos.y };
 }
 
+/*  _________________________________________________________________________ */
+/*!
+	\brief GetSceneMousePos
+
+	Transforms the current mouse position to scene coordinates based on the active scene's camera.
+
+	\return Returns a `MousePosition` struct with the mouse position transformed into the scene's coordinate space.
+*/
 MousePosition InputSystem::GetSceneMousePos() const {
 	int windowWidth = WindowManager::GetInstance()->GetWidth();
 	int windowHeight = WindowManager::GetInstance()->GetHeight();
@@ -88,6 +149,44 @@ MousePosition InputSystem::GetSceneMousePos() const {
 	return { mouseWorldSpace.x, mouseWorldSpace.y };
 }
 
+/*  _________________________________________________________________________ */
+/*!
+	\brief GetUIMousePos
+
+	Converts the mouse position to UI coordinates, taking into account the UI camera's view and projection matrices.
+
+	\return Returns a `MousePosition` struct containing the x and y UI coordinates of the mouse cursor.
+*/
+MousePosition InputSystem::GetUIMousePos() const {
+	int windowWidth = WindowManager::GetInstance()->GetWidth();
+	int windowHeight = WindowManager::GetInstance()->GetHeight();
+
+	MousePosition mp{ GetMousePos() };
+
+	// Normalize mouse position to NDC
+	Vec2 mousePos{
+		(2.0f * mp.first / static_cast<float>(windowWidth)) - 1.0f,
+		1.0f - (2.0f * mp.second / static_cast<float>(windowHeight))
+	};
+
+	// Transform mouse position using the camera
+	auto const& camera{ ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera()) };
+	glm::mat4 inverseViewProj = glm::inverse(camera.GetViewProjMtx());
+	glm::vec4 mouseClipSpace = glm::vec4(mousePos.x, mousePos.y, 0.0f, 1.0f);
+	glm::vec4 mouseWorldSpace = inverseViewProj * mouseClipSpace;
+	mouseWorldSpace /= mouseWorldSpace.w;
+
+	return { mouseWorldSpace.x, mouseWorldSpace.y };
+}
+
+/*  _________________________________________________________________________ */
+/*!
+	\brief GetEditorMousePos
+
+	Retrieves the mouse position within the editor's viewport.
+
+	\return Returns an `EditorMousePosition` struct, which includes both the mouse position and the editor viewport size.
+*/
 EditorMousePosition InputSystem::GetEditorMousePos() const {
 	return mEditorMousePos;
 }
@@ -102,6 +201,14 @@ void InputSystem::Update()
 	mMouseButtonsReleased.reset();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+	\brief InputListener
+
+	Handles input events by updating the state of keys and mouse buttons based on the event data received.
+
+	\param event The event data containing input state changes.
+*/
 void InputSystem::InputListener(Event& event)
 {
 	KeyState press {event.GetParam<KeyState>(Events::Window::Input::KEY_PRESS)};

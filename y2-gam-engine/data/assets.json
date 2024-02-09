@@ -109,6 +109,11 @@
             "id": 1707135840442494100,
             "path": "../assets\\audio\\sfx\\PlayerRunningFloor.wav",
             "stream": false
+        },
+        "1707455969481401500": {
+            "id": 1707455969481437700,
+            "path": "../assets\\audio\\music\\LevelTransition.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
@@ -679,6 +684,14 @@
             "idxY": 0.0,
             "dimX": 1600.0,
             "dimY": 1526.0
+        },
+        "1707445848064327100": {
+            "id": 1707445848064361000,
+            "path": "../assets\\Textures\\key_purple.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     },
     "AnimationManager": {
@@ -1041,6 +1054,14 @@
             "idxCoordY": 0.0,
             "dimX": 2560.0,
             "dimY": 1440.0
+        },
+        "1707445833113468200": {
+            "id": 1707445833113495200,
+            "path": "../assets\\Textures\\key_purple.png",
+            "frameCount": 0,
+            "idxCoordY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     }
 }

@@ -109,12 +109,7 @@ float FrameRateController::EndFrameTime(bool updateDt) {
 
 	//mFps = 1 / mDeltaTime;
 	//std::cout << mDeltaTime << " "<<mFps << std::endl;
-	if (isGameSlow) {
-		return mDeltaTime * slowFactor;
-	}
-	else {
 		return mDeltaTime;
-	}
 }
 /*  _________________________________________________________________________ */
 /*! StartSubFrameTime

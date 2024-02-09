@@ -73,6 +73,10 @@ namespace Image
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+
+        internal extern static void EngineCore_GetUIMousePos(ref Vector2 outMousePos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -287,6 +291,18 @@ namespace Image
         internal extern static void GraphicsComponent_SetColour(ref uint entityHandle, ref Vector4 colour);
         #endregion
 
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetZoom
+
+        @param val
+        value to zoom
+
+        @return none.
+
+        Set the current zoom level of the player in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetZoom(float val);
         #region Transform
         /*  _________________________________________________________________________ */
         /*! TransformComponent_GetTranslation

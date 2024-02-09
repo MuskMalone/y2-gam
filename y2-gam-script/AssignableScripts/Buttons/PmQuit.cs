@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmQuit.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For quit button in pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -13,11 +28,11 @@ namespace Object
         private Vector2 temp_translation;
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmQuit
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmQuit entity. Inherits from entity class.
         */
         public PmQuit() : base()
         {
@@ -25,14 +40,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmQuit
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmQuit entity.
         */
         public PmQuit(uint entityHandle) : base(entityHandle)
         {
@@ -46,7 +61,6 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
             temp_translation = Translation;

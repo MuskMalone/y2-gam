@@ -107,6 +107,13 @@ void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight)
 	UpdateProjectionMtx();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief UpdateZoom
+
+Updates the camera's zoom
+\param zoom level to be changed
+*/
 void Camera::UpdateZoom(float zoom) {
 	mZoomLevel = zoom;
 	UpdateProjectionMtx();

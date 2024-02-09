@@ -77,14 +77,14 @@
             },
             "Camera": {
                 "type": -858993460,
-                "mZoomLevel": 1.2910000085830688,
+                "mZoomLevel": 0.5550000071525574,
                 "offsetX": 30.0,
                 "offsetY": 0.0,
                 "velocityThreshold": 0.20000000298023224,
                 "cameraSpeed": 0.05000000074505806,
-                "horizontalBoundaryX": -700.0,
+                "horizontalBoundaryX": -650.0,
                 "horizontalBoundaryY": 310.0,
-                "verticalBoundaryX": -300.0,
+                "verticalBoundaryX": -100.0,
                 "verticalBoundaryY": 0.0
             },
             "Collider": {
@@ -118,6 +118,7 @@
                 "GodMode": false,
                 "IsFacingRight": true,
                 "JumpSpeed": 120.0,
+                "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
@@ -803,7 +804,7 @@
             "Transform": {
                 "posX": -112.0,
                 "posY": -504.5,
-                "posZ": 0.0,
+                "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -900,6 +901,99 @@
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -386.5,
+                "posY": 10.5,
+                "rotation": 0.0,
+                "dimX": 30.0,
+                "dimY": 300.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectZoomOut",
+                "scriptTag": "Zoomout",
+                "maxTimer": 5.0,
+                "timer": 0.0,
+                "zoomLevel": 1.600000023841858
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Zoomout"
+            },
+            "Transform": {
+                "posX": -386.5,
+                "posY": 10.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
+                "scaleY": 300.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "UI"
+            },
+            "Script": {
+                "scriptName": "ObjectCursor",
+                "scriptTag": "Cursor"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Cursor"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

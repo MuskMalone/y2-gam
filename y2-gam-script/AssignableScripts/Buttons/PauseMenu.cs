@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PauseMenu.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For back button in the pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -8,14 +23,14 @@ namespace Object
     {
         private bool IsKeyPressed = false;
         bool isPaused = false;
-        
+
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PauseMenu entity. Inherits from entity class.
         */
         public PauseMenu() : base()
         {
@@ -23,14 +38,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PauseMenu entity.
         */
         public PauseMenu(uint entityHandle) : base(entityHandle)
         {
@@ -44,7 +59,6 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
 
