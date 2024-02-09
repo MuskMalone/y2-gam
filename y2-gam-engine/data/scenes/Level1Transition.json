@@ -907,10 +907,10 @@
             "Collider": {
                 "collider": 0,
                 "posX": -386.5,
-                "posY": -114.5,
+                "posY": 10.5,
                 "rotation": 0.0,
                 "dimX": 30.0,
-                "dimY": 50.0
+                "dimY": 300.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -928,6 +928,13 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectZoomOut",
+                "scriptTag": "Zoomout",
+                "maxTimer": 5.0,
+                "timer": 0.0,
+                "zoomLevel": 1.600000023841858
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -941,13 +948,13 @@
             },
             "Transform": {
                 "posX": -386.5,
-                "posY": -114.5,
+                "posY": 10.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 30.0,
-                "scaleY": 50.0,
+                "scaleY": 300.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

@@ -887,6 +887,20 @@ Get the collider dimensions of the entity in C#.
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetZoom
+
+	@param val
+	Val to set the camera zoom
+
+	@return none.
+
+	Set the current zoom level of the player in C#.
+	*/
+	static void GraphicsComponent_SetZoom(float val) {
+		::gCoordinator->GetSystem<RenderSystem>()->SetSceneCameraZoom(val);
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! GraphicsComponent_SetColour
 
 	@param entityID
@@ -1265,6 +1279,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetRotation);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetRotation);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetZoom);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);

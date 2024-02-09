@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 183.0,
-                "posY": 156.0,
+                "posX": 185.5,
+                "posY": 137.0,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -197,8 +197,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 184.5,
-                "posY": 165.5,
+                "posX": 187.0,
+                "posY": 146.5,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
