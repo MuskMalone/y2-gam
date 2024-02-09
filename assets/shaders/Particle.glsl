@@ -1,3 +1,18 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       Particle.glsl
+
+\author     tan cheng hian
+\date       Oct 13, 2023
+
+\brief      particle
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
 #version 450 core
 #extension GL_ARB_compute_shader : enable
 #extension GL_ARB_shader_storage_buffer_object : enable

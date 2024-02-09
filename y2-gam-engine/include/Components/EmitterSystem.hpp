@@ -1,3 +1,9 @@
+
+/**
+ * @file EmitterSystem.hpp
+ * @brief Defines the EmitterSystem struct and related structs for managing emitters in a game engine.
+ * @author tan cheng hian t.chenghian
+ */
 #pragma once
 #include <rapidjson/document.h>
 #include <pch.hpp>

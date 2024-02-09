@@ -1,7 +1,25 @@
+/******************************************************************************/
+/*!
+\par        Frame rate controller
+\file       FrameRateController.hpp
+
+\author     t.chenghian (t.chenghian@digipen.edu)
+\date       Sep 4, 2023
+
+\brief      ReflectionMgr
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <pch.hpp>
 class ReflectionManager{
 public:
+
+
     template <typename _return, typename ... _pack>
     static _return InvokeClassFunction(std::string const& classname, std::string const& funcname, _pack&&... params) {
         // Retrieve the class type

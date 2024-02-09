@@ -1,3 +1,18 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       Particle.vert
+
+\author     tan cheng hian t.chenghian
+\date       Oct 13, 2023
+
+\brief      
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
 #version 450 core
 struct Particle {
     vec4 col;     // 16 bytes

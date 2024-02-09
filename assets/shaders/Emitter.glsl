@@ -1,3 +1,8 @@
+/**
+ * @file Emitter.glsl
+ * @author t.chenghian@digipen.edu
+*/
+
 #version 450 core
 #extension GL_ARB_compute_shader : enable
 #extension GL_ARB_shader_storage_buffer_object : enable

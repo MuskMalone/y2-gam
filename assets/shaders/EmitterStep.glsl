@@ -1,3 +1,19 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       EmitterStep.glsl
+
+\author     tan cheng hian t.chenghian
+\date       Oct 13, 2023
+
+\brief      emitter step compute shader
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
+
 #version 450 core
 #extension GL_ARB_compute_shader : enable
 #extension GL_ARB_shader_storage_buffer_object : enable
@@ -90,6 +106,8 @@ uniform float DT;
 
 uniform uint bufferMaxCount = 1000000;
 //from -1 to 1
+
+
 float random(){ //retun
     uint idx = atomicAdd(randIdx, uint(1));
 	return RandomFloats[idx % bufferMaxCount];

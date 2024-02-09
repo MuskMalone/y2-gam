@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       ParticleSystem.cpp
+
+\author     tan cheng hian t.chenghian
+\date       Nov 11, 2023
+
+\brief      The header file for the particle systme
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+						or disclosure of this file or its contents without the prior
+						written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "../include/pch.hpp"
 #include "Systems/ParticleSystem.hpp"
 #include "Systems/RenderSystem.hpp"
@@ -6,6 +22,15 @@
 #include "Graphics/Renderer.hpp"
 #define MAX_BUFFER 1000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
+
+/**
+ * @brief Event listener for the particle system.
+ *
+ * This function handles various events related to particle emitters and entities.
+ * It performs actions based on the type of event received, such as adding or destroying emitters.
+ *
+ * @param event The event object containing the event data.
+ */
 
 void ParticleSystem::EventListener(Event& event) {
     auto coordinator = Coordinator::GetInstance();
@@ -74,6 +99,12 @@ void ParticleSystem::EventListener(Event& event) {
         }
     }
 }
+
+/**
+ * @brief Initializes the particle system.
+ *
+ * This function initializes the particle system by creating the necessary buffers and shaders.
+ */
 void ParticleSystem::Init() {
     GLuint zero = 0;
     glGenBuffers(1, &mRandomIdxSSbo);
@@ -149,6 +180,14 @@ void ParticleSystem::Init() {
     coordinator->AddEventListener(METHOD_LISTENER(Events::System::ENTITY, ParticleSystem::EventListener));
 }
 
+/**
+ * @brief Performs an action on an emitter.
+ *
+ * This function performs an action on an emitter, such as adding or destroying it.
+ *
+ * @param emitter The emitter to perform the action on.
+ * @param action The action to perform on the emitter.
+ */
 void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
     mEmitterShader->Use();
 
@@ -208,6 +247,13 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
     mEmitterShader->Unuse();
 }
 
+/**
+ * @brief Updates the particle system.
+ *
+ * This function updates the particle system by updating the particles and emitters.
+ *
+ * @param dt The time elapsed since the last update.
+ */
 void ParticleSystem::Update(float dt) {
     auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
 
@@ -255,6 +301,12 @@ void ParticleSystem::Update(float dt) {
     //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
     //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
+
+/**
+ * @brief Draws the particles.
+ *
+ * This function draws the particles.
+ */
 void ParticleSystem::Draw() {
     //glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
@@ -297,6 +349,12 @@ void ParticleSystem::DrawDebug() {
         }
     }
 }
+
+/**
+ * @brief Destroys the particle system.
+ *
+ * This function destroys the particle system by deleting the buffers and shaders.
+ */
 void ParticleSystem::Destroy() {
     glDeleteBuffers(1, &mRandomIdxSSbo);
     glDeleteBuffers(1, &mRandomSSbo);
