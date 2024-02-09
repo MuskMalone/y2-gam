@@ -109,6 +109,11 @@
             "id": 1707135840442494100,
             "path": "../assets\\audio\\sfx\\PlayerRunningFloor.wav",
             "stream": false
+        },
+        "1707455969481401500": {
+            "id": 1707455969481437700,
+            "path": "../assets\\audio\\music\\LevelTransition.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

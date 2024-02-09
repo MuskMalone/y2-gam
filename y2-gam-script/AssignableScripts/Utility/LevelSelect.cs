@@ -77,6 +77,11 @@ namespace Object
         void OnUpdate(float dt)
         {
             AnimationState = CurrentAnimationIndex;
+            if (CurrentAnimationIndex == (int)AnimationCodeLevelSelect.KINGLOAD ||
+                CurrentAnimationIndex == (int)AnimationCodeLevelSelect.ROBINLOAD)
+            {
+                PlayAudio("LevelTransition.wav", 0);
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -88,7 +93,7 @@ namespace Object
         */
         void OnExit()
         {
-
+            StopAudioWithFilename("LevelTransition.wav");
         }
     }
 }
