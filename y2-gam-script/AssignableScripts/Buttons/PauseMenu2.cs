@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PauseMenu2.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      Main script for in-game pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 //using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -13,13 +28,13 @@ namespace Object
 
         private Vector2 temp_translation;
         //private Vector2 temp_translation2;
-        
+
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu2
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PauseMenu2 entity. Inherits from entity class.
         */
         public PauseMenu2() : base()
         {
@@ -27,14 +42,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu2
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PauseMenu2 entity.
         */
         public PauseMenu2(uint entityHandle) : base(entityHandle)
         {

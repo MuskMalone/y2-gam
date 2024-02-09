@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmHowToPlayScene.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For loading the how to play scene
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -9,11 +24,11 @@ namespace Object
         //bool firstTime = true;
         //bool isPaused = false;
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmHowToPlayScene
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmHowToPlayScene entity. Inherits from entity class.
         */
         public PmHowToPlayScene() : base()
         {
@@ -21,14 +36,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmHowToPlayScene
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmHowToPlayScene entity.
         */
         public PmHowToPlayScene(uint entityHandle) : base(entityHandle)
         {

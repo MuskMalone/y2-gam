@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmMenu.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For menu button in pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -13,11 +28,11 @@ namespace Object
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmMenu
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmMenu entity. Inherits from entity class.
         */
         public PmMenu() : base()
         {
@@ -25,14 +40,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmMenu
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmMenu entity.
         */
         public PmMenu(uint entityHandle) : base(entityHandle)
         {
@@ -46,7 +61,6 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
             temp_translation = Translation;

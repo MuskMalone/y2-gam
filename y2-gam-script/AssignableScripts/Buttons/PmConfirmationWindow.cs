@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmConfirmationWindow.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For quit button in pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -10,11 +25,11 @@ namespace Object
         //bool isPaused = true;
         PmQuit quit = GameplayWrapper.FindEntityByName("PmQuit").As<PmQuit>();
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmConfirmationWindow
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmConfirmationWindow entity. Inherits from entity class.
         */
         public PmConfirmationWindow() : base()
         {
@@ -22,14 +37,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmConfirmationWindow
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmConfirmationWindow entity.
         */
         public PmConfirmationWindow(uint entityHandle) : base(entityHandle)
         {
