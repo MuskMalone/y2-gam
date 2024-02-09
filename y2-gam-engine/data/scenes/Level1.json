@@ -26,7 +26,7 @@
         },
         {
             "Layering": {
-                "layering": "Default"
+                "layering": "UI"
             },
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
@@ -150,6 +150,7 @@
                 "GodMode": false,
                 "IsFacingRight": true,
                 "JumpSpeed": 120.0,
+                "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
