@@ -45,6 +45,8 @@ namespace Object
         public Vector2 spawnPosition;
         public Vector2 colliderPosition;
 
+        public bool KeyCollected = false;
+
         private Vector2 playerHead;
         private float temp_dt = 0f;
         private bool isPaused = false;

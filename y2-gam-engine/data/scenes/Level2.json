@@ -168,6 +168,7 @@
                 "GodMode": false,
                 "IsFacingRight": false,
                 "JumpSpeed": 120.0,
+                "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
@@ -3214,7 +3215,7 @@
             "Collider": {
                 "collider": 0,
                 "posX": -857.5,
-                "posY": -106.0,
+                "posY": -106.5,
                 "rotation": 0.0,
                 "dimX": 20.0,
                 "dimY": 14.0
@@ -3248,7 +3249,7 @@
             },
             "Transform": {
                 "posX": -857.5,
-                "posY": -106.0,
+                "posY": -106.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3649,11 +3650,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 764.5,
-                "posY": 61.5,
+                "posX": 764.0,
+                "posY": 66.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
-                "dimY": 7.0
+                "dimY": 15.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3677,20 +3678,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953109425167700
+                "assetID": 1698953133123376400
             },
             "Tag": {
-                "Tag": "Button3"
+                "Tag": "Box3"
             },
             "Transform": {
-                "posX": 764.5,
-                "posY": 61.5,
+                "posX": 764.0,
+                "posY": 66.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 15.0,
-                "scaleY": 7.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3825,7 +3826,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1698953116624829600
             },
             "Tag": {
                 "Tag": "Door1"
@@ -3853,6 +3854,14 @@
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
+            "Collider": {
+                "collider": 0,
+                "posX": 241.5,
+                "posY": 45.5,
+                "rotation": 0.0,
+                "dimX": 33.0,
+                "dimY": 72.0
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": 0.0
@@ -3868,6 +3877,11 @@
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectLockedDoor",
+                "scriptTag": "Door2",
+                "Range": 25.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -3933,7 +3947,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1698953116624829600
             },
             "Tag": {
                 "Tag": "Door3"
@@ -3991,7 +4005,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1698953116624829600
             },
             "Tag": {
                 "Tag": "Door4"
@@ -4049,7 +4063,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1698953116624829600
             },
             "Tag": {
                 "Tag": "Door5"
@@ -5126,6 +5140,152 @@
                 "rotZ": 0.0,
                 "scaleX": 30.0,
                 "scaleY": 33.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectKey",
+                "scriptTag": "Key",
+                "Range": 10.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1707445848064327100
+            },
+            "Tag": {
+                "Tag": "Key"
+            },
+            "Transform": {
+                "posX": -828.5,
+                "posY": -97.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 200.0,
+                "posY": 27.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectKey",
+                "scriptTag": "Key",
+                "Range": 10.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1707445848064327100
+            },
+            "Tag": {
+                "Tag": "Key"
+            },
+            "Transform": {
+                "posX": 665.5,
+                "posY": 87.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 816.0,
+                "posY": -247.5,
+                "rotation": 0.0,
+                "dimX": 33.0,
+                "dimY": 72.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectLockedDoor",
+                "scriptTag": "Door6",
+                "Range": 25.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1707036026741800000
+            },
+            "Tag": {
+                "Tag": "Door6"
+            },
+            "Transform": {
+                "posX": 816.0,
+                "posY": -247.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 33.0,
+                "scaleY": 72.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
