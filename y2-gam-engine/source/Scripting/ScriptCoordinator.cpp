@@ -329,6 +329,22 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetUIMousePos
+	
+	@param outMousePos
+	The mouse position.
+	
+	@return none.
+	
+	Gets the mouse pos for UI in C#.
+	*/
+	static void EngineCore_GetUIMousePos(Vec2& outMousePos) {
+		auto inputSystem{ ::gCoordinator->GetSystem<InputSystem>() };
+		Vec2 mousePos{ inputSystem->GetUIMousePos().first, inputSystem->GetUIMousePos().second };
+		outMousePos = mousePos;
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_PlayAudio
 
 	@param audioFileName
@@ -1216,6 +1232,7 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetScriptInstance);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);

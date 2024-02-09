@@ -4339,10 +4339,15 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {

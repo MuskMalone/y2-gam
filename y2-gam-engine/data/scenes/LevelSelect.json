@@ -10,7 +10,7 @@
                     1707360010272530700,
                     1707360008139696600
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 1.0,
                 "currState": 0
             },
@@ -20,7 +20,8 @@
             "Script": {
                 "scriptName": "ObjectLevelSelect",
                 "scriptTag": "Background",
-                "CurrentAnimationIndex": 0
+                "CurrentAnimationIndex": 0,
+                "LoadingScreenActive": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -127,6 +128,43 @@
                 "enabled": true,
                 "isClicked": false,
                 "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectCursor",
+                "scriptTag": "Cursor"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Cursor"
+            },
+            "Transform": {
+                "posX": 36.0,
+                "posY": 862.0,
+                "posZ": 1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": true,
+                "isHover": true
             }
         }
     ]

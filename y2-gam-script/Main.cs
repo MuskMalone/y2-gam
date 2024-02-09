@@ -82,6 +82,21 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! MousePosUI
+
+        Gets the current mouse pos.
+        */
+        public Vector2 MousePosUI
+        {
+            get
+            {
+                Vector2 mousePos = new Vector2();
+                InternalCalls.EngineCore_GetUIMousePos(ref mousePos);
+                return mousePos;
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! PlayAudio
 
         Plays any sound file loaded in the asset manager. Remember to add '.wav' to
