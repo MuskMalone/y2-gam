@@ -255,14 +255,7 @@ namespace Object
                             {
                                 Dead = true;
                             }
-                        }
-                        
-                        //if ((centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) || (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) ||
-                        //    (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike")) ||
-                        //    centreRayCast.tag == "Enemy" || leftRayCast.tag == "Enemy" || rightRayCast.tag == "Enemy")
-                        //{
-                        //    Dead = true;
-                        //}
+                        }                  
                     }
                     else if(PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
                         new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 3), entityID, out upRayCast))

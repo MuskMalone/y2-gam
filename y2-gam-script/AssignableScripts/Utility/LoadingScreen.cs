@@ -65,6 +65,7 @@ namespace Object
         {
             var rand = new Random();        
             CurrentAnimationIndex = rand.Next(0, TOTAL_LOADING_SCREENS);
+            //PlayAudio("player_hit_the_ground.wav", 0);
         }
 
         /*  _________________________________________________________________________ */

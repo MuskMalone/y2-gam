@@ -804,7 +804,7 @@
             "Transform": {
                 "posX": -112.0,
                 "posY": -504.5,
-                "posZ": 0.0,
+                "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -957,6 +957,43 @@
                 "scaleY": 300.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "UI"
+            },
+            "Script": {
+                "scriptName": "ObjectCursor",
+                "scriptTag": "Cursor"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Cursor"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]
