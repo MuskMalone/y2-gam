@@ -3244,6 +3244,7 @@
                 "layer": 2,
                 "assetID": 1698951115733834800
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Anvil"
             },
@@ -5256,7 +5257,7 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false

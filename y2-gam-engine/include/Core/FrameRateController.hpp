@@ -43,7 +43,9 @@ public:
 	inline float GetFps() { return mFps;  }
 
 	inline float GetDeltaTime() { return mDeltaTime; }
-	inline float GetTargetDT() { return mTargetDeltaTime; }
+	inline float GetTargetDT() {
+		return (isGameSlow) ? (mTargetDeltaTime * slowFactor) : mTargetDeltaTime; 
+	}
 
 	static bool GetIsGameSlow() noexcept { return isGameSlow; }
 	static void SetIsGameSlow(bool flag) noexcept { isGameSlow = flag; }
