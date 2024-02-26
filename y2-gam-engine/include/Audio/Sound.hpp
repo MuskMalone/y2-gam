@@ -4,7 +4,7 @@
 \file       Sound.hpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 21, 2023
+\date       Feb 26, 2024
 
 \brief      Header file for Audio library that wraps around FMOD.
 
@@ -25,6 +25,14 @@ namespace Image {
       bool stream;
   };
 
+  struct AudioInformation {
+    std::string audioName;
+    FMOD::Channel* audioChannel;
+    bool isPlaying;
+    Vec2 position; // To use game space coordinates
+    bool isPositional;
+  };
+
   class SoundManager{
   public:
     using SoundAssetPair = std::pair<Sound, SoundProperties>;
@@ -40,6 +48,7 @@ namespace Image {
     static void AudioPlay(Sound const& audio, SoundGroup const& group, int loops);
     static void AudioPlay(Sound const& audio, int loops);
     static void AudioPlay(std::string filename, int loops);
+    static void AudioPlayPositional(std::string filename, int loops, Vec2 position);
     static void AudioResumeGroup(SoundGroup const& group);
     static void AudioStopChannelFromFilename(std::string filename);
     static void AudioResumeChannelFromFilename(std::string filename);
@@ -67,7 +76,7 @@ namespace Image {
 
   private:
     static FMOD::System* sSystem;
-    static std::vector<std::pair<std::pair<std::string, FMOD::Channel*>, bool>> isAudioPlaying;
+    static std::vector<AudioInformation> AudioPlaying;
     static std::map<ResourceID, std::pair<Sound, SoundProperties>> _mSoundAssets;
     static std::map<std::string, ResourceID> sSoundResourceMap;
     static std::map<Sound, std::string> sGroupMap;
