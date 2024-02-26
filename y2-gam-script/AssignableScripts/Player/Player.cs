@@ -22,7 +22,7 @@ namespace Object
 {
     public class Player : Entity
     {
-        //public string Name;
+        public string Name;
         public float JumpSpeed;
         public float MovementSpeed;
         public bool IsFacingRight;
