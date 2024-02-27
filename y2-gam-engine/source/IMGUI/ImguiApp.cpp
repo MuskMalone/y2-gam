@@ -1916,6 +1916,11 @@ namespace Image {
         auto frameController = FrameRateController::GetInstance();
 
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) { 
+            //std::cout << "focus before" << mBufferFocus << std::endl;
+            mBufferFocus = true;
+            //std::cout << "focus after" << mBufferFocus << std::endl;
+            
+
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
                 CommandManager::GetInstance()->UndoCommand();
@@ -1977,7 +1982,9 @@ namespace Image {
             }
             lastMousePos = currentMousePos; 
         }
-
+        else {
+            mBufferFocus = false;
+        }
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
         }*/
