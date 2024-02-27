@@ -866,7 +866,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 2,
+                "currFrame": 0,
                 "speed": 0.12999999523162842,
                 "currState": 0
             },
@@ -1199,9 +1199,9 @@
                 "scriptTag": "Card",
                 "Alive": false,
                 "CardUIID": 93,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 2.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1494,7 +1494,8 @@
             },
             "Script": {
                 "scriptName": "ObjectDoor",
-                "scriptTag": "Door"
+                "scriptTag": "Door",
+                "buttonTag": "Button"
             },
             "Sprite": {
                 "r": 1.0,
@@ -2240,7 +2241,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementForce": 100.0,
-                "TimeInState": 0.6666666865348816,
+                "TimeInState": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
             },
@@ -2477,7 +2478,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 31.49613",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2572,8 +2573,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

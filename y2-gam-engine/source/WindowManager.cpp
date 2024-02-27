@@ -225,24 +225,28 @@ void WindowManager::MouseScrollCb(GLFWwindow* pwin, double xoffset, double yoffs
     UNREFERENCED_PARAMETER(pwin);
     UNREFERENCED_PARAMETER(xoffset);
     UNREFERENCED_PARAMETER(yoffset);
-	auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
-	std::cout << "focus" << mBufferFocus << std::endl;
 
-	if (Image::mBufferFocus) {
-		if (yoffset > 0) {
-			// Scrolling up, zoom in
-			std::cout << "scrolling in" << std::endl;
-			camera.mZoomLevel = std::min(camera.mZoomLevel + CAMERA_ZOOMSPEED * static_cast<float>(yoffset), camera.mMaxZoom);
-			camera.ZoomIn();
-		}
-		else if (yoffset < 0) {
-			// Scrolling down, zoom out
-			std::cout << "scrolling out" << std::endl;
+	Event event(Events::Window::INPUT);
+	event.SetParam(Events::Window::Input::MOUSE_SCROLL, yoffset);
+	gCoordinator->SendEvent(event);
+	//auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
+	//std::cout << "focus" << mBufferFocus << std::endl;
 
-			camera.mZoomLevel = std::max(camera.mZoomLevel - CAMERA_ZOOMSPEED * (static_cast<float>(yoffset)), camera.mMinZoom);
-			camera.ZoomOut();
-		}
-	}
+	//if (Image::mBufferFocus) {
+	//	if (yoffset > 0) {
+	//		// Scrolling up, zoom in
+	//		std::cout << "scrolling in" << std::endl;
+	//		camera.mZoomLevel = std::min(camera.mZoomLevel + CAMERA_ZOOMSPEED * static_cast<float>(yoffset), camera.mMaxZoom);
+	//		camera.ZoomIn();
+	//	}
+	//	else if (yoffset < 0) {
+	//		// Scrolling down, zoom out
+	//		std::cout << "scrolling out" << std::endl;
+
+	//		camera.mZoomLevel = std::max(camera.mZoomLevel - CAMERA_ZOOMSPEED * (static_cast<float>(yoffset)), camera.mMinZoom);
+	//		camera.ZoomOut();
+	//	}
+	//}
 #ifdef _DEBUG
     std::cout << "Mouse scroll wheel offset: ("
         << xoffset << ", " << yoffset << ")" << std::endl;

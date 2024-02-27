@@ -21,6 +21,7 @@ namespace Object
 {
     public class Door : Entity
     {
+        public string buttonTag;
         private bool previousButtonState;
         Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
         private float doorColliderYOffset = 300.0f;

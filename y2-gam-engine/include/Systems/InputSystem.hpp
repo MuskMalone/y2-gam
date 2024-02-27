@@ -24,6 +24,7 @@ public:
 	MousePosition GetSceneMousePos() const;
 	MousePosition GetUIMousePos() const;
 	EditorMousePosition GetEditorMousePos() const;
+	float GetScrollOffset() const;
 
 	void Update();
 
@@ -36,5 +37,6 @@ private:
 	MouseKeyState mMouseButtonsReleased;
 	MousePosition mMousePos;
 	EditorMousePosition mEditorMousePos;
+	float mScrollOffset;
 	void InputListener(Event& event);
 };

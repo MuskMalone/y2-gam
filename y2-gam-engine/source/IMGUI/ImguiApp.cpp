@@ -1922,11 +1922,9 @@ namespace Image {
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         auto frameController = FrameRateController::GetInstance();
 
-        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) { 
-            //std::cout << "focus before" << mBufferFocus << std::endl;
-            mBufferFocus = true;
-            //std::cout << "focus after" << mBufferFocus << std::endl;
-            
+        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+
+
 
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
@@ -1972,26 +1970,35 @@ namespace Image {
                 }
 
             }
-            
+
             GLFWcursor* handCursor = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
             GLFWcursor* arrowCursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
             ImVec2 currentMousePos = ImGui::GetMousePos();
-            static ImVec2 lastMousePos = currentMousePos; 
+            static ImVec2 lastMousePos = currentMousePos;
             if (ImGui::IsMouseDown(1)) {
-                ImVec2 mouseDelta = {currentMousePos.x - lastMousePos.x,currentMousePos.y - lastMousePos.y};
-                camera.mPos.x -= mouseDelta.x  *gSnapVal* CAMERA_MOVESPEED * dt;
+                ImVec2 mouseDelta = { currentMousePos.x - lastMousePos.x,currentMousePos.y - lastMousePos.y };
+                camera.mPos.x -= mouseDelta.x * gSnapVal * CAMERA_MOVESPEED * dt;
                 camera.mPos.y += mouseDelta.y * gSnapVal * CAMERA_MOVESPEED * dt;
                 camera.SetPosition(camera.mPos);
                 glfwSetCursor(window, handCursor);
             }
-            else if (ImGui::IsMouseReleased(1)) { 
-                glfwSetCursor(window, arrowCursor); 
+            else if (ImGui::IsMouseReleased(1)) {
+                glfwSetCursor(window, arrowCursor);
             }
-            lastMousePos = currentMousePos; 
+            lastMousePos = currentMousePos;
+            float yoffset = inputSystem->GetScrollOffset();
+            if (yoffset > 0) {
+                camera.mZoomLevel = std::max(camera.mZoomLevel - gSnapVal * CAMERA_MOVESPEED * dt, camera.mMinZoom);
+                camera.ZoomOut();
+
+            }
+            else if (yoffset < 0) {
+                camera.mZoomLevel = std::min(camera.mZoomLevel + gSnapVal * CAMERA_MOVESPEED * dt, camera.mMaxZoom);
+                camera.ZoomIn();
+
+            }
         }
-        else {
-            mBufferFocus = false;
-        }
+
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
         }*/
