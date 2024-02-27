@@ -74,6 +74,26 @@ namespace Image {
       SetFieldValueWithNameInternal(fieldName, (void*)&val);
     }
 
+    // For Strings
+    inline MonoString* GetFieldValueFromStringName(std::string const& fieldName) {
+      auto const& fields{ mScriptClass.GetFieldNameToTypeMap() };     
+      for (std::pair<std::string, Image::Field> val : fields) {
+        if (val.first == fieldName) {
+          Field const& field{ val.second };
+          MonoString* monoStr = nullptr;
+          mono_field_get_value(mInstance, field.classField, &monoStr);
+          std::string test{ mono_string_to_utf8(monoStr) };
+          return monoStr;
+        }
+      }
+
+      return nullptr;
+    }
+
+    inline void SetFieldValueWithStringName(std::string const& fieldName, MonoString* val) {
+      SetFieldValueWithNameInternal(fieldName, reinterpret_cast<void*>(val));
+    }
+
     MonoObject* GetMonoInstanceObject() { return mInstance; }
 
   private:

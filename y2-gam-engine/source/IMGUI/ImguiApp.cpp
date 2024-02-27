@@ -1198,23 +1198,30 @@ namespace Image {
                       }
 
                       case Image::FieldType::String: {
-                        char* str{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
-
-                        std::string dataString{ str };
+                        MonoString* str{ scriptInstance.GetFieldValueFromStringName(val.first) };
+                        std::string dataString;
+                        if (str) {
+                          dataString = std::string(mono_string_to_utf8(str));
+                        }
+                        
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
                         bool confirmOnEnter = false;
                         char inputBuffer[256] = "";
-                        ImGui::InputText(dataString.c_str(), inputBuffer, sizeof(inputBuffer));
+                        strcpy(inputBuffer, dataString.c_str());
+                        ImGui::PushItemWidth(200);
+                        ImGui::InputText("##StringLabel", inputBuffer, sizeof(inputBuffer));
+                        ImGui::PopItemWidth();
+                        ImGui::SameLine();
                         ImGui::Text(val.first.c_str());
 
-                        if (ImGui::IsItemActive() && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
+                        if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
                           confirmOnEnter = true;
                         }
 
                         if (confirmOnEnter) {
                           std::string dataString1{ inputBuffer };
                           MonoString* monoString = mono_string_new(mono_domain_get(), dataString1.c_str());
-                          scriptInstance.SetFieldValueWithName(val.first, &monoString);
+                          scriptInstance.SetFieldValueWithStringName(val.first, monoString);
                           confirmOnEnter = false;
                         }
                         break;
