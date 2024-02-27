@@ -348,15 +348,50 @@ namespace Image {
 	/*! EngineCore_PlayAudio
 
 	@param audioFileName
+	Name of audio file.
+
+	@param loopCount
+	The number of loops the audio will be played for.
 
 	@return none.
 
-	Plays audio.
+	Plays audio. To use if positional audio does not matter.
 	*/
 	static void EngineCore_PlayAudio(MonoString* audioFileName, int& loopCount) {
 		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
 			SoundManager::AudioPlay(utf8Str, loopCount);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PlayPositionalAudio
+
+	@param audioFileName
+	Name of audio file.
+
+	@param loopCount
+	The number of loops the audio will be played for.
+
+	@param pos
+	The position the audio will be played from.
+
+	@return none.
+
+	Plays audio. Specifically for positional audio.
+	*/
+	static void EngineCore_PlayPositionalAudio(MonoString* audioFileName, int& loopCount, Vec2& pos) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPlayPositional(utf8Str, loopCount, pos);
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -1248,6 +1283,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);

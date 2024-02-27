@@ -22,11 +22,9 @@ namespace Object
 {
     public class Player : Entity
     {
-        public string Name;
         public float JumpSpeed;
         public float MovementSpeed;
         public bool IsFacingRight;
-        //public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
@@ -57,7 +55,6 @@ namespace Object
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         bool resetAnimationState = true;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
         private bool _isFacingRight;
