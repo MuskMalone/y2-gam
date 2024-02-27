@@ -271,7 +271,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 				isEditor = !isEditor;
 			}
 			if (isEditor) {
-				imguiSystem->Update(tdt);
+				imguiSystem->Update(tdt,windowManager->GetContext());
 				renderSystem->CheckAssetValidity();
 				animationSystem->CheckAssetValidity();
 			}

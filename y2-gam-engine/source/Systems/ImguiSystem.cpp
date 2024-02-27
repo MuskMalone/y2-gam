@@ -110,7 +110,7 @@ ImFont* mainfont = nullptr;
     This function handles input events, starts the ImGui frame, renders the 
     application GUI, and updates platform windows.
     */
-    void ImGuiSystem::Update(float dt){
+    void ImGuiSystem::Update(float dt, GLFWwindow* window){
 
         ImGuiIO& io = ImGui::GetIO();
         // Start the Dear ImGui frame
@@ -118,7 +118,7 @@ ImFont* mainfont = nullptr;
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         ImGuizmo::BeginFrame();
-        Image::AppRender(mEntities,dt);
+        Image::AppRender(mEntities,dt,window);
 
         int width, height;
         glfwGetFramebufferSize(glfwGetCurrentContext(), &width, &height);

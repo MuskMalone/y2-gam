@@ -32,7 +32,7 @@ class ImGuiSystem : public System
 public:
 
     void Init(GLFWwindow* window);
-    void Update(float dt);
+    void Update(float dt, GLFWwindow* window);
     void Destroy();
 
 private:
