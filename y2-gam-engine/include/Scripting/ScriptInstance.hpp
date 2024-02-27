@@ -82,7 +82,6 @@ namespace Image {
           Field const& field{ val.second };
           MonoString* monoStr = nullptr;
           mono_field_get_value(mInstance, field.classField, &monoStr);
-          std::string test{ mono_string_to_utf8(monoStr) };
           return monoStr;
         }
       }

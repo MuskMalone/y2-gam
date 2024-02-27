@@ -378,12 +378,14 @@ namespace Image {
     SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
 
     bool found = false;
-    for (AudioInformation& pair : AudioPlaying) {
-      if (pair.audioName == filename) {
+    for (AudioInformation& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
         found = true;
-        pair.isPlaying = true;
-        result = sSystem->playSound(audio, group, false, &pair.audioChannel);
-        pair.audioChannel->setCallback(OnSoundFinished);
+        ai.isPlaying = true;
+        ai.isPositional = false;
+        ai.position = Vec2(-1.f, -1.f);
+        result = sSystem->playSound(audio, group, false, &ai.audioChannel);
+        ai.audioChannel->setCallback(OnSoundFinished);
         break;
       }
     }
@@ -398,6 +400,8 @@ namespace Image {
       ai.audioName = filename;
       ai.audioChannel = channel;
       ai.isPlaying = true;
+      ai.isPositional = false;
+      ai.position = Vec2(-1.f, -1.f);
       AudioPlaying.push_back(ai);
     }
 
@@ -436,7 +440,67 @@ namespace Image {
   to AudioPlay.
   */
   void SoundManager::AudioPlayPositional(std::string filename, int loops, Vec2 position) {
+    // Prevent stacking of audio that is already playing
+    for (AudioInformation& pair : AudioPlaying) {
+      if (pair.audioName == filename && pair.isPlaying) {
+        return;
+      }
+    }
 
+    Sound const& audio{ GetAsset(GetResourceID(filename)) };
+    FMOD_RESULT result;
+    result = audio->setLoopCount(loops);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
+    }
+#endif
+
+    auto am{ AssetManager::GetInstance() };
+    SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
+
+    bool found = false;
+    for (AudioInformation& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
+        found = true;
+        ai.isPlaying = true;
+        result = sSystem->playSound(audio, group, false, &ai.audioChannel);
+        ai.audioChannel->setCallback(OnSoundFinished);
+        ai.isPositional = true;
+        ai.position = position;
+        break;
+      }
+    }
+
+    if (!found) {
+      FMOD::Channel* channel{ nullptr };
+      result = sSystem->playSound(audio, group, false, &channel);
+
+      // Register the callback for when the sound finishes playing
+      result = channel->setCallback(OnSoundFinished);
+      AudioInformation ai{};
+      ai.audioName = filename;
+      ai.audioChannel = channel;
+      ai.isPlaying = true;
+      ai.isPositional = true;
+      ai.position = position;
+      AudioPlaying.push_back(ai);
+    }
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
+    }
+#endif
   }
 
   /*  _________________________________________________________________________ */

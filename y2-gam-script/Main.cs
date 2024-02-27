@@ -108,6 +108,17 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! PlayPositionalAudio
+
+        Plays any sound file loaded in the asset manager. Remember to add '.wav' to
+        the end of the audioFileName. Uses positional audio.
+        */
+        public void PlayPositionalAudio(string audioFileName, int loopCount, Vector2 pos)
+        {
+            InternalCalls.EngineCore_PlayPositionalAudio(audioFileName, ref loopCount, ref pos);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! StopAudio
 
         Stops the current bgm.

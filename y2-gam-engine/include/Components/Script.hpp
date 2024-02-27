@@ -261,9 +261,13 @@ struct Script {
           std::string strValue;
           if (dataString) {
             strValue = std::string(mono_string_to_utf8(dataString));
+            sm->InsertValue(obj, val.first, strValue);
+          }
+
+          else {
+            sm->InsertValue(obj, val.first, "");
           }
           
-          sm->InsertValue(obj, val.first, strValue);
           break;
         }
         }

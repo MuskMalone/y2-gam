@@ -148,6 +148,7 @@
                 "scriptTag": "Player",
                 "Dead": false,
                 "GodMode": false,
+                "Hello": "",
                 "IsFacingRight": true,
                 "JumpSpeed": 120.0,
                 "KeyCollected": false,
@@ -155,7 +156,6 @@
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
-                "Name": "Hello",
                 "PlayAppearAnimation": false,
                 "PlayAppearTimer": 0.0,
                 "PlayDeathAnimHowLongAfter": 0.30000001192092896,
@@ -655,7 +655,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1464,7 +1464,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
