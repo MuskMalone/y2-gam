@@ -4,7 +4,7 @@
 \file       Box.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 27, 2024
+\date       Feb 28, 2024
 
 \brief      Script for handling box animations and sounds.
 
@@ -20,6 +20,15 @@ namespace Object
 {
     public class Box : Entity
     {
+        private bool wasScaffoldingCollided = true;
+        private bool wasWoodCollided = true;
+
+        public int WoodAudioIncrement = 1;
+        public int MAX_WOOD_AUDIO_FILES = 4;
+
+        public int ScaffoldingAudioIncrement = 1;
+        public int MAX_SCAFFOLDING_AUDIO_FILES = 2;
+
         /*  _________________________________________________________________________ */
         /*! Box
 
@@ -72,7 +81,35 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            bool isScaffoldingCollided = PhysicsWrapper.IsCollidedWithLayer(entityID, "Scaffolding");
 
+            if (!wasScaffoldingCollided && isScaffoldingCollided)
+            {
+                PlayPositionalAudio("BoxDropScaffolding_" + ScaffoldingAudioIncrement + ".wav", 0, Translation);
+
+                ScaffoldingAudioIncrement++;
+                if (ScaffoldingAudioIncrement > MAX_SCAFFOLDING_AUDIO_FILES)
+                {
+                    ScaffoldingAudioIncrement = 1;
+                }
+            }
+
+            wasScaffoldingCollided = isScaffoldingCollided;
+
+            bool isWoodCollided = PhysicsWrapper.IsCollidedWithLayer(entityID, "Platform");
+
+            if (!wasWoodCollided && isWoodCollided)
+            {
+                PlayPositionalAudio("BoxDropWood_" + WoodAudioIncrement + ".wav", 0, Translation);
+
+                WoodAudioIncrement++;
+                if (WoodAudioIncrement > MAX_WOOD_AUDIO_FILES)
+                {
+                    WoodAudioIncrement = 1;
+                }
+            }
+
+            wasWoodCollided = isWoodCollided;
         }
 
         /*  _________________________________________________________________________ */

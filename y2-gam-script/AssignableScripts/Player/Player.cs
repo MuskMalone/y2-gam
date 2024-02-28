@@ -46,7 +46,6 @@ namespace Object
         public bool KeyCollected = false;
 
         private Vector2 playerHead;
-        private float temp_dt = 0f;
         private bool isPaused = false;
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
@@ -179,8 +178,6 @@ namespace Object
                 if (!isPaused)
                 {
                     //PauseGame();
-                    temp_dt = dt;
-                    dt = 0f;
                     isPaused = true;
                 }
                 else

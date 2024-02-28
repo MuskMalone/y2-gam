@@ -638,7 +638,9 @@ namespace Image {
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_Collided
 
-	@param 
+	@param entityID
+
+	@param collidedOrNot
 
 	@return none.
 
@@ -654,7 +656,11 @@ namespace Image {
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_CollidedEntity
 
-	@param
+	@param lhsEntityID
+
+	@param rhsEntityID
+
+	@param collidedOrNot
 
 	@return none.
 
@@ -664,6 +670,35 @@ namespace Image {
 	static void PhysicsComponent_CollidedEntity(uint32_t& lhsEntityID, uint32_t& rhsEntityID, bool& collidedOrNot) {
 		bool isCollided{ Physics::IsCollided(lhsEntityID, rhsEntityID) };
 		collidedOrNot = isCollided;
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_CollidedLayer
+
+	@param
+
+	@return none.
+
+	Get the collided information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_CollidedLayer(uint32_t& entityID, MonoString* layer, bool& collidedOrNot) {
+		const char* utf8Str = (layer != nullptr) ? mono_string_to_utf8(layer) : nullptr;
+		if (utf8Str != nullptr) {
+			auto vec{ Physics::IsCollided(entityID) };
+			for (Arbiter const& arb : vec) {
+				if (gCoordinator->HasComponent<Layering>(arb.b2)) {
+					if (gCoordinator->GetComponent<Layering>(arb.b2).assignedLayer == utf8Str) {
+						collidedOrNot = true;
+						mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+						return;
+					}
+				}
+			}
+
+			collidedOrNot = false;
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
 	}
 
 	/*  _________________________________________________________________________ */
@@ -1301,6 +1336,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedEntity);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedLayer);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);

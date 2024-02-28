@@ -4,7 +4,7 @@
 \file       Anvil.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 27, 2024
+\date       Feb 28, 2024
 
 \brief      Script for handling Anvil animations and sounds.
 
@@ -20,6 +20,8 @@ namespace Object
 {
     public class Anvil : Entity
     {
+        private bool wasCollided = true;
+
         /*  _________________________________________________________________________ */
         /*! Anvil
 
@@ -72,7 +74,14 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            bool isCollided = PhysicsWrapper.IsCollidedWithAnything(entityID);
 
+            if (!wasCollided && isCollided)
+            {
+                PlayPositionalAudio("anvil_drop.wav", 0, Translation);
+            }
+
+            wasCollided = isCollided;
         }
 
         /*  _________________________________________________________________________ */
