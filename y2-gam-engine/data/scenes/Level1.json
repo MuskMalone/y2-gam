@@ -148,7 +148,6 @@
                 "scriptTag": "Player",
                 "Dead": false,
                 "GodMode": false,
-                "Hello": "",
                 "IsFacingRight": true,
                 "JumpSpeed": 120.0,
                 "KeyCollected": false,
@@ -655,7 +654,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1464,7 +1463,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2573,8 +2572,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
             }
         }
     ]
