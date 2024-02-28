@@ -4,7 +4,7 @@
 \file       InternalCalls.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Dec 26, 2023
+\date       Feb 27, 2024
 
 \brief      All C# internal calls go here, where information from CPP code 
             can be accessed in C#, and vice versa
@@ -73,10 +73,27 @@ namespace Image
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+
+        internal extern static void EngineCore_GetUIMousePos(ref Vector2 outMousePos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PlayPositionalAudio(String audioFileName, ref int loopCount,
+            ref Vector2 audioPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_StopAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_ResumeAudioWithFilename(String audioFileName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PauseAudioWithFilename(String audioFileName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_LoadScene(String sceneName);
@@ -95,6 +112,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_Quit();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static float EngineCore_GetFPS();
         #endregion
 
         #region Pathfinding
@@ -106,10 +126,14 @@ namespace Image
         #region Physics
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetRaycast(ref Vector2 origin, ref Vector2 end, ref uint optionalEntityID,
-           ref bool hit, ref uint entityHandle, String tag, String layer);
+           ref bool hit, ref uint entityHandle, out String tag, out String layer);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_Collided(ref uint entityHandle, ref bool collidedOrNot);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_CollidedEntity(ref uint lhsEntityHandle, ref uint rhsEntityHandle,
+            ref bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, ref Vector2 dim);
@@ -151,6 +175,10 @@ namespace Image
         #endregion
 
         #region Graphics
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void AnimationComponent_ResetAnimationState(ref uint entityHandle);
+
         /*  _________________________________________________________________________ */
         /*! AnimationComponent_GetAnimationState
 
@@ -263,8 +291,34 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetRotation(ref uint entityHandle, ref Vector3 rotation);
 
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetColour
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param colour
+        Colour of the entity.
+
+        @return none.
+
+        Set the current colour of the entity in C#.
+        */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetColour(ref uint entityHandle, ref Vector4 colour);
+
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetZoom
+
+        @param val
+        value to zoom
+
+        @return none.
+
+        Set the current zoom level of the player in C#.
+        */
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void GraphicsComponent_SetZoom(float val);
         #endregion
 
         #region Transform
@@ -299,6 +353,12 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void TransformComponent_SetTranslation(ref uint entityHandle, ref Vector2 translation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_GetRotation(ref uint entityHandle, ref float rotation);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void TransformComponent_SetRotation(ref uint entityHandle, ref float rotation);
         #endregion
 
         #region Force

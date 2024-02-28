@@ -32,7 +32,7 @@ public:
 
 	void Init(int fps, bool vsync);
 	void StartFrameTime();
-	float EndFrameTime();
+	float EndFrameTime(bool updateDt = false);
 
 	void AccumulateDt();
 
@@ -41,8 +41,11 @@ public:
 	float GetProfilerValue(size_t key);
 	void ScaleDeltaTime(float factor);
 	inline float GetFps() { return mFps;  }
+
 	inline float GetDeltaTime() { return mDeltaTime; }
-	inline float GetTargetDT() { return mTargetDeltaTime; }
+	inline float GetTargetDT() {
+		return (isGameSlow) ? (mTargetDeltaTime * slowFactor) : mTargetDeltaTime; 
+	}
 
 	static bool GetIsGameSlow() noexcept { return isGameSlow; }
 	static void SetIsGameSlow(bool flag) noexcept { isGameSlow = flag; }

@@ -73,10 +73,18 @@ public:
 		auto key{ std::to_string(aid) };
 		if (!sm->At(cmFileName, sysKey).IsObject()) return static_cast<AssetID>(-1);
 		if (!sm->At(cmFileName, sysKey)[key.c_str()].IsObject()) return static_cast<AssetID>(-1);
-
+		//the field "id" inside this json obj refers to the rid
 		_system::LoadAsset(sm->At(cmFileName, sysKey)[key.c_str()]);
 		return aid;
 	}
+	template <typename _system>
+	void UnloadAsset(Asset asset) {
+		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+		using namespace Serializer;
+
+		_system::UnloadAsset(asset);
+	}
+
 	template <typename _system>
 	AssetID ChangeAssetResource(AssetID aid, std::string const& path) {
 
@@ -165,10 +173,36 @@ public:
 		LoadAsset<_system>(key);
 		return key;
 	}
+	template <typename _system>
+	AssetID DeleteAsset(AssetID aid) {
+		std::shared_ptr< Serializer::SerializationManager> sm {Serializer::SerializationManager::GetInstance()};
+		using namespace Serializer;
 
+		auto type{ rttr::type::get<_system>() };
+		auto const& sysKey{ type.get_name().to_string() }; //gets name of _system type
+		AssetID key{ aid };
+		auto keyStr{ std::to_string(key) };
+
+		if (sm->GetDoc(cmFileName).HasMember(sysKey.c_str()) &&
+			sm->GetDoc(cmFileName)[sysKey.c_str()].HasMember(keyStr.c_str())) {
+			
+			std::cout << "deleting asset " << aid << std::endl;
+			sm->GetDoc(cmFileName)[sysKey.c_str()].RemoveMember(keyStr.c_str());
+
+			if (mAssets.find(key) != mAssets.end()) {
+				UnloadAsset<_system>(mAssets[key]);
+				mAssets.erase(key);
+			}
+
+		}
+		
+		return aid;
+	}
+
+	bool IsAssetExist(AssetID aid) { return (mAssets.find(aid) != mAssets.end()); }
 	
 private:
 	std::map<AssetID, Asset> mAssets;
-	char const* const cmFileName {"Assets"};
+	char const* const cmFileName {"assets"};
 	static std::shared_ptr<AssetManager> _mSelf;
 };

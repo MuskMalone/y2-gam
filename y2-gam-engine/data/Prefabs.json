@@ -1,3 +1,87 @@
 {
-    "Prefabs": {}
+    "Prefabs": {
+        "Box": {
+            "Animation": {
+                "states": [
+                    1707017805757956700
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "rotation": 0.0,
+                "dimX": 100.0,
+                "dimY": 100.0
+            },
+            "Layering": {
+                "layering": "#####"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 75.83329772949219,
+                "scaleY": 75.83329772949219,
+                "scaleZ": 1.0,
+                "elipse": false
+            }
+        },
+        "Cursor": {
+            "Layering": {
+                "layering": "#####"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Entity 67"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        }
+    }
 }

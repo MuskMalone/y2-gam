@@ -53,6 +53,8 @@ public:
 	bool GetDebugMode() const { return mDebugMode; };
 	bool IsEditorMode()const;
 	static void DebugRay(Event& event);
+	void CheckAssetValidity();
+	void SetSceneCameraZoom(float zoom);
 
 private:
 	bool mDebugMode{ false };

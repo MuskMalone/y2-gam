@@ -22,9 +22,6 @@ namespace Image
     [StructLayout(LayoutKind.Sequential)]
     public struct RaycastHit
     {
-        //public Vector2 normal;
-        //public Vector2 point;
-        //public float distance;
         public uint id;
         public string tag;
         public string layer;
@@ -37,15 +34,22 @@ namespace Image
             InternalCalls.PhysicsComponent_Collided(ref entityID, ref isCollided);
             return isCollided;
         }
+
+        public static bool IsCollidedEntity(uint lhsEntityID, uint rhsEntityID)
+        {
+            bool isCollided = false;
+            InternalCalls.PhysicsComponent_CollidedEntity(ref lhsEntityID, ref rhsEntityID, ref isCollided);
+            return isCollided;
+        }
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {
             bool hit = false;
             uint entID = 0;
-            String tagString = "";
-            String layerString = "";
+            //string tagString = "";
+            //string layerString = "";
 
             InternalCalls.PhysicsComponent_GetRaycast(ref origin, ref end, ref optionalEntityID,
-                ref hit, ref entID, tagString, layerString);
+                ref hit, ref entID, out String tagString, out String layerString);
             
             if (hit)
             {

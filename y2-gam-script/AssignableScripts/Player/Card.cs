@@ -22,6 +22,9 @@ namespace Object
 {
     public class Card : Entity
     {
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
         private Vector2 direction;
         public float timeAlive = 0.0f;
         public bool Alive = false;
@@ -49,11 +52,9 @@ namespace Object
             }
         }
 
-        Vector2 temp_pos;
-        Vector2 temp_Force;
-        Vector2 temp_velocity;
         float temp_dt = 0f;
         bool isPaused = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public bool HoveringChanged { get; private set; }
 
         private List<string> CardSwapAudio = new List<string>();
@@ -99,7 +100,7 @@ namespace Object
         void OnCreate()
         {
             Hovering = false;
-            ResetCardPos();
+            Alive = false;
 
             CardSwapAudio.Add("Card-Swap_SFX_1.wav");
             CardSwapAudio.Add("Card-Swap_SFX_2.wav");
@@ -122,31 +123,38 @@ namespace Object
         {
             if (firstTime)
             {
+                Velocity = new Vector2(0.0f, 0.0f);
                 CardUIID = GameplayWrapper.GetIDFromTag("CardUI");
                 CardUIMaxScale = GetScaleFromEntity(CardUIID);
                 firstTime = false;
+                ResetCardPos();
+            }
+
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
             }
 
             if (isPaused)
             {
-                dt = temp_dt;
-                PauseGame();
+                dt = 0f;
+                //PauseGame();
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
                     //resume game
-                    ResumeGame();
-                    //dt = temp_dt;
+                    //ResumeGame();
+                    dt = temp_dt;
                     isPaused = false;
                 }
                 //firstTime = false;
@@ -169,36 +177,57 @@ namespace Object
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
-                        ResetColour(HoveredID);
+                        //ResetColour(HoveredID);
                         ResetCardUI();
                     }
 
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    /*
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
                         PlayAudio("out_of_cards.wav", 0);
                     }
+                    */
 
                     // Swap Related
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
+                    if(Input.IsKeyClicked(KeyCode.KEY_Q))
+                    {
+                        timeAlive = 0.0f;
+                        ResetCardUI();
+                        GameplayWrapper.Swap(entityID, player.entityID);
+                        player.PlayAppearAnimation = true;
+                        CardSwapAudioCounter++;
+                        if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                        {
+                            CardSwapAudioCounter = 0;
+                        }
+                        PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                        ResetCardPos();
+                    }
+
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
                     {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
-                            if (GameplayWrapper.IsSwappable(swapRayCast.id))
+                            if (swapRayCast.id != player.entityID)
                             {
-                                timeAlive = 0.0f;
-                                ResetCardUI();
-
-                                GameplayWrapper.Swap(entityID, swapRayCast.id);
-
-                                CardSwapAudioCounter++;
-                                if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                if (GameplayWrapper.IsSwappable(swapRayCast.id))
                                 {
-                                    CardSwapAudioCounter = 0;
-                                }
-                                PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                                    timeAlive = 0.0f;
+                                    ResetCardUI();
 
-                                ResetCardPos();
-                                ResetColour(swapRayCast.id);
+                                    GameplayWrapper.Swap(entityID, swapRayCast.id);
+
+                                    CardSwapAudioCounter++;
+                                    if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                                    {
+                                        CardSwapAudioCounter = 0;
+                                    }
+                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+
+                                    ResetCardPos();
+                                    //ResetColour(swapRayCast.id);
+                                }
                             }
                         }
                     }
@@ -208,13 +237,14 @@ namespace Object
                     {
                         Hovering = true;
 
-                        if (HoveredID != mouseRayCast.id)
-                        {
-                            ResetColour(HoveredID);
-                        }
+                        //if (HoveredID != mouseRayCast.id)
+                        //{
+                            //ResetColour(HoveredID);
+                        //}
 
                         HoveredID = mouseRayCast.id;
 
+                        /*
                         if (GameplayWrapper.IsSwappable(mouseRayCast.id))
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
@@ -224,6 +254,7 @@ namespace Object
                         {
                             SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
                         }
+                        */
                     }
 
                     else
@@ -231,10 +262,10 @@ namespace Object
                         Hovering = false;
                     }
 
-                    if (HoveringChanged && !Hovering)
-                    {
-                        ResetColour(HoveredID);
-                    }
+                    //if (HoveringChanged && !Hovering)
+                    //{
+                        //ResetColour(HoveredID);
+                    //}
 
                     /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))
@@ -246,7 +277,7 @@ namespace Object
 
                 else
                 {
-                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
                         FireCard();
                     }
@@ -266,26 +297,23 @@ namespace Object
 
         }
 
-        void PauseGame()
-        {
-            //pause the game
-            temp_Force = Force;
-            temp_pos = Translation;
-            temp_velocity = Velocity;
-            //temp_AnimationState = AnimationState;
-            Force = new Vector2(0, 0);
-            Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-            Velocity = new Vector2(0, 0);
-            //AnimationState = temp_AnimationState;
-        }
+        //void PauseGame()
+        //{
+        //    //temp_Force = Force;
+        //    //temp_pos = Translation;
+        //    //temp_velocity = Velocity;
+        //    //Force = new Vector2(0, 0);
+        //    //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
+        //    //Velocity = new Vector2(0, 0);
+        //}
 
-        void ResumeGame()
-        {
-            Force = temp_Force * temp_dt;
-            Translation = temp_pos;
-            Velocity = temp_velocity * temp_dt;
-            //AnimationState = temp_AnimationState;
-        }
+        //void ResumeGame()
+        //{
+        //    //Force = temp_Force * temp_dt;
+        //    //Translation = temp_pos;
+        //    //Velocity = temp_velocity * temp_dt;
+        //    //AnimationState = temp_AnimationState;
+        //}
         void ResetColour(uint id)
         {
             SetEntityColour(id, new Vector4(1, 1, 1, 1));
@@ -293,19 +321,18 @@ namespace Object
 
         void ResetCardUI()
         {
-            Console.WriteLine("Reset Card UI");
             SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
             SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
 
         void ResetCardPos()
         {
-            Translation = new Vector2(9999, 9999);
-            Collider = new Vector2(9999, 9999);
+            Velocity = new Vector2(0, 0);         
+            Translation = new Vector2(99999, 99999);
+            Collider = new Vector2(99999, 99999);
             Colour = new Vector4(1, 1, 1, 0);
             timeAlive = 0.0f;
-            Alive = false;
-            Velocity = new Vector2(0, 0);
+            Alive = false;         
         }
 
         void FireCard()

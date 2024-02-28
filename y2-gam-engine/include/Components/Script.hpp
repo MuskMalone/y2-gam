@@ -23,6 +23,12 @@
 #include "Scripting/ScriptManager.hpp"
 #include "Scripting/ScriptInstance.hpp"
 #include "Components/Tag.hpp"
+#include "Math/MathUtils.h"
+#include "mono/jit/jit.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "basetsd.h"
+
 
 struct Script {
   std::string name;
@@ -137,6 +143,13 @@ struct Script {
           scriptInstance.SetFieldValueWithName(val.first, dataEntity);
           break;
         }
+
+        case Image::FieldType::String: {
+          std::string dataString{ static_cast<std::string>(obj[val.first.c_str()].GetString()) };
+          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
+          scriptInstance.SetFieldValueWithStringName(val.first, monoString);
+          break;
+        }
         }
       }
     }
@@ -144,7 +157,6 @@ struct Script {
 
 	bool Serialize(rapidjson::Value& obj) {
 		std::shared_ptr<Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
-
 		sm->InsertValue(obj, "scriptName", name);
 		sm->InsertValue(obj, "scriptTag", scriptTagged);
 
@@ -241,6 +253,21 @@ struct Script {
         case Image::FieldType::Entity: {
           Entity dataEntity{ scriptInstance.GetFieldValueFromName<Entity>(val.first) };
           sm->InsertValue(obj, val.first, dataEntity);
+          break;
+        }
+
+        case Image::FieldType::String: {
+          MonoString* dataString{ scriptInstance.GetFieldValueFromStringName(val.first) };
+          std::string strValue;
+          if (dataString) {
+            strValue = std::string(mono_string_to_utf8(dataString));
+            sm->InsertValue(obj, val.first, strValue);
+          }
+
+          else {
+            sm->InsertValue(obj, val.first, "");
+          }
+          
           break;
         }
         }

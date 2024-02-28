@@ -58,12 +58,23 @@ namespace Serializer {
 	Creates empty JSON file at path or opens an existing one.
 	*/
 	std::ifstream& SerializationManager::CreateJSON(std::ifstream& ifs, std::string const& p) {
-		ifs.open(p);
+		try {
+			std::cout << p << std::endl;
+			ifs.imbue(std::locale("C")); // or another appropriate locale
+			ifs.open(p);
+		}
+		catch (std::exception const& e) {
+			std::cout << e.what();
+		}
+
 		if (ifs.is_open()) return ifs;
+		if (!ifs.is_open()) throw std::runtime_error("cant open json\n");
 
 		//creates an empty file
 		std::ofstream ofs{p};
+		ofs.imbue(std::locale("C"));
 		ofs.close();
+		ofs.imbue(std::locale("C"));
 		ifs.open(p);
 		return ifs;
 	}
@@ -120,7 +131,9 @@ namespace Serializer {
 		if (mDocumentMap.find(path) != mDocumentMap.end()) 
 			return (mDocumentMap[path].IsObject());
 		std::ifstream jsonFile{};
+
 		CreateJSON(jsonFile, path);
+
 		std::stringstream buffer;
 		buffer << jsonFile.rdbuf();
 		mDocumentMap[path].Parse(buffer.str().c_str());
@@ -143,7 +156,9 @@ namespace Serializer {
 	bool SerializationManager::FlushJSON(std::string const& name) {
 		path = mPath + name + mExt;
 		if (mDocumentMap.find(path) == mDocumentMap.end()) return false;
-		std::ofstream jsonFile{path};
+		std::ofstream jsonFile{};
+		jsonFile.imbue(std::locale(""));
+		jsonFile.open(path);
 		if (!jsonFile.is_open()) return false;
 		rapidjson::StringBuffer strbuf;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(strbuf);

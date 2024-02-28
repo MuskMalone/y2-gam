@@ -180,7 +180,25 @@ ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
 
     return key;
 }
+void SpriteManager::UnloadAsset(AssetManager::Asset const& asset) {
+    UnloadSprite(asset.resourceId);
 
+    //if rid is found in sSpriteResourceMap
+
+    // Use std::find_if to find the item
+    auto it = std::find_if(sSpriteResourceMap.begin(), sSpriteResourceMap.end(), [&](const auto& pair) {
+        return pair.second == asset.resourceId;
+    });
+
+    // Check if the element was found and delete it
+    if (it != sSpriteResourceMap.end()) {
+        //std::cout << "Deleting the element with key: " << it->first << " and value: " << it->second.dataMember << std::endl;
+        sSpriteResourceMap.erase(it); // Erase the found element
+    }
+    else {
+        std::cout << "Element not found." << std::endl;
+    }
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Saves the sprite properties to a JSON object.
@@ -196,7 +214,7 @@ The JSON object where the sprite properties will be saved.
 
 This function serializes the sprite properties and saves them to a specified JSON object.
 */
-void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rapidjson::Value& obj) {
+void SpriteManager::SaveAsset(AssetID rid, SpriteProperties const& props, rapidjson::Value& obj) {
     auto sm{ Serializer::SerializationManager::GetInstance() };
 
     sm->ModifyValue(obj, "idxX", props.idx.x);
@@ -204,6 +222,8 @@ void SpriteManager::SaveAsset(ResourceID rid, SpriteProperties const& props, rap
 
     sm->ModifyValue(obj, "dimX", props.dim.x);
     sm->ModifyValue(obj, "dimY", props.dim.y);
+
+    GetSprite(props.id)->SetTexCoords(props);
 }
 
 /*  _________________________________________________________________________ */

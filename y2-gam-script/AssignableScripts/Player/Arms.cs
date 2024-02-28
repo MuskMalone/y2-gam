@@ -21,11 +21,12 @@ namespace Object
 {
     public class Arms : Entity
     {
-        private float timeAlive = 0.0f;
-        private float MAX_TIME_ALIVE = 0.5f;
-        private float lengthOfArm = 2.0f;
+        public float timeAlive = 0.0f;
+        public float MAX_TIME_ALIVE;
+        public float lengthOfArm;
         private float offsetAwayFromBody = -10.0f;
-        private bool cardFired = false;
+        public bool alive = false;
+        bool resetAnimationState = true;
 
         private bool _isFacingRight;
         public bool isFacingRight
@@ -79,6 +80,7 @@ namespace Object
         void OnCreate()
         {
             Colour = new Vector4(1, 1, 1, 0);
+            Scale = new Vector3(30, 30, 1);
         }
 
         /*  _________________________________________________________________________ */
@@ -93,13 +95,36 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+            if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
             {
-                cardFired = true;
-            }
+                alive = true;
 
-            if (cardFired)
+                isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
+
+                if (FacingDirectionChanged)
+                {
+                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                    FacingDirectionChanged = false; // Reset the flag
+                    offsetAwayFromBody = -offsetAwayFromBody;
+                }
+
+                float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
+                MousePos.X - GameplayWrapper.PlayerPos.X);
+
+                Vector2 armPosition = GameplayWrapper.PlayerPos
+                    + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
+
+                Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
+            }
+            
+            if (alive)
             {
+                if (resetAnimationState == true)
+                {
+                    GameplayWrapper.ResetAnimationState(entityID);
+                    resetAnimationState = false;
+                }
+
                 Colour = new Vector4(1, 1, 1, 1);
                 timeAlive += dt;
             }
@@ -111,25 +136,9 @@ namespace Object
 
             if ((timeAlive >= MAX_TIME_ALIVE))
             {
-                cardFired = false;
                 timeAlive = 0.0f;
-            }
-
-            float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
-            MousePos.X - GameplayWrapper.PlayerPos.X);
-
-            Vector2 armPosition = GameplayWrapper.PlayerPos
-                + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
-
-            Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
-
-            isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
-
-            if (FacingDirectionChanged)
-            {
-                Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                FacingDirectionChanged = false; // Reset the flag
-                offsetAwayFromBody = -offsetAwayFromBody;
+                alive = false;
+                resetAnimationState = true;
             }
         }
 

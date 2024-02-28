@@ -365,24 +365,33 @@ it does, it merges the contacts; otherwise, it adds a new arbiter to the table.
     }
 
     bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2) {
-        ArbiterKey arbiterKey{ e1, e2 };
-        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
-        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
-        return true;
+        ArbiterKey arbiterKey1{ e1, e2 };
+        ArbiterKey arbiterKey2{ e2, e1 };
+        size_t id1{ murmur64((void*)&arbiterKey1, sizeof(ArbiterKey)) };
+        size_t id2{ murmur64((void*)&arbiterKey2, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id1) != mArbiterTable.end()) return true;
+        if (mArbiterTable.find(id2) != mArbiterTable.end()) return true;
+        return false;
     }
     bool PhysicsSystem::IsCollided(Entity const& e1, Entity const& e2, Arbiter& a) {
-        ArbiterKey arbiterKey{ e1, e2 };
-        size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
-        if (mArbiterTable.find(id) == mArbiterTable.end()) return false;
+        ArbiterKey arbiterKey1{ e1, e2 };
+        ArbiterKey arbiterKey2{ e2, e1 };
+        size_t id1{ murmur64((void*)&arbiterKey1, sizeof(ArbiterKey)) };
+        size_t id2{ murmur64((void*)&arbiterKey2, sizeof(ArbiterKey)) };
+        if (mArbiterTable.find(id1) != mArbiterTable.end()) return false;
+        if (mArbiterTable.find(id2) != mArbiterTable.end()) return false;
         return true;
     }
     
     ArbiterVec PhysicsSystem::IsCollided(Entity const& e1) {
         ArbiterVec av{};
         for (auto const& e2 : mEntities) {
-            ArbiterKey arbiterKey{ e1, e2 };
-            size_t id{ murmur64((void*)&arbiterKey, sizeof(ArbiterKey)) };
-            if (mArbiterTable.find(id) != mArbiterTable.end()) av.emplace_back(mArbiterTable[id]);
+            ArbiterKey arbiterKey1{ e1, e2 };
+            ArbiterKey arbiterKey2{ e2, e1 };
+            size_t id1{ murmur64((void*)&arbiterKey1, sizeof(ArbiterKey)) };
+            size_t id2{ murmur64((void*)&arbiterKey2, sizeof(ArbiterKey)) };
+            if (mArbiterTable.find(id1) != mArbiterTable.end()) av.emplace_back(mArbiterTable[id1]);
+            if (mArbiterTable.find(id2) != mArbiterTable.end()) av.emplace_back(mArbiterTable[id2]);
         }
         return av;
     }

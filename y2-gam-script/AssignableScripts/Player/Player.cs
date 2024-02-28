@@ -4,7 +4,7 @@
 \file       Player.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Dec 26, 2023
+\date       Feb 3, 2024
 
 \brief      The main script for a ‘player’ entity. Has OnCreate and OnUpdate 
             functions. Currently the player input is located here.
@@ -24,30 +24,37 @@ namespace Object
     {
         public float JumpSpeed;
         public float MovementSpeed;
-
-        public bool IsGrounded = true;
-        public bool SlowdownToggle = true;
-        public bool GodMode = false;
         public bool IsFacingRight;
+        public bool SlowdownToggle = true;
+        private bool IsKeyPressed = false;
+        public bool GodMode = false;
+        public float MaxHorizontalVelocity;
+        public bool PlayDeathAnimation = false;
+        public float PlayDeathAnimHowLongAfter;
 
-        // For Testing
-        /*
-        public Double DoubleVal;
-        public short ShortVal;
-        public int IntVal;
-        public Int64 LongVal;
-        public UInt16 UShortVal;
-        public UInt32 UIntVal;
-        public UInt64 ULongVal;
-        public Vector2 Vec2Val;
-        public Vector3 Vec3Val;
-        public Vector4 Vec4Val;
-        */
+        public bool PlayAppearAnimation = false;
+        public float PlayAppearTimer = 0.0f;
+        public float MaxAppearTime;
 
-        private Vector2 spawnPosition = new Vector2(-400, -27);
-        private Vector2 colliderPosition = new Vector2(-400, -36);
+        public bool Dead = false;
+        public float RespawnTimer = 0.0f;
+        public float MaxRespawnTime;
+
+        public Vector2 spawnPosition;
+        public Vector2 colliderPosition;
+
+        public bool KeyCollected = false;
+
+        private Vector2 playerHead;
         private float temp_dt = 0f;
         private bool isPaused = false;
+        private bool firstTime = true;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 6;
+        private string FootTrack;
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+
+        bool resetAnimationState = true;
 
         // Direction related
         private bool _isFacingRight;
@@ -64,6 +71,23 @@ namespace Object
             }
         }
         public bool FacingDirectionChanged { get; private set; }
+
+        // Grounded related
+        private bool _isGrounded;
+        private bool IsGrounded
+        {
+            get { return _isGrounded; }
+            set
+            {
+                if (_isGrounded != value)
+                {
+                    _isGrounded = value;
+                    GroundedStatusChanged = true;
+                }
+            }
+        }
+        public bool GroundedStatusChanged { get; private set; }
+
 
         /*  _________________________________________________________________________ */
         /*! Player
@@ -104,6 +128,25 @@ namespace Object
             // Get the serialized IsFacingRight value
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
+
+            if (GetCurrentScene() == "Level1")
+            {
+                spawnPosition = new Vector2(-400, -27);
+                colliderPosition = new Vector2(-400, -36);
+                FootTrack = "PlayerRunningFloor.wav";
+            }
+            else if (GetCurrentScene()== "Level1Transition")
+            {
+                spawnPosition = new Vector2(-592.5f, -114.5f);
+                colliderPosition = new Vector2(-591.5f, -123.5f);
+                FootTrack = "PlayerRunningFloor.wav";
+            }
+            else if (GetCurrentScene() == "Level2")
+            {
+                spawnPosition = new Vector2(184.5f, 165.5f);
+                colliderPosition = new Vector2(183.0f, 156.0f);
+                FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -119,56 +162,134 @@ namespace Object
         void OnUpdate(float dt)
         {
             IsFacingRight = isFacingRight;
+            
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
 
             if (isPaused)
             {
-                dt = temp_dt;
-                PauseGame();
+                dt = 0f;
+                //PauseGame();
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {
-
-                    PauseGame();
+                    //PauseGame();
                     temp_dt = dt;
-                    dt = temp_dt;
+                    dt = 0f;
                     isPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
+                    //ResumeGame();
                     isPaused = false;
                 }
             }
 
             if (!isPaused)
             {
-
-                if (!GodMode)
+                if (!GodMode && !Dead)
                 {
+                    firstTime = true;
+
+                    if (PlayAppearAnimation)
+                    {
+                        if (resetAnimationState == true)
+                        {
+                            GameplayWrapper.ResetAnimationState(entityID);
+                            resetAnimationState = false;
+                        }
+                        
+                        AnimationState = (int)AnimationCodePlayer.APPEAR;
+                        PlayAppearTimer += dt;
+
+                        if (PlayAppearTimer >= MaxAppearTime)
+                        {
+                            PlayAppearAnimation = false;
+                            resetAnimationState = true;
+                            PlayAppearTimer = 0;
+                        }
+                    }
+
+                    RaycastHit centreRayCast = new RaycastHit();
+                    RaycastHit leftRayCast = new RaycastHit();
+                    RaycastHit rightRayCast = new RaycastHit();
+                    RaycastHit upRayCast = new RaycastHit();
+
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
-                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit leftRayCast) ||
+                        new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
-                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit rightRayCast) ||
+                        new Vector2(Collider.X + (ColliderDimensions.X / 2) - 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out rightRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
-                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 1), entityID, out RaycastHit centreRayCast))
+                        new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out centreRayCast))
                     {
                         IsGrounded = true;
-                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.IDLE;
+                        }
+                        if (centreRayCast.tag != null && centreRayCast.tag.Contains("Spike")) 
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(centreRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
+                        else if (leftRayCast.tag != null && leftRayCast.tag.Contains("Spike")) 
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(leftRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
+                        else if (rightRayCast.tag != null && rightRayCast.tag.Contains("Spike"))
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(rightRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }                  
+                    }
+                    else if(PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y),
+                        new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2) + 3), entityID, out upRayCast))
+                    {
+                        IsGrounded = false;
+                        if (upRayCast.tag != null && upRayCast.tag.Contains("Spike"))
+                        {
+                            if (PhysicsWrapper.IsCollidedEntity(upRayCast.id, entityID))
+                            {
+                                Dead = true;
+                            }
+                        }
                     }
 
                     else
                     {
                         IsGrounded = false;
-                        AnimationState = (int)AnimationCodePlayer.JUMP;
+                        if (!PlayAppearAnimation)
+                        {
+                            AnimationState = (int)AnimationCodePlayer.JUMP;
+                        }
                     }
 
                     if (FacingDirectionChanged)
                     {
                         Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
                         FacingDirectionChanged = false; // Reset the flag
+                    }
+
+                    if (GroundedStatusChanged)
+                    {
+                        if (IsGrounded)
+                        {
+                            PlayAudio("player_hit_the_ground.wav", 0);
+                        }
+
+                        GroundedStatusChanged = false;
                     }
 
 
@@ -179,11 +300,19 @@ namespace Object
                         Mass = 0;
                     }
 
-                    if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))
                     {
-                        //Console.WriteLine("Hello space is pressed");
-                        GameplayWrapper.SlowdownTime(SlowdownToggle);
-                        SlowdownToggle = !SlowdownToggle;
+                        if (!IsKeyPressed)
+                        {
+                            GameplayWrapper.SlowdownTime(SlowdownToggle);
+                            SlowdownToggle = !SlowdownToggle;
+                            IsKeyPressed = true;
+                        }
+                    }
+
+                    else
+                    {
+                        IsKeyPressed = false;
                     }
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
@@ -192,56 +321,108 @@ namespace Object
                         {
                             Jump(dt);
                         }
+
+                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        {
+                            Velocity = new Vector2(0.0f, Velocity.Y);
+                        }
                     }
 
-                    else if (Input.IsKeyPressed(KeyCode.KEY_A))
+                    if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
+                    {
+                        //Console.WriteLine("A was released");
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename(FootTrack);
+                        Velocity *= 0.2f;
+                    }
+
+                    if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
+                        //Console.WriteLine("A was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
+                        {
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                        }
                     }
 
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
-                    }
-
-                    Vector2 playerEnd = new Vector2(Collider.X - (Scale.X / 4.5f), Collider.Y);
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit waypointHit) && waypointHit.tag == "Waypoint")
-                    {
-                        float waypointOffset = 2.0f;
-                        float colliderOffset = 9.0f;
-                        spawnPosition = Translation;
-                        spawnPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition = Translation;
-                        colliderPosition += new Vector2(waypointOffset, waypointOffset);
-                        colliderPosition -= new Vector2(0, colliderOffset);
-                    }
-
-                    if (PhysicsWrapper.Raycast(Collider, playerEnd, entityID, out RaycastHit enemyHit) && enemyHit.tag == "Enemy")
-                    {
-                        Respawn();
-                    }
-
-                    Vector2 playerCollider = new Vector2(Collider.X, Collider.Y);
-
-                    Vector2 spikesTip = new Vector2(Translation.X, Translation.Y - (Scale.Y / 2.0f) - 2.0f);
-
-                    if (PhysicsWrapper.Raycast(playerCollider, spikesTip, entityID, out RaycastHit spikeHit))
-                    {
-                        if (spikeHit.tag == "Spikes")
+                        //Console.WriteLine("D was Pressed");
+                        if (IsGrounded && (centreRayCast.layer == "Platform" ||
+                            leftRayCast.layer == "Platform" ||
+                            rightRayCast.layer == "Platform"))
                         {
-                            Respawn();
+                            PlayAudio(FootTrack, 0);
+                            ResumeAudioWithFilename(FootTrack);
+                        }
+
+                        else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
+                            leftRayCast.layer == "Scaffolding" ||
+                            rightRayCast.layer == "Scaffolding"))
+                        {
+                            PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
                         }
                     }
 
-                    if (Translation.Y <= -99.0f)
+                    if (!IsGrounded)
+                    {
+                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        PauseAudioWithFilename(FootTrack);
+                    }
+
+                    playerHead = new Vector2(Collider.X, Collider.Y + (Scale.Y / 2.0f) + 1);
+                    if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
+                    {
+                        Dead = true;
+                    }
+                }
+
+                else if (!GodMode && Dead)
+                {
+                    RespawnTimer += dt;
+                    AnimationState = (int)AnimationCodePlayer.DEAD;
+
+                    if (firstTime)
+                    {
+                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                    }
+
+                    if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
+                    {
+                        PlayDeathAnimation = true;
+                        firstTime = false;
+                        GameplayWrapper.FindEntityByName("Card").As<Card>().Alive = false;
+                    }
+
+                    if (RespawnTimer >= MaxRespawnTime)
                     {
                         Respawn();
+                        Dead = false;
+                        RespawnTimer = 0;
                     }
                 }
 
                 else
                 {
-                    AnimationState = (int)AnimationCodePlayer.IDLE;
+                    if (!PlayAppearAnimation)
+                    {
+                        AnimationState = (int)AnimationCodePlayer.IDLE;
+                    }
+
                     ColliderDimensions = new Vector2(0f, 0f);
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W))
@@ -276,42 +457,57 @@ namespace Object
         */
         void OnExit()
         {
-
+            StopAudioWithFilename("PlayerRunningScaffolding.wav");
+            StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
-        void PauseGame()
-        {
-            SaveScene("Level1");
-        }
+        //void PauseGame()
+        //{
+        //    SaveScene("Level1");
+        //}
 
-        void ResumeGame()
-        {
-            LoadScene("Level1");
-        }
+        //void ResumeGame()
+        //{
+        //    LoadScene("Level1");
+        //}
         public void MoveLeft(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity -= new Vector2(MovementSpeed, 0.0f) * dt;
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
+            Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            AnimationState = (int)AnimationCodePlayer.RUN;
-            Velocity += new Vector2(MovementSpeed, 0.0f) * dt;
+            if (!PlayAppearAnimation)
+            {
+                AnimationState = (int)AnimationCodePlayer.RUN;
+            }
+
+            Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 
         public void Jump(float dt)
         {
-            Velocity -= new Vector2(0, Velocity.Y);
-            Velocity += new Vector2(0, JumpSpeed) * dt;
+            Velocity = new Vector2 (Velocity.X, JumpSpeed);
         }
 
         public void Respawn()
         {
             Translation = spawnPosition;
             Collider = colliderPosition;
+
+            DeathAudioIncrement++;
+
+            if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+            {
+                DeathAudioIncrement = 1;
+            }
         }
         public void FlyLeft(float dt)
         {

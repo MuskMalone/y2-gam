@@ -35,6 +35,7 @@
 #include "Graphics/AnimationManager.hpp"
 #include "Core/FrameRateController.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Engine/SceneManager.hpp"
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -48,33 +49,6 @@ Initializes the animation system, setting up necessary resources and loading tex
 */
 void AnimationSystem::Init() {
 	::gCoordinator = Coordinator::GetInstance();
-
-	//-------------TEMPORARY-------------------------------------------------------------/
-
-	//SpriteManager::LoadTexture("../assets/textures/Idle.png", 0);
-	//SpriteManager::LoadTexture("../assets/textures/Run.png", 1);
-	//SpriteManager::LoadTexture("../assets/textures/Attack_1.png", 2);
-	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-	//	0, 7, 1, { 256, 256 });
-	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-	//	1, 16, 2, { 256, 256 });
-	//AnimationManager::LoadAnimation("../assets/textures/ROBIN_ANIM_Spritesheet.png",
-	//	2, 23, 0, { 256, 256 });
-
-	//ResourceID texrid{ SpriteManager::LoadTexture("../assets/textures/ROBIN_ANIM_Spritesheet.png") };
-
-	////TEMP
-	//for (float i{}; i < 7; ++i)
-	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), {i, 1}, {256, 256} });
-	//
-
-	//for (float i{ 7 }; i < 16; ++i)
-	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 2 }, { 256, 256 } });
-
-	//for (float i{ 16 }; i < 23; ++i)
-	//	SpriteManager::CreateSubTexture(texrid, SpriteProperties{ GetTimestampNano(), { i, 0 }, { 256, 256 } });
-
-	//------------------------------------------------------------------------------------/
 
 }
 
@@ -96,7 +70,15 @@ void AnimationSystem::Update(float dt) {
 		size_t& frameIdx { animation.currFrame };
 		//if (!(animation.stateMap[currState]) || animation.stateMap[currState] == static_cast<AssetID>(-1)) continue;
 		//quick patch to constcast this
-		std::vector<AnimationFrame>& frameList{ const_cast<std::vector<AnimationFrame>&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
+
+		//this check is to remove any invalid asset ids
+		if (!AssetManager::GetInstance()->IsAssetExist(animation.states[animation.currState])) {
+			animation.states.erase(animation.states.begin() + animation.currState);
+			if (animation.currState != 0) animation.currState--;
+			continue;
+		}
+
+		AnimationFrames& frameList{ const_cast<AnimationFrames&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState])) };
 
 		if (frameIdx >= frameList.size())
 			frameIdx = 0;
@@ -116,5 +98,37 @@ void AnimationSystem::Update(float dt) {
 			++frameIdx;
 			currFrame.elapsedTime = 0.f;
 		}
+	}
+}
+
+void AnimationSystem::ResetFrame(Entity entity) {
+	if (gCoordinator->HasComponent<Animation>(entity)) {
+		auto& animation = gCoordinator->GetComponent<Animation>(entity);
+		animation.currFrame = 0;
+		if (!animation.states.empty() && animation.currState < animation.states.size()) {
+			auto& frameList = const_cast<AnimationFrames&>(AssetManager::GetInstance()->GetAsset<AnimationManager>(animation.states[animation.currState]));
+			if (!frameList.empty()) {
+				frameList[0].elapsedTime = 0.0f; // Reset elapsed time of the first frame
+			}
+		}
+	}
+}
+
+void AnimationSystem::CheckAssetValidity()
+{
+	bool changed{ false };
+	for (auto const& e : mEntities) {
+		auto& animation = gCoordinator->GetComponent<Animation>(e);
+		//this check is to remove any invalid asset ids
+		if (animation.states.empty()) continue;
+		if (!AssetManager::GetInstance()->IsAssetExist(animation.states[animation.currState])) {
+			animation.states.erase(animation.states.begin() + animation.currState);
+			if (animation.currState != 0) animation.currState--;
+			changed = true;
+		}
+	}
+	if (changed) {
+		//std::cout << "changed anim\n";
+		SceneManager::GetInstance()->SaveScene();
 	}
 }

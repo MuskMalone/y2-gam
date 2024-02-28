@@ -11,9 +11,9 @@
 #include "../include/pch.hpp"
 #include <Engine/AssetManager.hpp>
 #include <Core/Coordinator.hpp>
-#include <Graphics/AnimationManager.hpp>
-#include <Graphics/SpriteManager.hpp>
-#include <Audio/Sound.hpp>
+#include <Core/TypeReflection.hpp>
+#include <Core/ReflectionManager.hpp>
+
 std::shared_ptr<AssetManager> AssetManager::_mSelf = 0;
 namespace AssetHelper{
 	bool FindStr(std::string const& string, std::string const& substr) {
@@ -72,21 +72,22 @@ void AssetManager::LoadAssetChunk(std::set<AssetID> const& assetChunk) {
 	}
 }
 void AssetManager::LoadAID(AssetID aid) {
-	{
-		using namespace AssetHelper;
+	//{
+		//using namespace AssetHelper;
 
-		//could use type reflection.
-		if (FindStr(mAssets[aid].systemType, "Sound")) {
-			LoadAsset<SoundManager>(aid);
-		}
-		else if (FindStr(mAssets[aid].systemType, "Sprite")) {
-			LoadAsset<SpriteManager>(aid);
-		}
-		else if (FindStr(mAssets[aid].systemType, "Animation")) {
-			LoadAsset<AnimationManager>(aid);
-		}
+		////could use type reflection.
+		//if (FindStr(mAssets[aid].systemType, "Sound")) {
+		//	LoadAsset<SoundManager>(aid);
+		//}
+		//else if (FindStr(mAssets[aid].systemType, "Sprite")) {
+		//	LoadAsset<SpriteManager>(aid);
+		//}
+		//else if (FindStr(mAssets[aid].systemType, "Animation")) {
+		//	LoadAsset<AnimationManager>(aid);
+		//}
 
-	}
+	//}meatcanc
+	ReflectionManager::InvokeSingletonClassFunction<ResourceID>("AssetManager", mAssets[aid].systemType + "LoadAsset", aid);
 }
 void AssetManager::ClearAssetChunk(std::set<AssetID> const&assetChunk) {
 	mAssets.clear();

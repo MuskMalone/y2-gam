@@ -89,12 +89,13 @@ namespace Globals {
 //i saw in glfw3.h that the max GLenum goes up to ~380ish
 //hence this is gonna be for a bitset
 //each key enum will be the bitshift for a bitset<ENGINE_KEYS_COUNT>
-#define ENGINE_KEYS_COUNT 400
+#define ENGINE_KEYS_COUNT 1000
 #define ENGINE_MOUSEKEYS_COUNT 3
 #define ENGINE_PHYSICS_PROFILE 0
 #define ENGINE_COLLISION_PROFILE 1
 #define ENGINE_RENDER_PROFILE 2
 #define ENGINE_INPUT_PROFILE 3
+#define ENGINE_GUI_PROFILE 4
 
 //from here on are serialized globals
 #define GVC_AT(I) Globals::GlobalValContainer::GetInstance()->At(I)

@@ -12,6 +12,7 @@
 #include "Systems/AnimationSystem.hpp"
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
+#include "Systems/ParticleSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -35,7 +36,7 @@
 #else
 #include <Windows.h>
 #endif
-
+extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
 namespace {
 	static bool quit = false;
 }
@@ -48,9 +49,11 @@ void QuitHandler([[maybe_unused]] Event& event)
 std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSelf = 0;
 
 #ifndef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:28251)
 		int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 		{
-
+#pragma warning(pop)
 #else
 		int main() {
 #endif
@@ -66,6 +69,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->Init();
 	Image::ScriptManager::Init();
 	Image::SoundManager::AudioInit();
+
 
 	using namespace Physics;
 	using namespace Collision;
@@ -88,6 +92,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<Prefab>();
 	coordinator->RegisterComponent<UIImage>();
 	coordinator->RegisterComponent<Swappable>();
+	coordinator->RegisterComponent<EmitterSystem>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -193,6 +198,15 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 	animationSystem->Init();
 
+	auto particleSystem = coordinator->RegisterSystem<ParticleSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<EmitterSystem>());
+		coordinator->SetSystemSignature<ParticleSystem>(signature);
+	}
+
+	particleSystem->Init();
+
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
 		Signature signature;
@@ -224,40 +238,75 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 
 #ifdef _INSTALLER
 	SceneManager::GetInstance()->LoadScene("MainMenu");
+	ShowCursor(false);
 #endif
 
 	while (!quit && !windowManager->ShouldClose())
 	{
-		Image::SoundManager::AudioUpdate();
-		
-		inputSystem->Update();
-
-		windowManager->ProcessEvents();
+		dt = frameController->GetDeltaTime();
+		float tdt{ FrameRateController::GetInstance()->GetTargetDT() };
+		static float accumulatedTime = 0.f;
+		const float maxAccumulation{ 0.1f };
+		accumulatedTime += dt;
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(accumulatedTime) +" " + std::to_string(dt), __FUNCTION__);
+		if (accumulatedTime > maxAccumulation) accumulatedTime = maxAccumulation;
+		if (accumulatedTime >= tdt) {
 		frameController->StartFrameTime();
-		StateManager::GetInstance()->Update(dt);
-		StateManager::GetInstance()->Render(dt);
-		uiSystem->Update();
-		windowManager->Update();
-		auto stopTime = std::chrono::high_resolution_clock::now();
+			//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "running" + std::to_string(accumulatedTime) +"," + std::to_string(dt) +"fps:" + std::to_string(frameController->GetFps()), __FUNCTION__);
+			inputSystem->Update();
+			windowManager->ProcessEvents();
+			StateManager::GetInstance()->Update(tdt);
+			StateManager::GetInstance()->Render(tdt);
+
+			uiSystem->Update();
+			//NodeManager::Update();
+
+			windowManager->Update();
+			Image::SoundManager::AudioUpdate();
+			auto stopTime = std::chrono::high_resolution_clock::now();
 
 #ifndef _INSTALLER
-		static bool isEditor{ true };
-		if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
-			isEditor = !isEditor;
-		}
-		if (isEditor) {
-			imguiSystem->Update(dt);
-		}
+			FrameRateController::GetInstance()->StartSubFrameTime();
+
+			static bool isEditor{ true };
+			if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
+				isEditor = !isEditor;
+			}
+			if (isEditor) {
+				imguiSystem->Update(tdt,windowManager->GetContext());
+				renderSystem->CheckAssetValidity();
+				animationSystem->CheckAssetValidity();
+			}
+			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
+
 #endif
 
-		dt = frameController->EndFrameTime();
-		windowManager->UpdateWindowTitle(WINDOW_TITLE);
+			windowManager->UpdateWindowTitle(WINDOW_TITLE);
+			accumulatedTime -= tdt;
+			dt = frameController->EndFrameTime(true);
+		}
+		else if (dt < tdt) {
+			frameController->StartFrameTime();
+			float dtDiff = tdt - dt;
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long long>(dtDiff * 1000.f)));
+			dt = frameController->EndFrameTime();
+
+		}
+		//dt = frameController->GetDeltaTime();
+		//LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, std::to_string(dt), __FUNCTION__);
+
+		/*if (dt < tdt) {
+			std::this_thread::sleep_for(std::chrono::duration<float>(tdt - dt));
+			
+			LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Hello sleep", __FUNCTION__);
+		}*/
 	}
 	StateManager::GetInstance()->Clear();
 #ifndef _INSTALLER
 	imguiSystem->Destroy();
 #endif
 	Renderer::Shutdown();
+	particleSystem->Destroy();
 	windowManager->Shutdown();
 	textSystem->Exit();
 	Image::SoundManager::AudioExit();

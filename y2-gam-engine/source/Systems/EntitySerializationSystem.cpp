@@ -141,9 +141,9 @@ namespace Serializer {
 		for (auto const& entity : mEntities) {
 			JSONObj entityObj{ JSON_OBJ_TYPE };
 			SerializeEntity(entity, entityObj);
-			if (gCoordinator->HasComponent<Camera>(entity)) {
-				std::cout << "saved ent has cam" << camidx++ << std::endl;
-			}
+			//if (gCoordinator->HasComponent<Camera>(entity)) {
+			//	std::cout << "saved ent has cam" << camidx++ << std::endl;
+			//}
 
 			if (!entityObj.ObjectEmpty())
 				sm->PushToArray(obj, entityObj);
@@ -158,9 +158,9 @@ namespace Serializer {
 		for (auto const& entity : entities) {
 			JSONObj entityObj{ JSON_OBJ_TYPE };
 			SerializeEntity(entity, entityObj);
-			if (gCoordinator->HasComponent<Camera>(entity)) {
-				std::cout << "saved ent has cam" << camidx++ << std::endl;
-			}
+			//if (gCoordinator->HasComponent<Camera>(entity)) {
+			//	std::cout << "saved ent has cam" << camidx++ << std::endl;
+			//}
 
 			if (!entityObj.ObjectEmpty())
 				sm->PushToArray(obj, entityObj);

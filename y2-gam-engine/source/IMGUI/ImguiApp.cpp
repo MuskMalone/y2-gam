@@ -40,6 +40,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/TextSystem.hpp"
 #include "Systems/ImguiSystem.hpp"
 #include "Logging/LoggingSystem.hpp"
 #include <Core/Globals.hpp>
@@ -55,6 +56,7 @@
 #include <Audio/Sound.hpp>
 #include <IMGUI/AssetBrowser.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
+#include <Systems/ParticleSystem.hpp>
 
 ImGuizmo::OPERATION gCurrentGuizmoOperation{ImGuizmo::OPERATION::TRANSLATE};
 ImGuizmo::MODE gCurrentGizmoMode{ ImGuizmo::LOCAL };
@@ -63,12 +65,24 @@ namespace {
     std::shared_ptr<Coordinator> gCoordinator;
     const int   gPercent = 100;
     const float gScalingFactor = 1.5f;
-    bool gSnap = false;
-    float gSnapVal = 1.f;
+    bool gSnap = true;
+    float gSnapVal = 0.5f;
     Entity gSelectedEntity = MAX_ENTITIES;
     Entity gSelectedPrefab = MAX_ENTITIES;
+    bool paused = false;
     //std::string gCurrentScene = "";
 }
+#define STOP_SCENE_DONOTUSE \
+  if (SceneManager::GetInstance()->IsSceneActive()) {\
+    if (!renderSystem->IsEditorMode()) {\
+      /*std::cout << "Stop to toggle to editer mode" << std::endl;*/\
+      renderSystem->ToggleEditorMode();\
+      ImGui::SetWindowFocus("Image Game Engine");\
+    }\
+    SceneManager::GetInstance()->ResetScene();\
+    paused = false;\
+  }\
+
 namespace Image {
     /*  _________________________________________________________________________ */
     /*! AppRender
@@ -82,7 +96,7 @@ namespace Image {
     handling user input.
     Pressing the 'c' key to clear the entities
     */
-    void AppRender(std::set<Entity>const& mEntities,float dt) {
+    void AppRender(std::set<Entity>const& mEntities,float dt, GLFWwindow* window) {
         ::gCoordinator = Coordinator::GetInstance();
         ImGui::PushFont(mainfont);
         //static bool toDelete{ false };
@@ -105,7 +119,7 @@ namespace Image {
         PrefabInspectorWindow();
         GameObjectInspectorWindow();
         PrefabWindow();
-        BufferWindow(dt);
+        BufferWindow(dt,window);
         ContentWindow();
         //AssetWindow(mEntities);
         AssetWindow(mEntities);
@@ -180,7 +194,7 @@ namespace Image {
                 ImGui::EndMenu();
             }
             auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-            static bool paused = false;
+            //static bool paused = false;
             if (ImGui::MenuItem("Play")) {
                 if (renderSystem->IsEditorMode() && SceneManager::GetInstance()->IsSceneActive()) {
                     if (!paused) SceneManager::GetInstance()->ModifyScene();
@@ -200,20 +214,31 @@ namespace Image {
                 }
             }
             if (ImGui::MenuItem("Stop")) {
-                if (SceneManager::GetInstance()->IsSceneActive()) {
-                    if (!renderSystem->IsEditorMode()) {
-                        //std::cout << "Stop to toggle to editer mode" << std::endl;
-                        renderSystem->ToggleEditorMode();
-                        ImGui::SetWindowFocus("Image Game Engine");
-
-                    }
-                    SceneManager::GetInstance()->ResetScene();
-                    paused = false;
-
-                }
+                STOP_SCENE_DONOTUSE
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();
+        }
+    }
+
+    void RemoveUnusedAssets(Entity entity)
+    {
+        if (gCoordinator->HasComponent<Sprite>(entity))
+        {
+            auto& sprite = gCoordinator->GetComponent<Sprite>(entity);
+            SceneManager::GetInstance()->RemoveAsset(sprite.spriteAssetID);
+           
+        }
+        if (gCoordinator->HasComponent<Animation>(entity))
+        {
+            Animation& anim = gCoordinator->GetComponent<Animation>(entity);
+            std::cout << "anim size" << anim.states.size() << std::endl;
+            for (size_t i{}; i < anim.states.size(); ++i)
+            {
+                std::cout << "animstate[i]" << anim.states[i] << "i = " << i;
+                SceneManager::GetInstance()->RemoveAsset(anim.states[i]);
+            }
+            //std::cout << "anim size2" << anim.states.size() << std::endl;
         }
     }
     /*  _________________________________________________________________________ */
@@ -302,7 +327,7 @@ namespace Image {
             //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
                 //put before u destroy the entity
             CommandManager::GetInstance()->AddCommand("Destroy", gSelectedEntity, Serializer::SaveEntities(gSelectedEntity));
-
+            RemoveUnusedAssets(gSelectedEntity);
             gCoordinator->DestroyEntity(gSelectedEntity);
             Image::ScriptManager::RemoveEntity(gSelectedEntity);
             gSelectedEntity = MAX_ENTITIES;
@@ -314,6 +339,15 @@ namespace Image {
         }
 
         for (auto const& entity : mEntities) {
+            //ImGui::NewLine();
+            static std::shared_ptr<Texture> objectIcon = Texture::Create("../Icon/ObjectIcon.png");
+            std::shared_ptr<Texture> icon = objectIcon;
+            static float size = 15.f;
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+            ImGui::Image(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
+            ImGui::PopStyleColor();
+            //set image object here
+            ImGui::SameLine();
             std::string displayName = std::to_string(entity);
             if (gCoordinator->HasComponent<Tag>(entity)) {
                 Tag& tagComponent = gCoordinator->GetComponent<Tag>(entity);
@@ -324,6 +358,7 @@ namespace Image {
             if (ImGui::Selectable(displayName.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
+
 
             if (ImGui::BeginDragDropTarget()) {
                 //std::cout << "Began drag-drop target." << std::endl;
@@ -354,11 +389,12 @@ namespace Image {
                 if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Animation AssetBrowser")) {
                     //std::cout << "Accepted payload." << std::endl;
                     droppedAid = *(const AssetID*)dragDropPayLoad->Data;
-                    //std::cout << droppedAid << std::endl;
+                    std::cout << "droppedAID" << droppedAid << std::endl;
                     if (gCoordinator->HasComponent<Animation>(entity)) {
                         auto& anim = gCoordinator->GetComponent<Animation>(entity);
                         //anim.assetID = droppedAid;
                         anim.states.emplace_back(droppedAid);
+
                     }
                     else {
                         Animation a{
@@ -499,33 +535,53 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
                 std::string treeNodeLabel = "Transform##" + std::to_string(selectedEntity);
-              
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
                 if (ImGui::TreeNodeEx(treeNodeLabel.c_str(), flags)) {
+                    ImGui::Checkbox("Enable Snapping", &gSnap);
+                    if (gSnap) {
+                        if (gCurrentGuizmoOperation == ImGuizmo::TRANSLATE) {
+                            ImGui::InputFloat("Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::ROTATE) {
+                            ImGui::InputFloat("Angle Snap", &gSnapVal);
+                        }
+                        else if (gCurrentGuizmoOperation == ImGuizmo::SCALE) {
+                            ImGui::InputFloat("Scale Snap", &gSnapVal);
+                        }
+                    }
                     if (prefabs) {
                         Transform& transform = gCoordinator->GetComponent<Transform>(selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                     }
                     else {
@@ -549,58 +605,70 @@ namespace Image {
 
                         // Position X
                         ImGui::Text("Position");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos X", &transform.position.x);
                         CheckFirstAndLastUseTransform(wasPosXActive, "InputFloat Pos X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos X", &transform.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
                         CheckFirstAndLastUseTransform(wasPosXSliderActive, "SliderFloat Pos X", selectedEntity);
 
                         // Position Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Y", &transform.position.y);
                         CheckFirstAndLastUseTransform(wasPosYActive, "InputFloat Pos Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Y", &transform.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosYSliderActive, "SliderFloat Pos Y", selectedEntity);
 
                         // Position Z
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Pos Z", &transform.position.z);
                         CheckFirstAndLastUseTransform(wasPosZActive, "InputFloat Pos Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Pos Z", &transform.position.z, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                         CheckFirstAndLastUseTransform(wasPosZSliderActive, "SliderFloat Pos Z", selectedEntity);
 
                         // Rotation
                         ImGui::Text("Rotation");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Rotation", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::ROTATE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Rot Z", &transform.rotation.z);
                         CheckFirstAndLastUseTransform(wasRotZActive, "InputFloat Rot Z", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Rot Z", &transform.rotation.z, -Degree(gPI), Degree(gPI));
                         CheckFirstAndLastUseTransform(wasRotZSliderActive, "SliderFloat Rot Z", selectedEntity);
 
                         // Scale X
                         ImGui::Text("Scale");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SameLine();
+                        if (ImGui::RadioButton("Scale", gCurrentGuizmoOperation == ImGuizmo::SCALE)) {
+                            gCurrentGuizmoOperation = ImGuizmo::SCALE;
+                        }
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale X", &transform.scale.x);
                         CheckFirstAndLastUseTransform(wasScaleXActive, "InputFloat Scale X", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale X", &transform.scale.x, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleXSliderActive, "SliderFloat Scale X", selectedEntity);
 
                         // Scale Y
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Scale Y", &transform.scale.y);
                         CheckFirstAndLastUseTransform(wasScaleYActive, "InputFloat Scale Y", selectedEntity);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Scale Y", &transform.scale.y, 1, IMGUI_MAX_SCALE);
                         CheckFirstAndLastUseTransform(wasScaleYSliderActive, "SliderFloat Scale Y", selectedEntity);
                     }
@@ -665,13 +733,16 @@ namespace Image {
 
             }
             if (gCoordinator->HasComponent<Animation>(selectedEntity)) {
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode("Animation")) {
                     Animation& anim = gCoordinator->GetComponent<Animation>(selectedEntity);
                     ImGui::Text("Speed per frame");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Speed", &anim.speed);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Speed", &anim.speed, 0, IMGUI_MAX_SPEED_ANIM);
                     auto am{ AssetManager::GetInstance() };
                     //if (anim.assetID && anim.assetID != static_cast<AssetID>(-1)) {
@@ -758,7 +829,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Collider>(selectedEntity)) {
                 std::string treeNodeLabel = "Collider##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Collider& collider = gCoordinator->GetComponent<Collider>(selectedEntity);
                     ImGui::Text("Type");
@@ -766,48 +839,48 @@ namespace Image {
                     ImGui::Combo("Collider Type", reinterpret_cast<int*>(&collider.type), colliderTypes, IM_ARRAYSIZE(colliderTypes));
                     //Pos
                     ImGui::Text("Position");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos X", &collider.position.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos X", &collider.position.x, -ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_WIDTH);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Collider Pos Y", &collider.position.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Pos Y", &collider.position.y, -ENGINE_SCREEN_HEIGHT, ENGINE_SCREEN_HEIGHT);
                     // Rotation
                     ImGui::Text("Rotation");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     decltype(collider.rotation) crotDeg{Degree(collider.rotation)};
                     ImGui::InputFloat("##Collider Rot", &crotDeg);
                     collider.rotation = glm::radians(crotDeg);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Collider Rot", &collider.rotation, -Degree(gPI), Degree(gPI)); // change to Degree(gPI) same as glm func in math ultiles
                     // Scale
                     if (collider.type == ColliderType::BOX) {
                         ImGui::Text("Dimension");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
 
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale Y", &collider.dimension.y);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale Y", &collider.dimension.y, 1, IMGUI_MAX_SCALE);
 
                     }
                     else {
                         ImGui::Text("Diameter");
-                        ImGui::SetNextItemWidth(50.f);
+                        ImGui::SetNextItemWidth(textwidth);
                         ImGui::InputFloat("##Collider Scale X", &collider.dimension.x);
                         ImGui::SameLine();
-                        ImGui::SetNextItemWidth(100.f);
+                        ImGui::SetNextItemWidth(sliderWidth);
                         ImGui::SliderFloat("Collider Scale X", &collider.dimension.x, 1, IMGUI_MAX_SCALE);
                         collider.dimension.y = collider.dimension.x;
                     }
@@ -816,7 +889,9 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<RigidBody>(selectedEntity)) {
                 std::string treeNodeLabel = "RigidBody##" + std::to_string(selectedEntity);
-
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     RigidBody& rigidBody = gCoordinator->GetComponent<RigidBody>(selectedEntity);
                     // Mass
@@ -830,24 +905,24 @@ namespace Image {
 
                     // Velocity
                     ImGui::Text("Velocity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity X", &rigidBody.velocity.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity X", &rigidBody.velocity.x, 0, IMGUI_MAX_VELOCITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Velocity Y", &rigidBody.velocity.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Velocity Y", &rigidBody.velocity.y, 0, IMGUI_MAX_VELOCITY);
 
                     //Friction
                     ImGui::Text("Friction");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Friction", &rigidBody.friction);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Friction", &rigidBody.friction, 0, 100);
 
                     const char* items[] = { "False", "True" };
@@ -864,20 +939,23 @@ namespace Image {
             }
             if (gCoordinator->HasComponent<Gravity>(selectedEntity)) {
                 std::string treeNodeLabel = "Gravity##" + std::to_string(selectedEntity);
+                float windowWidth = ImGui::GetWindowSize().x;
+                float textwidth = windowWidth * 0.25f;
+                float sliderWidth = windowWidth * 0.5f;
                 if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                     Gravity& gravity = gCoordinator->GetComponent<Gravity>(selectedEntity);
                     //Force
                     ImGui::Text("Gravity");
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force X", &gravity.force.x);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force X", &gravity.force.x, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
 
-                    ImGui::SetNextItemWidth(50.f);
+                    ImGui::SetNextItemWidth(textwidth);
                     ImGui::InputFloat("##Force Y", &gravity.force.y);
                     ImGui::SameLine();
-                    ImGui::SetNextItemWidth(100.f);
+                    ImGui::SetNextItemWidth(sliderWidth);
                     ImGui::SliderFloat("Force Y", &gravity.force.y, -IMGUI_MAX_GRAVITY, IMGUI_MAX_GRAVITY);
                     ImGui::TreePop();
                 }
@@ -886,10 +964,10 @@ namespace Image {
               std::string treeNodeLabel = "Text##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                 Text& text = gCoordinator->GetComponent<Text>(selectedEntity);
-                ImGui::Text("Text to Display");
-                ImGui::SameLine();
-                ImGui::SetCursorPosX(SAME_LINE_SPACING);
-                ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                ImGui::Text("Display");
+                //ImGui::SameLine();
+                //ImGui::SetCursorPosX(SAME_LINE_SPACING);
+                ImGui::SetNextItemWidth(3 * TEXT_BOX_WIDTH);
                 char tempLayerName[256];
                 strncpy(tempLayerName, text.text.c_str(), sizeof(tempLayerName) - 1);
                 tempLayerName[sizeof(tempLayerName) - 1] = '\0';
@@ -899,14 +977,51 @@ namespace Image {
                   text.text = tempLayerName;
                 }
 
+                ImGui::Text("Font Family");
+                auto fontSystem{ gCoordinator->GetSystem<TextSystem>() };
+
+                static int selectedOption = -1;
+
+                // Find the initial index for selectedOption based on the name of the script
+                for (int i{}; i < fontSystem->FontTypes.size(); ++i) {
+                  if (text.fontName == fontSystem->FontTypes[i]) {
+                    selectedOption = i;
+                    break;
+                  }
+                }
+
+                static int previousOption = selectedOption; // Store the previous option
+                ImGui::Combo("Font Name",
+                  &selectedOption,
+                  fontSystem->FontTypes.data(),
+                  static_cast<int>(fontSystem->FontTypes.size()));
+
+                if (selectedOption != previousOption) {
+                  previousOption = selectedOption;
+                  text.fontName = fontSystem->FontTypes[selectedOption];
+                }
+
+                //Color
+                ImGui::Text("Color");
+                ImGui::ColorPicker3("Color Picker", &text.color.x);
+
+                // Scale
+                ImGui::Text("Scale");
+                ImGui::SetNextItemWidth(50.f);
+                ImGui::InputFloat("##Scale", &text.scale);
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(100.f);
+                ImGui::SliderFloat("Scale", &text.scale, 0.01f, 5.f);
+
                 ImGui::TreePop();
               }
             }
+            
             if (gCoordinator->HasComponent<Script>(selectedEntity)) {
               std::string treeNodeLabel = "Script##" + std::to_string(selectedEntity);
               if (ImGui::TreeNode(treeNodeLabel.c_str())) {
                   Script& script = gCoordinator->GetComponent<Script>(selectedEntity);
-                  ImGui::Text("Assigned Script:");
+                  ImGui::Text("Assigned Script");
 
                   static int selectedOption = -1;
 
@@ -928,7 +1043,14 @@ namespace Image {
                     previousOption = selectedOption;
                     script.name = ScriptManager::GetAssignableScriptNames()[selectedOption];
                     if (!prefabs) {
-                        ScriptManager::OnCreateEntity(selectedEntity); 
+                      /*
+                        ScriptManager::ReloadAssembly();
+                        //ScriptManager::CreateScriptInstanceWithTag(script.name, script.scriptTagged);
+                        //ScriptManager::LoadEntityLinkage(selectedEntity, script.scriptTagged);
+                        SceneManager::GetInstance()->SaveScene();
+                        SceneManager::GetInstance()->LoadScene(SceneManager::GetInstance()->GetSceneName());  
+                        ScriptManager::OnCreateEntity(selectedEntity);
+                        */
                     }
                   }
 
@@ -1074,6 +1196,36 @@ namespace Image {
                         }
                         break;
                       }
+
+                      case Image::FieldType::String: {
+                        MonoString* str{ scriptInstance.GetFieldValueFromStringName(val.first) };
+                        std::string dataString;
+                        if (str) {
+                          dataString = std::string(mono_string_to_utf8(str));
+                        }
+                        
+                        ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
+                        bool confirmOnEnter = false;
+                        char inputBuffer[256] = "";
+                        strcpy(inputBuffer, dataString.c_str());
+                        ImGui::PushItemWidth(200);
+                        ImGui::InputText("##StringLabel", inputBuffer, sizeof(inputBuffer));
+                        ImGui::PopItemWidth();
+                        ImGui::SameLine();
+                        ImGui::Text(val.first.c_str());
+
+                        if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
+                          confirmOnEnter = true;
+                        }
+
+                        if (confirmOnEnter) {
+                          std::string dataString1{ inputBuffer };
+                          MonoString* monoString = mono_string_new(mono_domain_get(), dataString1.c_str());
+                          scriptInstance.SetFieldValueWithStringName(val.first, monoString);
+                          confirmOnEnter = false;
+                        }
+                        break;
+                      }
                       }
                     }
                   }
@@ -1094,9 +1246,9 @@ namespace Image {
                     //ImGui::Text("Rotation");
                     //ImGui::SliderFloat("##Rotation", &camera.mRot, -360.0f, 360.0f);
 
-                    //// Zoom Level
-                    //ImGui::Text("Zoom Level");
-                    //ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
+                    // Zoom Level
+                    ImGui::Text("Zoom Level");
+                    ImGui::SliderFloat("##ZoomLevel", &camera.mZoomLevel, camera.mMinZoom, camera.mMaxZoom);
 
                     // Camera Settings
                     ImGui::Text("Camera Settings");
@@ -1107,14 +1259,163 @@ namespace Image {
 
                     // Horizontal Boundary
                     ImGui::Text("Horizontal Boundary");
-                    ImGui::SliderFloat("##Horiz Min", &camera.horizontalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Horiz Max", &camera.horizontalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::InputFloat("Horiz Min", &camera.horizontalBoundary.x);
+                    ImGui::InputFloat("Horiz Max", &camera.horizontalBoundary.y);
 
                     // Vertical Boundary
                     ImGui::Text("Vertical Boundary");
-                    ImGui::SliderFloat("##Vert Min", &camera.verticalBoundary.x, -1000.0f, 1000.0f);
-                    ImGui::SliderFloat("##Vert Max", &camera.verticalBoundary.y, -1000.0f, 1000.0f);
+                    ImGui::InputFloat("Vert Min", &camera.verticalBoundary.x);
+                    ImGui::InputFloat("Vert Max", &camera.verticalBoundary.y);
 
+                    ImGui::TreePop();
+                }
+            }
+
+            if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                std::string treeNodeLabel = "Emitter System##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    if (ImGui::Button("Add Emitter")) {
+                        // Button 1 logic
+                                // Generate and print a random number
+                        EmitterProxy ep{
+                            {{},{},{},{}}, // Vertices
+							{1.0f, 1.0f, 1.0f, 1.0f}, // Color
+							{0.0f, 0.0f}, // Gravity
+							{5.0f, 5.0f}, // Size
+                            0.0f, // Rotation
+                            5.0f, // Lifetime
+                            0.0f, // Angular Velocity
+                            10.0f, // Speed
+                            0.0f, // Time: DO NOT CHANGE THIS
+                            0.1f, // Emission Frequency
+                            0, // Type of Emission
+                            1, // vCount
+                            0, // Preset
+                            1, // Particles per frame
+                            -1, // emitter index for ssbo
+                            true // Draw Emitter
+                        };
+                        ParticleSystem::AddEmitter(ep, selectedEntity);
+                    }
+                    auto & emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (size_t i{}; i < emitterSystem.emitters.size(); ++i ) {
+                        auto& emitter = emitterSystem.emitters[i];
+                        bool changed = false; // Flag to track if any field has changed
+                        // Display text beside the checkbox\
+
+                        // Draw a separator line
+                        ImGui::Separator();
+                        // Display text beside the button
+                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) ).c_str());
+
+                        // Place the next item (text) on the same line as the previous item (button)
+                        ImGui::SameLine();
+
+                        // Create a checkbox
+                        if (ImGui::Checkbox((std::string("Draw Emitter") + "##" + std::to_string(i)).c_str(), &emitter.drawEmitterVertices)) {
+                            // Checkbox logic
+                            changed = true;
+                        }
+
+                        // Create the "Remove" button
+                        if (ImGui::Button((std::string("Remove") + "##" + std::to_string(i)).c_str())) {
+                            // Button logic
+                            ParticleSystem::RemoveEmitter(static_cast<int>(i), selectedEntity);
+                            break;
+                        }
+                        // Edit vertex count
+                        const char* vCounts[] = { "Point", "Line", "Rect" };
+                        int vCountIdx = (emitter.vCount == 1) ? 0 : (emitter.vCount == 2) ? 1 : 2;
+                        if (ImGui::Combo((std::string("vCount") + "##" + std::to_string(i)).c_str(), &vCountIdx, vCounts, IM_ARRAYSIZE(vCounts))) {
+                            emitter.vCount = (vCountIdx == 0) ? 1 : (vCountIdx == 1) ? 2 : 4;
+                            changed = true;
+
+                            emitter.type = 0; //reset the type to gradual emission
+                        }
+
+                        // Edit vertices based on vCount
+                        if (emitter.vCount == 1) {
+                            // Edit only one vertex
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 2) {
+                            // Edit two vertices (e.g., start and end of a line)
+                            changed |= ImGui::DragFloat2((std::string("Vertex 0") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Vertex 1") + "##" + std::to_string(i)).c_str(), &emitter.vertices[1].x, 0.01f);
+                        }
+                        else if (emitter.vCount == 4) {
+                            // Edit two vertices and calculate the others (e.g., top-left and bottom-right of a rectangle)
+                            changed |= ImGui::DragFloat2((std::string("Top Left Vertex") + "##" + std::to_string(i)).c_str(), & emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Bottom Right Vertex") + "##" + std::to_string(i)).c_str(), &emitter.vertices[2].x, 0.01f);
+
+                            if (changed) {
+                                // Calculate the other two vertices based on top-left and bottom-right
+                                emitter.vertices[1] = glm::vec4(emitter.vertices[2].x, emitter.vertices[0].y, emitter.vertices[0].z, 1.0f); // Top Right
+                                emitter.vertices[3] = glm::vec4(emitter.vertices[0].x, emitter.vertices[2].y, emitter.vertices[2].z, 1.0f); // Bottom Left
+                            }
+                        }
+
+                        // Edit color
+                        changed |= ImGui::ColorEdit4((std::string("Color") + "##" + std::to_string(i)).c_str(), &(emitter.col.r));
+
+                        // Edit gravity
+                        changed |= ImGui::DragFloat2((std::string("Gravity") + "##" + std::to_string(i)).c_str(), &emitter.gravity.x, 0.01f);
+
+                        // Edit size
+                        changed |= ImGui::DragFloat2((std::string("Size") + "##" + std::to_string(i)).c_str(), &emitter.size.x, 0.01f);
+
+                        // Edit other properties
+                        changed |= ImGui::DragFloat((std::string("Rotation") + "##" + std::to_string(i)).c_str(), &emitter.rot, 0.01f, -360.0f, 360.0f);
+                        changed |= ImGui::DragFloat((std::string("Lifetime") + "##" + std::to_string(i)).c_str(), &emitter.lifetime, 0.01f, 0.0f, 100.0f);
+                        changed |= ImGui::DragFloat((std::string("Angular Velocity") + "##" + std::to_string(i)).c_str(), &emitter.angvel, 0.01f);
+                        changed |= ImGui::DragFloat((std::string("Speed") + "##" + std::to_string(i)).c_str(), &emitter.speed, 0.01f);
+
+                        // Edit frequency
+                        changed |= ImGui::DragFloat((std::string("Frequency") + "##" + std::to_string(i)).c_str(), &emitter.frequency, 0.01f, 0.0f, 100.0f);
+                        changed |= ImGui::DragInt((std::string("Particle Rate") + "##" + std::to_string(i)).c_str(), &emitter.particlesPerFrame, 1, 1, 1000);
+                        // Type of emission dropdown
+
+                        switch (emitter.vCount) {
+                        case 1: {
+                            const char* types[] = { "Gradual" };
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+
+                        }break;
+                        case 2: {
+                            const char* types[] = { "Gradual", "Rain", "Lazer"};
+                            changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
+                        }break;
+                        case 4: {
+                            const char* types[] = { "Gradual", "Dust", "Disintegrate" };
+                            int typeidx;
+                            switch (emitter.type) {
+                            case 0: typeidx = 0; break;
+                            case 4: typeidx = 1; break;
+                            case 5: typeidx = 2; break;
+                            }
+                            if (ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &typeidx, types, IM_ARRAYSIZE(types))) {
+                                switch (typeidx) {
+                                case 0: emitter.type = 0; break;
+                                case 1: emitter.type = 4; break;
+                                case 2: emitter.type = 5; break;
+                                }
+                                changed = true;
+                            }                       
+                        }break;
+                        }
+
+                        // Preset dropdown
+                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Decreasing Over Lifetime", "Alpha Size Increasing Over Lifetime"};
+                        changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
+
+                        // Check for changes and call the callback function if needed
+                        if (changed) {
+                            Event event(Events::Particles::EMITTER);
+                            event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, selectedEntity));
+                            Coordinator::GetInstance()->SendEvent(event);
+                            //OnEmitterProxyChanged(emitter);
+                        }
+                    }
                     ImGui::TreePop();
                 }
             }
@@ -1144,7 +1445,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera"};
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera", "Emitter System" };
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1161,6 +1462,10 @@ namespace Image {
             //ImGui::SetNextItemWidth(50.0f);
             if (ImGui::InputText("Tag", tag, IM_ARRAYSIZE(tag), ImGuiInputTextFlags_EnterReturnsTrue)) {
               tagComponent.tag = tag;
+              if (gCoordinator->HasComponent<Script>(selectedEntity)) {
+                std::string scriptTag{ gCoordinator->GetComponent<Tag>(selectedEntity).tag };
+                gCoordinator->GetComponent<Script>(selectedEntity).scriptTagged = scriptTag;
+              }
               memset(tag, 0, sizeof(tag)); // Clear the input
             }
           }
@@ -1330,6 +1635,15 @@ namespace Image {
                 }
             }
                    break;
+            case 12: {
+                if (!gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        EmitterSystem{}, ignore);
+                }
+            }
+                   break;
+
             }
           }
           ImGui::SameLine();
@@ -1431,6 +1745,16 @@ namespace Image {
                 }
             }
                    break;
+            case 12: {
+                if (gCoordinator->HasComponent<EmitterSystem>(selectedEntity)) {
+                    auto const& emitter{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (int i{}; i < emitter.emitters.size(); ++i) {
+                        ParticleSystem::RemoveEmitter(i, selectedEntity);
+                    }
+                    gCoordinator->RemoveComponent<EmitterSystem>(selectedEntity);
+                }
+            }
+                   break;
             }
           }
           ImGui::Separator();
@@ -1446,7 +1770,7 @@ namespace Image {
           ImGui::Text("Text Component: %s", gCoordinator->HasComponent<Text>(selectedEntity) ? "True" : "False");
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
           ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
-
+          ImGui::Text("Emitter System Component %s", gCoordinator->HasComponent<EmitterSystem>(selectedEntity) ? "True" : "False");
           //ImGui::PopFont();
           //ImGui::End();
 
@@ -1474,7 +1798,7 @@ namespace Image {
      This function displays the game engine's framebuffer as well as getting the
      entity ID when mouse is hovered ad allows for picking
     */
-    void BufferWindow(float dt) {
+    void BufferWindow(float dt, GLFWwindow* window) {
         auto inputSystem{ Coordinator::GetInstance()->GetSystem<InputSystem>() };
         auto mpos{ inputSystem->GetWorldMousePos() };
 
@@ -1597,7 +1921,8 @@ namespace Image {
         auto& camera = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetCamera());
         auto& cameraUI = ::gCoordinator->GetComponent<Camera>(::gCoordinator->GetSystem<RenderSystem>()->GetUICamera());
         auto frameController = FrameRateController::GetInstance();
-        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+
+        if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) { 
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
                 CommandManager::GetInstance()->UndoCommand();
@@ -1642,7 +1967,24 @@ namespace Image {
                 }
 
             }
+            
+            GLFWcursor* handCursor = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+            GLFWcursor* arrowCursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+            ImVec2 currentMousePos = ImGui::GetMousePos();
+            static ImVec2 lastMousePos = currentMousePos; 
+            if (ImGui::IsMouseDown(1)) {
+                ImVec2 mouseDelta = {currentMousePos.x - lastMousePos.x,currentMousePos.y - lastMousePos.y};
+                camera.mPos.x -= mouseDelta.x  *gSnapVal* CAMERA_MOVESPEED * dt;
+                camera.mPos.y += mouseDelta.y * gSnapVal * CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+                glfwSetCursor(window, handCursor);
+            }
+            else if (ImGui::IsMouseReleased(1)) { 
+                glfwSetCursor(window, arrowCursor); 
+            }
+            lastMousePos = currentMousePos; 
         }
+
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
         }*/
@@ -1726,7 +2068,10 @@ namespace Image {
         }
         ImGui::EndChild();
         //std::cout << "Mouse 1: " << mpos.first << ", Mouse 2:" << mpos.second << std::endl;
-
+        //auto input = gCoordinator->GetSystem<InputSystem>();
+        //if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_UP)) {
+        //    SceneManager::GetInstance()->LoadScene("HowToPlay");
+        //}
         //tch: for scene to drag drop
         if (ImGui::BeginDragDropTarget()) {
             //std::cout << "Began drag-drop target." << std::endl;
@@ -1740,8 +2085,10 @@ namespace Image {
                 //    SceneManager::GetInstance()->ExitScene(gCurrentScene);
                 //}
                 std::string currentScene = (basePath / payLoadPath).stem().string();
+                static bool open = false;
 
                 SceneManager::GetInstance()->LoadScene(currentScene);
+
             }
             if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("PrefabsInstance")) {
                 if (SceneManager::GetInstance()->IsSceneActive()) {
@@ -1876,6 +2223,7 @@ namespace Image {
         static float physicsValues[gPercent] = {};
         static float collisionValues[gPercent] = {};
         static float renderValues[gPercent] = {};
+        static float guiValues[gPercent] = {};
         static int valueIndex{};
         valueIndex = (valueIndex + 1) % gPercent;
 
@@ -1918,6 +2266,15 @@ namespace Image {
         ImGui::ProgressBar(renderPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(renderPerformance * static_cast<float>(gPercent)) + "%").c_str());
         ImGui::Text("Render Performance Graph");
         ImGui::PlotLines("Render", renderValues, IM_ARRAYSIZE(renderValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
+        ImGui::Separator();
+
+        // Display Render Performance
+        ImGui::Text("GUI Performance");
+        guiValues[valueIndex] = frameController->GetProfilerValue(ENGINE_GUI_PROFILE) * static_cast<float>(gPercent);
+        float guiPerformance = frameController->GetProfilerValue(ENGINE_GUI_PROFILE);
+        ImGui::ProgressBar(guiPerformance, ImVec2(-1.0f, 0.0f), (std::to_string(guiPerformance * static_cast<float>(gPercent)) + "%").c_str());
+        ImGui::Text("GUI Performance Graph");
+        ImGui::PlotLines("GUI", guiValues, IM_ARRAYSIZE(guiValues), valueIndex, nullptr, 0.0f, static_cast<float>(gPercent), ImVec2(0, gPercent));
         ImGui::Separator();
         ImGui::PopFont();
         ImGui::End();
@@ -1995,7 +2352,6 @@ namespace Image {
 
         if (ImGui::RadioButton("Translate", gCurrentGuizmoOperation == ImGuizmo::TRANSLATE)) {
             gCurrentGuizmoOperation = ImGuizmo::TRANSLATE;
-
         }
         ImGui::SameLine();
         if (ImGui::RadioButton("Rotate", gCurrentGuizmoOperation == ImGuizmo::ROTATE)) {

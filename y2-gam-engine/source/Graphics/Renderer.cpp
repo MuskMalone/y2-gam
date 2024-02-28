@@ -428,7 +428,10 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 
 	std::array<glm::vec2, 4> texCoords{ subtex->GetTexCoords() };
 	std::shared_ptr<Texture> tex = subtex->GetTexture();
-
+	if (subtex->GetProperties().id == 1698985226353418500) {
+		int i = 1;
+		UNREFERENCED_PARAMETER(i);
+	}
 	float texIdx = 0.f;
 
 	//don't need to iterate all 32 slots every time

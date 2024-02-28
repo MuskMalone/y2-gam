@@ -145,6 +145,9 @@ Destroys the specified entity and notifies all systems of its destruction.
 
 	void DestroyEntity(Entity entity)
 	{
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::BEFORE_DESTROYED, entity);
+		SendEvent(event);
 		//Image::ScriptManager::RemoveEntity(entity);
 
 		mEntityManager->DestroyEntity(entity);
@@ -153,7 +156,7 @@ Destroys the specified entity and notifies all systems of its destruction.
 
 		mSystemManager->EntityDestroyed(entity);
 
-		Event event(Events::System::ENTITY);
+		event = Event(Events::System::ENTITY);
 #undef DELETE
 		event.SetParam(Events::System::Entity::DESTROYED, entity);
 #define DELETE                           (0x00010000L)
@@ -223,6 +226,10 @@ Removes a component of type T from the specified entity and updates its signatur
 	template<typename T>
 	void RemoveComponent(Entity entity)
 	{
+		Event event(Events::System::ENTITY);
+		event.SetParam(Events::System::Entity::BEFORE_COMPONENT_REMOVE, entity);
+		SendEvent(event);
+
 		mComponentManager->RemoveComponent<T>(entity);
 
 		auto signature = mEntityManager->GetSignature(entity);
@@ -231,7 +238,7 @@ Removes a component of type T from the specified entity and updates its signatur
 
 		mSystemManager->EntitySignatureChanged(entity, signature);
 
-		Event event(Events::System::ENTITY);
+		event = Event(Events::System::ENTITY);
 		event.SetParam(Events::System::Entity::COMPONENT_REMOVE, entity);
 		SendEvent(event);
 	}

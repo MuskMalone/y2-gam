@@ -1,5 +1,5 @@
 {
-    "classImage::SoundManager": {
+    "SoundManager": {
         "1700582535325873000": {
             "id": 1700582535325952400,
             "path": "../assets\\audio\\music\\PM_Menu_Music_Loop.wav",
@@ -54,9 +54,69 @@
             "id": 1701089634283258000,
             "path": "../assets\\audio\\sfx\\enemy_killed.wav",
             "stream": false
+        },
+        "1707024617133273000": {
+            "id": 1707024617133321400,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_1.wav",
+            "stream": false
+        },
+        "1707024621867743400": {
+            "id": 1707024621867789000,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_2.wav",
+            "stream": false
+        },
+        "1707024623669922500": {
+            "id": 1707024623669965200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_3.wav",
+            "stream": false
+        },
+        "1707024626733943200": {
+            "id": 1707024626733990700,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_4.wav",
+            "stream": false
+        },
+        "1707058828199428400": {
+            "id": 1707058828199465200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding.wav",
+            "stream": false
+        },
+        "1707058829704876200": {
+            "id": 1707058829704914400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor.wav",
+            "stream": false
+        },
+        "1707101793572517600": {
+            "id": 1707101793572554700,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_5.wav",
+            "stream": false
+        },
+        "1707101795733893200": {
+            "id": 1707101795733933100,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_6.wav",
+            "stream": false
+        },
+        "1707101843445956200": {
+            "id": 1707101843446039400,
+            "path": "../assets\\audio\\sfx\\CheckpointActivation\\Flag.wav",
+            "stream": false
+        },
+        "1707135730566952000": {
+            "id": 1707135730567002300,
+            "path": "../assets\\audio\\music\\Level2_BGM.wav",
+            "stream": false
+        },
+        "1707135840442435300": {
+            "id": 1707135840442494100,
+            "path": "../assets\\audio\\sfx\\PlayerRunningFloor.wav",
+            "stream": false
+        },
+        "1707455969481401500": {
+            "id": 1707455969481437700,
+            "path": "../assets\\audio\\music\\LevelTransition.wav",
+            "stream": false
         }
     },
-    "classSpriteManager": {
+    "SpriteManager": {
         "1698744788359338700": {
             "id": 1698985226353418500,
             "path": "../assets\\textures\\blinkbg.png",
@@ -464,9 +524,177 @@
             "idxY": 0.0,
             "dimX": 2067.0,
             "dimY": 683.0
+        },
+        "1706865272271207300": {
+            "id": 1706865272271266200,
+            "path": "../assets\\Textures\\UI\\DAA2402_level_transition_face.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 177.0,
+            "dimY": 166.0
+        },
+        "1706938658190170500": {
+            "id": 1706938658190200700,
+            "path": "../assets\\Textures\\UI\\target_cursor.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1705483032734269100": {
+            "id": 1705483032734295400,
+            "path": "../assets\\Textures\\backgrounds\\game200_lvl2castle_wip.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 6282.0,
+            "dimY": 1456.0
+        },
+        "1705617118815166700": {
+            "id": 1705617118815195300,
+            "path": "../assets\\Textures\\tiles\\gam200_backstage_tile_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 163.0,
+            "dimY": 124.0
+        },
+        "1706837932178363300": {
+            "id": 1706837932178432700,
+            "path": "../assets\\Textures\\backgrounds\\game200_basement_lvl2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1842.0,
+            "dimY": 650.0
+        },
+        "1707035851214188800": {
+            "id": 1707035851214223400,
+            "path": "../assets\\Textures\\gam sewer_water short 1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707035856609045200": {
+            "id": 1707035865510300300,
+            "path": "../assets\\Textures\\gam sewer_water short 2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036026741800000": {
+            "id": 1707036026741829500,
+            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1707073231219371800": {
+            "id": 1707073231219397700,
+            "path": "../assets\\Textures\\backgrounds\\gam sewer no lights.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 9302.0,
+            "dimY": 3330.0
+        },
+        "1707060144307791700": {
+            "id": 1707060144307829200,
+            "path": "../assets\\Textures\\gam200_confirmation_quit game_YN.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 812.0,
+            "dimY": 432.0
+        },
+        "1707116513468451400": {
+            "id": 1707116513468480500,
+            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 358.0,
+            "dimY": 66.0
+        },
+        "1707117444851733600": {
+            "id": 1707117444851765800,
+            "path": "../assets\\Textures\\HowToPlay2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1047.0,
+            "dimY": 587.0
+        },
+        "1707118000656503100": {
+            "id": 1707118000656535400,
+            "path": "../assets\\Textures\\Back.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 85.0,
+            "dimY": 58.0
+        },
+        "1707151748551518600": {
+            "id": 1707151748551552800,
+            "path": "../assets\\Textures\\DAA2402_howtoplay.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1707154487715059300": {
+            "id": 1707154487715132900,
+            "path": "../assets\\Textures\\DAA2402_howtoplay_BackbuttonGlow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1707359403519729900": {
+            "id": 1707359403519780200,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_jester.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707359405263766500": {
+            "id": 1707359405263842300,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_king.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707364236947512100": {
+            "id": 1707364236947550500,
+            "path": "../assets\\Textures\\flag pole_empty.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1707401490066292600": {
+            "id": 1707401490066372400,
+            "path": "../assets\\Textures\\UI\\DAA2402_level_transition_face_1K.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1000.0,
+            "dimY": 954.0
+        },
+        "1707402984357905900": {
+            "id": 1707402984357998300,
+            "path": "../assets\\Textures\\UI\\DAA2402_level_transition_face_1_6K.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1600.0,
+            "dimY": 1526.0
+        },
+        "1707445848064327100": {
+            "id": 1707445848064361000,
+            "path": "../assets\\Textures\\key_purple.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     },
-    "classAnimationManager": {
+    "AnimationManager": {
         "1698945575867297200": {
             "id": 1698945575867357500,
             "path": "../assets\\textures\\ROBIN_ANIM_Spritesheet.png",
@@ -547,21 +775,293 @@
             "dimX": 256.0,
             "dimY": 256.0
         },
-        "1705730292079873600": {
-            "id": 1705730292079919400,
-            "path": "../assets\\Textures\\ANIM\\ANIM_J_RUN_Spritesheet.png",
-            "frameCount": 8,
-            "idxCoordY": 0.0,
-            "dimX": 256.0,
-            "dimY": 256.0
-        },
-        "1705730446678488800": {
-            "id": 1705730446678534400,
+        "1705820098030170700": {
+            "id": 1705820098030216200,
             "path": "../assets\\Textures\\gam200_door_closed.png",
             "frameCount": 2,
             "idxCoordY": 0.0,
             "dimX": 104.0,
             "dimY": 476.0
+        },
+        "1705820099352356100": {
+            "id": 1705820099352401800,
+            "path": "../assets\\Textures\\gam200_door_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 220.0,
+            "dimY": 473.0
+        },
+        "1705820138424112000": {
+            "id": 1705820138424161900,
+            "path": "../assets\\Textures\\gam200_checkpoint_activated.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 121.0,
+            "dimY": 177.0
+        },
+        "1705820144100428400": {
+            "id": 1705820144100474300,
+            "path": "../assets\\Textures\\gam200_checkpoint_noflag.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 85.0,
+            "dimY": 177.0
+        },
+        "1707036292815710700": {
+            "id": 1707036292815747600,
+            "path": "../assets\\Textures\\gam sewer_water short 1.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036294029570900": {
+            "id": 1707036294029611100,
+            "path": "../assets\\Textures\\gam sewer_water short 2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 101.0,
+            "dimY": 120.0
+        },
+        "1707036334731623100": {
+            "id": 1707036334731673300,
+            "path": "../assets\\Textures\\gam dungeon door_open purple.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1707036348349429900": {
+            "id": 1707036348349463700,
+            "path": "../assets\\Textures\\gam dungeon door_close purple.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1706241684624811400": {
+            "id": 1706241684624840800,
+            "path": "../assets\\Textures\\gam200_button_midway.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 64.0
+        },
+        "1706241685990117500": {
+            "id": 1706241685990145700,
+            "path": "../assets\\Textures\\gam200_button_unpressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 68.0
+        },
+        "1706243405768460700": {
+            "id": 1706243405768512300,
+            "path": "../assets\\Textures\\gam200_button_pressed.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 155.0,
+            "dimY": 52.0
+        },
+        "1706897385432403900": {
+            "id": 1706897385432446500,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_APPEAR.png",
+            "frameCount": 7,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1706900374940601200": {
+            "id": 1706900374940637000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706900377831135900": {
+            "id": 1706900377831163400,
+            "path": "../assets\\Textures\\ANIM\\ANIM_ROBIN_TakeDmg.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958918751709200": {
+            "id": 1706958918751752500,
+            "path": "../assets\\Textures\\ANIM\\Anvil_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958921514429100": {
+            "id": 1706958921514477800,
+            "path": "../assets\\Textures\\ANIM\\Anvil_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958923818396500": {
+            "id": 1706958923818421600,
+            "path": "../assets\\Textures\\ANIM\\Box_appear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706958927068181100": {
+            "id": 1706958927068223000,
+            "path": "../assets\\Textures\\ANIM\\Box_disappear_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706960279690233900": {
+            "id": 1706960279690273800,
+            "path": "../assets\\Textures\\gam200_swappable_box.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1706963288764716700": {
+            "id": 1706963288764764700,
+            "path": "../assets\\Textures\\ANIM\\ANIM_J_TakeDmg_Red.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017805757956700": {
+            "id": 1707017805758005900,
+            "path": "../assets\\Textures\\ANIM\\Box_512.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707017811603344400": {
+            "id": 1707017811603372300,
+            "path": "../assets\\Textures\\ANIM\\ANVIL_512.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
+        },
+        "1707186215576318200": {
+            "id": 1707186215576350000,
+            "path": "../assets\\Textures\\ANIM\\sewer water long spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2000.0,
+            "dimY": 1000.0
+        },
+        "1707293942982333800": {
+            "id": 1707293942982393300,
+            "path": "../assets\\Textures\\UI\\gam map empty.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293945637399000": {
+            "id": 1707293945637432300,
+            "path": "../assets\\Textures\\UI\\gam map king.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707293948351258000": {
+            "id": 1707293948351290100,
+            "path": "../assets\\Textures\\UI\\gam map robin.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707360008139696600": {
+            "id": 1707360008139737600,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_jester.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707360010272530700": {
+            "id": 1707360010272590500,
+            "path": "../assets\\Textures\\backgrounds\\loading screen_king.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2314.0,
+            "dimY": 1300.0
+        },
+        "1707305393690677100": {
+            "id": 1707305393690718800,
+            "path": "../assets\\Textures\\ANIM\\gam 200 flag_spritesheet.png",
+            "frameCount": 6,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1707364242017229000": {
+            "id": 1707364242017257400,
+            "path": "../assets\\Textures\\flag pole_empty.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1707366674554159600": {
+            "id": 1707366674554199700,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1707393648820918400": {
+            "id": 1707393648820975100,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 1.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393651369475400": {
+            "id": 1707393651369516500,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 2.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393653966122400": {
+            "id": 1707393653966177500,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 3.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707393656264756000": {
+            "id": 1707393656264798600,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES 4.jpg",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1707445833113468200": {
+            "id": 1707445833113495200,
+            "path": "../assets\\Textures\\key_purple.png",
+            "frameCount": 0,
+            "idxCoordY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     }
 }

@@ -82,6 +82,21 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! MousePosUI
+
+        Gets the current mouse pos.
+        */
+        public Vector2 MousePosUI
+        {
+            get
+            {
+                Vector2 mousePos = new Vector2();
+                InternalCalls.EngineCore_GetUIMousePos(ref mousePos);
+                return mousePos;
+            }
+        }
+
+        /*  _________________________________________________________________________ */
         /*! PlayAudio
 
         Plays any sound file loaded in the asset manager. Remember to add '.wav' to
@@ -93,6 +108,17 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
+        /*! PlayPositionalAudio
+
+        Plays any sound file loaded in the asset manager. Remember to add '.wav' to
+        the end of the audioFileName. Uses positional audio.
+        */
+        public void PlayPositionalAudio(string audioFileName, int loopCount, Vector2 pos)
+        {
+            InternalCalls.EngineCore_PlayPositionalAudio(audioFileName, ref loopCount, ref pos);
+        }
+
+        /*  _________________________________________________________________________ */
         /*! StopAudio
 
         Stops the current bgm.
@@ -100,6 +126,36 @@ namespace Image
         public void StopAudio()
         {
             InternalCalls.EngineCore_StopAudio();
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! StopAudioFromFilename
+
+        Stops audio channel, given its filename.
+        */
+        public void StopAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_StopAudioWithFilename(audioFileName);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! ResumeAudioFromFilename
+
+        Resumes audio channel, given its filename.
+        */
+        public void ResumeAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_ResumeAudioWithFilename(audioFileName);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! PauseAudioFromFilename
+
+        Pauses audio channel, given its filename.
+        */
+        public void PauseAudioWithFilename(string audioFileName)
+        {
+            InternalCalls.EngineCore_PauseAudioWithFilename(audioFileName);
         }
 
         /*  _________________________________________________________________________ */
@@ -359,6 +415,19 @@ namespace Image
             set
             {
                 InternalCalls.TransformComponent_SetTranslation(ref entityID, ref value);
+            }
+        }
+        public float Transform_Rotation
+        {
+            get
+            {
+                float rot = 0;
+                InternalCalls.TransformComponent_GetRotation(ref entityID, ref rot);
+                return rot;
+            }
+            set
+            {
+                InternalCalls.TransformComponent_SetRotation(ref entityID, ref value);
             }
         }
 

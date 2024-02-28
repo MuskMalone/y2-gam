@@ -7,24 +7,20 @@
             "Layering": {
                 "layering": "Default"
             },
-            "Script": {
-                "scriptName": "ObjectPmHowToPlayScene",
-                "scriptTag": "bg"
-            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1700950875967708300
+                "assetID": 1707151748551518600
             },
             "Tag": {
                 "Tag": "bg"
             },
             "Transform": {
                 "posX": 800.0,
-                "posY": 450.2034912109375,
+                "posY": 449.7965087890625,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -38,6 +34,43 @@
                 "enabled": true,
                 "isClicked": true,
                 "isHover": true
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmHowToPlayScene",
+                "scriptTag": "PmHowToPlayScene"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1707154487715059300
+            },
+            "Tag": {
+                "Tag": "PmHowToPlayScene"
+            },
+            "Transform": {
+                "posX": 100.8782958984375,
+                "posY": 70.90512084960938,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 300.0,
+                "scaleY": 300.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

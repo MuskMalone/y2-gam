@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmQuit.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For quit button in pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -7,13 +22,17 @@ namespace Object
     public class PmQuit : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
+        private bool isPaused = false;
+        public bool quitClicked = false;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        private Vector2 temp_translation;
+        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmQuit
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmQuit entity. Inherits from entity class.
         */
         public PmQuit() : base()
         {
@@ -21,14 +40,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmQuit
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmQuit entity.
         */
         public PmQuit(uint entityHandle) : base(entityHandle)
         {
@@ -42,41 +61,42 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
         void PauseGame()
         {
-            
-            if (UIHover)
-            {
-                //Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
-               
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked)
-            {
-                GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
-                
-                if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-                {
-                    ResumeGame();
-                    isPaused = false;
-                    //firstTime = false;
-                }
-            }
+            Translation = new Vector2(1202, 425);
+            //Translation = new Vector2(1500, 500);
+            //if (UIHover)
+            //{
+            //    //Console.WriteLine("Quitgame Hovered Over");
+            //    Colour = new Vector4(1, 1, 1, 1);
+
+            //}
+            //else
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+            ////}
+            //if (UIClicked)
+            //{
+            //    GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
+
+            //    if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //        //firstTime = false;
+            //    }
+            //}
         }
 
         void ResumeGame()
         {
-            Colour = new Vector4(1, 0, 1, 0);
+            //Colour = new Vector4(1, 0, 1, 0);
+            Translation = temp_translation;
         }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
@@ -97,10 +117,20 @@ namespace Object
             }
             else
             {
-                PauseGame();
+                //PauseGame();
+                Colour = new Vector4(1, 1, 1, 1);
+                if (UIClicked)
+                {
+                    quitClicked = true; 
+                }
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (resume.isRPaused == false)
+            {
+                isPaused = false;
+            }
+
+            if (Input.IsKeyClicked(KeyCode.KEY_P))
             {
                 if (!isPaused)
                 {

@@ -4,7 +4,7 @@
 \file       Sound.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Nov 21, 2023
+\date       Feb 26, 2024
 
 \brief      Source file for Audio library that wraps around FMOD. 
 
@@ -18,9 +18,9 @@
 #include <Windows.h>
 
 namespace Image {
-
   // Static Initialization
   FMOD::System* SoundManager::sSystem{ nullptr };
+  std::vector<AudioInformation> SoundManager::AudioPlaying;
   std::map<ResourceID, std::pair<Sound, SoundProperties>> SoundManager::_mSoundAssets;
   std::map<std::string, ResourceID> SoundManager::sSoundResourceMap;
   std::map<Sound, std::string> SoundManager::sGroupMap;
@@ -78,8 +78,8 @@ namespace Image {
     musicGroup = Image::SoundManager::AudioCreateGroup();
     sfxGroup = Image::SoundManager::AudioCreateGroup();
 
-    //Image::SoundManager::AudioPlay(::bgm, ::bgmGroup, -1);
-    //Image::SoundManager::AudioPauseGroup(::bgmGroup);
+    Image::SoundManager::AudioSetGroupVolume(musicGroup, 0.1f);
+    Image::SoundManager::AudioSetGroupVolume(sfxGroup, 0.2f);
 
     return true;
   }
@@ -110,6 +110,13 @@ namespace Image {
     }
     
     result = sSystem->update();
+
+    // Calculate the volume needed for positional audio
+    for (AudioInformation& ai : AudioPlaying) {
+      if (ai.isPositional) {
+        // Do Something
+      }
+    }
     
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
@@ -346,9 +353,14 @@ namespace Image {
   should be in from just the filename.
   */
   void SoundManager::AudioPlay(std::string filename, int loops) {
+    // Prevent stacking of audio that is already playing
+    for (AudioInformation& pair : AudioPlaying) {
+      if (pair.audioName == filename && pair.isPlaying) {
+        return;
+      }
+    }
 
     Sound const& audio{ GetAsset(GetResourceID(filename)) };
-
     FMOD_RESULT result;
     result = audio->setLoopCount(loops);
 
@@ -361,9 +373,124 @@ namespace Image {
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
     }
 #endif
+
     auto am{ AssetManager::GetInstance() };
     SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
-    result = sSystem->playSound(audio, group, false, NULL);
+
+    bool found = false;
+    for (AudioInformation& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
+        found = true;
+        ai.isPlaying = true;
+        ai.isPositional = false;
+        ai.position = Vec2(-1.f, -1.f);
+        result = sSystem->playSound(audio, group, false, &ai.audioChannel);
+        ai.audioChannel->setCallback(OnSoundFinished);
+        break;
+      }
+    }
+
+    if (!found) {
+      FMOD::Channel* channel{ nullptr };
+      result = sSystem->playSound(audio, group, false, &channel);
+
+      // Register the callback for when the sound finishes playing
+      result = channel->setCallback(OnSoundFinished);
+      AudioInformation ai{};
+      ai.audioName = filename;
+      ai.audioChannel = channel;
+      ai.isPlaying = true;
+      ai.isPositional = false;
+      ai.position = Vec2(-1.f, -1.f);
+      AudioPlaying.push_back(ai);
+    }
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
+    }
+#endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPlayPositional
+
+  @param audio
+  The sound to play.
+
+  @param loops
+  The number of times the sound is to be looped.
+  -1 means it will be looped indefinetely.
+  0 means it will not be looped.
+
+  @param position
+  The position (in game coordinates) that the audio will be played from.
+
+  @return none
+
+  Plays the sound for a specific sound and group. Can specify the number of times
+  it is looped as well.
+
+  AudioPlayPositional is strictly for positional audio, in which the closer an object
+  is to the centre of the camera, the louder it will be. Use it as an alternative
+  to AudioPlay.
+  */
+  void SoundManager::AudioPlayPositional(std::string filename, int loops, Vec2 position) {
+    // Prevent stacking of audio that is already playing
+    for (AudioInformation& pair : AudioPlaying) {
+      if (pair.audioName == filename && pair.isPlaying) {
+        return;
+      }
+    }
+
+    Sound const& audio{ GetAsset(GetResourceID(filename)) };
+    FMOD_RESULT result;
+    result = audio->setLoopCount(loops);
+
+#ifndef _INSTALLER
+    if (result != FMOD_OK) {
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+    }
+    else {
+      LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Successful set loop count to " + std::to_string(loops), __FUNCTION__);
+    }
+#endif
+
+    auto am{ AssetManager::GetInstance() };
+    SoundGroup& group{ sGroupMap[audio] == "music" ? musicGroup : sfxGroup };
+
+    bool found = false;
+    for (AudioInformation& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
+        found = true;
+        ai.isPlaying = true;
+        result = sSystem->playSound(audio, group, false, &ai.audioChannel);
+        ai.audioChannel->setCallback(OnSoundFinished);
+        ai.isPositional = true;
+        ai.position = position;
+        break;
+      }
+    }
+
+    if (!found) {
+      FMOD::Channel* channel{ nullptr };
+      result = sSystem->playSound(audio, group, false, &channel);
+
+      // Register the callback for when the sound finishes playing
+      result = channel->setCallback(OnSoundFinished);
+      AudioInformation ai{};
+      ai.audioName = filename;
+      ai.audioChannel = channel;
+      ai.isPlaying = true;
+      ai.isPositional = true;
+      ai.position = position;
+      AudioPlaying.push_back(ai);
+    }
 
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
@@ -399,6 +526,98 @@ namespace Image {
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Resume Group", __FUNCTION__);
     }
 #endif
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioStopChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Stops the audio that is playing from a given filename. The channel will
+  not be able to used after stopping.
+  */
+  void SoundManager::AudioStopChannelFromFilename(std::string filename) {
+    for (auto& itr : AudioPlaying) {
+      if (itr.audioName == filename) {
+        itr.audioChannel->setVolume(0.0f);
+        itr.audioChannel->stop();
+        itr.isPlaying = false;
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioResumeChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Resumes channel.
+  */
+  void SoundManager::AudioResumeChannelFromFilename(std::string filename) {
+    for (auto& itr : AudioPlaying) {
+      if (itr.audioName == filename) {
+        bool isPaused{};
+        itr.audioChannel->getPaused(&isPaused);
+        if (isPaused) {
+          itr.audioChannel->setPaused(false);
+        }
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPauseChannelFromFilename
+
+  @param filename
+  The filename.
+
+  @return none.
+
+  Pauses channel.
+  */
+  void SoundManager::AudioPauseChannelFromFilename(std::string filename) {
+    for (auto& itr : AudioPlaying) {
+      if (itr.audioName == filename) {
+        bool isPaused{};
+        itr.audioChannel->getPaused(&isPaused);
+        if (!isPaused) {
+          itr.audioChannel->setPaused(true);
+        }
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioPauseAll
+
+  @return none.
+
+  Pauses all audio.
+  */
+  void SoundManager::AudioPauseAll() {
+    AudioPauseGroup(sfxGroup);
+    AudioPauseGroup(musicGroup);
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! AudioResumeAll
+   
+  @return none.
+
+  Resumes all audio.
+  */
+  void SoundManager::AudioResumeAll() {
+    AudioResumeGroup(sfxGroup);
+    AudioResumeGroup(musicGroup);
   }
 
   /*  _________________________________________________________________________ */
@@ -520,7 +739,7 @@ namespace Image {
 
   Loads the sound asset.
   */
-  ResourceID SoundManager::LoadAsset(SoundProperties const& props) {
+  ResourceID SoundManager::LoadAssetSoundProperties(SoundProperties const& props) {
     ResourceID key{ props.id };
     if (_mSoundAssets.find(key) != _mSoundAssets.end()) return key;
     _mSoundAssets[key] = ((props.stream) ? (SoundAssetPair{ AudioLoadMusic(props.path.c_str()), SoundProperties{ props.id, props.path, true } })
@@ -554,7 +773,13 @@ namespace Image {
   Loads the sound asset on app open.
   */
   ResourceID SoundManager::LoadAsset(rapidjson::Value const& obj) {
-    return LoadAsset(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
+    std::cout << "Load Asset for sound" << std::endl;
+    return LoadAssetSoundProperties(SoundProperties{ obj["id"].GetUint64(), obj["path"].GetString(), obj["stream"].GetBool()});
+  }
+
+
+  void SoundManager::UnloadAsset(AssetManager::Asset const& asset) {
+
   }
 
   /*  _________________________________________________________________________ */
@@ -571,7 +796,7 @@ namespace Image {
 
   Serializes asset.
   */
-  void SoundManager::SaveAsset(ResourceID aid, SoundProperties const& props, rapidjson::Value &obj) {
+  void SoundManager::SaveAsset(AssetID aid, SoundProperties const& props, rapidjson::Value &obj) {
     _mSoundAssets[aid].second.stream = props.stream;
     Serializer::SerializationManager::GetInstance()->ModifyValue(obj, "stream", props.stream);
   }
@@ -631,5 +856,19 @@ namespace Image {
 
     sm->InsertValue(obj, "stream", false);
     return id;
+  }
+
+  FMOD_RESULT F_CALLBACK SoundManager::OnSoundFinished(FMOD_CHANNELCONTROL* channelControl, FMOD_CHANNELCONTROL_TYPE controlType,
+    FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2) {
+    if (callbackType == FMOD_CHANNELCONTROL_CALLBACK_END) {
+      for (AudioInformation& pair : AudioPlaying) {
+        if (pair.audioChannel == reinterpret_cast<FMOD::Channel*>(channelControl)) {
+          pair.isPlaying = false;
+          break;
+        }
+      }
+    }
+
+    return FMOD_OK;
   }
 }

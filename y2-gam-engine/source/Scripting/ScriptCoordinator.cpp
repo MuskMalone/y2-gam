@@ -31,6 +31,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/PhysicsSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 
 #include "Engine/PrefabsManager.hpp"
 #include "Engine/SceneManager.hpp"
@@ -41,6 +42,7 @@ using namespace Physics;
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
+	auto frameController = FrameRateController::GetInstance();
 }
 
 namespace Image {
@@ -228,12 +230,12 @@ namespace Image {
 	Set slowdown time to true or false.
 	*/
 	static void GameplayComponent_SlowdownTime(bool& flag) {
-		auto frameController{ FrameRateController::GetInstance() };
+		auto frameController1{ FrameRateController::GetInstance() };
 		if (flag) {
-			frameController->ScaleDeltaTime(0.4f);
+			frameController1->ScaleDeltaTime(0.4f);
 		}
 		else {
-			frameController->ScaleDeltaTime(0.f);
+			frameController1->ScaleDeltaTime(0.f);
 		}
 	}
 
@@ -299,6 +301,18 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetFPS
+
+	@return float
+	The current FPS of the application.
+
+	Gets the fps of the application.
+	*/
+	static float EngineCore_GetFPS() {
+		return ::frameController->GetFps();
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetMousePos
 
 	@param outMousePos
@@ -315,18 +329,69 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetUIMousePos
+	
+	@param outMousePos
+	The mouse position.
+	
+	@return none.
+	
+	Gets the mouse pos for UI in C#.
+	*/
+	static void EngineCore_GetUIMousePos(Vec2& outMousePos) {
+		auto inputSystem{ ::gCoordinator->GetSystem<InputSystem>() };
+		Vec2 mousePos{ inputSystem->GetUIMousePos().first, inputSystem->GetUIMousePos().second };
+		outMousePos = mousePos;
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_PlayAudio
 
 	@param audioFileName
+	Name of audio file.
+
+	@param loopCount
+	The number of loops the audio will be played for.
 
 	@return none.
 
-	Plays audio.
+	Plays audio. To use if positional audio does not matter.
 	*/
 	static void EngineCore_PlayAudio(MonoString* audioFileName, int& loopCount) {
 		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
 			SoundManager::AudioPlay(utf8Str, loopCount);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PlayPositionalAudio
+
+	@param audioFileName
+	Name of audio file.
+
+	@param loopCount
+	The number of loops the audio will be played for.
+
+	@param pos
+	The position the audio will be played from.
+
+	@return none.
+
+	Plays audio. Specifically for positional audio.
+	*/
+	static void EngineCore_PlayPositionalAudio(MonoString* audioFileName, int& loopCount, Vec2& pos) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPlayPositional(utf8Str, loopCount, pos);
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -347,6 +412,72 @@ namespace Image {
 	*/
 	static void EngineCore_StopAudio() {
 		SoundManager::AudioStopGroup(SoundManager::musicGroup);
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_StopAudioWithFilename
+
+	@return none.
+
+	Stops audio channel with filename.
+	*/
+	static void EngineCore_StopAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioStopChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_ResumeAudioWithFilename
+
+	@return none.
+
+	Resumes audio channel with filename.
+	*/
+	static void EngineCore_ResumeAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioResumeChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_PauseAudioWithFilename
+
+	@return none.
+
+	Pauses audio channel with filename.
+	*/
+	static void EngineCore_PauseAudioWithFilename(MonoString* audioFileName) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioPauseChannelFromFilename(utf8Str);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
 	}
 
 	/*  _________________________________________________________________________ */
@@ -511,12 +642,28 @@ namespace Image {
 
 	@return none.
 
-	Get the raycast hit information in C#. Wraps the raycast function in CPP for
+	Get the collided information in C#. Wraps the raycast function in CPP for
 	calling in C#.
 	*/
 	static void PhysicsComponent_Collided(uint32_t& entityID, bool& collidedOrNot) {
-		bool collided{ ::gCoordinator->GetSystem<Collision::CollisionSystem>()->IsIntersected(entityID).size() > 0 };
+		auto vec{ Physics::IsCollided(entityID) };
+		bool collided{ vec.size() > 0 };
 		collidedOrNot = collided;
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_CollidedEntity
+
+	@param
+
+	@return none.
+
+	Get the collided information in C#. Wraps the raycast function in CPP for
+	calling in C#.
+	*/
+	static void PhysicsComponent_CollidedEntity(uint32_t& lhsEntityID, uint32_t& rhsEntityID, bool& collidedOrNot) {
+		bool isCollided{ Physics::IsCollided(lhsEntityID, rhsEntityID) };
+		collidedOrNot = isCollided;
 	}
 
 	/*  _________________________________________________________________________ */
@@ -537,7 +684,7 @@ namespace Image {
 	calling in C#.
 	*/
 	static void PhysicsComponent_GetRaycast(Vec2& origin, Vec2& end, uint32_t& entityToIgnore, bool& hit, uint32_t& entityHandle,
-		MonoString* tag, MonoString* layer) {
+		MonoString** tag, MonoString** layer) {
 		Physics::RayHit rh{};
 		hit = ::gCoordinator->GetSystem<Collision::CollisionSystem>()->Raycast(origin, end, rh, entityToIgnore);
 			
@@ -546,12 +693,12 @@ namespace Image {
 
 			if (::gCoordinator->HasComponent<Tag>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Tag>(rh.entityID).tag.c_str();
-				tag = mono_string_new(mono_domain_get(), str);
+				*tag = mono_string_new(mono_domain_get(), str);
 			}
 
 			if (::gCoordinator->HasComponent<Layering>(rh.entityID)) {
 				const char* str = ::gCoordinator->GetComponent<Layering>(rh.entityID).assignedLayer.c_str();
-				layer = mono_string_new(mono_domain_get(), str);
+				*layer = mono_string_new(mono_domain_get(), str);
 			}
 		}
 	}
@@ -620,6 +767,12 @@ Get the collider dimensions of the entity in C#.
 	}
 
 	// For Graphics
+	static void AnimationComponent_ResetAnimationState(uint32_t& entityID) {
+		if (::gCoordinator->HasComponent<Animation>(entityID)) {
+			::gCoordinator->GetSystem<AnimationSystem>()->ResetFrame(entityID);
+		}
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! AnimationComponent_GetAnimationState
 
@@ -769,6 +922,20 @@ Get the collider dimensions of the entity in C#.
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! GraphicsComponent_SetZoom
+
+	@param val
+	Val to set the camera zoom
+
+	@return none.
+
+	Set the current zoom level of the player in C#.
+	*/
+	static void GraphicsComponent_SetZoom(float val) {
+		::gCoordinator->GetSystem<RenderSystem>()->SetSceneCameraZoom(val);
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! GraphicsComponent_SetColour
 
 	@param entityID
@@ -831,6 +998,44 @@ Get the collider dimensions of the entity in C#.
 		if (::gCoordinator->HasComponent<Collider>(entityID)) {
 			::gCoordinator->GetComponent<Collider>(entityID).position = { translation.x,
 				translation.y };
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_GetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param outRotation
+	The current rotation of the entity.
+
+	@return none.
+
+	Get the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_GetRotation(uint32_t& entityID, float& outRotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			outRotation = ::gCoordinator->GetComponent<Transform>(entityID).rotation.z;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! TransformComponent_SetRotation
+
+	@param entityID
+	The ID of the entity.
+
+	@param rotation
+	Updated rotation of the entity.
+
+	@return none.
+
+	Set the current rotation of the entity in C#.
+	*/
+	static void TransformComponent_SetRotation(uint32_t& entityID, float& rotation) {
+		if (::gCoordinator->HasComponent<Transform>(entityID)) {
+			::gCoordinator->GetComponent<Transform>(entityID).rotation.z = rotation;
 		}
 	}
 
@@ -1076,24 +1281,32 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetScriptInstance);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_PauseAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_LoadScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SaveScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetCurrentScene);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_IsEditorMode);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetText);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_Quit);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetFPS);
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedEntity);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderPos);
 
+		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_ResetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_GetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(AnimationComponent_SetAnimationState);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetSprite);
@@ -1102,9 +1315,12 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetScale);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetRotation);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetRotation);
+		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetZoom);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetRotation);
+		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetRotation);
 
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_GetForce);
 		IMAGE_ADD_INTERNAL_CALL(ForceComponent_SetForce);

@@ -1,20 +1,37 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PmResumeGame.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For resume game button in pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+//using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
 {
     public class PmResumeGame : Entity
     {
         //bool firstTime = true;
-        bool isPaused = false;
-        bool firstTime = true;
+        public bool isRPaused = false;
+        private Vector2 temp_translation;
+        //private bool firstTime = true;
+
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmResumeGame
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PmResumeGame entity. Inherits from entity class.
         */
         public PmResumeGame() : base()
         {
@@ -22,14 +39,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PmResumeGame
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PmResumeGame entity.
         */
         public PmResumeGame(uint entityHandle) : base(entityHandle)
         {
@@ -43,40 +60,41 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
-        void PauseGame()
-        {
+        //void PauseGame()
+        //{
 
-            if (UIHover)
-            {
-                //Console.WriteLine("Quitgame Hovered Over");
-                Colour = new Vector4(1, 1, 1, 1);
+        //    if (UIHover)
+        //    {
+        //        //Console.WriteLine("Quitgame Hovered Over");
+        //        Colour = new Vector4(1, 1, 1, 1);
 
-            }
-            else
-            {
-                Colour = new Vector4(1, 0, 1, 0);
-            }
-            if (UIClicked && firstTime)
-            {
-                //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
-                StopAudio();
-                LoadScene("Level1");
-                isPaused = false;
-                ResumeGame();
-                firstTime = false;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        Colour = new Vector4(1, 0, 1, 0);
+        //    }
+        //    if (UIClicked && firstTime)
+        //    {
+        //        //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+        //        //StopAudio();
+        //        //LoadScene("Level1");
+        //        isRPaused = false;
+        //        ResumeGame();
+        //        firstTime = false;
+        //    }
+        //}
 
-        void ResumeGame()
-        {
-            Colour = new Vector4(1, 0, 1, 0);
-        }
+        //void ResumeGame()
+        //{
+        //    Colour = new Vector4(1, 0, 1, 0);
+        //}
+
+
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -89,31 +107,61 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
+            //if(UIClicked && firstTime)
+
+            if (!isRPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
-
             }
             else
             {
-                PauseGame();
+
+                Colour = new Vector4(1, 1, 1, 1);
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            if (UIClicked)
             {
-                if (!isPaused)
+                Translation = temp_translation;
+                isRPaused = false;
+            }
+
+            if(Input.IsKeyClicked(KeyCode.KEY_P))
+            {
+                if(!isRPaused)
                 {
-                    SaveScene("Level1");
-                    PauseGame();
-                    isPaused = true;
+                    Translation = new Vector2(1200, 381);
+                    isRPaused = true;
                 }
                 else
                 {
-                    ResumeGame();
-                    isPaused = false;
+                    isRPaused = false;
                 }
-                //firstTime = false;
             }
+            //if (!isPaused)
+            //{
+            //    Colour = new Vector4(1, 0, 1, 0);
+
+            //}
+            //else
+            //{
+            //    PauseGame();
+            //}
+
+            //if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        SaveScene("Level1");
+            //        PauseGame();
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
 
 
             //if (UIClicked)

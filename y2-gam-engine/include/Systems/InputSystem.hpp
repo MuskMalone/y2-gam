@@ -22,6 +22,7 @@ public:
 	MousePosition GetMousePos() const;
 	MousePosition GetWorldMousePos() const;
 	MousePosition GetSceneMousePos() const;
+	MousePosition GetUIMousePos() const;
 	EditorMousePosition GetEditorMousePos() const;
 
 	void Update();

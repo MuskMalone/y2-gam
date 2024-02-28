@@ -89,25 +89,27 @@ void FrameRateController::AccumulateDt() {
 Ends the frame time measurement and adjusts the frame rate if necessary.
 */
 
-float FrameRateController::EndFrameTime() {
+float FrameRateController::EndFrameTime(bool updateDt) {
 	mDeltaTime = std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::high_resolution_clock::now() - mStart).count();
 	//if (mDeltaTime < mTargetDeltaTime) {
 	//	std::this_thread::sleep_for(std::chrono::duration<double>(mTargetDeltaTime - mDeltaTime));
 	//	mDeltaTime = mTargetDeltaTime;
 	//}
 	++mFpsCounter;
-
+	static std::deque<float> fpsQueue;
+	int targetFpsInt = static_cast<int>(mTargetFps);
 	//gets the fps
-	if (!(mFpsCounter % static_cast<int>(mTargetFps))) {
-		mFps = 1.f / mDeltaTime;
+	if (updateDt) {
+		fpsQueue.push_back(1.f / mDeltaTime);
+		if (fpsQueue.size() > targetFpsInt) {
+			fpsQueue.pop_front();
+		}
+		mFps = { std::accumulate(fpsQueue.begin(), fpsQueue.end(), 0.f) / mTargetFps };
 	}
+
+	//mFps = 1 / mDeltaTime;
 	//std::cout << mDeltaTime << " "<<mFps << std::endl;
-	if (isGameSlow) {
-		return mDeltaTime * slowFactor;
-	}
-	else {
 		return mDeltaTime;
-	}
 }
 /*  _________________________________________________________________________ */
 /*! StartSubFrameTime

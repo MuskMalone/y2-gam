@@ -32,6 +32,7 @@ void WindowManager::Init(
 
 #ifdef _INSTALLER
 	//start in fullscreen mode
+	
 const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
 	// Create OpenGL Context
@@ -87,7 +88,6 @@ void WindowManager::ProcessEvents()
 	event.SetParam(Events::Window::Input::KEY_PRESS,mButtons & mPrevButtons);
 	event.SetParam(Events::Window::Input::MOUSE_PRESS, mMouseButtons & mPrevMouseButtons);
 	gCoordinator->SendEvent(event);
-
 }
 void WindowManager::UpdateWindowTitle(std::string str) {
 	glfwSetWindowTitle(mWindow, str.c_str());
@@ -100,6 +100,7 @@ bool WindowManager::ShouldClose() {
 void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, int mod) {
     UNREFERENCED_PARAMETER(mod);
     UNREFERENCED_PARAMETER(scancode);
+	if (key == -1) return;
 
 	KeyState const& prevButtons {GetInstance()->mPrevButtons};
 	KeyState& currButtons {GetInstance()->mButtons};
@@ -125,6 +126,7 @@ void WindowManager::KeyCb(GLFWwindow* pwin, int key, int scancode, int action, i
 	}
     else if (GLFW_RELEASE == action) {
         //key_flags[key] = GL_FALSE;
+		
 		GetInstance()->SetKey(currButtons, key, false);
 		auto bsB{ GetInstance()->mButtons };
 		event.SetParam(Events::Window::Input::KEY_RELEASE, bsB.flip());

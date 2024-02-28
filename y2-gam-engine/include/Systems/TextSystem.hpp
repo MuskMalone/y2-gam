@@ -24,6 +24,7 @@ public:
 	void Update();
 	void Exit();
 
+	static std::vector<const char*> FontTypes;
 	static Vec2 WorldToScreenCoordinates(Vec2 worldCoordinates);
 
 private:

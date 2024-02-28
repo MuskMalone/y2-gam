@@ -54,18 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignableScripts\Activatables\Anvil.cs" />
+    <Compile Include="AssignableScripts\Activatables\Box.cs" />
+    <Compile Include="AssignableScripts\Activatables\LockedDoor.cs" />
+    <Compile Include="AssignableScripts\Activatables\Swappable.cs" />
     <Compile Include="AssignableScripts\Activatables\Button.cs" />
     <Compile Include="AssignableScripts\Activatables\Door.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\BasicEnemy.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyAttackState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyBaseState.cs" />
-    <Compile Include="AssignableScripts\BasicEnemy\EnemyChaseState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyDefaultState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyIdleState.cs" />
     <Compile Include="AssignableScripts\BasicEnemy\EnemyPatrolState.cs" />
     <Compile Include="AssignableScripts\Buttons\Gameplaybgm.cs" />
     <Compile Include="AssignableScripts\Buttons\MainMenubgm.cs" />
     <Compile Include="AssignableScripts\Buttons\PauseMenu.cs" />
+    <Compile Include="AssignableScripts\Buttons\PauseMenu2.cs" />
     <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlay.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlayScene.cs" />
@@ -74,11 +78,21 @@
     <Compile Include="AssignableScripts\Buttons\PmResumeGame.cs" />
     <Compile Include="AssignableScripts\Buttons\Settings.cs" />
     <Compile Include="AssignableScripts\Checkpoints\Checkpoint.cs" />
+    <Compile Include="AssignableScripts\Collectibles\Key.cs" />
     <Compile Include="AssignableScripts\Exit\Exit.cs" />
     <Compile Include="AssignableScripts\Player\Arms.cs" />
     <Compile Include="AssignableScripts\Buttons\EnterLevelOne.cs" />
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />
     <Compile Include="AssignableScripts\Player\Card.cs" />
+    <Compile Include="AssignableScripts\Player\Death.cs" />
+    <Compile Include="AssignableScripts\Utility\ZoomOut.cs" />
+    <Compile Include="AssignableScripts\Utility\Cursor.cs" />
+    <Compile Include="AssignableScripts\Utility\Cutscene.cs" />
+    <Compile Include="AssignableScripts\Utility\FPSDisplay.cs" />
+    <Compile Include="AssignableScripts\Utility\KingButton.cs" />
+    <Compile Include="AssignableScripts\Utility\LevelSelect.cs" />
+    <Compile Include="AssignableScripts\Utility\LoadingScreen.cs" />
+    <Compile Include="AssignableScripts\Utility\RobinButton.cs" />
     <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />

@@ -39,7 +39,11 @@ void SceneManager::LoadScene(std::string const& scnpath) {
 			std::set<AssetID> aids{};
 			if (aidsJson.IsArray()) {
 				for (size_t i{}; i < aidsJson.Size(); ++i) {
-					aids.insert(aidsJson[static_cast<rapidjson::SizeType>(i)].GetUint64());
+					AssetID aidTemp{ aidsJson[static_cast<rapidjson::SizeType>(i)].GetUint64() };
+					if (AssetManager::GetInstance()->IsAssetExist(aidTemp))
+						aids.insert(aidTemp);
+					else
+						aidsJson[static_cast<rapidjson::SizeType>(i)].SetUint64(0);
 				}
 			}
 		AssetManager::GetInstance()->LoadAssetChunk(aids);
@@ -82,6 +86,7 @@ void SceneManager::ExitScene(std::string const& scnpath) {
 	for (auto const& e : mEntities) {
 		if (e >= 0 && e < MAX_ENTITIES) {
 			if (gCoordinator->HasComponent<Script>(e)) {
+				Image::ScriptManager::OnExitEntity(e);
 				Image::ScriptManager::RemoveEntity(e);
 			}
 			if (gCoordinator->HasComponent<Camera>(e)) {
@@ -126,10 +131,14 @@ void SceneManager::RemoveAsset(std::string const& scnpath, AssetID aid) {
 	std::shared_ptr<Coordinator> coordinator {Coordinator::GetInstance()};
 	std::shared_ptr< Serializer::SerializationManager> sm{ Serializer::SerializationManager::GetInstance() };
 	JSONObj& assetlist{ sm->At(filename, assetsKey) };
+	std::cout << "assetlist size" << assetlist.Size();
+	std::cout << "aid1 " << aid << std::endl;
 	if (assetlist.IsArray()) {
 		// Iterate through the array
 		for (rapidjson::SizeType i = 0; i < assetlist.Size(); i++) {
 			// Check the id of each object
+			std::cout << "assetlist[i]" << assetlist[i].GetUint64() << std::endl;
+			std::cout << "aid2 " << aid << std::endl;
 			if (assetlist[i].GetUint64() == aid) {
 				// Remove the object
 				assetlist.Erase(assetlist.Begin() + i);
@@ -137,6 +146,7 @@ void SceneManager::RemoveAsset(std::string const& scnpath, AssetID aid) {
 			}
 		}
 	}
+	std::cout << "assetlist size" << assetlist.Size();
 }
 
 void SceneManager::ModifyScene() {

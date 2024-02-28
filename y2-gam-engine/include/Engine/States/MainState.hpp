@@ -7,6 +7,7 @@
 #include <Systems/AnimationSystem.hpp>
 #include <Systems/RenderSystem.hpp>
 #include <Systems/EntitySerializationSystem.hpp>
+#include <Systems/ParticleSystem.hpp>
 
 #include <Core/Component.hpp>
 
@@ -18,5 +19,4 @@ public:
 	void Update(float dt) override; 
 	void Render(float dt) override;
 private:
-	bool mIsStep{false};
 };

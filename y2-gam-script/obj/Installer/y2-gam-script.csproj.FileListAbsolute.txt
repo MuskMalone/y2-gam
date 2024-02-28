@@ -22,3 +22,21 @@ C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyRefere
 C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
 C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
 C:\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.pdb
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
+C:\Users\terra\OneDrive\Documents\GitHub\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.dll
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.pdb
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
+C:\Users\Darren Ng\Desktop\modules\Y1\y2s1\game200\game 200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.dll
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\bin\Installer\y2-gam-script.pdb
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.AssemblyReference.cache
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.csproj.CoreCompileInputs.cache
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.dll
+C:\Users\darre\Desktop\Darren\y2s1\game200\y2-gam\y2-gam-script\obj\Installer\y2-gam-script.pdb

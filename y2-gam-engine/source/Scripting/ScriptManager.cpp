@@ -53,10 +53,12 @@ namespace Image {
     { "Image.Vector3", {FieldType::Vector3, nullptr}  },
     { "Image.Vector4", {FieldType::Vector4, nullptr}  },
     { "Image.Entity", {FieldType::Entity, nullptr}  },
+    { "System.String", {FieldType::String, nullptr} }
   };
   bool ScriptManager::AssemblyReloadPending{ false };
 
-  static void AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
+#ifndef _INSTALLER
+  void ScriptManager::AssemblyFileSystemEvent(std::string const& filePath, filewatch::Event const change_type) {
     if (!ScriptManager::AssemblyReloadPending && change_type == filewatch::Event::modified) {
       ScriptManager::AssemblyReloadPending = true;
 
@@ -68,6 +70,7 @@ namespace Image {
       });
     }
   }
+#endif
 
   /*  _________________________________________________________________________ */
   /*! Init
@@ -209,13 +212,16 @@ namespace Image {
     return sTagToRawInstances[tag];
   }
 
+#pragma warning(push)
+#pragma warning(disable:4715)
   ScriptInstance& ScriptManager::CreateScriptInstanceWithTag(std::string const& scriptName, std::string const& tag) {
-    if (EntityClassExists(scriptName)) {
-      sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
-      //std::cout << "Raw Instance for: " << scriptName << " created!\n";
-      return sTagToRawInstances[tag];
-    }
+      if (EntityClassExists(scriptName)) {
+          sTagToRawInstances[tag] = { ScriptInstance(sEntityClasses[scriptName]) };
+          std::cout << "Raw Instance for: " << scriptName << " created!\n";
+          return sTagToRawInstances[tag];
+      }
   }
+#pragma warning(pop)
 
   /*  _________________________________________________________________________ */
   /*! GetEntityMonoInstanceObject
@@ -346,11 +352,9 @@ namespace Image {
       "../assets/scripts", AssemblyFileSystemEvent);
 #endif
     AssemblyReloadPending = false;
-
+    ScriptCoordinator::RegisterFunctions();
     MonoAssembly* ma{ Image::ScriptManager::LoadCSharpAssembly(sMainAssemblyFilePath) };
     Image::ScriptManager::PopulateEntityClassesFromAssembly(ma);
-
-    ScriptCoordinator::RegisterFunctions();
   }
 
   /*  _________________________________________________________________________ */
@@ -496,7 +500,6 @@ namespace Image {
   }
 
   void ScriptManager::LoadEntityLinkage(Entity entity, std::string tag) {
-    auto const& scriptComp{ ::gCoordinator->GetComponent<Script>(entity) };
     auto it = sTagToRawInstances.find(tag);
 
     if (it != sTagToRawInstances.end()) {
@@ -504,6 +507,7 @@ namespace Image {
       sEntityInstances[entity].CallOnCreate(entity);
 
 #ifndef _INSTALLER
+      auto const& scriptComp{ ::gCoordinator->GetComponent<Script>(entity) };
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Entity w script component named " +
         scriptComp.name + " created!", __FUNCTION__);
 #endif
@@ -634,6 +638,7 @@ namespace Image {
     case FieldType::Vector3: return "Vector3";
     case FieldType::Vector4: return "Vector4";
     case FieldType::Entity:  return "Entity";
+    case FieldType::String:  return "String";
     }
     return "None";
   }

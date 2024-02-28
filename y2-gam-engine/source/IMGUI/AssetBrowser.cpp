@@ -17,9 +17,11 @@
 #include <Core/Coordinator.hpp>
 #include <Systems/InputSystem.hpp>
 #include <IMGUI/PrefabsBrowser.hpp>
+#include <Systems/InputSystem.hpp>
+#include <Systems/RenderSystem.hpp>
 
 namespace {
-  std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
+    std::pair<AssetID, AssetManager::Asset> gSelectedAsset;
   bool open = false;
 }
 /**
@@ -86,7 +88,8 @@ void AssetContents(std::string const& systemName) {
     if (asset.second.systemType.find(systemName) != std::string::npos) {
       ImGui::PushID(static_cast<int>(asset.first)); //assetid
       std::shared_ptr<Texture> icon = fileIcon;
-      ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
+
+      (asset.first == gSelectedAsset.first) ? ImGui::PushStyleColor(ImGuiCol_Button, { 1.0f, 0.5f, 0.0f, 1.0f }) : ImGui::PushStyleColor(ImGuiCol_Button, { 0,0,0,0 });
       ImGui::ImageButton(reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(icon->GetTexHdl())), { size, size }, { 0, 1 }, { 1, 0 });
       ImGui::PopStyleColor();
       AssetID aid{ asset.first };
@@ -95,9 +98,21 @@ void AssetContents(std::string const& systemName) {
         ImGui::Text("%s", asset.second.path.c_str());
         ImGui::EndDragDropSource();
       }
+      
       if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
         //add actions
         ::gSelectedAsset = asset;
+      }
+
+      auto input = Coordinator::GetInstance()->GetSystem<InputSystem>();
+      auto const& renderSystem{ Coordinator::GetInstance()->GetSystem<RenderSystem>() };
+      if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+          if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
+              if (::gSelectedAsset.first > 0) {
+                  AssetManager::GetInstance()->DeleteAsset<_system>(::gSelectedAsset.first);
+                  ::gSelectedAsset = decltype(::gSelectedAsset){};
+              }
+          }
       }
       if (ImGui::BeginDragDropTarget()) {
         std::cout << "Began drag-drop target." << std::endl;
@@ -348,7 +363,7 @@ bool IsFileValid(std::string const& systemType, std::string const& ext) {
   else if (AssetBrowserFindStr(systemType, "Animation")) {
     return (ext == "wav" || ext == "ogg" || ext == "mp3");
   }
-
+  return false;
 }
 void AssetPropertiesWindow(std::set<Entity> const& mEntities) {
   ImGui::Begin("Asset Properties");

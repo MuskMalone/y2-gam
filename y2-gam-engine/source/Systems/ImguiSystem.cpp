@@ -98,6 +98,7 @@ ImFont* mainfont = nullptr;
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init(glsl_version);
+
         return;
     }
     /*  _________________________________________________________________________ */
@@ -110,14 +111,15 @@ ImFont* mainfont = nullptr;
     This function handles input events, starts the ImGui frame, renders the 
     application GUI, and updates platform windows.
     */
-    void ImGuiSystem::Update(float dt){
+    void ImGuiSystem::Update(float dt, GLFWwindow* window){
+
         ImGuiIO& io = ImGui::GetIO();
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         ImGuizmo::BeginFrame();
-        Image::AppRender(mEntities,dt);
+        Image::AppRender(mEntities,dt,window);
 
         int width, height;
         glfwGetFramebufferSize(glfwGetCurrentContext(), &width, &height);

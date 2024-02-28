@@ -21,6 +21,7 @@
 #include "Graphics/SpriteManager.hpp"
 std::unordered_map<ResourceID, AnimationProperties> AnimationManager::mAnimationFrameLists;
 
+
 /*  _________________________________________________________________________ */
 /*!
 \brief Loads an animation from a given path and creates animation frames.
@@ -46,7 +47,7 @@ Returns the ResourceID of the loaded animation.
 This function loads a texture from the specified path, creates animation frames based on the given parameters, and stores the animation properties in the manager.
 */
 ResourceID AnimationManager::LoadAnimation(std::string const& path, ResourceID rid, int frameCount, float idxCoordy, glm::vec2 const& dim) {
-	if (mAnimationFrameLists.find(rid) != mAnimationFrameLists.end()) return rid;
+	//if (mAnimationFrameLists.find(rid) != mAnimationFrameLists.end()) return rid;
 	ResourceID texID = SpriteManager::LoadTexture(path);
 	AnimationProperties ap{};
 	ap.path = path;
@@ -64,7 +65,13 @@ ResourceID AnimationManager::LoadAnimation(std::string const& path, ResourceID r
 	mAnimationFrameLists[rid] = std::move(ap);
 	return rid; 
 }
-
+void AnimationManager::UnloadAnimation(ResourceID rid) {
+	auto& ap{ mAnimationFrameLists[rid] };
+	for (auto const& sid : ap.frames) {
+		SpriteManager::UnloadSprite(sid.spriteID);
+	}
+	mAnimationFrameLists.erase(rid);
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Retrieves the list of animation frames for a given animation.
@@ -103,6 +110,9 @@ ResourceID AnimationManager::LoadAsset(rapidjson::Value const& obj) {
 	return key;
 }
 
+void AnimationManager::UnloadAsset(AssetManager::Asset const& asset) {
+	UnloadAnimation(asset.resourceId);
+}
 /*  _________________________________________________________________________ */
 /*!
 \brief Saves the animation properties to a JSON object.
@@ -118,14 +128,22 @@ The JSON object where the animation properties will be saved.
 
 This function serializes the animation properties and saves them to a specified JSON object.
 */
-void AnimationManager::SaveAsset(ResourceID aid, AnimationProperties const& props, rapidjson::Value& obj) {
+void AnimationManager::SaveAsset(AssetID aid, AnimationProperties const& props, rapidjson::Value& obj) {
+	//frees the previous sprites
+	for (auto const& frame : props.frames){
+		SpriteManager::UnloadSprite(frame.spriteID);
+	}
 	auto sm{ Serializer::SerializationManager::GetInstance() };
 
 	sm->ModifyValue(obj, "frameCount", props.frameCount);
 	sm->ModifyValue(obj, "idxCoordY", props.idxCoordy);
 
-	sm->ModifyValue(obj, "dimX", props.dim.x);
+	sm->ModifyValue(obj, "dimX", props.dim.x);                            
 	sm->ModifyValue(obj, "dimY", props.dim.y);
+
+	ResourceID key{ obj["id"].GetUint64() };
+	LoadAnimation(obj["path"].GetString(), key, obj["frameCount"].GetInt(), obj["idxCoordY"].GetFloat(),
+		glm::vec2{obj["dimX"].GetFloat(), obj["dimY"].GetFloat()});
 }
 
 /*  _________________________________________________________________________ */
@@ -192,4 +210,5 @@ ResourceID AnimationManager::AddAsset(rapidjson::Value& obj, std::string const& 
 	return rid;
 
 }
+
 

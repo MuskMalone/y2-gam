@@ -1,4 +1,19 @@
-﻿using Image;
+﻿/******************************************************************************/
+/*!
+\par        Image Engine
+\file       PauseMenu.cs
+
+\author     Ng Yue Zhi (n.yuezhi@digipen.edu)
+\date       Feb 7, 2024
+
+\brief      For back button in the pause menu
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+using Image;
 using System;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
@@ -6,14 +21,16 @@ namespace Object
 {
     public class PauseMenu : Entity
     {
-        //bool firstTime = true;
+        private bool IsKeyPressed = false;
         bool isPaused = false;
+
+
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu
 
         @return *this
 
-        Default constructor for the EnterLevelOne entity. Inherits from entity class.
+        Default constructor for the PauseMenu entity. Inherits from entity class.
         */
         public PauseMenu() : base()
         {
@@ -21,14 +38,14 @@ namespace Object
         }
 
         /*  _________________________________________________________________________ */
-        /*! EnterLevelOne
+        /*! PauseMenu
         
         @param entityHandle
         The entityID.
 
         @return *this
 
-        Non-default, single-arg constructor for a EnterLevelOne entity.
+        Non-default, single-arg constructor for a PauseMenu entity.
         */
         public PauseMenu(uint entityHandle) : base(entityHandle)
         {
@@ -42,7 +59,6 @@ namespace Object
 
         Called on creation.
         */
-
         void OnCreate()
         {
 
@@ -51,8 +67,8 @@ namespace Object
         void PauseGame()
         {
             Colour = new Vector4(1, 1, 1, 1);
-            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
-            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
+            GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009,497));
+            GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X+259, Translation.Y-96));
         }
 
         void ResumeGame()
@@ -76,22 +92,30 @@ namespace Object
                 Colour = new Vector4(1, 0, 1, 0);
 
             }
-                
-            if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
+            
+            if (Input.IsKeyPressed(KeyCode.KEY_ESCAPE))
             {
-                if (!isPaused)
+                if (!IsKeyPressed)
                 {
-                    PauseGame();
-                    isPaused = true;
+                    if (!isPaused)
+                    {
+                        PauseGame();
+                        isPaused = true;
+                    }
+                    else
+                    {
+                        ResumeGame();
+                        isPaused = false;
+                    }
+                    IsKeyPressed = true;
                 }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
             }
-                
+
+            else
+            {
+                IsKeyPressed = false;
+            }
+            
 
             //if (UIClicked)
             //{

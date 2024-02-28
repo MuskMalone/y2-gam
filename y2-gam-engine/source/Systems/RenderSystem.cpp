@@ -23,6 +23,7 @@
 
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/ParticleSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
@@ -39,6 +40,7 @@
 #include <Systems/InputSystem.hpp>
 #include <Core/FrameRateController.hpp>
 #include <Graphics/AnimationManager.hpp>
+#include <Engine/SceneManager.hpp>
 
 // Static Initialization
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
@@ -284,53 +286,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 				sceneCamera.horizontalBoundary = cam.horizontalBoundary;
 				sceneCamera.verticalBoundary = cam.verticalBoundary;
+				sceneCamera.mZoomLevel = cam.mZoomLevel;
 			}
 
 			sceneCamera.UpdatePosition(playerPosition, facingRight);
-			//if (gCoordinator->HasComponent<Camera>(mPlayer)) {
-			//	mSceneCamera = mPlayer;
-
-			//	Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mPlayer) };
-			//	sceneCamera.mTargetEntity = mPlayer;
-			//	sceneCamera.UpdatePosition(playerPosition, facingRight);
-			//}
 		}
 
 	}
-
-	//Entity currentCameraEntity = mSceneCamera;
- //   bool playerFound = false;
-
- //   if (!mEditorMode) {
- //       for (auto const& e : mEntities) {
- //           if (!::gCoordinator->HasComponent<Tag>(e)) continue;
- //           auto const& tag = ::gCoordinator->GetComponent<Tag>(e);
- //           if (tag.tag == "Player") {
- //               playerFound = true;
- //               mPlayer = e;
- //               break;
- //           }
- //       }
-
- //       if (playerFound && ::gCoordinator->HasComponent<Camera>(mPlayer)) {
- //           currentCameraEntity = mPlayer;
- //       }
- //   }
-
- //   // Use currentCameraEntity for rendering and updating the camera position
- //   if (playerFound) {
- //       Transform const& playerTransform = ::gCoordinator->GetComponent<Transform>(mPlayer);
- //       glm::vec3 playerPosition = playerTransform.position;
- //       
- //       std::map<Entity, ScriptInstance> instanceMap = ScriptManager::GetEntityInstances();
- //       bool facingRight = instanceMap[mPlayer].GetFieldValueFromName<bool>("IsFacingRight");
-
- //       Camera& sceneCamera = ::gCoordinator->GetComponent<Camera>(currentCameraEntity);
- //       sceneCamera.mTargetEntity = mPlayer;
- //       sceneCamera.UpdatePosition(playerPosition, facingRight);
- //   }
-
-	//glm::mat4 viewProjMtx = ::gCoordinator->GetComponent<Camera>(currentCameraEntity).GetViewProjMtx();
 
 	glm::mat4 viewProjMtx = mEditorMode ? ::gCoordinator->GetComponent<Camera>(mCamera).GetViewProjMtx() :
 		::gCoordinator->GetComponent<Camera>(mSceneCamera).GetViewProjMtx();
@@ -355,7 +317,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 				Renderer::DrawQuad(entry.transform->position, entry.transform->scale, entry.sprite->color, entry.transform->rotation.z, entry.entity);
 		}
 	}
-
+	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
@@ -369,21 +331,29 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 
 	Renderer::RenderSceneEnd();
-
+	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 	RenderUI();
 
-	glEnable(GL_DEPTH_TEST);
 
+	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {
 		mFramebuffers[0]->Unbind();
 	}
 }
 
-//this is super hacky
+ /*  _________________________________________________________________________ */
+ /*!
+	 \brief RenderPrefab
+
+	The function binds a specific framebuffer, sets clear color, and if the prefab has transform and sprite components, it processes animations and draws the sprite.
+	Additionally, if a collider component is present, it draws the collider shape. The function also handles custom drawing for different sprite states and collider types.
+
+	 \param prefab entity to be rendered
+ */
+
 void RenderSystem::RenderPrefab(Entity prefab) {
 	//tch: hack to check if its a valid entity for drawing
-	//xavier todo: pls change this to a more ecs implementation in the future!!!
 	//if (!gCoordinator->HasComponent<Sprite>(prefab) || !gCoordinator->HasComponent<Transform>(prefab)) return;
 	//Prefab Editor
 	mFramebuffers[1]->Bind();
@@ -454,6 +424,14 @@ void RenderSystem::RenderPrefab(Entity prefab) {
 	mFramebuffers[1]->Unbind();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief RenderUI
+
+Renders UI elements by collecting entities with UIImage and Transform components, sorting them, and rendering each UI component.
+
+\param event The event data that includes the positions the raycast were fired.
+*/
 void RenderSystem::RenderUI() {
 	Renderer::RenderSceneBegin(::gCoordinator->GetComponent<Camera>(mUICamera).GetViewProjMtx());
 
@@ -487,6 +465,7 @@ void RenderSystem::RenderUI() {
 
 		if (ui.enabled) {
 			// Constrain position within screen bounds
+			/*
 			float minX = 0 + transform.scale.x / 2.0f; // Left boundary
 			float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
 			float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
@@ -494,19 +473,47 @@ void RenderSystem::RenderUI() {
 
 			transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
 			transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
-
-			if (sprite.GetSpriteID())
-				Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
-			else {
-				if (transform.elipse)
-					Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
-				else
-					Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+			*/
+			if (!::gCoordinator->HasComponent<Text>(entity)) {
+				if (sprite.GetSpriteID())
+					Renderer::DrawSprite(transform, SpriteManager::GetSprite(sprite.GetSpriteID()), sprite.color, entity);
+				else {
+					if (transform.elipse)
+						Renderer::DrawCircle(transform.position, transform.scale, sprite.color);
+					else
+						Renderer::DrawQuad(transform.position, transform.scale, sprite.color, transform.rotation.z, entity);
+				}
 			}
+
 		}
 	}
 
 	Renderer::RenderSceneEnd();
+
+	// For text with UI component
+	for (auto const& entity : uiEntities) {
+		auto& transform = ::gCoordinator->GetComponent<Transform>(entity);
+		/*
+		// Constrain position within screen bounds
+		float minX = 0 + transform.scale.x / 2.0f; // Left boundary
+		float maxX = ENGINE_SCREEN_WIDTH - transform.scale.x / 2.0f; // Right boundary
+		float minY = 0 + transform.scale.y / 2.0f; // Bottom boundary
+		float maxY = ENGINE_SCREEN_HEIGHT - transform.scale.y / 2.0f; // Top boundary
+
+		transform.position.x = std::max(minX, std::min(transform.position.x, maxX));
+		transform.position.y = std::max(minY, std::min(transform.position.y, maxY));
+		*/
+		if (::gCoordinator->HasComponent<Layering>(entity)) {
+			if (!LayeringSystem::IsLayerVisible(::gCoordinator->GetComponent<Layering>(entity).assignedLayer)) continue;
+		}
+
+		if (::gCoordinator->HasComponent<Text>(entity)) {
+			auto const& textToPrint{ Coordinator::GetInstance()->GetComponent<Text>(entity) };
+			float lengthOfText{ Image::FontRenderer::GetTextWidth(textToPrint.fontName, textToPrint.text, textToPrint.scale) };
+			Image::FontRenderer::RenderTextUI(textToPrint.fontName, textToPrint.text, transform.position.x - (lengthOfText / 2.f),
+				transform.position.y, textToPrint.scale, textToPrint.color);
+		}
+	}
 }
 
 /*  _________________________________________________________________________ */
@@ -544,4 +551,46 @@ void RenderSystem::DebugRay(Event& event) {
 		glm::vec4>>(Events::Physics::Raycast::Debug::RAYCAST_DEBUGGED);
 
 	mRays.push_back(pos);
+}
+
+void RenderSystem::CheckAssetValidity()
+{
+	bool changed{ false };
+	for (auto const& e : mEntities) {
+		auto& sprite = gCoordinator->GetComponent<Sprite>(e);
+		//this check is to remove any invalid asset ids
+		if (!AssetManager::GetInstance()->IsAssetExist(sprite.spriteAssetID) && sprite.spriteAssetID != 0) {
+			sprite.spriteAssetID = 0;
+			
+			//set the anim spriteid just to be safe
+			sprite.spriteID = 0;
+			changed = true;
+		}
+	}
+	if (changed) {
+		//std::cout << "changed sprite\n";
+		SceneManager::GetInstance()->SaveScene();
+	}
+}
+
+/*  _________________________________________________________________________ */
+/*!
+\brief SetSceneCameraZoom Function
+
+Set zoom for scene camera
+
+\param zoom amount to set the zoom
+*/
+void RenderSystem::SetSceneCameraZoom(float zoom) {
+	//Entity camSettings{};
+	for (auto const& e : mEntities) {
+		if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
+
+			auto& cam = gCoordinator->GetComponent<Camera>(e);
+			zoom = std::max(cam.mMinZoom, std::min(zoom, cam.mMaxZoom));
+			cam.UpdateZoom(zoom);
+			break;
+		}
+
+	}
 }
