@@ -93,6 +93,8 @@ struct RendererData {
 	std::shared_ptr<VertexBuffer> circleVertexBuffer;
 	std::shared_ptr<Shader> circleShader;
 
+	std::shared_ptr<Shader> postProcShader;
+
 	unsigned int quadIdxCount{};
 	std::vector<QuadVtx> quadBuffer; // Dynamic buffer to hold vertex data for batching
 	QuadVtx* quadBufferPtr{ nullptr }; // Pointer to the current position in the buffer
@@ -121,6 +123,7 @@ public:
 	static void Shutdown();
 
 	static void RenderFullscreenTexture(unsigned int tex);
+	static void ApplyPostProcessing(unsigned int texture);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();
 

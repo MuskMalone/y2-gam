@@ -1809,7 +1809,7 @@ namespace Image {
         ImGui::Begin("Image Game Engine");
         if (ImGui::IsWindowAppearing()) gSelectedPrefab = MAX_ENTITIES;
         ImGui::BeginChild("LevelEditor");
-        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
+        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(2);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 

@@ -173,7 +173,6 @@ void RenderSystem::Init()
 
 	Renderer::Init();
 
-	//----------temp------------
 #ifndef _INSTALLER
 	mEditorMode = true;
 #else
@@ -188,7 +187,10 @@ void RenderSystem::Init()
 
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
-	//--------------------------
+
+	//postprocessing
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
 }
 
@@ -332,14 +334,25 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
-	RenderUI();
 
+
+	RenderUI();
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {
 		mFramebuffers[0]->Unbind();
 	}
+	mFramebuffers[2]->Bind();
+
+
+	Renderer::SetClearColor(glm::vec4(1.f, 0.9f, 0.2f, 1.f));
+	Renderer::ClearColor();
+	Renderer::RenderFullscreenTexture(mFramebuffers[0]->GetColorAttachmentID(1));
+	// Unbind the shader
+	//shader->Unuse();
+	mFramebuffers[2]->Unbind();
+
 }
 
  /*  _________________________________________________________________________ */

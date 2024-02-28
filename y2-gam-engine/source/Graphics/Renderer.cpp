@@ -145,12 +145,14 @@ void Renderer::Init() {
 	mData.screen.screenVertexBuffer->Bind();
 	mData.screen.screenVertexBuffer->SetData(mData.screen.screenVertices.data(), sizeof(mData.screen.screenVertices));
 	BufferLayout screenLayout = {
-		{AttributeType::VEC3, "a_Position"},
+		{AttributeType::VEC2, "a_Position"},
 		{AttributeType::VEC2, "a_TexCoord"},
 	};
 	mData.screen.screenVertexBuffer->SetLayout(screenLayout);
 	mData.screen.screenVertexArray->AddVertexBuffer(mData.screen.screenVertexBuffer);
 	mData.screen.screenShader = std::make_shared<Shader>("../assets/shaders/FullscreenQuad.vert", "../assets/shaders/FullscreenQuad.frag");
+
+	mData.postProcShader = std::make_shared<Shader>("../assets/shaders/Postprocessing.vert", "../assets/shaders/Postprocessing/Postprocessing.frag");
 }
 
 /*  _________________________________________________________________________ */
@@ -187,6 +189,19 @@ void Renderer::RenderFullscreenTexture(unsigned int tex) {
 	mData.screen.screenVertexArray->Unbind();
 	glBindTexture(GL_TEXTURE_2D, 0);
 	mData.screen.screenShader->Unuse();
+}
+
+void Renderer::ApplyPostProcessing(unsigned int texture) {
+	mData.postProcShader->Use();
+	mData.postProcShader->SetUniform("screenTex", 0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	RenderFullscreenTexture(texture);
+
+	mData.postProcShader->Unuse();
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 /*  _________________________________________________________________________ */
