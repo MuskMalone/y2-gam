@@ -26,6 +26,7 @@ namespace Object
         public float MovementForce;
         public float JumpForce;
         public float VisionRange;
+        public float VisionHeightOffset;
         public float AttackRange;
         public bool isGrounded = true;
         public bool IsFacingRight;
