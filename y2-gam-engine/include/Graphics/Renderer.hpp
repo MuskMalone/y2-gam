@@ -122,7 +122,7 @@ public:
 	static void Init();
 	static void Shutdown();
 
-	static void RenderFullscreenTexture(unsigned int tex);
+	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader);
 	static void ApplyPostProcessing(unsigned int texture);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();

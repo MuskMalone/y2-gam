@@ -167,8 +167,8 @@ void Renderer::Shutdown() {
 	//TODO SHIFT RENDERER DESTROY HERE
 }
 
-void Renderer::RenderFullscreenTexture(unsigned int tex) {
-	mData.screen.screenShader->Use();
+void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader) {
+	shader->Use();
 
 	// Set the active texture unit to 0 (or any other slot you prefer)
 	glActiveTexture(GL_TEXTURE0);
@@ -177,7 +177,9 @@ void Renderer::RenderFullscreenTexture(unsigned int tex) {
 	glBindTexture(GL_TEXTURE_2D, tex);
 
 	// Set the texture uniform in the shader to the texture unit
-	mData.screen.screenShader->SetUniform("screenTex", 0); // 0 corresponds to GL_TEXTURE0
+	shader->SetUniform("screenTex", 0); // Assuming the uniform is named 'screenTex' in all shaders
+	//temp
+	shader->SetUniform("time", static_cast<float>(glfwGetTime()) );
 
 	// Bind the full-screen quad's vertex array
 	mData.screen.screenVertexArray->Bind();
@@ -188,20 +190,13 @@ void Renderer::RenderFullscreenTexture(unsigned int tex) {
 	// Optional: Unbind everything after drawing
 	mData.screen.screenVertexArray->Unbind();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	mData.screen.screenShader->Unuse();
+	shader->Unuse();
 }
 
 void Renderer::ApplyPostProcessing(unsigned int texture) {
-	mData.postProcShader->Use();
-	mData.postProcShader->SetUniform("screenTex", 0);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	RenderFullscreenTexture(texture, mData.postProcShader);
 
-	RenderFullscreenTexture(texture);
-
-	mData.postProcShader->Unuse();
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 /*  _________________________________________________________________________ */

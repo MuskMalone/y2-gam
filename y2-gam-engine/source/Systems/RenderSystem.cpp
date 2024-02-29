@@ -336,22 +336,23 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
 
-	RenderUI();
-
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	if (showEditor) {
 		mFramebuffers[0]->Unbind();
 	}
-	mFramebuffers[2]->Bind();
 
+	if (showEditor) {
+		mFramebuffers[2]->Bind();
+	}
+	glDisable(GL_DEPTH_TEST);
 
-	Renderer::SetClearColor(glm::vec4(1.f, 0.9f, 0.2f, 1.f));
-	Renderer::ClearColor();
-	Renderer::RenderFullscreenTexture(mFramebuffers[0]->GetColorAttachmentID(1));
-	// Unbind the shader
-	//shader->Unuse();
-	mFramebuffers[2]->Unbind();
+	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID());
+	
+	glEnable(GL_DEPTH_TEST);
+	if (showEditor) {
+		mFramebuffers[2]->Unbind();
+	}
 
 }
 

@@ -26,5 +26,4 @@ out vec4 fragColor;
 
 void main() {
     fragColor = texture(screenTex, fragTexCoord);
-    //fragColor = vec4(1,0.2,0,1);
 }
