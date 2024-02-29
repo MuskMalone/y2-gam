@@ -177,8 +177,8 @@ namespace Object
                     if ((timeAlive >= MAX_TIME_ALIVE))
                     {
                         ResetCardPos();
-                        //ResetColour(HoveredID);
                         ResetCardUI();
+                        return;
                     }
 
                     /*
@@ -327,12 +327,12 @@ namespace Object
 
         void ResetCardPos()
         {
+            Alive = false;
             Velocity = new Vector2(0, 0);         
             Translation = new Vector2(99999, 99999);
             Collider = new Vector2(99999, 99999);
             Colour = new Vector4(1, 1, 1, 0);
-            timeAlive = 0.0f;
-            Alive = false;         
+            timeAlive = 0.0f; 
         }
 
         void FireCard()

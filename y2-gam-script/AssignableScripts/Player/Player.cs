@@ -297,6 +297,11 @@ namespace Object
                         Mass = 0;
                     }
 
+                    if (Input.IsKeyClicked(KeyCode.KEY_L))
+                    {
+                        Dead = true;
+                    }
+
                     if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))
                     {
                         if (!IsKeyPressed)
