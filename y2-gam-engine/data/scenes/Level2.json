@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 185.5,
-                "posY": 137.0,
+                "posX": 311.5,
+                "posY": 28.0,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -197,8 +197,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 187.0,
-                "posY": 146.5,
+                "posX": 313.0,
+                "posY": 37.5,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3629,6 +3629,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button2",
+                "isPressed": false
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -3890,9 +3895,9 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "ObjectLockedDoor",
+                "scriptName": "ObjectDoor",
                 "scriptTag": "Door2",
-                "Range": 25.0
+                "buttonTag": "Button2"
             },
             "Sprite": {
                 "r": 1.0,
