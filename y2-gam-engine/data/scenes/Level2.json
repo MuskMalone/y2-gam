@@ -480,6 +480,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button1",
+                "isPressed": false
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -3798,8 +3803,8 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -3821,13 +3826,18 @@
                 "posY": -240.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door1",
+                "buttonTag": "Button1"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door1"
