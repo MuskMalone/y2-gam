@@ -60,6 +60,8 @@ namespace Events::Window::Input {
 	const ParamId MOUSE_MOVE = "Events::Window::Input::MOUSE_MOVE"_hash;
 	const ParamId EDITOR_MOUSE_MOVE = "Events::Window::Input::EDITOR_MOUSE_MOVE"_hash;
 
+	const ParamId MOUSE_SCROLL = "Events::Window::Input::MOUSE_SCROLL"_hash;
+
 }
 
 namespace Events::Window::Resized {

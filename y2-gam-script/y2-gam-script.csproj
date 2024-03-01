@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignableScripts\Activatables\Anvil.cs" />
+    <Compile Include="AssignableScripts\Activatables\Box.cs" />
     <Compile Include="AssignableScripts\Activatables\LockedDoor.cs" />
     <Compile Include="AssignableScripts\Activatables\Swappable.cs" />
     <Compile Include="AssignableScripts\Activatables\Button.cs" />

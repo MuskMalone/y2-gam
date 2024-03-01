@@ -96,7 +96,7 @@ namespace Image {
     handling user input.
     Pressing the 'c' key to clear the entities
     */
-    void AppRender(std::set<Entity>const& mEntities,float dt) {
+    void AppRender(std::set<Entity>const& mEntities,float dt, GLFWwindow* window) {
         ::gCoordinator = Coordinator::GetInstance();
         ImGui::PushFont(mainfont);
         //static bool toDelete{ false };
@@ -119,7 +119,7 @@ namespace Image {
         PrefabInspectorWindow();
         GameObjectInspectorWindow();
         PrefabWindow();
-        BufferWindow(dt);
+        BufferWindow(dt,window);
         ContentWindow();
         //AssetWindow(mEntities);
         AssetWindow(mEntities);
@@ -1198,23 +1198,30 @@ namespace Image {
                       }
 
                       case Image::FieldType::String: {
-                        char* str{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
-
-                        std::string dataString{ str };
+                        MonoString* str{ scriptInstance.GetFieldValueFromStringName(val.first) };
+                        std::string dataString;
+                        if (str) {
+                          dataString = std::string(mono_string_to_utf8(str));
+                        }
+                        
                         ImGui::SetNextItemWidth(TEXT_BOX_WIDTH);
                         bool confirmOnEnter = false;
                         char inputBuffer[256] = "";
-                        ImGui::InputText(dataString.c_str(), inputBuffer, sizeof(inputBuffer));
+                        strcpy(inputBuffer, dataString.c_str());
+                        ImGui::PushItemWidth(200);
+                        ImGui::InputText("##StringLabel", inputBuffer, sizeof(inputBuffer));
+                        ImGui::PopItemWidth();
+                        ImGui::SameLine();
                         ImGui::Text(val.first.c_str());
 
-                        if (ImGui::IsItemActive() && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
+                        if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Enter))) {
                           confirmOnEnter = true;
                         }
 
                         if (confirmOnEnter) {
                           std::string dataString1{ inputBuffer };
                           MonoString* monoString = mono_string_new(mono_domain_get(), dataString1.c_str());
-                          scriptInstance.SetFieldValueWithName(val.first, &monoString);
+                          scriptInstance.SetFieldValueWithStringName(val.first, monoString);
                           confirmOnEnter = false;
                         }
                         break;
@@ -1791,7 +1798,7 @@ namespace Image {
      This function displays the game engine's framebuffer as well as getting the
      entity ID when mouse is hovered ad allows for picking
     */
-    void BufferWindow(float dt) {
+    void BufferWindow(float dt, GLFWwindow* window) {
         auto inputSystem{ Coordinator::GetInstance()->GetSystem<InputSystem>() };
         auto mpos{ inputSystem->GetWorldMousePos() };
 
@@ -1916,6 +1923,9 @@ namespace Image {
         auto frameController = FrameRateController::GetInstance();
 
         if (ImGui::IsWindowFocused() && renderSystem->IsEditorMode()) {
+
+
+
           //std::cout << inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_W) << std::endl;
             if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_LEFT_CONTROL) && inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
                 CommandManager::GetInstance()->UndoCommand();
@@ -1960,7 +1970,35 @@ namespace Image {
                 }
 
             }
+
+            GLFWcursor* handCursor = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+            GLFWcursor* arrowCursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+            ImVec2 currentMousePos = ImGui::GetMousePos();
+            static ImVec2 lastMousePos = currentMousePos;
+            if (ImGui::IsMouseDown(1)) {
+                ImVec2 mouseDelta = { currentMousePos.x - lastMousePos.x,currentMousePos.y - lastMousePos.y };
+                camera.mPos.x -= mouseDelta.x * gSnapVal * CAMERA_MOVESPEED * dt;
+                camera.mPos.y += mouseDelta.y * gSnapVal * CAMERA_MOVESPEED * dt;
+                camera.SetPosition(camera.mPos);
+                glfwSetCursor(window, handCursor);
+            }
+            else if (ImGui::IsMouseReleased(1)) {
+                glfwSetCursor(window, arrowCursor);
+            }
+            lastMousePos = currentMousePos;
+            float yoffset = inputSystem->GetScrollOffset();
+            if (yoffset > 0) {
+                camera.mZoomLevel = std::max(camera.mZoomLevel - gSnapVal * CAMERA_MOVESPEED * dt, camera.mMinZoom);
+                camera.ZoomOut();
+
+            }
+            else if (yoffset < 0) {
+                camera.mZoomLevel = std::min(camera.mZoomLevel + gSnapVal * CAMERA_MOVESPEED * dt, camera.mMaxZoom);
+                camera.ZoomIn();
+
+            }
         }
+
         /*if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_8)) {
             frameController->ScaleDeltaTime(0.5f);
         }*/

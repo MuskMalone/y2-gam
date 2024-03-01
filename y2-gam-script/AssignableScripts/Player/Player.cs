@@ -22,11 +22,9 @@ namespace Object
 {
     public class Player : Entity
     {
-        //public string Name;
         public float JumpSpeed;
         public float MovementSpeed;
         public bool IsFacingRight;
-        //public bool IsGrounded = true;
         public bool SlowdownToggle = true;
         private bool IsKeyPressed = false;
         public bool GodMode = false;
@@ -48,7 +46,6 @@ namespace Object
         public bool KeyCollected = false;
 
         private Vector2 playerHead;
-        private float temp_dt = 0f;
         private bool isPaused = false;
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
@@ -57,7 +54,6 @@ namespace Object
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         bool resetAnimationState = true;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         // Direction related
         private bool _isFacingRight;
@@ -182,8 +178,6 @@ namespace Object
                 if (!isPaused)
                 {
                     //PauseGame();
-                    temp_dt = dt;
-                    dt = 0f;
                     isPaused = true;
                 }
                 else
@@ -301,6 +295,11 @@ namespace Object
                         GodMode = true;
                         Gravity = new Vector2(0.0f, 0.0f);
                         Mass = 0;
+                    }
+
+                    if (Input.IsKeyClicked(KeyCode.KEY_L))
+                    {
+                        Dead = true;
                     }
 
                     if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))

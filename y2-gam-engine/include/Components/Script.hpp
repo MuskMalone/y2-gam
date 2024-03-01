@@ -39,7 +39,6 @@ struct Script {
 	Script(std::string scriptName, std::string tag) : name{ scriptName }, scriptTagged{ tag } {}
 
 	Script(rapidjson::Value const& obj) {
-    std::cout << "This got called\n";
 		name = obj["scriptName"].GetString();
 		scriptTagged = obj["scriptTag"].GetString();
 
@@ -147,7 +146,8 @@ struct Script {
 
         case Image::FieldType::String: {
           std::string dataString{ static_cast<std::string>(obj[val.first.c_str()].GetString()) };
-          scriptInstance.SetFieldValueWithName(val.first, mono_string_new(mono_domain_get(), dataString.c_str()));
+          MonoString* monoString = mono_string_new(mono_domain_get(), dataString.c_str());
+          scriptInstance.SetFieldValueWithStringName(val.first, monoString);
           break;
         }
         }
@@ -257,8 +257,17 @@ struct Script {
         }
 
         case Image::FieldType::String: {
-          char* dataString{ scriptInstance.GetFieldValueFromName<char*>(val.first) };
-          sm->InsertValue(obj, val.first, std::string(dataString));
+          MonoString* dataString{ scriptInstance.GetFieldValueFromStringName(val.first) };
+          std::string strValue;
+          if (dataString) {
+            strValue = std::string(mono_string_to_utf8(dataString));
+            sm->InsertValue(obj, val.first, strValue);
+          }
+
+          else {
+            sm->InsertValue(obj, val.first, "");
+          }
+          
           break;
         }
         }

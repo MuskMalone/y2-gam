@@ -44,7 +44,7 @@
 #include <Core/FrameRateController.hpp>
 #include "Graphics/Renderer.hpp"
 namespace Image {
-    void AppRender(std::set<Entity>const& mEntities,float dt);
+    void AppRender(std::set<Entity>const& mEntities,float dt, GLFWwindow* window);
     void MainMenuWindow();
     void HierarchyWindow(std::set<Entity>const& mEntities);
     void LayerWindow();
@@ -54,13 +54,13 @@ namespace Image {
     void GameObjectPropertyWindow();
     void PrefabInspectorWindow();
     void GameObjectInspectorWindow();
-    void BufferWindow(float dt);
+    void BufferWindow(float dt, GLFWwindow* window);
     void PrefabWindow();
     void ContentWindow();
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();
-
+    //static bool mBufferFocus{ false };
     static ImVec2 mViewportDim{};
     void GuizmoWindow();
 }

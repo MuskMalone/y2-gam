@@ -21,8 +21,9 @@ namespace Object
 {
     public class Door : Entity
     {
+        public string buttonTag;
         private bool previousButtonState;
-        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
+        Button button ;
         private float doorColliderYOffset = 300.0f;
 
         /*  _________________________________________________________________________ */
@@ -62,6 +63,10 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
+            if (buttonTag != null)
+            {
+                button = GameplayWrapper.FindEntityByName(buttonTag).As<Button>();
+            }
 
         }
 

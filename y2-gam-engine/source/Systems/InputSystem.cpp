@@ -190,6 +190,10 @@ MousePosition InputSystem::GetUIMousePos() const {
 EditorMousePosition InputSystem::GetEditorMousePos() const {
 	return mEditorMousePos;
 }
+float InputSystem::GetScrollOffset() const
+{
+	return mScrollOffset;
+}
 void InputSystem::Update()
 {
 	mButtonsPressed.reset();
@@ -199,6 +203,8 @@ void InputSystem::Update()
 	mMouseButtonsPressed.reset();
 	mMouseButtonsClicked.reset();
 	mMouseButtonsReleased.reset();
+
+	mScrollOffset = 0;
 }
 
 /*  _________________________________________________________________________ */
@@ -238,5 +244,11 @@ void InputSystem::InputListener(Event& event)
 		//std::cout << mEditorMousePos.first.first << " " << mEditorMousePos.first.second << std::endl;
 		//std::cout << mEditorMousePos.second.first << " " << mEditorMousePos.second.second << std::endl;
 		GetWorldMousePos();
+	}
+
+	float scrolloffset = static_cast<float>(event.GetParam<double>(Events::Window::Input::MOUSE_SCROLL));
+	if (!event.GetFail()) {
+		mScrollOffset = std::move(scrolloffset);
+		std::cout << mScrollOffset << std::endl;
 	}
 }

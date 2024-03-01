@@ -4,7 +4,7 @@
 \file       InternalCalls.cs
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Dec 26, 2023
+\date       Feb 27, 2024
 
 \brief      All C# internal calls go here, where information from CPP code 
             can be accessed in C#, and vice versa
@@ -80,6 +80,10 @@ namespace Image
         internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_PlayPositionalAudio(String audioFileName, ref int loopCount,
+            ref Vector2 audioPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -129,6 +133,10 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_CollidedEntity(ref uint lhsEntityHandle, ref uint rhsEntityHandle,
+            ref bool collidedOrNot);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_CollidedLayer(ref uint entityHandle, String layer,
             ref bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -287,9 +295,21 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetRotation(ref uint entityHandle, ref Vector3 rotation);
 
+        /*  _________________________________________________________________________ */
+        /*! GraphicsComponent_SetColour
+
+        @param entityHandle
+        The ID of the entity.
+
+        @param colour
+        Colour of the entity.
+
+        @return none.
+
+        Set the current colour of the entity in C#.
+        */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetColour(ref uint entityHandle, ref Vector4 colour);
-        #endregion
 
         /*  _________________________________________________________________________ */
         /*! GraphicsComponent_SetZoom
@@ -303,6 +323,8 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetZoom(float val);
+        #endregion
+
         #region Transform
         /*  _________________________________________________________________________ */
         /*! TransformComponent_GetTranslation
