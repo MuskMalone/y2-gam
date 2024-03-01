@@ -16,7 +16,7 @@
 /******************************************************************************/
 
 using Image;
-using System;
+using System.Data.SqlClient;
 
 namespace Object
 {
@@ -52,8 +52,10 @@ namespace Object
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        Card card;
 
         bool resetAnimationState = true;
+        private bool onInit = true;
 
         // Direction related
         private bool _isFacingRight;
@@ -160,6 +162,12 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (onInit)
+            {
+                card = GameplayWrapper.FindEntityByName("Card").As<Card>();
+                onInit = false;
+            }
+
             IsFacingRight = isFacingRight;
             
             if (resume.isRPaused == false)
@@ -407,7 +415,7 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
-                        GameplayWrapper.FindEntityByName("Card").As<Card>().Alive = false;
+                        //card.Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)

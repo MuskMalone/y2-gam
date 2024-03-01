@@ -40,9 +40,8 @@ public class EnemyAttackState : EnemyBaseState
         }
 
         else if (attackRayCast.tag == "Player")
-        {
-            Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-            player.Dead = true;
+        {        
+            enemy.player.Dead = true;
         }
     }
 
