@@ -325,7 +325,7 @@ namespace Object
                         IsKeyPressed = false;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    if (Input.IsKeyPressed(KeyCode.KEY_W) || Input.IsKeyPressed(KeyCode.KEY_SPACE))
                     {
                         if (IsGrounded)
                         {
