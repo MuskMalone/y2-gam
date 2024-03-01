@@ -63,7 +63,7 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
-
+            if(buttonTag != null) { }
             button = GameplayWrapper.FindEntityByName(buttonTag).As<Button>();
 
 
