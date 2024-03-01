@@ -114,6 +114,46 @@
             "id": 1707455969481437700,
             "path": "../assets\\audio\\music\\LevelTransition.wav",
             "stream": false
+        },
+        "1709112594359871700": {
+            "id": 1709112594360017700,
+            "path": "../assets\\audio\\sfx\\anvil_drop.wav",
+            "stream": false
+        },
+        "1709112771409117500": {
+            "id": 1709112771409194400,
+            "path": "../assets\\audio\\sfx\\box_drop.wav",
+            "stream": false
+        },
+        "1709114322938423300": {
+            "id": 1709114322938525700,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Scaffolding\\BoxDropScaffolding_1.wav",
+            "stream": false
+        },
+        "1709114324805509400": {
+            "id": 1709114324805646400,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Scaffolding\\BoxDropScaffolding_2.wav",
+            "stream": false
+        },
+        "1709114330673588500": {
+            "id": 1709114330673631300,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Wood(floor)\\BoxDropWood_1.wav",
+            "stream": false
+        },
+        "1709114332174159300": {
+            "id": 1709114332174195500,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Wood(floor)\\BoxDropWood_2.wav",
+            "stream": false
+        },
+        "1709114334034723000": {
+            "id": 1709114334034792200,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Wood(floor)\\BoxDropWood_3.wav",
+            "stream": false
+        },
+        "1709114335910165800": {
+            "id": 1709114335910227000,
+            "path": "../assets\\audio\\sfx\\Box_Drop_Wood(floor)\\BoxDropWood_4.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

@@ -31,13 +31,9 @@ public class EnemyPatrolState : EnemyBaseState
         // Calculate offsets based on isFacingRight
         float visionOffset = enemy.IsFacingRight ? enemy.VisionRange : -enemy.VisionRange;
 
-        // Position that is 10 pixels in front of the enemy
-        //Vector2 groundRayPos = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + forwardOffset, enemy.Collider.Y - (enemy.Scale.Y / 2.0f) - 1.0f);
-        //PhysicsWrapper.Raycast(groundRayPos, groundRayPos, enemy.entityID, out RaycastHit groundRayCast);
-
         // Raycast for line of sight
-        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y + (enemy.Scale.Y / 3.0f));
-        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y + (enemy.Scale.Y / 3.0f)), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
+        Vector2 losRayEnd = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y + enemy.VisionHeightOffset);
+        PhysicsWrapper.Raycast(new Vector2(enemy.Collider.X, enemy.Collider.Y + enemy.VisionHeightOffset), losRayEnd, enemy.entityID, out RaycastHit losRayCast);
 
         if (losRayCast.tag == "Player")
         {
@@ -51,27 +47,7 @@ public class EnemyPatrolState : EnemyBaseState
             }         
         }
 
-        // Perform movement based on the groundRayCast result
-        /*
-        if (groundRayCast.tag != platformTag)
-        {
-            if (enemy.IsFacingRight)
-            {
-                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
-                enemy.MoveLeft(dt);
-            }
-            else
-            {
-                enemy.AnimationState = (int)AnimationCodeEnemy.RUN;
-                enemy.MoveRight(dt);
-            }
-            enemy.SwitchState(enemy.IdleState);
-        }
-        */
-        //else
-        //{
-
-        if (losRayCast.layer == "Scaffolding")
+        if (losRayCast.layer == "Scaffolding" || losRayCast.layer == "Platform")
         {
             enemy.SwitchState(enemy.IdleState);
         }
