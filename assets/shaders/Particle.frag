@@ -1,5 +1,6 @@
 #version 450 core
 #extension GL_ARB_bindless_texture : enable
+#extension GL_EXT_shader_explicit_arithmetic_types_float64 : require
 
 in vec4 geomColor;
 in vec2 geomTexCoord;
