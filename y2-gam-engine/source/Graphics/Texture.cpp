@@ -54,7 +54,7 @@ Texture::Texture(std::string const& path)
 	mWidth = static_cast<unsigned int>(width);
 	mHeight = static_cast<unsigned int>(height);
 
-	glCreateTextures(GL_TEXTURE_2D, 1, &mTexHdl);
+		glCreateTextures(GL_TEXTURE_2D, 1, &mTexHdl);
 	// allocate GPU storage for texture image data loaded from file
 	glTextureStorage2D(mTexHdl, 1, GL_RGBA8, mWidth, mHeight);
 

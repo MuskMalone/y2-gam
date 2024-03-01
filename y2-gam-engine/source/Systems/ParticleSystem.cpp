@@ -20,6 +20,7 @@
 #include "Systems/InputSystem.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
+#include "Graphics/SpriteManager.hpp"
 #define MAX_BUFFER 1000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
@@ -252,13 +253,14 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
             // br
             1.f, 1.f, 
             // tl
-            1.f, 0.f, 
+            0.f, 0.f, 
             // tr
-            0.f, 0.f
+            1.f, 0.f
         };
-        glUniform4fv(uTexcoordsLoc, 4, texCoords);
+        glUniform2fv(uTexcoordsLoc, 4, texCoords);
 
-        GLuint64 arbHdl = glGetTextureHandleARB(1);
+        GLuint texhdl = AssetManager::GetInstance()->GetAsset<SpriteManager>(1698951115733834800)->GetTexture()->GetTexHdl();
+        GLuint64 arbHdl = glGetTextureHandleARB(texhdl);
         glMakeTextureHandleResidentARB(arbHdl);
         glm::uvec2 arbHdlContainer;
         memcpy(&arbHdlContainer, &arbHdl, sizeof(glm::uvec2));
