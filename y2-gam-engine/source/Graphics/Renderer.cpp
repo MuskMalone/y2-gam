@@ -446,6 +446,7 @@ void Renderer::DrawSprite(glm::vec3 const& pos, glm::vec2 const& scale, std::sha
 		texIdx = static_cast<float>(mData.texUnitIdx);
 		mData.texUnits[mData.texUnitIdx] = tex;
 		++mData.texUnitIdx;
+		//std::cout << mData.texUnitIdx << std::endl;
 	}
 
 	glm::mat4 translateMtx{ glm::translate(glm::mat4{ 1.f }, pos) };

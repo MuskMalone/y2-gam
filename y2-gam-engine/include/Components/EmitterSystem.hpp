@@ -74,6 +74,11 @@ namespace GLSLStructs {
         bool alive;
     };
 
+    struct alignas(8) TextureData {
+        glm::vec2 texCoords[4];
+        glm::uvec2 texHdl;
+    };
+
 }
 #pragma warning(pop)
 struct EmitterProxy {
