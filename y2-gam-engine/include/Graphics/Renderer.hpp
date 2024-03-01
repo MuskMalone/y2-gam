@@ -73,6 +73,12 @@ struct CircleVtx {
 	float fade;
 };
 
+struct UniformData {
+	std::string name;
+	enum class Type { INT, FLOAT, DOUBLE, VEC2, VEC3, VEC4 } type;
+	void* value; //pointer to uniform val
+};
+
 struct RendererData {
 
 	static const unsigned int cMaxQuads{ 20000 };
@@ -123,6 +129,7 @@ public:
 	static void Shutdown();
 
 	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader);
+	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader, std::vector<UniformData> const& uniforms);
 	static void ApplyPostProcessing(unsigned int texture);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();

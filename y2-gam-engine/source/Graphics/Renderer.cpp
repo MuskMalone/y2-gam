@@ -170,24 +170,45 @@ void Renderer::Shutdown() {
 void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader) {
 	shader->Use();
 
-	// Set the active texture unit to 0 (or any other slot you prefer)
+	//set the active texture unit to 0
 	glActiveTexture(GL_TEXTURE0);
 
-	// Bind the texture you want to render
+	//bind the texture you want to render
 	glBindTexture(GL_TEXTURE_2D, tex);
 
-	// Set the texture uniform in the shader to the texture unit
-	shader->SetUniform("screenTex", 0); // Assuming the uniform is named 'screenTex' in all shaders
-	//temp
-	shader->SetUniform("time", static_cast<float>(glfwGetTime()) );
+	shader->SetUniform("screenTex", 0); 
+	shader->SetUniform("time", static_cast<float>(glfwGetTime()));
 
-	// Bind the full-screen quad's vertex array
 	mData.screen.screenVertexArray->Bind();
 
-	// Draw the full-screen quad
+	//draw the full-screen quad
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
-	// Optional: Unbind everything after drawing
+	mData.screen.screenVertexArray->Unbind();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	shader->Unuse();
+}
+
+void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader, std::vector<UniformData> const& uniforms) {
+	shader->Use();
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	shader->SetUniform("screenTex", 0);
+
+	// Set dynamic uniforms
+	for (const auto& uniform : uniforms) {
+		switch (uniform.type) {
+		case UniformData::Type::FLOAT:
+			shader->SetUniform(uniform.name, *(static_cast<float*>(uniform.value)));
+			break;
+		case UniformData::Type::DOUBLE:
+			shader->SetUniform(uniform.name, *(static_cast<double*>(uniform.value)));
+		}
+	}
+
+	mData.screen.screenVertexArray->Bind();
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 	mData.screen.screenVertexArray->Unbind();
 	glBindTexture(GL_TEXTURE_2D, 0);
 	shader->Unuse();
