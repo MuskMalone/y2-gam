@@ -214,6 +214,106 @@
             "id": 1709495704825725900,
             "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloor\\PlayerRunningFloor_020.wav",
             "stream": false
+        },
+        "1709496564389071300": {
+            "id": 1709496564389107000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_001.wav",
+            "stream": false
+        },
+        "1709496565805473700": {
+            "id": 1709496565805505700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_002.wav",
+            "stream": false
+        },
+        "1709496567354416500": {
+            "id": 1709496567354469700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_003.wav",
+            "stream": false
+        },
+        "1709496569220624500": {
+            "id": 1709496569220663400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_004.wav",
+            "stream": false
+        },
+        "1709496570136287600": {
+            "id": 1709496570136321300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_005.wav",
+            "stream": false
+        },
+        "1709496571753224100": {
+            "id": 1709496571753268700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_006.wav",
+            "stream": false
+        },
+        "1709496572903005900": {
+            "id": 1709496572903045900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_007.wav",
+            "stream": false
+        },
+        "1709496575603215400": {
+            "id": 1709496575603262700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_008.wav",
+            "stream": false
+        },
+        "1709496577017217600": {
+            "id": 1709496577017249900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_009.wav",
+            "stream": false
+        },
+        "1709496578301173700": {
+            "id": 1709496578301209200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_010.wav",
+            "stream": false
+        },
+        "1709496580600704800": {
+            "id": 1709496580600739500,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_011.wav",
+            "stream": false
+        },
+        "1709496581967851200": {
+            "id": 1709496581967908800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_012.wav",
+            "stream": false
+        },
+        "1709496583482353400": {
+            "id": 1709496583482396900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_013.wav",
+            "stream": false
+        },
+        "1709496584681581700": {
+            "id": 1709496584681618400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_014.wav",
+            "stream": false
+        },
+        "1709496585665488800": {
+            "id": 1709496585665544200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_015.wav",
+            "stream": false
+        },
+        "1709496588680510400": {
+            "id": 1709496588680567700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_016.wav",
+            "stream": false
+        },
+        "1709496589796568400": {
+            "id": 1709496589796628800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_017.wav",
+            "stream": false
+        },
+        "1709496590896920900": {
+            "id": 1709496590896980100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_018.wav",
+            "stream": false
+        },
+        "1709496592312409300": {
+            "id": 1709496592312482200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_019.wav",
+            "stream": false
+        },
+        "1709496593229057500": {
+            "id": 1709496593229124400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffolding\\PlayerRunningScaffolding_020.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

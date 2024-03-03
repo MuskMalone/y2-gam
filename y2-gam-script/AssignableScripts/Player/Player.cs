@@ -356,7 +356,7 @@ namespace Object
 
                             if (footstepTimer >= footstepInterval)
                             {
-                                PlayNextFootstep();
+                                PlayFloorFootstep();
                                 footstepTimer = 0.0f;
                             }
 
@@ -366,8 +366,15 @@ namespace Object
                             leftRayCast.layer == "Scaffolding" ||
                             rightRayCast.layer == "Scaffolding"))
                         {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            //PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            //ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayScaffoldingFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
                     }
 
@@ -385,7 +392,7 @@ namespace Object
 
                             if (footstepTimer >= footstepInterval)
                             {
-                                PlayNextFootstep();
+                                PlayFloorFootstep();
                                 footstepTimer = 0.0f;
                             }
                         }
@@ -394,8 +401,15 @@ namespace Object
                             leftRayCast.layer == "Scaffolding" ||
                             rightRayCast.layer == "Scaffolding"))
                         {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            //PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            //ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayScaffoldingFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
                     }
 
@@ -468,7 +482,7 @@ namespace Object
                 }
             }
         }
-        private void PlayNextFootstep()
+        private void PlayFloorFootstep()
         {
             // Assuming you have an array or list of footstep sound filenames
             Console.WriteLine("Movement played");
@@ -490,6 +504,31 @@ namespace Object
             PlayAudio(footstepSound, 0);
             ResumeAudioWithFilename(footstepSound);
         }
+
+        private void PlayScaffoldingFootstep()
+        {
+            // Assuming you have an array or list of footstep sound filenames
+            Console.WriteLine("Scaffolding played");
+            string[] footstepSounds = new string[]
+            {
+                "PlayerRunningScaffolding_001.wav", "PlayerRunningScaffolding_002.wav", "PlayerRunningScaffolding_003.wav","PlayerRunningScaffolding_004.wav","PlayerRunningScaffolding_005.wav",
+                "PlayerRunningScaffolding_006.wav","PlayerRunningScaffolding_007.wav","PlayerRunningScaffolding_008.wav","PlayerRunningScaffolding_009.wav","PlayerRunningScaffolding_010.wav",
+                "PlayerRunningScaffolding_011.wav","PlayerRunningScaffolding_012.wav","PlayerRunningScaffolding_013.wav","PlayerRunningScaffolding_014.wav", "PlayerRunningScaffolding_015.wav",
+                "PlayerRunningScaffolding_016.wav","PlayerRunningScaffolding_017.wav","PlayerRunningScaffolding_018.wav","PlayerRunningScaffolding_019.wav","PlayerRunningScaffolding_020.wav",
+            };
+
+            // Randomly select a footstep sound to play
+            Random random = new Random();
+            int randomIndex = random.Next(0, footstepSounds.Length);
+            string footstepSound = footstepSounds[randomIndex];
+
+            Console.WriteLine($"{footstepSound}");
+            // Play the selected footstep sound
+            PlayAudio(footstepSound, 0);
+            ResumeAudioWithFilename(footstepSound);
+        }
+
+
         /*  _________________________________________________________________________ */
         /*! OnExit
 
