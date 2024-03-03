@@ -46,6 +46,8 @@ namespace Object
         public Vector2 colliderPosition;
 
         public bool KeyCollected = false;
+        private float footstepTimer = 0.0f;
+        private float footstepInterval = 0.4f;
 
         private Vector2 playerHead;
         private float temp_dt = 0f;
@@ -347,8 +349,17 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio(FootTrack, 0);
-                            ResumeAudioWithFilename(FootTrack);
+                            //PlayAudio(FootTrack, 0);
+                            //ResumeAudioWithFilename(FootTrack);
+
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayNextFootstep();
+                                footstepTimer = 0.0f;
+                            }
+
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
@@ -368,8 +379,15 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio(FootTrack, 0);
-                            ResumeAudioWithFilename(FootTrack);
+                            //PlayAudio(FootTrack, 0);
+                            //ResumeAudioWithFilename(FootTrack);
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayNextFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
@@ -450,7 +468,28 @@ namespace Object
                 }
             }
         }
+        private void PlayNextFootstep()
+        {
+            // Assuming you have an array or list of footstep sound filenames
+            Console.WriteLine("Movement played");
+            string[] footstepSounds = new string[]
+            {
+                "PlayerRunningFloor_001.wav", "PlayerRunningFloor_002.wav", "PlayerRunningFloor_003.wav","PlayerRunningFloor_004.wav","PlayerRunningFloor_005.wav",
+                "PlayerRunningFloor_006.wav","PlayerRunningFloor_007.wav","PlayerRunningFloor_008.wav","PlayerRunningFloor_009.wav","PlayerRunningFloor_010.wav",
+                "PlayerRunningFloor_011.wav","PlayerRunningFloor_012.wav","PlayerRunningFloor_013.wav","PlayerRunningFloor_014.wav", "PlayerRunningFloor_015.wav",
+                "PlayerRunningFloor_016.wav","PlayerRunningFloor_017.wav","PlayerRunningFloor_018.wav","PlayerRunningFloor_019.wav","PlayerRunningFloor_020.wav",
+            };
 
+            // Randomly select a footstep sound to play
+            Random random = new Random();
+            int randomIndex = random.Next(0, footstepSounds.Length);
+            string footstepSound = footstepSounds[randomIndex];
+
+            Console.WriteLine($"{footstepSound}");
+            // Play the selected footstep sound
+            PlayAudio(footstepSound, 0);
+            ResumeAudioWithFilename(footstepSound);
+        }
         /*  _________________________________________________________________________ */
         /*! OnExit
 
