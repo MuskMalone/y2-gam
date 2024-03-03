@@ -71,4 +71,5 @@ public:
     void Draw();
     void DrawDebug();
     void Destroy();
+    void CheckAssetValidity();
 };

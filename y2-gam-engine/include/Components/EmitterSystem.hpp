@@ -108,6 +108,7 @@ struct EmitterProxy {
     int particlesPerFrame; // 4 bytes
     int idx{-1};
     bool drawEmitterVertices{ false };
+    AssetID spriteAssetID{ };
     // Padding might be added here to align the entire structure size
 };
 struct EmitterSystem

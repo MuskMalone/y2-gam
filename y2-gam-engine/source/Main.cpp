@@ -274,6 +274,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 				imguiSystem->Update(tdt,windowManager->GetContext());
 				renderSystem->CheckAssetValidity();
 				animationSystem->CheckAssetValidity();
+				particleSystem->CheckAssetValidity();
 			}
 			FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_GUI_PROFILE);
 

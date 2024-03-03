@@ -21,6 +21,7 @@
 #include "Graphics/Shader.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/SpriteManager.hpp"
+#include "Engine/SceneManager.hpp"
 #define MAX_BUFFER 1000000
 #define WORK_GROUP 1000 //max buffer should be divisible by work group
 
@@ -244,27 +245,36 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
         mEmitterShader->SetUniform("uEmtpreset", emitter.preset);
         mEmitterShader->SetUniform("uEmtparticlesPerFrame", emitter.particlesPerFrame);
 
+
         //testing for textures;
-        GLint uTexcoordsLoc = glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexcoords");
+        //emitter.spriteAssetID = 1698951115733834800;
+           std::array<glm::vec2, 4> subtexCoords = (emitter.spriteAssetID) ? (AssetManager::GetInstance()->GetAsset<SpriteManager>(emitter.spriteAssetID)->GetTexCoords()) : std::array<glm::vec2, 4>{};
 
-        GLfloat texCoords[8] = {
-            // bl
-            0.f, 1.f,
-            // br
-            1.f, 1.f, 
-            // tl
-            0.f, 0.f, 
-            // tr
-            1.f, 0.f
-        };
-        glUniform2fv(uTexcoordsLoc, 4, texCoords);
+            GLint uTexcoordsLoc = glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexcoords");
+            
+            GLfloat texCoords[8] = {
+                // bl
+                subtexCoords[3].x, subtexCoords[3].y,
+                // br
+                subtexCoords[2].x, subtexCoords[2].y,
+                // tl
+                subtexCoords[0].x, subtexCoords[0].y,
+                // tr
+                subtexCoords[1].x, subtexCoords[1].y,
+            };
+            glUniform2fv(uTexcoordsLoc, 4, texCoords);
 
-        GLuint texhdl = AssetManager::GetInstance()->GetAsset<SpriteManager>(1698951115733834800)->GetTexture()->GetTexHdl();
-        GLuint64 arbHdl = glGetTextureHandleARB(texhdl);
-        glMakeTextureHandleResidentARB(arbHdl);
-        glm::uvec2 arbHdlContainer;
-        memcpy(&arbHdlContainer, &arbHdl, sizeof(glm::uvec2));
-        glUniform2ui(glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexhdl"), arbHdlContainer.x, arbHdlContainer.y);
+            GLuint64 arbHdl{0};
+            if (emitter.spriteAssetID) {
+                GLuint texhdl = AssetManager::GetInstance()->GetAsset<SpriteManager>(emitter.spriteAssetID)->GetTexture()->GetTexHdl();
+                arbHdl = glGetTextureHandleARB(texhdl);
+                glMakeTextureHandleResidentARB(arbHdl);
+            }
+            
+            glm::uvec2 arbHdlContainer;
+            memcpy(&arbHdlContainer, &arbHdl, sizeof(glm::uvec2));
+            glUniform2ui(glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexhdl"), arbHdlContainer.x, arbHdlContainer.y);
+
     }
 
     glDispatchCompute(1, 1, 1);
@@ -392,4 +402,24 @@ void ParticleSystem::Destroy() {
     glDeleteBuffers(1, &mParticleSSbo);
     glDeleteBuffers(1, &mParticleCountSSbo);
     glDeleteBuffers(1, &mParticleStartSSbo);
+}
+
+void ParticleSystem::CheckAssetValidity()
+{
+    bool changed{ false };
+    for (auto const& e : mEntities) {
+        auto& emittersystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(e);
+        //this check is to remove any invalid asset ids
+        for (auto& emitter : emittersystem.emitters) {
+            if (!AssetManager::GetInstance()->IsAssetExist(emitter.spriteAssetID) && emitter.spriteAssetID != 0) {
+                emitter.spriteAssetID = 0;
+                changed = true;
+            }
+        }
+
+    }
+    if (changed) {
+        //std::cout << "changed sprite\n";
+        SceneManager::GetInstance()->SaveScene();
+    }
 }

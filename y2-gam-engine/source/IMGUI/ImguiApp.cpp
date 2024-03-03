@@ -1408,6 +1408,68 @@ namespace Image {
                         const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Decreasing Over Lifetime", "Alpha Size Increasing Over Lifetime"};
                         changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
 
+                        auto am{ AssetManager::GetInstance() };
+                        if (emitter.spriteAssetID != 0) {
+                            auto texture{ am->GetAsset<SpriteManager>(emitter.spriteAssetID) };
+
+                            ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(texture->GetTexture()->GetTexHdl()));
+
+                            // Original sprite sheet size
+                            ImVec2 originalSize(static_cast<float>(texture->GetTexture()->GetWidth()), static_cast<float>(texture->GetTexture()->GetHeight()));
+
+                            // Calculate aspect ratio
+                            float aspectRatio = originalSize.x / originalSize.y;
+
+                            // Adjust size while maintaining aspect ratio
+                            ImVec2 newSize;
+                            if (aspectRatio > 1.0f) {
+                                newSize = ImVec2(200, 200 / aspectRatio);
+                            }
+                            else {
+                                newSize = ImVec2(200 * aspectRatio, 200);
+                            }
+
+                            ImGui::Image(texID, newSize, { 0,1 }, { 1,0 });
+                        }
+                        else {
+                            // Draw a box if there is no asset
+                            ImVec2 boxSize = ImVec2(200, 200); // Box size
+                            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0, 0, 0.7f)); // Dark gray color
+                            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0, 0, 0.8f)); // Lighter gray color
+                            ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0, 0, 0.8f)); // Same as hover color
+
+                            if (ImGui::Button("Drop Sprite Here##invisible", boxSize)) {
+                                // Handle button click or drag and drop actions here
+                            }
+
+                            ImGui::PopStyleColor(3); // Restore button colors to default
+
+                            //// Optionally, draw a border or text inside the box
+                            //ImVec2 cursorPos = ImGui::GetCursorScreenPos();
+                            //ImGui::GetWindowDrawList()->AddRect(cursorPos, ImVec2(cursorPos.x + boxSize.x, cursorPos.y + boxSize.y), IM_COL32(255, 255, 255, 255)); // White border
+                            //ImGui::GetWindowDrawList()->AddText(ImVec2(cursorPos.x + boxSize.x * 0.5f - 20, cursorPos.y + boxSize.y * 0.5f - 7), IM_COL32(255, 255, 255, 255), "Drop Here");
+                        }
+                        if (ImGui::BeginDragDropTarget()) {
+                            //std::cout << "Began drag-drop target." << std::endl;
+
+                            //if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sound AssetBrowser")) {
+                            //    //std::cout << "Accepted payload." << std::endl;
+                            //    AssetID droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                            //    std::cout << droppedAid << std::endl;
+                            //}
+                            AssetID droppedAid{ static_cast<AssetID>(-1) };
+                            if (const ImGuiPayload* dragDropPayLoad = ImGui::AcceptDragDropPayload("Sprite AssetBrowser")) {
+                                //std::cout << "Accepted payload." << std::endl;
+                                droppedAid = *(const AssetID*)dragDropPayLoad->Data;
+                                //std::cout << droppedAid << std::endl;
+                                emitter.spriteAssetID = droppedAid;
+                                //SceneManager::GetInstance()->AddAsset(gCurrentScene, droppedAid);
+                                changed = true;
+                            }
+
+                            ImGui::EndDragDropTarget();
+                        }
+
                         // Check for changes and call the callback function if needed
                         if (changed) {
                             Event event(Events::Particles::EMITTER);
