@@ -349,6 +349,11 @@
             "id": 1709577562922451400,
             "path": "../assets\\audio\\sfx\\menu_click.wav",
             "stream": false
+        },
+        "1709578025174470900": {
+            "id": 1709578025174522800,
+            "path": "../assets\\audio\\sfx\\menu_click.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
