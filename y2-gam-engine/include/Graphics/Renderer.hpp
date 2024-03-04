@@ -75,8 +75,8 @@ struct CircleVtx {
 
 struct UniformData {
 	std::string name;
-	enum class Type { INT, FLOAT, DOUBLE, VEC2, VEC3, VEC4 } type;
-	void* value; //pointer to uniform val
+	enum class Type { INT, BOOL, FLOAT, DOUBLE, VEC2, VEC3, VEC4 } type;
+	std::variant<int, bool, float, double, glm::vec2, glm::vec3, glm::vec4> value;
 };
 
 struct RendererData {
@@ -131,6 +131,7 @@ public:
 	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader);
 	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader, std::vector<UniformData> const& uniforms);
 	static void ApplyPostProcessing(unsigned int texture);
+	static void ApplyPostProcessing(unsigned int texture, std::vector<UniformData> const& uniforms);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();
 

@@ -54,12 +54,16 @@ public:
 	static void DebugRay(Event& event);
 	void CheckAssetValidity();
 	void SetSceneCameraZoom(float zoom);
+	void SetTimeSlow(bool b) { mIsTimeSlow = b;  }
 
 private:
 	bool mDebugMode{ false };
 	bool mEditorMode{ true };
 
+	bool mIsTimeSlow{ false };
 	void WindowSizeListener(Event& event);
+
+	float mRadius{};
 	
 	std::vector<std::shared_ptr<Framebuffer>> mFramebuffers; //TEMP
 	std::shared_ptr<SubTexture> mBgSubtex; // TEMP

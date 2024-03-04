@@ -217,9 +217,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
 
-	if (showEditor) {
-		mFramebuffers[0]->Bind();
-	}
+	//if (showEditor) {
+	mFramebuffers[0]->Bind();
+	//}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 
 	Renderer::ClearColor();
@@ -251,12 +251,14 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	bool playerFound{ false };
 	bool cameraFound{ false };
 	Entity camSettings{};
+
+	glm::vec4 playerScreenPos{};
 	if (!mEditorMode) {
 		for (auto const& e : mEntities) {
 			if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
 				camSettings = e;
 				cameraFound = true;
-				
+
 			}
 
 			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
@@ -275,7 +277,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
 
-			Camera& sceneCamera { ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
+			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
 
 			// Get Player Script Instance
@@ -292,6 +294,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			}
 
 			sceneCamera.UpdatePosition(playerPosition, facingRight);
+
+			playerScreenPos = sceneCamera.GetViewProjMtx() * glm::vec4(playerPosition, 1.f);
 		}
 
 	}
@@ -338,16 +342,41 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
-	if (showEditor) {
-		mFramebuffers[0]->Unbind();
-	}
+	//if (showEditor) {
+	mFramebuffers[0]->Unbind();
+	//}
 
 	if (showEditor) {
 		mFramebuffers[2]->Bind();
 	}
 	glDisable(GL_DEPTH_TEST);
 
-	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID());
+	//TEMP shift this somewhere else
+	if (mIsTimeSlow) {
+		mRadius += 2.f * dt; //rate * dt
+	}
+	else {
+		mRadius -= 2.f * dt;
+	}
+	mRadius = std::max(0.f, std::min(2.5f, mRadius)); // minRadius = 0, maxRadius = 2.1
+	////////////////////////////////////
+
+	//Testing code
+	//if (::gCoordinator->GetSystem<InputSystem>()->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
+	//	mIsTimeSlow = !mIsTimeSlow;
+	//}
+
+	glm::vec3 playerPosNDC = glm::vec3(playerScreenPos) / playerScreenPos.w;
+	//normalize screen space coordinates to range [0, 1]
+	glm::vec2 playerCenter = glm::vec2(playerPosNDC.x, playerPosNDC.y);
+
+	float time = glfwGetTime();
+	std::vector<UniformData> uniforms;
+	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
+	//uniforms.push_back(UniformData{ "isTimeSlow", UniformData::Type::BOOL, mIsTimeSlow });
+	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
+	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
+	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
 	
 	glEnable(GL_DEPTH_TEST);
 	if (showEditor) {

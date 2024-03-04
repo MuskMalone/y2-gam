@@ -231,6 +231,7 @@ namespace Image {
 	*/
 	static void GameplayComponent_SlowdownTime(bool& flag) {
 		auto frameController1{ FrameRateController::GetInstance() };
+		::gCoordinator->GetSystem<RenderSystem>()->SetTimeSlow(flag);
 		if (flag) {
 			frameController1->ScaleDeltaTime(0.4f);
 		}

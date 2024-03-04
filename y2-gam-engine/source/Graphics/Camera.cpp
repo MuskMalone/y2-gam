@@ -90,10 +90,6 @@ void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight)
 	float direction = isFacingRight ? 1.0f : -1.0f;
 	mOffset.x = direction * offsetX;
 
-	//clamping
-	mPos.x = std::max(horizontalBoundary.x, std::min(mPos.x, horizontalBoundary.y));
-	mPos.y = std::max(verticalBoundary.x, std::min(mPos.y, verticalBoundary.y));
-
 	float camSpeed = cameraSpeed;
 	glm::vec3 currentCamPos = GetPosition();
 	glm::vec3 targetCamPos = targetPosition + glm::vec3{offsetX, offsetY, 0.f};
@@ -101,6 +97,11 @@ void Camera::UpdatePosition(const glm::vec3& targetPosition, bool isFacingRight)
 
 	newCamPos.x = Lerp(currentCamPos.x, targetCamPos.x, camSpeed);
 	newCamPos.y = Lerp(currentCamPos.y, targetCamPos.y, camSpeed);
+
+	//clamping
+	newCamPos.x = std::max(horizontalBoundary.x, std::min(newCamPos.x, horizontalBoundary.y));
+	newCamPos.y = std::max(verticalBoundary.x, std::min(newCamPos.y, verticalBoundary.y));
+
 	SetPosition(newCamPos);
 	//Update Zoom
 
