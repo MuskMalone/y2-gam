@@ -16,6 +16,7 @@
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
 #include <Windows.h>
+#include "Systems/TextSystem.hpp"
 
 namespace Image {
   // Static Initialization
@@ -109,14 +110,21 @@ namespace Image {
       masterGroup->setPaused(true);
     }
     
-    result = sSystem->update();
-
     // Calculate the volume needed for positional audio
     for (AudioInformation& ai : AudioPlaying) {
-      if (ai.isPositional) {
-        // Do Something
+      if (ai.isPositional && ai.isPlaying) {
+        // Compare distance of (0,0) and ai.position
+        float distanceToCenter = std::sqrt(std::pow(ai.position.x, 2) + std::pow(ai.position.y, 2));
+        float maxDistance = 200.0f;
+
+        // Linearly interpolate distance with volume
+        float volume = CalculateLinearVolume(maxDistance, distanceToCenter);
+        std::cout << "Volume: " << volume << "\n";
+        ai.audioChannel->setVolume(volume);
       }
     }
+
+    result = sSystem->update();
     
 #ifndef _INSTALLER
     if (result != FMOD_OK) {
@@ -472,7 +480,7 @@ namespace Image {
         result = sSystem->playSound(audio, group, false, &ai.audioChannel);
         ai.audioChannel->setCallback(OnSoundFinished);
         ai.isPositional = true;
-        ai.position = position;
+        ai.position = TextSystem::WorldToScreenCoordinates(position);
         break;
       }
     }
@@ -488,7 +496,7 @@ namespace Image {
       ai.audioChannel = channel;
       ai.isPlaying = true;
       ai.isPositional = true;
-      ai.position = position;
+      ai.position = TextSystem::WorldToScreenCoordinates(position);
       AudioPlaying.push_back(ai);
     }
 
@@ -858,6 +866,46 @@ namespace Image {
     return id;
   }
 
+  /*  _________________________________________________________________________ */
+  /*! CalculateLinearVolume
+
+  @param maxDistance
+
+  @param currentDistance
+
+  @param maxVolume
+
+  @return float
+  The calculated volume.
+
+  Based on the distance of the sound and the maxDistance
+  and the range of values for the volume, linearly interpolates the two values
+  to calculate the volume the sound should be at.
+  */
+  float SoundManager::CalculateLinearVolume(float maxDistance, float currentDistance, float maxVolume) {
+    currentDistance = std::min(currentDistance, maxDistance);
+    float normalizedVolume = 1.0f - (currentDistance / maxDistance);
+    return normalizedVolume * maxVolume;
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! OnSoundFinished
+
+  @param channelControl
+
+  @param controlType
+
+  @param callbackType
+
+  @param commandData1
+
+  @param commandData2
+
+  @return FMOD_RESULT
+
+  Fmod Callback for when a sound has finished playing. The main purpose of knowing
+  when a sound has finished playing is to prevent stacking of audio on top of each other.
+  */
   FMOD_RESULT F_CALLBACK SoundManager::OnSoundFinished(FMOD_CHANNELCONTROL* channelControl, FMOD_CHANNELCONTROL_TYPE controlType,
     FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2) {
     if (callbackType == FMOD_CHANNELCONTROL_CALLBACK_END) {

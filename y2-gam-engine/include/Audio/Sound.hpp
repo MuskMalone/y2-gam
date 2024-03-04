@@ -70,6 +70,9 @@ namespace Image {
     static SoundProperties & GetAssetProperties(ResourceID);
     static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id);
 
+    // Helper
+    static float CalculateLinearVolume(float maxDistance, float currentDistance, float maxVolume = 1.f);
+
   public:
     static SoundGroup musicGroup;
     static SoundGroup sfxGroup;
