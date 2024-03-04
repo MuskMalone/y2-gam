@@ -433,7 +433,7 @@ namespace Object
 
                     if (firstTime)
                     {
-                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                        PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0);
                     }
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
