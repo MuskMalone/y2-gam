@@ -47,6 +47,7 @@
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
 
 const float growthRate{3.5f};
+const float maxRadius{2.5f};
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -348,9 +349,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	//if (showEditor) {
 	mFramebuffers[0]->Unbind();
 	//}
-
 	if (showEditor) {
 		mFramebuffers[2]->Bind();
+	}
+	else {
+		int width, height;
+		glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
+		glViewport(0, 0, width, height);
 	}
 	glDisable(GL_DEPTH_TEST);
 
@@ -358,12 +363,12 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
 
 	if (mIsTimeSlow) {
-		mRadius += growthRate * 2.f * dt; //rate * dt
+		mRadius += growthRate * 2.f * dt;
 	}
 	else {
 		mRadius -= growthRate * dt;
 	}
-	mRadius = std::max(0.f, std::min(2.5f, mRadius)); // minRadius = 0, maxRadius = 2.5
+	mRadius = std::max(0.f, std::min(maxRadius, mRadius));
 
 	float time = glfwGetTime();
 	std::vector<UniformData> uniforms;
