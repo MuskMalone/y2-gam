@@ -19,11 +19,11 @@
 
 uniform sampler2D screenTex; //texture to apply postprocessing
 uniform float time;
-//uniform bool isTimeSlow;
+uniform vec2 resolution;
 uniform float radius;
 uniform vec2 circleCenter;
 
-vec2 resolution = vec2(1600, 900);
+//vec2 resolution = vec2(1600, 900);
 
 in vec2 fragTexCoord; 
 out vec4 fragColor;
@@ -126,7 +126,8 @@ void main() {
 //    fragColor.xyz = image * vI;
 //		
 //	// Add some grain (thanks, Jose!)
-//    fragColor.xyz *= (1.0+(rand(uv+t*.01)-.2)*.15);			
+//    fragColor.xyz *= (1.0+(rand(uv+t*.01)-.2)*.15);		
+
     vec2 uv = fragTexCoord;
     vec4 texColor = texture(screenTex, fragTexCoord);
     uv = uv * 2.0 - 1.0;
@@ -134,6 +135,8 @@ void main() {
 
     //circle properties
     //float radius = sin(time * 2.0) * 2.5; //circle radius
+	float maxRadius = 2.6;
+	float growthRate = 2.f;
     vec2 center = circleCenter; //position of player
 
     //glow properties
@@ -143,25 +146,28 @@ void main() {
     //determine if the current pixel is inside the circle
     float dist = distance(uv, center);
 
-    if (dist < radius) {
-        float grey = dot(texColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-        fragColor = vec4(grey, grey, grey, texColor.a);
-       //\fragColor = vec4(1.0 - texColor.rgb, texColor.a);
-    }
-    else if(dist < glowRadius){
-        //calculate glow factor based on distance from the circle edge
-        float glowFactor = smoothstep(glowRadius, radius, dist);
-
-        //blend between the normal color and the inverted color based on glow factor
-        vec4 glowColor = mix(texColor, vec4(0.94, 0.90, 0.55, texColor.a), glowFactor * glowIntensity);
-
-        // Apply the glow color
-        fragColor = glowColor;
+    if (radius > 0.0) {
+        if (dist < radius) {
+            float grey = dot(texColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+            fragColor = vec4(grey, grey, grey, texColor.a);
+        }
+        else if (dist < glowRadius) {
+            // Calculate glow factor based on distance from the circle edge
+            float glowFactor = smoothstep(glowRadius, radius, dist);
+    
+            // Blend between the normal color and the inverted color based on glow factor
+            vec4 glowColor = mix(texColor, vec4(0.94, 0.90, 0.55, texColor.a), glowFactor * glowIntensity);
+    
+            // Apply the glow color
+            fragColor = glowColor;
+        } else {
+            // Outside the circle, render normally
+            fragColor = texColor;
+        }
     } else {
-        //outside the circle, render normally
+        // If radius is 0, render the fragment as the original texture color
         fragColor = texColor;
     }
-
 
 
 }

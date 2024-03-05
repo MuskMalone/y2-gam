@@ -34,6 +34,7 @@
 #include "Graphics/SpriteManager.hpp"
 #include "Components/UIImage.hpp"
 
+#include "../WindowManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include <Engine/AssetManager.hpp>
@@ -44,6 +45,8 @@
 
 // Static Initialization
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
+
+const float growthRate{3.5f};
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -351,29 +354,23 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	}
 	glDisable(GL_DEPTH_TEST);
 
-	//TEMP shift this somewhere else
+	playerScreenPos /= playerScreenPos.w;
+	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
+
 	if (mIsTimeSlow) {
-		mRadius += 2.f * dt; //rate * dt
+		mRadius += growthRate * 2.f * dt; //rate * dt
 	}
 	else {
-		mRadius -= 2.f * dt;
+		mRadius -= growthRate * dt;
 	}
-	mRadius = std::max(0.f, std::min(2.5f, mRadius)); // minRadius = 0, maxRadius = 2.1
-	////////////////////////////////////
-
-	//Testing code
-	//if (::gCoordinator->GetSystem<InputSystem>()->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_Z)) {
-	//	mIsTimeSlow = !mIsTimeSlow;
-	//}
-
-	glm::vec3 playerPosNDC = glm::vec3(playerScreenPos) / playerScreenPos.w;
-	//normalize screen space coordinates to range [0, 1]
-	glm::vec2 playerCenter = glm::vec2(playerPosNDC.x, playerPosNDC.y);
+	mRadius = std::max(0.f, std::min(2.5f, mRadius)); // minRadius = 0, maxRadius = 2.5
 
 	float time = glfwGetTime();
 	std::vector<UniformData> uniforms;
 	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
-	//uniforms.push_back(UniformData{ "isTimeSlow", UniformData::Type::BOOL, mIsTimeSlow });
+
+	glm::vec2 res {mFramebuffers[2]->GetFramebufferProps().width, mFramebuffers[2]->GetFramebufferProps().height};
+	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
 	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
