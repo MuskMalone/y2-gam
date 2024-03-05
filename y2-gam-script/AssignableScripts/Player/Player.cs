@@ -16,6 +16,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 using System.Data.SqlClient;
 
 namespace Object
@@ -56,6 +57,8 @@ namespace Object
 
         bool resetAnimationState = true;
         private bool onInit = true;
+        public float VisionRange;
+        public float OriginalFriction;
 
         // Direction related
         private bool _isFacingRight;
@@ -218,6 +221,24 @@ namespace Object
                             resetAnimationState = true;
                             PlayAppearTimer = 0;
                         }
+                    }
+
+                    float visionOffset = IsFacingRight ? VisionRange : -VisionRange;
+                    RaycastHit topFacingRayCast = new RaycastHit();
+                    RaycastHit midFacingRayCast = new RaycastHit();
+                    RaycastHit botFacingRayCast = new RaycastHit();
+                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2.0f)), new Vector2(Collider.X + visionOffset, Collider.Y + (ColliderDimensions.Y / 2.0f)), entityID,
+                        out topFacingRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y), new Vector2(Collider.X + visionOffset, Collider.Y), entityID,
+                        out midFacingRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2.0f) + 1.0f), new Vector2(Collider.X + visionOffset, Collider.Y - (ColliderDimensions.Y / 2.0f) + 1.0f), entityID,
+                        out botFacingRayCast)
+                        ) {
+                        Friction = 0.0f;
+                    }
+                    else
+                    {
+                        Friction = OriginalFriction;
                     }
 
                     RaycastHit centreRayCast = new RaycastHit();

@@ -635,6 +635,42 @@ namespace Image {
 	}
 	
 	// For Physics
+		/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_GetFriction
+
+	@param entityID
+	The ID of the entity.
+
+	@param outFric
+
+	@return none.
+
+	Get the friction of the entity in C#.
+	*/
+	static void PhysicsComponent_GetFriction(uint32_t& entityID, float& outFric) {
+		if (::gCoordinator->HasComponent<RigidBody>(entityID)) {
+			outFric = ::gCoordinator->GetComponent<RigidBody>(entityID).friction;
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_SetFriction
+
+	@param entityID
+	The ID of the entity.
+
+	@param fric
+
+	@return none.
+
+	Set the friction of the entity in C#.
+	*/
+	static void PhysicsComponent_SetFriction(uint32_t& entityID, float& fric) {
+		if (::gCoordinator->HasComponent<RigidBody>(entityID)) {
+			::gCoordinator->GetComponent<RigidBody>(entityID).friction = fric;
+		}
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! PhysicsComponent_Collided
 
@@ -1333,6 +1369,8 @@ Get the collider dimensions of the entity in C#.
 
 		IMAGE_ADD_INTERNAL_CALL(PathfindingComponent_GetPath);
 
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetFriction);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetFriction);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetRaycast);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedEntity);
