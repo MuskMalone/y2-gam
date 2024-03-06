@@ -4,7 +4,7 @@
 \file       Sound.hpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 26, 2024
+\date       March 7, 2024
 
 \brief      Header file for Audio library that wraps around FMOD.
 
@@ -19,6 +19,7 @@ namespace Image {
 
   typedef FMOD::Sound* Sound;
   typedef FMOD::ChannelGroup* SoundGroup;
+  constexpr float MAX_AUDIBILITY_DISTANCE = 150.0f;
 
   struct SoundProperties : public ResProp{
       std::string path;
@@ -36,6 +37,8 @@ namespace Image {
   class SoundManager{
   public:
     using SoundAssetPair = std::pair<Sound, SoundProperties>;
+    static SoundGroup musicGroup;
+    static SoundGroup sfxGroup;
 
   public:
     // Fmod Control
@@ -70,12 +73,11 @@ namespace Image {
     static SoundProperties & GetAssetProperties(ResourceID);
     static ResourceID AddAsset(rapidjson::Value& obj, std::string const& path, ResourceID id);
 
-    // Helper
+  private:
     static float CalculateLinearVolume(float maxDistance, float currentDistance, float maxVolume = 1.f);
-
-  public:
-    static SoundGroup musicGroup;
-    static SoundGroup sfxGroup;
+    static float CalculateDistanceToPlayer(Vec2 objectPosition);
+    static FMOD_RESULT F_CALLBACK OnSoundFinished(FMOD_CHANNELCONTROL* channelControl,
+      FMOD_CHANNELCONTROL_TYPE controlType, FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2);
 
   private:
     static FMOD::System* sSystem;
@@ -83,7 +85,5 @@ namespace Image {
     static std::map<ResourceID, std::pair<Sound, SoundProperties>> _mSoundAssets;
     static std::map<std::string, ResourceID> sSoundResourceMap;
     static std::map<Sound, std::string> sGroupMap;
-    static FMOD_RESULT F_CALLBACK OnSoundFinished(FMOD_CHANNELCONTROL* channelControl,
-      FMOD_CHANNELCONTROL_TYPE controlType, FMOD_CHANNELCONTROL_CALLBACK_TYPE callbackType, void* commandData1, void* commandData2);
   };
 }

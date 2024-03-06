@@ -4,7 +4,7 @@
 \file       Sound.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 26, 2024
+\date       March 7, 2024
 
 \brief      Source file for Audio library that wraps around FMOD. 
 
@@ -16,7 +16,9 @@
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
 #include <Windows.h>
+
 #include "Systems/TextSystem.hpp"
+#include "Systems/RenderSystem.hpp"
 
 namespace Image {
   // Static Initialization
@@ -31,6 +33,7 @@ namespace Image {
   namespace {
     HWND gameWindowHandle;
     HWND foregroundWindow;
+    std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
   }
 
   /*  _________________________________________________________________________ */
@@ -113,12 +116,8 @@ namespace Image {
     // Calculate the volume needed for positional audio
     for (AudioInformation& ai : AudioPlaying) {
       if (ai.isPositional && ai.isPlaying) {
-        // Compare distance of (0,0) and ai.position
-        float distanceToCenter = std::sqrt(std::pow(ai.position.x, 2) + std::pow(ai.position.y, 2));
-        float maxDistance = 200.0f;
-
         // Linearly interpolate distance with volume
-        float volume = CalculateLinearVolume(maxDistance, distanceToCenter);
+        float volume = CalculateLinearVolume(MAX_AUDIBILITY_DISTANCE, CalculateDistanceToPlayer(ai.position));
         std::cout << "Volume: " << volume << "\n";
         ai.audioChannel->setVolume(volume);
       }
@@ -480,7 +479,7 @@ namespace Image {
         result = sSystem->playSound(audio, group, false, &ai.audioChannel);
         ai.audioChannel->setCallback(OnSoundFinished);
         ai.isPositional = true;
-        ai.position = TextSystem::WorldToScreenCoordinates(position);
+        ai.position = position;
         break;
       }
     }
@@ -496,7 +495,7 @@ namespace Image {
       ai.audioChannel = channel;
       ai.isPlaying = true;
       ai.isPositional = true;
-      ai.position = TextSystem::WorldToScreenCoordinates(position);
+      ai.position = position;
       AudioPlaying.push_back(ai);
     }
 
@@ -886,6 +885,28 @@ namespace Image {
     currentDistance = std::min(currentDistance, maxDistance);
     float normalizedVolume = 1.0f - (currentDistance / maxDistance);
     return normalizedVolume * maxVolume;
+  }
+
+  /*  _________________________________________________________________________ */
+  /*! CalculateDistanceToPlayer
+
+  @param objectPosition
+  The position of the object playing the audio.
+
+  @return float
+  The distance from object to player.
+
+  Calculates the distance to the player from the audio-playing object.
+  */
+  float SoundManager::CalculateDistanceToPlayer(Vec2 objectPosition) {
+    Transform const& playerTransform { 
+      ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer) 
+    };
+    glm::vec3 playerPosition{ playerTransform.position };
+    float distanceToPlayer = sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
+      std::pow(objectPosition.y - playerPosition.y, 2));
+
+    return distanceToPlayer;
   }
 
   /*  _________________________________________________________________________ */

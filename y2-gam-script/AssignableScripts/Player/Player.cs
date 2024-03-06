@@ -231,7 +231,7 @@ namespace Object
                         out topFacingRayCast) ||
                         PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y), new Vector2(Collider.X + visionOffset, Collider.Y), entityID,
                         out midFacingRayCast) ||
-                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2.0f) + 1.0f), new Vector2(Collider.X + visionOffset, Collider.Y - (ColliderDimensions.Y / 2.0f) + 1.0f), entityID,
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2.0f) + 2.0f), new Vector2(Collider.X + visionOffset, Collider.Y - (ColliderDimensions.Y / 2.0f) + 2.0f), entityID,
                         out botFacingRayCast)
                         ) {
                         Friction = 0.0f;
