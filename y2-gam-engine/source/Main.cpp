@@ -13,6 +13,7 @@
 #include "Systems/TextSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
 #include "Systems/ParticleSystem.hpp"
+#include "Systems/LightingSystem.hpp"
 #include "WindowManager.hpp"
 #include <Core/Globals.hpp>
 #include "Graphics/Renderer.hpp"
@@ -204,6 +205,16 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	}
 
 	particleSystem->Init();
+
+	auto lightingSystem = coordinator->RegisterSystem<LightingSystem>();
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<Collider>());//for testing
+		signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<LightingSystem>(signature);
+	}
+
+	lightingSystem->Init();
 
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{
