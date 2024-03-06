@@ -372,7 +372,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	float time = glfwGetTime();
 	std::vector<UniformData> uniforms;
 	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
-
 	glm::vec2 res {mFramebuffers[2]->GetFramebufferProps().width, mFramebuffers[2]->GetFramebufferProps().height};
 	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });

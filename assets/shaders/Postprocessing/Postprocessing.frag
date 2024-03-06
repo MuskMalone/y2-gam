@@ -22,13 +22,12 @@ uniform float time;
 uniform vec2 resolution;
 uniform float radius;
 uniform vec2 circleCenter;
+vec2 uv;
 
 //vec2 resolution = vec2(1600, 900);
 
 in vec2 fragTexCoord; 
 out vec4 fragColor;
-
-vec2 uv;
 
 float rand(vec2 co){
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
@@ -75,11 +74,6 @@ float randomBlotch(float seed)
 	return mix(0.3 + 0.2 * (1.0 - (s / 0.02)), 1.0, v);
 }
 
-vec4 applyVintageEffect(vec4 color) {
-    float grey = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-    return vec4(grey * vec3(1.2, 1.0, 0.8), 1.0);
-}
-
 vec4 applyFilmGrainEffect(vec4 color, vec2 uv, float time) {
     // Calculate random seed based on time
     float seed = fract(sin(dot(uv.xy, vec2(12.9898, 78.233)) + time) * 43758.5453);
@@ -95,35 +89,9 @@ vec4 applyFilmGrainEffect(vec4 color, vec2 uv, float time) {
     return resultColor;
 }
 
-// Define a function to apply the vintage effect
-vec4 applyVintage(vec4 color, vec2 uv, float time) {
-    float vI = 16.0 * (uv.x * (1.0 - uv.x) * uv.y * (1.0 - uv.y));
-    vI *= 0.7;
-    vI += 1.0;
-    vI *= pow(16.0 * uv.x * (1.0 - uv.x) * uv.y * (1.0 - uv.y), 0.4);
-
-    int l = int(8.0 * rand(time + 7.0));
-    for (int i = 0; i < l; ++i) {
-        vI *= randomLine(time + 6.0 + 17.0 * float(i));
-    }
-
-    int s = int(max(8.0 * rand(time + 18.0) - 2.0, 0.0));
-    for (int i = 0; i < s; ++i) {
-        vI *= randomBlotch(time + 6.0 + 19.0 * float(i));
-    }
-
-    // Apply the vintage effect to the input color
-    vec3 modifiedColor = color.rgb * vI;
-    
-    // Add some grain
-    modifiedColor *= (1.0 + (rand(uv + time * 0.01) - 0.2) * 0.15);
-    
-    return vec4(modifiedColor, color.a); // Preserve the original alpha
-}
-
 void main() {
 //	fragColor = texture(screenTex, fragTexCoord);
-//	uv = fragTexCoord;
+//	vec2 uv = fragTexCoord;
 //
 //	float t = float(int(time * FREQUENCY));
 //		
@@ -174,6 +142,7 @@ void main() {
 //	// Add some grain (thanks, Jose!)
 //    fragColor.xyz *= (1.0+(rand(uv+t*.01)-.2)*.15);		
 
+//---------------------------------------------------------------
     vec2 uv = fragTexCoord;
     vec4 texColor = texture(screenTex, fragTexCoord);
     uv = uv * 2.0 - 1.0;
@@ -215,10 +184,11 @@ void main() {
         // If radius is 0, render the fragment as the original texture color
         finalColor = texColor;
     }
+fragColor = finalColor;
+//--------------------------------------------------------------------------------------
 
-    float time = float(int(time * FREQUENCY));
     
     // Apply the vintage effect to the texture color
-    fragColor = applyFilmGrainEffect(finalColor, fragTexCoord, time);
+
     //fragColor = finalColor;
 }
