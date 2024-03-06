@@ -1809,12 +1809,9 @@ namespace Image {
         ImGui::Begin("Image Game Engine");
         if (ImGui::IsWindowAppearing()) gSelectedPrefab = MAX_ENTITIES;
         ImGui::BeginChild("LevelEditor");
-        auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
-        if(inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P) ) {
-            renderSystem->GetPPMode() ? renderSystem->SetPPMode(false) : renderSystem->SetPPMode(true);
-        }
-        auto const& framebuffer = renderSystem->GetPPMode() ? renderSystem->GetFramebuffer(2) : renderSystem->GetFramebuffer(0);
+        auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0);
         unsigned int texHdl = framebuffer->GetColorAttachmentID();
+        auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
         ImVec2 contentSize = ImGui::GetContentRegionAvail();
 

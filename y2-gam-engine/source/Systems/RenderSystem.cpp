@@ -214,7 +214,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
 		showEditor = !showEditor;
 	}
-
 #else 
 	static bool showEditor{ false };
 #endif

@@ -75,6 +75,52 @@ float randomBlotch(float seed)
 	return mix(0.3 + 0.2 * (1.0 - (s / 0.02)), 1.0, v);
 }
 
+vec4 applyVintageEffect(vec4 color) {
+    float grey = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+    return vec4(grey * vec3(1.2, 1.0, 0.8), 1.0);
+}
+
+vec4 applyFilmGrainEffect(vec4 color, vec2 uv, float time) {
+    // Calculate random seed based on time
+    float seed = fract(sin(dot(uv.xy, vec2(12.9898, 78.233)) + time) * 43758.5453);
+
+    // Film grain effect logic (simplified for brevity)
+    // Apply film grain effect based on the random seed and uv coordinates
+    float grain = clamp(rand(seed) - 0.5, 0.0, 1.0);
+    vec3 grainColor = color.rgb + grain * vec3(0.05); // Adjust grain intensity as needed
+
+    // Combine the original color with the grain effect
+    vec4 resultColor = vec4(grainColor, color.a);
+
+    return resultColor;
+}
+
+// Define a function to apply the vintage effect
+vec4 applyVintage(vec4 color, vec2 uv, float time) {
+    float vI = 16.0 * (uv.x * (1.0 - uv.x) * uv.y * (1.0 - uv.y));
+    vI *= 0.7;
+    vI += 1.0;
+    vI *= pow(16.0 * uv.x * (1.0 - uv.x) * uv.y * (1.0 - uv.y), 0.4);
+
+    int l = int(8.0 * rand(time + 7.0));
+    for (int i = 0; i < l; ++i) {
+        vI *= randomLine(time + 6.0 + 17.0 * float(i));
+    }
+
+    int s = int(max(8.0 * rand(time + 18.0) - 2.0, 0.0));
+    for (int i = 0; i < s; ++i) {
+        vI *= randomBlotch(time + 6.0 + 19.0 * float(i));
+    }
+
+    // Apply the vintage effect to the input color
+    vec3 modifiedColor = color.rgb * vI;
+    
+    // Add some grain
+    modifiedColor *= (1.0 + (rand(uv + time * 0.01) - 0.2) * 0.15);
+    
+    return vec4(modifiedColor, color.a); // Preserve the original alpha
+}
+
 void main() {
 //	fragColor = texture(screenTex, fragTexCoord);
 //	uv = fragTexCoord;
@@ -132,6 +178,7 @@ void main() {
     vec4 texColor = texture(screenTex, fragTexCoord);
     uv = uv * 2.0 - 1.0;
     uv.x *= resolution.x / resolution.y;
+    vec4 finalColor = texColor;
 
     //circle properties
     //float radius = sin(time * 2.0) * 2.5; //circle radius
@@ -149,7 +196,7 @@ void main() {
     if (radius > 0.0) {
         if (dist < radius) {
             float grey = dot(texColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-            fragColor = vec4(grey, grey, grey, texColor.a);
+            finalColor = vec4(grey, grey, grey, texColor.a);
         }
         else if (dist < glowRadius) {
             // Calculate glow factor based on distance from the circle edge
@@ -159,15 +206,19 @@ void main() {
             vec4 glowColor = mix(texColor, vec4(0.94, 0.90, 0.55, texColor.a), glowFactor * glowIntensity);
     
             // Apply the glow color
-            fragColor = glowColor;
+            finalColor = glowColor;
         } else {
             // Outside the circle, render normally
-            fragColor = texColor;
+            finalColor = texColor;
         }
     } else {
         // If radius is 0, render the fragment as the original texture color
-        fragColor = texColor;
+        finalColor = texColor;
     }
 
-
+    float time = float(int(time * FREQUENCY));
+    
+    // Apply the vintage effect to the texture color
+    fragColor = applyFilmGrainEffect(finalColor, fragTexCoord, time);
+    //fragColor = finalColor;
 }
