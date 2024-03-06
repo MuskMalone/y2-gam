@@ -163,4 +163,7 @@ ImFont* mainfont = nullptr;
         Entity e{ event.GetParam<Entity>(Events::System::Entity::CREATE) };
         if (event.GetFail()) return;
         gCoordinator->AddComponent<ImguiComponent>(e, {});
+
+
     }
+

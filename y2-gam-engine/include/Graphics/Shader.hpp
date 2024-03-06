@@ -40,6 +40,7 @@ public:
 	void SetUniform(std::string const& name, GLboolean val);
 	void SetUniform(std::string const& name, GLint val);
 	void SetUniform(std::string const& name, GLfloat val);
+	void SetUniform(std::string const& name, GLdouble val);
 	void SetUniform(std::string const& name, GLfloat x, GLfloat y);
 	void SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z);
 	void SetUniform(std::string const& name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
