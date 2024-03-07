@@ -353,10 +353,10 @@ namespace Object
                             Jump(dt);
                         }
 
-                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
-                        {
-                            Velocity = new Vector2(0.0f, Velocity.Y);
-                        }
+                        //if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        //{
+                            //Velocity = new Vector2(0.0f, Velocity.Y);
+                        //}
                     }
 
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
@@ -436,7 +436,7 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
-                        //card.Alive = false;
+                        card.Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)
@@ -492,15 +492,6 @@ namespace Object
             StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
-        //void PauseGame()
-        //{
-        //    SaveScene("Level1");
-        //}
-
-        //void ResumeGame()
-        //{
-        //    LoadScene("Level1");
-        //}
         public void MoveLeft(float dt)
         {
             if (!PlayAppearAnimation)

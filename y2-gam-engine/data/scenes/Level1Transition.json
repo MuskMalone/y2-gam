@@ -123,12 +123,14 @@
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
+                "OriginalFriction": 0.8999999761581421,
                 "PlayAppearAnimation": false,
                 "PlayAppearTimer": 0.0,
                 "PlayDeathAnimHowLongAfter": 0.30000001192092896,
                 "PlayDeathAnimation": false,
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
+                "VisionRange": 4.0,
                 "colliderPositionX": -591.5,
                 "colliderPositionY": -123.5,
                 "spawnPositionX": -592.5,
@@ -162,19 +164,19 @@
         {
             "Animation": {
                 "states": [
-                    1700790935381564100
+                    1709824160926932300
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Collider": {
-                "collider": 0,
+                "collider": 1,
                 "posX": 99999.0,
                 "posY": 99999.0,
                 "rotation": 0.0,
-                "dimX": 9.105999946594238,
-                "dimY": 15.142999649047852
+                "dimX": 8.0,
+                "dimY": 8.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -264,7 +266,7 @@
         {
             "Animation": {
                 "states": [
-                    1700930523778839900
+                    1709742873940550100
                 ],
                 "currFrame": 2,
                 "speed": 0.07999999821186066,

@@ -118,7 +118,6 @@ namespace Image {
       if (ai.isPositional && ai.isPlaying) {
         // Linearly interpolate distance with volume
         float volume = CalculateLinearVolume(MAX_AUDIBILITY_DISTANCE, CalculateDistanceToPlayer(ai.position));
-        std::cout << "Volume: " << volume << "\n";
         ai.audioChannel->setVolume(volume);
       }
     }
