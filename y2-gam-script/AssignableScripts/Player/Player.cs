@@ -436,7 +436,7 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
-                        card.Alive = false;
+                        //card.Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)

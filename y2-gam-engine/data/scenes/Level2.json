@@ -418,7 +418,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -10.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -427,10 +427,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box1",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3224,7 +3232,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -90.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3233,10 +3241,14 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 50.0,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectAnvil",
+                "scriptTag": "Anvil"
             },
             "Sprite": {
                 "r": 1.0,
@@ -3378,7 +3390,8 @@
                 "states": [
                     1698954259805573200,
                     1698954489840002900,
-                    1698954487533620100
+                    1698954487533620100,
+                    1706963288764716700
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -3553,7 +3566,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 1,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -3662,7 +3675,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": 0.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3671,10 +3684,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box3",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3684,6 +3705,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Box3"
             },
@@ -3760,7 +3782,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": 0.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3769,10 +3791,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box2",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3782,6 +3812,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Box2"
             },
