@@ -15,7 +15,7 @@
 /*******************************************************************************/
 
 #version 450 core
-#define FREQUENCY 15
+#define FREQUENCY 8
 
 uniform sampler2D screenTex; //texture to apply postprocessing
 uniform float time;
@@ -37,22 +37,7 @@ float rand(float c){
 	return rand(vec2(c,1.0));
 }
 
-float randomLine(float seed)
-{
-	float b = 0.01 * rand(seed);
-	float a = rand(seed+1.0);
-	float c = rand(seed+2.0) - 0.5;
-	float mu = rand(seed+3.0);
-	
-	float l = 1.0;
-	
-	if ( mu > 0.2)
-		l = pow(  abs(a * uv.x + b * uv.y + c ), 1.0/8.0 );
-	else
-		l = 2.0 - pow( abs(a * uv.x + b * uv.y + c), 1.0/8.0 );				
-	
-	return mix(0.5, 1.0, l);
-}
+
 
 // Generate some blotches.
 float randomBlotch(float seed)
@@ -89,59 +74,68 @@ vec4 applyFilmGrainEffect(vec4 color, vec2 uv, float time) {
     return resultColor;
 }
 
+
+float randomLine(float seed)
+{
+	float b = 0.01 * rand(seed);
+	float a = rand(seed+1.0);
+	float c = rand(seed+2.0) - 0.5;
+	float mu = rand(seed+3.0);
+	
+	float l = 1.0;
+	
+	if ( mu > 0.2)
+		l = pow(  abs(a * uv.x + b * uv.y + c ), 1.0/8.0 );
+	else
+		l = 2.0 - pow( abs(a * uv.x + b * uv.y + c), 1.0/8.0 );				
+	
+	return mix(0.5, 1.0, l);
+}
+
+
 void main() {
-	vec4 finalColor = vec4(0.f);
-	finalColor = texture(screenTex, fragTexCoord);
-	vec2 uv = fragTexCoord.xy / resolution.xy;
+	vec4 finalColor = texture(screenTex, fragTexCoord);
+	uv = fragTexCoord;
 
 	float t = float(int(time * FREQUENCY));
 		
-	// Get some image movement
-	//vec2 suv = uv + 0.002 * vec2( rand(t), rand(t + 23.0));
-	vec2 suv = uv;
-		
-	// Get the image
-	vec3 image = texture( screenTex, vec2(suv.x, suv.y) ).xyz;
+	//Get the image
+	vec3 image = texture( screenTex, vec2(uv.x, uv.y) ).xyz;
 
-	// Create a time-varying vignetting effect
+	//Create a vignetting effect
 	float vI = 16.0 * (uv.x * (1.0-uv.x) * uv.y * (1.0-uv.y));
-	vI *= 0.7;
-	//vI *= mix( 0.7, 1.0, rand(t + 0.5));
 
-		
-	// Add additive flicker
-	//vI += 1.0 + 0.4 * rand(t+8.);
-	vI += 1.0;
-		
-	// Add a fixed vignetting (independent of the flicker)
+	//Brighten
+	vI += 0.5;	
+	//Add a fixed vignetting
 	vI *= pow(16.0 * uv.x * (1.0-uv.x) * uv.y * (1.0-uv.y), 0.4);
 
+	//Add random lines
 	int l = int(8.0 * rand(t+7.0));
-		
-	if ( 0 < l ) vI *= randomLine( t+6.0+17.* float(0));
-	if ( 1 < l ) vI *= randomLine( t+6.0+17.* float(1));
-	if ( 2 < l ) vI *= randomLine( t+6.0+17.* float(2));		
-	if ( 3 < l ) vI *= randomLine( t+6.0+17.* float(3));
-	if ( 4 < l ) vI *= randomLine( t+6.0+17.* float(4));
-	if ( 5 < l ) vI *= randomLine( t+6.0+17.* float(5));
-	if ( 6 < l ) vI *= randomLine( t+6.0+17.* float(6));
-	if ( 7 < l ) vI *= randomLine( t+6.0+17.* float(7));
+	float lineEffect = 1.0;
+	for (int i = 0; i < l; ++i) {
+		lineEffect *= randomLine(t + 6.0 + 17.0 * float(i));
+	}
+	
+	lineEffect = clamp(lineEffect, 0.0, 0.8);
+	finalColor.xyz = mix(image, image *  lineEffect, 0.9);
 
+	//Add random blotches
 	int s = int( max(8.0 * rand(t+18.0) -2.0, 0.0 ));
+	float blotchEffect = 1.0;
+	for (int i = 0; i < s; ++i) {
+		blotchEffect *= randomBlotch( t+6.0+19.* float(i));
+	}
 
-	if ( 0 < s ) vI *= randomBlotch( t+6.0+19.* float(0));
-	if ( 1 < s ) vI *= randomBlotch( t+6.0+19.* float(1));
-	if ( 2 < s ) vI *= randomBlotch( t+6.0+19.* float(2));
-	if ( 3 < s ) vI *= randomBlotch( t+6.0+19.* float(3));
-	if ( 4 < s ) vI *= randomBlotch( t+6.0+19.* float(4));
-	if ( 5 < s ) vI *= randomBlotch( t+6.0+19.* float(5));
-	
-	
-	// Show the image modulated by the defects
-    finalColor.xyz = image * vI;
+	finalColor.xyz = mix(finalColor.xyz, finalColor.xyz *  blotchEffect, 1.0);
+
+	finalColor.xyz *= vI;
 		
-	// Add some grain (thanks, Jose!)
-    finalColor.xyz *= (1.0+(rand(uv+t*.01)-.2)*.15);		
+	// Add film grain
+    finalColor.xyz *= (1.0+(rand(uv+t*.01)-.2)*.15);			
+
+	fragColor = finalColor;
+	
 
 //---------------------------------------------------------------
 
@@ -187,7 +181,7 @@ void main() {
 //        // If radius is 0, render the fragment as the original texture color
 //        finalColor = texColor;
 //    }
-	fragColor = finalColor;
+
 
 
 //--------------------------------------------------------------------------------------
