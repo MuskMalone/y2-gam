@@ -24,6 +24,7 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/ParticleSystem.hpp"
+#include "Systems/LightingSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
@@ -331,7 +332,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 		mRays.clear();
 	}
-
+	::gCoordinator->GetSystem<LightingSystem>()->Draw();
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 

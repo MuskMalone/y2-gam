@@ -8,6 +8,7 @@
 #include <Systems/RenderSystem.hpp>
 #include <Systems/EntitySerializationSystem.hpp>
 #include <Systems/ParticleSystem.hpp>
+#include <Systems/LightingSystem.hpp>
 
 #include <Core/Component.hpp>
 
