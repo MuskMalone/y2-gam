@@ -4,9 +4,10 @@
 \file       Postprocessing.frag
 
 \author     Xavier Choa (k.choa@digipen.edu)
-\date       Feb 28, 2024
+\date       8 March, 2024
 
-\brief      Fragment shader for postprocessing.
+\brief      Fragment shader for postprocessing. Includes vintage film effect and
+			time slow grey scale effect
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
             or disclosure of this file or its contents without the prior
@@ -35,7 +36,6 @@ float rand(vec2 co){
 float rand(float c){
 	return rand(vec2(c,1.0));
 }
-
 
 
 // Generate some blotches.
