@@ -5,7 +5,6 @@
 #include <Components/EmitterSystem.hpp>
 #include <Components/Gravity.hpp>
 #include <Components/Layering.hpp>
-#include <Components/Light.hpp>
 #include <Components/Node.hpp>
 #include <Components/Prefab.hpp>
 #include <Components/RigidBody.hpp>
