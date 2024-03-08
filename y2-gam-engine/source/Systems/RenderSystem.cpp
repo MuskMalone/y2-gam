@@ -342,9 +342,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
+	if (showEditor)
+		RenderUI();
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
+
+
 	//if (showEditor) {
 	mFramebuffers[0]->Unbind();
 	//}
@@ -376,12 +380,17 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
+
 	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
-	
-	glEnable(GL_DEPTH_TEST);
+
+	//glEnable(GL_DEPTH_TEST);
 	if (showEditor) {
 		mFramebuffers[2]->Unbind();
 	}
+	else {
+		RenderUI();
+	}
+	glEnable(GL_DEPTH_TEST);
 
 }
 
