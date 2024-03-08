@@ -17,6 +17,7 @@
 
 using Image;
 using System;
+using System.Data.SqlClient;
 
 namespace Object
 {
@@ -52,8 +53,12 @@ namespace Object
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        Card card;
 
         bool resetAnimationState = true;
+        private bool onInit = true;
+        public float VisionRange;
+        public float OriginalFriction;
 
         // Direction related
         private bool _isFacingRight;
@@ -160,6 +165,12 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (onInit)
+            {
+                card = GameplayWrapper.FindEntityByName("Card").As<Card>();
+                onInit = false;
+            }
+
             IsFacingRight = isFacingRight;
             
             if (resume.isRPaused == false)
@@ -210,6 +221,24 @@ namespace Object
                             resetAnimationState = true;
                             PlayAppearTimer = 0;
                         }
+                    }
+
+                    float visionOffset = IsFacingRight ? VisionRange : -VisionRange;
+                    RaycastHit topFacingRayCast = new RaycastHit();
+                    RaycastHit midFacingRayCast = new RaycastHit();
+                    RaycastHit botFacingRayCast = new RaycastHit();
+                    if (PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y + (ColliderDimensions.Y / 2.0f)), new Vector2(Collider.X + visionOffset, Collider.Y + (ColliderDimensions.Y / 2.0f)), entityID,
+                        out topFacingRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y), new Vector2(Collider.X + visionOffset, Collider.Y), entityID,
+                        out midFacingRayCast) ||
+                        PhysicsWrapper.Raycast(new Vector2(Collider.X, Collider.Y - (ColliderDimensions.Y / 2.0f) + 2.0f), new Vector2(Collider.X + visionOffset, Collider.Y - (ColliderDimensions.Y / 2.0f) + 2.0f), entityID,
+                        out botFacingRayCast)
+                        ) {
+                        Friction = 0.0f;
+                    }
+                    else
+                    {
+                        Friction = OriginalFriction;
                     }
 
                     RaycastHit centreRayCast = new RaycastHit();
@@ -317,17 +346,17 @@ namespace Object
                         IsKeyPressed = false;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_W))
+                    if (Input.IsKeyPressed(KeyCode.KEY_W) || Input.IsKeyPressed(KeyCode.KEY_SPACE))
                     {
                         if (IsGrounded)
                         {
                             Jump(dt);
                         }
 
-                        if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
-                        {
-                            Velocity = new Vector2(0.0f, Velocity.Y);
-                        }
+                        //if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
+                        //{
+                            //Velocity = new Vector2(0.0f, Velocity.Y);
+                        //}
                     }
 
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
@@ -407,7 +436,7 @@ namespace Object
                     {
                         PlayDeathAnimation = true;
                         firstTime = false;
-                        GameplayWrapper.FindEntityByName("Card").As<Card>().Alive = false;
+                        //card.Alive = false;
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)
@@ -463,15 +492,6 @@ namespace Object
             StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
-        //void PauseGame()
-        //{
-        //    SaveScene("Level1");
-        //}
-
-        //void ResumeGame()
-        //{
-        //    LoadScene("Level1");
-        //}
         public void MoveLeft(float dt)
         {
             if (!PlayAppearAnimation)

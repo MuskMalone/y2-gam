@@ -118,7 +118,7 @@ namespace Image {
     if (exception)
       mono_print_unhandled_exception(exception);
 #endif
-      return obj;
+    return obj;
   }
 
   /*  _________________________________________________________________________ */

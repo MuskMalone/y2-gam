@@ -145,6 +145,12 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_SetColliderDimensions(ref uint entityHandle, ref Vector2 dim);
 
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_GetFriction(ref uint entityHandle, ref float fric);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_SetFriction(ref uint entityHandle, ref float fric);
+
         /*  _________________________________________________________________________ */
         /*! PhysicsComponent_GetColliderPos
 

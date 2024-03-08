@@ -173,12 +173,14 @@
                 "MaxHorizontalVelocity": 45.0,
                 "MaxRespawnTime": 3.0,
                 "MovementSpeed": 80.0,
+                "OriginalFriction": 0.8999999761581421,
                 "PlayAppearAnimation": false,
                 "PlayAppearTimer": 0.0,
                 "PlayDeathAnimHowLongAfter": 0.30000001192092896,
                 "PlayDeathAnimation": false,
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
+                "VisionRange": 4.0,
                 "colliderPositionX": 183.0,
                 "colliderPositionY": 156.0,
                 "spawnPositionX": 184.5,
@@ -416,7 +418,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -10.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -425,10 +427,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box1",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3227,7 +3237,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": -90.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3236,10 +3246,14 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 50.0,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectAnvil",
+                "scriptTag": "Anvil"
             },
             "Sprite": {
                 "r": 1.0,
@@ -3381,7 +3395,8 @@
                 "states": [
                     1698954259805573200,
                     1698954489840002900,
-                    1698954487533620100
+                    1698954487533620100,
+                    1706963288764716700
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -3556,7 +3571,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 1,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -3670,7 +3685,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": 0.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3679,10 +3694,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box3",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3692,6 +3715,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Box3"
             },
@@ -3768,7 +3792,7 @@
             },
             "Gravity": {
                 "x": 0.0,
-                "y": 0.0
+                "y": -300.0
             },
             "Layering": {
                 "layering": "Default"
@@ -3777,10 +3801,18 @@
                 "dimX": 15.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
-                "mass": 10.0,
+                "mass": 1000.0,
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectBox",
+                "scriptTag": "Box2",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -3790,6 +3822,7 @@
                 "layer": 2,
                 "assetID": 1698953133123376400
             },
+            "Swappable": {},
             "Tag": {
                 "Tag": "Box2"
             },
@@ -4150,19 +4183,19 @@
         {
             "Animation": {
                 "states": [
-                    1700790935381564100
+                    1709824160926932300
                 ],
                 "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
             "Collider": {
-                "collider": 0,
+                "collider": 1,
                 "posX": 99999.0,
                 "posY": 99999.0,
                 "rotation": 0.0,
-                "dimX": 9.105999946594238,
-                "dimY": 15.142999649047852
+                "dimX": 8.0,
+                "dimY": 8.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -4219,7 +4252,7 @@
         {
             "Animation": {
                 "states": [
-                    1700930523778839900
+                    1709742873940550100
                 ],
                 "currFrame": 3,
                 "speed": 0.07999999821186066,

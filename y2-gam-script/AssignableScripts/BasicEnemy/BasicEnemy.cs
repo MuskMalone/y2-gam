@@ -35,6 +35,7 @@ namespace Object
         public float HowLongDisplayEnemyDeath;
 
         PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
 
         //For pausing 
         //int temp_AnimationState = 0;
