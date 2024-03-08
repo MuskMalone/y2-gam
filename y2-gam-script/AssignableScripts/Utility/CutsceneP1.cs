@@ -24,7 +24,7 @@ namespace Object
 
         public int CutsceneIndex = 0;
         public int LastCutscene = 4;
-        public float PanelTime = 0.0f;
+        public float Panel1Time = 0.0f;
 
         private float Panel1Timer = 2.0f;
         //Panel1Time/255
@@ -86,12 +86,12 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if ((PanelTime >= Panel1Timer) && CutsceneIndex == 0)
+            if ((Panel1Time >= Panel1Timer) && CutsceneIndex == 0)
             {
                 Colour = new Vector4(1, 1, 1, 1);
-                PanelTime += dt; // Update the panel time
+                Panel1Time += dt; // Update the panel time
                 //Console.WriteLine("Panel1Time AFT2: " + PanelTime);
-                if (PanelTime >= 23.0f)
+                if (Panel1Time >= 23.0f)
                 {
                     //Console.WriteLine("Reached end of 23sec");
                     Colour = new Vector4(0, 0, 0, 0); // Reset colour to transparent
@@ -99,13 +99,13 @@ namespace Object
                     CutsceneIndex++; // Move to the next cutscene
                 }
             }
-            else if ((PanelTime < Panel1Timer) && CutsceneIndex == 0)
+            else if ((Panel1Time < Panel1Timer) && CutsceneIndex == 0)
             {
                 //Console.WriteLine("Panel1Time: " + PanelTime);
-                PanelTime += dt; // Update the panel time
+                Panel1Time += dt; // Update the panel time
 
                 // Calculate the exact color value based on elapsed time, scaled to the range 0 to 1
-                normalizeTime = PanelTime / Panel1Timer;
+                normalizeTime = Panel1Time / Panel1Timer;
                 ColourValue = normalizeTime * normalizeTime;
                 ColourValue = Math.Min(ColourValue, 1.0f); // Ensure the value does not exceed 1
 
