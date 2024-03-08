@@ -48,6 +48,12 @@ namespace Image
             InternalCalls.PhysicsComponent_CollidedLayer(ref entityID, layer, ref isCollided);
             return isCollided;
         }
+        public static bool IsIntersectedWithLayer(uint entityID, string layer)
+        {
+            bool isCollided = false;
+            InternalCalls.PhysicsComponent_IntersectedLayer(ref entityID, layer, ref isCollided);
+            return isCollided;
+        }
 
         public static bool Raycast(Vector2 origin, Vector2 end, uint optionalEntityID, out RaycastHit result)
         {

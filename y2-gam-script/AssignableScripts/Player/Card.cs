@@ -191,18 +191,21 @@ namespace Object
                     // Swap Related
                     if(Input.IsKeyClicked(KeyCode.KEY_Q))
                     {
-                        timeAlive = 0.0f;
-                        ResetCardUI();
-                        GameplayWrapper.Swap(entityID, player.entityID);
-                        player.PlayAppearAnimation = true;
-                        CardSwapAudioCounter++;
-                        if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                        if (!PhysicsWrapper.IsIntersectedWithLayer(entityID, "NoSwap"))
                         {
-                            CardSwapAudioCounter = 0;
-                        }
-                        PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                            timeAlive = 0.0f;
+                            ResetCardUI();
+                            GameplayWrapper.Swap(entityID, player.entityID);
+                            player.PlayAppearAnimation = true;
+                            CardSwapAudioCounter++;
+                            if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                            {
+                                CardSwapAudioCounter = 0;
+                            }
+                            PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
 
-                        ResetCardPos();
+                            ResetCardPos();
+                        }
                     }
 
                     if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
@@ -297,23 +300,6 @@ namespace Object
 
         }
 
-        //void PauseGame()
-        //{
-        //    //temp_Force = Force;
-        //    //temp_pos = Translation;
-        //    //temp_velocity = Velocity;
-        //    //Force = new Vector2(0, 0);
-        //    //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-        //    //Velocity = new Vector2(0, 0);
-        //}
-
-        //void ResumeGame()
-        //{
-        //    //Force = temp_Force * temp_dt;
-        //    //Translation = temp_pos;
-        //    //Velocity = temp_velocity * temp_dt;
-        //    //AnimationState = temp_AnimationState;
-        //}
         void ResetColour(uint id)
         {
             SetEntityColour(id, new Vector4(1, 1, 1, 1));
@@ -351,6 +337,11 @@ namespace Object
             }
             PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0);
         }
+
+        //bool CardInNoSwap()
+        //{
+            //return PhysicsWrapper.IsCollidedWithLayer(entityID, "NoSwap");
+        //}
 
         static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)
         {

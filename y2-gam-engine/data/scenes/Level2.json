@@ -121,7 +121,7 @@
                     1706897385432403900,
                     1706900374940601200
                 ],
-                "currFrame": 4,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 185.5,
-                "posY": 137.0,
+                "posX": -403.8255615234375,
+                "posY": -220.00003051757813,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -153,12 +153,12 @@
                 "layering": "Player"
             },
             "RigidBody": {
-                "dimX": 7.035999774932861,
+                "dimX": 7.0,
                 "dimY": 32.0,
-                "rotation": -3.1415908336639404,
+                "rotation": 0.0,
                 "mass": 10.0,
-                "posX": -395.5384826660156,
-                "posY": -37.29970169067383,
+                "posX": -403.8255615234375,
+                "posY": -220.00003051757813,
                 "lockRotate": true
             },
             "Script": {
@@ -166,7 +166,7 @@
                 "scriptTag": "Player",
                 "Dead": false,
                 "GodMode": false,
-                "IsFacingRight": false,
+                "IsFacingRight": true,
                 "JumpSpeed": 120.0,
                 "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
@@ -199,13 +199,13 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 187.0,
-                "posY": 146.5,
+                "posX": -402.3255310058594,
+                "posY": -210.50001525878906,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 50.0,
+                "scaleX": -50.0,
                 "scaleY": 50.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -228,12 +228,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 785.0,
+                "dimX": 389.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": -5.960464477539063e-8,
-                "posY": -78.0,
+                "posX": -420.0,
+                "posY": -243.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -410,9 +410,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 126.65191650390625,
-                "posY": 92.85287475585938,
-                "rotation": 0.0,
+                "posX": 126.6565933227539,
+                "posY": 92.49944305419922,
+                "rotation": 0.00006935012788744643,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -426,10 +426,10 @@
             "RigidBody": {
                 "dimX": 15.0,
                 "dimY": 15.0,
-                "rotation": 0.0,
+                "rotation": 0.00008809506834950298,
                 "mass": 1000.0,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 126.65645599365234,
+                "posY": 92.49930572509766,
                 "lockRotate": false
             },
             "Script": {
@@ -453,12 +453,12 @@
                 "Tag": "Box1"
             },
             "Transform": {
-                "posX": 126.65191650390625,
-                "posY": 92.85287475585938,
+                "posX": 126.6565933227539,
+                "posY": 92.49944305419922,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.0,
+                "rotZ": 0.003973341081291437,
                 "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
@@ -690,12 +690,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 138.0,
+                "dimY": 50.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -815.5,
+                "posY": -137.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -984,12 +984,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 263.0,
+                "dimY": 35.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -418.0,
+                "posY": -21.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1033,12 +1033,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 299.0,
+                "dimY": 50.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -557.0,
+                "posY": -137.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1082,12 +1082,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 172.0,
+                "dimY": 50.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -310.5,
+                "posY": -137.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1278,12 +1278,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
+                "dimX": 33.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -471.0,
+                "posY": -105.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1327,12 +1327,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
+                "dimX": 33.0,
                 "dimY": 15.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -672.5,
+                "posY": -105.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1474,12 +1474,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 183.0,
+                "dimY": 40.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -84.0,
+                "posY": -256.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1523,12 +1523,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 100.0,
+                "dimY": 150.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 147.5,
+                "posY": -202.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1768,12 +1768,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 50.0,
+                "dimY": 139.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 122.5,
+                "posY": 15.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1866,12 +1866,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 170.0,
+                "dimY": 59.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 249.0,
-                "posY": -33.5,
+                "posX": 232.5,
+                "posY": -23.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -2160,12 +2160,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 172.0,
+                "dimY": 3.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 233.5,
+                "posY": 8.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -2503,12 +2503,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 280.0,
+                "dimY": 34.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 686.5,
+                "posY": -114.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -2993,12 +2993,12 @@
                 "layering": "Platform"
             },
             "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
+                "dimX": 35.0,
+                "dimY": 3.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 762.5,
+                "posY": 56.5,
                 "lockRotate": false
             },
             "Sprite": {
@@ -5321,6 +5321,55 @@
                 "rotZ": 0.0,
                 "scaleX": 33.0,
                 "scaleY": 72.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -200.0,
+                "posY": -208.5,
+                "rotation": 0.0,
+                "dimX": 52.5,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "NoSwap"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": -200.0,
+                "posY": -208.5,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.1568627506494522,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "NoSwapZone1"
+            },
+            "Transform": {
+                "posX": -200.0,
+                "posY": -208.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 52.5,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

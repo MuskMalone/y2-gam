@@ -154,6 +154,11 @@
             "id": 1709114335910227000,
             "path": "../assets\\audio\\sfx\\Box_Drop_Wood(floor)\\BoxDropWood_4.wav",
             "stream": false
+        },
+        "1709866471908780700": {
+            "id": 1709866471908810700,
+            "path": "../assets\\audio\\sfx\\Key_Collection.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

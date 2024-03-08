@@ -80,6 +80,7 @@ namespace Object
                 Console.WriteLine("Key Collected");
                 //player.numKey++;
                 player.KeyCollected = true;
+                PlayAudio("Key_Collection.wav", 0);
                 GameplayWrapper.DestroyEntity(entityID);
             }
         }
