@@ -174,7 +174,7 @@ namespace Object
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
 
-                    if ((timeAlive >= MAX_TIME_ALIVE))
+                    if ((timeAlive >= MAX_TIME_ALIVE) || PhysicsWrapper.IsCollidedWithAnything(entityID))
                     {
                         ResetCardPos();
                         ResetCardUI();

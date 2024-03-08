@@ -898,14 +898,19 @@ namespace Image {
   Calculates the distance to the player from the audio-playing object.
   */
   float SoundManager::CalculateDistanceToPlayer(Vec2 objectPosition) {
-    Transform const& playerTransform { 
-      ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer) 
-    };
-    glm::vec3 playerPosition{ playerTransform.position };
-    float distanceToPlayer = sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
-      std::pow(objectPosition.y - playerPosition.y, 2));
+    if (::gCoordinator->GetSystem<RenderSystem>()->mPlayer != NULL && 
+      ::gCoordinator->HasComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) {
+      Transform const& playerTransform{
+  ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)
+      };
+      glm::vec3 playerPosition{ playerTransform.position };
+      float distanceToPlayer = sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
+        std::pow(objectPosition.y - playerPosition.y, 2));
 
-    return distanceToPlayer;
+      return distanceToPlayer;
+    }
+
+    return 0;
   }
 
   /*  _________________________________________________________________________ */
