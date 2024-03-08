@@ -79,21 +79,21 @@ namespace Object
                 {
                     Colour = new Vector4(1, 1, 1, 1);
                     PanelTime += dt; // Update the panel time
-                    Console.WriteLine("PanelTime AFT2: " + PanelTime);
-                    if (cutscenep1.Panel1Time >= 23.0f)
-                    {
-                        Console.WriteLine("Reached end of 23sec");
-                        //Reset colour to transparent
-                        Colour = new Vector4(0, 0, 0, 0);
-                        //Reset colour value
-                        ColourValue = 0.0f;
-                        //Move to the next cutscene
-                        cutscenep1.CutsceneIndex++;
-                    }
+                    //Console.WriteLine("PanelTime AFT2: " + PanelTime);
+                    //if (cutscenep1.Panel1Time >= 23.0f)
+                    //{
+                    //    //Console.WriteLine("Reached end of 23sec");
+                    //    //Reset colour to transparent
+                    //    Colour = new Vector4(0, 0, 0, 0);
+                    //    //Reset colour value
+                    //    ColourValue = 0.0f;
+                    //    //Move to the next cutscene
+                    //    cutscenep1.CutsceneIndex++;
+                    //}
                 }
                 else if (PanelTime < PanelTimer)
                 {
-                    Console.WriteLine("PanelTime: " + PanelTime);
+                    //Console.WriteLine("PanelTime: " + PanelTime);
                     PanelTime += dt; // Update the panel time
 
                     // Calculate the exact color value based on elapsed time, scaled to the range 0 to 1
@@ -101,13 +101,36 @@ namespace Object
                     ColourValue = normalizeTime * normalizeTime;
                     ColourValue = Math.Min(ColourValue, 1.0f); // Ensure the value does not exceed 1
 
-                   Console.WriteLine("ColourValue: " + ColourValue);
+                   //Console.WriteLine("ColourValue: " + ColourValue);
                     Colour = new Vector4(1, 1, 1, ColourValue); // Update the colour with the new value
+                }
+
+                //FADEOUT
+                if (cutscenep1.Panel1Time >= cutscenep1.FadeOutBegins && cutscenep1.CutsceneIndex == 0)
+                {
+                    Console.WriteLine("Reached end of 23sec");
+                    cutscenep1.FadeOutTime += dt;
+                    if (cutscenep1.FadeOutTime <= cutscenep1.FadeOutTimer)
+                    {
+                        float normalizedFadeOutTime = cutscenep1.FadeOutTime / cutscenep1.FadeOutTimer;
+                        float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
+                        ColourValue = 1.0f - easeOut;
+                        ColourValue = Math.Max(ColourValue, 0.0f);
+                        Console.WriteLine("Colour Value: " + ColourValue);
+                        Colour = new Vector4(1, 1, 1, ColourValue);
+                    }
+                    //FINISH FADEOUT
+                    else
+                    {
+                        Colour = new Vector4(1, 1, 1, 0.0f);
+                        cutscenep1.CutsceneIndex++;
+                    }
                 }
             }
             else
             {
                 Colour = new Vector4(1, 1, 1, 0);
+                
             }
 
             if (cutscenep1.CutsceneIndex >= cutscenep1.LastCutscene)
