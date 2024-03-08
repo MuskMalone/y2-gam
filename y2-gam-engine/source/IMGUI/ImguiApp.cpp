@@ -1970,7 +1970,7 @@ namespace Image {
                 }
 
             }
-
+           
             GLFWcursor* handCursor = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
             GLFWcursor* arrowCursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
             ImVec2 currentMousePos = ImGui::GetMousePos();
@@ -1987,15 +1987,17 @@ namespace Image {
             }
             lastMousePos = currentMousePos;
             float yoffset = inputSystem->GetScrollOffset();
-            if (yoffset > 0) {
-                camera.mZoomLevel = std::max(camera.mZoomLevel - gSnapVal * CAMERA_MOVESPEED * dt, camera.mMinZoom);
-                camera.ZoomOut();
+            if (ImGui::IsWindowHovered()) {
+                if (yoffset > 0) {
+                    camera.mZoomLevel = std::max(camera.mZoomLevel - gSnapVal * CAMERA_MOVESPEED * dt, camera.mMinZoom);
+                    camera.ZoomOut();
 
-            }
-            else if (yoffset < 0) {
-                camera.mZoomLevel = std::min(camera.mZoomLevel + gSnapVal * CAMERA_MOVESPEED * dt, camera.mMaxZoom);
-                camera.ZoomIn();
+                }
+                else if (yoffset < 0) {
+                    camera.mZoomLevel = std::min(camera.mZoomLevel + gSnapVal * CAMERA_MOVESPEED * dt, camera.mMaxZoom);
+                    camera.ZoomIn();
 
+                }
             }
         }
 
