@@ -83,6 +83,8 @@
     <Compile Include="AssignableScripts\Buttons\Quit.cs" />
     <Compile Include="AssignableScripts\Player\Card.cs" />
     <Compile Include="AssignableScripts\Player\Death.cs" />
+    <Compile Include="AssignableScripts\Utility\CutsceneP1.cs" />
+    <Compile Include="AssignableScripts\Utility\CutsceneP2.cs" />
     <Compile Include="AssignableScripts\Utility\ZoomOut.cs" />
     <Compile Include="AssignableScripts\Utility\Cursor.cs" />
     <Compile Include="AssignableScripts\Utility\Cutscene.cs" />

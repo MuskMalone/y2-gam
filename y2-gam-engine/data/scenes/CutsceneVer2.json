@@ -2,23 +2,15 @@
     "Assets": [],
     "Entities": [
         {
-            "Animation": {
-                "states": [
-                    1709831372438330500,
-                    1709831402513162100,
-                    1709831430326116500,
-                    1709831467157617200
-                ],
-                "currFrame": 0,
-                "speed": 0.07999999821186066,
-                "currState": 0
-            },
             "Layering": {
                 "layering": "Default"
             },
             "Script": {
-                "scriptName": "No Script Assigned",
-                "scriptTag": "CutscenePg1"
+                "scriptName": "ObjectCutsceneP1",
+                "scriptTag": "CutsceneP1",
+                "CutsceneIndex": 0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -26,20 +18,116 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1709836376133371700
             },
             "Tag": {
-                "Tag": "CutscenePg1"
+                "Tag": "CutsceneP1"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -28.0,
+                "posY": -34.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectCutsceneP2",
+                "scriptTag": "CutsceneP2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1709836379534536100
+            },
+            "Tag": {
+                "Tag": "CutsceneP2"
+            },
+            "Transform": {
+                "posX": -29.0,
+                "posY": 30.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 23.433000564575195,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "No Script Assigned",
+                "scriptTag": "CutsceneP3"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1709836430151661600
+            },
+            "Tag": {
+                "Tag": "CutsceneP3"
+            },
+            "Transform": {
+                "posX": 80.0,
+                "posY": 0.4999990463256836,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 84.39399719238281,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "No Script Assigned",
+                "scriptTag": "CutsceneP4"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1709836447167518700
+            },
+            "Tag": {
+                "Tag": "CutsceneP4"
+            },
+            "Transform": {
+                "posX": 80.0,
+                "posY": -64.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 37.57600021362305,
                 "scaleZ": 15.0,
                 "elipse": false
             }

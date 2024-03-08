@@ -932,6 +932,38 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1709836376133371700": {
+            "id": 1709836376133441300,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES P1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1161.0,
+            "dimY": 1003.0
+        },
+        "1709836379534536100": {
+            "id": 1709836379534581200,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES P2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2473.0,
+            "dimY": 380.0
+        },
+        "1709836430151661600": {
+            "id": 1709836430151723800,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES P3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1296.0,
+            "dimY": 659.0
+        },
+        "1709836447167518700": {
+            "id": 1709836447167576300,
+            "path": "../assets\\Textures\\backgrounds\\Y2GAM CUTSCENES P4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1279.0,
+            "dimY": 352.0
         }
     },
     "AnimationManager": {
