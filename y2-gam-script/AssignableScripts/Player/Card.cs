@@ -36,6 +36,9 @@ namespace Object
         public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
+        public float CardReleaseDelay;
+        public float CardReleaseTime = 0.0f;
+        private bool StartDelay = false;
 
         private uint HoveredID;
         private bool _isHovered;
@@ -163,6 +166,11 @@ namespace Object
             {
                 if (Alive)
                 {
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        PlayAudio("out_of_cards.wav", 0);
+                    }
+
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;
@@ -180,13 +188,6 @@ namespace Object
                         ResetCardUI();
                         return;
                     }
-
-                    /*
-                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
-                    {
-                        PlayAudio("out_of_cards.wav", 0);
-                    }
-                    */
 
                     // Swap Related
                     if(Input.IsKeyClicked(KeyCode.KEY_Q))
@@ -280,9 +281,21 @@ namespace Object
 
                 else
                 {
-                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT) && !StartDelay)
                     {
-                        FireCard();
+                        StartDelay = true;
+                    }
+
+                    if (StartDelay)
+                    {
+                        CardReleaseTime += dt;
+
+                        if (CardReleaseTime >= CardReleaseDelay)
+                        {
+                            CardReleaseTime = 0;
+                            StartDelay = false;
+                            FireCard();
+                        }
                     }
                 }
             }

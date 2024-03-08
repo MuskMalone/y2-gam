@@ -8,7 +8,7 @@
                 "NoSwap",
                 "Player",
                 "Interactables",
-                "layer",
+                "FPS",
                 "Scaffolding",
                 "Card",
                 "UI",
@@ -21,10 +21,10 @@
                 1,
                 1,
                 1,
-                1,
-                1,
-                1,
                 0,
+                1,
+                1,
+                1,
                 0
             ],
             "layerMatrix0": [
@@ -112,11 +112,11 @@
                 1,
                 1,
                 1,
-                1,
-                1,
-                1,
-                1,
-                1
+                0,
+                0,
+                0,
+                0,
+                0
             ],
             "layerMatrix7": [
                 1,

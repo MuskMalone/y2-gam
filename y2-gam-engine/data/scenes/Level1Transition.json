@@ -198,6 +198,8 @@
                 "scriptName": "ObjectCard",
                 "scriptTag": "Card",
                 "Alive": false,
+                "CardReleaseDelay": 0.30000001192092896,
+                "CardReleaseTime": 0.0,
                 "CardUIID": 248,
                 "CardUIMaxScaleX": 0.0,
                 "CardUIMaxScaleY": 0.0,
@@ -544,7 +546,7 @@
         },
         {
             "Layering": {
-                "layering": "UI"
+                "layering": "FPS"
             },
             "Script": {
                 "scriptName": "ObjectFPSDisplay",
