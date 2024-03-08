@@ -468,8 +468,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -40.31726837158203,
-                "posY": -49.06678771972656,
+                "posX": -40.0,
+                "posY": -47.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 7.0
@@ -490,6 +490,10 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button1"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -502,8 +506,8 @@
                 "Tag": "Button1"
             },
             "Transform": {
-                "posX": -40.31726837158203,
-                "posY": -49.06678771972656,
+                "posX": -40.0,
+                "posY": -47.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -557,7 +561,7 @@
                 "Tag": "Waypoint1"
             },
             "Transform": {
-                "posX": -446.5672607421875,
+                "posX": -447.0672607421875,
                 "posY": -227.53366088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -3235,7 +3239,7 @@
                 "y": -300.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Interactables"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -3832,12 +3836,20 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": -16.5,
+                "posY": -200.0,
+                "rotation": 0.0,
+                "dimX": 0.0,
+                "dimY": 0.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3855,20 +3867,25 @@
                 "posY": -240.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door1",
+                "buttonTag": "Button1"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door1"
             },
             "Transform": {
-                "posX": -16.735252380371094,
-                "posY": -199.81175231933594,
+                "posX": -16.5,
+                "posY": -200.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

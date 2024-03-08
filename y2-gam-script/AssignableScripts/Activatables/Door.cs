@@ -23,7 +23,7 @@ namespace Object
     {
         public string buttonTag;
         private bool previousButtonState;
-        Button button ;
+        Button button;
         private float doorColliderYOffset = 300.0f;
 
         /*  _________________________________________________________________________ */
@@ -83,6 +83,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+
             if (button.isPressed == true && !previousButtonState)
             {
                 PlayAudio("door_open.wav", 0);

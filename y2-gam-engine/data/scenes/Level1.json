@@ -207,7 +207,7 @@
                 "y": -300.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Interactables"
             },
             "RigidBody": {
                 "dimX": 14.999999046325684,
@@ -676,7 +676,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1493,7 +1493,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1523,7 +1523,8 @@
             },
             "Script": {
                 "scriptName": "ObjectDoor",
-                "scriptTag": "Door"
+                "scriptTag": "Door",
+                "buttonTag": "Button"
             },
             "Sprite": {
                 "r": 1.0,
