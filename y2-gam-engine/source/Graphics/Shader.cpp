@@ -611,6 +611,32 @@ void Shader::SetUniform(std::string const& name, GLfloat val) {
 @param name
 The name of the uniform variable in the shader.
 
+@param val
+The float value to set the uniform variable to.
+
+This function sets the specified uniform variable in the shader program to the
+provided double value.
+
+*/
+void Shader::SetUniform(std::string const& name, GLdouble val) {
+	GLint loc{ glGetUniformLocation(pgmHdl, name.c_str()) };
+	if (loc >= 0) {
+		glUniform1f(loc, val);
+	}
+#ifndef _INSTALLER
+	else {
+		LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Uniform variable " + name + " doesn't exist", __FUNCTION__);
+	}
+#endif
+}
+
+
+/*  _________________________________________________________________________ */
+/*! SetUniform
+
+@param name
+The name of the uniform variable in the shader.
+
 @param x, y
 The x and y float values to set the uniform variable to.
 

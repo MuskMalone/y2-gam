@@ -73,6 +73,12 @@ struct CircleVtx {
 	float fade;
 };
 
+struct UniformData {
+	std::string name;
+	enum class Type { INT, BOOL, FLOAT, DOUBLE, VEC2, VEC3, VEC4 } type;
+	std::variant<int, bool, float, double, glm::vec2, glm::vec3, glm::vec4> value;
+};
+
 struct RendererData {
 
 	static const unsigned int cMaxQuads{ 20000 };
@@ -92,6 +98,8 @@ struct RendererData {
 	std::shared_ptr<VertexArray> circleVertexArray;
 	std::shared_ptr<VertexBuffer> circleVertexBuffer;
 	std::shared_ptr<Shader> circleShader;
+
+	std::shared_ptr<Shader> postProcShader;
 
 	unsigned int quadIdxCount{};
 	std::vector<QuadVtx> quadBuffer; // Dynamic buffer to hold vertex data for batching
@@ -120,7 +128,10 @@ public:
 	static void Init();
 	static void Shutdown();
 
-	static void RenderFullscreenTexture(unsigned int tex);
+	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader);
+	static void RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader, std::vector<UniformData> const& uniforms);
+	static void ApplyPostProcessing(unsigned int texture);
+	static void ApplyPostProcessing(unsigned int texture, std::vector<UniformData> const& uniforms);
 	static void RenderSceneBegin(glm::mat4 const& viewProjMtx);
 	static void RenderSceneEnd();
 
