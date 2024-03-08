@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 183.0,
-                "posY": 156.0,
+                "posX": 185.5,
+                "posY": 137.0,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -199,8 +199,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 184.5,
-                "posY": 165.5,
+                "posX": 187.0,
+                "posY": 146.5,
                 "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -489,11 +489,6 @@
                 "posX": 0.0,
                 "posY": 0.0,
                 "lockRotate": false
-            },
-            "Script": {
-                "scriptName": "ObjectButton",
-                "scriptTag": "Button1",
-                "isPressed": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -3645,11 +3640,6 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
-            "Script": {
-                "scriptName": "ObjectButton",
-                "scriptTag": "Button2",
-                "isPressed": false
-            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -3842,8 +3832,8 @@
         {
             "Animation": {
                 "states": [
-                    1705820098030170700,
-                    1705820099352356100
+                    1707036348349429900,
+                    1707036334731623100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -3865,18 +3855,13 @@
                 "posY": -240.0,
                 "lockRotate": false
             },
-            "Script": {
-                "scriptName": "ObjectDoor",
-                "scriptTag": "Door1",
-                "buttonTag": "Button1"
-            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1698953116624829600
             },
             "Tag": {
                 "Tag": "Door1"
@@ -3929,9 +3914,9 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "ObjectDoor",
+                "scriptName": "ObjectLockedDoor",
                 "scriptTag": "Door2",
-                "buttonTag": "Button2"
+                "Range": 25.0
             },
             "Sprite": {
                 "r": 1.0,
