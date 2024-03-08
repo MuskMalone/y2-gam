@@ -676,7 +676,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1255,8 +1255,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 20.0,
-                "scaleY": 25.0,
+                "scaleX": 17.0,
+                "scaleY": 22.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -1495,7 +1495,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
