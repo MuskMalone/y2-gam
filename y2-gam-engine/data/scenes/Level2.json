@@ -4206,7 +4206,7 @@
                 "CardUIMaxScaleX": 0.0,
                 "CardUIMaxScaleY": 0.0,
                 "CardUIMaxScaleZ": 0.0,
-                "MAX_TIME_ALIVE": 5.0,
+                "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
             },
@@ -4228,8 +4228,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 18.0,
-                "scaleY": 12.0,
+                "scaleX": 20.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

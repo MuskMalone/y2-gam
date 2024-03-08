@@ -1204,8 +1204,8 @@
                 "posX": 99999.0,
                 "posY": 99999.0,
                 "rotation": 0.0,
-                "dimX": 8.0,
-                "dimY": 8.0
+                "dimX": 6.0,
+                "dimY": 6.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1231,7 +1231,7 @@
                 "CardUIMaxScaleX": 0.0,
                 "CardUIMaxScaleY": 0.0,
                 "CardUIMaxScaleZ": 0.0,
-                "MAX_TIME_ALIVE": 2.0,
+                "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
             },
@@ -1253,8 +1253,8 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 29.14299964904785,
-                "scaleY": 36.2140007019043,
+                "scaleX": 20.0,
+                "scaleY": 25.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
