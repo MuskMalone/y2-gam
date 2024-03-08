@@ -15,7 +15,7 @@ namespace Object
         //2sec to fade in 
         private float PanelTimer = 1.0f;
         //the time the last panel left off with
-        private float lastPanelTime = 9.0f;
+        private float lastPanelTime = 9.5f;
         //leave as zero
         private float normalizeTime = 0.0f;
         private float ColourValue = 0.0f;

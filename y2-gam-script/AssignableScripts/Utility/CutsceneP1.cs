@@ -10,11 +10,11 @@ namespace Object
         public int CutsceneIndex = 0;
         public int LastCutscene = 4;
         public float Panel1Time = 0.0f;
+        //fade out
+        public float FadeOutTime = 24.3f;
+        private float FadeOutTimer = 0.0f;
 
         private float Panel1Timer = 1.0f;
-        //Panel1Time/255
-        //private float Panel1ColourUnit = 7f/255;
-        //private float Panel1ColourCounter = 0.0f;
         private float normalizeTime = 0.0f;
         private float ColourValue = 0.0f;
         //private int clampedColourValue = 0;
@@ -74,14 +74,25 @@ namespace Object
             if ((Panel1Time >= Panel1Timer) && CutsceneIndex == 0)
             {
                 Colour = new Vector4(1, 1, 1, 1);
-                Panel1Time += dt; // Update the panel time
+                //Update the panel time
+                Panel1Time += dt; 
                 //Console.WriteLine("Panel1Time AFT2: " + PanelTime);
-                if (Panel1Time >= 23.0f)
+                //FADEOUT
+                if (Panel1Time >= FadeOutTime)
                 {
                     //Console.WriteLine("Reached end of 23sec");
-                    Colour = new Vector4(0, 0, 0, 0); // Reset colour to transparent
-                    ColourValue = 0.0f; // Reset colour value
-                    CutsceneIndex++; // Move to the next cutscene
+                    FadeOutTimer += dt;
+                    float normalizedTime = FadeOutTimer / FadeOutTime;
+                    float easeOut = normalizedTime * (2 - normalizedTime);
+                    ColourValue = 1.0f - easeOut;
+                    ColourValue = Math.Max(ColourValue, 0.0f);
+                    Colour = new Vector4(1, 1, 1, ColourValue);
+                    //FINISH FADEOUT
+                    if(FadeOutTime > FadeOutTimer)
+                    {
+                        ColourValue = 0.0f;
+                        CutsceneIndex++;
+                    }
                 }
             }
             else if ((Panel1Time < Panel1Timer) && CutsceneIndex == 0)
@@ -98,10 +109,11 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, ColourValue); // Update the colour with the new value
             }
 
-            if (CutsceneIndex >= LastCutscene)
-            {
-                LoadScene("LevelSelect"); // Load the next scene if the last cutscene is reached
-            }
+
+            //if (CutsceneIndex >= LastCutscene)
+            //{
+            //    LoadScene("LevelSelect"); // Load the next scene if the last cutscene is reached
+            //}
         }
 
 
