@@ -1,18 +1,4 @@
-﻿/******************************************************************************/
-/*!
-\par        Image Engine
-\file       Cutscene.cs
-
-\author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 8, 2023
-
-\brief      Script for cutscenes.
-
-\copyright  Copyright (C) 2024 DigiPen Institute of Technology. Reproduction
-            or disclosure of this file or its contents without the prior
-            written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
+﻿
 
 using Image;
 using System;
@@ -26,11 +12,11 @@ namespace Object
         //public int LastCutscene = 4;
         private float PanelTime = 0.0f;
         CutsceneP1 cutscenep1 = GameplayWrapper.FindEntityByName("CutsceneP1").As<CutsceneP1>();
-        //2sec to fade in 6+2
-        private float Panel2Timer = 2.0f;
-        
+        //2sec to fade in 
+        private float Panel2Timer = 1.0f;
         //the time the last panel left off with
         private float lastPanelTime = 6.0f;
+        //leave as zero
         private float normalizeTime = 0.0f;
         private float ColourValue = 0.0f;
         //private int clampedColourValue = 0;
@@ -93,10 +79,10 @@ namespace Object
                 {
                     Colour = new Vector4(1, 1, 1, 1);
                     PanelTime += dt; // Update the panel time
-                    Console.WriteLine("Panel2Time AFT2: " + PanelTime);
+                    //Console.WriteLine("Panel2Time AFT2: " + PanelTime);
                     if (cutscenep1.Panel1Time >= 23.0f)
                     {
-                        Console.WriteLine("Reached end of 23sec");
+                        //Console.WriteLine("Reached end of 23sec");
                         //Reset colour to transparent
                         Colour = new Vector4(0, 0, 0, 0);
                         //Reset colour value
@@ -107,7 +93,7 @@ namespace Object
                 }
                 else if (PanelTime < Panel2Timer)
                 {
-                    Console.WriteLine("Panel2Time: " + PanelTime);
+                    //Console.WriteLine("Panel2Time: " + PanelTime);
                     PanelTime += dt; // Update the panel time
 
                     // Calculate the exact color value based on elapsed time, scaled to the range 0 to 1
@@ -115,7 +101,7 @@ namespace Object
                     ColourValue = normalizeTime * normalizeTime;
                     ColourValue = Math.Min(ColourValue, 1.0f); // Ensure the value does not exceed 1
 
-                    Console.WriteLine("ColourValue: " + ColourValue);
+                    //Console.WriteLine("ColourValue: " + ColourValue);
                     Colour = new Vector4(1, 1, 1, ColourValue); // Update the colour with the new value
                 }
             }

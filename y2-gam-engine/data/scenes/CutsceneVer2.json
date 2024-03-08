@@ -10,7 +10,7 @@
                 "scriptTag": "CutsceneP1",
                 "CutsceneIndex": 0,
                 "LastCutscene": 4,
-                "PanelTime": 0.0
+                "Panel1Time": 0.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -73,7 +73,7 @@
                 "layering": "Default"
             },
             "Script": {
-                "scriptName": "No Script Assigned",
+                "scriptName": "ObjectCutsceneP3",
                 "scriptTag": "CutsceneP3"
             },
             "Sprite": {
@@ -105,7 +105,7 @@
                 "layering": "Default"
             },
             "Script": {
-                "scriptName": "No Script Assigned",
+                "scriptName": "ObjectCutsceneP4",
                 "scriptTag": "CutsceneP4"
             },
             "Sprite": {

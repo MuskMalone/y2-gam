@@ -1,19 +1,4 @@
-﻿/******************************************************************************/
-/*!
-\par        Image Engine
-\file       Cutscene.cs
-
-\author     Ernest Cheo (e.cheo@digipen.edu)
-\date       Feb 8, 2023
-
-\brief      Script for cutscenes.
-
-\copyright  Copyright (C) 2024 DigiPen Institute of Technology. Reproduction
-            or disclosure of this file or its contents without the prior
-            written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
-
+﻿
 using Image;
 using System;
 
@@ -26,7 +11,7 @@ namespace Object
         public int LastCutscene = 4;
         public float Panel1Time = 0.0f;
 
-        private float Panel1Timer = 2.0f;
+        private float Panel1Timer = 1.0f;
         //Panel1Time/255
         //private float Panel1ColourUnit = 7f/255;
         //private float Panel1ColourCounter = 0.0f;
