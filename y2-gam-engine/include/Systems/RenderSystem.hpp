@@ -49,17 +49,24 @@ public:
 	//for debug
 	void ToggleDebugMode();
 	void ToggleEditorMode();
-	bool GetDebugMode() const { return mDebugMode; };
+	bool GetDebugMode() const { return mDebugMode; }
 	bool IsEditorMode()const;
+	bool GetPPMode() const { return mPPMode; }
 	static void DebugRay(Event& event);
 	void CheckAssetValidity();
 	void SetSceneCameraZoom(float zoom);
+	void SetPPMode(bool b) { mPPMode = b; }
+	void SetTimeSlow(bool b) { mIsTimeSlow = b;  }
 
 private:
 	bool mDebugMode{ false };
 	bool mEditorMode{ true };
+	bool mPPMode{ false };
 
+	bool mIsTimeSlow{ false };
 	void WindowSizeListener(Event& event);
+
+	float mRadius{};
 	
 	std::vector<std::shared_ptr<Framebuffer>> mFramebuffers; //TEMP
 	std::shared_ptr<SubTexture> mBgSubtex; // TEMP

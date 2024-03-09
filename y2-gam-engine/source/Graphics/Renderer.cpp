@@ -199,11 +199,18 @@ void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader>
 	// Set dynamic uniforms
 	for (const auto& uniform : uniforms) {
 		switch (uniform.type) {
+		case UniformData::Type::BOOL:
+			shader->SetUniform(uniform.name, std::get<bool>(uniform.value));
+			break;
 		case UniformData::Type::FLOAT:
-			shader->SetUniform(uniform.name, *(static_cast<float*>(uniform.value)));
+			shader->SetUniform(uniform.name, std::get<float>(uniform.value));
 			break;
 		case UniformData::Type::DOUBLE:
-			shader->SetUniform(uniform.name, *(static_cast<double*>(uniform.value)));
+			shader->SetUniform(uniform.name, std::get<double>(uniform.value));
+			break;
+		case UniformData::Type::VEC2:
+			shader->SetUniform(uniform.name, std::get<glm::vec2>(uniform.value));
+			break;
 		}
 	}
 
@@ -219,6 +226,14 @@ void Renderer::ApplyPostProcessing(unsigned int texture) {
 	RenderFullscreenTexture(texture, mData.postProcShader);
 
 }
+
+
+void Renderer::ApplyPostProcessing(unsigned int texture, std::vector<UniformData> const& uniforms) {
+
+	RenderFullscreenTexture(texture, mData.postProcShader, uniforms);
+
+}
+
 
 /*  _________________________________________________________________________ */
 /*! RenderSceneBegin

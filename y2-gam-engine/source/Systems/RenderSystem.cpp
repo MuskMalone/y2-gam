@@ -35,6 +35,7 @@
 #include "Graphics/SpriteManager.hpp"
 #include "Components/UIImage.hpp"
 
+#include "../WindowManager.hpp"
 #include "Scripting/NodeManager.hpp"
 #include "Scripting/ScriptManager.hpp"
 #include <Engine/AssetManager.hpp>
@@ -45,6 +46,9 @@
 
 // Static Initialization
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
+
+const float growthRate{3.5f};
+const float maxRadius{2.5f};
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -211,16 +215,15 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	if (inputSystem->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_K)) {
 		showEditor = !showEditor;
 	}
-
 #else 
 	static bool showEditor{ false };
 #endif
 
 	mFramebuffers[0]->ClearAttachmentInt(1, -1);
 
-	if (showEditor) {
-		mFramebuffers[0]->Bind();
-	}
+	//if (showEditor) {
+	mFramebuffers[0]->Bind();
+	//}
 	Renderer::SetClearColor({ 0.1f, 0.1f, 0.2f, 1.f });
 
 	Renderer::ClearColor();
@@ -252,12 +255,14 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	bool playerFound{ false };
 	bool cameraFound{ false };
 	Entity camSettings{};
+
+	glm::vec4 playerScreenPos{};
 	if (!mEditorMode) {
 		for (auto const& e : mEntities) {
 			if (::gCoordinator->HasComponent<Camera>(e) && ::gCoordinator->HasComponent<Tag>(e)) {
 				camSettings = e;
 				cameraFound = true;
-				
+
 			}
 
 			if (!::gCoordinator->HasComponent<Tag>(e)) continue;
@@ -276,7 +281,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			//Script const& playerScript{ ::gCoordinator->GetComponent<Script>(mPlayer) };
 			glm::vec3 playerPosition{ playerTransform.position };
 
-			Camera& sceneCamera { ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
+			Camera& sceneCamera{ ::gCoordinator->GetComponent<Camera>(mSceneCamera) };
 			sceneCamera.mTargetEntity = mPlayer;
 
 			// Get Player Script Instance
@@ -293,6 +298,8 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			}
 
 			sceneCamera.UpdatePosition(playerPosition, facingRight);
+
+			playerScreenPos = sceneCamera.GetViewProjMtx() * glm::vec4(playerPosition, 1.f);
 		}
 
 	}
@@ -336,24 +343,55 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
+	if (showEditor)
+		RenderUI();
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
-	if (showEditor) {
-		mFramebuffers[0]->Unbind();
-	}
 
+
+	//if (showEditor) {
+	mFramebuffers[0]->Unbind();
+	//}
 	if (showEditor) {
 		mFramebuffers[2]->Bind();
 	}
+	else {
+		int width, height;
+		glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
+		glViewport(0, 0, width, height);
+	}
 	glDisable(GL_DEPTH_TEST);
 
-	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID());
-	
-	glEnable(GL_DEPTH_TEST);
+	playerScreenPos /= playerScreenPos.w;
+	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
+
+	if (mIsTimeSlow) {
+		mRadius += growthRate * 2.f * dt;
+	}
+	else {
+		mRadius -= growthRate * dt;
+	}
+	mRadius = std::max(0.f, std::min(maxRadius, mRadius));
+
+	float time = glfwGetTime();
+	std::vector<UniformData> uniforms;
+	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
+	glm::vec2 res {mFramebuffers[2]->GetFramebufferProps().width, mFramebuffers[2]->GetFramebufferProps().height};
+	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
+	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
+	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
+
+	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
+
+	//glEnable(GL_DEPTH_TEST);
 	if (showEditor) {
 		mFramebuffers[2]->Unbind();
 	}
+	else {
+		RenderUI();
+	}
+	glEnable(GL_DEPTH_TEST);
 
 }
 

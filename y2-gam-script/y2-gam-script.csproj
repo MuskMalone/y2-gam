@@ -97,6 +97,7 @@
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />
     <Compile Include="Helper\KeyCodes.cs" />
+    <Compile Include="Helper\Easing.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Helper\PhysicsWrapper.cs" />
     <Compile Include="AssignableScripts\Player\Player.cs" />

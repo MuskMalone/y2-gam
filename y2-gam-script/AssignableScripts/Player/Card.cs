@@ -209,8 +209,8 @@ namespace Object
                     {
                         if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit swapRayCast))
                         {
-                            if (swapRayCast.id != player.entityID)
-                            {
+                            //if (swapRayCast.id != player.entityID)
+                            //{
                                 if (GameplayWrapper.IsSwappable(swapRayCast.id))
                                 {
                                     timeAlive = 0.0f;
@@ -228,7 +228,7 @@ namespace Object
                                     ResetCardPos();
                                     //ResetColour(swapRayCast.id);
                                 }
-                            }
+                            //}
                         }
                     }
 

@@ -1102,6 +1102,30 @@
             "idxCoordY": 0.0,
             "dimX": 0.0,
             "dimY": 0.0
+        },
+        "1709742870738875800": {
+            "id": 1709742870738951100,
+            "path": "../assets\\Textures\\ANIM\\gam200_spinning_card_2.png",
+            "frameCount": 4,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1709742873940550100": {
+            "id": 1709742873940592700,
+            "path": "../assets\\Textures\\ANIM\\ROBIN_ANIM_ARMTHROW_Spritesheet_2.png",
+            "frameCount": 5,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
+        },
+        "1709824160926932300": {
+            "id": 1709824160926995100,
+            "path": "../assets\\Textures\\ANIM\\gam200_spinning_card_2_new.png",
+            "frameCount": 4,
+            "idxCoordY": 0.0,
+            "dimX": 256.0,
+            "dimY": 256.0
         }
     }
 }

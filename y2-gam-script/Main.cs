@@ -380,6 +380,22 @@ namespace Image
             }
         }
 
+        public float Friction
+        {
+
+            get
+            {
+                float fric = new float();
+                InternalCalls.PhysicsComponent_GetFriction(ref entityID, ref fric);
+                return fric;
+            }
+
+            set
+            {
+                InternalCalls.PhysicsComponent_SetFriction(ref entityID, ref value);
+            }
+        }
+
         /*  _________________________________________________________________________ */
         /*! Collider
 
