@@ -2606,6 +2606,34 @@
                 "isClicked": true,
                 "isHover": true
             }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1701015172374297100
+            },
+            "Tag": {
+                "Tag": "Platformimageright"
+            },
+            "Transform": {
+                "posX": 351.0,
+                "posY": -59.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 190.0,
+                "scaleY": 12.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
         }
     ]
 }
