@@ -63,13 +63,14 @@ class LightingSystem : public System
     }
     std::vector<Point> intersects{};
     ////this is for adding emitters to the system
-    //std::shared_ptr<Shader> mEmitterShader;
+    std::shared_ptr<Shader> mLightShader;
     //std::shared_ptr<Shader> mEmitterStepShader;
     //std::shared_ptr<Shader> mParticleShader;
-    //std::shared_ptr<Shader> mParticleRenderShader;
+    std::shared_ptr<Shader> mLightRenderShader;
 
-    GLuint mEmitterSSbo;
-    GLuint mParticleSSbo;
+    GLuint mLightSSbo;
+    GLuint mBlockSSbo;
+    GLuint mVerticesSSbo;
 
     void EventListener(Event&);
 public:

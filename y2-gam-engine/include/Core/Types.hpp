@@ -144,7 +144,7 @@ inline uint64_t GetTimestampNano() {
 
 // ECS
 using Entity = std::uint32_t;
-const Entity MAX_ENTITIES = 10000;
+const Entity MAX_ENTITIES = 1000;
 using Entities = std::vector<Entity>;
 using ComponentType = std::uint8_t; // assumes a maximum of 256 components
 const ComponentType MAX_COMPONENTS = 32;

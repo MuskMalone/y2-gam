@@ -768,6 +768,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
 
         }
         */
+        Entity prev = -1;
         for (auto const& e : mEntities) {
             //auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
             auto const& c{ Coordinator::GetInstance()->GetComponent<Collider>(e) };
@@ -786,12 +787,12 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
             Renderer::DrawLineRect({ pos.x,pos.y,1 }, { scale.x,scale.y }, { 1.f, 1.f, 1.f ,1.f });
             //Renderer::DrawLine({ rb.position.x,rb.position.y, 0.f }, {p1.x,p1.y , 1 }, { 0,1,0,1 });
 
-            ArbiterVec av{ Physics::IsIntersected(e) };
-            for (auto const& a : av) {
-                for (uint64_t i{}; i < a.contactsCount; ++i) {
-                    Renderer::DrawCircle({ a.contacts[i].position.x, a.contacts[i].position.y, 10 }, { 5,5 }, { 0,1,1,1 });
-                }
+            Arbiter av;
+            Physics::IsIntersected(69, 9, av);
+            for (uint64_t i{}; i < av.contactsCount; ++i) {
+                Renderer::DrawCircle({ av.contacts[i].position.x, av.contacts[i].position.y, 10 }, { 5,5 }, { .5,.5,.5,1 });
             }
+            
             ArbiterVec av2{ Physics::IsCollided(e) };
             for (auto const& a : av2) {
                 for (uint64_t i{}; i < a.contactsCount; ++i) {
@@ -804,7 +805,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
                     }, { 1,1,0,1 });
                 }
             }
-
+            prev = e;
         }
         //2 is the id of the player
         //ArbiterVec av{ Physics::IsCollided(2) };
@@ -814,20 +815,37 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
     }
 
     bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2) {
-        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) return false;
-        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
-            return a.b2 == e2;
-        }) };
-        if (it == mCollidedEntities[e1].end()) return false;
+        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
+            auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+                return a.b2 == e2;
+            }) };
+            if (it == mCollidedEntities[e1].end()) return false;
+        }
+        else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
+            auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
+                return a.b2 == e1;
+            }) };
+            if (it == mCollidedEntities[e2].end()) return false;
+        }
+        else return false;
         return true;
     }
     bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2, Arbiter& a) {
-        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) return false;
-        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
-            return a.b2 == e2;
-        }) };
-        if (it == mCollidedEntities[e1].end()) return false;
-        a = *it;
+        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
+            auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+                return a.b2 == e2;
+            }) };
+            if (it == mCollidedEntities[e1].end()) return false;
+            a = *it;
+        }
+        else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
+            auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
+                return a.b2 == e1;
+            }) };
+            if (it == mCollidedEntities[e2].end()) return false;
+            a = *it;
+        }
+        else return false;
         return true;
     }
 
