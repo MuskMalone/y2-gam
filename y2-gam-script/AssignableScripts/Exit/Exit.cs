@@ -99,6 +99,11 @@ namespace Object
                     LoadScene("Level2");
 
                 }
+                if (scene == "Level2")
+                {
+                    LoadScene("MainMenu");
+
+                }
             }
         }
 
