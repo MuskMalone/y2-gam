@@ -207,7 +207,7 @@
                 "y": -300.0
             },
             "Layering": {
-                "layering": "Interactables"
+                "layering": "Default"
             },
             "RigidBody": {
                 "dimX": 14.999999046325684,
@@ -693,7 +693,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Interactables"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -945,7 +945,7 @@
                 "collider": 0,
                 "posX": 186.0,
                 "posY": -46.0,
-                "rotation": -8.423757691389255e-9,
+                "rotation": -8.423759467746095e-9,
                 "dimX": 20.0,
                 "dimY": 14.0
             },
@@ -1047,10 +1047,10 @@
             "Collider": {
                 "collider": 0,
                 "posX": 357.0,
-                "posY": -28.0,
+                "posY": -20.0,
                 "rotation": 0.0,
                 "dimX": 30.0,
-                "dimY": 50.0
+                "dimY": 34.0
             },
             "Gravity": {
                 "x": 0.0,

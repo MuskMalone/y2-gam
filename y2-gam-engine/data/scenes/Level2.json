@@ -3250,7 +3250,7 @@
                 "y": -300.0
             },
             "Layering": {
-                "layering": "Interactables"
+                "layering": "Default"
             },
             "RigidBody": {
                 "dimX": 15.0,
