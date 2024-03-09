@@ -24,7 +24,7 @@ namespace Object
         public string buttonTag;
         private bool previousButtonState;
         Button button;
-        private float doorColliderYOffset = 300.0f;
+        private float doorColliderYOffset = 3000.0f;
 
         /*  _________________________________________________________________________ */
         /*! Door
