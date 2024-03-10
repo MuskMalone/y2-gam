@@ -137,6 +137,12 @@ void ParticleSystem::Init() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Particle), NULL, GL_STATIC_DRAW);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    GLuint texHdlSSbo;
+    glGenBuffers(1, &texHdlSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, texHdlSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::TextureData), NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     std::vector<float> randomData(MAX_BUFFER);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -157,6 +163,7 @@ void ParticleSystem::Init() {
     // Unbind the buffer (optional, for cleanup)
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 9, texHdlSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, mParticleStartSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 11, mRandomIdxSSbo);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 12, mRandomSSbo);
@@ -235,6 +242,27 @@ void ParticleSystem::EmitterAction(EmitterProxy& emitter, int action) {
         mEmitterShader->SetUniform("uEmtvCount", emitter.vCount);
         mEmitterShader->SetUniform("uEmtpreset", emitter.preset);
         mEmitterShader->SetUniform("uEmtparticlesPerFrame", emitter.particlesPerFrame);
+
+        //testing for textures;
+        GLint uTexcoordsLoc = glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexcoords");
+
+        GLfloat texCoords[8] = {
+            // bl
+            0.f, 1.f,
+            // br
+            1.f, 1.f, 
+            // tl
+            1.f, 0.f, 
+            // tr
+            0.f, 0.f
+        };
+        glUniform4fv(uTexcoordsLoc, 4, texCoords);
+
+        GLuint64 arbHdl = glGetTextureHandleARB(1);
+        glMakeTextureHandleResidentARB(arbHdl);
+        glm::uvec2 arbHdlContainer;
+        memcpy(&arbHdlContainer, &arbHdl, sizeof(glm::uvec2));
+        glUniform2ui(glGetUniformLocation(mEmitterShader->PgmHdl(), "uTexhdl"), arbHdlContainer.x, arbHdlContainer.y);
     }
 
     glDispatchCompute(1, 1, 1);
@@ -315,7 +343,7 @@ void ParticleSystem::Draw() {
     auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
     glm::mat4 viewprojection{ cam.GetViewProjMtx() };
-    mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
+    //mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
     glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
 	mParticleRenderShader->Unuse();
 }

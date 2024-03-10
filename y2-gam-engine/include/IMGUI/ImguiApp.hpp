@@ -60,7 +60,7 @@ namespace Image {
     void PerformanceWindow();
     void LoggingWindow();
     void RenderStatsWindow();
-
+    //static bool mBufferFocus{ false };
     static ImVec2 mViewportDim{};
     void GuizmoWindow();
 }

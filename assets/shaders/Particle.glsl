@@ -16,6 +16,7 @@
 #version 450 core
 #extension GL_ARB_compute_shader : enable
 #extension GL_ARB_shader_storage_buffer_object : enable
+#extension GL_ARB_bindless_texture : enable
 
 #define VCOUNT_POINT 1 //point
 #define VCOUNT_LINE 2 //line

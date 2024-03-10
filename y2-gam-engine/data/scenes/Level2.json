@@ -121,7 +121,7 @@
                     1706897385432403900,
                     1706900374940601200
                 ],
-                "currFrame": 6,
+                "currFrame": 4,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -400.6036682128906,
-                "posY": -220.00003051757813,
+                "posX": 185.5,
+                "posY": 137.0,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -153,12 +153,12 @@
                 "layering": "Player"
             },
             "RigidBody": {
-                "dimX": 7.0,
+                "dimX": 7.035999774932861,
                 "dimY": 32.0,
-                "rotation": 0.0,
+                "rotation": -3.1415908336639404,
                 "mass": 10.0,
-                "posX": -400.6036682128906,
-                "posY": -220.00003051757813,
+                "posX": -395.5384826660156,
+                "posY": -37.29970169067383,
                 "lockRotate": true
             },
             "Script": {
@@ -199,9 +199,9 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": -399.1036376953125,
-                "posY": -210.50001525878906,
-                "posZ": 3.0,
+                "posX": 187.0,
+                "posY": 146.5,
+                "posZ": 1.9999847412109375,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -274,7 +274,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -466,10 +466,20 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1706241685990117500,
+                    1706241684624811400,
+                    1706243405768460700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
-                "posX": -40.31726837158203,
-                "posY": -49.06678771972656,
+                "posX": -40.0,
+                "posY": -47.5,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 7.0
@@ -490,20 +500,25 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button1",
+                "isPressed": false
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953109425167700
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Button1"
             },
             "Transform": {
-                "posX": -40.31726837158203,
-                "posY": -49.06678771972656,
+                "posX": -40.0,
+                "posY": -47.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -557,7 +572,7 @@
                 "Tag": "Waypoint1"
             },
             "Transform": {
-                "posX": -446.5672607421875,
+                "posX": -447.0672607421875,
                 "posY": -227.53366088867188,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -3088,7 +3103,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -3224,8 +3239,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -857.5,
-                "posY": -106.5,
+                "posX": -858.0,
+                "posY": -105.5,
                 "rotation": 0.0,
                 "dimX": 20.0,
                 "dimY": 14.0
@@ -3263,8 +3278,8 @@
                 "Tag": "Anvil"
             },
             "Transform": {
-                "posX": -857.5,
-                "posY": -106.5,
+                "posX": -858.0,
+                "posY": -105.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3467,7 +3482,7 @@
                 "collider": 0,
                 "posX": -247.0,
                 "posY": -170.0,
-                "rotation": 3.141592502593994,
+                "rotation": -3.141592502593994,
                 "dimX": 45.00006866455078,
                 "dimY": 14.999994277954102
             },
@@ -3504,7 +3519,7 @@
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 180.0,
+                "rotZ": -180.0,
                 "scaleX": 45.00006866455078,
                 "scaleY": 14.999994277954102,
                 "scaleZ": 14.998990058898926,
@@ -3516,7 +3531,7 @@
                 "collider": 0,
                 "posX": -154.49998474121094,
                 "posY": -170.50001525878906,
-                "rotation": -3.141592502593994,
+                "rotation": -3.1415908336639404,
                 "dimX": 45.0,
                 "dimY": 15.0
             },
@@ -3616,6 +3631,16 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1706241685990117500,
+                    1706241684624811400,
+                    1706243405768460700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
                 "posX": 472.5,
@@ -3640,13 +3665,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button2",
+                "isPressed": false
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953109425167700
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Button2"
@@ -3723,6 +3753,16 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1706241685990117500,
+                    1706241684624811400,
+                    1706243405768460700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
                 "posX": 798.0,
@@ -3747,13 +3787,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button4",
+                "isPressed": false
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953109425167700
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Button4"
@@ -3832,12 +3877,20 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": -16.5,
+                "posY": -200.0,
+                "rotation": 0.0,
+                "dimX": 33.0,
+                "dimY": 72.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3855,20 +3908,25 @@
                 "posY": -240.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door1",
+                "buttonTag": "Button1"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door1"
             },
             "Transform": {
-                "posX": -16.735252380371094,
-                "posY": -199.81175231933594,
+                "posX": -16.5,
+                "posY": -200.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3945,8 +4003,8 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -3976,13 +4034,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door3",
+                "buttonTag": "Button2"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door3"
@@ -3990,7 +4053,7 @@
             "Transform": {
                 "posX": 597.0,
                 "posY": -61.5,
-                "posZ": 0.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -4003,8 +4066,8 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -4034,13 +4097,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door4",
+                "buttonTag": "Button4"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door4"
@@ -4061,8 +4129,8 @@
         {
             "Animation": {
                 "states": [
-                    1707036348349429900,
-                    1707036334731623100
+                    1705820098030170700,
+                    1705820099352356100
                 ],
                 "currFrame": 0,
                 "speed": 0.07999999821186066,
@@ -4092,13 +4160,18 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDoor",
+                "scriptTag": "Door5",
+                "buttonTag": "Button2"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953116624829600
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door5"
@@ -5276,8 +5349,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 816.0,
-                "posY": -247.5,
+                "posX": 810.0,
+                "posY": -247.0,
                 "rotation": 0.0,
                 "dimX": 33.0,
                 "dimY": 72.0
@@ -5315,8 +5388,8 @@
                 "Tag": "Door6"
             },
             "Transform": {
-                "posX": 816.0,
-                "posY": -247.5,
+                "posX": 810.0,
+                "posY": -247.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -5443,6 +5516,59 @@
                 "rotZ": 0.0,
                 "scaleX": 26.25,
                 "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 830.0,
+                "posY": -248.0,
+                "rotation": 0.0,
+                "dimX": 5.0,
+                "dimY": 70.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectExit",
+                "scriptTag": "exit"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "exit"
+            },
+            "Transform": {
+                "posX": 830.0,
+                "posY": -248.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 70.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

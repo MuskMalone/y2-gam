@@ -21,9 +21,10 @@ namespace Object
 {
     public class Door : Entity
     {
+        public string buttonTag;
         private bool previousButtonState;
-        Button button = GameplayWrapper.FindEntityByName("Button").As<Button>();
-        private float doorColliderYOffset = 300.0f;
+        Button button;
+        private float doorColliderYOffset = 3000.0f;
 
         /*  _________________________________________________________________________ */
         /*! Door
@@ -62,6 +63,10 @@ namespace Object
         // Don't worry about the 'unused' message, as the one using/referencing it is the C++ code!
         void OnCreate()
         {
+            if (buttonTag != null)
+            {
+                button = GameplayWrapper.FindEntityByName(buttonTag).As<Button>();
+            }
 
         }
 
@@ -78,6 +83,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+
             if (button.isPressed == true && !previousButtonState)
             {
                 PlayAudio("door_open.wav", 0);

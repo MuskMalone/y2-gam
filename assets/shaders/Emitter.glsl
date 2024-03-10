@@ -32,11 +32,22 @@ struct Emitter {
     
     // Padding might be added here to align the entire structure size
 };
+struct TextureData{
+    vec2 texCoords[4];
+    uvec2 texHdl;
+};
+
 layout( std430, binding=13 ) buffer Emts
 { Emitter Emitters[]; };
+
+layout(std430, binding = 9) buffer TextureHandles 
+{ TextureData TexHdls[]; }; 
 // local work group is 100 large. I believe ideal local size would be GCD(num_cores, num_particles)
 // More testing needed
 layout( local_size_x = 1, local_size_y = 1, local_size_z = 1 ) in;
+
+uniform vec2 uTexcoords[4];
+uniform uvec2 uTexhdl;
 
 //variables to store the new emitter
 uniform vec4 uEmtvertices[4]; // Each vec4 is 16 bytes, total 64 bytes
@@ -87,10 +98,15 @@ void main() {
             Emitters[emtTargetIdx].vCount = uEmtvCount;       // 4 bytes
             Emitters[emtTargetIdx].preset = uEmtpreset;
             Emitters[emtTargetIdx].particlesPerFrame = uEmtparticlesPerFrame;
-
+            
             Emitters[emtTargetIdx].alive = true;       // 4 bytes (bools are often treated as 4 bytes for alignment)
 
-            
+            TexHdls[emtTargetIdx].texCoords[0] = uTexcoords[0];
+            TexHdls[emtTargetIdx].texCoords[1] = uTexcoords[1];
+            TexHdls[emtTargetIdx].texCoords[2] = uTexcoords[2];
+            TexHdls[emtTargetIdx].texCoords[3] = uTexcoords[3];
+
+            TexHdls[emtTargetIdx].texHdl = uTexhdl;
         }
         
         else if (spawnEmitter == -1){ //delete emitter

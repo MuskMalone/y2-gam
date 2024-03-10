@@ -14,6 +14,8 @@
 */
 /*******************************************************************************/
 #version 450 core
+#extension GL_ARB_bindless_texture : enable
+
 struct Particle {
     vec4 col;     // 16 bytes
     vec4 pos;     // 12 bytes
@@ -34,9 +36,18 @@ layout(std430, binding = 14) buffer Pctls {
     Particle Particles[];
 };
 
+struct TextureData{
+    vec2 texCoords[4];
+    uvec2 texHdl;
+};
+
+layout(std430, binding = 9) buffer TextureHandles 
+{ TextureData TexHdls[]; }; 
+
 uniform mat4 vertViewProjection;
 out mat4 vertTransform;
 out vec4 vertFragColor;
+out uint texIdx;
 
 mat4 rotate(float angle) {
     float c = cos(angle);
@@ -75,8 +86,10 @@ mat4 scale(vec2 scale) {
 void main() {
     if (!Particles[gl_VertexID].alive) {
         vertTransform = mat4(0.0);
+        texIdx = 0;
     } else {
         vertTransform = vertViewProjection * translate(Particles[gl_VertexID].pos) * rotate(Particles[gl_VertexID].rot) * scale(Particles[gl_VertexID].size);
         vertFragColor = Particles[gl_VertexID].col;
+        texIdx = Particles[gl_VertexID].emtIdx;
     }
 }
