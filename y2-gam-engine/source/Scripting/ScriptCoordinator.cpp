@@ -234,7 +234,11 @@ namespace Image {
 		auto frameController1{ FrameRateController::GetInstance() };
 		::gCoordinator->GetSystem<RenderSystem>()->SetTimeSlow(flag);
 		if (flag) {
+#ifndef _DEBUG
+			frameController1->ScaleDeltaTime(0.2f);
+#else
 			frameController1->ScaleDeltaTime(0.4f);
+#endif
 		}
 		else {
 			frameController1->ScaleDeltaTime(0.f);
