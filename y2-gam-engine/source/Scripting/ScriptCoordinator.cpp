@@ -410,6 +410,34 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_SetAudioFileVolume
+
+	@param audioFileName
+	Name of audio file.
+
+	@param volume
+	Volume to set.
+
+	@return none.
+
+	Sets the audio volume for a particular file.
+	*/
+	static void EngineCore_SetAudioFileVolume(MonoString* audioFileName, float& volume) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioSetFileVolume(utf8Str, volume);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_StopAudio
 
 	@return none.
@@ -1387,6 +1415,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioFileVolume);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);
