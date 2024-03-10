@@ -211,7 +211,8 @@ namespace Image {
 			glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
 			glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
 
-			std::swap(lhsTransform, rhsTransform);
+			std::swap(lhsTransform.x, rhsTransform.x);
+			std::swap(lhsTransform.y, rhsTransform.y);
 			std::swap(lhsCollider, rhsCollider);
 
 			lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);

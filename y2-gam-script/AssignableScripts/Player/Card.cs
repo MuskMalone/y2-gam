@@ -42,6 +42,8 @@ namespace Object
 
         private uint HoveredID;
         private bool _isHovered;
+
+        private Vector2 PositionToFire;
         public bool Hovering
         {
             get { return _isHovered; }
@@ -284,6 +286,7 @@ namespace Object
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT) && !StartDelay)
                     {
                         StartDelay = true;
+                        PositionToFire = MousePos;
                     }
 
                     if (StartDelay)
@@ -294,7 +297,7 @@ namespace Object
                         {
                             CardReleaseTime = 0;
                             StartDelay = false;
-                            FireCard();
+                            FireCard(PositionToFire);
                         }
                     }
                 }
@@ -334,11 +337,11 @@ namespace Object
             timeAlive = 0.0f; 
         }
 
-        void FireCard()
+        void FireCard(Vector2 mousePos)
         {
             Translation = GameplayWrapper.PlayerPos;
             Collider = GameplayWrapper.PlayerPos;
-            direction = MousePos - GameplayWrapper.PlayerPos;
+            direction = mousePos - GameplayWrapper.PlayerPos;
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;

@@ -198,7 +198,7 @@
                 "collider": 0,
                 "posX": -372.90472412109375,
                 "posY": -45.50980758666992,
-                "rotation": 3.141502857208252,
+                "rotation": 3.141491651535034,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -452,7 +452,7 @@
                 "collider": 0,
                 "posX": -63.3198127746582,
                 "posY": -45.500038146972656,
-                "rotation": -3.1415855884552,
+                "rotation": 3.1415534019470215,
                 "dimX": 14.999999046325684,
                 "dimY": 14.999999046325684
             },
@@ -473,8 +473,12 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "No Script Assigned",
-                "scriptTag": "SwappableBox"
+                "scriptName": "ObjectBox",
+                "scriptTag": "SwappableBox",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -494,7 +498,7 @@
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -180.0022430419922,
+                "rotZ": 179.9977569580078,
                 "scaleX": 14.999999046325684,
                 "scaleY": 14.999999046325684,
                 "scaleZ": 15.0,
@@ -506,7 +510,7 @@
                 "collider": 0,
                 "posX": -79.86190032958984,
                 "posY": -45.500831604003906,
-                "rotation": 0.0000017415570709999884,
+                "rotation": 0.0000414157475461252,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -676,7 +680,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -738,9 +742,9 @@
                 "collider": 0,
                 "posX": -47.57741928100586,
                 "posY": -45.50114822387695,
-                "rotation": 1.5708340406417847,
-                "dimX": 15.0,
-                "dimY": 15.0
+                "rotation": 1.571010708808899,
+                "dimX": 15.000004768371582,
+                "dimY": 15.000004768371582
             },
             "Gravity": {
                 "x": 0.0,
@@ -759,8 +763,12 @@
                 "lockRotate": false
             },
             "Script": {
-                "scriptName": "No Script Assigned",
-                "scriptTag": "SwappableBox"
+                "scriptName": "ObjectBox",
+                "scriptTag": "SwappableBox",
+                "MAX_SCAFFOLDING_AUDIO_FILES": 2,
+                "MAX_WOOD_AUDIO_FILES": 4,
+                "ScaffoldingAudioIncrement": 1,
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -781,9 +789,9 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 90.01228332519531,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
-                "scaleZ": 14.99960994720459,
+                "scaleX": 15.000004768371582,
+                "scaleY": 15.000004768371582,
+                "scaleZ": 14.999604225158691,
                 "elipse": false
             }
         },
@@ -1251,7 +1259,7 @@
             "Transform": {
                 "posX": 99999.0,
                 "posY": 99999.0,
-                "posZ": -1.0,
+                "posZ": 5.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -1495,7 +1503,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
