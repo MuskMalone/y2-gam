@@ -389,6 +389,11 @@
             "id": 1710087860900815200,
             "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_06.wav",
             "stream": false
+        },
+        "1710088092545741000": {
+            "id": 1710088092545875400,
+            "path": "../assets\\audio\\sfx\\menu_click.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
