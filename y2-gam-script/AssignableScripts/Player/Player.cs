@@ -27,7 +27,6 @@ namespace Object
         public float MovementSpeed;
         public bool IsFacingRight;
         public bool SlowdownToggle = true;
-        private bool IsKeyPressed = false;
         public bool GodMode = false;
         public float MaxHorizontalVelocity;
         public bool PlayDeathAnimation = false;
@@ -150,7 +149,7 @@ namespace Object
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
                 FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
-            }
+            }           
         }
 
         /*  _________________________________________________________________________ */
@@ -302,19 +301,10 @@ namespace Object
                         Dead = true;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_LEFT_SHIFT))
+                    if (Input.IsKeyClicked(KeyCode.KEY_LEFT_SHIFT))
                     {
-                        if (!IsKeyPressed)
-                        {
-                            GameplayWrapper.SlowdownTime(SlowdownToggle);
-                            SlowdownToggle = !SlowdownToggle;
-                            IsKeyPressed = true;
-                        }
-                    }
-
-                    else
-                    {
-                        IsKeyPressed = false;
+                        GameplayWrapper.SlowdownTime(SlowdownToggle);
+                        SlowdownToggle = !SlowdownToggle;
                     }
 
                     if (Input.IsKeyPressed(KeyCode.KEY_W) || Input.IsKeyPressed(KeyCode.KEY_SPACE))
@@ -400,6 +390,7 @@ namespace Object
 
                     if (firstTime)
                     {
+                        Friction = OriginalFriction;
                         PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
                     }
 
@@ -461,7 +452,6 @@ namespace Object
         */
         void OnExit()
         {
-            //GameplayWrapper.SlowdownTime(false);
             StopAudioWithFilename("PlayerRunningScaffolding.wav");
             StopAudioWithFilename("PlayerRunningFloor.wav");
         }
