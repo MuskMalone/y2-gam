@@ -23,6 +23,9 @@
 
 namespace FbUtils{
 
+	static GLenum TextureTarget(bool multisampled) {
+		return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
+	}
 
 	/*  _________________________________________________________________________ */
 	/*! IsDepthFormat
@@ -54,8 +57,8 @@ namespace FbUtils{
 
 	This function generates a specified number of textures and stores their IDs in the provided array.
 	*/
-	static void CreateTextures(unsigned int* id, unsigned int count) {
-		glCreateTextures(GL_TEXTURE_2D, count, id);
+	static void CreateTextures(unsigned int* id, unsigned int count, bool multisampled) {
+		glCreateTextures(TextureTarget(multisampled), count, id);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -66,8 +69,8 @@ namespace FbUtils{
 	
 	This function binds a texture to the current OpenGL context.
 	*/
-    static void BindTexture(unsigned int id) {
-        glBindTexture(GL_TEXTURE_2D, id);
+    static void BindTexture(unsigned int id, bool multisampled) {
+        glBindTexture(TextureTarget(multisampled), id);
     }
 
 	/*  _________________________________________________________________________ */
@@ -93,16 +96,24 @@ namespace FbUtils{
 	
 	This function attaches a color texture to the framebuffer.
 	*/
-	static void AttachColorTexture(unsigned int id, GLenum intFmt, GLenum fmt, unsigned int width, unsigned int height, int index) {
-		glTexImage2D(GL_TEXTURE_2D, 0, intFmt, width, height, 0, fmt, GL_UNSIGNED_BYTE, nullptr);
+	static void AttachColorTexture(unsigned int id, GLenum intFmt, GLenum fmt, unsigned int width, unsigned int height, int index, int samples) {
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		bool multisample = samples > 1;
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, id, 0);
+		if (multisample) {
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, intFmt, width, height, GL_FALSE);
+		}
+		else {
+			glTexImage2D(GL_TEXTURE_2D, 0, intFmt, width, height, 0, fmt, GL_UNSIGNED_BYTE, nullptr);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, TextureTarget(multisample), id, 0);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -125,16 +136,24 @@ namespace FbUtils{
 	
 	This function attaches a depth texture to the framebuffer.
 	*/
-	static void AttachDepthTexture(unsigned int id, GLenum intFmt, GLenum attachType, unsigned int width, unsigned int height) {
-		glTexStorage2D(GL_TEXTURE_2D, 1, intFmt, width, height);
+	static void AttachDepthTexture(unsigned int id, GLenum intFmt, GLenum attachType, unsigned int width, unsigned int height, int samples) {
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		bool multisample = samples > 1;
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, attachType, GL_TEXTURE_2D, id, 0);
+		if (multisample) {
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, intFmt, width, height, GL_FALSE);
+		}
+		else {
+			glTexStorage2D(GL_TEXTURE_2D, 1, intFmt, width, height);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, attachType, TextureTarget(multisample), id, 0);
 	}
 }
 
@@ -190,29 +209,31 @@ void Framebuffer::Recreate() {
 	glCreateFramebuffers(1, &mFboHdl);
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHdl);
 
+	bool multisample = mProps.samples > 1;
+
 	if (mColorAttachmentProps.size()) {
 		mColorAttachments.resize(mColorAttachmentProps.size());
-		FbUtils::CreateTextures(mColorAttachments.data(), static_cast<unsigned int>(mColorAttachments.size()));
+		FbUtils::CreateTextures(mColorAttachments.data(), static_cast<unsigned int>(mColorAttachments.size()), multisample);
 
 		for (int i{}; i < mColorAttachments.size(); ++i) {
-			FbUtils::BindTexture(mColorAttachments[i]);
+			FbUtils::BindTexture(mColorAttachments[i], multisample);
 			switch (mColorAttachmentProps[i].TexFormat) {
 			case FramebufferTexFormat::RGBA8:
-				FbUtils::AttachColorTexture(mColorAttachments[i], GL_RGBA8, GL_RGBA, mProps.width, mProps.height, static_cast<int>(i));
+				FbUtils::AttachColorTexture(mColorAttachments[i], GL_RGBA8, GL_RGBA, mProps.width, mProps.height, static_cast<int>(i), mProps.samples);
 				break;
 			case FramebufferTexFormat::RED_INTEGER:
-				FbUtils::AttachColorTexture(mColorAttachments[i], GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, static_cast<int>(i));
+				FbUtils::AttachColorTexture(mColorAttachments[i], GL_R32I, GL_RED_INTEGER, mProps.width, mProps.height, static_cast<int>(i), mProps.samples);
 				break;
 			}
 		}
 	}
 
 	if (mDepthAttachmentProp.TexFormat != FramebufferTexFormat::NONE) {
-		FbUtils::CreateTextures(&mDepthAttachment, 1);
-		FbUtils::BindTexture(mDepthAttachment);
+		FbUtils::CreateTextures(&mDepthAttachment, 1, multisample);
+		FbUtils::BindTexture(mDepthAttachment, multisample);
 		switch (mDepthAttachmentProp.TexFormat) {
 		case FramebufferTexFormat::DEPTH24STENCIL8:
-			FbUtils::AttachDepthTexture(mDepthAttachment, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, mProps.width, mProps.height);
+			FbUtils::AttachDepthTexture(mDepthAttachment, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, mProps.width, mProps.height, mProps.samples);
 			break;
 		}
 	}
