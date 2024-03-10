@@ -461,7 +461,7 @@ namespace Object
         */
         void OnExit()
         {
-            GameplayWrapper.SlowdownTime(false);
+            //GameplayWrapper.SlowdownTime(false);
             StopAudioWithFilename("PlayerRunningScaffolding.wav");
             StopAudioWithFilename("PlayerRunningFloor.wav");
         }
