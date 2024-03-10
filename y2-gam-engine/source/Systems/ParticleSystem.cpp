@@ -343,7 +343,7 @@ void ParticleSystem::Draw() {
     auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
     glm::mat4 viewprojection{ cam.GetViewProjMtx() };
-    mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
+    //mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
     glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
 	mParticleRenderShader->Unuse();
 }
