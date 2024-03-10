@@ -371,7 +371,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	UpdateRadius(dt);
 
-	float time = glfwGetTime();
+	float time = static_cast<float>(glfwGetTime());
 	std::vector<UniformData> uniforms;
 	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
 	int width, height;

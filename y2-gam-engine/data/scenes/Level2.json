@@ -1584,7 +1584,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Interactables"
+                "layering": "Spikes"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -1633,7 +1633,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Interactables"
+                "layering": "Spikes"
             },
             "RigidBody": {
                 "dimX": 15.0,

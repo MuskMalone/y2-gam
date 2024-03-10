@@ -151,8 +151,8 @@ namespace Image {
 
         if (field.fieldType == FieldType::String) {
           std::string test{ mono_string_to_utf8(reinterpret_cast<MonoString*>(value)) };
-          MonoString* val = reinterpret_cast<MonoString*>(value);
-          mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, val);
+          MonoString* stringVal = reinterpret_cast<MonoString*>(value);
+          mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, stringVal);
         }
         else {
           mono_field_set_value(mono_gchandle_get_target(gcHandle), field.classField, value);

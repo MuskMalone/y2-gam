@@ -16,6 +16,7 @@
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
 #include <Windows.h>
+#include <algorithm>
 
 #include "Systems/TextSystem.hpp"
 #include "Systems/RenderSystem.hpp"
@@ -904,8 +905,8 @@ namespace Image {
   ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)
       };
       glm::vec3 playerPosition{ playerTransform.position };
-      float distanceToPlayer = sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
-        std::pow(objectPosition.y - playerPosition.y, 2));
+      float distanceToPlayer = static_cast<float>(sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
+        std::pow(objectPosition.y - playerPosition.y, 2)));
 
       return distanceToPlayer;
     }

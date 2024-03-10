@@ -186,7 +186,7 @@ namespace Image {
     }
 
     for (const char* str : sAssignableScriptNames) {
-      if (str != "No Script Assigned")
+      if (strcmp(str, "No Script Assigned") != 0)
         free((void*)str); // Free the duplicated strings
     }
     sAssignableScriptNames.clear(); // Clear the vector
