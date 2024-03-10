@@ -408,6 +408,8 @@ namespace Object
                         PlayDeathAnimation = true;
                         firstTime = false;
                         card.timeAlive = card.MAX_TIME_ALIVE;
+                        card.ResetCardPos();
+                        card.ResetCardUI();
                     }
 
                     if (RespawnTimer >= MaxRespawnTime)

@@ -321,13 +321,13 @@ namespace Object
             SetEntityColour(id, new Vector4(1, 1, 1, 1));
         }
 
-        void ResetCardUI()
+        public void ResetCardUI()
         {
             SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
             SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
 
-        void ResetCardPos()
+        public void ResetCardPos()
         {
             Alive = false;
             Velocity = new Vector2(0, 0);         
