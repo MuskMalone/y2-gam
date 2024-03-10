@@ -314,7 +314,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Spikes"
             },
             "RigidBody": {
                 "dimX": 40.0,
@@ -680,7 +680,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1114,7 +1114,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Spikes"
             },
             "RigidBody": {
                 "dimX": 40.0,
@@ -1503,7 +1503,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2570,7 +2570,7 @@
             "Transform": {
                 "posX": -429.3698425292969,
                 "posY": -27.999126434326172,
-                "posZ": 1.0,
+                "posZ": 10.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": -0.8999999761581421,
