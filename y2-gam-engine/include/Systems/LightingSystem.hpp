@@ -2,6 +2,9 @@
 #include <Core/Coordinator.hpp>
 #include <Graphics/Shader.hpp>
 #include <Core/Component.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <Graphics/ElementBuffer.hpp>
+#include <Graphics/VertexArray.hpp>
 
 
 class LightingSystem : public System
@@ -18,7 +21,12 @@ class LightingSystem : public System
         glm::vec2 start;
         glm::vec2 end;
     };
-
+    struct LightVertex {
+        glm::vec2 origin;
+        glm::vec3 color;
+        glm::vec2 pos;
+        float radius;
+    };
     inline bool getIntersection(Ray ray, Ray segment, Intersect &result) {
 
         // RAY in parametric: Point + Delta*T1
@@ -61,22 +69,22 @@ class LightingSystem : public System
         };
         return true;
     }
-    std::vector<Point> intersects{};
-    ////this is for adding emitters to the system
-    std::shared_ptr<Shader> mLightShader;
+    std::deque<Point> intersects{};
+    std::vector<LightVertex>vertices{};
+    std::vector<unsigned int> lightIndices{};
     //std::shared_ptr<Shader> mEmitterStepShader;
     //std::shared_ptr<Shader> mParticleShader;
+    std::shared_ptr<Shader> mLightRenderPrePassShader;
     std::shared_ptr<Shader> mLightRenderShader;
 
-    GLuint mLightSSbo;
-    GLuint mBlockSSbo;
-    GLuint mVerticesSSbo;
+    std::shared_ptr<VertexArray> mLightVertexArray;
+    std::shared_ptr<VertexBuffer> mLightVertexBuffer;
 
     void EventListener(Event&);
 public:
     void Init();
     void Update(float dt);
-    void Draw();
+    void Draw(unsigned int tex);
     void DrawDebug();
     void Destroy();
 };

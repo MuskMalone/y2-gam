@@ -25,10 +25,12 @@
 #include "Graphics/SpriteManager.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Core/Component.hpp"
-#define MAX_BUFFER MAX_ENTITIES // num of light sources/light blocking elements
-#define MAX_VERTICES 4 // num of vertices per light blocking element
+#define MAX_BUFFER (19683)//3^9 // num of light sources/light blocking elements
+#define MAX_VERTICES 3 // num of vertices per light blocking element
 #define WORK_GROUP 100 //max buffer should be divisible by work group
-
+namespace { // for testing
+    float radius = 50.f;
+}
 /**
  * @brief Event listener for the particle system.
  *
@@ -48,101 +50,20 @@ void LightingSystem::EventListener(Event& event) {
  * This function initializes the particle system by creating the necessary buffers and shaders.
  */
 void LightingSystem::Init() {
-//    GLuint zero = 0;
-//    glGenBuffers(1, &mRandomIdxSSbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomIdxSSbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLuint), NULL, GL_DYNAMIC_DRAW);
-//    glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), &zero);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-//
-//    glGenBuffers(1, &mParticleCountSSbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLuint), NULL, GL_DYNAMIC_DRAW);
-//    glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), &zero);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-//
-    //I'm only going to comment one of these, because the other SSBOs are essentially the same
-// Generate the initial buffer
-    glGenBuffers(1, &mLightSSbo);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mLightSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Light), NULL, GL_STATIC_DRAW);
-    {
-        GLSLStructs::Light* ptr = (GLSLStructs::Light*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Light), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-        if (ptr) {
-            // Copy the data to the SSBO
-            for (int i{}; i < MAX_BUFFER; ++i) {
-                (ptr + i)->entityId = -1;
-            }
-            // Unmap the buffer
-            glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-        }
-    }
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+    mLightVertexArray = VertexArray::Create();
+    mLightVertexBuffer = VertexBuffer::Create(MAX_BUFFER * MAX_VERTICES * sizeof(LightVertex));
+    BufferLayout lightVtxLayout{
+        {AttributeType::VEC2, "origin"},
+        {AttributeType::VEC3, "color"},
+        {AttributeType::VEC2, "pos"},
+        {AttributeType::FLOAT, "radius"}
+    };
+    mLightVertexBuffer->SetLayout(lightVtxLayout);
+    mLightVertexArray->AddVertexBuffer(mLightVertexBuffer);
 
-    // Do it again, twice.
-    glGenBuffers(1, &mBlockSSbo);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mBlockSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::Block), NULL, GL_DYNAMIC_DRAW);
-    {
-        GLSLStructs::Block* ptr = (GLSLStructs::Block*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Block), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-        if (ptr) {
-            // Copy the data to the SSBO
-            for (int i{}; i < MAX_BUFFER; ++i) {
-                (ptr + i)->entityId = -1;
-            }
-            // Unmap the buffer
-            glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-        }
-    }
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+    mLightRenderShader = std::make_shared<Shader>("../assets/shaders/Light.vert", "../assets/shaders/Light.frag");
+    mLightRenderPrePassShader = std::make_shared<Shader>("../assets/shaders/LightPrePass.vert", "../assets/shaders/LightPrePass.frag");
 
-    glGenBuffers(1, &mVerticesSSbo);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mVerticesSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * MAX_BUFFER * MAX_VERTICES * sizeof(glm::vec2), NULL, GL_STATIC_DRAW);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-//
-//    GLuint texHdlSSbo;
-//    glGenBuffers(1, &texHdlSSbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, texHdlSSbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(GLSLStructs::TextureData), NULL, GL_STATIC_DRAW);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-//
-//    std::vector<float> randomData(MAX_BUFFER);
-//    std::random_device rd;
-//    std::mt19937 gen(rd());
-//    std::uniform_real_distribution<float> dis(-1.0f, 1.0f);
-//    for (size_t i = 0; i < MAX_BUFFER; ++i) {
-//        randomData[i] = dis(gen);
-//    }
-//    glGenBuffers(1, &mRandomSSbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_BUFFER * sizeof(float), NULL, GL_STATIC_DRAW);
-//    float* ptr = (float*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(float), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-//    if (ptr) {
-//        // Copy the data to the SSBO
-//        std::memcpy(ptr, randomData.data(), MAX_BUFFER * sizeof(float));
-//        // Unmap the buffer
-//        glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-//    }
-//    // Unbind the buffer (optional, for cleanup)
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-//
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, mLightSSbo);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, mBlockSSbo);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, mVerticesSSbo);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 12, mRandomSSbo);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 13, mEmitterSSbo);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 14, mParticleSSbo);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 15, mParticleCountSSbo);
-//    // Ensures accesses to the SSBOs "reflect" writes from compute shader
-//    glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
-//
-//    mEmitterShader = std::make_shared<Shader>("../assets/shaders/Emitter.glsl");
-//    mEmitterStepShader = std::make_shared<Shader>("../assets/shaders/EmitterStep.glsl");
-//    mParticleShader = std::make_shared<Shader>("../assets/shaders/Particle.glsl");
-//    mParticleRenderShader = std::make_shared<Shader>("../assets/shaders/Particle.geom", "../assets/shaders/Particle.vert", "../assets/shaders/Particle.frag");
-//
-//    for (uint64_t i{}; i < MAX_BUFFER; ++i) { mEmitterIdxQueue.push(static_cast<unsigned int>(i)); }
 //
 //    auto coordinator = Coordinator::GetInstance();
 //
@@ -160,11 +81,12 @@ void LightingSystem::Init() {
  */
 void LightingSystem::Update(float dt) {
     intersects.clear();
+    vertices.clear();
     std::vector<Point> points;
     std::vector<Ray> segments{};
     auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
     glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-    float radius = 50.f;
+    
     auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
     glm::mat4 viewprojection{ cam.GetViewProjMtx() };
@@ -225,24 +147,32 @@ void LightingSystem::Update(float dt) {
                 glm::vec4 transformedVec4 = transformationMatrix * pointVec4;
 
                 // Convert back to glm::vec2 and store it
-                p = glm::vec2(transformedVec4);
+                points.push_back({ glm::vec2(p = transformedVec4), std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
             }
             for (int i{}; i < 4; ++i) {
-                glm::vec2 start;
-                glm::vec2 end;
-                if (i != 3) {
-                    start = squarePoints[i], end = squarePoints[i + 1];
-                }
-                else {
-                    start = squarePoints[3], end = squarePoints[0];
-                }
-                if (glm::distance2(glm::closestPointOnLine(point, start, end), point) <= radius * radius) {
-                    points.push_back({ start , std::atan2(start.y - point.y, start.x - point.x) });
-                    points.push_back({ end , std::atan2(start.y - point.y, start.x - point.x) });
-                    segments.push_back({ start, end });
-                }
-
+                if (i != 3)
+                    segments.push_back(Ray{ squarePoints[i], squarePoints[i + 1] });
+                else
+                    segments.push_back(Ray{ squarePoints[3], squarePoints[0] });
             }
+            //    points.push_back({ p , std::atan2(start.y - point.y, start.x - point.x) });
+
+            //}
+            //for (int i{}; i < 4; ++i) {
+            //    glm::vec2 start;
+            //    glm::vec2 end;
+            //    if (i != 3) {
+            //        start = squarePoints[i], end = squarePoints[i + 1];
+            //    }
+            //    else {
+            //        start = squarePoints[3], end = squarePoints[0];
+            //    }
+            //    if (glm::distance2(glm::closestPointOnLine(point, start, end), point) <= radius * radius) {
+            //        points.push_back({ end , std::atan2(start.y - point.y, start.x - point.x) });
+            //        segments.push_back({ start, end });
+            //    }
+
+            //}
         
     }
     for (auto const& p : points) {
@@ -333,53 +263,69 @@ void LightingSystem::Update(float dt) {
  *
  * This function draws the particles.
  */
-void LightingSystem::Draw() {
+void LightingSystem::Draw(unsigned int tex) {
+    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
+
     auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
     //for testing, arbitrary
     glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-    for (auto const& p : intersects) {
-        Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,0,0,1 });
-        Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, {1,0,0,1});
+
+    auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
+        return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
+        });
+    intersects.erase(last, intersects.end());
+    std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
+        return a.angle < b.angle;
+        });
+    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+
+    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+
+    intersects.push_front({ point, 0.f });
+    for (int i{ 1 }; i < intersects.size(); ++i) {
+        vertices.push_back({ intersects[0].pos, { 0,1,1 }, intersects[0].pos, radius });
+        vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[i].pos, radius});
+        if (i + 1 < intersects.size()) {
+            vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[i+1].pos, radius });
+        }
+        else {
+            vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[1].pos, radius });
+        }
     }
-    //for (auto const& entity : mEntities) {
-    //    auto const& collider = Coordinator::GetInstance()->GetComponent<Collider>(entity);
-    //    // Assuming Vec2 is equivalent to glm::vec2
-    //    glm::vec2 dimension = glm::vec2{ collider.dimension.x, collider.dimension.y }; // Example dimensions
-    //    glm::vec2 position = glm::vec2{ collider.position.x, collider.position.y };  // Example position
-    //    float rotation = collider.rotation; // Example rotation in radians
+    //vertices.push_back({{ 1,1,1 }, { -50, -50 }, radius});
+    //vertices.push_back({ { 1,1,1 }, { -50, 50 }, radius });
+    //vertices.push_back({ { 1,1,1 }, { 50, 50 }, radius });
 
-    //    // Start with an identity matrix
-    //    glm::mat4 transformationMatrix = glm::mat4(1.0f);
-
-    //    // Apply translation
-    //    auto transMatrix = glm::translate(transformationMatrix, glm::vec3(position, 0.0f));
-
-    //    // Apply rotation around the Z-axis
-    //    auto rotMatrix = glm::rotate(transformationMatrix, rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-
-    //    // Apply scaling
-    //    auto scaleMatrix = glm::scale(transformationMatrix, glm::vec3(dimension, 1.0f));
-
-    //    transformationMatrix = transMatrix * rotMatrix * scaleMatrix;
-    //    std::vector<glm::vec2> squarePoints = {
-    //        glm::vec2(-0.5f, -0.5f),
-    //        glm::vec2(-0.5f,  0.5f),
-    //        glm::vec2(0.5f,   0.5f),
-    //        glm::vec2(0.5f,  -0.5f)
-    //    };
-
-    //    for (auto& p : squarePoints) {
-    //        // Convert glm::vec2 to glm::vec4, setting z to 0, and w to 1 for the transformation
-    //        glm::vec4 pointVec4 = glm::vec4(p, 0.0f, 1.0f);
-
-    //        // Apply the transformation
-    //        glm::vec4 transformedVec4 = transformationMatrix * pointVec4;
-    //        p = glm::vec2(transformedVec4);
-    //        Renderer::DrawCircle(glm::vec3(p, 10), { 5, 5 }, { 1,0,0,1 });
-    //        // Convert back to glm::vec2 and store it
-    //        //points.push_back({ , std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
-    //    }
+    //std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+    //for (int i{}; i < vertices.size(); i += 3) {
+    //    std::cout << "(" << vertices[i].pos.x << "," << vertices[i].pos.y << "), ";
+    //    std::cout << "(" << vertices[i+1].pos.x << "," << vertices[i+1].pos.y << "), ";
+    //    std::cout << "(" << vertices[i+2].pos.x << "," << vertices[i+2].pos.y << ")\n";
     //}
+    //std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
+    mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
+    mLightRenderShader->Use();
+
+
+    mLightRenderShader->SetUniform("screenTex", 0);
+    mLightRenderShader->SetUniform("u_ViewProjMtx", viewprojection);
+
+    //set the active texture unit to 0
+    glActiveTexture(GL_TEXTURE0);
+
+    //bind the texture you want to render
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+
+    mLightVertexArray->Bind();
+
+    //draw the full-screen quad
+    // glDrawElements(GL_TRIANGLES, (vertices.size() - 2) * MAX_VERTICES, GL_UNSIGNED_INT, nullptr);
+    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    mLightVertexArray->Unbind();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    mLightRenderShader->Unuse();
     ////glEnable(GL_DEPTH_TEST);
     ////glEnable(GL_CULL_FACE);
     ////glCullFace(GL_BACK);
@@ -393,9 +339,23 @@ void LightingSystem::Draw() {
 
 }
 void LightingSystem::DrawDebug() {
-    for (auto const& e : mEntities) {
+    //auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
+    ////for testing, arbitrary
+    //glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 
-    }
+    //auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
+    //    return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
+    //    });
+    //intersects.erase(last, intersects.end());
+    //std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
+    //    return a.angle < b.angle;
+    //    });
+
+    //for (int i{}; i < intersects.size(); ++i) {
+    //    auto const& p{ intersects[i] };
+    //    Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
+    //    Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
+    //}
 }
 
 /**
@@ -404,10 +364,4 @@ void LightingSystem::DrawDebug() {
  * This function destroys the particle system by deleting the buffers and shaders.
  */
 void LightingSystem::Destroy() {
-    //glDeleteBuffers(1, &mRandomIdxSSbo);
-    //glDeleteBuffers(1, &mRandomSSbo);
-    //glDeleteBuffers(1, &mEmitterSSbo);
-    //glDeleteBuffers(1, &mParticleSSbo);
-    //glDeleteBuffers(1, &mParticleCountSSbo);
-    //glDeleteBuffers(1, &mParticleStartSSbo);
 }

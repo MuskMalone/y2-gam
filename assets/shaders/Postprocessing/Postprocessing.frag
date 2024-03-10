@@ -160,4 +160,5 @@ void main() {
     }
 
     fragColor = applyFilmEffect(finalColor);
+	//fragColor = texColor;
 }

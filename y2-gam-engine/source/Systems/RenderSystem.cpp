@@ -193,6 +193,10 @@ void RenderSystem::Init()
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
+	//lighting
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
+
 	//postprocessing
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
@@ -328,6 +332,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
+	::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
@@ -339,7 +344,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 		mRays.clear();
 	}
-	::gCoordinator->GetSystem<LightingSystem>()->Draw();
 	Renderer::RenderSceneEnd();
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
@@ -348,20 +352,27 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 
 	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
+	glDisable(GL_DEPTH_TEST);
 
-
-	//if (showEditor) {
 	mFramebuffers[0]->Unbind();
+	{
+		mFramebuffers[2]->Bind();
+
+		::gCoordinator->GetSystem<LightingSystem>()->Draw(mFramebuffers[0]->GetColorAttachmentID());
+
+		mFramebuffers[2]->Unbind();
+	}
+	
 	//}
 	if (showEditor) {
-		mFramebuffers[2]->Bind();
+		mFramebuffers[3]->Bind();
 	}
 	else {
 		int width, height;
 		glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
 		glViewport(0, 0, width, height);
 	}
-	glDisable(GL_DEPTH_TEST);
+
 
 	playerScreenPos /= playerScreenPos.w;
 	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
@@ -377,16 +388,16 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	float time = glfwGetTime();
 	std::vector<UniformData> uniforms;
 	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
-	glm::vec2 res {mFramebuffers[2]->GetFramebufferProps().width, mFramebuffers[2]->GetFramebufferProps().height};
+	glm::vec2 res {mFramebuffers[3]->GetFramebufferProps().width, mFramebuffers[3]->GetFramebufferProps().height};
 	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
 
-	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
+	Renderer::ApplyPostProcessing(mFramebuffers[2]->GetColorAttachmentID(), uniforms);
 
 	//glEnable(GL_DEPTH_TEST);
 	if (showEditor) {
-		mFramebuffers[2]->Unbind();
+		mFramebuffers[3]->Unbind();
 	}
 	else {
 		RenderUI();
