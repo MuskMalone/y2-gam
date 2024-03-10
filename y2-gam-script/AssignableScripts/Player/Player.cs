@@ -566,12 +566,12 @@ namespace Object
             Console.WriteLine($"{footstepSound}");
 
             PlayAudio(footstepSound, 0);
+            SetAudioFileVolume(footstepSound, 0.6f);
             ResumeAudioWithFilename(footstepSound);
         }
 
         private void PlayScaffoldingFootstep()
         {
-            // Assuming you have an array or list of footstep sound filenames
             Console.WriteLine("Scaffolding played");
             string[] footstepSounds = new string[]
             {
@@ -581,13 +581,12 @@ namespace Object
                 "PlayerRunningScaffolding_016.wav","PlayerRunningScaffolding_017.wav","PlayerRunningScaffolding_018.wav","PlayerRunningScaffolding_019.wav","PlayerRunningScaffolding_020.wav",
             };
 
-            // Randomly select a footstep sound to play
             Random random = new Random();
             int randomIndex = random.Next(0, footstepSounds.Length);
             string footstepSound = footstepSounds[randomIndex];
 
             Console.WriteLine($"{footstepSound}");
-            // Play the selected footstep sound
+
             PlayAudio(footstepSound, 0);
             ResumeAudioWithFilename(footstepSound);
         }
