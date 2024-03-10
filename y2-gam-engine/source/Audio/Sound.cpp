@@ -708,6 +708,29 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+  /*! AudioSetFileVolume
+
+  @param filename
+  The name of the audio file.
+
+  @param volume
+  The volume to set to.
+  The range is from 0 to 1, where 0 represents 0% and 1 represents 100%.
+
+  @return none.
+
+  Sets the volume of the channel.
+  */
+  void SoundManager::AudioSetFileVolume(std::string filename, float volume) {
+    for (AudioInformation const& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
+        ai.audioChannel->setVolume(volume);
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
   /*! AudioSetGroupPitch
 
   @param group
