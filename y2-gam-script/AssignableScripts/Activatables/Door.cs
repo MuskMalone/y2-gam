@@ -21,7 +21,7 @@ namespace Object
 {
     public class Door : Entity
     {
-        public string buttonTag;
+        public String buttonTag;
         private bool previousButtonState;
         Button button;
         private float doorColliderYOffset = 3000.0f;
