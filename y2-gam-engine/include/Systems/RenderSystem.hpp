@@ -57,6 +57,7 @@ public:
 	void SetSceneCameraZoom(float zoom);
 	void SetPPMode(bool b) { mPPMode = b; }
 	void SetTimeSlow(bool b) { mIsTimeSlow = b;  }
+	void UpdateRadius(float dt);
 
 private:
 	bool mDebugMode{ false };
