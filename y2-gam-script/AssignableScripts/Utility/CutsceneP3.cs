@@ -80,16 +80,7 @@ namespace Object
                     Colour = new Vector4(1, 1, 1, 1);
                     PanelTime += dt; // Update the panel time
                     //Console.WriteLine("PanelTime AFT2: " + PanelTime);
-                    //if (cutscenep1.Panel1Time >= 23.0f)
-                    //{
-                    //    //Console.WriteLine("Reached end of 23sec");
-                    //    //Reset colour to transparent
-                    //    Colour = new Vector4(0, 0, 0, 0);
-                    //    //Reset colour value
-                    //    ColourValue = 0.0f;
-                    //    //Move to the next cutscene
-                    //    cutscenep1.CutsceneIndex++;
-                    //}
+                
                 }
                 else if (PanelTime < PanelTimer)
                 {

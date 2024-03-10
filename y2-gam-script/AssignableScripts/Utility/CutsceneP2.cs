@@ -80,17 +80,6 @@ namespace Object
                     Colour = new Vector4(1, 1, 1, 1);
                     PanelTime += dt; // Update the panel time
                     //Console.WriteLine("Panel2Time AFT2: " + PanelTime);
-
-                    //if (cutscenep1.Panel1Time >= 23.0f)
-                    //{
-                    //    //Console.WriteLine("Reached end of 23sec");
-                    //    //Reset colour to transparent
-                    //    Colour = new Vector4(0, 0, 0, 0);
-                    //    //Reset colour value
-                    //    ColourValue = 0.0f;
-                    //    //Move to the next cutscene
-                    //    cutscenep1.CutsceneIndex++;
-                    //}
                 }
                 else if (PanelTime < Panel2Timer)
                 {
@@ -100,10 +89,12 @@ namespace Object
                     // Calculate the exact color value based on elapsed time, scaled to the range 0 to 1
                     normalizeTime = PanelTime / Panel2Timer;
                     ColourValue = normalizeTime * normalizeTime;
-                    ColourValue = Math.Min(ColourValue, 1.0f); // Ensure the value does not exceed 1
+                    // Ensure the value does not exceed 1
+                    ColourValue = Math.Min(ColourValue, 1.0f);
 
                     //Console.WriteLine("ColourValue: " + ColourValue);
-                    Colour = new Vector4(1, 1, 1, ColourValue); // Update the colour with the new value
+                    // Update the colour with the new value
+                    Colour = new Vector4(1, 1, 1, ColourValue); 
                 }
 
                 //FADEOUT
