@@ -1533,7 +1533,8 @@
             },
             "Script": {
                 "scriptName": "ObjectDoor",
-                "scriptTag": "Door"
+                "scriptTag": "Door",
+                "buttonTag": "Button"
             },
             "Sprite": {
                 "r": 1.0,
