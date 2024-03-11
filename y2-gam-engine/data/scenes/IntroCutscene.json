@@ -1,0 +1,104 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710141589503171600
+            },
+            "Tag": {
+                "Tag": "BG"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 1920.0,
+                "scaleY": 1080.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c0p1",
+                "CurrPanel": 1,
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710147769128730200
+            },
+            "Tag": {
+                "Tag": "c0p1"
+            },
+            "Transform": {
+                "posX": -54.0,
+                "posY": -7.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 87.0999984741211,
+                "scaleY": 74.19999694824219,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c0p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710147774092929500
+            },
+            "Tag": {
+                "Tag": "c0p2"
+            },
+            "Transform": {
+                "posX": -4.000007629394531,
+                "posY": 49.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 186.60000610351563,
+                "scaleY": 25.899999618530273,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        }
+    ]
+}

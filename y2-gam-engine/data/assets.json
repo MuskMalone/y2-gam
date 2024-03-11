@@ -972,6 +972,30 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1710141589503171600": {
+            "id": 1710141589503217200,
+            "path": "../assets\\Textures\\UI\\GAM_BlackBG.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1710147769128730200": {
+            "id": 1710147769128777300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 871.0,
+            "dimY": 742.0
+        },
+        "1710147774092929500": {
+            "id": 1710147774092959300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1866.0,
+            "dimY": 259.0
         }
     },
     "AnimationManager": {
