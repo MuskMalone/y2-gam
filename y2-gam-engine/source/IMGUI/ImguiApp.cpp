@@ -1791,7 +1791,9 @@ namespace Image {
     /*  _________________________________________________________________________ */
     /*! BufferWindow
 
-    @param none
+    @param dt
+
+    @param window
 
     @return none.
 

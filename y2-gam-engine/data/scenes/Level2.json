@@ -10,7 +10,7 @@
                 "states": [
                     1707366674554159600
                 ],
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1609,7 +1609,7 @@
             "Transform": {
                 "posX": 30.0,
                 "posY": -261.5,
-                "posZ": 0.0,
+                "posZ": 3.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -1658,7 +1658,7 @@
             "Transform": {
                 "posX": 75.0,
                 "posY": -261.5,
-                "posZ": 0.0,
+                "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -4717,13 +4717,13 @@
             },
             "Transform": {
                 "posX": 56.60699462890625,
-                "posY": -73.8425064086914,
+                "posY": -81.3425064086914,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 600.0,
-                "scaleY": 380.0,
+                "scaleY": 390.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -4752,7 +4752,7 @@
                 "Tag": "Wateranim2"
             },
             "Transform": {
-                "posX": 343.4159851074219,
+                "posX": 342.416015625,
                 "posY": 14.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -4943,10 +4943,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710138904505888200
                 ],
-                "currFrame": 1,
-                "speed": 0.10000000149011612,
+                "currFrame": 0,
+                "speed": 0.18000000715255737,
                 "currState": 0
             },
             "Layering": {
@@ -4979,10 +4979,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710138930280061400
                 ],
-                "currFrame": 1,
-                "speed": 0.10000000149011612,
+                "currFrame": 0,
+                "speed": 0.12999999523162842,
                 "currState": 0
             },
             "Layering": {
@@ -5113,10 +5113,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710139329373193600
                 ],
-                "currFrame": 1,
-                "speed": 0.07999999821186066,
+                "currFrame": 0,
+                "speed": 0.18000000715255737,
                 "currState": 0
             },
             "Layering": {
@@ -5149,10 +5149,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710139320914160300
                 ],
                 "currFrame": 0,
-                "speed": 0.2329999953508377,
+                "speed": 0.18000000715255737,
                 "currState": 0
             },
             "Layering": {
@@ -5185,10 +5185,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710139323753147100
                 ],
-                "currFrame": 0,
-                "speed": 0.07999999821186066,
+                "currFrame": 1,
+                "speed": 0.18000000715255737,
                 "currState": 0
             },
             "Layering": {
@@ -5221,10 +5221,10 @@
         {
             "Animation": {
                 "states": [
-                    1707366674554159600
+                    1710139326187382400
                 ],
-                "currFrame": 0,
-                "speed": 0.07999999821186066,
+                "currFrame": 1,
+                "speed": 0.18000000715255737,
                 "currState": 0
             },
             "Layering": {
@@ -5319,8 +5319,8 @@
             },
             "Script": {
                 "scriptName": "ObjectKey",
-                "scriptTag": "Key",
-                "Range": 10.0
+                "scriptTag": "KeyGold",
+                "Range": 0.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -5328,10 +5328,10 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707445848064327100
+                "assetID": 1710138226924060700
             },
             "Tag": {
-                "Tag": "Key"
+                "Tag": "KeyGold"
             },
             "Transform": {
                 "posX": 665.5,
@@ -5347,6 +5347,15 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1710138311156148800,
+                    1710138386858256600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
             "Collider": {
                 "collider": 0,
                 "posX": 810.0,
@@ -5382,7 +5391,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707036026741800000
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "Door6"
@@ -5569,6 +5578,42 @@
                 "rotZ": 0.0,
                 "scaleX": 5.0,
                 "scaleY": 70.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710139327699588600
+                ],
+                "currFrame": 1,
+                "speed": 0.20000000298023224,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Wateranim9"
+            },
+            "Transform": {
+                "posX": -338.5,
+                "posY": -227.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
+                "scaleY": 20.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
