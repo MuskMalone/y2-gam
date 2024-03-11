@@ -127,6 +127,198 @@
                 "dimX": 7.035999774932861,
                 "dimY": 32.0
             },
+            "EmitterSystem": {
+                "emitters": [
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 0.10000000149011612,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": true,
+                        "spriteAssetID": 1710146666980992900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 0.10000000149011612,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": true,
+                        "spriteAssetID": 1710146668647385600
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 0.9960784316062927,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 0.10000000149011612,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": true,
+                        "spriteAssetID": 1710146669963202900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 0.10000000149011612,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": true,
+                        "spriteAssetID": 1710146671297724500
+                    }
+                ]
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": -300.0
@@ -163,10 +355,10 @@
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "VisionRange": 4.0,
-                "colliderPositionX": -427.3698425292969,
-                "colliderPositionY": -34.999122619628906,
-                "spawnPositionX": -427.3698425292969,
-                "spawnPositionY": -25.99912452697754
+                "colliderPositionX": -400.0,
+                "colliderPositionY": -36.0,
+                "spawnPositionX": -400.0,
+                "spawnPositionY": -27.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -224,7 +416,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -478,7 +670,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -536,7 +728,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -571,7 +763,7 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.12999999523162842,
-                "currState": 1
+                "currState": 0
             },
             "Gravity": {
                 "x": 0.0,
@@ -680,7 +872,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -768,7 +960,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -1238,9 +1430,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 223,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1503,7 +1695,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2518,7 +2710,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 40.39585",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063

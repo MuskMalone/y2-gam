@@ -360,27 +360,28 @@ void ParticleSystem::Draw() {
 	mParticleRenderShader->Unuse();
 }
 void ParticleSystem::DrawDebug() {
+    const float pointsz = .5f;
     for (auto const& e : mEntities) {
         auto const& emitterSystem{ Coordinator::GetInstance()->GetComponent<EmitterSystem>(e) };
         for (auto const& emitter : emitterSystem.emitters) {
             if (emitter.drawEmitterVertices) {
                 switch (emitter.vCount) {
                 case 1: {
-                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { pointsz, pointsz }, emitter.col);
                 } break;
                 case 2: {
-                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
-                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { pointsz, pointsz }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { pointsz, pointsz }, emitter.col);
                     Renderer::DrawLine(emitter.vertices[0], emitter.vertices[1], emitter.col);
                 } break;
                 case 4: {
-                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[0].x,emitter.vertices[0].y, 0.f }, { pointsz, pointsz }, emitter.col);
                     Renderer::DrawLine(emitter.vertices[0], emitter.vertices[1], emitter.col);
-                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[1].x,emitter.vertices[1].y, 0.f }, { pointsz, pointsz }, emitter.col);
                     Renderer::DrawLine(emitter.vertices[1], emitter.vertices[2], emitter.col);
-                    Renderer::DrawCircle({ emitter.vertices[2].x,emitter.vertices[2].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[2].x,emitter.vertices[2].y, 0.f }, { pointsz, pointsz }, emitter.col);
                     Renderer::DrawLine(emitter.vertices[2], emitter.vertices[3], emitter.col);
-                    Renderer::DrawCircle({ emitter.vertices[3].x,emitter.vertices[3].y, 0.f }, { 5, 5 }, emitter.col);
+                    Renderer::DrawCircle({ emitter.vertices[3].x,emitter.vertices[3].y, 0.f }, { pointsz, pointsz }, emitter.col);
                     Renderer::DrawLine(emitter.vertices[3], emitter.vertices[0], emitter.col);
                 }break;
                 }
