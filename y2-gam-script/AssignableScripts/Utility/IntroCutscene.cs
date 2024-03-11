@@ -27,6 +27,7 @@ namespace Object
         private float ColourValue = 0.0f;
 
         public string cutsceneTag;
+        private bool done = false;
         
         //Time for each panels
         //private float Panel1Time = 6.0f;
@@ -88,53 +89,152 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (CutsceneIndex == 0)
+            if (cutsceneTag == "c0p1")
             {
                 FadeOutBegins = 24.3f;
-                if (cutsceneTag == "c0p1")
+                PanelTime += dt;
+                if (PanelTime < 6.0f)
                 {
-                    if (PanelTime < 6.0f)
-                    {
-                        //CurrPanel = 1
-                        FadeIn(dt, FadeOutBegins);
-                    }       
-                    
+                    //CurrPanel = 1
+                    FadeIn(dt, FadeOutBegins);
                 }
-
-                if (cutsceneTag == "c0p2")
+                else if (PanelTime >= FadeOutBegins)
                 {
-                    Console.WriteLine("Paneltime in c0p2" + PanelTime);
-                    if (PanelTime >= 6.0f && PanelTime < 9.5f)
-                    {                       
-                        PanelFadeInCounter = 0.0f;
-                        //CurrPanel = 2;
-                        FadeIn(dt, FadeOutBegins);
-                    }
-                    else if(PanelTime < 6.0f)
-                    {
-                        Colour = new Vector4(1, 1, 1, 0);
-                    }
-
+                    FadeOut(dt);
                 }
-                //else if (PanelTime < 14.7f)
-                //{
-                //    //CurrPanel = 3;
-                //    FadeIn(dt);
-                //}
-                //else
-                //{
-                //    CurrPanel = 4;
-                //}
             }
 
-            //if (PanelTime < FadeOutBegins)
-            //{
-            //    FadeIn(dt);
-            //}
-            //else
-            //{
-            //    FadeOut(dt);
-            //}
+            if (cutsceneTag == "c0p2")
+            {
+                FadeOutBegins = 24.3f;
+                if (PanelTime < 6.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime < 9.5f)
+                    {
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c0p3")
+            {
+                FadeOutBegins = 24.3f;
+                if (PanelTime < 9.5f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime < 14.7f)
+                    {
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c0p4")
+            {
+                FadeOutBegins = 24.3f;
+                if (PanelTime < 14.7f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime < FadeOutBegins)
+                    {
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+            
+            //CUTSCENE PAGE 2
+            if (cutsceneTag == "c1p1")
+            {
+                FadeOutBegins = 44.0f;
+                
+                if(PanelTime < 25.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                if (PanelTime > 25.0f && PanelTime < 34.0f)
+                {
+                    //CurrPanel = 1
+                    FadeIn(dt, FadeOutBegins);
+                }
+                else if (PanelTime >= FadeOutBegins)
+                {
+                    FadeOut(dt);
+                }
+            }
+
+            if (cutsceneTag == "c1p2")
+            {
+                FadeOutBegins = 44.0f;
+                if (PanelTime < 34.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime < 41.0f)
+                    {
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c1p3")
+            {
+                FadeOutBegins = 44.0f;
+                if (PanelTime < 41.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime < FadeOutBegins)
+                    {
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+               
 
             if (CutsceneIndex >= LastCutscene)
             {
@@ -149,7 +249,7 @@ namespace Object
             {
                 Colour = new Vector4(1, 1, 1, 1);
                 //Update the panel time
-                PanelTime += dt;
+                //PanelTime += dt;
                 Console.WriteLine("Panel1Time AFT2: " + PanelTime);
 
             }
@@ -157,7 +257,7 @@ namespace Object
             else if (PanelFadeInCounter < PanelFadeInTimer)
             {
                 //Console.WriteLine("Panel1Time: " + PanelTime);
-                PanelTime += dt; // Update the panel time
+                //PanelTime += dt; // Update the panel time
                 PanelFadeInCounter += dt;
 
                 // Calculate the exact color value based on elapsed time, scaled to the range 0 to 1
@@ -165,7 +265,7 @@ namespace Object
                 ColourValue = normalizeTime * normalizeTime;
                 ColourValue = Math.Min(ColourValue, 1.0f); // Ensure the value does not exceed 1
 
-                //Console.WriteLine("ColourValue: " + ColourValue);
+                Console.WriteLine("ColourValue: " + ColourValue);
                 Colour = new Vector4(1, 1, 1, ColourValue); // Update the colour with the new value
             }
         }
@@ -173,26 +273,25 @@ namespace Object
         void FadeOut(float dt)
         {
             //FADEOUT
-            if (CutsceneIndex == 0)
-            {
-                Console.WriteLine("Reached end of 23sec");
-                FadeOutTime += dt;
-                if (FadeOutTime <= FadeOutTimer)
-                {
-                    float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
-                    float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
-                    ColourValue = 1.0f - easeOut;
-                    ColourValue = Math.Max(ColourValue, 0.0f);
-                    Console.WriteLine("Colour Value: " + ColourValue);
-                    Colour = new Vector4(1, 1, 1, ColourValue);
-                }
-                //FINISH FADEOUT
-                else
-                {
-                    Colour = new Vector4(1, 1, 1, 0.0f);
 
-                }
+            Console.WriteLine("Reached end of 23sec");
+            FadeOutTime += dt;
+            if (FadeOutTime <= FadeOutTimer)
+            {
+                float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
+                float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
+                ColourValue = 1.0f - easeOut;
+                ColourValue = Math.Max(ColourValue, 0.0f);
+                Console.WriteLine("Colour Value: " + ColourValue);
+                Colour = new Vector4(1, 1, 1, ColourValue);
             }
+            //FINISH FADEOUT
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 0.0f);
+
+            }
+
         }
 
         /*  _________________________________________________________________________ */
