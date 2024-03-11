@@ -83,8 +83,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 151.39512634277344,
-                "posY": -37.000003814697266,
+                "posX": 158.52383422851563,
+                "posY": -37.0,
                 "rotation": -3.1415908336639404,
                 "dimX": 7.035999774932861,
                 "dimY": 32.0
@@ -101,8 +101,8 @@
                 "dimY": 32.0,
                 "rotation": -3.1415908336639404,
                 "mass": 10.0,
-                "posX": 151.39512634277344,
-                "posY": -37.000003814697266,
+                "posX": 158.52383422851563,
+                "posY": -37.0,
                 "lockRotate": true
             },
             "Script": {
@@ -110,7 +110,7 @@
                 "scriptTag": "Player",
                 "Dead": false,
                 "GodMode": false,
-                "IsFacingRight": false,
+                "IsFacingRight": true,
                 "JumpSpeed": 120.0,
                 "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
@@ -144,13 +144,13 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 151.39512634277344,
-                "posY": -27.99687957763672,
+                "posX": 158.52383422851563,
+                "posY": -27.996170043945313,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 50.0,
+                "scaleX": -50.0,
                 "scaleY": 50.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -159,9 +159,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -372.891357421875,
-                "posY": -45.503204345703125,
-                "rotation": 3.1415650844573975,
+                "posX": -372.8864440917969,
+                "posY": -45.50020980834961,
+                "rotation": 3.1415960788726807,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -175,10 +175,10 @@
             "RigidBody": {
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705,
-                "rotation": 3.141556739807129,
+                "rotation": 3.1415956020355225,
                 "mass": 1000.0,
-                "posX": -372.89129638671875,
-                "posY": -45.50400924682617,
+                "posX": -372.8864440917969,
+                "posY": -45.500267028808594,
                 "lockRotate": false
             },
             "Script": {
@@ -187,7 +187,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 1
+                "WoodAudioIncrement": 2
             },
             "Sprite": {
                 "r": 1.0,
@@ -202,12 +202,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -372.8799743652344,
-                "posY": -45.79646682739258,
+                "posX": -372.87506103515625,
+                "posY": -45.79347229003906,
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 179.99005126953125,
+                "rotZ": 179.99009704589844,
                 "scaleX": 14.99999713897705,
                 "scaleY": 14.99999713897705,
                 "scaleZ": 14.99976634979248,
@@ -413,9 +413,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -63.30842590332031,
-                "posY": -45.513484954833984,
-                "rotation": 3.1419944763183594,
+                "posX": -63.30263900756836,
+                "posY": -45.50091552734375,
+                "rotation": 3.1416237354278564,
                 "dimX": 14.999999046325684,
                 "dimY": 14.999999046325684
             },
@@ -429,10 +429,10 @@
             "RigidBody": {
                 "dimX": 14.999999046325684,
                 "dimY": 14.999999046325684,
-                "rotation": 3.1420962810516357,
+                "rotation": 3.141630172729492,
                 "mass": 1000.0,
-                "posX": -63.30918884277344,
-                "posY": -45.51686096191406,
+                "posX": -63.30268478393555,
+                "posY": -45.50114822387695,
                 "lockRotate": false
             },
             "Script": {
@@ -441,7 +441,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 1
+                "WoodAudioIncrement": 2
             },
             "Sprite": {
                 "r": 1.0,
@@ -456,12 +456,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -63.36375427246094,
-                "posY": -45.512935638427734,
+                "posX": -63.357967376708984,
+                "posY": -45.5003662109375,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 180.02076721191406,
+                "rotZ": 179.9990997314453,
                 "scaleX": 14.999999046325684,
                 "scaleY": 14.999999046325684,
                 "scaleZ": 15.0,
@@ -471,9 +471,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -79.88040161132813,
-                "posY": -45.50041961669922,
-                "rotation": -0.0000019303101908008102,
+                "posX": -79.88745880126953,
+                "posY": -45.54681396484375,
+                "rotation": 0.00040952605195343494,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -487,10 +487,10 @@
             "RigidBody": {
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705,
-                "rotation": -9.892989965010202e-7,
+                "rotation": 0.004161250311881304,
                 "mass": 1000.0,
-                "posX": -79.88040924072266,
-                "posY": -45.500526428222656,
+                "posX": -79.91548156738281,
+                "posY": -45.531272888183594,
                 "lockRotate": false
             },
             "Script": {
@@ -499,7 +499,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 1
+                "WoodAudioIncrement": 2
             },
             "Sprite": {
                 "r": 1.0,
@@ -514,12 +514,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -79.88038635253906,
-                "posY": -45.500328063964844,
+                "posX": -79.88744354248047,
+                "posY": -45.546722412109375,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": -0.00011019590601790696,
+                "rotZ": 0.02346453070640564,
                 "scaleX": 14.99999713897705,
                 "scaleY": 14.99999713897705,
                 "scaleZ": 14.99979019165039,
@@ -532,7 +532,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.12999999523162842,
                 "currState": 0
             },
@@ -648,9 +648,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -47.557289123535156,
-                "posY": -45.52995681762695,
-                "rotation": 1.5705336332321167,
+                "posX": -47.55584716796875,
+                "posY": -45.50204086303711,
+                "rotation": 1.5707824230194092,
                 "dimX": 15.000004768371582,
                 "dimY": 15.000004768371582
             },
@@ -664,10 +664,10 @@
             "RigidBody": {
                 "dimX": 15.000004768371582,
                 "dimY": 15.000004768371582,
-                "rotation": 1.5704692602157593,
+                "rotation": 1.5707775354385376,
                 "mass": 1000.0,
-                "posX": -47.55680847167969,
-                "posY": -45.53744888305664,
+                "posX": -47.555809020996094,
+                "posY": -45.50255584716797,
                 "lockRotate": false
             },
             "Script": {
@@ -676,7 +676,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 1
+                "WoodAudioIncrement": 2
             },
             "Sprite": {
                 "r": 1.0,
@@ -691,12 +691,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -47.55726623535156,
-                "posY": -45.82318115234375,
+                "posX": -47.555824279785156,
+                "posY": -45.795265197753906,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 89.98701477050781,
+                "rotZ": 90.00170135498047,
                 "scaleX": 15.000004768371582,
                 "scaleY": 15.000004768371582,
                 "scaleZ": 14.999604225158691,
@@ -807,7 +807,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 0.12999999523162842,
                 "currState": 0
             },
@@ -859,8 +859,8 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 186.0,
-                "posY": -46.00013732910156,
+                "posX": 186.00001525878906,
+                "posY": -46.0001335144043,
                 "rotation": -8.423759467746095e-9,
                 "dimX": 20.0,
                 "dimY": 14.0
@@ -877,8 +877,8 @@
                 "dimY": 14.0,
                 "rotation": -8.423759467746095e-9,
                 "mass": 1000.0,
-                "posX": 186.0,
-                "posY": -46.00013732910156,
+                "posX": 186.00001525878906,
+                "posY": -46.0001335144043,
                 "lockRotate": true
             },
             "Script": {
@@ -898,9 +898,9 @@
                 "Tag": "Anvil"
             },
             "Transform": {
-                "posX": 186.0,
-                "posY": -46.00013732910156,
-                "posZ": 0.0,
+                "posX": 186.00001525878906,
+                "posY": -46.0001335144043,
+                "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": -4.826458734896732e-7,
@@ -1107,11 +1107,60 @@
             }
         },
         {
+            "Collider": {
+                "collider": 0,
+                "posX": 1.0,
+                "posY": 81.0,
+                "rotation": 0.0,
+                "dimX": 900.0,
+                "dimY": 11.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Platform"
+            },
+            "RigidBody": {
+                "dimX": 900.0,
+                "dimY": 11.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 1.0,
+                "posY": 81.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Platform2"
+            },
+            "Transform": {
+                "posX": -301.0,
+                "posY": 81.0,
+                "posZ": -2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 900.0,
+                "scaleY": 11.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
             "Animation": {
                 "states": [
                     1709824160926932300
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1135,8 +1184,8 @@
                 "dimY": 6.0,
                 "rotation": 0.0,
                 "mass": 10.0,
-                "posX": -369.56134033203125,
-                "posY": -50.98908233642578,
+                "posX": 206.2043914794922,
+                "posY": 74.21968078613281,
                 "lockRotate": true
             },
             "Script": {
@@ -1145,10 +1194,10 @@
                 "Alive": false,
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
-                "CardUIID": 401,
-                "CardUIMaxScaleX": 0.0,
-                "CardUIMaxScaleY": 0.0,
-                "CardUIMaxScaleZ": 0.0,
+                "CardUIID": 30,
+                "CardUIMaxScaleX": 100.0,
+                "CardUIMaxScaleY": 100.0,
+                "CardUIMaxScaleZ": 1.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1215,7 +1264,7 @@
                 "states": [
                     1709742873940550100
                 ],
-                "currFrame": 4,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1242,13 +1291,13 @@
                 "Tag": "Arms"
             },
             "Transform": {
-                "posX": -374.4212341308594,
-                "posY": -22.353132247924805,
+                "posX": 213.50555419921875,
+                "posY": 0.9945759773254395,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 30.0,
+                "scaleX": -30.0,
                 "scaleY": 30.0,
                 "scaleZ": 1.0,
                 "elipse": false
@@ -2148,13 +2197,13 @@
                     1698954487533620100,
                     1706963288764716700
                 ],
-                "currFrame": 6,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
-                "currState": 0
+                "currState": 1
             },
             "Collider": {
                 "collider": 0,
-                "posX": 273.3062744140625,
+                "posX": 259.8121643066406,
                 "posY": -38.677459716796875,
                 "rotation": 0.00016242722631432116,
                 "dimX": 12.928000450134277,
@@ -2172,7 +2221,7 @@
                 "dimY": 28.64299964904785,
                 "rotation": 0.00016242722631432116,
                 "mass": 10.0,
-                "posX": 273.3062744140625,
+                "posX": 259.5013427734375,
                 "posY": -38.677459716796875,
                 "lockRotate": true
             },
@@ -2189,7 +2238,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 0.0,
+                "TimeInState": 0.31666672229766846,
                 "VisionHeightOffset": 15.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -2207,7 +2256,7 @@
                 "Tag": "Enemy"
             },
             "Transform": {
-                "posX": 270.3042297363281,
+                "posX": 256.81011962890625,
                 "posY": -32.677181243896484,
                 "posZ": 2.0,
                 "rotX": 0.0,
@@ -2229,9 +2278,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756896520626400
             },
@@ -2314,8 +2363,8 @@
                 "Tag": "PmQuit"
             },
             "Transform": {
-                "posX": 807.0,
-                "posY": 425.5,
+                "posX": 99999.0,
+                "posY": 99999.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2378,9 +2427,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1707116513468451400
             },
@@ -2427,7 +2476,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPSDisplay",
+                "text": "FPS: 39.29989",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2477,8 +2526,8 @@
                 "Tag": "Death"
             },
             "Transform": {
-                "posX": 151.39512634277344,
-                "posY": -27.997018814086914,
+                "posX": 158.52383422851563,
+                "posY": -27.996171951293945,
                 "posZ": 10.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2509,8 +2558,8 @@
                 "Tag": "Cursor"
             },
             "Transform": {
-                "posX": 842.0,
-                "posY": 505.0,
+                "posX": 23.125,
+                "posY": 877.64794921875,
                 "posZ": 4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2522,8 +2571,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
             }
         },
         {
@@ -2574,8 +2623,8 @@
                 "Tag": "PmResumeGame"
             },
             "Transform": {
-                "posX": 808.0,
-                "posY": 383.0,
+                "posX": 99999.0,
+                "posY": 99999.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

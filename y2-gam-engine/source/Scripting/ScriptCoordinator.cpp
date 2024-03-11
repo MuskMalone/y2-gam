@@ -236,7 +236,7 @@ namespace Image {
 		::gCoordinator->GetSystem<RenderSystem>()->SetTimeSlow(flag);
 		if (flag) {
 #ifndef _DEBUG
-			frameController1->ScaleDeltaTime(0.2f);
+			frameController1->ScaleDeltaTime(0.05f);
 #else
 			frameController1->ScaleDeltaTime(0.4f);
 #endif
