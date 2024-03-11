@@ -910,11 +910,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -386.5,
+                "posX": -420.0,
                 "posY": 10.5,
                 "rotation": 0.0,
-                "dimX": 30.0,
-                "dimY": 300.0
+                "dimX": 20.0,
+                "dimY": 200.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1101,7 +1101,7 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -350.0,
+                "posX": -372.0,
                 "posY": -130.0,
                 "rotation": 0.0,
                 "dimX": 40.0,
@@ -1135,7 +1135,7 @@
                 "Tag": "Spikes1"
             },
             "Transform": {
-                "posX": -350.0,
+                "posX": -375.0,
                 "posY": -130.0,
                 "posZ": -1.0,
                 "rotX": 0.0,
@@ -1143,6 +1143,100 @@
                 "rotZ": 0.0,
                 "scaleX": 40.0,
                 "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -450.0,
+                "posY": -35.0,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 15.0
+            },
+            "Layering": {
+                "layering": "Platform"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform1"
+            },
+            "Transform": {
+                "posX": -450.0,
+                "posY": -35.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -410.0,
+                "posY": -115.0,
+                "rotation": 0.0,
+                "dimX": 30.0,
+                "dimY": 45.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Scaffolding"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953119925065100
+            },
+            "Tag": {
+                "Tag": "ScaffoldingTall2"
+            },
+            "Transform": {
+                "posX": -410.0,
+                "posY": -115.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
+                "scaleY": 50.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

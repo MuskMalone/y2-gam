@@ -972,6 +972,14 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1710133079142956700": {
+            "id": 1710133079142995400,
+            "path": "../assets\\Textures\\tiles\\gam200_backstage_tile_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 163.0,
+            "dimY": 124.0
         }
     },
     "AnimationManager": {
