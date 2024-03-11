@@ -159,6 +159,241 @@
             "id": 1709866471908810700,
             "path": "../assets\\audio\\sfx\\Key_Collection.wav",
             "stream": false
+        },
+        "1710086576569535200": {
+            "id": 1710086576569943600,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_001.wav",
+            "stream": false
+        },
+        "1710086578050641400": {
+            "id": 1710086578050740900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_002.wav",
+            "stream": false
+        },
+        "1710086579458600400": {
+            "id": 1710086579458770400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_003.wav",
+            "stream": false
+        },
+        "1710086580752461100": {
+            "id": 1710086580752546000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_004.wav",
+            "stream": false
+        },
+        "1710086585383038700": {
+            "id": 1710086585383246000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_005.wav",
+            "stream": false
+        },
+        "1710086587585944400": {
+            "id": 1710086587586095400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_006.wav",
+            "stream": false
+        },
+        "1710086590239973600": {
+            "id": 1710086590240086000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_007.wav",
+            "stream": false
+        },
+        "1710086593000878000": {
+            "id": 1710086593000996000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_008.wav",
+            "stream": false
+        },
+        "1710086595346738600": {
+            "id": 1710086595346818700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_009.wav",
+            "stream": false
+        },
+        "1710086596507193300": {
+            "id": 1710086596507349300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_010.wav",
+            "stream": false
+        },
+        "1710086599123716000": {
+            "id": 1710086599123798800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_011.wav",
+            "stream": false
+        },
+        "1710086601272357600": {
+            "id": 1710086601272430500,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_012.wav",
+            "stream": false
+        },
+        "1710086606408704200": {
+            "id": 1710086606408781100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_013.wav",
+            "stream": false
+        },
+        "1710086609237167100": {
+            "id": 1710086609237258800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_014.wav",
+            "stream": false
+        },
+        "1710086612017884700": {
+            "id": 1710086612017983700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_015.wav",
+            "stream": false
+        },
+        "1710086615540015200": {
+            "id": 1710086615540357900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_016.wav",
+            "stream": false
+        },
+        "1710086616742751500": {
+            "id": 1710086616742868100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_017.wav",
+            "stream": false
+        },
+        "1710086618389016000": {
+            "id": 1710086618389188800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_018.wav",
+            "stream": false
+        },
+        "1710086619857545300": {
+            "id": 1710086619857733400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_019.wav",
+            "stream": false
+        },
+        "1710086621723719700": {
+            "id": 1710086621723975700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningFloorSteps\\PlayerRunningFloor_020.wav",
+            "stream": false
+        },
+        "1710087558401262800": {
+            "id": 1710087558401336700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_001.wav",
+            "stream": false
+        },
+        "1710087559916962300": {
+            "id": 1710087559917139300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_002.wav",
+            "stream": false
+        },
+        "1710087562304572000": {
+            "id": 1710087562304695200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_003.wav",
+            "stream": false
+        },
+        "1710087564407445300": {
+            "id": 1710087564407558500,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_004.wav",
+            "stream": false
+        },
+        "1710087565751238000": {
+            "id": 1710087565751313100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_005.wav",
+            "stream": false
+        },
+        "1710087569580171100": {
+            "id": 1710087569580251000,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_006.wav",
+            "stream": false
+        },
+        "1710087571578229100": {
+            "id": 1710087571578353600,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_007.wav",
+            "stream": false
+        },
+        "1710087573060123600": {
+            "id": 1710087573060206600,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_008.wav",
+            "stream": false
+        },
+        "1710087574693915900": {
+            "id": 1710087574694082900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_009.wav",
+            "stream": false
+        },
+        "1710087576062787300": {
+            "id": 1710087576062894300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_010.wav",
+            "stream": false
+        },
+        "1710087578595775100": {
+            "id": 1710087578595940800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_011.wav",
+            "stream": false
+        },
+        "1710087579841208100": {
+            "id": 1710087579841280500,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_012.wav",
+            "stream": false
+        },
+        "1710087581196518600": {
+            "id": 1710087581196661200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_013.wav",
+            "stream": false
+        },
+        "1710087582324160900": {
+            "id": 1710087582324245700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_014.wav",
+            "stream": false
+        },
+        "1710087583402103700": {
+            "id": 1710087583402245300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_015.wav",
+            "stream": false
+        },
+        "1710087585864384600": {
+            "id": 1710087585864556700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_016.wav",
+            "stream": false
+        },
+        "1710087587013903100": {
+            "id": 1710087587014046100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_017.wav",
+            "stream": false
+        },
+        "1710087588070690500": {
+            "id": 1710087588070786200,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_018.wav",
+            "stream": false
+        },
+        "1710087589333609200": {
+            "id": 1710087589333786700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_019.wav",
+            "stream": false
+        },
+        "1710087590289979900": {
+            "id": 1710087590290184400,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningScaffoldingSteps\\PlayerRunningScaffolding_020.wav",
+            "stream": false
+        },
+        "1710087852451373100": {
+            "id": 1710087852451540600,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_01.wav",
+            "stream": false
+        },
+        "1710087853920467000": {
+            "id": 1710087853920572800,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_02.wav",
+            "stream": false
+        },
+        "1710087855927025800": {
+            "id": 1710087855927101200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_03.wav",
+            "stream": false
+        },
+        "1710087857174337400": {
+            "id": 1710087857174415200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_04.wav",
+            "stream": false
+        },
+        "1710087859608692600": {
+            "id": 1710087859608813500,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_05.wav",
+            "stream": false
+        },
+        "1710087860900568000": {
+            "id": 1710087860900815200,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\PlayerDeath_FX_06.wav",
+            "stream": false
+        },
+        "1710088092545741000": {
+            "id": 1710088092545875400,
+            "path": "../assets\\audio\\sfx\\menu_click.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

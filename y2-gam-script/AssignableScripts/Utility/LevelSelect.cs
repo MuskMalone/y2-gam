@@ -23,6 +23,7 @@ namespace Object
     {
         public int CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
         public bool LoadingScreenActive = false;
+        bool isPlaying = false;
 
         /*  _________________________________________________________________________ */
         /*! LevelSelect
@@ -76,10 +77,16 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (GetCurrentScene() == "LevelSelect")
+            {
+                PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                isPlaying = true;
+            }
             AnimationState = CurrentAnimationIndex;
             if (CurrentAnimationIndex == (int)AnimationCodeLevelSelect.KINGLOAD ||
                 CurrentAnimationIndex == (int)AnimationCodeLevelSelect.ROBINLOAD)
             {
+                StopAudioWithFilename("PM_Menu_Music_Loop.wav");
                 PlayAudio("LevelTransition.wav", 0);
             }
         }
@@ -93,6 +100,7 @@ namespace Object
         */
         void OnExit()
         {
+            
             StopAudioWithFilename("LevelTransition.wav");
         }
     }

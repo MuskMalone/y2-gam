@@ -15,6 +15,7 @@
 /******************************************************************************/
 using Image;
 using System;
+using System.Diagnostics;
 //using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Object
@@ -22,8 +23,11 @@ namespace Object
     public class PmResumeGame : Entity
     {
         //bool firstTime = true;
-        public bool isRPaused = false;
+        //public bool isRPaused = false;
         private Vector2 temp_translation;
+        //PauseMenu2 pausemenu = GameplayWrapper.FindEntityByName("PauseMenu2").As<PauseMenu2>();
+        Player player;
+
         //private bool firstTime = true;
 
         /*  _________________________________________________________________________ */
@@ -62,6 +66,8 @@ namespace Object
         */
         void OnCreate()
         {
+            Colour = new Vector4(1, 1, 1, 1);
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
@@ -109,34 +115,35 @@ namespace Object
         {
             //if(UIClicked && firstTime)
 
-            if (!isRPaused)
+            if (!player.isPaused)
             {
-                Colour = new Vector4(1, 0, 1, 0);
+                Translation = new Vector2(99999, 99999);
+                //Colour = new Vector4(1, 0, 1, 0);
             }
             else
             {
-
-                Colour = new Vector4(1, 1, 1, 1);
+                Translation = temp_translation;
+                //Colour = new Vector4(1, 1, 1, 1);
+ 
             }
 
             if (UIClicked)
             {
-                Translation = temp_translation;
-                isRPaused = false;
+                Translation = new Vector2(99999, 99999);
+                player.ResumeGame();
             }
-
-            if(Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if(!isRPaused)
-                {
-                    Translation = new Vector2(1200, 381);
-                    isRPaused = true;
-                }
-                else
-                {
-                    isRPaused = false;
-                }
-            }
+            //if(Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if(!isRPaused)
+            //    {
+            //        Translation = new Vector2(1200, 381);
+            //        isRPaused = true;
+            //    }
+            //    else
+            //    {
+            //        isRPaused = false;
+            //    }
+            //}
             //if (!isPaused)
             //{
             //    Colour = new Vector4(1, 0, 1, 0);

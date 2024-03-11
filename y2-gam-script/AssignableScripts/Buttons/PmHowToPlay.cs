@@ -22,10 +22,11 @@ namespace Object
     public class PmHowToPlay : Entity
     {
         //bool firstTime = true;
-        private bool isPaused = false;
+        //private bool isPaused = false;
         private Vector2 temp_translation;
+        Player player;
 
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         /*  _________________________________________________________________________ */
         /*! PmHowToPlay
@@ -64,6 +65,7 @@ namespace Object
 
         void OnCreate()
         {
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
@@ -110,7 +112,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {       
-            if (!isPaused)
+            if (!player.isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
             }
@@ -127,29 +129,29 @@ namespace Object
                 }
             }
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
             //else
             //{
             //    isPaused = true;
             //}
 
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
-            }
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        PauseGame();
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
 
 
             //if (UIClicked)

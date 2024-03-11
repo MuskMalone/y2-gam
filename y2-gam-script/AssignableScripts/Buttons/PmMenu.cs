@@ -22,11 +22,11 @@ namespace Object
     public class PmMenu : Entity
     {
         //bool firstTime = true;
-        private bool isPaused = false;
+        //private bool isPaused = false;
         private Vector2 temp_translation;
         //private Vector2 temp_translation2;
-        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        Player player;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
         /*! PmMenu
 
@@ -63,6 +63,7 @@ namespace Object
         */
         void OnCreate()
         {
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
@@ -86,24 +87,24 @@ namespace Object
         //        //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
         //    }
         //}
-        void PauseGame()
-        {
-            //Colour = new Vector4(1, 1, 1, 1);
-            //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
-            //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
-            //temp_translation2 = new Vector2(player.Translation.X + 1200, 490);
+        //void PauseGame()
+        //{
+        //    //Colour = new Vector4(1, 1, 1, 1);
+        //    //GameplayWrapper.SpawnPrefab("Quit", new Vector2(1009, 497));
+        //    //GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(Translation.X + 259, Translation.Y - 96));
+        //    //temp_translation2 = new Vector2(player.Translation.X + 1200, 490);
 
-            //temp_translation2 = new Vector2(player.Translation.X + 1057, 482);
-            //Translation = temp_translation2;
-            Translation = new Vector2(1200, 469);
-        }
+        //    //temp_translation2 = new Vector2(player.Translation.X + 1057, 482);
+        //    //Translation = temp_translation2;
+        //    Translation = new Vector2(1200, 469);
+        //}
 
-        void ResumeGame()
-        {
-            //Colour = new Vector4(1, 0, 1, 0);
+        //void ResumeGame()
+        //{
+        //    //Colour = new Vector4(1, 0, 1, 0);
 
-            Translation = temp_translation;
-        }
+        //    Translation = temp_translation;
+        //}
         //void ResumeGame()
         //{
         //    Colour = new Vector4(1, 0, 1, 0);
@@ -120,7 +121,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
+            if (!player.isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
 
@@ -136,29 +137,29 @@ namespace Object
                 }
             }
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
             //else
             //{
             //    isPaused = true;
             //}
 
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
-            }
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        PauseGame();
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
 
 
             //if (UIClicked)

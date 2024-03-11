@@ -44,14 +44,16 @@ namespace Object
         public Vector2 colliderPosition;
 
         public bool KeyCollected = false;
+        private float footstepTimer = 0.0f;
+        private float footstepInterval = 0.4f;
 
         private Vector2 playerHead;
-        private bool isPaused = false;
+        public bool isPaused = false;
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
 
         bool resetAnimationState = true;
@@ -172,10 +174,10 @@ namespace Object
 
             IsFacingRight = isFacingRight;
             
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
             if (isPaused)
             {
@@ -187,13 +189,13 @@ namespace Object
             {
                 if (!isPaused)
                 {
-                    //PauseGame();
-                    isPaused = true;
+                    PauseGame();
+                    //isPaused = true;
                 }
                 else
                 {
-                    //ResumeGame();
-                    isPaused = false;
+                    ResumeGame();
+                    //isPaused = false;
                 }
             }
 
@@ -338,16 +340,30 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio(FootTrack, 0);
-                            ResumeAudioWithFilename(FootTrack);
+                            //PlayAudio(FootTrack, 0);
+                            //ResumeAudioWithFilename(FootTrack);
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayFloorFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
                             leftRayCast.layer == "Scaffolding" ||
                             rightRayCast.layer == "Scaffolding"))
                         {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            //PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            //ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayScaffoldingFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
                     }
 
@@ -359,16 +375,30 @@ namespace Object
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
-                            PlayAudio(FootTrack, 0);
-                            ResumeAudioWithFilename(FootTrack);
+                            //PlayAudio(FootTrack, 0);
+                            //ResumeAudioWithFilename(FootTrack);
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayFloorFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
 
                         else if (IsGrounded && (centreRayCast.layer == "Scaffolding" ||
                             leftRayCast.layer == "Scaffolding" ||
                             rightRayCast.layer == "Scaffolding"))
                         {
-                            PlayAudio("PlayerRunningScaffolding.wav", 0);
-                            ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            //PlayAudio("PlayerRunningScaffolding.wav", 0);
+                            //ResumeAudioWithFilename("PlayerRunningScaffolding.wav");
+                            footstepTimer += dt;
+
+                            if (footstepTimer >= footstepInterval)
+                            {
+                                PlayScaffoldingFootstep();
+                                footstepTimer = 0.0f;
+                            }
                         }
                     }
 
@@ -392,8 +422,7 @@ namespace Object
 
                     if (firstTime)
                     {
-                        Friction = OriginalFriction;
-                        PlayAudio("PlayerDeath_" + DeathAudioIncrement + ".wav", 0);
+                        PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0);
                     }
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
@@ -518,5 +547,63 @@ namespace Object
         {
             Translation += new Vector2(0, -MovementSpeed) * dt;
         }
+
+        public void PauseGame()
+        {
+            isPaused = true;
+        }
+
+        public void ResumeGame()
+        {
+            isPaused = false;
+        }
+
+        private void PlayFloorFootstep()
+        {
+
+            Console.WriteLine("Movement played");
+            string[] footstepSounds = new string[]
+            {
+                "PlayerRunningFloor_001.wav", "PlayerRunningFloor_002.wav", "PlayerRunningFloor_003.wav","PlayerRunningFloor_004.wav","PlayerRunningFloor_005.wav",
+                "PlayerRunningFloor_006.wav","PlayerRunningFloor_007.wav","PlayerRunningFloor_008.wav","PlayerRunningFloor_009.wav","PlayerRunningFloor_010.wav",
+                "PlayerRunningFloor_011.wav","PlayerRunningFloor_012.wav","PlayerRunningFloor_013.wav","PlayerRunningFloor_014.wav", "PlayerRunningFloor_015.wav",
+                "PlayerRunningFloor_016.wav","PlayerRunningFloor_017.wav","PlayerRunningFloor_018.wav","PlayerRunningFloor_019.wav","PlayerRunningFloor_020.wav",
+            };
+
+
+            Random random = new Random();
+            int randomIndex = random.Next(0, footstepSounds.Length);
+            string footstepSound = footstepSounds[randomIndex];
+
+            Console.WriteLine($"{footstepSound}");
+
+            PlayAudio(footstepSound, 0);
+            SetAudioFileVolume(footstepSound, 0.6f);
+            ResumeAudioWithFilename(footstepSound);
+        }
+
+        private void PlayScaffoldingFootstep()
+        {
+            Console.WriteLine("Scaffolding played");
+            string[] footstepSounds = new string[]
+            {
+                "PlayerRunningScaffolding_001.wav", "PlayerRunningScaffolding_002.wav", "PlayerRunningScaffolding_003.wav","PlayerRunningScaffolding_004.wav","PlayerRunningScaffolding_005.wav",
+                "PlayerRunningScaffolding_006.wav","PlayerRunningScaffolding_007.wav","PlayerRunningScaffolding_008.wav","PlayerRunningScaffolding_009.wav","PlayerRunningScaffolding_010.wav",
+                "PlayerRunningScaffolding_011.wav","PlayerRunningScaffolding_012.wav","PlayerRunningScaffolding_013.wav","PlayerRunningScaffolding_014.wav", "PlayerRunningScaffolding_015.wav",
+                "PlayerRunningScaffolding_016.wav","PlayerRunningScaffolding_017.wav","PlayerRunningScaffolding_018.wav","PlayerRunningScaffolding_019.wav","PlayerRunningScaffolding_020.wav",
+            };
+
+            Random random = new Random();
+            int randomIndex = random.Next(0, footstepSounds.Length);
+            string footstepSound = footstepSounds[randomIndex];
+
+            Console.WriteLine($"{footstepSound}");
+
+            PlayAudio(footstepSound, 0);
+            ResumeAudioWithFilename(footstepSound);
+        }
+
     }
+
+
 }

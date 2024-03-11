@@ -78,6 +78,7 @@ namespace Object
         {
             //if (Input.IsKeyClicked(KeyCode.KEY_Q))
             //{
+
             if(UIClicked)
             {
                 LoadScene("Level1");
