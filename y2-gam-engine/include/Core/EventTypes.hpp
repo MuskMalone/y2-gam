@@ -72,7 +72,12 @@ namespace Events::System {
 	const EventId SCENE = "Events::System::SCENE"_hash;
 }
 namespace Events::System::Scene {
+	const EventId TRANSITION = "Events::System::Scene::TRANSITION"_hash;
+}
 
+namespace Events::System::Scene::Transition {
+	const ParamId FROM_SCENE = "Events::System::Scene::Transition::FROM_SCENE"_hash;
+	const ParamId TO_SCENE = "Events::System::Scene::Transition::TO_SCENE"_hash;
 }
 namespace Events::System::Entity {
 
