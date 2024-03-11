@@ -186,7 +186,8 @@ namespace Image {
     }
 
     for (const char* str : sAssignableScriptNames) {
-      free((void*)str); // Free the duplicated strings
+      if (strcmp(str, "No Script Assigned") != 0)
+        free((void*)str); // Free the duplicated strings
     }
     sAssignableScriptNames.clear(); // Clear the vector
 
@@ -390,6 +391,7 @@ namespace Image {
         sAssignableScriptNames.push_back(_strdup(combinedName.c_str()));
       }
     }
+    sAssignableScriptNames.push_back("No Script Assigned");
   }
 
   /*  _________________________________________________________________________ */

@@ -16,6 +16,7 @@
 #include "../include/pch.hpp"
 #include "Audio/Sound.hpp"
 #include <Windows.h>
+#include <algorithm>
 
 #include "Systems/TextSystem.hpp"
 #include "Systems/RenderSystem.hpp"
@@ -707,6 +708,29 @@ namespace Image {
   }
 
   /*  _________________________________________________________________________ */
+  /*! AudioSetFileVolume
+
+  @param filename
+  The name of the audio file.
+
+  @param volume
+  The volume to set to.
+  The range is from 0 to 1, where 0 represents 0% and 1 represents 100%.
+
+  @return none.
+
+  Sets the volume of the channel.
+  */
+  void SoundManager::AudioSetFileVolume(std::string filename, float volume) {
+    for (AudioInformation const& ai : AudioPlaying) {
+      if (ai.audioName == filename) {
+        ai.audioChannel->setVolume(volume);
+        break;
+      }
+    }
+  }
+
+  /*  _________________________________________________________________________ */
   /*! AudioSetGroupPitch
 
   @param group
@@ -898,14 +922,19 @@ namespace Image {
   Calculates the distance to the player from the audio-playing object.
   */
   float SoundManager::CalculateDistanceToPlayer(Vec2 objectPosition) {
-    Transform const& playerTransform { 
-      ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer) 
-    };
-    glm::vec3 playerPosition{ playerTransform.position };
-    float distanceToPlayer = sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
-      std::pow(objectPosition.y - playerPosition.y, 2));
+    if (::gCoordinator->GetSystem<RenderSystem>()->mPlayer != NULL && 
+      ::gCoordinator->HasComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)) {
+      Transform const& playerTransform{
+  ::gCoordinator->GetComponent<Transform>(::gCoordinator->GetSystem<RenderSystem>()->mPlayer)
+      };
+      glm::vec3 playerPosition{ playerTransform.position };
+      float distanceToPlayer = static_cast<float>(sqrt(std::pow(objectPosition.x - playerPosition.x, 2) +
+        std::pow(objectPosition.y - playerPosition.y, 2)));
 
-    return distanceToPlayer;
+      return distanceToPlayer;
+    }
+
+    return 0;
   }
 
   /*  _________________________________________________________________________ */

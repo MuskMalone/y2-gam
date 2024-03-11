@@ -81,6 +81,7 @@ namespace Object
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && player.KeyCollected && !isUnlocked)
             {
                 Console.WriteLine("Door Unlocked");
+                AnimationState = (int)AnimationCodeDoor.OPEN;
                 player.KeyCollected = false;
                 isUnlocked = true;
                 Collider = new Vector2(Collider.X, Collider.Y - doorColliderYOffset);

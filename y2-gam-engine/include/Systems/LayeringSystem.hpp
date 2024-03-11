@@ -18,7 +18,7 @@
 
 #include "Core/System.hpp"
 
-constexpr size_t MAX_USER_DEFINED_LAYERS = 10;
+constexpr size_t MAX_USER_DEFINED_LAYERS = 12;
 constexpr size_t MAX_BUILTIN_LAYERS = 1;
 constexpr size_t MAX_LAYERS = MAX_USER_DEFINED_LAYERS + MAX_BUILTIN_LAYERS;
 constexpr float SAME_LINE_SPACING = 125.f;

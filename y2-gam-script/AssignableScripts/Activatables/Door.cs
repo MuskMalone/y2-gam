@@ -21,10 +21,10 @@ namespace Object
 {
     public class Door : Entity
     {
-        public string buttonTag;
+        public String buttonTag;
         private bool previousButtonState;
-        Button button ;
-        private float doorColliderYOffset = 300.0f;
+        Button button;
+        private float doorColliderYOffset = 3000.0f;
 
         /*  _________________________________________________________________________ */
         /*! Door
@@ -83,6 +83,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+
             if (button.isPressed == true && !previousButtonState)
             {
                 PlayAudio("door_open.wav", 0);

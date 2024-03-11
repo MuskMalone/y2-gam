@@ -63,6 +63,11 @@ public class EnemyIdleState : EnemyBaseState
                 //enemy.SwitchState(enemy.ChaseState);
             //}
         }
+
+        if (PhysicsWrapper.IsCollidedEntity(enemy.entityID, enemy.player.entityID))
+        {
+            enemy.player.Dead = true;
+        }
     }
 
     public override void EnterOnCollision(BasicEnemy enemy)

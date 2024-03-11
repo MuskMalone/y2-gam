@@ -36,9 +36,14 @@ namespace Object
         public Vector3 CardUIMaxScale;
 
         private bool firstTime = true;
+        public float CardReleaseDelay;
+        public float CardReleaseTime = 0.0f;
+        private bool StartDelay = false;
 
         private uint HoveredID;
         private bool _isHovered;
+
+        private Vector2 PositionToFire;
         public bool Hovering
         {
             get { return _isHovered; }
@@ -163,6 +168,11 @@ namespace Object
             {
                 if (Alive)
                 {
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+                    {
+                        PlayAudio("out_of_cards.wav", 0);
+                    }
+
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;
@@ -174,35 +184,31 @@ namespace Object
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.X),
                         (float)ScaleToRange(timeAlive, 0, MAX_TIME_ALIVE, 0, CardUIMaxScale.Y), 1));
 
-                    if ((timeAlive >= MAX_TIME_ALIVE))
+                    if ((timeAlive >= MAX_TIME_ALIVE) || PhysicsWrapper.IsCollidedWithAnything(entityID))
                     {
                         ResetCardPos();
                         ResetCardUI();
                         return;
                     }
 
-                    /*
-                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
-                    {
-                        PlayAudio("out_of_cards.wav", 0);
-                    }
-                    */
-
                     // Swap Related
                     if(Input.IsKeyClicked(KeyCode.KEY_Q))
                     {
-                        timeAlive = 0.0f;
-                        ResetCardUI();
-                        GameplayWrapper.Swap(entityID, player.entityID);
-                        player.PlayAppearAnimation = true;
-                        CardSwapAudioCounter++;
-                        if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                        if (!PhysicsWrapper.IsIntersectedWithLayer(entityID, "NoSwap"))
                         {
-                            CardSwapAudioCounter = 0;
-                        }
-                        PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                            timeAlive = 0.0f;
+                            ResetCardUI();
+                            GameplayWrapper.Swap(entityID, player.entityID);
+                            player.PlayAppearAnimation = true;
+                            CardSwapAudioCounter++;
+                            if (CardSwapAudioCounter >= MAX_AUDIO_FILES)
+                            {
+                                CardSwapAudioCounter = 0;
+                            }
+                            PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
 
-                        ResetCardPos();
+                            ResetCardPos();
+                        }
                     }
 
                     if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_LEFT))
@@ -277,9 +283,22 @@ namespace Object
 
                 else
                 {
-                    if (Input.IsMousePressed(KeyCode.MOUSE_BUTTON_RIGHT))
+                    if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT) && !StartDelay)
                     {
-                        FireCard();
+                        StartDelay = true;
+                        PositionToFire = MousePos;
+                    }
+
+                    if (StartDelay)
+                    {
+                        CardReleaseTime += dt;
+
+                        if (CardReleaseTime >= CardReleaseDelay)
+                        {
+                            CardReleaseTime = 0;
+                            StartDelay = false;
+                            FireCard(PositionToFire);
+                        }
                     }
                 }
             }
@@ -297,35 +316,18 @@ namespace Object
 
         }
 
-        //void PauseGame()
-        //{
-        //    //temp_Force = Force;
-        //    //temp_pos = Translation;
-        //    //temp_velocity = Velocity;
-        //    //Force = new Vector2(0, 0);
-        //    //Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-        //    //Velocity = new Vector2(0, 0);
-        //}
-
-        //void ResumeGame()
-        //{
-        //    //Force = temp_Force * temp_dt;
-        //    //Translation = temp_pos;
-        //    //Velocity = temp_velocity * temp_dt;
-        //    //AnimationState = temp_AnimationState;
-        //}
         void ResetColour(uint id)
         {
             SetEntityColour(id, new Vector4(1, 1, 1, 1));
         }
 
-        void ResetCardUI()
+        public void ResetCardUI()
         {
             SetEntityColour(CardUIID, new Vector4(1, 1, 1, 1));
             SetScaleFromEntity(CardUIID, new Vector3(CardUIMaxScale.X, CardUIMaxScale.Y, 1));
         }
 
-        void ResetCardPos()
+        public void ResetCardPos()
         {
             Alive = false;
             Velocity = new Vector2(0, 0);         
@@ -335,11 +337,11 @@ namespace Object
             timeAlive = 0.0f; 
         }
 
-        void FireCard()
+        void FireCard(Vector2 mousePos)
         {
             Translation = GameplayWrapper.PlayerPos;
             Collider = GameplayWrapper.PlayerPos;
-            direction = MousePos - GameplayWrapper.PlayerPos;
+            direction = mousePos - GameplayWrapper.PlayerPos;
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
@@ -351,6 +353,11 @@ namespace Object
             }
             PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0);
         }
+
+        //bool CardInNoSwap()
+        //{
+            //return PhysicsWrapper.IsCollidedWithLayer(entityID, "NoSwap");
+        //}
 
         static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)
         {

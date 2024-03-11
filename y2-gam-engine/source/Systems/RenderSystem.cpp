@@ -44,11 +44,16 @@
 #include <Graphics/AnimationManager.hpp>
 #include <Engine/SceneManager.hpp>
 
+
 // Static Initialization
 std::vector<std::pair<std::pair<Vec2, Vec2>, glm::vec4>> RenderSystem::mRays;
 
-const float growthRate{3.5f};
-const float maxRadius{2.5f};
+namespace TimeSlowEffect{
+	const float growthRate{ 3.5f };
+	const float maxRadius{ 3.f };
+	const float duration {0.5f };
+	float progress{};
+}
 
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator;
@@ -255,7 +260,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 			return lhs.transform->position.z < rhs.transform->position.z;
 		});
 
-	//quick patch TODO REFACTOR CAMERA
 	bool playerFound{ false };
 	bool cameraFound{ false };
 	Entity camSettings{};
@@ -377,18 +381,15 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	playerScreenPos /= playerScreenPos.w;
 	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
 
-	if (mIsTimeSlow) {
-		mRadius += growthRate * 2.f * dt;
-	}
-	else {
-		mRadius -= growthRate * dt;
-	}
-	mRadius = std::max(0.f, std::min(maxRadius, mRadius));
+	UpdateRadius(dt);
 
-	float time = glfwGetTime();
+	float time = static_cast<float>(glfwGetTime());
 	std::vector<UniformData> uniforms;
 	uniforms.push_back(UniformData{ "time", UniformData::Type::FLOAT , time });
-	glm::vec2 res {mFramebuffers[3]->GetFramebufferProps().width, mFramebuffers[3]->GetFramebufferProps().height};
+	int width, height;
+	glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
+	glm::vec2 res {width, height};
+	//glm::vec2 res {mFramebuffers[3]->GetFramebufferProps().width, mFramebuffers[3]->GetFramebufferProps().height};
 	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
@@ -656,5 +657,20 @@ void RenderSystem::SetSceneCameraZoom(float zoom) {
 			break;
 		}
 
+	}
+}
+
+void RenderSystem::UpdateRadius(float dt) {
+	float changeRate = TimeSlowEffect::maxRadius / TimeSlowEffect::duration;
+
+	if (mIsTimeSlow) {
+		// Linearly increase the radius until it reaches maxRadius
+		mRadius += changeRate * dt;
+		mRadius = std::min(mRadius, TimeSlowEffect::maxRadius);
+	}
+	else {
+		// Linearly decrease the radius until it reaches 0
+		mRadius -= changeRate * dt;
+		mRadius = std::max(mRadius, 0.0f);
 	}
 }

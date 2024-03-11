@@ -211,7 +211,8 @@ namespace Image {
 			glm::vec2 lhsOffset{ glm::vec2(lhsTransform.x - lhsCollider.x, lhsTransform.y - lhsCollider.y) };
 			glm::vec2 rhsOffset{ glm::vec2(rhsTransform.x - rhsCollider.x, rhsTransform.y - rhsCollider.y) };
 
-			std::swap(lhsTransform, rhsTransform);
+			std::swap(lhsTransform.x, rhsTransform.x);
+			std::swap(lhsTransform.y, rhsTransform.y);
 			std::swap(lhsCollider, rhsCollider);
 
 			lhsCollider = Vec2(lhsCollider.x - lhsOffset.x, lhsCollider.y - lhsOffset.y);
@@ -233,7 +234,11 @@ namespace Image {
 		auto frameController1{ FrameRateController::GetInstance() };
 		::gCoordinator->GetSystem<RenderSystem>()->SetTimeSlow(flag);
 		if (flag) {
+#ifndef _DEBUG
+			frameController1->ScaleDeltaTime(0.2f);
+#else
 			frameController1->ScaleDeltaTime(0.4f);
+#endif
 		}
 		else {
 			frameController1->ScaleDeltaTime(0.f);
@@ -393,6 +398,34 @@ namespace Image {
 		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
 			SoundManager::AudioPlayPositional(utf8Str, loopCount, pos);
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_SetAudioFileVolume
+
+	@param audioFileName
+	Name of audio file.
+
+	@param volume
+	Volume to set.
+
+	@return none.
+
+	Sets the audio volume for a particular file.
+	*/
+	static void EngineCore_SetAudioFileVolume(MonoString* audioFileName, float& volume) {
+		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
+		if (utf8Str != nullptr) {
+			SoundManager::AudioSetFileVolume(utf8Str, volume);
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -701,8 +734,7 @@ namespace Image {
 
 	@return none.
 
-	Get the collided information in C#. Wraps the raycast function in CPP for
-	calling in C#.
+	Get the collided information in C#.
 	*/
 	static void PhysicsComponent_CollidedEntity(uint32_t& lhsEntityID, uint32_t& rhsEntityID, bool& collidedOrNot) {
 		bool isCollided{ Physics::IsCollided(lhsEntityID, rhsEntityID) };
@@ -716,13 +748,40 @@ namespace Image {
 
 	@return none.
 
-	Get the collided information in C#. Wraps the raycast function in CPP for
-	calling in C#.
+	Get the collided information in C#.
 	*/
 	static void PhysicsComponent_CollidedLayer(uint32_t& entityID, MonoString* layer, bool& collidedOrNot) {
 		const char* utf8Str = (layer != nullptr) ? mono_string_to_utf8(layer) : nullptr;
 		if (utf8Str != nullptr) {
 			auto vec{ Physics::IsCollided(entityID) };
+			for (Arbiter const& arb : vec) {
+				if (gCoordinator->HasComponent<Layering>(arb.b2)) {
+					if (gCoordinator->GetComponent<Layering>(arb.b2).assignedLayer == utf8Str) {
+						collidedOrNot = true;
+						mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+						return;
+					}
+				}
+			}
+
+			collidedOrNot = false;
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! PhysicsComponent_IntersectedLayer
+
+	@param
+
+	@return none.
+
+	Get the intersected information in C#.
+	*/
+	static void PhysicsComponent_IntersectedLayer(uint32_t& entityID, MonoString* layer, bool& collidedOrNot) {
+		const char* utf8Str = (layer != nullptr) ? mono_string_to_utf8(layer) : nullptr;
+		if (utf8Str != nullptr) {
+			auto vec{ Physics::IsIntersected(entityID) };
 			for (Arbiter const& arb : vec) {
 				if (gCoordinator->HasComponent<Layering>(arb.b2)) {
 					if (gCoordinator->GetComponent<Layering>(arb.b2).assignedLayer == utf8Str) {
@@ -1356,6 +1415,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioFileVolume);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);
@@ -1376,6 +1436,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_Collided);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedEntity);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_CollidedLayer);
+		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_IntersectedLayer);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_SetColliderDimensions);
 		IMAGE_ADD_INTERNAL_CALL(PhysicsComponent_GetColliderPos);

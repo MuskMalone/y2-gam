@@ -47,6 +47,11 @@ public class EnemyPatrolState : EnemyBaseState
             }         
         }
 
+        if (PhysicsWrapper.IsCollidedEntity(enemy.entityID, enemy.player.entityID))
+        {
+            enemy.player.Dead = true;
+        }
+
         if (losRayCast.layer == "Scaffolding" || losRayCast.layer == "Platform")
         {
             enemy.SwitchState(enemy.IdleState);

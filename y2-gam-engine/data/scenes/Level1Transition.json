@@ -175,8 +175,8 @@
                 "posX": 99999.0,
                 "posY": 99999.0,
                 "rotation": 0.0,
-                "dimX": 8.0,
-                "dimY": 8.0
+                "dimX": 6.0,
+                "dimY": 6.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -198,11 +198,13 @@
                 "scriptName": "ObjectCard",
                 "scriptTag": "Card",
                 "Alive": false,
+                "CardReleaseDelay": 0.30000001192092896,
+                "CardReleaseTime": 0.0,
                 "CardUIID": 248,
                 "CardUIMaxScaleX": 0.0,
                 "CardUIMaxScaleY": 0.0,
                 "CardUIMaxScaleZ": 0.0,
-                "MAX_TIME_ALIVE": 2.0,
+                "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
             },
@@ -220,12 +222,12 @@
             "Transform": {
                 "posX": 99999.0,
                 "posY": 99999.0,
-                "posZ": -1.0,
+                "posZ": 5.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 29.14299964904785,
-                "scaleY": 36.2140007019043,
+                "scaleX": 17.0,
+                "scaleY": 23.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -544,7 +546,7 @@
         },
         {
             "Layering": {
-                "layering": "UI"
+                "layering": "FPS"
             },
             "Script": {
                 "scriptName": "ObjectFPSDisplay",
@@ -616,7 +618,7 @@
             "Transform": {
                 "posX": -592.6824340820313,
                 "posY": -114.50003051757813,
-                "posZ": 1.0,
+                "posZ": 10.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": -0.8999999761581421,

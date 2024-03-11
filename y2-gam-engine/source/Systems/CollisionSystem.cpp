@@ -815,42 +815,42 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
     }
 
     bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2) {
-        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
-            auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
-                return a.b2 == e2;
-            }) };
-            if (it == mCollidedEntities[e1].end()) return false;
-        }
-        else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
-            auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
-                return a.b2 == e1;
-            }) };
-            if (it == mCollidedEntities[e2].end()) return false;
-        }
-        else return false;
-        return true;
+      if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
+        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+            return a.b2 == e2;
+        }) };
+        if (it == mCollidedEntities[e1].end()) return false;
+      }
+      else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
+        auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
+            return a.b2 == e1;
+        }) };
+        if (it == mCollidedEntities[e2].end()) return false;
+      }
+      else return false;
+      return true;
     }
     bool CollisionSystem::IsIntersected(Entity const& e1, Entity const& e2, Arbiter& a) {
-        if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
-            auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
-                return a.b2 == e2;
-            }) };
-            if (it == mCollidedEntities[e1].end()) return false;
-            a = *it;
-        }
-        else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
-            auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
-                return a.b2 == e1;
-            }) };
-            if (it == mCollidedEntities[e2].end()) return false;
-            a = *it;
-        }
-        else return false;
-        return true;
+      if (mCollidedEntities.find(e1) != mCollidedEntities.end()) {
+        auto it{ std::find_if(mCollidedEntities[e1].begin(), mCollidedEntities[e1].end(), [e2](Arbiter const& a) {
+            return a.b2 == e2;
+        }) };
+        if (it == mCollidedEntities[e1].end()) return false;
+        a = *it;
+      }
+      else if (mCollidedEntities.find(e2) != mCollidedEntities.end()) {
+        auto it{ std::find_if(mCollidedEntities[e2].begin(), mCollidedEntities[e2].end(), [e1](Arbiter const& a) {
+            return a.b2 == e1;
+        }) };
+        if (it == mCollidedEntities[e2].end()) return false;
+        a = *it;
+      }
+      else return false;
+      return true;
     }
 
     ArbiterVec CollisionSystem::IsIntersected(Entity const& e1) {
-        if (mCollidedEntities.find(e1) == mCollidedEntities.end()) return ArbiterVec{};
-        return mCollidedEntities[e1];
+      if (mCollidedEntities.find(e1) == mCollidedEntities.end()) return ArbiterVec{};
+      return mCollidedEntities[e1];
     }
 }

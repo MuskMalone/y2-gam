@@ -73,7 +73,6 @@ namespace Image
         internal extern static void EngineCore_GetMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-
         internal extern static void EngineCore_GetUIMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -82,6 +81,9 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayPositionalAudio(String audioFileName, ref int loopCount,
             ref Vector2 audioPos);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_SetAudioFileVolume(String audioFileName, ref float volume);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();
@@ -138,6 +140,10 @@ namespace Image
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_CollidedLayer(ref uint entityHandle, String layer,
             ref bool collidedOrNot);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void PhysicsComponent_IntersectedLayer(ref uint entityHandle, String layer,
+    ref bool collidedOrNot);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void PhysicsComponent_GetColliderDimensions(ref uint entityHandle, ref Vector2 dim);
