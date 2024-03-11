@@ -5,7 +5,7 @@ namespace Object
 {
     public class Settings : Entity
     {
-        //bool firstTime = true;
+        bool firstTime = true;
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -57,11 +57,13 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            //if (UIClicked && firstTime)
-            //{
-            //    QuitGame();
-            //    firstTime = false;
-            //}
+            if (UIClicked && firstTime)
+            {
+                PlayAudio("menu_click.wav", 0);
+                StopAudio();
+                //QuitGame();
+                firstTime = false;
+            }
 
             if (UIHover)
             {

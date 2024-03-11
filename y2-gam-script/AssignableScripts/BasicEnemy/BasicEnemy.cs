@@ -33,6 +33,8 @@ namespace Object
         public bool EnemyDeath = false;
         public float EnemyDeathTimer = 0;
         public float HowLongDisplayEnemyDeath;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 7;
 
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
@@ -206,7 +208,13 @@ namespace Object
                 {
                     EnemyDeathTimer += dt;
                     AnimationState = (int)AnimationCodeEnemy.DEAD;
+                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0);
+                    DeathAudioIncrement++;
 
+                    if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+                    {
+                        DeathAudioIncrement = 1;
+                    }
                     if (EnemyDeathTimer >= HowLongDisplayEnemyDeath)
                     {
                         EnemyDeath = false;
