@@ -572,6 +572,7 @@ namespace Object
 
         public void PauseGame()
         {
+            InternalCalls.EngineCore_SetPrevSceneVar(GetCurrentScene());
             isPaused = true;
         }
 

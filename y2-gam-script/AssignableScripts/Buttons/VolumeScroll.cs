@@ -23,8 +23,8 @@ namespace Object
 
         void OnCreate()
         {
-            // Start at 50%
-            Translation = new Vector2(LowerXBound + (UpperXBound - LowerXBound) / 2.0f, YBound);
+            Translation = new Vector2(Easing.Remap(InternalCalls.EngineCore_GetAudioGroupVolume(MusicType), 
+                0.0f, 1.0f, LowerXBound, UpperXBound), YBound);
         }
 
         void OnUpdate(float dt)

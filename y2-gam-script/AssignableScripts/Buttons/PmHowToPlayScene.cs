@@ -81,7 +81,7 @@ namespace Object
 
             if(UIClicked)
             {
-                LoadScene("Level1");
+                LoadScene(InternalCalls.EngineCore_GetPrevSceneVar());
             }
             //}
         }

@@ -33,7 +33,7 @@
                     1706897385432403900,
                     1706900374940601200
                 ],
-                "currFrame": 4,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -51,7 +51,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -592.6824340820313,
+                "posX": -425.3616027832031,
                 "posY": -123.50001525878906,
                 "rotation": -3.1415908336639404,
                 "dimX": 7.035999774932861,
@@ -69,7 +69,7 @@
                 "dimY": 32.0,
                 "rotation": -3.1415908336639404,
                 "mass": 10.0,
-                "posX": -592.6824340820313,
+                "posX": -425.3616027832031,
                 "posY": -123.50001525878906,
                 "lockRotate": true
             },
@@ -95,7 +95,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": -591.5,
                 "colliderPositionY": -123.5,
-                "isPaused": false,
+                "isPaused": true,
                 "spawnPositionX": -592.5,
                 "spawnPositionY": -114.5
             },
@@ -112,7 +112,7 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": -592.6824340820313,
+                "posX": -425.3616027832031,
                 "posY": -114.50003051757813,
                 "posZ": 2.0,
                 "rotX": 0.0,
@@ -163,10 +163,10 @@
                 "Alive": false,
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
-                "CardUIID": 248,
-                "CardUIMaxScaleX": 0.0,
-                "CardUIMaxScaleY": 0.0,
-                "CardUIMaxScaleZ": 0.0,
+                "CardUIID": 543,
+                "CardUIMaxScaleX": 100.0,
+                "CardUIMaxScaleY": 100.0,
+                "CardUIMaxScaleZ": 1.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -343,7 +343,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPSDisplay",
+                "text": "FPS: 127.7846",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -393,7 +393,7 @@
                 "Tag": "Death"
             },
             "Transform": {
-                "posX": -592.6824340820313,
+                "posX": -425.3616027832031,
                 "posY": -114.50003051757813,
                 "posZ": 10.0,
                 "rotX": 0.0,
@@ -728,8 +728,8 @@
                 "Tag": "Cursor"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 810.9999389648438,
+                "posY": 507.0,
                 "posZ": 5.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -741,8 +741,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
             }
         },
         {
@@ -815,8 +815,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
             }
         },
         {
@@ -890,8 +890,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
             }
         },
         {
@@ -966,6 +966,43 @@
                 "enabled": true,
                 "isClicked": false,
                 "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmSettings",
+                "scriptTag": "Settings"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Settings"
+            },
+            "Transform": {
+                "posX": 806.2659912109375,
+                "posY": 508.2430114746094,
+                "posZ": 4.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 150.0,
+                "scaleY": 34.39099884033203,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": true,
+                "isHover": true
             }
         }
     ]

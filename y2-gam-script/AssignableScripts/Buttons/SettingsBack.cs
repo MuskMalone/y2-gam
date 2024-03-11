@@ -33,7 +33,7 @@ namespace Object
 
             if (UIClicked)
             {
-                LoadScene("MainMenu");
+                LoadScene(InternalCalls.EngineCore_GetPrevSceneVar());
             }
         }
 
