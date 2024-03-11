@@ -322,7 +322,7 @@ void LightingSystem::Draw(unsigned int tex) {
 
     //draw the full-screen quad
     // glDrawElements(GL_TRIANGLES, (vertices.size() - 2) * MAX_VERTICES, GL_UNSIGNED_INT, nullptr);
-    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    //glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     mLightVertexArray->Unbind();
     glBindTexture(GL_TEXTURE_2D, 0);
     mLightRenderShader->Unuse();
