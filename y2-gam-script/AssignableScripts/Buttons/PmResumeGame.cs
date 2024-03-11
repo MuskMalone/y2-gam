@@ -66,6 +66,7 @@ namespace Object
         */
         void OnCreate()
         {
+            Colour = new Vector4(1, 1, 1, 1);
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
@@ -116,18 +117,19 @@ namespace Object
 
             if (!player.isPaused)
             {
-                //Translation = new Vector2(1200, 381);
-                Colour = new Vector4(1, 0, 1, 0);
+                Translation = new Vector2(99999, 99999);
+                //Colour = new Vector4(1, 0, 1, 0);
             }
             else
             {
-                Colour = new Vector4(1, 1, 1, 1);
+                Translation = temp_translation;
+                //Colour = new Vector4(1, 1, 1, 1);
  
             }
 
             if (UIClicked)
             {
-                Translation = temp_translation;
+                Translation = new Vector2(99999, 99999);
                 player.ResumeGame();
             }
             //if(Input.IsKeyClicked(KeyCode.KEY_P))
