@@ -63,7 +63,7 @@ Texture::Texture(std::string const& path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTextureParameteri(mTexHdl, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTextureParameteri(mTexHdl, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTextureParameteri(mTexHdl, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	// copy image data from client memory to GPU texture buffer memory
 	glTextureSubImage2D(mTexHdl, 0, 0, 0, mWidth, mHeight,

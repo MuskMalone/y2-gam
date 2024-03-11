@@ -192,11 +192,9 @@ void RenderSystem::Init()
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	fbProps.width = ENGINE_SCREEN_WIDTH;
 	fbProps.height = ENGINE_SCREEN_HEIGHT;
-	fbProps.samples = 4;
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
-	fbProps.samples = 1;
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
 	//postprocessing
@@ -358,19 +356,6 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	//if (showEditor) {
 	mFramebuffers[0]->Unbind();
 	//}
-
-	// Bind the multisampled framebuffer for reading
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, mFramebuffers[0]->GetColorAttachmentID(0)); 
-
-	// Bind the non-multisampled framebuffer for drawing (writing)
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mFramebuffers[2]->GetColorAttachmentID(0));
-
-	// Blit from the multisampled to the non-multisampled framebuffer
-	glBlitFramebuffer(0, 0, mFramebuffers[0]->GetFramebufferProps().width, mFramebuffers[0]->GetFramebufferProps().height,  // Source rectangle
-		0, 0, mFramebuffers[2]->GetFramebufferProps().width, mFramebuffers[2]->GetFramebufferProps().height,  // Destination rectangle
-		GL_COLOR_BUFFER_BIT,  // Mask indicating what kind of data to copy (color, depth, stencil)
-		GL_NEAREST);          // Interpolation method (irrelevant here since we're resolving)
-
 	if (showEditor) {
 		mFramebuffers[2]->Bind();
 	}
