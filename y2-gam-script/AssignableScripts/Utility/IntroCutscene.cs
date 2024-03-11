@@ -174,20 +174,24 @@ namespace Object
             if (cutsceneTag == "c1p1")
             {
                 FadeOutBegins = 44.0f;
-                
-                if(PanelTime < 25.0f)
+
+                if (PanelTime < 25.0f)
                 {
                     PanelTime += dt;
                     Colour = new Vector4(1, 1, 1, 0);
                 }
-                if (PanelTime > 25.0f && PanelTime < 34.0f)
+                else
                 {
-                    //CurrPanel = 1
-                    FadeIn(dt, FadeOutBegins);
-                }
-                else if (PanelTime >= FadeOutBegins)
-                {
-                    FadeOut(dt);
+                    PanelTime += dt;
+                    if (PanelTime > 25.0f && PanelTime < 34.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
                 }
             }
 
@@ -234,7 +238,103 @@ namespace Object
                     }
                 }
             }
-               
+
+            //CUTSCENE PAGE 3
+            if (cutsceneTag == "c2p1")
+            {
+                FadeOutBegins = 44.0f;
+
+                if (PanelTime < 25.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime > 25.0f && PanelTime < 34.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c2p2")
+            {
+                FadeOutBegins = 44.0f;
+
+                if (PanelTime < 25.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime > 25.0f && PanelTime < 34.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c2p3")
+            {
+                FadeOutBegins = 44.0f;
+
+                if (PanelTime < 25.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime > 25.0f && PanelTime < 34.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c2p4")
+            {
+                FadeOutBegins = 44.0f;
+
+                if (PanelTime < 25.0f)
+                {
+                    PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    PanelTime += dt;
+                    if (PanelTime > 25.0f && PanelTime < 34.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                    }
+                }
+            }
 
             if (CutsceneIndex >= LastCutscene)
             {
@@ -274,7 +374,7 @@ namespace Object
         {
             //FADEOUT
 
-            Console.WriteLine("Reached end of 23sec");
+            //Console.WriteLine("Reached end of 23sec");
             FadeOutTime += dt;
             if (FadeOutTime <= FadeOutTimer)
             {
@@ -282,7 +382,7 @@ namespace Object
                 float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
                 ColourValue = 1.0f - easeOut;
                 ColourValue = Math.Max(ColourValue, 0.0f);
-                Console.WriteLine("Colour Value: " + ColourValue);
+                //Console.WriteLine("Colour Value: " + ColourValue);
                 Colour = new Vector4(1, 1, 1, ColourValue);
             }
             //FINISH FADEOUT
