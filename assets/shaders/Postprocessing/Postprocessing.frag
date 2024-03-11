@@ -162,7 +162,7 @@ void main() {
         finalColor = texColor;
     }
 
-    fragColor = applyFilmEffect(finalColor);
+    finalColor = applyFilmEffect(finalColor);
 
 	fragColor = applyFadeEffect(finalColor, transitionFactor);
 }
