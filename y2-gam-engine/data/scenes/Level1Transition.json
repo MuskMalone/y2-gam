@@ -999,6 +999,153 @@
                 "isClicked": false,
                 "isHover": false
             }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -473.0,
+                "posY": -123.0,
+                "rotation": 0.0,
+                "dimX": 30.0,
+                "dimY": 25.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Scaffolding"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953120958490200
+            },
+            "Tag": {
+                "Tag": "ScaffoldingShort1"
+            },
+            "Transform": {
+                "posX": -473.37298583984375,
+                "posY": -123.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
+                "scaleY": 30.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -442.0,
+                "posY": -115.0,
+                "rotation": 0.0,
+                "dimX": 30.0,
+                "dimY": 45.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Scaffolding"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698953119925065100
+            },
+            "Tag": {
+                "Tag": "ScaffoldingTall"
+            },
+            "Transform": {
+                "posX": -442.0,
+                "posY": -115.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 30.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -350.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes1"
+            },
+            "Transform": {
+                "posX": -350.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
         }
     ]
 }
