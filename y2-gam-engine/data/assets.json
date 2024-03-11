@@ -737,6 +737,38 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1710146666980992900": {
+            "id": 1710146666981005000,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_DUSTTRAIL_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1710146668647385600": {
+            "id": 1710146668647391400,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_DUSTTRAIL_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1710146669963202900": {
+            "id": 1710146669963207100,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_DUSTTRAIL_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
+        },
+        "1710146671297724500": {
+            "id": 1710146671297728100,
+            "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_DUSTTRAIL_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 0.0,
+            "dimY": 0.0
         }
     },
     "AnimationManager": {

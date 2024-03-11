@@ -349,12 +349,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		mRays.clear();
 	}
 	Renderer::RenderSceneEnd();
+	glEnable(GL_DEPTH_TEST);
+
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
 	if (showEditor)
 		RenderUI();
 
-	glEnable(GL_DEPTH_TEST);
 	::gCoordinator->GetSystem<TextSystem>()->Update();
 	glDisable(GL_DEPTH_TEST);
 
