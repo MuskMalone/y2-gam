@@ -122,7 +122,7 @@ namespace Object
             }
             else
             {
-                Translation = temp_translation;
+                Translation = new Vector2(808, 383);
                 //Colour = new Vector4(1, 1, 1, 1);
  
             }

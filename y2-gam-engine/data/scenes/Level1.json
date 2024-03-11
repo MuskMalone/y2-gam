@@ -110,7 +110,7 @@
                 "scriptTag": "Player",
                 "Dead": false,
                 "GodMode": false,
-                "IsFacingRight": true,
+                "IsFacingRight": false,
                 "JumpSpeed": 120.0,
                 "KeyCollected": false,
                 "MaxAppearTime": 0.4000000059604645,
@@ -150,7 +150,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": -50.0,
+                "scaleX": 50.0,
                 "scaleY": 50.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -333,8 +333,8 @@
                 "dimY": 30.0,
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
-                "posX": -258.3145751953125,
-                "posY": -37.655399322509766,
+                "posX": -260.0,
+                "posY": -38.0,
                 "lockRotate": false
             },
             "Sprite": {
@@ -1111,7 +1111,7 @@
                 "states": [
                     1709824160926932300
                 ],
-                "currFrame": 0,
+                "currFrame": 2,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -2314,8 +2314,8 @@
                 "Tag": "PmQuit"
             },
             "Transform": {
-                "posX": 804.3690185546875,
-                "posY": 426.0,
+                "posX": 807.0,
+                "posY": 425.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2574,7 +2574,7 @@
                 "Tag": "PmResumeGame"
             },
             "Transform": {
-                "posX": 810.0,
+                "posX": 808.0,
                 "posY": 383.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -2626,6 +2626,174 @@
                 "enabled": true,
                 "isClicked": true,
                 "isHover": true
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710167013998200000
+            },
+            "Tag": {
+                "Tag": "MoveInstruction"
+            },
+            "Transform": {
+                "posX": -375.0,
+                "posY": -9.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 55.0,
+                "scaleY": 10.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710167051796260800
+            },
+            "Tag": {
+                "Tag": "JumpInstruction"
+            },
+            "Transform": {
+                "posX": -375.4259948730469,
+                "posY": 6.5,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 42.0,
+                "scaleY": 10.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710167048986899700
+            },
+            "Tag": {
+                "Tag": "LeftClickInstruction"
+            },
+            "Transform": {
+                "posX": -59.5,
+                "posY": 1.3000001907348633,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 101.0,
+                "scaleY": 12.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710167045786729900
+            },
+            "Tag": {
+                "Tag": "KillEnemyInstruction"
+            },
+            "Transform": {
+                "posX": 200.0,
+                "posY": 0.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 60.0,
+                "scaleY": 12.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710168134527755700
+            },
+            "Tag": {
+                "Tag": "RightClickInstruction"
+            },
+            "Transform": {
+                "posX": -59.5,
+                "posY": 19.5,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 60.0,
+                "scaleY": 12.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710167050410699100
+            },
+            "Tag": {
+                "Tag": "QInstruction"
+            },
+            "Transform": {
+                "posX": 300.0,
+                "posY": 20.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 10.0,
+                "scaleZ": 15.0,
+                "elipse": false
             }
         }
     ]

@@ -1183,6 +1183,54 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1710167013998200000": {
+            "id": 1710167013998326500,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_Instructions_PressAD.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 459.0,
+            "dimY": 84.0
+        },
+        "1710167045786729900": {
+            "id": 1710167045786802400,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_Instructions_Enemies can get squashed.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 468.0,
+            "dimY": 89.0
+        },
+        "1710167048986899700": {
+            "id": 1710167048986999700,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_Instructions_PressLeftClick.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 857.0,
+            "dimY": 99.0
+        },
+        "1710167050410699100": {
+            "id": 1710167050410873600,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_PressQ.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 821.0,
+            "dimY": 84.0
+        },
+        "1710167051796260800": {
+            "id": 1710167051796528100,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_PressW.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 352.0,
+            "dimY": 84.0
+        },
+        "1710168134527755700": {
+            "id": 1710168134527963500,
+            "path": "../assets\\Textures\\GameInstructions\\GAM_UI_Instructions_PressRightClick.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 490.0,
+            "dimY": 99.0
         }
     },
     "AnimationManager": {
