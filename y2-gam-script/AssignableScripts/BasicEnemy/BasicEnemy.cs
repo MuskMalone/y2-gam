@@ -23,10 +23,11 @@ namespace Object
     public class BasicEnemy : Entity
     {
         public float JumpCooldown;
-        public float MovementForce;
+        public float MovementSpeed;
         public float JumpForce;
         public float VisionRange;
         public float VisionHeightOffset;
+        public float GroundHeightOffset;
         public float AttackRange;
         public bool isGrounded = true;
         public bool IsFacingRight;
@@ -259,15 +260,17 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Velocity -= new Vector2(horizontalMovement, 0.0f) * dt;
+            //float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            //Velocity -= new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Velocity += new Vector2(horizontalMovement, 0.0f) * dt;
+            //float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            //Velocity += new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 

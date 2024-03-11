@@ -121,7 +121,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": -429.3698425292969,
+                "posX": 157.61399841308594,
                 "posY": -37.0,
                 "rotation": -3.1415908336639404,
                 "dimX": 7.035999774932861,
@@ -163,10 +163,10 @@
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "VisionRange": 4.0,
-                "colliderPositionX": -427.3698425292969,
-                "colliderPositionY": -34.999122619628906,
-                "spawnPositionX": -427.3698425292969,
-                "spawnPositionY": -25.99912452697754
+                "colliderPositionX": -400.0,
+                "colliderPositionY": -36.0,
+                "spawnPositionX": -400.0,
+                "spawnPositionY": -27.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -181,7 +181,7 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": -429.3698425292969,
+                "posX": 157.61399841308594,
                 "posY": -27.998767852783203,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -224,7 +224,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -478,7 +478,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -536,7 +536,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -713,7 +713,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -1183,9 +1183,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 223,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -2219,12 +2219,13 @@
                 "AttackRange": 40.0,
                 "EnemyDeath": false,
                 "EnemyDeathTimer": 0.0,
+                "GroundHeightOffset": -16.0,
                 "HowLongDisplayEnemyDeath": 0.5,
                 "IsFacingRight": true,
                 "JumpCooldown": 0.20000000298023224,
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
-                "MovementForce": 100.0,
+                "MovementSpeed": 20.0,
                 "TimeInState": 1.0833330154418945,
                 "VisionHeightOffset": 15.0,
                 "VisionRange": 50.0,
@@ -2463,7 +2464,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 40.39585",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2558,8 +2559,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
