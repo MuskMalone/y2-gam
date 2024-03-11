@@ -743,8 +743,8 @@
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_DUSTTRAIL_1.png",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 0.0,
-            "dimY": 0.0
+            "dimX": 256.0,
+            "dimY": 256.0
         },
         "1710146668647385600": {
             "id": 1710146668647391400,
