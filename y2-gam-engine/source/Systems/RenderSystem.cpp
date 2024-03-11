@@ -123,6 +123,7 @@ void RenderSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
+	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::System::Scene::TRANSITION, RenderSystem::SceneTransitionListener));
 
 	//array to track the existence of different camera types
 	bool cameraExists[static_cast<int>(CameraType::NumCameraTypes)] = { false };
@@ -381,6 +382,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
 
+	UpdateTransition(dt);
+	uniforms.push_back(UniformData{ "transitionFactor", UniformData::Type::FLOAT, trans.factor });
+
 	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
 
 	//glEnable(GL_DEPTH_TEST);
@@ -590,6 +594,12 @@ void RenderSystem::WindowSizeListener(Event& event)
 	//camera.SetProjectionMtx(left, right, bottom, top);
 }
 
+void RenderSystem::SceneTransitionListener(Event& event) {
+	[[maybe_unused]] auto fromScene = event.GetParam<std::string>(Events::System::Scene::Transition::FROM_SCENE);
+	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
+	trans.isTransitioning = true;
+}
+
 /*  _________________________________________________________________________ */
 /*!
 \brief DebugRay Function
@@ -659,5 +669,25 @@ void RenderSystem::UpdateRadius(float dt) {
 		// Linearly decrease the radius until it reaches 0
 		mRadius -= changeRate * dt;
 		mRadius = std::max(mRadius, 0.0f);
+	}
+}
+
+void RenderSystem::UpdateTransition(float dt) {
+	if (trans.isTransitioning) {
+		if (trans.isIncreasing) {
+			trans.factor += trans.speed * dt;
+			if (trans.factor >= 1.f) {
+				trans.factor = 1.f;
+				trans.isIncreasing = false;
+			}
+		}
+		else {
+			trans.factor -= trans.speed * dt;
+			if (trans.factor <= 0.f) {
+				trans.factor = 0.f;
+				trans.isTransitioning = false;
+				trans.isIncreasing = true; //reset for next transition
+			}
+		}
 	}
 }
