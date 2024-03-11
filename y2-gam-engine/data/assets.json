@@ -1131,6 +1131,22 @@
             "idxCoordY": 0.0,
             "dimX": 256.0,
             "dimY": 256.0
+        },
+        "1710139078891654600": {
+            "id": 1710139078891731900,
+            "path": "../assets\\Textures\\main menu 1.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1710139081369305900": {
+            "id": 1710139081369362000,
+            "path": "../assets\\Textures\\main menu 2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
         }
     }
 }

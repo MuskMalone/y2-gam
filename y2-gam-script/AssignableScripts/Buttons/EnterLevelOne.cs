@@ -15,13 +15,13 @@
 /******************************************************************************/
 
 using Image;
-using System;
 
 namespace Object
 {
     public class EnterLevelOne : Entity
     {
         bool firstTime = true;
+        public bool hovered = false;
 
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -78,11 +78,13 @@ namespace Object
             if (UIHover)
             {
                 Colour = new Vector4(1, 1, 1, 1);
+                hovered = true;
             }
 
             else
             {
                 Colour = new Vector4(1, 1, 1, 0);
+                hovered = false;
             }
 
             if (UIClicked && firstTime)

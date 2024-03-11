@@ -1,11 +1,15 @@
 ﻿using Image;
+using System;
 
 namespace Object
 {
-    public class MainMenubgm : Entity
+    public class MainMenu : Entity
     {
         bool isPlaying = false;
-        
+
+        public String StartButtonTag;
+        EnterLevelOne StartButton;
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -13,7 +17,7 @@ namespace Object
 
         Default constructor for the EnterLevelOne entity. Inherits from entity class.
         */
-        public MainMenubgm() : base()
+        public MainMenu() : base()
         {
 
         }
@@ -28,7 +32,7 @@ namespace Object
 
         Non-default, single-arg constructor for a EnterLevelOne entity.
         */
-        public MainMenubgm (uint entityHandle) : base(entityHandle)
+        public MainMenu(uint entityHandle) : base(entityHandle)
         {
             entityID = entityHandle;
         }
@@ -42,7 +46,11 @@ namespace Object
         */
         void OnCreate()
         {
-
+            if (StartButtonTag != null)
+            {
+                StartButton = GameplayWrapper.FindEntityByName(StartButtonTag).As<EnterLevelOne>();
+            }
+           
         }
 
         /*  _________________________________________________________________________ */
@@ -62,6 +70,15 @@ namespace Object
                 PlayAudio("PM_Menu_Music_Loop.wav", -1);
                 isPlaying = true;
             }
+
+            if (StartButton.hovered)
+            {
+                AnimationState = 1;
+            }
+            else
+            {
+                AnimationState = 0;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -77,4 +94,3 @@ namespace Object
         }
     }
 }
-
