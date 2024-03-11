@@ -745,6 +745,14 @@
             "idxY": 0.0,
             "dimX": 85.0,
             "dimY": 89.0
+        },
+        "1710138226924060700": {
+            "id": 1710138226924089500,
+            "path": "../assets\\Textures\\key_gold.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 512.0,
+            "dimY": 512.0
         }
     },
     "AnimationManager": {
@@ -1171,6 +1179,78 @@
             "idxCoordY": 0.0,
             "dimX": 780.0,
             "dimY": 924.0
+        },
+        "1710138311156148800": {
+            "id": 1710138311156179900,
+            "path": "../assets\\Textures\\gam backstage door_close.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1710138386858256600": {
+            "id": 1710138386858285600,
+            "path": "../assets\\Textures\\gam backstage door_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 222.0,
+            "dimY": 480.0
+        },
+        "1710138904505888200": {
+            "id": 1710138904505926700,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet3.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710138930280061400": {
+            "id": 1710138930280087000,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710139320914160300": {
+            "id": 1710139320914188600,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet4.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710139323753147100": {
+            "id": 1710139323753172600,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet5.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710139326187382400": {
+            "id": 1710139326187407700,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet6.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710139327699588600": {
+            "id": 1710139327699622800,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet7.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
+        },
+        "1710139329373193600": {
+            "id": 1710139329373218300,
+            "path": "../assets\\Textures\\ANIM\\sewer water short spritesheet8.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 120.0,
+            "dimY": 120.0
         }
     }
 }
