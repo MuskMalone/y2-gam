@@ -21,7 +21,8 @@ namespace Object
     public class Anvil : Entity
     {
         private bool wasCollided = true;
-
+        private int AnvilAudioIncrement = 1;
+        private int MAX_ANVIL_AUDIO_FILES = 2;
         /*  _________________________________________________________________________ */
         /*! Anvil
 
@@ -78,7 +79,16 @@ namespace Object
 
             if (!wasCollided && isCollided)
             {
-                PlayPositionalAudio("anvil_drop.wav", 0, Translation);
+                //PlayPositionalAudio("anvil_drop.wav", 0, Translation);
+                //PlayPositionalAudio("anvil_drop_" + AnvilAudioIncrement + ".wav", 0, Translation);
+                PlayAudio("anvil_drop_" + AnvilAudioIncrement + ".wav", 0);
+            }
+
+            AnvilAudioIncrement++;
+
+            if (AnvilAudioIncrement > MAX_ANVIL_AUDIO_FILES)
+            {
+                AnvilAudioIncrement = 1;
             }
 
             wasCollided = isCollided;

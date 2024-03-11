@@ -589,6 +589,16 @@
             "id": 1710158908057227900,
             "path": "../assets\\audio\\sfx\\DoorUnlock.wav",
             "stream": false
+        },
+        "1710176491520810500": {
+            "id": 1710176491520917600,
+            "path": "../assets\\audio\\sfx\\Anvil_Drop\\anvil_drop_1.wav",
+            "stream": false
+        },
+        "1710176493246467900": {
+            "id": 1710176493246536800,
+            "path": "../assets\\audio\\sfx\\Anvil_Drop\\anvil_drop_2.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
