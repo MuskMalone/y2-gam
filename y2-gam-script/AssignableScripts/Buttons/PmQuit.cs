@@ -119,7 +119,7 @@ namespace Object
             }
             else
             {
-                Translation = temp_translation;
+                Translation = new Vector2(807, 425);
                 //Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
