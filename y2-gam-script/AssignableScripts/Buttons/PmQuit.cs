@@ -22,11 +22,11 @@ namespace Object
     public class PmQuit : Entity
     {
         //bool firstTime = true;
-        private bool isPaused = false;
+        //private bool isPaused = false;
         public bool quitClicked = false;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         private Vector2 temp_translation;
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        Player player;
         /*  _________________________________________________________________________ */
         /*! PmQuit
 
@@ -63,6 +63,7 @@ namespace Object
         */
         void OnCreate()
         {
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
@@ -110,7 +111,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (!isPaused)
+            if (!player.isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
 
@@ -125,25 +126,25 @@ namespace Object
                 }
             }
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
-            }
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        PauseGame();
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        ResumeGame();
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
 
 
             //if (UIClicked)

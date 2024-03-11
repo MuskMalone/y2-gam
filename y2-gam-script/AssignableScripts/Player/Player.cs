@@ -48,12 +48,12 @@ namespace Object
         private float footstepInterval = 0.4f;
 
         private Vector2 playerHead;
-        private bool isPaused = false;
+        public bool isPaused = false;
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
         private string FootTrack;
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
 
         bool resetAnimationState = true;
@@ -174,10 +174,10 @@ namespace Object
 
             IsFacingRight = isFacingRight;
             
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
             if (isPaused)
             {
@@ -189,13 +189,13 @@ namespace Object
             {
                 if (!isPaused)
                 {
-                    //PauseGame();
-                    isPaused = true;
+                    PauseGame();
+                    //isPaused = true;
                 }
                 else
                 {
-                    //ResumeGame();
-                    isPaused = false;
+                    ResumeGame();
+                    //isPaused = false;
                 }
             }
 
@@ -544,6 +544,16 @@ namespace Object
         public void FlyDown(float dt)
         {
             Translation += new Vector2(0, -MovementSpeed) * dt;
+        }
+
+        public void PauseGame()
+        {
+            isPaused = true;
+        }
+
+        public void ResumeGame()
+        {
+            isPaused = false;
         }
 
         private void PlayFloorFootstep()

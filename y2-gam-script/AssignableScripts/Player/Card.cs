@@ -23,7 +23,7 @@ namespace Object
     public class Card : Entity
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         private Vector2 direction;
         public float timeAlive = 0.0f;
@@ -58,7 +58,7 @@ namespace Object
         }
 
         float temp_dt = 0f;
-        bool isPaused = false;
+        //bool isPaused = false;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public bool HoveringChanged { get; private set; }
 
@@ -135,36 +135,36 @@ namespace Object
                 ResetCardPos();
             }
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
-            if (isPaused)
+            if (player.isPaused)
             {
                 dt = 0f;
                 //PauseGame();
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    //PauseGame();
-                    temp_dt = dt;
-                    dt = 0f;
-                    isPaused = true;
-                }
-                else
-                {
-                    //resume game
-                    //ResumeGame();
-                    dt = temp_dt;
-                    isPaused = false;
-                }
-                //firstTime = false;
-            }
-            if (!isPaused)
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        //PauseGame();
+            //        temp_dt = dt;
+            //        dt = 0f;
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        //resume game
+            //        //ResumeGame();
+            //        dt = temp_dt;
+            //        isPaused = false;
+            //    }
+            //    //firstTime = false;
+            //}
+            if (!player.isPaused)
             {
                 if (Alive)
                 {

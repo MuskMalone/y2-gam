@@ -22,9 +22,9 @@ namespace Object
     public class PauseMenu2 : Entity
     {
         //private bool IsKeyPressed = false;
-        bool isPaused = false;
-        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //bool isPaused = false;
+        Player player;
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         private Vector2 temp_translation;
         //private Vector2 temp_translation2;
@@ -66,6 +66,7 @@ namespace Object
 
         void OnCreate()
         {
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
@@ -106,12 +107,12 @@ namespace Object
             //    PauseGame();
             //}
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
-            if (!isPaused)
+            if (!player.isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
 
@@ -122,23 +123,23 @@ namespace Object
                 
             }
 
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                //if (!IsKeyPressed)
-                //{
-                if (!isPaused)
-                {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {                       
-                    ResumeGame();
-                    isPaused = false;
-                }
-                    //IsKeyPressed = true;
-                //}
-            }
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    //if (!IsKeyPressed)
+            //    //{
+            //    if (!player.isPaused)
+            //    {
+            //        PauseGame();
+            //        player.isPaused = true;
+            //    }
+            //    else
+            //    {                       
+            //        ResumeGame();
+            //        player.isPaused = false;
+            //    }
+            //        //IsKeyPressed = true;
+            //    //}
+            //}
 
             //else
             //{
