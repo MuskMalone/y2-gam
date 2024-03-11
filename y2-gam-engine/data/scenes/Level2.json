@@ -145,6 +145,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": 183.0,
                 "colliderPositionY": 156.0,
+                "isPaused": false,
                 "spawnPositionX": 184.5,
                 "spawnPositionY": 165.5
             },

@@ -51,7 +51,11 @@ namespace Object
         public bool isPaused = false;
         private bool firstTime = true;
         private int DeathAudioIncrement = 1;
+        private int PlayerDeathAudioIncrement = 1;
+        private int JumpAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 6;
+        private int MAX_JUMP_AUDIO_FILES = 12;
+        private int MAX_PLAYERDEATH_AUDIO_FILES = 8;
         private string FootTrack;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
@@ -311,12 +315,16 @@ namespace Object
                         SlowdownToggle = !SlowdownToggle;
                     }
 
-                    if (Input.IsKeyPressed(KeyCode.KEY_W) || Input.IsKeyPressed(KeyCode.KEY_SPACE))
+                    if (Input.IsKeyClicked(KeyCode.KEY_W) || Input.IsKeyClicked(KeyCode.KEY_SPACE))
                     {
                         if (IsGrounded)
                         {
+
+                            //PlayAudio("Robin Jump_" + JumpAudioIncrement + ".wav", 0);
                             Jump(dt);
+
                         }
+
 
                         //if (!Input.IsKeyPressed(KeyCode.KEY_A) && !Input.IsKeyPressed(KeyCode.KEY_D))
                         //{
@@ -423,6 +431,7 @@ namespace Object
                     if (firstTime)
                     {
                         PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0);
+                        PlayAudio("Robin Death_" + PlayerDeathAudioIncrement + ".wav", 0);
                     }
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
@@ -511,7 +520,15 @@ namespace Object
 
         public void Jump(float dt)
         {
+            
             Velocity = new Vector2 (Velocity.X, JumpSpeed);
+            PlayAudio("Robin Jump_" + JumpAudioIncrement + ".wav", 0);
+            JumpAudioIncrement++;
+
+            if (JumpAudioIncrement > MAX_JUMP_AUDIO_FILES)
+            {
+                JumpAudioIncrement = 1;
+            }
         }
 
         public void Respawn()
@@ -520,10 +537,15 @@ namespace Object
             Collider = colliderPosition;
 
             DeathAudioIncrement++;
+            PlayerDeathAudioIncrement++;
 
             if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
             {
                 DeathAudioIncrement = 1;
+            }
+            if (PlayerDeathAudioIncrement > MAX_PLAYERDEATH_AUDIO_FILES)
+            {
+                PlayerDeathAudioIncrement = 1;
             }
         }
         public void FlyLeft(float dt)

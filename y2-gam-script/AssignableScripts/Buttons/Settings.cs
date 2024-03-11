@@ -57,6 +57,15 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (UIClicked && firstTime)
+            {
+                PlayAudio("menu_click.wav", 0);
+                StopAudio();
+                LoadScene("Settings");
+                //QuitGame();
+                firstTime = false;
+            }
+
             if (UIHover)
             {
                 Colour = new Vector4(1, 1, 1, 1);
@@ -64,12 +73,6 @@ namespace Object
             else
             {
                 Colour = new Vector4(1, 0, 1, 0);
-            }
-
-            if (UIClicked && firstTime)
-            {
-                LoadScene("Settings");
-                firstTime = false;
             }
         }
 

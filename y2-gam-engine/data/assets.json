@@ -394,6 +394,201 @@
             "id": 1710088092545875400,
             "path": "../assets\\audio\\sfx\\menu_click.wav",
             "stream": false
+        },
+        "1710154172285344800": {
+            "id": 1710154172285391300,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_1.wav",
+            "stream": false
+        },
+        "1710154175586896800": {
+            "id": 1710154175586949900,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_10.wav",
+            "stream": false
+        },
+        "1710154177517454700": {
+            "id": 1710154177517506600,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_11.wav",
+            "stream": false
+        },
+        "1710154179366721300": {
+            "id": 1710154179366772100,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_12.wav",
+            "stream": false
+        },
+        "1710154180851294900": {
+            "id": 1710154180851378500,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_2.wav",
+            "stream": false
+        },
+        "1710154185647060800": {
+            "id": 1710154185647170700,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_3.wav",
+            "stream": false
+        },
+        "1710154187614682600": {
+            "id": 1710154187614728800,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_4.wav",
+            "stream": false
+        },
+        "1710154189426642500": {
+            "id": 1710154189426691300,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_5.wav",
+            "stream": false
+        },
+        "1710154197112782700": {
+            "id": 1710154197112831300,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_6.wav",
+            "stream": false
+        },
+        "1710154198750387900": {
+            "id": 1710154198750500900,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_7.wav",
+            "stream": false
+        },
+        "1710154201430619900": {
+            "id": 1710154201430669700,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_8.wav",
+            "stream": false
+        },
+        "1710154203491194500": {
+            "id": 1710154203491354300,
+            "path": "../assets\\audio\\sfx\\PlayerJump\\Robin Jump_9.wav",
+            "stream": false
+        },
+        "1710155787543188800": {
+            "id": 1710155787543310900,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_1.wav",
+            "stream": false
+        },
+        "1710155788949813100": {
+            "id": 1710155788949873100,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_2.wav",
+            "stream": false
+        },
+        "1710155790232155300": {
+            "id": 1710155790232238800,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_3.wav",
+            "stream": false
+        },
+        "1710155791969619300": {
+            "id": 1710155791969930800,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_4.wav",
+            "stream": false
+        },
+        "1710155794114277200": {
+            "id": 1710155794114573800,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_5.wav",
+            "stream": false
+        },
+        "1710155796914691700": {
+            "id": 1710155796915070500,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_6.wav",
+            "stream": false
+        },
+        "1710155799768562000": {
+            "id": 1710155799768714800,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_7.wav",
+            "stream": false
+        },
+        "1710155801163592000": {
+            "id": 1710155801163669100,
+            "path": "../assets\\audio\\sfx\\PlayerDeath\\Robin Death_8.wav",
+            "stream": false
+        },
+        "1710156352490549000": {
+            "id": 1710156352490845900,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_1.wav",
+            "stream": false
+        },
+        "1710156354069002300": {
+            "id": 1710156354069157400,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_2.wav",
+            "stream": false
+        },
+        "1710156355701438400": {
+            "id": 1710156355701520200,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_3.wav",
+            "stream": false
+        },
+        "1710156356835353100": {
+            "id": 1710156356835438600,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_4.wav",
+            "stream": false
+        },
+        "1710156358064383900": {
+            "id": 1710156358064448500,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_5.wav",
+            "stream": false
+        },
+        "1710156359454473100": {
+            "id": 1710156359454543700,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_6.wav",
+            "stream": false
+        },
+        "1710156360696656500": {
+            "id": 1710156360696814800,
+            "path": "../assets\\audio\\sfx\\JesterDeath\\Jester Death_7.wav",
+            "stream": false
+        },
+        "1710158409157836600": {
+            "id": 1710158409157917400,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_1.wav",
+            "stream": false
+        },
+        "1710158411076358300": {
+            "id": 1710158411076427600,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_10.wav",
+            "stream": false
+        },
+        "1710158412906985600": {
+            "id": 1710158412907076100,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_11.wav",
+            "stream": false
+        },
+        "1710158414409378600": {
+            "id": 1710158414409438300,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_2.wav",
+            "stream": false
+        },
+        "1710158415906841100": {
+            "id": 1710158415906916100,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_3.wav",
+            "stream": false
+        },
+        "1710158420033415700": {
+            "id": 1710158420033485300,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_4.wav",
+            "stream": false
+        },
+        "1710158421759312800": {
+            "id": 1710158421759406400,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_5.wav",
+            "stream": false
+        },
+        "1710158423012959000": {
+            "id": 1710158423013192900,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_6.wav",
+            "stream": false
+        },
+        "1710158424781536600": {
+            "id": 1710158424781685200,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_7.wav",
+            "stream": false
+        },
+        "1710158426668013900": {
+            "id": 1710158426668088500,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_8.wav",
+            "stream": false
+        },
+        "1710158428279834200": {
+            "id": 1710158428279957400,
+            "path": "../assets\\audio\\sfx\\JesterAttack\\Jester Chomp_9.wav",
+            "stream": false
+        },
+        "1710158908057136100": {
+            "id": 1710158908057227900,
+            "path": "../assets\\audio\\sfx\\DoorUnlock.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
