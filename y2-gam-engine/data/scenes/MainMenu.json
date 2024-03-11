@@ -9,43 +9,6 @@
             "Layering": {
                 "layering": "Default"
             },
-            "Script": {
-                "scriptName": "ObjectMainMenubgm",
-                "scriptTag": "bg"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 1700712327935657900
-            },
-            "Tag": {
-                "Tag": "bg"
-            },
-            "Transform": {
-                "posX": 800.0,
-                "posY": 450.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 1600.0,
-                "scaleY": 900.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": true,
-                "isHover": true
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -60,7 +23,7 @@
             "Transform": {
                 "posX": 809.3866577148438,
                 "posY": 462.2568054199219,
-                "posZ": 0.0,
+                "posZ": 5.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -81,13 +44,14 @@
             },
             "Script": {
                 "scriptName": "ObjectEnterLevelOne",
-                "scriptTag": "start"
+                "scriptTag": "start",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700888002494215700
             },
@@ -97,7 +61,7 @@
             "Transform": {
                 "posX": 800.0,
                 "posY": 635.0,
-                "posZ": 0.0,
+                "posZ": 6.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -134,7 +98,7 @@
             "Transform": {
                 "posX": 810.4121704101563,
                 "posY": 301.116943359375,
-                "posZ": 0.0,
+                "posZ": 6.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -171,7 +135,7 @@
             "Transform": {
                 "posX": 794.4682006835938,
                 "posY": 474.66851806640625,
-                "posZ": 0.0,
+                "posZ": 6.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -206,9 +170,9 @@
                 "Tag": "Cursor"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
-                "posZ": 1.0,
+                "posX": 32.0,
+                "posY": 865.0,
+                "posZ": 10.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -219,8 +183,55 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": false,
-                "isHover": false
+                "isClicked": true,
+                "isHover": true
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710139078891654600,
+                    1710139081369305900
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectMainMenu",
+                "scriptTag": "bg",
+                "StartButtonTag": "start"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "bg"
+            },
+            "Transform": {
+                "posX": 800.0,
+                "posY": 450.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 1600.0,
+                "scaleY": 900.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": true,
+                "isHover": true
             }
         }
     ]

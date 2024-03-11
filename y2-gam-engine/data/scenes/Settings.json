@@ -1,0 +1,289 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Animation": {
+                "states": [
+                    1710141480830351400,
+                    1710141483696796700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectSettingsPage",
+                "scriptTag": "Page"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Page"
+            },
+            "Transform": {
+                "posX": 800.0,
+                "posY": 450.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 780.0,
+                "scaleY": 924.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectCursor",
+                "scriptTag": "Cursor"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1706938658190170500
+            },
+            "Tag": {
+                "Tag": "Cursor"
+            },
+            "Transform": {
+                "posX": 32.0,
+                "posY": 865.0,
+                "posZ": 10.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 25.0,
+                "scaleY": 25.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": true,
+                "isHover": true
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectSettingsBack",
+                "scriptTag": "BackButton"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.019607843831181526,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "BackButton"
+            },
+            "Transform": {
+                "posX": 791.5800170898438,
+                "posY": 113.99400329589844,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 150.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "BGMText"
+            },
+            "Text": {
+                "fontName": "AsapSemiBold",
+                "scale": 0.3659999966621399,
+                "text": "BGM",
+                "coloX": 1.0,
+                "coloY": 0.7058823108673096,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": 533.8729858398438,
+                "posY": 591.1240234375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "SFXText"
+            },
+            "Text": {
+                "fontName": "AsapSemiBold",
+                "scale": 0.3659999966621399,
+                "text": "SFX",
+                "coloX": 1.0,
+                "coloY": 0.7058823704719543,
+                "coloZ": 0.0
+            },
+            "Transform": {
+                "posX": 533.8729858398438,
+                "posY": 396.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectVolumeScroll",
+                "scriptTag": "UpperSlider",
+                "LowerXBound": 730.0,
+                "MusicType": "bgm",
+                "UpperXBound": 945.0,
+                "YBound": 609.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710146246623177700
+            },
+            "Tag": {
+                "Tag": "UpperSlider"
+            },
+            "Transform": {
+                "posX": 735.5709838867188,
+                "posY": 609.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectVolumeScroll",
+                "scriptTag": "LowerSlider",
+                "LowerXBound": 730.0,
+                "MusicType": "sfx",
+                "UpperXBound": 945.0,
+                "YBound": 410.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710146246623177700
+            },
+            "Tag": {
+                "Tag": "LowerSlider"
+            },
+            "Transform": {
+                "posX": 735.5709838867188,
+                "posY": 410.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        }
+    ]
+}
