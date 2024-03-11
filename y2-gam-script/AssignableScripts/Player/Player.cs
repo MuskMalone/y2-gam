@@ -137,6 +137,7 @@ namespace Object
             // Get the serialized IsFacingRight value
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
+            isPaused = false;
 
             if (GetCurrentScene() == "Level1")
             {
