@@ -139,8 +139,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 185.5,
-                "posY": 137.0,
+                "posX": 190.0,
+                "posY": 129.5,
                 "rotation": 0.0,
                 "dimX": 7.0,
                 "dimY": 32.0
@@ -199,8 +199,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 187.0,
-                "posY": 146.5,
+                "posX": 191.5,
+                "posY": 139.0,
                 "posZ": 3.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -3478,6 +3478,83 @@
             }
         },
         {
+            "Animation": {
+                "states": [
+                    1698954259805573200,
+                    1698954489840002900,
+                    1698954487533620100,
+                    1706963288764716700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 502.5,
+                "posY": -222.0,
+                "rotation": 0.0,
+                "dimX": 13.0,
+                "dimY": 28.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -90.0
+            },
+            "Layering": {
+                "layering": "Enemy"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 10.0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectBasicEnemy",
+                "scriptTag": "Enemy2",
+                "AttackRange": 40.0,
+                "EnemyDeath": false,
+                "EnemyDeathTimer": 0.0,
+                "HowLongDisplayEnemyDeath": 0.5,
+                "IsFacingRight": false,
+                "JumpCooldown": 0.20000000298023224,
+                "JumpForce": 3000.0,
+                "JumpTimer": 0.0,
+                "MovementForce": 100.0,
+                "TimeInState": 0.0,
+                "VisionHeightOffset": 0.0,
+                "VisionRange": 50.0,
+                "isGrounded": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Enemy2"
+            },
+            "Transform": {
+                "posX": 501.0,
+                "posY": -215.0,
+                "posZ": 3.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 40.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
             "Collider": {
                 "collider": 0,
                 "posX": -247.0,
@@ -4066,6 +4143,70 @@
         {
             "Animation": {
                 "states": [
+                    1706241685990117500,
+                    1706241684624811400,
+                    1706243405768460700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Collider": {
+                "collider": 0,
+                "posX": 563.0,
+                "posY": -94.0,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 7.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": false
+            },
+            "Script": {
+                "scriptName": "ObjectButton",
+                "scriptTag": "Button6",
+                "isPressed": false
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Button6"
+            },
+            "Transform": {
+                "posX": 563.0,
+                "posY": -94.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 7.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
                     1705820098030170700,
                     1705820099352356100
                 ],
@@ -4138,7 +4279,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 659.0,
+                "posX": 661.5,
                 "posY": -61.5,
                 "rotation": 0.0,
                 "dimX": 33.0,
@@ -4163,7 +4304,7 @@
             "Script": {
                 "scriptName": "ObjectDoor",
                 "scriptTag": "Door5",
-                "buttonTag": "Button2"
+                "buttonTag": "Button6"
             },
             "Sprite": {
                 "r": 1.0,
@@ -4177,7 +4318,7 @@
                 "Tag": "Door5"
             },
             "Transform": {
-                "posX": 659.0,
+                "posX": 661.5,
                 "posY": -61.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -5320,7 +5461,7 @@
             "Script": {
                 "scriptName": "ObjectKey",
                 "scriptTag": "KeyGold",
-                "Range": 0.0
+                "Range": 10.0
             },
             "Sprite": {
                 "r": 1.0,
