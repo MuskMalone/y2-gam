@@ -737,6 +737,14 @@
             "idxY": 0.0,
             "dimX": 512.0,
             "dimY": 512.0
+        },
+        "1710146246623177700": {
+            "id": 1710146246623238200,
+            "path": "../assets\\Textures\\DAA2402_settings menu_button.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 85.0,
+            "dimY": 89.0
         }
     },
     "AnimationManager": {
@@ -1147,6 +1155,22 @@
             "idxCoordY": 0.0,
             "dimX": 1920.0,
             "dimY": 1080.0
+        },
+        "1710141480830351400": {
+            "id": 1710141480830403400,
+            "path": "../assets\\Textures\\y2_settings menu_ words_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 780.0,
+            "dimY": 924.0
+        },
+        "1710141483696796700": {
+            "id": 1710141483696843800,
+            "path": "../assets\\Textures\\y2_settings menu_ words_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 780.0,
+            "dimY": 924.0
         }
     }
 }

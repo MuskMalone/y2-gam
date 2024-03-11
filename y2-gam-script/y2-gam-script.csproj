@@ -77,7 +77,10 @@
     <Compile Include="AssignableScripts\Buttons\PmMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\PmQuit.cs" />
     <Compile Include="AssignableScripts\Buttons\PmResumeGame.cs" />
+    <Compile Include="AssignableScripts\Buttons\SettingsPage.cs" />
     <Compile Include="AssignableScripts\Buttons\Settings.cs" />
+    <Compile Include="AssignableScripts\Buttons\SettingsBack.cs" />
+    <Compile Include="AssignableScripts\Buttons\VolumeScroll.cs" />
     <Compile Include="AssignableScripts\Checkpoints\Checkpoint.cs" />
     <Compile Include="AssignableScripts\Collectibles\Key.cs" />
     <Compile Include="AssignableScripts\Exit\Exit.cs" />

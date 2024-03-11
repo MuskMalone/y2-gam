@@ -50,7 +50,6 @@ namespace Object
             {
                 StartButton = GameplayWrapper.FindEntityByName(StartButtonTag).As<EnterLevelOne>();
             }
-           
         }
 
         /*  _________________________________________________________________________ */
@@ -90,7 +89,7 @@ namespace Object
         */
         void OnExit()
         {
-            StopAudio();
+
         }
     }
 }
