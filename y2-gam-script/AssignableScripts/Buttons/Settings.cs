@@ -57,6 +57,14 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (UIClicked && firstTime)
+            {
+                PlayAudio("menu_click.wav", 0);
+                InternalCalls.EngineCore_SetPrevSceneVar(GetCurrentScene());
+                LoadScene("Settings");
+                firstTime = false;
+            }
+
             if (UIHover)
             {
                 Colour = new Vector4(1, 1, 1, 1);
@@ -64,12 +72,6 @@ namespace Object
             else
             {
                 Colour = new Vector4(1, 0, 1, 0);
-            }
-
-            if (UIClicked && firstTime)
-            {
-                LoadScene("Settings");
-                firstTime = false;
             }
         }
 

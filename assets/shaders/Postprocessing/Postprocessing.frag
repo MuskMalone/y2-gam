@@ -24,7 +24,7 @@ uniform vec2 resolution;
 uniform float radius;
 uniform vec2 circleCenter;
 
-//vec2 resolution = vec2(1600, 900);
+uniform float transitionFactor;
 
 in vec2 fragTexCoord; 
 out vec4 fragColor;
@@ -113,6 +113,11 @@ vec4 applyFilmEffect(vec4 color) {
 	return finalColor;
 }
 
+vec4 applyFadeEffect(vec4 color, float t){
+vec4 transColor = vec4(0.0, 0.0, 0.0, 1.0); //fade to black
+	return mix(color, transColor, t);
+}
+
 void main() {
 
     vec2 uv = fragTexCoord;
@@ -120,8 +125,6 @@ void main() {
     uv = uv * 2.0 - 1.0;
     uv.x *= resolution.x / resolution.y;
     vec4 finalColor = texColor;
-
-	applyFilmEffect(finalColor);
 
     //circle properties
     //float radius = sin(time * 2.0) * 2.5; //circle radius
@@ -159,6 +162,7 @@ void main() {
         finalColor = texColor;
     }
 
-    fragColor = applyFilmEffect(finalColor);
-	//fragColor = texColor;
+    finalColor = applyFilmEffect(finalColor);
+
+	fragColor = applyFadeEffect(finalColor, transitionFactor);
 }

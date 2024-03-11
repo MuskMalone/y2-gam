@@ -43,6 +43,7 @@ using namespace Physics;
 namespace {
 	std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
 	auto frameController = FrameRateController::GetInstance();
+	std::string previousScene;
 }
 
 namespace Image {
@@ -235,7 +236,7 @@ namespace Image {
 		::gCoordinator->GetSystem<RenderSystem>()->SetTimeSlow(flag);
 		if (flag) {
 #ifndef _DEBUG
-			frameController1->ScaleDeltaTime(0.2f);
+			frameController1->ScaleDeltaTime(0.05f);
 #else
 			frameController1->ScaleDeltaTime(0.4f);
 #endif
@@ -283,6 +284,18 @@ namespace Image {
 	}
 
 	// For Engine Core
+	static void EngineCore_SetPrevSceneVar(MonoString* sceneName) {
+		const char* utf8Str = sceneName != nullptr ? mono_string_to_utf8(sceneName) : nullptr;
+		if (utf8Str != nullptr) {
+			::previousScene = utf8Str;
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+	}
+
+	static MonoString* EngineCore_GetPrevSceneVar() {
+		return mono_string_new(mono_domain_get(), ::previousScene.c_str());
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! EngineCore_GetScriptInstance
 
@@ -448,7 +461,7 @@ namespace Image {
 
 	@return none.
 
-	Sets the audio volume for a particular group
+	Sets the audio volume for a particular group.
 	*/
 	static void EngineCore_SetAudioGroupVolume(MonoString* audioGroup, float& volume) {
 		const char* utf8Str = audioGroup != nullptr ? mono_string_to_utf8(audioGroup) : nullptr;
@@ -461,6 +474,38 @@ namespace Image {
 				SoundManager::AudioSetGroupVolume(SoundManager::sfxGroup, volume);
 			}
 			
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
+	/*! EngineCore_GetAudioGroupVolume
+
+	@param audioGroup
+	Name of the audio group.
+
+	@return float
+
+	Gets the audio volume for a particular group.
+	*/
+	static float EngineCore_GetAudioGroupVolume(MonoString* audioGroup) {
+		const char* utf8Str = audioGroup != nullptr ? mono_string_to_utf8(audioGroup) : nullptr;
+		if (utf8Str != nullptr) {
+			if (strcmp(utf8Str, "bgm") == 0) {
+				return SoundManager::AudioGetGroupVolume(SoundManager::musicGroup);
+			}
+
+			else if (strcmp(utf8Str, "sfx") == 0) {
+				return SoundManager::AudioGetGroupVolume(SoundManager::sfxGroup);
+			}
+
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -1446,6 +1491,8 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonClicked);
 		IMAGE_ADD_INTERNAL_CALL(UIComponent_GetIsUIButtonHover);
 
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetPrevSceneVar);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetPrevSceneVar);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetScriptInstance);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetMousePos);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetUIMousePos);
@@ -1453,6 +1500,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioFileVolume);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioGroupVolume);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_GetAudioGroupVolume);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);

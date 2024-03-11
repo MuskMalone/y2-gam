@@ -27,7 +27,7 @@ namespace Object
         private float offsetAwayFromBody = -10.0f;
         public bool alive = false;
         bool resetAnimationState = true;
-
+        Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         private bool _isFacingRight;
         public bool isFacingRight
         {
@@ -95,50 +95,53 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
+            if (!player.isPaused)
             {
-                alive = true;
-
-                isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
-
-                if (FacingDirectionChanged)
+                if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                 {
-                    Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
-                    FacingDirectionChanged = false; // Reset the flag
-                    offsetAwayFromBody = -offsetAwayFromBody;
+                    alive = true;
+
+                    isFacingRight = MousePos.X > GameplayWrapper.PlayerPos.X;
+
+                    if (FacingDirectionChanged)
+                    {
+                        Scale = new Vector3(-Scale.X, Scale.Y, Scale.Z);
+                        FacingDirectionChanged = false; // Reset the flag
+                        offsetAwayFromBody = -offsetAwayFromBody;
+                    }
+
+                    float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
+                    MousePos.X - GameplayWrapper.PlayerPos.X);
+
+                    Vector2 armPosition = GameplayWrapper.PlayerPos
+                        + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
+
+                    Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
                 }
 
-                float angleRad = (float)Math.Atan2(MousePos.Y - GameplayWrapper.PlayerPos.Y,
-                MousePos.X - GameplayWrapper.PlayerPos.X);
-
-                Vector2 armPosition = GameplayWrapper.PlayerPos
-                    + new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad)) * lengthOfArm;
-
-                Translation = new Vector2(armPosition.X + offsetAwayFromBody, armPosition.Y);
-            }
-            
-            if (alive)
-            {
-                if (resetAnimationState == true)
+                if (alive)
                 {
-                    GameplayWrapper.ResetAnimationState(entityID);
-                    resetAnimationState = false;
+                    if (resetAnimationState == true)
+                    {
+                        GameplayWrapper.ResetAnimationState(entityID);
+                        resetAnimationState = false;
+                    }
+
+                    Colour = new Vector4(1, 1, 1, 1);
+                    timeAlive += dt;
                 }
 
-                Colour = new Vector4(1, 1, 1, 1);
-                timeAlive += dt;
-            }
+                else
+                {
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
 
-            else
-            {
-                Colour = new Vector4(1, 1, 1, 0);
-            }
-
-            if ((timeAlive >= MAX_TIME_ALIVE))
-            {
-                timeAlive = 0.0f;
-                alive = false;
-                resetAnimationState = true;
+                if ((timeAlive >= MAX_TIME_ALIVE))
+                {
+                    timeAlive = 0.0f;
+                    alive = false;
+                    resetAnimationState = true;
+                }
             }
         }
 

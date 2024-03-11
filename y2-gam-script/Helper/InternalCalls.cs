@@ -67,6 +67,12 @@ namespace Image
 
         #region EngineCore
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_SetPrevSceneVar(String prevSceneName);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static String EngineCore_GetPrevSceneVar();
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static object EngineCore_GetScriptInstance(ref uint entityID);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -87,6 +93,9 @@ namespace Image
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetAudioGroupVolume(String audioGroupName, ref float volume);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static float EngineCore_GetAudioGroupVolume(String audioGroupName);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();

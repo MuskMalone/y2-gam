@@ -28,6 +28,11 @@ void SceneManager::LoadScene(std::string const& scnpath) {
 	using namespace Serializer;
 	if (!mCurrentScene.empty()) {
 		ExitScene(mCurrentScene);
+
+		Event transitionEvent(Events::System::Scene::TRANSITION);
+		transitionEvent.SetParam(Events::System::Scene::Transition::FROM_SCENE, mCurrentScene);
+		transitionEvent.SetParam(Events::System::Scene::Transition::TO_SCENE, scnpath);
+		gCoordinator->SendEvent(transitionEvent);
 	}
 	mCurrentScene = scnpath;
 	const auto filename{ prefix + scnpath };

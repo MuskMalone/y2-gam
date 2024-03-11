@@ -23,6 +23,7 @@ public class EnemyIdleState : EnemyBaseState
     {
         enemy.AnimationState = (int)AnimationCodeEnemy.WALK;
         enemy.SetText("Idle State");
+        enemy.Velocity = new Vector2(0, 0);
     }
 
     public override void UpdateState(BasicEnemy enemy, float dt)
