@@ -89,6 +89,386 @@
                 "dimX": 7.035999774932861,
                 "dimY": 32.0
             },
+            "EmitterSystem": {
+                "emitters": [
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 5.900000095367432,
+                        "frequency": 0.800000011920929,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146666980992900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.289999961853027,
+                        "frequency": 1.1100000143051147,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146668647385600
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 7.360000133514404,
+                        "frequency": 2.619999885559082,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146669963202900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": 25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.319999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 2.430000066757202,
+                        "frequency": 4.380000114440918,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146671297724500
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": -25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.0899999141693115,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 5.900000095367432,
+                        "frequency": 0.800000011920929,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146666980992900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": -25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.0799999237060547,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.289999961853027,
+                        "frequency": 1.1100000143051147,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146668647385600
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": -25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.2100000381469727,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 7.360000133514404,
+                        "frequency": 2.619999885559082,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146669963202900
+                    },
+                    {
+                        "vertices": [
+                            {
+                                "x": -434.1099853515625,
+                                "y": -51.68899917602539,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": -434.1099853515625,
+                                "y": -52.20899963378906,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 0.0
+                            }
+                        ],
+                        "colX": 1.0,
+                        "colY": 1.0,
+                        "colZ": 1.0,
+                        "colW": 1.0,
+                        "gravityX": 0.0,
+                        "gravityY": 0.0,
+                        "sizeX": -25.0,
+                        "sizeY": 25.0,
+                        "rot": 3.069999933242798,
+                        "lifetime": 1.0,
+                        "angvel": 0.0,
+                        "speed": 10.0,
+                        "frequency": 4.380000114440918,
+                        "type": 2,
+                        "vCount": 2,
+                        "preset": 0,
+                        "particlesPerFrame": 1,
+                        "drawEmitterVertices": false,
+                        "spriteAssetID": 1710146671297724500
+                    }
+                ]
+            },
             "Gravity": {
                 "x": 0.0,
                 "y": -300.0
@@ -127,7 +507,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
-                "isPaused": true,
+                "isPaused": false,
                 "spawnPositionX": -400.0,
                 "spawnPositionY": -27.0
             },
@@ -1195,9 +1575,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 112,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1264,7 +1644,7 @@
                 "states": [
                     1709742873940550100
                 ],
-                "currFrame": 5,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -2315,9 +2695,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
@@ -2338,8 +2718,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2413,8 +2793,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2476,7 +2856,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 36.59492",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2571,8 +2951,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2673,8 +3053,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {

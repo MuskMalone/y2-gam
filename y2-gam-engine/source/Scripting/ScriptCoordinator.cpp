@@ -38,6 +38,8 @@
 
 #include "Audio/Sound.hpp"
 
+#include "Core/Component.hpp"
+
 using namespace Physics;
 
 namespace {
@@ -1147,6 +1149,188 @@ Get the collider dimensions of the entity in C#.
 		::gCoordinator->GetSystem<RenderSystem>()->SetSceneCameraZoom(val);
 	}
 
+	static void EmitterComponent_IncrementPosition(uint32_t& entityID, Vec2& inc, int& idx) {
+		//std::cout << "increment position " << entityID << " " << inc.x << " " << inc.y << " " << idx << std::endl;
+		if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entityID)) {
+			if (idx == -1) {
+				auto & emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				for (int i{}; i < emitterSystem.emitters.size(); ++i) {
+					auto& emitter = emitterSystem.emitters[i];
+					for (int j{}; j < emitter.vCount; ++j) {
+						emitter.vertices[j] += glm::vec4{glm::vec2{inc.x, inc.y}, 0, 0};
+					}
+					Event event(Events::Particles::EMITTER);
+					event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, entityID));
+					Coordinator::GetInstance()->SendEvent(event);
+				}
+			}
+			else {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				auto& emitter = emitterSystem.emitters[idx];
+				for (int j{}; j < emitter.vCount; ++j) {
+					emitter.vertices[j] += glm::vec4{glm::vec2{inc.x, inc.y}, 0, 0};
+				}
+				Event event(Events::Particles::EMITTER);
+				event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(idx, entityID));
+				Coordinator::GetInstance()->SendEvent(event);
+			}
+		}
+	}
+
+	static void EmitterComponent_SetAlpha(uint32_t& entityID, float& alpha, int& idx) {
+		//std::cout << "set alpha " << entityID << " " << alpha << " " << idx << std::endl;
+		if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entityID)) {
+			if (idx == -1) {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				for (int i{}; i < emitterSystem.emitters.size(); ++i) {
+					auto& emitter = emitterSystem.emitters[i];
+					emitter.col.a = alpha;
+					Event event(Events::Particles::EMITTER);
+					event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, entityID));
+					Coordinator::GetInstance()->SendEvent(event);
+				}
+			}
+			else {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				auto& emitter = emitterSystem.emitters[idx];
+				emitter.col.a = alpha;
+				Event event(Events::Particles::EMITTER);
+				event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(idx, entityID));
+				Coordinator::GetInstance()->SendEvent(event);
+			}
+		}
+	}
+
+	static void EmitterComponent_SetPosition(uint32_t& entityID, Vec2& pos, int& idx) {
+		//std::cout << "increment position " << entityID << " " << inc.x << " " << inc.y << " " << idx << std::endl;
+		if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entityID)) {
+			if (idx == -1) {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				for (int i{}; i < emitterSystem.emitters.size(); ++i) {
+					auto& emitter = emitterSystem.emitters[i];
+					if (emitter.vCount == 1) {
+						emitter.vertices[0] = glm::vec4{ pos.x, pos.y, 0, 1 };
+					}
+					else if (emitter.vCount == 2) {
+						auto& v1 = emitter.vertices[0];
+						auto& v2 = emitter.vertices[1];
+						auto m1 = v1 + ((v2 - v1) * .5f);
+						auto move = glm::vec4(pos.x, pos.y, 0, 0) - m1;
+						
+						v1 += move;
+						v2 += move;
+						v1.w = 1;
+						v2.w = 1;
+					}
+					else if (emitter.vCount == 4) {
+						auto& v1 = emitter.vertices[0];
+						auto& v2 = emitter.vertices[3];
+						auto m1 = v1 + ((v2 - v1) * .5f);
+						auto move = glm::vec4(pos.x, pos.y, 0, 0) - m1;
+
+						emitter.vertices[0] += move;
+						emitter.vertices[2] += move;
+						emitter.vertices[3] += move;
+						emitter.vertices[4] += move;
+
+						emitter.vertices[0].w = 1;
+						emitter.vertices[2].w = 1;
+						emitter.vertices[3].w = 1;
+						emitter.vertices[4].w = 1;
+					}
+					Event event(Events::Particles::EMITTER);
+					event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, entityID));
+					Coordinator::GetInstance()->SendEvent(event);
+				}
+			}
+			else {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				auto& emitter = emitterSystem.emitters[idx];
+				if (emitter.vCount == 1) {
+					emitter.vertices[0] = glm::vec4{ pos.x, pos.y, 0, 1 };
+				}
+				else if (emitter.vCount == 2) {
+					auto& v1 = emitter.vertices[0];
+					auto& v2 = emitter.vertices[1];
+					auto m1 = v1 + ((v2 - v1) * .5f);
+					auto move = glm::vec4(pos.x, pos.y, 0, 0) - m1;
+
+					v1 += move;
+					v2 += move;
+					v1.w = 1;
+					v2.w = 1;
+				}
+				else if (emitter.vCount == 4) {
+					auto& v1 = emitter.vertices[0];
+					auto& v2 = emitter.vertices[3];
+					auto m1 = v1 + ((v2 - v1) * .5f);
+					auto move = glm::vec4(pos.x, pos.y, 0, 0) - m1;
+
+					emitter.vertices[0] += move;
+					emitter.vertices[2] += move;
+					emitter.vertices[3] += move;
+					emitter.vertices[4] += move;
+
+					emitter.vertices[0].w = 1;
+					emitter.vertices[2].w = 1;
+					emitter.vertices[3].w = 1;
+					emitter.vertices[4].w = 1;
+				}
+				Event event(Events::Particles::EMITTER);
+				event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(idx, entityID));
+				Coordinator::GetInstance()->SendEvent(event);
+			}
+		}
+	}
+
+	static void EmitterComponent_SetScale(uint32_t& entityID, Vec2& inc, int& idx) {
+		//std::cout << "increment position " << entityID << " " << inc.x << " " << inc.y << " " << idx << std::endl;
+		if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entityID)) {
+			if (idx == -1) {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				for (int i{}; i < emitterSystem.emitters.size(); ++i) {
+					auto& emitter = emitterSystem.emitters[i];
+					emitter.size = glm::vec2{inc.x, inc.y};
+					Event event(Events::Particles::EMITTER);
+					event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, entityID));
+					Coordinator::GetInstance()->SendEvent(event);
+				}
+			}
+			else {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				auto& emitter = emitterSystem.emitters[idx];
+				emitter.size = glm::vec2{ inc.x, inc.y };
+				Event event(Events::Particles::EMITTER);
+				event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(idx, entityID));
+				Coordinator::GetInstance()->SendEvent(event);
+			}
+		}
+	}
+
+	static void EmitterComponent_SetSpeed(uint32_t& entityID, Vec2& inc, int& idx) {
+		//std::cout << "increment position " << entityID << " " << inc.x << " " << inc.y << " " << idx << std::endl;
+		if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entityID)) {
+			if (idx == -1) {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				for (int i{}; i < emitterSystem.emitters.size(); ++i) {
+					auto& emitter = emitterSystem.emitters[i];
+					emitter.size = glm::vec2{ inc.x, inc.y };
+					Event event(Events::Particles::EMITTER);
+					event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(i, entityID));
+					Coordinator::GetInstance()->SendEvent(event);
+				}
+			}
+			else {
+				auto& emitterSystem = Coordinator::GetInstance()->GetComponent<EmitterSystem>(entityID);
+				auto& emitter = emitterSystem.emitters[idx];
+				emitter.size = glm::vec2{ inc.x, inc.y };
+				Event event(Events::Particles::EMITTER);
+				event.SetParam(Events::Particles::Emitter::EMITTERPROXY_CHANGED, std::pair<int, Entity>(idx, entityID));
+				Coordinator::GetInstance()->SendEvent(event);
+			}
+		}
+	}
+
 	/*  _________________________________________________________________________ */
 	/*! GraphicsComponent_SetColour
 
@@ -1537,6 +1721,10 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_GetRotation);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetRotation);
 		IMAGE_ADD_INTERNAL_CALL(GraphicsComponent_SetZoom);
+		IMAGE_ADD_INTERNAL_CALL(EmitterComponent_IncrementPosition);
+		IMAGE_ADD_INTERNAL_CALL(EmitterComponent_SetAlpha);
+		IMAGE_ADD_INTERNAL_CALL(EmitterComponent_SetPosition);
+		IMAGE_ADD_INTERNAL_CALL(EmitterComponent_SetScale);
 
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		IMAGE_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
