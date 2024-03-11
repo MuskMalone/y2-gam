@@ -569,61 +569,6 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 1,
-                "speed": 0.12999999523162842,
-                "currState": 0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "Layering": {
-                "layering": "Default"
-            },
-            "RigidBody": {
-                "dimX": 10.0,
-                "dimY": 18.0,
-                "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
-                "posX": -423.3147277832031,
-                "posY": -44.572723388671875,
-                "lockRotate": false
-            },
-            "Script": {
-                "scriptName": "ObjectCheckpoint",
-                "scriptTag": "Waypoint1",
-                "Range": 10.0
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 1.0,
-                "layer": 2,
-                "assetID": 0
-            },
-            "Tag": {
-                "Tag": "Waypoint1"
-            },
-            "Transform": {
-                "posX": -423.0,
-                "posY": -44.5,
-                "posZ": -1.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 30.0,
-                "scaleY": 25.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Animation": {
-                "states": [
-                    1707364242017229000,
-                    1707305393690677100
-                ],
                 "currFrame": 0,
                 "speed": 0.12999999523162842,
                 "currState": 0
