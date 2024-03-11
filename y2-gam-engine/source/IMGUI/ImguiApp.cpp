@@ -215,6 +215,8 @@ namespace Image {
             }
             if (ImGui::MenuItem("Stop")) {
                 STOP_SCENE_DONOTUSE
+                SoundManager::AudioStopGroup(SoundManager::musicGroup);
+                SoundManager::AudioStopGroup(SoundManager::sfxGroup);
             }
             ImGui::PopFont();
             ImGui::EndMainMenuBar();

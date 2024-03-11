@@ -438,6 +438,41 @@ namespace Image {
 	}
 
 	/*  _________________________________________________________________________ */
+	/*! EngineCore_SetAudioGroupVolume
+
+	@param audioGroup
+	Name of the audio group.
+
+	@param volume
+	Volume to set. Values between 0 and 1.
+
+	@return none.
+
+	Sets the audio volume for a particular group
+	*/
+	static void EngineCore_SetAudioGroupVolume(MonoString* audioGroup, float& volume) {
+		const char* utf8Str = audioGroup != nullptr ? mono_string_to_utf8(audioGroup) : nullptr;
+		if (utf8Str != nullptr) {
+			if (strcmp(utf8Str, "bgm") == 0) {
+				SoundManager::AudioSetGroupVolume(SoundManager::musicGroup, volume);
+			}
+
+			else if (strcmp(utf8Str, "sfx") == 0) {
+				SoundManager::AudioSetGroupVolume(SoundManager::sfxGroup, volume);
+			}
+			
+			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
+		}
+
+#ifndef _INSTALLER
+		else {
+			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
+				, __FUNCTION__);
+		}
+#endif
+	}
+
+	/*  _________________________________________________________________________ */
 	/*! EngineCore_StopAudio
 
 	@return none.
@@ -446,6 +481,7 @@ namespace Image {
 	*/
 	static void EngineCore_StopAudio() {
 		SoundManager::AudioStopGroup(SoundManager::musicGroup);
+		SoundManager::AudioStopGroup(SoundManager::sfxGroup);
 	}
 
 	/*  _________________________________________________________________________ */
@@ -1416,6 +1452,7 @@ Get the collider dimensions of the entity in C#.
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_PlayPositionalAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioFileVolume);
+		IMAGE_ADD_INTERNAL_CALL(EngineCore_SetAudioGroupVolume);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudio);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_StopAudioWithFilename);
 		IMAGE_ADD_INTERNAL_CALL(EngineCore_ResumeAudioWithFilename);

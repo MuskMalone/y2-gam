@@ -102,5 +102,11 @@ namespace Image
             end -= start;
             return end * value * value * value * value * value + start;
         }
+
+        public static float Remap(float originalValue, float originalMin, float originalMax, float newMin, float newMax)
+        {
+            float normalizedValue = (originalValue - originalMin) / (originalMax - originalMin);
+            return normalizedValue * (newMax - newMin) + newMin;
+        }
     }
 }

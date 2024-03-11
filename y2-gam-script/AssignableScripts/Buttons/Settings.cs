@@ -1,11 +1,11 @@
 ﻿using Image;
-using System;
 
 namespace Object
 {
     public class Settings : Entity
     {
-        //bool firstTime = true;
+        bool firstTime = true;
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -57,12 +57,6 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            //if (UIClicked && firstTime)
-            //{
-            //    QuitGame();
-            //    firstTime = false;
-            //}
-
             if (UIHover)
             {
                 Colour = new Vector4(1, 1, 1, 1);
@@ -70,6 +64,12 @@ namespace Object
             else
             {
                 Colour = new Vector4(1, 0, 1, 0);
+            }
+
+            if (UIClicked && firstTime)
+            {
+                LoadScene("Settings");
+                firstTime = false;
             }
         }
 

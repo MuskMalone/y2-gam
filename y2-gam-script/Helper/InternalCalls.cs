@@ -86,6 +86,9 @@ namespace Image
         internal extern static void EngineCore_SetAudioFileVolume(String audioFileName, ref float volume);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EngineCore_SetAudioGroupVolume(String audioGroupName, ref float volume);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_StopAudio();
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]

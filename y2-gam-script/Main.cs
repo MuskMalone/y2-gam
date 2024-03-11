@@ -119,14 +119,23 @@ namespace Image
         }
 
         /*  _________________________________________________________________________ */
-        /*! PlayPositionalAudio
+        /*! SetAudioFileVolume
 
-        Plays any sound file loaded in the asset manager. Remember to add '.wav' to
-        the end of the audioFileName. Uses positional audio.
+        Sets the volume for a particular audio file.
         */
         public void SetAudioFileVolume(string audioFileName, float vol)
         {
             InternalCalls.EngineCore_SetAudioFileVolume(audioFileName, ref vol);
+        }
+
+        /*  _________________________________________________________________________ */
+        /*! SetAudioGroupVolume
+
+        Sets the volume for a particular audio group.
+        */
+        public void SetAudioGroupVolume(string audioGroupName, float vol)
+        {
+            InternalCalls.EngineCore_SetAudioGroupVolume(audioGroupName, ref vol);
         }
 
         /*  _________________________________________________________________________ */
