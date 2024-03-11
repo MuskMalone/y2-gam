@@ -70,6 +70,13 @@ namespace Object
                     PlayAudio("Level2_BGM.wav", -1);
                 }
 
+                else if (GetCurrentScene() == "HowToPlay")
+                {
+                    PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                }
+
+             
+
                 firstTime = false;
             }
 

@@ -63,6 +63,7 @@ namespace Object
                 PlayAudio("PM_Menu_Music_Loop.wav", -1);
                 isPlaying = true;
             }
+
             //else
             //{
             //    StopAudio();

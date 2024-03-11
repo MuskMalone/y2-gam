@@ -113,15 +113,17 @@ namespace Object
         {
             if (!player.isPaused)
             {
-                Colour = new Vector4(1, 0, 1, 0);
+                Translation = new Vector2(99999, 99999);
+                //Colour = new Vector4(1, 0, 1, 0);
 
             }
             else
             {
-                //PauseGame();
-                Colour = new Vector4(1, 1, 1, 1);
+                Translation = temp_translation;
+                //Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
+                    Translation = new Vector2(99999, 99999);
                     quitClicked = true; 
                 }
             }
