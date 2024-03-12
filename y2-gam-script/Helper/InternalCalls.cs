@@ -347,6 +347,18 @@ namespace Image
         */
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void GraphicsComponent_SetZoom(float val);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EmitterComponent_IncrementPosition(ref uint entityHandle, ref Vector2 inc, ref int idx);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EmitterComponent_SetAlpha(ref uint entityHandle, ref float alpha, ref int idx);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EmitterComponent_SetPosition(ref uint entityHandle, ref Vector2 pos, ref int idx);
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        internal extern static void EmitterComponent_SetScale(ref uint entityHandle, ref Vector2 scale, ref int idx);
+
         #endregion
 
         #region Transform

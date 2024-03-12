@@ -98,6 +98,7 @@
     <Compile Include="AssignableScripts\Utility\LevelSelect.cs" />
     <Compile Include="AssignableScripts\Utility\LoadingScreen.cs" />
     <Compile Include="AssignableScripts\Utility\RobinButton.cs" />
+    <Compile Include="Helper\GraphicsWrapper.cs" />
     <Compile Include="Helper\GameplayWrapper.cs" />
     <Compile Include="Helper\Input.cs" />
     <Compile Include="Helper\InternalCalls.cs" />

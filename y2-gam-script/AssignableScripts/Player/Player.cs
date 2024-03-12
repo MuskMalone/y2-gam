@@ -57,6 +57,7 @@ namespace Object
         private int MAX_JUMP_AUDIO_FILES = 12;
         private int MAX_PLAYERDEATH_AUDIO_FILES = 8;
         private string FootTrack;
+
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
 
@@ -156,7 +157,8 @@ namespace Object
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
                 FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
-            }           
+            }
+            GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
         }
 
         /*  _________________________________________________________________________ */
@@ -171,6 +173,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            //GraphicsWrapper.EmitterSetAlpha(entityID, 1, 2);
             if (onInit)
             {
                 card = GameplayWrapper.FindEntityByName("Card").As<Card>();
@@ -335,6 +338,7 @@ namespace Object
 
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                     {
+                        GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
                         //Console.WriteLine("A was released");
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         PauseAudioWithFilename(FootTrack);
@@ -344,6 +348,16 @@ namespace Object
                     if (Input.IsKeyPressed(KeyCode.KEY_A))
                     {
                         MoveLeft(dt);
+                        if (IsGrounded)
+                        {
+                            GraphicsWrapper.EmitterSetPosition(entityID, new Vector2(GameplayWrapper.PlayerPos.X + (float)5, GameplayWrapper.PlayerPos.Y - (float)15.0), -1);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 4);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 5);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 6);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 7);
+
+                        }
+                        else GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
                         //Console.WriteLine("A was Pressed");
                         if (IsGrounded && (centreRayCast.layer == "Platform" ||
                             leftRayCast.layer == "Platform" ||
@@ -379,11 +393,21 @@ namespace Object
                     else if (Input.IsKeyPressed(KeyCode.KEY_D))
                     {
                         MoveRight(dt);
+                        if (IsGrounded) {
+                            GraphicsWrapper.EmitterSetPosition(entityID, new Vector2(GameplayWrapper.PlayerPos.X - (float)5, GameplayWrapper.PlayerPos.Y - (float)15.0), -1);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 0);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 1);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 2);
+                            GraphicsWrapper.EmitterSetAlpha(entityID, 1, 3);
+                        }
+                        else GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
+
                         //Console.WriteLine("D was Pressed");
                         if (IsGrounded && (centreRayCast.layer == "Platform" ||
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))
                         {
+
                             //PlayAudio(FootTrack, 0);
                             //ResumeAudioWithFilename(FootTrack);
                             footstepTimer += dt;
