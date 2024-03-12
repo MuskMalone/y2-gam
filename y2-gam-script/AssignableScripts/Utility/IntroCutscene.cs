@@ -277,7 +277,7 @@ namespace Object
 
             //CUTSCENE PAGE 3
             //1 and 3 together
-            if (cutsceneTag == "c2p1")
+            if (cutsceneTag == "c2p1" || cutsceneTag == "c2p1p2")
             {
                 FadeOutBegins = fadeoutbeginsC2;
                 if (FadedOut == false)
@@ -334,7 +334,7 @@ namespace Object
             }
 
             //4 and 5 together
-            if (cutsceneTag == "c2p3")
+            if (cutsceneTag == "c2p3" || cutsceneTag == "c2p3p2")
             {
                 FadeOutBegins = fadeoutbeginsC2;
                 if (FadedOut == false)
