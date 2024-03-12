@@ -394,6 +394,11 @@
             "id": 1710088092545875400,
             "path": "../assets\\audio\\sfx\\menu_click.wav",
             "stream": false
+        },
+        "1710281005012961500": {
+            "id": 1710281005012995000,
+            "path": "../assets\\audio\\music\\openingCutscene.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

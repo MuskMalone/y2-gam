@@ -37,6 +37,7 @@ namespace Object
         private float fadeoutbeginsC1 = 43.5f;
         private float fadeoutbeginsC2 = 61.5f;
         private float fadeoutbeginsC3 = 89.0f;
+        private float fadeoutbeginsC4 = 98.0f;
 
         /*  _________________________________________________________________________ */
         /*! Cutscene
@@ -93,6 +94,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            //PlayAudio("openingCutscene", 0);
             if (cutsceneTag == "c0p1")
             {
                 FadeOutBegins = fadeoutbeginsC0;
@@ -514,6 +516,34 @@ namespace Object
                     PanelTime += dt;
                 }
                 if (PanelTime <= 85.1f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < FadeOutBegins)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c4p1")
+            {
+                FadeOutBegins = fadeoutbeginsC4;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 91.1f)
                 {
                     //PanelTime += dt;
                     Colour = new Vector4(1, 1, 1, 0);

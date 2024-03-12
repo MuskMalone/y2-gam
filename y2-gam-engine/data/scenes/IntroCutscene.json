@@ -5,6 +5,10 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Script": {
+                "scriptName": "ObjectIntroCutsceneBGM",
+                "scriptTag": "BG"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -727,6 +731,45 @@
                 "rotZ": 0.0,
                 "scaleX": 68.80000305175781,
                 "scaleY": 37.70000076293945,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c4p1",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c4p1"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710274922633239600
+            },
+            "Tag": {
+                "Tag": "c4p1"
+            },
+            "Transform": {
+                "posX": -6.0,
+                "posY": 2.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 196.60000610351563,
+                "scaleY": 107.69999694824219,
                 "scaleZ": 15.0,
                 "elipse": false
             }
