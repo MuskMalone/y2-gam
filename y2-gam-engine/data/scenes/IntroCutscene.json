@@ -301,6 +301,162 @@
                 "scaleZ": 15.0,
                 "elipse": false
             }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c2p1",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c2p1"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710212383821004900
+            },
+            "Tag": {
+                "Tag": "c2p1"
+            },
+            "Transform": {
+                "posX": -54.5,
+                "posY": 39.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 109.69999694824219,
+                "scaleY": 12.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c2p2",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c2p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710212388571157500
+            },
+            "Tag": {
+                "Tag": "c2p2"
+            },
+            "Transform": {
+                "posX": -42.0,
+                "posY": -0.49999570846557617,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 118.0,
+                "scaleY": 60.5,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c2p3",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c2p3"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710212392371265600
+            },
+            "Tag": {
+                "Tag": "c2p3"
+            },
+            "Transform": {
+                "posX": 28.0,
+                "posY": 3.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 11.100000381469727,
+                "scaleY": 102.5999984741211,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectIntroCutscene",
+                "scriptTag": "c2p4",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c2p4"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710212394954031400
+            },
+            "Tag": {
+                "Tag": "c2p4"
+            },
+            "Transform": {
+                "posX": 65.0,
+                "posY": -12.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 55.70000076293945,
+                "scaleY": 59.5,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
         }
     ]
 }
