@@ -562,12 +562,16 @@ namespace Object
                         FadedOut = true;
                     }
                 }
+                if(FadedOut == true)
+                {
+                    LoadScene("LevelSelect");
+                }
             }
 
-            if (CutsceneIndex >= LastCutscene)
-            {
-                LoadScene("LevelSelect"); // Load the next scene if the last cutscene is reached
-            }
+            //if (CutsceneIndex >= LastCutscene)
+            //{
+            //    LoadScene("LevelSelect"); // Load the next scene if the last cutscene is reached
+            //}
         }
 
         void FadeIn(float dt, float fadeOutBegins)
