@@ -52,7 +52,16 @@ public class EnemyPatrolState : EnemyBaseState
             enemy.player.Dead = true;
         }
 
+        Vector2 losGround = new Vector2(enemy.Collider.X + (enemy.Scale.X / 2.0f) + visionOffset, enemy.Collider.Y + enemy.GroundHeightOffset);
+        PhysicsWrapper.Raycast(losGround, losGround, enemy.entityID, out RaycastHit losGroundCast);
+
+        // Raycast for ground
         if (losRayCast.layer == "Scaffolding" || losRayCast.layer == "Platform")
+        {
+            enemy.SwitchState(enemy.IdleState);
+        }
+
+        else if (losGroundCast.layer != "Scaffolding" && losGroundCast.layer != "Platform")
         {
             enemy.SwitchState(enemy.IdleState);
         }

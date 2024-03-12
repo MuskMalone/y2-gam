@@ -111,6 +111,13 @@ void main() {
         
         else if (spawnEmitter == -1){ //delete emitter
             Emitters[emtTargetIdx].alive = false;       // 4 bytes (bools are often treated as 4 bytes for alignment)
+            
+            TexHdls[emtTargetIdx].texCoords[0] = vec2(0);
+            TexHdls[emtTargetIdx].texCoords[1] = vec2(0);
+            TexHdls[emtTargetIdx].texCoords[2] = vec2(0);
+            TexHdls[emtTargetIdx].texCoords[3] = vec2(0);
+
+            TexHdls[emtTargetIdx].texHdl = uvec2(0);
         }
         else{ //edit emitter
             Emitters[emtTargetIdx].vertices[0] = uEmtvertices[0]; // Each vec4 is 16 bytes, total 64 bytes
@@ -132,5 +139,12 @@ void main() {
             Emitters[emtTargetIdx].vCount = uEmtvCount;       // 4 bytes
             Emitters[emtTargetIdx].preset = uEmtpreset;
             Emitters[emtTargetIdx].particlesPerFrame = uEmtparticlesPerFrame;
+
+            TexHdls[emtTargetIdx].texCoords[0] = uTexcoords[0];
+            TexHdls[emtTargetIdx].texCoords[1] = uTexcoords[1];
+            TexHdls[emtTargetIdx].texCoords[2] = uTexcoords[2];
+            TexHdls[emtTargetIdx].texCoords[3] = uTexcoords[3];
+
+            TexHdls[emtTargetIdx].texHdl = uTexhdl;
         }
 }

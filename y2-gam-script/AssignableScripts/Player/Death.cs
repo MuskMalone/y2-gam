@@ -84,74 +84,77 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if (player.PlayDeathAnimation)
+            if (!player.isPaused)
             {
-                float t = TimeInState / MaxDuration;
-                Colour = new Vector4(1, 1, 1, 1);
-                Translation = new Vector2(player.Translation.X, player.Translation.Y);
-
-                if (DeathAnimationSequence == 0)
+                if (player.PlayDeathAnimation)
                 {
-                    float easedScale = Easing.EaseInQuart(StartingScale, TargetScale, t);
-                    Scale = new Vector3(easedScale, easedScale, 0);
-                    TimeInState += dt;
-                }
+                    float t = TimeInState / MaxDuration;
+                    Colour = new Vector4(1, 1, 1, 1);
+                    Translation = new Vector2(player.Translation.X, player.Translation.Y);
 
-                else if (DeathAnimationSequence == 1)
-                {
-                    float easedScale = Easing.EaseInBounce(StartingScale, TargetScale, t);
-                    Scale = new Vector3(easedScale, easedScale, 0);
-                    TimeInState += dt;
-                }
-
-                else if (DeathAnimationSequence == 2)
-                {
-                    float easedScale = Easing.EaseInBack(StartingScale, TargetScale, t);
-                    Scale = new Vector3(easedScale, easedScale, 0);
-                    TimeInState += dt;
-                }
-
-                else if (DeathAnimationSequence == 3)
-                {
-                    float easedScale = Easing.QuickSpikeEaseOut(StartingScale, TargetScale, t);
-                    Scale = new Vector3(easedScale, easedScale, 0);
-                    TimeInState += dt;
-                }
-
-                if (TimeInState >= MaxDuration)
-                {
-                    player.PlayDeathAnimation = false;
-                    PlayLifeAnimation = true;
-                    TimeInState = 0;
-                    DeathAnimationSequence++;
-
-                    if (DeathAnimationSequence > MAX_DEATH_SEQUENCE || DeathAnimationSequence < 0)
+                    if (DeathAnimationSequence == 0)
                     {
-                        DeathAnimationSequence = 0;
+                        float easedScale = Easing.EaseInQuart(StartingScale, TargetScale, t);
+                        Scale = new Vector3(easedScale, easedScale, 0);
+                        TimeInState += dt;
+                    }
+
+                    else if (DeathAnimationSequence == 1)
+                    {
+                        float easedScale = Easing.EaseInBounce(StartingScale, TargetScale, t);
+                        Scale = new Vector3(easedScale, easedScale, 0);
+                        TimeInState += dt;
+                    }
+
+                    else if (DeathAnimationSequence == 2)
+                    {
+                        float easedScale = Easing.EaseInBack(StartingScale, TargetScale, t);
+                        Scale = new Vector3(easedScale, easedScale, 0);
+                        TimeInState += dt;
+                    }
+
+                    else if (DeathAnimationSequence == 3)
+                    {
+                        float easedScale = Easing.QuickSpikeEaseOut(StartingScale, TargetScale, t);
+                        Scale = new Vector3(easedScale, easedScale, 0);
+                        TimeInState += dt;
+                    }
+
+                    if (TimeInState >= MaxDuration)
+                    {
+                        player.PlayDeathAnimation = false;
+                        PlayLifeAnimation = true;
+                        TimeInState = 0;
+                        DeathAnimationSequence++;
+
+                        if (DeathAnimationSequence > MAX_DEATH_SEQUENCE || DeathAnimationSequence < 0)
+                        {
+                            DeathAnimationSequence = 0;
+                        }
                     }
                 }
-            }
 
-            else if (PlayLifeAnimation)
-            {
-                float t = TimeInState / BackToLifeDuration;
-                Translation = new Vector2(player.Translation.X, player.Translation.Y);
-                float easedScale = Easing.EaseInQuart(TargetScale, StartingScale, t);
-                Scale = new Vector3(easedScale, easedScale, 0);
-                TimeInState += dt;
-
-                if (TimeInState >= BackToLifeDuration)
+                else if (PlayLifeAnimation)
                 {
-                    PlayLifeAnimation = false;
-                    TimeInState = 0;
-                }
-            }
+                    float t = TimeInState / BackToLifeDuration;
+                    Translation = new Vector2(player.Translation.X, player.Translation.Y);
+                    float easedScale = Easing.EaseInQuart(TargetScale, StartingScale, t);
+                    Scale = new Vector3(easedScale, easedScale, 0);
+                    TimeInState += dt;
 
-            else
-            {
-                Colour = new Vector4(1, 1, 1, 0);
-                Scale = new Vector3(0, 0, 0);
-                Translation = new Vector2(player.Translation.X, player.Translation.Y);
+                    if (TimeInState >= BackToLifeDuration)
+                    {
+                        PlayLifeAnimation = false;
+                        TimeInState = 0;
+                    }
+                }
+
+                else
+                {
+                    Colour = new Vector4(1, 1, 1, 0);
+                    Scale = new Vector3(0, 0, 0);
+                    Translation = new Vector2(player.Translation.X, player.Translation.Y);
+                }
             }
         }
 

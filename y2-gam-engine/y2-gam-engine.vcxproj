@@ -216,6 +216,7 @@
     <ClInclude Include="include\Audio\Sound.hpp" />
     <ClInclude Include="include\Components\EmitterSystem.hpp" />
     <ClInclude Include="include\Components\Layering.hpp" />
+    <ClInclude Include="include\Components\Light.hpp" />
     <ClInclude Include="include\Components\Node.hpp" />
     <ClInclude Include="include\Components\Prefab.hpp" />
     <ClInclude Include="include\Components\Script.hpp" />
@@ -312,6 +313,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Installer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="include\Systems\InputSystem.hpp" />
+    <ClInclude Include="include\Systems\LightingSystem.hpp" />
     <ClInclude Include="include\Systems\ParticleSystem.hpp" />
     <ClInclude Include="include\Systems\PhysicsSystem.hpp" />
     <ClInclude Include="include\Systems\RenderSystem.hpp" />
@@ -503,6 +505,7 @@
     <ClCompile Include="source\Systems\EntitySerializationSystem.cpp" />
     <ClCompile Include="source\Systems\InputSystem.cpp" />
     <ClCompile Include="source\Systems\LayeringSystem.cpp" />
+    <ClCompile Include="source\Systems\LightingSystem.cpp" />
     <ClCompile Include="source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="source\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="source\Systems\RenderSystem.cpp" />

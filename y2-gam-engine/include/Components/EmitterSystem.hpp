@@ -108,6 +108,7 @@ struct EmitterProxy {
     int particlesPerFrame; // 4 bytes
     int idx{-1};
     bool drawEmitterVertices{ false };
+    AssetID spriteAssetID{ };
     // Padding might be added here to align the entire structure size
 };
 struct EmitterSystem
@@ -147,7 +148,9 @@ struct EmitterSystem
             ep.preset = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["preset"].GetInt();
             ep.particlesPerFrame = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["particlesPerFrame"].GetInt();
             ep.drawEmitterVertices = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["drawEmitterVertices"].GetBool();
-
+            if (obj["emitters"][static_cast<rapidjson::SizeType>(i)].HasMember("spriteAssetID")) {
+                ep.spriteAssetID = obj["emitters"][static_cast<rapidjson::SizeType>(i)]["spriteAssetID"].GetUint64();
+            }
             emitters.emplace_back(ep);
         }
     }
@@ -195,6 +198,7 @@ struct EmitterSystem
 
             sm->InsertValue(emitterObj, "drawEmitterVertices", emitter.drawEmitterVertices);
 
+            sm->InsertValue(emitterObj, "spriteAssetID", emitter.spriteAssetID);
 
             sm->PushToArray(emitterArr, emitterObj);
         }

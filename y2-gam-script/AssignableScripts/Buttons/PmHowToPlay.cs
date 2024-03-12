@@ -22,10 +22,11 @@ namespace Object
     public class PmHowToPlay : Entity
     {
         //bool firstTime = true;
-        private bool isPaused = false;
+        //private bool isPaused = false;
         private Vector2 temp_translation;
+        Player player;
 
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         /*  _________________________________________________________________________ */
         /*! PmHowToPlay
@@ -64,32 +65,12 @@ namespace Object
 
         void OnCreate()
         {
+            player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
         void PauseGame()
         {
-
-            //if (UIHover)
-            //{
-            //    //Console.WriteLine("Quitgame Hovered Over");
-            //    Colour = new Vector4(1, 1, 1, 1);
-
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-            //}
-            //if (UIClicked)
-            //{
-
-            //    GameplayWrapper.SpawnPrefab("HowToPlay", new Vector2(750, 252));
-            //    //if(Input.IsKeyClicked(KeyCode.KEY_Q))
-            //    //{
-
-            //    //}
-            //    //LoadScene("HowToPlay");
-            //}
             Translation = new Vector2(1205, 345);
         }
 
@@ -110,7 +91,7 @@ namespace Object
         */
         void OnUpdate(float dt)
         {       
-            if (!isPaused)
+            if (!player.isPaused)
             {
                 Colour = new Vector4(1, 0, 1, 0);
             }
@@ -119,56 +100,10 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
-                    SaveScene("Level1");
+                    SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
                     LoadScene("HowToPlay");
-                    //StopAudio();
-                    //LoadScene("HowToPlay");
-                    //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
                 }
             }
-
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
-            //else
-            //{
-            //    isPaused = true;
-            //}
-
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    PauseGame();
-                    isPaused = true;
-                }
-                else
-                {
-                    ResumeGame();
-                    isPaused = false;
-                }
-                //firstTime = false;
-            }
-
-
-            //if (UIClicked)
-            //{
-            //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
-            //    {
-            //        Console.WriteLine("QUITCLICKED");
-            //        Colour = new Vector4(1, 0, 1, 0);
-            //    }
-            //}
-            //if (UIHover)
-            //{
-            //    Colour = new Vector4(1, 1, 0, 1);
-            //    //SetSprite("start_glow");
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-            //}
         }
 
         /*  _________________________________________________________________________ */

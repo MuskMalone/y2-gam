@@ -708,6 +708,12 @@ namespace Image {
 #endif
   }
 
+  float SoundManager::AudioGetGroupVolume(SoundGroup const& group) {
+    float volume;
+    group->getVolume(&volume);
+    return volume;
+  }
+
   /*  _________________________________________________________________________ */
   /*! AudioSetFileVolume
 

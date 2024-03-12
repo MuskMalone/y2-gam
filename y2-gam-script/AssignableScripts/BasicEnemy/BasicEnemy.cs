@@ -23,18 +23,21 @@ namespace Object
     public class BasicEnemy : Entity
     {
         public float JumpCooldown;
-        public float MovementForce;
+        public float MovementSpeed;
         public float JumpForce;
         public float VisionRange;
         public float VisionHeightOffset;
+        public float GroundHeightOffset;
         public float AttackRange;
         public bool isGrounded = true;
         public bool IsFacingRight;
         public bool EnemyDeath = false;
         public float EnemyDeathTimer = 0;
         public float HowLongDisplayEnemyDeath;
+        private int DeathAudioIncrement = 1;
+        private int MAX_DEATH_AUDIO_FILES = 7;
 
-        PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
 
         //For pausing 
@@ -43,7 +46,7 @@ namespace Object
         //Vector2 temp_Force;
         //Vector2 temp_velocity;
         float temp_dt = 0f;
-        private bool isPaused = false;
+        //private bool isPaused = false;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
@@ -135,35 +138,35 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            if (resume.isRPaused == false)
-            {
-                isPaused = false;
-            }
+            //if (resume.isRPaused == false)
+            //{
+            //    isPaused = false;
+            //}
 
-            if (isPaused)
+            if (player.isPaused)
             {
                 dt = 0f;
                 //PauseGame();
                 //AnimationState = temp_AnimationState;
             }
-            if (Input.IsKeyClicked(KeyCode.KEY_P))
-            {
-                if (!isPaused)
-                {
-                    //PauseGame();
-                    temp_dt = dt;
-                    dt = 0f;
-                    isPaused = true;
-                }
-                else
-                {
-                    //resume game
-                    //ResumeGame();
-                    dt = temp_dt;
-                    isPaused = false;
-                }
-            }
-            if (!isPaused)
+            //if (Input.IsKeyClicked(KeyCode.KEY_P))
+            //{
+            //    if (!isPaused)
+            //    {
+            //        //PauseGame();
+            //        temp_dt = dt;
+            //        dt = 0f;
+            //        isPaused = true;
+            //    }
+            //    else
+            //    {
+            //        //resume game
+            //        //ResumeGame();
+            //        dt = temp_dt;
+            //        isPaused = false;
+            //    }
+            //}
+            if (!player.isPaused)
             {
                 // Workaround for now
                 if (Math.Abs(Velocity.Y) > 1.0f)
@@ -206,7 +209,13 @@ namespace Object
                 {
                     EnemyDeathTimer += dt;
                     AnimationState = (int)AnimationCodeEnemy.DEAD;
+                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0);
+                    DeathAudioIncrement++;
 
+                    if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
+                    {
+                        DeathAudioIncrement = 1;
+                    }
                     if (EnemyDeathTimer >= HowLongDisplayEnemyDeath)
                     {
                         EnemyDeath = false;
@@ -259,15 +268,17 @@ namespace Object
 
         public void MoveLeft(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Velocity -= new Vector2(horizontalMovement, 0.0f) * dt;
+            //float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            //Velocity -= new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity = new Vector2(-MovementSpeed, Velocity.Y);
             isFacingRight = false;
         }
 
         public void MoveRight(float dt)
         {
-            float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
-            Velocity += new Vector2(horizontalMovement, 0.0f) * dt;
+            //float horizontalMovement = (isGrounded) ? MovementForce : MovementForce * 0.2f;
+            //Velocity += new Vector2(horizontalMovement, 0.0f) * dt;
+            Velocity = new Vector2(MovementSpeed, Velocity.Y);
             isFacingRight = true;
         }
 

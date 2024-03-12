@@ -177,7 +177,7 @@ void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader>
 	glBindTexture(GL_TEXTURE_2D, tex);
 
 	shader->SetUniform("screenTex", 0); 
-	shader->SetUniform("time", static_cast<float>(glfwGetTime()));
+	//shader->SetUniform("time", static_cast<float>(glfwGetTime()));
 
 	mData.screen.screenVertexArray->Bind();
 

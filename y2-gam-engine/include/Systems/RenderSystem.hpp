@@ -58,14 +58,24 @@ public:
 	void SetPPMode(bool b) { mPPMode = b; }
 	void SetTimeSlow(bool b) { mIsTimeSlow = b;  }
 	void UpdateRadius(float dt);
+	void UpdateTransition(float dt);
 
 private:
 	bool mDebugMode{ false };
 	bool mEditorMode{ true };
 	bool mPPMode{ false };
 
+	struct Transition {
+		bool isTransitioning{ false };
+		bool isIncreasing{ false };
+		float factor{ 0.f };
+		float speed{ 2.f };
+	} trans;
+
+
 	bool mIsTimeSlow{ false };
 	void WindowSizeListener(Event& event);
+	void SceneTransitionListener(Event& event);
 
 	float mRadius{};
 	

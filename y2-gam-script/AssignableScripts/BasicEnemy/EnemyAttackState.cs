@@ -20,6 +20,9 @@ using System;
 
 public class EnemyAttackState : EnemyBaseState
 {
+    private int AttackAudioIncrement = 1;
+    private int MAX_ATTACK_AUDIO_FILES = 11;
+    private bool audioPlayed = false;
     public override void EnterState(BasicEnemy enemy)
     {
         enemy.SetText("Attack State");
@@ -37,10 +40,19 @@ public class EnemyAttackState : EnemyBaseState
         if (attackRayCast.tag != "Player")
         {
             enemy.SwitchState(enemy.IdleState);
+            AttackAudioIncrement++;
+
+            if (AttackAudioIncrement > MAX_ATTACK_AUDIO_FILES)
+            {
+                AttackAudioIncrement = 1;
+            }
         }
 
-        else if (attackRayCast.tag == "Player")
-        {        
+        else if (attackRayCast.tag == "Player" && !audioPlayed)
+        {
+            enemy.PlayAudio("Jester Chomp_" + AttackAudioIncrement + ".wav", 0);
+            audioPlayed = true;
+
             enemy.player.Dead = true;
         }
     }

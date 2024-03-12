@@ -176,6 +176,9 @@ public:
 	static Statistics GetStats();
 	static void ResetStats();
 
+public:
+	static std::shared_ptr<VertexArray> GetScreeenVAO() { return mData.screen.screenVertexArray; }
+
 private:
 	static RendererData mData;
 };

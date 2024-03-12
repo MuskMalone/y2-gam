@@ -24,6 +24,7 @@
 #include "Systems/RenderSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/ParticleSystem.hpp"
+#include "Systems/LightingSystem.hpp"
 #include "Systems/LayeringSystem.hpp"
 #include "Core/Coordinator.hpp"
 #include "Graphics/Shader.hpp"
@@ -123,6 +124,7 @@ void RenderSystem::Init()
 {
 	::gCoordinator = Coordinator::GetInstance();
 	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::Window::RESIZED, RenderSystem::WindowSizeListener));
+	::gCoordinator->AddEventListener(METHOD_LISTENER(Events::System::Scene::TRANSITION, RenderSystem::SceneTransitionListener));
 
 	//array to track the existence of different camera types
 	bool cameraExists[static_cast<int>(CameraType::NumCameraTypes)] = { false };
@@ -195,6 +197,10 @@ void RenderSystem::Init()
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
+
+	//lighting
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
 	//postprocessing
@@ -331,6 +337,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
+	::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
 		NodeManager::DisplayDebugLines();
@@ -342,29 +349,36 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 		mRays.clear();
 	}
-
 	Renderer::RenderSceneEnd();
+
 	::gCoordinator->GetSystem<ParticleSystem>()->Draw();
 
 	if (showEditor)
 		RenderUI();
-
 	glEnable(GL_DEPTH_TEST);
+
 	::gCoordinator->GetSystem<TextSystem>()->Update();
+	glDisable(GL_DEPTH_TEST);
 
-
-	//if (showEditor) {
 	mFramebuffers[0]->Unbind();
+	{
+		mFramebuffers[2]->Bind();
+
+		::gCoordinator->GetSystem<LightingSystem>()->Draw(mFramebuffers[0]->GetColorAttachmentID());
+
+		mFramebuffers[2]->Unbind();
+	}
+	
 	//}
 	if (showEditor) {
-		mFramebuffers[2]->Bind();
+		mFramebuffers[3]->Bind();
 	}
 	else {
 		int width, height;
 		glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
 		glViewport(0, 0, width, height);
 	}
-	glDisable(GL_DEPTH_TEST);
+
 
 	playerScreenPos /= playerScreenPos.w;
 	glm::vec2 playerCenter = glm::vec2(playerScreenPos.x,playerScreenPos.y);
@@ -377,15 +391,19 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	int width, height;
 	glfwGetFramebufferSize(WindowManager::GetInstance()->GetContext(), &width, &height);
 	glm::vec2 res {width, height};
+	//glm::vec2 res {mFramebuffers[3]->GetFramebufferProps().width, mFramebuffers[3]->GetFramebufferProps().height};
 	uniforms.push_back(UniformData{ "resolution", UniformData::Type::VEC2, res });
 	uniforms.push_back(UniformData{ "radius", UniformData::Type::FLOAT, mRadius });
 	uniforms.push_back(UniformData{ "circleCenter", UniformData::Type::VEC2, playerCenter});
+
+	UpdateTransition(dt);
+	uniforms.push_back(UniformData{ "transitionFactor", UniformData::Type::FLOAT, trans.factor });
 
 	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
 
 	//glEnable(GL_DEPTH_TEST);
 	if (showEditor) {
-		mFramebuffers[2]->Unbind();
+		mFramebuffers[3]->Unbind();
 	}
 	else {
 		RenderUI();
@@ -590,6 +608,12 @@ void RenderSystem::WindowSizeListener(Event& event)
 	//camera.SetProjectionMtx(left, right, bottom, top);
 }
 
+void RenderSystem::SceneTransitionListener(Event& event) {
+	[[maybe_unused]] auto fromScene = event.GetParam<std::string>(Events::System::Scene::Transition::FROM_SCENE);
+	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
+	trans.isTransitioning = true;
+}
+
 /*  _________________________________________________________________________ */
 /*!
 \brief DebugRay Function
@@ -659,5 +683,25 @@ void RenderSystem::UpdateRadius(float dt) {
 		// Linearly decrease the radius until it reaches 0
 		mRadius -= changeRate * dt;
 		mRadius = std::max(mRadius, 0.0f);
+	}
+}
+
+void RenderSystem::UpdateTransition(float dt) {
+	if (trans.isTransitioning) {
+		if (trans.isIncreasing) {
+			trans.factor += trans.speed * dt;
+			if (trans.factor >= 1.f) {
+				trans.factor = 1.f;
+				trans.isIncreasing = false;
+			}
+		}
+		else {
+			trans.factor -= trans.speed * dt;
+			if (trans.factor <= 0.f) {
+				trans.factor = 0.f;
+				trans.isTransitioning = false;
+				trans.isIncreasing = true; //reset for next transition
+			}
+		}
 	}
 }

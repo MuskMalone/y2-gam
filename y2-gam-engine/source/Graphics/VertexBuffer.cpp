@@ -52,7 +52,7 @@ and size and sets the buffer data storage with static draw usage.
 VertexBuffer::VertexBuffer(float* vertices, unsigned int size) {
 	glCreateBuffers(1, &mVboHdl);
 	VertexBuffer::Bind();
-	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
 
 }
 

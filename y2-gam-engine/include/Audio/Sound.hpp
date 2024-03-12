@@ -61,6 +61,7 @@ namespace Image {
     static void AudioStopGroup(SoundGroup const& group);
     static void AudioPauseGroup(SoundGroup const& group);
     static void AudioSetGroupVolume(SoundGroup const& group, float volume);
+    static float AudioGetGroupVolume(SoundGroup const& group);
     static void AudioSetFileVolume(std::string filename, float volume);
     static void AudioSetGroupPitch(SoundGroup const& group, float pitch);
 
