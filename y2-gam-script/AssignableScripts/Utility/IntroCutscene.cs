@@ -36,6 +36,7 @@ namespace Object
         private float fadeoutbeginsC0 = 24.3f;
         private float fadeoutbeginsC1 = 43.5f;
         private float fadeoutbeginsC2 = 61.5f;
+        private float fadeoutbeginsC3 = 89.0f;
 
         /*  _________________________________________________________________________ */
         /*! Cutscene
@@ -391,7 +392,147 @@ namespace Object
                 }
             }
 
+            //PAGE 4
+            if (cutsceneTag == "c3p1")
+            {
+                FadeOutBegins = fadeoutbeginsC3;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 62.6f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < 73.9f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
 
+            if (cutsceneTag == "c3p2")
+            {
+                FadeOutBegins = fadeoutbeginsC3;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 73.9f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < 80.8f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c3p3")
+            {
+                FadeOutBegins = fadeoutbeginsC3;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 80.8f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < 84.0f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
+
+            if (cutsceneTag == "c3p4")
+            {
+                FadeOutBegins = fadeoutbeginsC3;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 84.0f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < 85.1f)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
+
+
+            if (cutsceneTag == "c3p5")
+            {
+                FadeOutBegins = fadeoutbeginsC3;
+                if (FadedOut == false)
+                {
+                    PanelTime += dt;
+                }
+                if (PanelTime <= 85.1f)
+                {
+                    //PanelTime += dt;
+                    Colour = new Vector4(1, 1, 1, 0);
+                }
+                else
+                {
+                    //PanelTime += dt;
+                    if (PanelTime < FadeOutBegins)
+                    {
+                        //CurrPanel = 1
+                        FadeIn(dt, FadeOutBegins);
+                    }
+                    else if (PanelTime >= FadeOutBegins)
+                    {
+                        FadeOut(dt);
+                        FadedOut = true;
+                    }
+                }
+            }
 
             if (CutsceneIndex >= LastCutscene)
             {

@@ -1084,6 +1084,46 @@
             "idxY": 0.0,
             "dimX": 557.0,
             "dimY": 595.0
+        },
+        "1710274916782975900": {
+            "id": 1710274916783022100,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 671.0,
+            "dimY": 1026.0
+        },
+        "1710274918201405400": {
+            "id": 1710274918201468000,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1169.0,
+            "dimY": 398.0
+        },
+        "1710274919567115300": {
+            "id": 1710274919567167200,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 446.0,
+            "dimY": 595.0
+        },
+        "1710274921316967100": {
+            "id": 1710274921316998500,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 688.0,
+            "dimY": 185.0
+        },
+        "1710274922633239600": {
+            "id": 1710274922633277300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_5.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 688.0,
+            "dimY": 377.0
         }
     },
     "AnimationManager": {
