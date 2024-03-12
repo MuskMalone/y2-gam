@@ -208,7 +208,7 @@ namespace Object
                 else
                 {
                     //PanelTime += dt;
-                    if (PanelTime > 25.0f)
+                    if (PanelTime < 34.0f)
                     {
                         //CurrPanel = 1
                         FadeIn(dt, FadeOutBegins);
@@ -284,7 +284,7 @@ namespace Object
                 {
                     PanelTime += dt;
                 }
-                if (PanelTime <= 44.5f)
+                if (PanelTime < 44.5f)
                 {
                     //PanelTime += dt;
                     Colour = new Vector4(1, 1, 1, 0);
@@ -292,7 +292,7 @@ namespace Object
                 else
                 {
                     //PanelTime += dt;
-                    if (PanelTime > 44.5f)
+                    if (PanelTime < 46.7f)
                     {
                         //CurrPanel = 1
                         FadeIn(dt, FadeOutBegins);
@@ -320,7 +320,7 @@ namespace Object
                 else
                 {
                     //PanelTime += dt;
-                    if (PanelTime > 46.7f)
+                    if (PanelTime < 50.3f)
                     {
                         //CurrPanel = 1
                         FadeIn(dt, FadeOutBegins);
@@ -341,7 +341,7 @@ namespace Object
                 {
                     PanelTime += dt;
                 }
-                if (PanelTime <= 50.3f)
+                if (PanelTime < 50.3f)
                 {
                     //PanelTime += dt;
                     Colour = new Vector4(1, 1, 1, 0);
@@ -349,7 +349,7 @@ namespace Object
                 else
                 {
                     //PanelTime += dt;
-                    if (PanelTime > 50.3f)
+                    if (PanelTime < 53.0f)
                     {
                         //CurrPanel = 1
                         FadeIn(dt, FadeOutBegins);
@@ -378,7 +378,7 @@ namespace Object
                 else
                 {
                     //PanelTime += dt;
-                    if (PanelTime > 53.0f)
+                    if (PanelTime < FadeOutBegins)
                     {
                         //CurrPanel = 1
                         FadeIn(dt, FadeOutBegins);
