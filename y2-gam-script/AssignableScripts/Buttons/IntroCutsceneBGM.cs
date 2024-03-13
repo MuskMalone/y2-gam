@@ -63,17 +63,22 @@ namespace Object
                 PlayAudio("openingCutscene.wav", 0);
                 isPlaying = true;
             }
+
+            if (Input.IsKeyClicked(KeyCode.KEY_SPACE))
+            {
+                LoadScene("LevelSelect");
+            }
             //else
             //{
             //    StopAudio();
 
-            //}
+                //}
 
-            //if(firstTime)
-            //{
-            //StopAudio();
-            //firstTime = false;
-            //}
+                //if(firstTime)
+                //{
+                //StopAudio();
+                //firstTime = false;
+                //}
         }
 
         /*  _________________________________________________________________________ */

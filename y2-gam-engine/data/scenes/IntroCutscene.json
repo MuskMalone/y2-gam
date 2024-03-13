@@ -138,8 +138,8 @@
                 "Tag": "c0p3"
             },
             "Transform": {
-                "posX": 42.0,
-                "posY": 0.0,
+                "posX": 41.0,
+                "posY": -0.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -177,8 +177,8 @@
                 "Tag": "c0p4"
             },
             "Transform": {
-                "posX": 43.0,
-                "posY": -39.0,
+                "posX": 41.0,
+                "posY": -38.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -216,8 +216,8 @@
                 "Tag": "c1p1"
             },
             "Transform": {
-                "posX": -62.5,
-                "posY": 4.5,
+                "posX": -63.5,
+                "posY": 1.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -255,8 +255,8 @@
                 "Tag": "c1p2"
             },
             "Transform": {
-                "posX": 14.500001907348633,
-                "posY": -24.0,
+                "posX": 12.5,
+                "posY": -27.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -294,8 +294,8 @@
                 "Tag": "c1p3"
             },
             "Transform": {
-                "posX": 32.0,
-                "posY": 34.0,
+                "posX": 31.00000762939453,
+                "posY": 30.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -333,8 +333,8 @@
                 "Tag": "c2p1"
             },
             "Transform": {
-                "posX": -43.5,
-                "posY": 50.5,
+                "posX": -37.5,
+                "posY": 47.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -372,8 +372,8 @@
                 "Tag": "c2p2"
             },
             "Transform": {
-                "posX": -41.0,
-                "posY": 8.000003814697266,
+                "posX": -38.5,
+                "posY": 9.500007629394531,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -411,8 +411,8 @@
                 "Tag": "c2p3"
             },
             "Transform": {
-                "posX": 25.5,
-                "posY": 0.5,
+                "posX": 27.5,
+                "posY": 2.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -489,8 +489,8 @@
                 "Tag": "c2p1p2"
             },
             "Transform": {
-                "posX": -40.5,
-                "posY": -37.0,
+                "posX": -38.20000076293945,
+                "posY": -37.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -528,8 +528,8 @@
                 "Tag": "c2p3p2"
             },
             "Transform": {
-                "posX": 62.0,
-                "posY": 35.5,
+                "posX": 62.5,
+                "posY": 34.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -567,7 +567,7 @@
                 "Tag": "c3p1"
             },
             "Transform": {
-                "posX": -63.5,
+                "posX": -64.0,
                 "posY": 3.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -606,8 +606,8 @@
                 "Tag": "c3p2"
             },
             "Transform": {
-                "posX": 33.0,
-                "posY": 36.5,
+                "posX": 29.0,
+                "posY": 34.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -645,8 +645,8 @@
                 "Tag": "c3p3"
             },
             "Transform": {
-                "posX": -3.0,
-                "posY": -18.5,
+                "posX": -6.5,
+                "posY": -18.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -684,8 +684,8 @@
                 "Tag": "c3p4"
             },
             "Transform": {
-                "posX": 57.0,
-                "posY": 3.0,
+                "posX": 53.5,
+                "posY": 2.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -723,8 +723,8 @@
                 "Tag": "c3p5"
             },
             "Transform": {
-                "posX": 56.5,
-                "posY": -30.0,
+                "posX": 53.5,
+                "posY": -28.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -763,7 +763,7 @@
             },
             "Transform": {
                 "posX": -6.0,
-                "posY": 2.0,
+                "posY": 3.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

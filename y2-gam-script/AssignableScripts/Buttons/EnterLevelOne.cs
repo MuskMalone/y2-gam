@@ -89,7 +89,8 @@ namespace Object
             {
                 PlayAudio("menu_click.wav", 0);
                 StopAudio();
-                LoadScene("Cutscene");
+                //LoadScene("Cutscene");
+                LoadScene("IntroCutscene");
                 firstTime = false;
             }
         }
