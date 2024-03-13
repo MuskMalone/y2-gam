@@ -133,6 +133,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": -591.5,
                 "colliderPositionY": -123.5,
+                "onPlatform": false,
                 "spawnPositionX": -592.5,
                 "spawnPositionY": -114.5
             },
@@ -1150,11 +1151,15 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -450.0,
+                "posX": -336.3909912109375,
                 "posY": -35.0,
                 "rotation": 0.0,
                 "dimX": 15.0,
                 "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
             },
             "Layering": {
                 "layering": "Platform"
@@ -1168,6 +1173,11 @@
                 "posY": 0.0,
                 "lockRotate": false
             },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform1",
+                "range": 10.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -1180,7 +1190,7 @@
                 "Tag": "DPlatform1"
             },
             "Transform": {
-                "posX": -450.0,
+                "posX": -336.3909912109375,
                 "posY": -35.0,
                 "posZ": -1.0,
                 "rotX": 0.0,
