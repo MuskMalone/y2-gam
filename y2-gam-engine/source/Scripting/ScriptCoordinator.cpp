@@ -374,14 +374,17 @@ namespace Image {
 	@param loopCount
 	The number of loops the audio will be played for.
 
+	@param reverbSettings
+	The reverb preset to use.
+
 	@return none.
 
 	Plays audio. To use if positional audio does not matter.
 	*/
-	static void EngineCore_PlayAudio(MonoString* audioFileName, int& loopCount) {
+	static void EngineCore_PlayAudio(MonoString* audioFileName, int& loopCount, int& reverbSettings) {
 		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
-			SoundManager::AudioPlay(utf8Str, loopCount);
+			SoundManager::AudioPlay(utf8Str, loopCount, static_cast<ReverbPropertyIndex>(reverbSettings));
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -405,14 +408,17 @@ namespace Image {
 	@param pos
 	The position the audio will be played from.
 
+	@param reverbSettings
+	The reverb preset to use.
+
 	@return none.
 
 	Plays audio. Specifically for positional audio.
 	*/
-	static void EngineCore_PlayPositionalAudio(MonoString* audioFileName, int& loopCount, Vec2& pos) {
+	static void EngineCore_PlayPositionalAudio(MonoString* audioFileName, int& loopCount, Vec2& pos, int& reverbSettings) {
 		const char* utf8Str = audioFileName != nullptr ? mono_string_to_utf8(audioFileName) : nullptr;
 		if (utf8Str != nullptr) {
-			SoundManager::AudioPlayPositional(utf8Str, loopCount, pos);
+			SoundManager::AudioPlayPositional(utf8Str, loopCount, pos, static_cast<ReverbPropertyIndex>(reverbSettings));
 			mono_free(const_cast<void*>(static_cast<const void*>(utf8Str)));
 		}
 
@@ -514,9 +520,11 @@ namespace Image {
 #ifndef _INSTALLER
 		else {
 			LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "Invalid String Parameter!"
-				, __FUNCTION__);
+				, __FUNCTION__);	
 		}
 #endif
+
+		return 0.f;
 	}
 
 	/*  _________________________________________________________________________ */

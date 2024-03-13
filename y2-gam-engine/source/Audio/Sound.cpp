@@ -4,7 +4,7 @@
 \file       Sound.cpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       March 7, 2024
+\date       March 13, 2024
 
 \brief      Source file for Audio library that wraps around FMOD. 
 
@@ -35,6 +35,51 @@ namespace Image {
     HWND gameWindowHandle;
     HWND foregroundWindow;
     std::shared_ptr<Coordinator> gCoordinator = Coordinator::GetInstance();
+  }
+
+  void SoundManager::AudioSetupReverbProperties() {
+    FMOD_REVERB_PROPERTIES prop1 = FMOD_PRESET_OFF;
+    FMOD_REVERB_PROPERTIES prop2 = FMOD_PRESET_CAVE;
+    FMOD_REVERB_PROPERTIES prop3 = FMOD_PRESET_HALLWAY;
+    FMOD_REVERB_PROPERTIES prop4 = FMOD_PRESET_ROOM;
+
+    FMOD_RESULT result;
+
+    result = sSystem->setReverbProperties(0, &prop1);
+    if (result != FMOD_OK) {
+#ifndef _INSTALLER
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
+      return;
+    }
+
+    result = sSystem->setReverbProperties(1, &prop2);
+    if (result != FMOD_OK) {
+#ifndef _INSTALLER
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
+      return;
+    }
+
+    result = sSystem->setReverbProperties(2, &prop3);
+    if (result != FMOD_OK) {
+#ifndef _INSTALLER
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
+      return;
+    }
+
+    result = sSystem->setReverbProperties(3, &prop4);
+    if (result != FMOD_OK) {
+#ifndef _INSTALLER
+      std::string str(FMOD_ErrorString(result));
+      LoggingSystem::GetInstance().Log(LogLevel::ERROR_LEVEL, "FMOD error! " + str, __FUNCTION__);
+#endif
+      return;
+    }
   }
 
   /*  _________________________________________________________________________ */
@@ -80,10 +125,11 @@ namespace Image {
     }
 #endif
 
+    AudioSetupReverbProperties();
     musicGroup = Image::SoundManager::AudioCreateGroup();
     sfxGroup = Image::SoundManager::AudioCreateGroup();
 
-    // Start at 50%
+    // Start at 50% by default
     Image::SoundManager::AudioSetGroupVolume(musicGroup, 0.5f);
     Image::SoundManager::AudioSetGroupVolume(sfxGroup, 0.5f);
 
@@ -360,7 +406,7 @@ namespace Image {
   Extremely simplified version of AudioPlay that auto detects the group the audio 
   should be in from just the filename.
   */
-  void SoundManager::AudioPlay(std::string filename, int loops) {
+  void SoundManager::AudioPlay(std::string filename, int loops, ReverbPropertyIndex reverbSetting) {
     // Prevent stacking of audio that is already playing
     for (AudioInformation& pair : AudioPlaying) {
       if (pair.audioName == filename && pair.isPlaying) {
@@ -394,6 +440,7 @@ namespace Image {
         ai.position = Vec2(-1.f, -1.f);
         result = sSystem->playSound(audio, group, false, &ai.audioChannel);
         ai.audioChannel->setCallback(OnSoundFinished);
+        AudioSetReverbProperties(ai.audioChannel, reverbSetting);
         break;
       }
     }
@@ -410,6 +457,7 @@ namespace Image {
       ai.isPlaying = true;
       ai.isPositional = false;
       ai.position = Vec2(-1.f, -1.f);
+      AudioSetReverbProperties(ai.audioChannel, reverbSetting);
       AudioPlaying.push_back(ai);
     }
 
@@ -447,7 +495,7 @@ namespace Image {
   is to the centre of the camera, the louder it will be. Use it as an alternative
   to AudioPlay.
   */
-  void SoundManager::AudioPlayPositional(std::string filename, int loops, Vec2 position) {
+  void SoundManager::AudioPlayPositional(std::string filename, int loops, Vec2 position, ReverbPropertyIndex reverbSetting) {
     // Prevent stacking of audio that is already playing
     for (AudioInformation& pair : AudioPlaying) {
       if (pair.audioName == filename && pair.isPlaying) {
@@ -479,6 +527,7 @@ namespace Image {
         ai.isPlaying = true;
         result = sSystem->playSound(audio, group, false, &ai.audioChannel);
         ai.audioChannel->setCallback(OnSoundFinished);
+        AudioSetReverbProperties(ai.audioChannel, reverbSetting);
         ai.isPositional = true;
         ai.position = position;
         break;
@@ -494,6 +543,7 @@ namespace Image {
       AudioInformation ai{};
       ai.audioName = filename;
       ai.audioChannel = channel;
+      AudioSetReverbProperties(ai.audioChannel, reverbSetting);
       ai.isPlaying = true;
       ai.isPositional = true;
       ai.position = position;
@@ -509,6 +559,36 @@ namespace Image {
       LoggingSystem::GetInstance().Log(LogLevel::INFO_LEVEL, "Now playing", __FUNCTION__);
     }
 #endif
+  }
+
+  void SoundManager::AudioSetReverbProperties(FMOD::Channel* channel, ReverbPropertyIndex reverbSetting) {
+    if (reverbSetting == ReverbPropertyIndex::OFF) {
+      channel->setReverbProperties(ReverbPropertyIndex::OFF, 1.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::CAVE, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::HALLWAY, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::ROOM, 0.0f);
+    }
+
+    else if (reverbSetting == ReverbPropertyIndex::CAVE) {
+      channel->setReverbProperties(ReverbPropertyIndex::OFF, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::CAVE, 1.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::HALLWAY, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::ROOM, 0.0f);
+    }
+
+    else if (reverbSetting == ReverbPropertyIndex::HALLWAY) {
+      channel->setReverbProperties(ReverbPropertyIndex::OFF, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::CAVE, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::HALLWAY, 1.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::ROOM, 0.0f);
+    }
+
+    else if (reverbSetting == ReverbPropertyIndex::ROOM) {
+      channel->setReverbProperties(ReverbPropertyIndex::OFF, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::CAVE, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::HALLWAY, 0.0f);
+      channel->setReverbProperties(ReverbPropertyIndex::ROOM, 1.0f);
+    }
   }
 
   /*  _________________________________________________________________________ */

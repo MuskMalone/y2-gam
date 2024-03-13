@@ -15,6 +15,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 
 namespace Object
 {
@@ -23,6 +24,9 @@ namespace Object
         private bool wasCollided = true;
         private int AnvilAudioIncrement = 1;
         private int MAX_ANVIL_AUDIO_FILES = 2;
+
+        private ReverbCode reverbSetting;
+
         /*  _________________________________________________________________________ */
         /*! Anvil
 
@@ -60,7 +64,27 @@ namespace Object
 
         void OnCreate()
         {
+            String currentScene = GetCurrentScene();
 
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
+
+            else
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -79,16 +103,14 @@ namespace Object
 
             if (!wasCollided && isCollided)
             {
-                //PlayPositionalAudio("anvil_drop.wav", 0, Translation);
-                //PlayPositionalAudio("anvil_drop_" + AnvilAudioIncrement + ".wav", 0, Translation);
-                PlayAudio("anvil_drop_" + AnvilAudioIncrement + ".wav", 0);
-            }
+                PlayPositionalAudio("anvil_drop_" + AnvilAudioIncrement + ".wav", 0, Translation, (int)reverbSetting);
 
-            AnvilAudioIncrement++;
+                AnvilAudioIncrement++;
 
-            if (AnvilAudioIncrement > MAX_ANVIL_AUDIO_FILES)
-            {
-                AnvilAudioIncrement = 1;
+                if (AnvilAudioIncrement > MAX_ANVIL_AUDIO_FILES)
+                {
+                    AnvilAudioIncrement = 1;
+                }
             }
 
             wasCollided = isCollided;

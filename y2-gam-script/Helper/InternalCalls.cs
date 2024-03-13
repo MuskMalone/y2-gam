@@ -82,11 +82,11 @@ namespace Image
         internal extern static void EngineCore_GetUIMousePos(ref Vector2 outMousePos);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount);
+        internal extern static void EngineCore_PlayAudio(String audioFileName, ref int loopCount, ref int reverbSettings);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_PlayPositionalAudio(String audioFileName, ref int loopCount,
-            ref Vector2 audioPos);
+            ref Vector2 audioPos, ref int reverbSettings);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         internal extern static void EngineCore_SetAudioFileVolume(String audioFileName, ref float volume);

@@ -41,7 +41,7 @@ namespace Object
                     if (MusicType == "sfx")
                     {
                         // Play sample sfx
-                        PlayAudio("Card-Throw_SFX_1.wav", 0);
+                        PlayAudio("Card-Throw_SFX_1.wav", 0, (int)ReverbCode.OFF);
                     }
                 }
             }

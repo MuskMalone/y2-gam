@@ -37,17 +37,9 @@ namespace Object
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 7;
 
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+        public ReverbCode reverbSetting;
 
-        //For pausing 
-        //int temp_AnimationState = 0;
-        //Vector2 temp_pos;
-        //Vector2 temp_Force;
-        //Vector2 temp_velocity;
-        float temp_dt = 0f;
-        //private bool isPaused = false;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         // Time related
         public float TimeInState = 0.0f;
         public float JumpTimer = 0.0f;
@@ -122,6 +114,28 @@ namespace Object
 
             currentState = DefaultState;
             currentState.EnterState(this);
+
+            String currentScene = GetCurrentScene();
+
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
+
+            else
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -146,26 +160,8 @@ namespace Object
             if (player.isPaused)
             {
                 dt = 0f;
-                //PauseGame();
-                //AnimationState = temp_AnimationState;
             }
-            //if (Input.IsKeyClicked(KeyCode.KEY_P))
-            //{
-            //    if (!isPaused)
-            //    {
-            //        //PauseGame();
-            //        temp_dt = dt;
-            //        dt = 0f;
-            //        isPaused = true;
-            //    }
-            //    else
-            //    {
-            //        //resume game
-            //        //ResumeGame();
-            //        dt = temp_dt;
-            //        isPaused = false;
-            //    }
-            //}
+
             if (!player.isPaused)
             {
                 // Workaround for now
@@ -209,7 +205,7 @@ namespace Object
                 {
                     EnemyDeathTimer += dt;
                     AnimationState = (int)AnimationCodeEnemy.DEAD;
-                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0);
+                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0, (int)reverbSetting);
                     DeathAudioIncrement++;
 
                     if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
@@ -220,7 +216,7 @@ namespace Object
                     {
                         EnemyDeath = false;
                         EnemyDeathTimer = 0;
-                        PlayAudio("enemy_killed.wav", 0);
+                        PlayAudio("enemy_killed.wav", 0, (int)reverbSetting);
                         GameplayWrapper.DestroyEntity(entityID);
                     }
                 }
@@ -231,24 +227,6 @@ namespace Object
 
         }
 
-        //void PauseGame()
-        //{
-        //    //pause the game
-        //    temp_Force = Force;
-        //    temp_pos = Translation;
-        //    temp_velocity = Velocity;
-        //    //temp_AnimationState = AnimationState;
-        //    Force = new Vector2(0, 0);
-        //    Translation = new Vector2((float)temp_pos.X, (float)temp_pos.Y);
-        //    Velocity = new Vector2(0, 0);
-        //}
-
-        //void ResumeGame()
-        //{
-        //    Force = temp_Force;
-        //    Translation = temp_pos;
-        //    Velocity = temp_velocity;
-        //}
         /*  _________________________________________________________________________ */
         /*! SwitchState
         

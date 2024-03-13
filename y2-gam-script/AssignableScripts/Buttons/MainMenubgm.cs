@@ -59,7 +59,7 @@ namespace Object
         {
             if (GetCurrentScene() == "MainMenu" && !isPlaying)
             {
-                PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                PlayAudio("PM_Menu_Music_Loop.wav", -1, (int)ReverbCode.OFF);
                 isPlaying = true;
             }
         }

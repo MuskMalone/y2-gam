@@ -4,7 +4,7 @@
 \file       Sound.hpp
 
 \author     Ernest Cheo (e.cheo@digipen.edu)
-\date       March 7, 2024
+\date       March 13, 2024
 
 \brief      Header file for Audio library that wraps around FMOD.
 
@@ -22,8 +22,15 @@ namespace Image {
   constexpr float MAX_AUDIBILITY_DISTANCE = 150.0f;
 
   struct SoundProperties : public ResProp{
-      std::string path;
-      bool stream;
+    std::string path;
+    bool stream;
+  };
+
+  enum ReverbPropertyIndex {
+    OFF,
+    CAVE,
+    HALLWAY,
+    ROOM
   };
 
   struct AudioInformation {
@@ -42,6 +49,7 @@ namespace Image {
 
   public:
     // Fmod Control
+    static void AudioSetupReverbProperties();
     static bool AudioInit();
     static void AudioUpdate();
     static void AudioExit();
@@ -50,8 +58,10 @@ namespace Image {
     static Sound AudioLoadMusic(const char* filepath);
     static void AudioPlay(Sound const& audio, SoundGroup const& group, int loops);
     static void AudioPlay(Sound const& audio, int loops);
-    static void AudioPlay(std::string filename, int loops);
-    static void AudioPlayPositional(std::string filename, int loops, Vec2 position);
+    static void AudioPlay(std::string filename, int loops, ReverbPropertyIndex reverbSetting = ReverbPropertyIndex::OFF);
+    static void AudioPlayPositional(std::string filename, int loops, Vec2 position, 
+      ReverbPropertyIndex reverbSetting = ReverbPropertyIndex::OFF);
+    static void AudioSetReverbProperties(FMOD::Channel* channel, ReverbPropertyIndex reverbSetting);
     static void AudioResumeGroup(SoundGroup const& group);
     static void AudioStopChannelFromFilename(std::string filename);
     static void AudioResumeChannelFromFilename(std::string filename);
