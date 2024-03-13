@@ -1281,9 +1281,9 @@ namespace Image {
                                 // Generate and print a random number
                         EmitterProxy ep{
                             {{},{},{},{}}, // Vertices
-							{1.0f, 1.0f, 1.0f, 1.0f}, // Color
-							{0.0f, 0.0f}, // Gravity
-							{5.0f, 5.0f}, // Size
+                            {1.0f, 1.0f, 1.0f, 1.0f}, // Color
+                            {0.0f, 0.0f}, // Gravity
+                            {5.0f, 5.0f}, // Size
                             0.0f, // Rotation
                             5.0f, // Lifetime
                             0.0f, // Angular Velocity
@@ -1299,8 +1299,8 @@ namespace Image {
                         };
                         ParticleSystem::AddEmitter(ep, selectedEntity);
                     }
-                    auto & emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
-                    for (size_t i{}; i < emitterSystem.emitters.size(); ++i ) {
+                    auto& emitterSystem{ gCoordinator->GetComponent<EmitterSystem>(selectedEntity) };
+                    for (size_t i{}; i < emitterSystem.emitters.size(); ++i) {
                         auto& emitter = emitterSystem.emitters[i];
                         bool changed = false; // Flag to track if any field has changed
                         // Display text beside the checkbox\
@@ -1308,7 +1308,7 @@ namespace Image {
                         // Draw a separator line
                         ImGui::Separator();
                         // Display text beside the button
-                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1) ).c_str());
+                        ImGui::Text((std::string{"Emitter "} + std::to_string(i + 1)).c_str());
 
                         // Place the next item (text) on the same line as the previous item (button)
                         ImGui::SameLine();
@@ -1347,7 +1347,7 @@ namespace Image {
                         }
                         else if (emitter.vCount == 4) {
                             // Edit two vertices and calculate the others (e.g., top-left and bottom-right of a rectangle)
-                            changed |= ImGui::DragFloat2((std::string("Top Left Vertex") + "##" + std::to_string(i)).c_str(), & emitter.vertices[0].x, 0.01f);
+                            changed |= ImGui::DragFloat2((std::string("Top Left Vertex") + "##" + std::to_string(i)).c_str(), &emitter.vertices[0].x, 0.01f);
                             changed |= ImGui::DragFloat2((std::string("Bottom Right Vertex") + "##" + std::to_string(i)).c_str(), &emitter.vertices[2].x, 0.01f);
 
                             if (changed) {
@@ -1384,7 +1384,7 @@ namespace Image {
 
                         }break;
                         case 2: {
-                            const char* types[] = { "Gradual", "Rain", "Lazer"};
+                            const char* types[] = { "Gradual", "Rain", "Lazer" };
                             changed |= ImGui::Combo((std::string("Emission Type") + "##" + std::to_string(i)).c_str(), &emitter.type, types, IM_ARRAYSIZE(types));
                         }break;
                         case 4: {
@@ -1402,12 +1402,12 @@ namespace Image {
                                 case 2: emitter.type = 5; break;
                                 }
                                 changed = true;
-                            }                       
+                            }
                         }break;
                         }
 
                         // Preset dropdown
-                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Decreasing Over Lifetime", "Alpha Size Increasing Over Lifetime"};
+                        const char* presets[] = { "Alpha Over Lifetime", "Size Over Lifetime", "Alpha Size Decreasing Over Lifetime", "Alpha Size Increasing Over Lifetime" };
                         changed |= ImGui::Combo((std::string("Preset") + "##" + std::to_string(i)).c_str(), &emitter.preset, presets, IM_ARRAYSIZE(presets));
 
                         auto am{ AssetManager::GetInstance() };
@@ -1482,6 +1482,30 @@ namespace Image {
                     }
                     ImGui::TreePop();
                 }
+
+            }
+            if (gCoordinator->HasComponent<Light>(selectedEntity)) {
+                std::string treeNodeLabel = "Light##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    auto& l{ gCoordinator->GetComponent<Light>(selectedEntity) };
+
+                    ImGui::ColorEdit3("Color", &l.color.x);
+                    ImGui::DragFloat2("Position", &l.pos.x);
+                    ImGui::DragFloat("Radius", &l.radius);
+                    ImGui::DragFloat("Intensity", &l.intensity, 0.01f, 0.0f, 1.0f);
+                    ImGui::TreePop();
+                }
+            }
+            if (gCoordinator->HasComponent<LightBlocker>(selectedEntity)) {
+                std::string treeNodeLabel = "Light Blocker##" + std::to_string(selectedEntity);
+                if (ImGui::TreeNode(treeNodeLabel.c_str())) {
+                    auto& lb{ gCoordinator->GetComponent<LightBlocker>(selectedEntity) };
+
+                    ImGui::DragFloat2("Dimension", &lb.dimension.x);
+                    ImGui::DragFloat2("Position", &lb.position.x);
+                    ImGui::DragFloat("Rotation", &lb.rotation);
+                    ImGui::TreePop();
+                }
             }
             ImGui::PopStyleColor(2);
         }
@@ -1509,7 +1533,7 @@ namespace Image {
     */
     void PropertyWindow(Entity selectedEntity, bool ignore) {
       ImGui::PushFont(mainfont);
-        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera", "Emitter System" };
+        const char* components[] = { "Transform", "Sprite", "RigidBody", "Collider","Animation","Gravity","Tag", "Script", "UIImage", "Text", "Swappable", "Camera", "Emitter System", "Light", "Light Blocker"};
         static int selectedComponent{ -1 };
         //Entity selectedEntity{  (gSelectedPrefab == MAX_ENTITIES) ? gSelectedEntity : gSelectedPrefab };
         if (selectedEntity != MAX_ENTITIES) {
@@ -1707,7 +1731,32 @@ namespace Image {
                 }
             }
                    break;
-
+            case 13: {
+                if (!gCoordinator->HasComponent<Light>(selectedEntity)) {
+                    Light l{ glm::vec3{1,1,1}, glm::vec2{}, 50, 1 };
+                    if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                        auto const& t = gCoordinator->GetComponent<Transform>(selectedEntity);
+                        l.pos = glm::vec2{t.position};
+                    }
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        l, ignore);
+                }
+            }
+                   break;
+            case 14: {
+                if (!gCoordinator->HasComponent<LightBlocker>(selectedEntity)) {
+                    LightBlocker lb{};
+                    if (gCoordinator->HasComponent<Transform>(selectedEntity)) {
+                        auto const& t = gCoordinator->GetComponent<Transform>(selectedEntity);
+                        lb = LightBlocker{ glm::vec2{t.scale}, glm::vec2{t.position}, glm::radians(t.rotation.z) };
+                    }
+                    gCoordinator->AddComponent(
+                        selectedEntity,
+                        lb, ignore);
+                }
+            }
+                   break;
             }
           }
           ImGui::SameLine();
@@ -1819,6 +1868,19 @@ namespace Image {
                 }
             }
                    break;
+            case 13: {
+                if (gCoordinator->HasComponent<Light>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<Light>(selectedEntity);
+                }
+            }
+                   break;
+
+            case 14: {
+                if (gCoordinator->HasComponent<LightBlocker>(selectedEntity)) {
+                    gCoordinator->RemoveComponent<LightBlocker>(selectedEntity);
+                }
+            }
+                   break;
             }
           }
           ImGui::Separator();
@@ -1835,6 +1897,9 @@ namespace Image {
           ImGui::Text("Swappable Component: %s", gCoordinator->HasComponent<Swappable>(selectedEntity) ? "True" : "False");
           ImGui::Text("Camera Component: %s", gCoordinator->HasComponent<Camera>(selectedEntity) ? "True" : "False");
           ImGui::Text("Emitter System Component %s", gCoordinator->HasComponent<EmitterSystem>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Light Component: %s", gCoordinator->HasComponent<Light>(selectedEntity) ? "True" : "False");
+          ImGui::Text("Light Blocker Component % s", gCoordinator->HasComponent<LightBlocker>(selectedEntity) ? "True" : "False");
+
           //ImGui::PopFont();
           //ImGui::End();
 
@@ -2072,7 +2137,8 @@ namespace Image {
         }*/
 
         //ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), ImVec2(contentSize.x, contentSize.y), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texHdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+        auto clrhdl = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(2)->GetColorAttachmentID();
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(clrhdl)), mViewportDim, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
         if (gSelectedEntity != MAX_ENTITIES && renderSystem->IsEditorMode() && gCurrentGuizmoOperation!=-1) {
           ImGuizmo::SetOrthographic(true);
           ImGuizmo::SetDrawlist();

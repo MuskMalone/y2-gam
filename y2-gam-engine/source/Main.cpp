@@ -95,6 +95,7 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	coordinator->RegisterComponent<Swappable>();
 	coordinator->RegisterComponent<EmitterSystem>();
 	coordinator->RegisterComponent<Light>();
+	coordinator->RegisterComponent<LightBlocker>();
 #ifndef _INSTALLER
 	coordinator->RegisterComponent<ImguiComponent>();
 #endif
@@ -210,12 +211,23 @@ std::shared_ptr<Globals::GlobalValContainer>  Globals::GlobalValContainer::_mSel
 	auto lightingSystem = coordinator->RegisterSystem<LightingSystem>();
 	{
 		Signature signature;
-		signature.set(coordinator->GetComponentType<Collider>());
-		signature.set(coordinator->GetComponentType<Transform>());
+		signature.set(coordinator->GetComponentType<Light>());
+		//signature.set(coordinator->GetComponentType<Collider>());
+		//signature.set(coordinator->GetComponentType<Transform>());
 		coordinator->SetSystemSignature<LightingSystem>(signature);
 	}
 
 	lightingSystem->Init();
+
+	auto lightblockingSystem = coordinator->RegisterSystem<LightBlockingSystem>(); 
+	{
+		Signature signature;
+		signature.set(coordinator->GetComponentType<LightBlocker>());
+		//signature.set(coordinator->GetComponentType<Collider>());
+		//signature.set(coordinator->GetComponentType<Transform>());
+		coordinator->SetSystemSignature<LightBlockingSystem>(signature);
+	}
+
 
 	auto editorControlSystem = coordinator->RegisterSystem<EditorControlSystem>();
 	{

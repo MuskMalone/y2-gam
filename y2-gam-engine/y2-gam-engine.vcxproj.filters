@@ -192,5 +192,6 @@
     <ClInclude Include="include\Components\EmitterSystem.hpp" />
     <ClInclude Include="include\Systems\LightingSystem.hpp" />
     <ClInclude Include="include\Components\Light.hpp" />
+    <ClInclude Include="include\Components\LightBlocker.hpp" />
   </ItemGroup>
 </Project>

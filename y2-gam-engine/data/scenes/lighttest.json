@@ -1,0 +1,292 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -52.74700164794922,
+                "posY": -29.670000076293945,
+                "rotation": 0.0,
+                "dimX": 100.0,
+                "dimY": 15.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 100.0,
+                "dimy": 15.0,
+                "posx": -52.74700164794922,
+                "posy": -29.670000076293945,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "one"
+            },
+            "Transform": {
+                "posX": -52.74700164794922,
+                "posY": -29.670000076293945,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 0.0,
+                "posY": 0.0,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 15.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 15.0,
+                "dimy": 15.0,
+                "posx": 0.0,
+                "posy": 0.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "two"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 1000.0,
+                "dimy": 1000.0,
+                "posx": 0.0,
+                "posy": 0.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "bg"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": -128.5709991455078,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 1000.0,
+                "scaleY": 1000.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -17.582000732421875,
+                "posY": -14.0,
+                "rotation": 0.06904520839452744,
+                "dimX": 15.0,
+                "dimY": 15.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 15.0,
+                "dimy": 15.0,
+                "posx": -17.582000732421875,
+                "posy": -14.0,
+                "rotation": 0.06904522329568863
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "three"
+            },
+            "Transform": {
+                "posX": -17.582000732421875,
+                "posY": -14.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 3.9560000896453857,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -52.74700164794922,
+                "posY": 29.670000076293945,
+                "rotation": -0.5868841409683228,
+                "dimX": 15.0,
+                "dimY": 90.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 15.0,
+                "dimy": 90.0,
+                "posx": -52.74700164794922,
+                "posy": 29.670000076293945,
+                "rotation": -0.5868843793869019
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "four"
+            },
+            "Transform": {
+                "posX": -52.74700164794922,
+                "posY": 29.670000076293945,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": -33.625999450683594,
+                "scaleX": 15.0,
+                "scaleY": 90.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -246.1540069580078,
+                "posY": 0.0,
+                "rotation": 0.0,
+                "dimX": 50.0,
+                "dimY": 75.0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 50.0,
+                "dimy": 75.0,
+                "posx": -246.1540069580078,
+                "posy": 0.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "five"
+            },
+            "Transform": {
+                "posX": -246.1540069580078,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 50.0,
+                "scaleY": 75.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Light": {
+                "colx": 1.0,
+                "coly": 1.0,
+                "colz": 0.0,
+                "posx": -243.0,
+                "posy": 46.0,
+                "radius": 50.0,
+                "intensity": 1.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "light"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        }
+    ]
+}

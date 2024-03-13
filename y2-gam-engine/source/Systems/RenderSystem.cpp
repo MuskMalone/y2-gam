@@ -337,9 +337,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
-	::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+		::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 		NodeManager::DisplayDebugLines();
 
 		for (auto const& ray : mRays) {

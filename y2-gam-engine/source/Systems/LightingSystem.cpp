@@ -26,11 +26,11 @@
 #include "Engine/SceneManager.hpp"
 #include "Core/Component.hpp"
 #define MAX_BUFFER (19683)//3^9 // num of light sources/light blocking elements
-#define MAX_VERTICES 3 // num of vertices per light blocking element
+#define MAX_VERTICES 27 // num of vertices per light blocking element
 #define WORK_GROUP 100 //max buffer should be divisible by work group
-namespace { // for testing
-    float radius = 50.f;
-}
+//namespace { // for testing
+//    float radius = 50.f;
+//}
 /**
  * @brief Event listener for the particle system.
  *
@@ -56,7 +56,8 @@ void LightingSystem::Init() {
         {AttributeType::VEC2, "origin"},
         {AttributeType::VEC3, "color"},
         {AttributeType::VEC2, "pos"},
-        {AttributeType::FLOAT, "radius"}
+        {AttributeType::FLOAT, "radius"},
+        {AttributeType::FLOAT, "intensity"}
     };
     mLightVertexBuffer->SetLayout(lightVtxLayout);
     mLightVertexArray->AddVertexBuffer(mLightVertexBuffer);
@@ -82,41 +83,26 @@ void LightingSystem::Init() {
 void LightingSystem::Update(float dt) {
     intersects.clear();
     vertices.clear();
-    std::vector<Point> points;
-    std::vector<Ray> segments{};
-    auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
-    
-    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
-    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
-    glm::mat4 inviewprojection {glm::inverse(viewprojection) };
-    std::array<glm::vec4, 4> corners{
-        glm::vec4(-1.f, -1.f, 0, 1),
-        glm::vec4(-1.f, 1.f, 0, 1),
-        glm::vec4(1.f, 1.f, 0, 1),
-        glm::vec4(1.f, -1.f, 0, 1)
-    };
+    for (auto const& lightEntity : mEntities) {
 
-    for (auto& c : corners) {
-        glm::vec4 transformedVec4 = inviewprojection * c;
-        points.push_back({ glm::vec2(c = transformedVec4), std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
-    }
-    for (int i{}; i < 4; ++i) {
-        if (i != 3)
-            segments.push_back(Ray{ corners[i], corners[i + 1] });
-        else
-            segments.push_back(Ray{ corners[3], corners[0] });
-    }
-    //for testing, arbitrary
-    for (auto const& entity : mEntities) {
-       
-        auto const& collider = Coordinator::GetInstance()->GetComponent<Collider>(entity);
-        // Assuming Vec2 is equivalent to glm::vec2
-        glm::vec2 position = glm::vec2{ collider.position.x, collider.position.y };  // Example position
-        
-            glm::vec2 dimension = glm::vec2{ collider.dimension.x, collider.dimension.y }; // Example dimensions
-            float rotation = collider.rotation; // Example rotation in radians
+        std::vector<Point> points;
+        std::vector<Ray> segments{};
+        auto const& light = Coordinator::GetInstance()->GetComponent<Light>(lightEntity);
+        glm::vec2 point = light.pos;//{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+        float radius = light.radius;
+        glm::vec3 clr = light.color;
+        float intensity = light.intensity;
+        //for testing, arbitrary
+        auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
+        for (auto const& entity : lightblockers) {
+
+            auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
+            // Assuming Vec2 is equivalent to glm::vec2
+            glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
+
+            glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
+            float rotation = lightblocker.rotation; // Example rotation in radians
 
             // Start with an identity matrix
             glm::mat4 transformationMatrix = glm::mat4(1.0f);
@@ -155,107 +141,89 @@ void LightingSystem::Update(float dt) {
                 else
                     segments.push_back(Ray{ squarePoints[3], squarePoints[0] });
             }
-            //    points.push_back({ p , std::atan2(start.y - point.y, start.x - point.x) });
 
-            //}
-            //for (int i{}; i < 4; ++i) {
-            //    glm::vec2 start;
-            //    glm::vec2 end;
-            //    if (i != 3) {
-            //        start = squarePoints[i], end = squarePoints[i + 1];
-            //    }
-            //    else {
-            //        start = squarePoints[3], end = squarePoints[0];
-            //    }
-            //    if (glm::distance2(glm::closestPointOnLine(point, start, end), point) <= radius * radius) {
-            //        points.push_back({ end , std::atan2(start.y - point.y, start.x - point.x) });
-            //        segments.push_back({ start, end });
-            //    }
+        }
+        if (points.empty()) {
+            auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
-            //}
-        
-    }
-    for (auto const& p : points) {
-        std::array<float, 3> angles{
-            p.angle - 0.00001f, p.angle, p.angle + 0.00001f
-        };
-        for (auto const& a : angles) {
-            float angle = a;
-
-            // Calculate dx & dy from angle
-            auto dx = glm::cos(angle);
-            auto dy = glm::sin(angle);
-
-            // Ray from center of screen to mouse
-            auto ray = Ray{
-                point,
-                {point.x + dx, point.y + dy}
+            glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+            glm::mat4 inviewprojection {glm::inverse(viewprojection) };
+            std::array<glm::vec4, 4> corners{
+                glm::vec4(-1.f, -1.f, 0, 1),
+                    glm::vec4(-1.f, 1.f, 0, 1),
+                    glm::vec4(1.f, 1.f, 0, 1),
+                    glm::vec4(1.f, -1.f, 0, 1)
             };
 
-            // Find CLOSEST intersection
-            Intersect closestIntersect = { point, std::numeric_limits<float>::max() };
-            float t{ 0 };
-            for (auto i = 0; i < segments.size(); i++) {
-                Intersect intersect{};
-                if (!getIntersection(ray, segments[i], intersect)) continue;
-
-                if (intersect.param < closestIntersect.param) {
-                    closestIntersect = intersect;
-                }
+            for (auto& c : corners) {
+                glm::vec4 transformedVec4 = inviewprojection * c;
+                points.push_back({ glm::vec2(c = transformedVec4), std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
             }
+            for (int i{}; i < 4; ++i) {
+                if (i != 3)
+                    segments.push_back(Ray{ corners[i], corners[i + 1] });
+                else
+                    segments.push_back(Ray{ corners[3], corners[0] });
+            }
+        }
 
-            // Intersect angle
-            if (closestIntersect.param == std::numeric_limits<float>::max()) continue;
+        for (auto const& p : points) {
+            std::array<float, 3> angles{
+                p.angle - 0.0001f, p.angle, p.angle + 0.0001f
+            };
+            for (auto const& a : angles) {
+                float angle = a;
 
-            // Add to list of intersects
-            intersects.push_back({closestIntersect.pos, angle});
+                // Calculate dx & dy from angle
+                auto dx = glm::cos(angle);
+                auto dy = glm::sin(angle);
+
+                // Ray from center of screen to mouse
+                auto ray = Ray{
+                    point,
+                    {point.x + dx, point.y + dy}
+                };
+
+                // Find CLOSEST intersection
+                Intersect closestIntersect = { point, std::numeric_limits<float>::max() };
+                float t{ 0 };
+                for (auto i = 0; i < segments.size(); i++) {
+                    Intersect intersect{};
+                    if (!getIntersection(ray, segments[i], intersect)) continue;
+
+                    if (intersect.param < closestIntersect.param) {
+                        closestIntersect = intersect;
+                    }
+                }
+
+                // Intersect angle
+                if (closestIntersect.param == std::numeric_limits<float>::max()) continue;
+
+                // Add to list of intersects
+                intersects.push_back({ closestIntersect.pos, angle });
+            }
+        }
+
+        auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
+            return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
+            });
+        intersects.erase(last, intersects.end());
+        std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
+            return a.angle < b.angle;
+            });
+
+        intersects.push_front({ point, 0.f });
+        for (int i{ 1 }; i < intersects.size(); ++i) {
+            vertices.push_back({ intersects[0].pos, clr, intersects[0].pos, radius, intensity });
+            vertices.push_back({ intersects[0].pos, clr, intersects[i].pos, radius, intensity });
+            if (i + 1 < intersects.size()) {
+                vertices.push_back({ intersects[0].pos, clr, intersects[i + 1].pos, radius, intensity });
+            }
+            else {
+                vertices.push_back({ intersects[0].pos, clr, intersects[1].pos, radius, intensity });
+            }
         }
     }
-
-
-    //static float timeElapsed = 0.f;
-    //timeElapsed += dt;
-
-    //mEmitterStepShader->Use();
-
-    //mEmitterStepShader->SetUniform("DT", dt);
-    //mEmitterStepShader->SetUniform("bufferMaxCount", MAX_BUFFER);
-    ////1000 is the number of elements per grp
-    //glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
-    //glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
-    //mEmitterStepShader->Unuse();
-
-    //mParticleShader->Use();
-    //mParticleShader->SetUniform("DT", dt);
-    ////mParticleShader->SetUniform("bufferMaxCount", MAX_BUFFER);
-    ////1000 is the number of elements per grp
-    //glDispatchCompute(MAX_BUFFER / WORK_GROUP, 1, 1);
-    //glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
-    //mParticleShader->Unuse();
-
-    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Bind();
-    //Draw();
-    //Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(0)->Unbind();
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mEmitterSSbo);
-    //GLSLStructs::Emitter* vels = (GLSLStructs::Emitter*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Emitter), GL_MAP_READ_BIT);
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleStartSSbo);
-    //GLSLStructs::Particle* vels = (GLSLStructs::Particle*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(GLSLStructs::Particle), GL_MAP_READ_BIT);
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomSSbo);
-    //float* vels = (float*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, MAX_BUFFER * sizeof(float), GL_MAP_READ_BIT);
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mRandomIdxSSbo);
-    //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
-    //std::cout << *idx << "partrandidx\n";
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-    //glBindBuffer(GL_SHADER_STORAGE_BUFFER, mParticleCountSSbo);
-    //GLuint* idx = (GLuint*)glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GLuint), GL_MAP_READ_BIT);
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 
 /**
@@ -266,32 +234,7 @@ void LightingSystem::Update(float dt) {
 void LightingSystem::Draw(unsigned int tex) {
     Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
 
-    auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    //for testing, arbitrary
-    glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 
-    auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
-        return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
-        });
-    intersects.erase(last, intersects.end());
-    std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
-        return a.angle < b.angle;
-        });
-    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
-
-    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
-
-    intersects.push_front({ point, 0.f });
-    for (int i{ 1 }; i < intersects.size(); ++i) {
-        vertices.push_back({ intersects[0].pos, { 0,1,1 }, intersects[0].pos, radius });
-        vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[i].pos, radius});
-        if (i + 1 < intersects.size()) {
-            vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[i+1].pos, radius });
-        }
-        else {
-            vertices.push_back({ intersects[0].pos,{0,1,1}, intersects[1].pos, radius });
-        }
-    }
     //vertices.push_back({{ 1,1,1 }, { -50, -50 }, radius});
     //vertices.push_back({ { 1,1,1 }, { -50, 50 }, radius });
     //vertices.push_back({ { 1,1,1 }, { 50, 50 }, radius });
@@ -307,6 +250,9 @@ void LightingSystem::Draw(unsigned int tex) {
     mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
     mLightRenderShader->Use();
 
+    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+
+    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
 
     mLightRenderShader->SetUniform("screenTex", 0);
     mLightRenderShader->SetUniform("u_ViewProjMtx", viewprojection);
@@ -322,39 +268,41 @@ void LightingSystem::Draw(unsigned int tex) {
 
     //draw the full-screen quad
     // glDrawElements(GL_TRIANGLES, (vertices.size() - 2) * MAX_VERTICES, GL_UNSIGNED_INT, nullptr);
-    //glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     mLightVertexArray->Unbind();
     glBindTexture(GL_TEXTURE_2D, 0);
     mLightRenderShader->Unuse();
-    ////glEnable(GL_DEPTH_TEST);
-    ////glEnable(GL_CULL_FACE);
-    ////glCullFace(GL_BACK);
-    //mParticleRenderShader->Use();
-    //auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
-
-    //glm::mat4 viewprojection{ cam.GetViewProjMtx() };
-    //mParticleRenderShader->SetUniform("vertViewProjection", viewprojection);
-    //glDrawArrays(GL_POINTS, 0, MAX_BUFFER);
-    //mParticleRenderShader->Unuse();
 
 }
 void LightingSystem::DrawDebug() {
-    //auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    ////for testing, arbitrary
-    //glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
+    auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
+    //for testing, arbitrary
+    glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 
-    //auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
-    //    return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
-    //    });
-    //intersects.erase(last, intersects.end());
-    //std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
-    //    return a.angle < b.angle;
-    //    });
+    auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
+        return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
+        });
+    intersects.erase(last, intersects.end());
+    std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
+        return a.angle < b.angle;
+        });
 
-    //for (int i{}; i < intersects.size(); ++i) {
-    //    auto const& p{ intersects[i] };
-    //    Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
-    //    Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
+    for (int i{}; i < intersects.size(); ++i) {
+        auto const& p{ intersects[i] };
+        Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
+        Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
+    }
+    //auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
+    //for (auto const& entity : lightblockers) {
+    //    auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
+    //    // Assuming Vec2 is equivalent to glm::vec2
+    //    glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
+
+    //    glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
+    //    float rotation = lightblocker.rotation; // Example rotation in radians
+
+    //    Renderer::DrawQuad(glm::vec3{ position,1 }, dimension, glm::vec4{ 1.f, 0.f, 1.f ,1.f }, Image::Degree(rotation) );
+
     //}
 }
 
