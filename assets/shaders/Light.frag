@@ -20,7 +20,8 @@ void main(){
         vec4 texColor = texture(screenTex, fragTexCoord);
         // float t = 1.0 - smoothstep(0.0, v_radius, dis);
         // vec4 finalColor = v_Color * t;
-        vec4 startColor = mix(texColor, v_Color, v_intensity);
-        fragColor = mix(startColor, texColor, dis / v_radius);
+        //vec4 startColor = mix(texColor, v_Color, v_intensity);
+        fragColor = texColor / mix(vec4(vec3(1) - v_Color.xyz, 1), vec4(1), dis / v_radius);
     }else discard;  
+    memoryBarrier();
 }
