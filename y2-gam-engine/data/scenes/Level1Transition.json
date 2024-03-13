@@ -1162,7 +1162,7 @@
                 "y": -10.0
             },
             "Layering": {
-                "layering": "Platform"
+                "layering": "Environment"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -1175,8 +1175,7 @@
             },
             "Script": {
                 "scriptName": "ObjectDPlatform",
-                "scriptTag": "DPlatform1",
-                "range": 10.0
+                "scriptTag": "DPlatform1"
             },
             "Sprite": {
                 "r": 1.0,

@@ -7,6 +7,13 @@ namespace Object
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         //public float range;
+        private bool hasStepped = false;
+        private float timer = 2.0f;
+        private float FadeOutTime = 0.0f;
+        private float FadeOutTimer = 8.0f;
+        private float ColourValue = 0.0f;
+        private bool FadedOut = false;
+
 
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
@@ -59,13 +66,52 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            if(player.onPlatform == true)
+            if(player.onPlatform == true && !hasStepped)
             {
                 Console.WriteLine("On platform");
+                hasStepped = true;
+            }
+            
+            if(hasStepped && !FadedOut)
+            {
+                timer -= dt;
+                if(timer <= 0.0f)
+                {
+                    FadeOut(dt);
+                    FadedOut = true;
+                }
+            }
+            
+            if(FadedOut)
+            {
+                GameplayWrapper.DestroyEntity(entityID);
+            }
+        }
+
+        void FadeOut(float dt)
+        {
+            //FADEOUT
+
+            //Console.WriteLine("Reached end of 23sec");
+            FadeOutTime += dt;
+            Console.WriteLine("FadeOutTime:" + FadeOutTime);
+            if (FadeOutTime <= FadeOutTimer)
+            {
+                float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
+                float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
+                ColourValue = 1.0f - easeOut;
+                ColourValue = Math.Max(ColourValue, 0.0f);
+                Console.WriteLine("Colour Value: " + ColourValue);
+                Colour = new Vector4(1, 1, 1, ColourValue);
+            }
+            //FINISH FADEOUT
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 0.0f);
+
             }
 
         }
-
         /*  _________________________________________________________________________ */
         /*! OnExit
 
