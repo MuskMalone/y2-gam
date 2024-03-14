@@ -14,6 +14,7 @@
 #include <Components/Gravity.hpp>
 #include <Components/Layering.hpp>
 #include <Components/Light.hpp>
+#include <Components/LightBlocker.hpp>
 #include <Components/Node.hpp>
 #include <Components/Prefab.hpp>
 #include <Components/RigidBody.hpp>
@@ -48,6 +49,9 @@ Coordinator::GetInstance()->AddComponent(entity, Layering{ obj });
 }
 static void EntityAddLight(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Light{ obj });
+}
+static void EntityAddLightBlocker(Entity const& entity, rapidjson::Value const& obj) {
+Coordinator::GetInstance()->AddComponent(entity, LightBlocker{ obj });
 }
 static void EntityAddNode(Entity const& entity, rapidjson::Value const& obj) {
 Coordinator::GetInstance()->AddComponent(entity, Node{ obj });
@@ -88,6 +92,7 @@ else if constexpr (std::is_same_v<_type, EmitterSystem>) return "EmitterSystem";
 else if constexpr (std::is_same_v<_type, Gravity>) return "Gravity";
 else if constexpr (std::is_same_v<_type, Layering>) return "Layering";
 else if constexpr (std::is_same_v<_type, Light>) return "Light";
+else if constexpr (std::is_same_v<_type, LightBlocker>) return "LightBlocker";
 else if constexpr (std::is_same_v<_type, Node>) return "Node";
 else if constexpr (std::is_same_v<_type, Prefab>) return "Prefab";
 else if constexpr (std::is_same_v<_type, RigidBody>) return "RigidBody";
@@ -155,6 +160,13 @@ JSONObj obj{ JSON_OBJ_TYPE };
 obj.SetObject();
 bool res = Coordinator::GetInstance()->GetComponent<Light>(entity).Serialize(obj);
 if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<Light>(), obj); }
+else { obj.SetNull(); }
+}
+if (Coordinator::GetInstance()->HasComponent<LightBlocker>(entity)){
+JSONObj obj{ JSON_OBJ_TYPE };
+obj.SetObject();
+bool res = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity).Serialize(obj);
+if (res) { SerializationManager::GetInstance()->InsertValue(ent, TypeToString<LightBlocker>(), obj); }
 else { obj.SetNull(); }
 }
 if (Coordinator::GetInstance()->HasComponent<Node>(entity)){
@@ -237,6 +249,7 @@ static const std::map<std::string, std::function<void(Entity const&, rapidjson::
 {"Gravity", EntityAddGravity},
 {"Layering", EntityAddLayering},
 {"Light", EntityAddLight},
+{"LightBlocker", EntityAddLightBlocker},
 {"Node", EntityAddNode},
 {"Prefab", EntityAddPrefab},
 {"RigidBody", EntityAddRigidBody},
@@ -258,6 +271,7 @@ if (Coordinator::GetInstance()->HasComponent<EmitterSystem>(entity)) { out["Emit
 if (Coordinator::GetInstance()->HasComponent<Gravity>(entity)) { out["Gravity"] = std::any{ Coordinator::GetInstance()->GetComponent<Gravity>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Layering>(entity)) { out["Layering"] = std::any{ Coordinator::GetInstance()->GetComponent<Layering>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Light>(entity)) { out["Light"] = std::any{ Coordinator::GetInstance()->GetComponent<Light>(entity) }; }
+if (Coordinator::GetInstance()->HasComponent<LightBlocker>(entity)) { out["LightBlocker"] = std::any{ Coordinator::GetInstance()->GetComponent<LightBlocker>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Node>(entity)) { out["Node"] = std::any{ Coordinator::GetInstance()->GetComponent<Node>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<Prefab>(entity)) { out["Prefab"] = std::any{ Coordinator::GetInstance()->GetComponent<Prefab>(entity) }; }
 if (Coordinator::GetInstance()->HasComponent<RigidBody>(entity)) { out["RigidBody"] = std::any{ Coordinator::GetInstance()->GetComponent<RigidBody>(entity) }; }
@@ -281,6 +295,7 @@ if (c.first == "EmitterSystem") { Coordinator::GetInstance()->AddComponent<Emitt
 if (c.first == "Gravity") { Coordinator::GetInstance()->AddComponent<Gravity>(e, std::any_cast<Gravity>(c.second)); }
 if (c.first == "Layering") { Coordinator::GetInstance()->AddComponent<Layering>(e, std::any_cast<Layering>(c.second)); }
 if (c.first == "Light") { Coordinator::GetInstance()->AddComponent<Light>(e, std::any_cast<Light>(c.second)); }
+if (c.first == "LightBlocker") { Coordinator::GetInstance()->AddComponent<LightBlocker>(e, std::any_cast<LightBlocker>(c.second)); }
 if (c.first == "Node") { Coordinator::GetInstance()->AddComponent<Node>(e, std::any_cast<Node>(c.second)); }
 if (c.first == "Prefab") { Coordinator::GetInstance()->AddComponent<Prefab>(e, std::any_cast<Prefab>(c.second)); }
 if (c.first == "RigidBody") { Coordinator::GetInstance()->AddComponent<RigidBody>(e, std::any_cast<RigidBody>(c.second)); }

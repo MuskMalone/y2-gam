@@ -102,9 +102,9 @@ namespace Image
         Plays any sound file loaded in the asset manager. Remember to add '.wav' to
         the end of the audioFileName
         */
-        public void PlayAudio(string audioFileName, int loopCount)
+        public void PlayAudio(string audioFileName, int loopCount, int rc)
         {
-            InternalCalls.EngineCore_PlayAudio(audioFileName, ref loopCount);
+            InternalCalls.EngineCore_PlayAudio(audioFileName, ref loopCount, ref rc);
         }
 
         /*  _________________________________________________________________________ */
@@ -113,9 +113,9 @@ namespace Image
         Plays any sound file loaded in the asset manager. Remember to add '.wav' to
         the end of the audioFileName. Uses positional audio.
         */
-        public void PlayPositionalAudio(string audioFileName, int loopCount, Vector2 pos)
+        public void PlayPositionalAudio(string audioFileName, int loopCount, Vector2 pos, int rc)
         {
-            InternalCalls.EngineCore_PlayPositionalAudio(audioFileName, ref loopCount, ref pos);
+            InternalCalls.EngineCore_PlayPositionalAudio(audioFileName, ref loopCount, ref pos, ref rc);
         }
 
         /*  _________________________________________________________________________ */

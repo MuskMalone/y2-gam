@@ -6,6 +6,10 @@
 #include <Graphics/ElementBuffer.hpp>
 #include <Graphics/VertexArray.hpp>
 
+class LightBlockingSystem : public System {
+public:
+    std::set<Entity> const& GetLightBlockers() const { return mEntities; }
+};
 
 class LightingSystem : public System
 {
@@ -26,6 +30,7 @@ class LightingSystem : public System
         glm::vec3 color;
         glm::vec2 pos;
         float radius;
+        float intensity;
     };
     inline bool getIntersection(Ray ray, Ray segment, Intersect &result) {
 

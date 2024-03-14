@@ -6,6 +6,9 @@ namespace Object
     public class Gameplaybgm : Entity
     {
         bool firstTime = true;
+        private ReverbCode reverbSetting;
+        String currentScene;
+
         /*  _________________________________________________________________________ */
         /*! EnterLevelOne
 
@@ -42,7 +45,27 @@ namespace Object
         */
         void OnCreate()
         {
+            currentScene = GetCurrentScene();
 
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
+
+            else
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -59,38 +82,24 @@ namespace Object
         {
             if (firstTime)
             {
-                if (GetCurrentScene() == "Level1")
+                if (currentScene == "Level1")
                 {
-                    PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1);
+                    PlayAudio("Poltergeist'sMansionTheme_BGM_Loop.wav", -1, (int)reverbSetting);
                     SetAudioFileVolume("Poltergeist'sMansionTheme_BGM_Loop.wav", 0.7f);
                 }
 
-                else if (GetCurrentScene() == "Level2")
+                else if (currentScene == "Level2")
                 {
-                    PlayAudio("Level2_BGM.wav", -1);
+                    PlayAudio("Level2_BGM.wav", -1, (int)reverbSetting);
                 }
 
-                else if (GetCurrentScene() == "HowToPlay")
+                else if (currentScene == "HowToPlay")
                 {
-                    PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                    PlayAudio("PM_Menu_Music_Loop.wav", -1, (int)reverbSetting);
                 }
-
-             
 
                 firstTime = false;
             }
-
-            //else if(firstTime && GetCurrentScene() != "Level1")
-            //{
-            //    StopAudio();
-            //    firstTime = false;
-            //}
-
-            //if (firstTime)
-            //{
-                //StopAudio();
-                //firstTime = false;
-            //}
         }
 
         /*  _________________________________________________________________________ */

@@ -17,6 +17,15 @@
 
 namespace Image
 {
+    // These are the FMOD reverb option codes
+    public enum ReverbCode
+    {
+        OFF,
+        CAVE,
+        HALLWAY,
+        ROOM
+    }
+
     // These are the animation state codes
     public enum AnimationCodeEnemy
     {

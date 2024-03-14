@@ -68,6 +68,8 @@ namespace Object
         private int CardThrowAudioCounter = 0;
         private readonly int MAX_AUDIO_FILES = 2;
 
+        private ReverbCode reverbSetting;
+
         /*  _________________________________________________________________________ */
         /*! Card
 
@@ -112,6 +114,23 @@ namespace Object
 
             CardThrowAudio.Add("Card-Throw_SFX_1.wav");
             CardThrowAudio.Add("Card-Throw_SFX_2.wav");
+
+            String currentScene = GetCurrentScene();
+
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -170,7 +189,7 @@ namespace Object
                 {
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT))
                     {
-                        PlayAudio("out_of_cards.wav", 0);
+                        PlayAudio("out_of_cards.wav", 0, (int)reverbSetting);
                     }
 
                     // Card Related (Add time and velocity when alive)
@@ -205,7 +224,7 @@ namespace Object
                             {
                                 CardSwapAudioCounter = 0;
                             }
-                            PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                            PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0, (int)reverbSetting);
 
                             ResetCardPos();
                         }
@@ -229,7 +248,7 @@ namespace Object
                                     {
                                         CardSwapAudioCounter = 0;
                                     }
-                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0);
+                                    PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0, (int)reverbSetting);
 
                                     ResetCardPos();
                                     //ResetColour(swapRayCast.id);
@@ -351,7 +370,7 @@ namespace Object
             {
                 CardThrowAudioCounter = 0;
             }
-            PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0);
+            PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0, (int)reverbSetting);
         }
 
         //bool CardInNoSwap()

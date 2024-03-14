@@ -337,9 +337,9 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 		}
 	}
 	::gCoordinator->GetSystem<ParticleSystem>()->DrawDebug();
-	::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 	if (mDebugMode) {
 		::gCoordinator->GetSystem<Collision::CollisionSystem>()->Debug();
+		::gCoordinator->GetSystem<LightingSystem>()->DrawDebug();
 		NodeManager::DisplayDebugLines();
 
 		for (auto const& ray : mRays) {
@@ -612,6 +612,8 @@ void RenderSystem::SceneTransitionListener(Event& event) {
 	[[maybe_unused]] auto fromScene = event.GetParam<std::string>(Events::System::Scene::Transition::FROM_SCENE);
 	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
 	trans.isTransitioning = true;
+
+	mIsTimeSlow = false;
 }
 
 /*  _________________________________________________________________________ */

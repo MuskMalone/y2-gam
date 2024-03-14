@@ -26,6 +26,8 @@ namespace Object
         Button button;
         private float doorColliderYOffset = 3000.0f;
 
+        private ReverbCode reverbSetting;
+
         /*  _________________________________________________________________________ */
         /*! Door
 
@@ -68,6 +70,22 @@ namespace Object
                 button = GameplayWrapper.FindEntityByName(buttonTag).As<Button>();
             }
 
+            String currentScene = GetCurrentScene();
+
+            if (currentScene == "Level1") 
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
         }
 
 
@@ -86,7 +104,7 @@ namespace Object
 
             if (button.isPressed == true && !previousButtonState)
             {
-                PlayAudio("door_open.wav", 0);
+                PlayAudio("door_open.wav", 0, (int)reverbSetting);
                 AnimationState = (int)AnimationCodeDoor.OPEN;
                 previousButtonState = true;
                 Collider = new Vector2(Collider.X, Collider.Y - doorColliderYOffset);

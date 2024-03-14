@@ -6,6 +6,7 @@
 #include <Components/Gravity.hpp>
 #include <Components/Layering.hpp>
 #include <Components/Light.hpp>
+#include <Components/LightBlocker.hpp>
 #include <Components/Node.hpp>
 #include <Components/Prefab.hpp>
 #include <Components/RigidBody.hpp>

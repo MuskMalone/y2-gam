@@ -25,6 +25,7 @@ namespace Object
         private float doorColliderYOffset = 300.0f;
 
         public float Range;
+        private ReverbCode reverbSetting;
 
         /*  _________________________________________________________________________ */
         /*! LockedDoor
@@ -62,7 +63,22 @@ namespace Object
         */
         void OnCreate()
         {
+            String currentScene = GetCurrentScene();
 
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -80,8 +96,7 @@ namespace Object
             if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) &&
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && player.KeyCollected && !isUnlocked)
             {
-                Console.WriteLine("Door Unlocked");
-                PlayAudio("DoorUnlock.wav", 0);
+                PlayAudio("DoorUnlock.wav", 0, (int)reverbSetting);
                 AnimationState = (int)AnimationCodeDoor.OPEN;
                 player.KeyCollected = false;
                 isUnlocked = true;

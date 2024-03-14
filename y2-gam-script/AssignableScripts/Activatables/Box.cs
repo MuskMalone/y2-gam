@@ -15,6 +15,7 @@
 /******************************************************************************/
 
 using Image;
+using System;
 
 namespace Object
 {
@@ -28,6 +29,8 @@ namespace Object
 
         public int ScaffoldingAudioIncrement = 1;
         public int MAX_SCAFFOLDING_AUDIO_FILES = 2;
+
+        private ReverbCode reverbSetting;
 
         /*  _________________________________________________________________________ */
         /*! Box
@@ -66,7 +69,27 @@ namespace Object
 
         void OnCreate()
         {
+            String currentScene = GetCurrentScene();
 
+            if (currentScene == "Level1")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level1Transition")
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
+
+            else if (currentScene == "Level2")
+            {
+                reverbSetting = ReverbCode.CAVE;
+            }
+
+            else
+            {
+                reverbSetting = ReverbCode.OFF;
+            }
         }
 
         /*  _________________________________________________________________________ */
@@ -85,7 +108,7 @@ namespace Object
 
             if (!wasScaffoldingCollided && isScaffoldingCollided)
             {
-                PlayPositionalAudio("BoxDropScaffolding_" + ScaffoldingAudioIncrement + ".wav", 0, Translation);
+                PlayPositionalAudio("BoxDropScaffolding_" + ScaffoldingAudioIncrement + ".wav", 0, Translation, (int)reverbSetting);
 
                 ScaffoldingAudioIncrement++;
                 if (ScaffoldingAudioIncrement > MAX_SCAFFOLDING_AUDIO_FILES)
@@ -100,7 +123,7 @@ namespace Object
 
             if (!wasWoodCollided && isWoodCollided)
             {
-                PlayPositionalAudio("BoxDropWood_" + WoodAudioIncrement + ".wav", 0, Translation);
+                PlayPositionalAudio("BoxDropWood_" + WoodAudioIncrement + ".wav", 0, Translation, (int)reverbSetting);
 
                 WoodAudioIncrement++;
                 if (WoodAudioIncrement > MAX_WOOD_AUDIO_FILES)

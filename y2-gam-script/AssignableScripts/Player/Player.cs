@@ -57,6 +57,7 @@ namespace Object
         private int MAX_JUMP_AUDIO_FILES = 12;
         private int MAX_PLAYERDEATH_AUDIO_FILES = 8;
         private string FootTrack;
+        private ReverbCode reverbSetting;
 
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
@@ -139,24 +140,27 @@ namespace Object
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
             isPaused = false;
-
+            GameplayWrapper.SlowdownTime(false);
             if (GetCurrentScene() == "Level1")
             {
                 spawnPosition = new Vector2(-400, -27);
                 colliderPosition = new Vector2(-400, -36);
                 FootTrack = "PlayerRunningFloor.wav";
+                reverbSetting = ReverbCode.OFF;
             }
             else if (GetCurrentScene()== "Level1Transition")
             {
                 spawnPosition = new Vector2(-592.5f, -114.5f);
                 colliderPosition = new Vector2(-591.5f, -123.5f);
                 FootTrack = "PlayerRunningFloor.wav";
+                reverbSetting = ReverbCode.OFF;
             }
             else if (GetCurrentScene() == "Level2")
             {
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
                 FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
+                reverbSetting = ReverbCode.CAVE;
             }
             GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
         }
@@ -292,7 +296,7 @@ namespace Object
                     {
                         if (IsGrounded)
                         {
-                            PlayAudio("player_hit_the_ground.wav", 0);
+                            PlayAudio("player_hit_the_ground.wav", 0, (int)reverbSetting);
                         }
 
                         GroundedStatusChanged = false;
@@ -455,8 +459,8 @@ namespace Object
 
                     if (firstTime)
                     {
-                        PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0);
-                        PlayAudio("Robin Death_" + PlayerDeathAudioIncrement + ".wav", 0);
+                        PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0, (int)reverbSetting);
+                        PlayAudio("Robin Death_" + PlayerDeathAudioIncrement + ".wav", 0, (int)reverbSetting);
                     }
 
                     if (RespawnTimer >= PlayDeathAnimHowLongAfter && firstTime)
@@ -547,7 +551,7 @@ namespace Object
         {
             
             Velocity = new Vector2 (Velocity.X, JumpSpeed);
-            PlayAudio("Robin Jump_" + JumpAudioIncrement + ".wav", 0);
+            PlayAudio("Robin Jump_" + JumpAudioIncrement + ".wav", 0, (int)reverbSetting);
             JumpAudioIncrement++;
 
             if (JumpAudioIncrement > MAX_JUMP_AUDIO_FILES)
@@ -625,7 +629,7 @@ namespace Object
 
             Console.WriteLine($"{footstepSound}");
 
-            PlayAudio(footstepSound, 0);
+            PlayAudio(footstepSound, 0, (int)reverbSetting);
             SetAudioFileVolume(footstepSound, 0.6f);
             ResumeAudioWithFilename(footstepSound);
         }
@@ -647,7 +651,7 @@ namespace Object
 
             Console.WriteLine($"{footstepSound}");
 
-            PlayAudio(footstepSound, 0);
+            PlayAudio(footstepSound, 0, (int)reverbSetting);
             ResumeAudioWithFilename(footstepSound);
         }
 

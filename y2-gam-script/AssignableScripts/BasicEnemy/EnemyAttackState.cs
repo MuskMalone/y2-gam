@@ -50,7 +50,7 @@ public class EnemyAttackState : EnemyBaseState
 
         else if (attackRayCast.tag == "Player" && !audioPlayed)
         {
-            enemy.PlayAudio("Jester Chomp_" + AttackAudioIncrement + ".wav", 0);
+            enemy.PlayAudio("Jester Chomp_" + AttackAudioIncrement + ".wav", 0, (int)enemy.reverbSetting);
             audioPlayed = true;
 
             enemy.player.Dead = true;

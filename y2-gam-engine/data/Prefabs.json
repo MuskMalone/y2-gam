@@ -11,8 +11,8 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -26.0,
+                "posY": -34.499996185302734,
                 "rotation": 0.0,
                 "dimX": 100.0,
                 "dimY": 100.0
@@ -38,8 +38,8 @@
                 "assetID": 0
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -26.0,
+                "posY": -34.499996185302734,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

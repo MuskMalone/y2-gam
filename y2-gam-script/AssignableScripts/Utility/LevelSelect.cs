@@ -79,7 +79,7 @@ namespace Object
         {
             if (GetCurrentScene() == "LevelSelect")
             {
-                PlayAudio("PM_Menu_Music_Loop.wav", -1);
+                PlayAudio("PM_Menu_Music_Loop.wav", -1, (int)ReverbCode.OFF);
                 isPlaying = true;
             }
             AnimationState = CurrentAnimationIndex;
@@ -87,7 +87,7 @@ namespace Object
                 CurrentAnimationIndex == (int)AnimationCodeLevelSelect.ROBINLOAD)
             {
                 StopAudioWithFilename("PM_Menu_Music_Loop.wav");
-                PlayAudio("LevelTransition.wav", 0);
+                PlayAudio("LevelTransition.wav", 0, (int)ReverbCode.OFF);
             }
         }
 
