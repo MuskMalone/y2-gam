@@ -266,7 +266,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             mLightRenderShader->Unuse();
         }
     }
-    std::cout << "drawn light " << drawnlight << std::endl;
+    //std::cout << "drawn light " << drawnlight << std::endl;
 }
 
 /**
