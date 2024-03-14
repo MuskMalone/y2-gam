@@ -74,7 +74,8 @@ class LightingSystem : public System
         };
         return true;
     }
-
+    //std::deque<Point> intersects{};
+    //std::vector<LightVertex>vertices{};
     std::vector<unsigned int> lightIndices{};
     //std::shared_ptr<Shader> mEmitterStepShader;
     //std::shared_ptr<Shader> mParticleShader;

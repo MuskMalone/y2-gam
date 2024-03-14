@@ -83,7 +83,6 @@ void LightingSystem::Init() {
 void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
     UNREFERENCED_PARAMETER(tex);
     UNREFERENCED_PARAMETER(outtex);
-    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
     unsigned drawnlight{};
     for (auto const& lightEntity : mEntities) {
         auto const& light = Coordinator::GetInstance()->GetComponent<Light>(lightEntity);
@@ -266,7 +265,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             mLightRenderShader->Unuse();
         }
     }
-    std::cout << "drawn light " << drawnlight << std::endl;
+    //std::cout << "drawn light " << drawnlight << std::endl;
 }
 
 /**
@@ -281,6 +280,7 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     //GLboolean scissorTestEnabled = glIsEnabled(GL_SCISSOR_TEST);
     //if (scissorTestEnabled)
     //    glEnable(GL_SCISSOR_TEST);
+    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
 
     this->Update(tex, outtex);
 
@@ -319,18 +319,18 @@ void LightingSystem::DrawDebug() {
     //    Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
     //    Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
     //}
-    //auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
-    //for (auto const& entity : lightblockers) {
-    //    auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
-    //    // Assuming Vec2 is equivalent to glm::vec2
-    //    glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
+    auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
+    for (auto const& entity : lightblockers) {
+        auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
+        // Assuming Vec2 is equivalent to glm::vec2
+        glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
 
-    //    glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
-    //    float rotation = lightblocker.rotation; // Example rotation in radians
+        glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
+        float rotation = lightblocker.rotation; // Example rotation in radians
 
-    //    Renderer::DrawQuad(glm::vec3{ position,1 }, dimension, glm::vec4{ 1.f, 0.f, 1.f ,1.f }, Image::Degree(rotation) );
+        Renderer::DrawLineRect(glm::vec3{ position,1 }, dimension, glm::vec4{ 1.f, 0.f, 1.f ,1.f }, Image::Degree(rotation) );
 
-    //}
+    }
 }
 
 /**
