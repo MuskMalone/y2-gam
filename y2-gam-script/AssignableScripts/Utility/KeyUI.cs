@@ -6,10 +6,9 @@ namespace Object
 {
     public class KeyUI : Entity
     {
-        bool firsttime = true;
         public string keyTag;
         Player player;
-        Key key;
+
         /*  _________________________________________________________________________ */
         /*! ZoomOut
 
@@ -34,7 +33,6 @@ namespace Object
         */
         public KeyUI(uint entityHandle) : base(entityHandle)
         {
-            key = GameplayWrapper.FindEntityByName("Key").As<Key>();
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             entityID = entityHandle;
         }
@@ -64,52 +62,15 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
-            //if(keyTag == "purple" )
-            //{
-            //    if(player.KeyCollected && key.keyTag == "purple")
-            //    {
-            //        Colour = new Vector4(1, 1, 1, 1);
-                   
-            //    }
-            //    //else if(!player.KeyCollected)
-            //    //{
-            //    //    Colour = new Vector4(1, 1, 1, 0);
-            //    //}
-            //}
-            //else if(keyTag == "gold" )
-            //{
-            //    //Console.WriteLine(keyTag);
-            //    if (player.KeyCollected && key.keyTag == "gold")
-            //    {
-            //        Colour = new Vector4(1, 1, 1, 1);
 
-            //    }
-            //    //else if (!player.KeyCollected)
-            //    //{
-            //    //    Colour = new Vector4(1, 1, 1, 0);
-            //    //}
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 1, 1, 0);
-            //}
-            if(player.KeyCollected)
+            if(keyTag == player.keyName && player.KeyCollected)
             {
-                if(key.keyTag == "purple" && keyTag == "purple")
-                {
-                    if (keyTag == "purple")
-                    {
-                        Console.WriteLine(key.keyTag);
-                        Console.WriteLine(keyTag);
-                        Colour = new Vector4(1, 1, 1, 1);
-                    }
-                    else
-                    {
-                        Colour = new Vector4(1, 1, 1, 0);
-                    }
-                }
+                Colour = new Vector4(1, 1, 1, 1);
             }
-
+            else
+            {
+                Colour = new Vector4(1, 1, 1, 0);
+            }
         }
 
         /*  _________________________________________________________________________ */

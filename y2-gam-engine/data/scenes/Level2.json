@@ -146,6 +146,7 @@
                 "colliderPositionX": 183.0,
                 "colliderPositionY": 156.0,
                 "isPaused": false,
+                "keyName": "",
                 "spawnPositionX": 184.5,
                 "spawnPositionY": 165.5
             },
@@ -5195,7 +5196,9 @@
                 "scriptName": "ObjectKey",
                 "scriptTag": "Key",
                 "Range": 10.0,
-                "keyTag": "purple"
+                "goldCollected": false,
+                "keyTag": "purple",
+                "purpleCollected": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5242,7 +5245,9 @@
                 "scriptName": "ObjectKey",
                 "scriptTag": "KeyGold",
                 "Range": 10.0,
-                "keyTag": "gold"
+                "goldCollected": false,
+                "keyTag": "gold",
+                "purpleCollected": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5550,9 +5555,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756896520626400
             },
@@ -5627,7 +5632,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756892272022000
             },
@@ -5699,9 +5704,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1707116513468451400
             },
@@ -5738,7 +5743,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700947919118509400
             },
@@ -5859,7 +5864,7 @@
                 "Tag": "KeyUIGold"
             },
             "Transform": {
-                "posX": 492.0450134277344,
+                "posX": 317.5,
                 "posY": 759.0,
                 "posZ": 0.0,
                 "rotX": 0.0,

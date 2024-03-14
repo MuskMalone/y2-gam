@@ -43,6 +43,7 @@ namespace Object
         public Vector2 spawnPosition;
         public Vector2 colliderPosition;
 
+        public String keyName;
         public bool KeyCollected = false;
         private float footstepTimer = 0.0f;
         private float footstepInterval = 0.4f;
