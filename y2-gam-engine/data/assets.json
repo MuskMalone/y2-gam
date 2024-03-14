@@ -1494,6 +1494,30 @@
             "idxY": 0.0,
             "dimX": 180.0,
             "dimY": 178.0
+        },
+        "1710427463969121200": {
+            "id": 1710427463969147700,
+            "path": "../assets\\Textures\\sewer_gate.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 134.0,
+            "dimY": 394.0
+        },
+        "1710427578042824500": {
+            "id": 1710427578042873900,
+            "path": "../assets\\Textures\\door_sewer_open.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710427580077480100": {
+            "id": 1710427580077513200,
+            "path": "../assets\\Textures\\door_sewer_close.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
         }
     },
     "AnimationManager": {
@@ -1992,6 +2016,30 @@
             "idxCoordY": 0.0,
             "dimX": 120.0,
             "dimY": 120.0
+        },
+        "1710427633230824000": {
+            "id": 1710427633230849900,
+            "path": "../assets\\Textures\\door_sewer_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710427634286445800": {
+            "id": 1710427634286472200,
+            "path": "../assets\\Textures\\door_sewer_close.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710428243386816600": {
+            "id": 1710428243386865200,
+            "path": "../assets\\Textures\\sewer_gate.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 134.0,
+            "dimY": 394.0
         }
     }
 }
