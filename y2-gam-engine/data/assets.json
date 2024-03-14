@@ -996,6 +996,14 @@
             "idxY": 0.0,
             "dimX": 1677.0,
             "dimY": 87.0
+        },
+        "1710441285557991100": {
+            "id": 1710441285558025000,
+            "path": "../assets\\Textures\\UI\\hat_castle.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 134.0,
+            "dimY": 340.0
         }
     },
     "AnimationManager": {
