@@ -3154,10 +3154,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -858.0,
+                "posX": -856.5,
                 "posY": -105.5001449584961,
                 "rotation": 0.0,
-                "dimX": 20.0,
+                "dimX": 11.0,
                 "dimY": 14.0
             },
             "Gravity": {

@@ -539,11 +539,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -372.8773498535156,
-                "posY": -45.54681396484375,
-                "rotation": 3.1411831378936768,
+                "posX": -371.50091552734375,
+                "posY": -45.50092315673828,
+                "rotation": 3.1409759521484375,
                 "dimX": 14.99999713897705,
-                "dimY": 14.99999713897705
+                "dimY": 15.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -567,7 +567,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -582,15 +582,15 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -372.865966796875,
-                "posY": -45.8400764465332,
+                "posX": -371.50091552734375,
+                "posY": -45.50092315673828,
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 179.96466064453125,
                 "scaleX": 14.99999713897705,
                 "scaleY": 14.99999713897705,
-                "scaleZ": 14.99976634979248,
+                "scaleZ": 14.999692916870117,
                 "elipse": false
             }
         },
@@ -821,7 +821,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -879,7 +879,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -968,7 +968,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 1,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -1056,7 +1056,7 @@
                 "MAX_SCAFFOLDING_AUDIO_FILES": 2,
                 "MAX_WOOD_AUDIO_FILES": 4,
                 "ScaffoldingAudioIncrement": 1,
-                "WoodAudioIncrement": 2
+                "WoodAudioIncrement": 1
             },
             "Sprite": {
                 "r": 1.0,
@@ -1239,10 +1239,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 186.00001525878906,
+                "posX": 187.5,
                 "posY": -46.000125885009766,
-                "rotation": -8.423759467746095e-9,
-                "dimX": 20.0,
+                "rotation": -8.423757691389255e-9,
+                "dimX": 11.0,
                 "dimY": 14.0
             },
             "Gravity": {
@@ -1575,9 +1575,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 200,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1840,7 +1840,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 1,
+                "currFrame": 2,
                 "speed": 0.0,
                 "currState": 0
             },
@@ -2618,7 +2618,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 0.9499997496604919,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 15.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -2856,7 +2856,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 48.9605",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2887,7 +2887,7 @@
                 "scriptName": "ObjectDeath",
                 "scriptTag": "Death",
                 "BackToLifeDuration": 1.399999976158142,
-                "DeathAnimationSequence": 1.0,
+                "DeathAnimationSequence": 0.0,
                 "MaxDuration": 2.700000047683716,
                 "PlayLifeAnimation": false,
                 "StartingScale": 25.0,
