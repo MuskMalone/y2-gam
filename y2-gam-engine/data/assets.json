@@ -980,6 +980,22 @@
             "idxY": 0.0,
             "dimX": 163.0,
             "dimY": 124.0
+        },
+        "1710436411329534400": {
+            "id": 1710436411329571900,
+            "path": "../assets\\Textures\\UI\\TEXT_robin is scared.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 657.0,
+            "dimY": 87.0
+        },
+        "1710436413998058900": {
+            "id": 1710436413998100300,
+            "path": "../assets\\Textures\\UI\\TEXT_cards will last.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1677.0,
+            "dimY": 87.0
         }
     },
     "AnimationManager": {

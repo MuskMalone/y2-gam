@@ -10,10 +10,12 @@ namespace Object
         private bool hasStepped = false;
         private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
-        private float FadeOutTimer = 3.0f;
+        public float FadeOutTimer = 45.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
         private Vector2 temp_translation;
+        private Vector2 temp_collider;
+        public string platformTag;
 
 
         /*  _________________________________________________________________________ */
@@ -53,6 +55,8 @@ namespace Object
         void OnCreate()
         {
             temp_translation = Translation;
+            temp_collider = Collider;
+            
         }
 
         /*  _________________________________________________________________________ */
@@ -87,8 +91,7 @@ namespace Object
             }
 
             if(player.Dead)
-            {
-                
+            {              
                 ResetPlatform();
             }
             
@@ -104,7 +107,7 @@ namespace Object
 
             //Console.WriteLine("Reached end of 23sec");
             
-            Console.WriteLine("FadeOutTime:" + FadeOutTime);
+            //Console.WriteLine("FadeOutTime:" + FadeOutTime);
             if (FadeOutTime <= FadeOutTimer)
             {
                 FadeOutTime += dt;
@@ -112,26 +115,114 @@ namespace Object
                 float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
                 ColourValue = 1.0f - easeOut;
                 ColourValue = Math.Max(ColourValue, 0.0f);
-                Console.WriteLine("Colour Value: " + ColourValue);
+                //Console.WriteLine("Colour Value: " + ColourValue);
                 Colour = new Vector4(1, 1, 1, ColourValue);
             }
             //FINISH FADEOUT
             else
             {
                 //GameplayWrapper.DestroyEntity(entityID);
-                Translation = new Vector2(9999, 9999);
+                if (platformTag == "DPlatform1")
+                {
+                    Translation = new Vector2(9999, 9979);
+                    Collider = new Vector2(9999, 9979);
+                }
+                else if (platformTag == "DPlatform2")
+                {
+                    Translation = new Vector2(9999, 9959);
+                    Collider = new Vector2(9999, 9959);
+                }
+                else if (platformTag == "DPlatform3")
+                {
+                    Translation = new Vector2(9999, 9939);
+                    Collider = new Vector2(9999, 9939);
+                }
+                else if (platformTag == "DPlatform4")
+                {
+                    Translation = new Vector2(9999, 9919);
+                    Collider = new Vector2(9999, 9919);
+                }
+                else if (platformTag == "DPlatform5")
+                {
+                    Translation = new Vector2(9999, 9899);
+                    Collider = new Vector2(9999, 9899);
+                }
+                else if (platformTag == "DPlatform6")
+                {
+                    Translation = new Vector2(9999, 9879);
+                    Collider = new Vector2(9999, 9879);
+                }
+                else if (platformTag == "DPlatform7")
+                {
+                    Translation = new Vector2(9999, 9859);
+                    Collider = new Vector2(9999, 9859);
+                }
+                else if (platformTag == "DPlatform8")
+                {
+                    Translation = new Vector2(9999, 9839);
+                    Collider = new Vector2(9999, 9839);
+                }
+                else if (platformTag == "DPlatform9")
+                {
+                    Translation = new Vector2(9999, 9819);
+                    Collider = new Vector2(9999, 9819);
+                }
+                else if (platformTag == "DPlatform10")
+                {
+                    Translation = new Vector2(9999, 9799);
+                    Collider = new Vector2(9999, 9799);
+                }
+                else if (platformTag == "DPlatform11")
+                {
+                    Translation = new Vector2(9999, 9759);
+                    Collider = new Vector2(9999, 9759);
+                }
+                else if (platformTag == "DPlatform12")
+                {
+                    Translation = new Vector2(9999, 9739);
+                    Collider = new Vector2(9999, 9739);
+                }
+                else if (platformTag == "DPlatform13")
+                {
+                    Translation = new Vector2(9999, 9719);
+                    Collider = new Vector2(9999, 9719);
+                }
+                else if (platformTag == "DPlatform14")
+                {
+                    Translation = new Vector2(9999, 9699);
+                    Collider = new Vector2(9999, 9699);
+                }
+                else if (platformTag == "DPlatform15")
+                {
+                    Translation = new Vector2(9999, 9679);
+                    Collider = new Vector2(9999, 9679);
+                }
+                else if (platformTag == "DPlatform16")
+                {
+                    Translation = new Vector2(9999, 9659);
+                    Collider = new Vector2(9999, 9659);
+                }
+                else if (platformTag == "DPlatform17")
+                {
+                    Translation = new Vector2(9999, 9639);
+                    Collider = new Vector2(9999, 9639);
+                }
+                
+                //Collider = new Vector2(9999, 9999);
             }
 
         }
 
         void ResetPlatform()
         {
-            timer = 2.0f;
+            //Console.WriteLine("HERE");
+            timer = 0.0f;
             FadeOutTime = 0.0f;
             hasStepped = false;
             FadedOut = false;
             Colour = new Vector4(1, 1, 1, 1);
             Translation = temp_translation;
+            Collider = temp_collider;
         }
         /*  _________________________________________________________________________ */
         /*! OnExit
