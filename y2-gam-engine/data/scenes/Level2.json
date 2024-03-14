@@ -621,7 +621,7 @@
                 "collider": 0,
                 "posX": 126.66259002685547,
                 "posY": 92.49917602539063,
-                "rotation": 0.000002247317524961545,
+                "rotation": 0.0000022374738364305813,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -655,7 +655,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953133123376400
+                "assetID": 1710424874936470400
             },
             "Swappable": {},
             "Tag": {
@@ -1488,11 +1488,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": 30.0,
-                "posY": -245.5,
+                "posX": 52.5,
+                "posY": -252.5,
                 "rotation": 0.0,
-                "dimX": 45.0,
-                "dimY": 15.0
+                "dimX": 90.0,
+                "dimY": 30.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -1516,69 +1516,20 @@
                 "b": 1.0,
                 "a": 0.0,
                 "layer": 2,
-                "assetID": 1698951648982145500
+                "assetID": 1710424872976866000
             },
             "Tag": {
                 "Tag": "Spike7"
             },
             "Transform": {
-                "posX": 30.0,
-                "posY": -245.5,
+                "posX": 52.5,
+                "posY": -252.5,
                 "posZ": 3.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 45.0,
-                "scaleY": 15.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            }
-        },
-        {
-            "Collider": {
-                "collider": 0,
-                "posX": 75.0,
-                "posY": -245.5,
-                "rotation": 0.0,
-                "dimX": 45.0,
-                "dimY": 15.0
-            },
-            "Gravity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "Layering": {
-                "layering": "Spikes"
-            },
-            "RigidBody": {
-                "dimX": 15.0,
-                "dimY": 15.0,
-                "rotation": 0.0,
-                "mass": 3.4028234663852886e38,
-                "posX": 0.0,
-                "posY": 0.0,
-                "lockRotate": false
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1698951648982145500
-            },
-            "Tag": {
-                "Tag": "Spike8"
-            },
-            "Transform": {
-                "posX": 75.0,
-                "posY": -245.5,
-                "posZ": 2.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 45.0,
-                "scaleY": 15.0,
+                "scaleX": 90.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3474,11 +3425,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -247.5,
-                "posY": -170.0,
-                "rotation": 3.141592502593994,
-                "dimX": 45.00006866455078,
-                "dimY": 14.999994277954102
+                "posX": -269.5,
+                "posY": -177.5,
+                "rotation": 3.1415908336639404,
+                "dimX": 90.0,
+                "dimY": 30.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3502,20 +3453,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698951648982145500
+                "assetID": 1710424872976866000
             },
             "Tag": {
                 "Tag": "Spike9"
             },
             "Transform": {
-                "posX": -247.5,
-                "posY": -170.0,
+                "posX": -269.5,
+                "posY": -177.5,
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 180.0,
-                "scaleX": 45.00006866455078,
-                "scaleY": 14.999994277954102,
+                "scaleX": 90.0,
+                "scaleY": 30.0,
                 "scaleZ": 14.998990058898926,
                 "elipse": false
             }
@@ -3523,11 +3474,11 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -143.49998474121094,
-                "posY": -171.00001525878906,
-                "rotation": -3.141592502593994,
-                "dimX": 45.0,
-                "dimY": 15.0
+                "posX": -121.49998474121094,
+                "posY": -178.00001525878906,
+                "rotation": -3.1415908336639404,
+                "dimX": 90.0,
+                "dimY": 30.0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3551,20 +3502,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698951648982145500
+                "assetID": 1710424872976866000
             },
             "Tag": {
                 "Tag": "Spike10"
             },
             "Transform": {
-                "posX": -143.49998474121094,
-                "posY": -171.00001525878906,
+                "posX": -121.49998474121094,
+                "posY": -178.00001525878906,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": -180.0,
-                "scaleX": 45.0,
-                "scaleY": 15.0,
+                "scaleX": 90.0,
+                "scaleY": 30.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
@@ -3693,7 +3644,7 @@
                 "collider": 0,
                 "posX": 763.997314453125,
                 "posY": 65.49958801269531,
-                "rotation": -0.000001799829988158308,
+                "rotation": -0.0000017948181039173505,
                 "dimX": 15.0,
                 "dimY": 15.0
             },
@@ -3727,7 +3678,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698953133123376400
+                "assetID": 1710424874936470400
             },
             "Swappable": {},
             "Tag": {
@@ -5712,7 +5663,7 @@
                 "b": 1.0,
                 "a": 0.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1710424872976866000
             },
             "Tag": {
                 "Tag": "Spikelong"

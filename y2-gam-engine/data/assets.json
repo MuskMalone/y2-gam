@@ -1478,6 +1478,22 @@
             "idxY": 0.0,
             "dimX": 2346.0,
             "dimY": 3332.0
+        },
+        "1710424872976866000": {
+            "id": 1710424872976937200,
+            "path": "../assets\\Textures\\spikes_sewer.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 477.0,
+            "dimY": 168.0
+        },
+        "1710424874936470400": {
+            "id": 1710424874936507100,
+            "path": "../assets\\Textures\\sewer_box.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 180.0,
+            "dimY": 178.0
         }
     },
     "AnimationManager": {
