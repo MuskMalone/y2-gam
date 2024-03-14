@@ -599,6 +599,11 @@
             "id": 1710176493246536800,
             "path": "../assets\\audio\\sfx\\Anvil_Drop\\anvil_drop_2.wav",
             "stream": false
+        },
+        "1710281005012961500": {
+            "id": 1710281005012995000,
+            "path": "../assets\\audio\\music\\openingCutscene.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
@@ -1273,6 +1278,158 @@
             "idxY": 0.0,
             "dimX": 490.0,
             "dimY": 99.0
+        },
+        "1710141589503171600": {
+            "id": 1710141589503217200,
+            "path": "../assets\\Textures\\UI\\GAM_BlackBG.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1710147769128730200": {
+            "id": 1710147769128777300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 871.0,
+            "dimY": 742.0
+        },
+        "1710147774092929500": {
+            "id": 1710147774092959300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1866.0,
+            "dimY": 259.0
+        },
+        "1710183774803942000": {
+            "id": 1710183774803982600,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 955.0,
+            "dimY": 475.0
+        },
+        "1710183819054951800": {
+            "id": 1710183819055009300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE1_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 955.0,
+            "dimY": 247.0
+        },
+        "1710185192782191500": {
+            "id": 1710185192782291000,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE2_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 687.0,
+            "dimY": 1026.0
+        },
+        "1710185195061065700": {
+            "id": 1710185195061105900,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE2_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1552.0,
+            "dimY": 446.0
+        },
+        "1710185196846434800": {
+            "id": 1710185196846489600,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE2_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1150.0,
+            "dimY": 446.0
+        },
+        "1710212383821004900": {
+            "id": 1710212383821040700,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1097.0,
+            "dimY": 120.0
+        },
+        "1710212388571157500": {
+            "id": 1710212388571199800,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1180.0,
+            "dimY": 605.0
+        },
+        "1710212390485751500": {
+            "id": 1710212390485783700,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1180.0,
+            "dimY": 240.0
+        },
+        "1710212392371265600": {
+            "id": 1710212392371314800,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 111.0,
+            "dimY": 1026.0
+        },
+        "1710212393772609100": {
+            "id": 1710212393772653700,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_5.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 557.0,
+            "dimY": 395.0
+        },
+        "1710212394954031400": {
+            "id": 1710212394954085200,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE3_6.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 557.0,
+            "dimY": 595.0
+        },
+        "1710274916782975900": {
+            "id": 1710274916783022100,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 671.0,
+            "dimY": 1026.0
+        },
+        "1710274918201405400": {
+            "id": 1710274918201468000,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1169.0,
+            "dimY": 398.0
+        },
+        "1710274919567115300": {
+            "id": 1710274919567167200,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 446.0,
+            "dimY": 595.0
+        },
+        "1710274921316967100": {
+            "id": 1710274921316998500,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 688.0,
+            "dimY": 185.0
+        },
+        "1710274922633239600": {
+            "id": 1710274922633277300,
+            "path": "../assets\\Textures\\UI\\GAM_FirstCutscene_PAGE4_5.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 688.0,
+            "dimY": 377.0
         },
         "1710389700855182100": {
             "id": 1710389700855263100,

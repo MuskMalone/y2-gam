@@ -17,7 +17,6 @@
 
 using Image;
 using System;
-using System.Data.SqlClient;
 
 namespace Object
 {
@@ -59,7 +58,6 @@ namespace Object
         private string FootTrack;
         private ReverbCode reverbSetting;
 
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Card card;
 
         bool resetAnimationState = true;
@@ -140,7 +138,7 @@ namespace Object
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
             isPaused = false;
-            GameplayWrapper.SlowdownTime(false);
+            //GameplayWrapper.SlowdownTime(false);
             if (GetCurrentScene() == "Level1")
             {
                 spawnPosition = new Vector2(-400, -27);
@@ -312,8 +310,6 @@ namespace Object
 
                     if (Input.IsKeyClicked(KeyCode.KEY_L))
                     {
-                        spawnPosition = new Vector2(184.5f, 165.5f);
-                        colliderPosition = new Vector2(183.0f, 156.0f);
                         Dead = true;
                     }
 
@@ -459,6 +455,9 @@ namespace Object
 
                     if (firstTime)
                     {
+                        SlowdownToggle = true;
+                        Friction = OriginalFriction;
+                        
                         PlayAudio("PlayerDeath_FX_0" + DeathAudioIncrement + ".wav", 0, (int)reverbSetting);
                         PlayAudio("Robin Death_" + PlayerDeathAudioIncrement + ".wav", 0, (int)reverbSetting);
                     }

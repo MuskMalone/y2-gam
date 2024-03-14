@@ -357,7 +357,8 @@ namespace Image {
             }
 
             bool isSelected = (gSelectedEntity == entity);
-            if (ImGui::Selectable(displayName.c_str(), isSelected)) {
+            std::string selectableid(displayName + "##" + std::to_string(entity));
+            if (ImGui::Selectable(selectableid.c_str(), isSelected)) {
                 gSelectedEntity = entity;
             }
 
