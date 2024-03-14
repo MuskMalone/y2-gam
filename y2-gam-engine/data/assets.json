@@ -2096,6 +2096,38 @@
             "idxCoordY": 0.0,
             "dimX": 300.0,
             "dimY": 300.0
+        },
+        "1710438034633812300": {
+            "id": 1710438034633841700,
+            "path": "../assets\\Textures\\ANIM_gate_sewer_close.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 400.0,
+            "dimY": 400.0
+        },
+        "1710438279198509700": {
+            "id": 1710438279198539600,
+            "path": "../assets\\Textures\\ANIM_gate_sewer_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 400.0,
+            "dimY": 400.0
+        },
+        "1710439466721620900": {
+            "id": 1710439466721648400,
+            "path": "../assets\\Textures\\ANIM\\ANIM_door_sewer_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 400.0,
+            "dimY": 400.0
+        },
+        "1710439468269496600": {
+            "id": 1710439468269521600,
+            "path": "../assets\\Textures\\ANIM\\ANIM_gate_sewer_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 400.0,
+            "dimY": 400.0
         }
     }
 }
