@@ -487,12 +487,12 @@
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "VisionRange": 4.0,
-                "colliderPositionX": 170.20994567871094,
-                "colliderPositionY": 29.19997787475586,
+                "colliderPositionX": 183.0,
+                "colliderPositionY": 156.0,
                 "isPaused": false,
                 "keyName": "",
-                "spawnPositionX": 170.20994567871094,
-                "spawnPositionY": 38.19997787475586
+                "spawnPositionX": 184.5,
+                "spawnPositionY": 165.5
             },
             "Sprite": {
                 "r": 1.0,
@@ -582,7 +582,7 @@
                 "y": 0.0
             },
             "Layering": {
-                "layering": "Default"
+                "layering": "Platform"
             },
             "RigidBody": {
                 "dimX": 15.0,
@@ -5369,6 +5369,10 @@
             },
             "Layering": {
                 "layering": "Platform"
+            },
+            "Script": {
+                "scriptName": "ObjectGameplaybgm",
+                "scriptTag": "BG"
             },
             "Sprite": {
                 "r": 1.0,
