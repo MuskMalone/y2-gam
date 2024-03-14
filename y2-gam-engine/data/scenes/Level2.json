@@ -7,9 +7,7 @@
     "Entities": [
         {
             "Animation": {
-                "states": [
-                    1707366674554159600
-                ],
+                "states": [],
                 "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
@@ -23,19 +21,19 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1707073231219371800
+                "assetID": 1710389700855182100
             },
             "Tag": {
                 "Tag": "BG"
             },
             "Transform": {
-                "posX": 0.0,
+                "posX": -582.5,
                 "posY": 0.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 1860.0,
+                "scaleX": 695.0,
                 "scaleY": 666.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -523,11 +521,11 @@
                 "RespawnTimer": 0.0,
                 "SlowdownToggle": true,
                 "VisionRange": 4.0,
-                "colliderPositionX": 170.20994567871094,
-                "colliderPositionY": 29.19997787475586,
-                "isPaused": true,
-                "spawnPositionX": 170.20994567871094,
-                "spawnPositionY": 38.19997787475586
+                "colliderPositionX": 183.0,
+                "colliderPositionY": 156.0,
+                "isPaused": false,
+                "spawnPositionX": 184.5,
+                "spawnPositionY": 165.5
             },
             "Sprite": {
                 "r": 1.0,
@@ -3641,7 +3639,7 @@
                 ],
                 "currFrame": 0,
                 "speed": 0.12999999523162842,
-                "currState": 1
+                "currState": 0
             },
             "Gravity": {
                 "x": 0.0,
@@ -3792,7 +3790,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 3.8166637420654297,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -3870,7 +3868,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 3.8166637420654297,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -4059,7 +4057,7 @@
                     1706241684624811400,
                     1706243405768460700
                 ],
-                "currFrame": 2,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -4428,7 +4426,7 @@
                     1705820098030170700,
                     1705820099352356100
                 ],
-                "currFrame": 2,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -4764,9 +4762,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 113,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -4861,7 +4859,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 32.8003",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -4956,8 +4954,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -5966,9 +5964,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
@@ -5989,8 +5987,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -6064,8 +6062,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -6101,8 +6099,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -6177,6 +6175,62 @@
                 "enabled": true,
                 "isClicked": false,
                 "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710389704034032500
+            },
+            "Tag": {
+                "Tag": "BG2"
+            },
+            "Transform": {
+                "posX": 112.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 695.0,
+                "scaleY": 666.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710389707717527200
+            },
+            "Tag": {
+                "Tag": "BG3"
+            },
+            "Transform": {
+                "posX": 694.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 469.0,
+                "scaleY": 666.0,
+                "scaleZ": 15.0,
+                "elipse": false
             }
         }
     ]
