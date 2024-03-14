@@ -65,6 +65,7 @@ namespace Object
 
         void OnCreate()
         {
+            Colour = new Vector4(1, 0, 1, 0);
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }

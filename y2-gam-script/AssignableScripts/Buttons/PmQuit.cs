@@ -63,42 +63,11 @@ namespace Object
         */
         void OnCreate()
         {
+            Colour = new Vector4(1, 1, 1, 0);
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             temp_translation = Translation;
         }
 
-        void PauseGame()
-        {
-            Translation = new Vector2(1202, 425);
-            //Translation = new Vector2(1500, 500);
-            //if (UIHover)
-            //{
-            //    //Console.WriteLine("Quitgame Hovered Over");
-            //    Colour = new Vector4(1, 1, 1, 1);
-
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-            ////}
-            //if (UIClicked)
-            //{
-            //    GameplayWrapper.SpawnPrefab("Confirmation", new Vector2(Translation.X, Translation.Y));
-
-            //    if (Input.IsKeyClicked(KeyCode.KEY_ESCAPE))
-            //    {
-            //        ResumeGame();
-            //        isPaused = false;
-            //        //firstTime = false;
-            //    }
-            //}
-        }
-
-        void ResumeGame()
-        {
-            //Colour = new Vector4(1, 0, 1, 0);
-            Translation = temp_translation;
-        }
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -114,58 +83,19 @@ namespace Object
             if (!player.isPaused)
             {
                 Translation = new Vector2(99999, 99999);
-                //Colour = new Vector4(1, 0, 1, 0);
+                Colour = new Vector4(1, 1, 1, 0);
 
             }
             else
             {
                 Translation = new Vector2(807, 425);
-                //Colour = new Vector4(1, 1, 1, 1);
+                Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
                     Translation = new Vector2(99999, 99999);
                     quitClicked = true; 
                 }
             }
-
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
-
-            //if (Input.IsKeyClicked(KeyCode.KEY_P))
-            //{
-            //    if (!isPaused)
-            //    {
-            //        PauseGame();
-            //        isPaused = true;
-            //    }
-            //    else
-            //    {
-            //        ResumeGame();
-            //        isPaused = false;
-            //    }
-            //    //firstTime = false;
-            //}
-
-
-            //if (UIClicked)
-            //{
-            //    if (MousePos.X < (Translation.X + Scale.X / 2) && MousePos.X > (Translation.X - Scale.X / 2) && MousePos.Y < (Translation.Y + Scale.Y / 2) && MousePos.Y > (Translation.Y - Scale.Y / 2))
-            //    {
-            //        Console.WriteLine("QUITCLICKED");
-            //        Colour = new Vector4(1, 0, 1, 0);
-            //    }
-            //}
-            //if (UIHover)
-            //{
-            //    Colour = new Vector4(1, 1, 0, 1);
-            //    //SetSprite("start_glow");
-            //}
-            //else
-            //{
-            //    Colour = new Vector4(1, 0, 1, 0);
-            //}
         }
 
         /*  _________________________________________________________________________ */

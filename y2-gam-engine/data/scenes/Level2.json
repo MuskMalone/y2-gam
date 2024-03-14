@@ -525,7 +525,8 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": 170.20994567871094,
                 "colliderPositionY": 29.19997787475586,
-                "isPaused": true,
+                "isPaused": false,
+                "keyName": "",
                 "spawnPositionX": 170.20994567871094,
                 "spawnPositionY": 38.19997787475586
             },
@@ -4956,8 +4957,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -5575,7 +5576,10 @@
             "Script": {
                 "scriptName": "ObjectKey",
                 "scriptTag": "Key",
-                "Range": 10.0
+                "Range": 10.0,
+                "goldCollected": false,
+                "keyTag": "purple",
+                "purpleCollected": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5621,7 +5625,10 @@
             "Script": {
                 "scriptName": "ObjectKey",
                 "scriptTag": "KeyGold",
-                "Range": 10.0
+                "Range": 10.0,
+                "goldCollected": false,
+                "keyTag": "gold",
+                "purpleCollected": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5929,9 +5936,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756896520626400
             },
@@ -5966,9 +5973,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
@@ -5989,8 +5996,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -6006,7 +6013,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756892272022000
             },
@@ -6064,8 +6071,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -6078,9 +6085,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1707116513468451400
             },
@@ -6117,7 +6124,7 @@
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700947919118509400
             },
@@ -6170,6 +6177,82 @@
                 "rotZ": 0.0,
                 "scaleX": 150.0,
                 "scaleY": 34.39099884033203,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIPurple",
+                "keyTag": "purple"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1707445848064327100
+            },
+            "Tag": {
+                "Tag": "KeyUIPurple"
+            },
+            "Transform": {
+                "posX": 317.5,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIGold",
+                "keyTag": "gold"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1710138226924060700
+            },
+            "Tag": {
+                "Tag": "KeyUIGold"
+            },
+            "Transform": {
+                "posX": 317.5,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
                 "scaleZ": 15.0,
                 "elipse": false
             },
