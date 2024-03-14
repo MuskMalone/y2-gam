@@ -1279,8 +1279,8 @@
             "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box1.jpg",
             "idxX": 0.0,
             "idxY": 0.0,
-            "dimX": 3475.0,
-            "dimY": 3330.0
+            "dimX": 3477.0,
+            "dimY": 3332.0
         },
         "1710389704034032500": {
             "id": 1710389704034117600,
@@ -1297,6 +1297,30 @@
             "idxY": 0.0,
             "dimX": 2344.0,
             "dimY": 3330.0
+        },
+        "1710418938583377100": {
+            "id": 1710418938583404800,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3477.0,
+            "dimY": 3332.0
+        },
+        "1710419023156171200": {
+            "id": 1710419023156196300,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3477.0,
+            "dimY": 3332.0
+        },
+        "1710419058058179900": {
+            "id": 1710419058058207000,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2346.0,
+            "dimY": 3332.0
         }
     },
     "AnimationManager": {
