@@ -405,7 +405,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	UpdateTransition(dt);
 	uniforms.push_back(UniformData{ "transitionFactor", UniformData::Type::FLOAT, trans.factor });
 
-	Renderer::ApplyPostProcessing(mFramebuffers[0]->GetColorAttachmentID(), uniforms);
+	Renderer::ApplyPostProcessing(mFramebuffers[2]->GetColorAttachmentID(), uniforms);
 
 	//glEnable(GL_DEPTH_TEST);
 	if (showEditor) {
