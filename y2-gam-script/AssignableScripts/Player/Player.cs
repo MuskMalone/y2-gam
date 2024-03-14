@@ -310,8 +310,6 @@ namespace Object
 
                     if (Input.IsKeyClicked(KeyCode.KEY_L))
                     {
-                        spawnPosition = new Vector2(184.5f, 165.5f);
-                        colliderPosition = new Vector2(183.0f, 156.0f);
                         Dead = true;
                     }
 

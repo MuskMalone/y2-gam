@@ -60,7 +60,7 @@ namespace Object
         {
             if (GetCurrentScene() == "IntroCutscene" && !isPlaying)
             {
-                PlayAudio("openingCutscene.wav", 0);
+                PlayAudio("openingCutscene.wav", 0, (int)ReverbCode.OFF);
                 isPlaying = true;
             }
 
