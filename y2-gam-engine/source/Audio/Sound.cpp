@@ -537,7 +537,6 @@ namespace Image {
     if (!found) {
       FMOD::Channel* channel{ nullptr };
       result = sSystem->playSound(audio, group, false, &channel);
-
       // Register the callback for when the sound finishes playing
       result = channel->setCallback(OnSoundFinished);
       AudioInformation ai{};

@@ -242,9 +242,14 @@ namespace Image {
 #else
 			frameController1->ScaleDeltaTime(0.4f);
 #endif
+
+			SoundManager::AudioSetGroupPitch(SoundManager::musicGroup, 0.5f);
+			SoundManager::AudioSetGroupPitch(SoundManager::sfxGroup, 0.5f);
 		}
 		else {
 			frameController1->ScaleDeltaTime(0.f);
+			SoundManager::AudioSetGroupPitch(SoundManager::musicGroup, 1.0f);
+			SoundManager::AudioSetGroupPitch(SoundManager::sfxGroup, 1.0f);
 		}
 	}
 
