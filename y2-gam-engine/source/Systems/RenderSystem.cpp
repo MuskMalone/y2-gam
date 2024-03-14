@@ -207,6 +207,12 @@ void RenderSystem::Init()
 	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
 	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 
+	//tch: for lighting im just putting it behind
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
+
+	fbProps.attachments = { FramebufferTexFormat::RGBA8, FramebufferTexFormat::RED_INTEGER, FramebufferTexFormat::DEPTH };
+	mFramebuffers.push_back(Framebuffer::Create(fbProps));
 }
 
 /*  _________________________________________________________________________ */
@@ -361,13 +367,13 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	glDisable(GL_DEPTH_TEST);
 
 	mFramebuffers[0]->Unbind();
-	{
-		mFramebuffers[2]->Bind();
+	//{
+		//mFramebuffers[2]->Bind();
 
 		::gCoordinator->GetSystem<LightingSystem>()->Draw(mFramebuffers[0]->GetColorAttachmentID(), mFramebuffers[2]->GetColorAttachmentID());
 
-		mFramebuffers[2]->Unbind();
-	}
+		//mFramebuffers[2]->Unbind();
+	//}
 	
 	//}
 	if (showEditor) {

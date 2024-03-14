@@ -25,6 +25,7 @@
 #include "Graphics/SpriteManager.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Core/Component.hpp"
+#define FBO(x) Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(x)
 #define MAX_BUFFER (19683)//3^9 // num of light sources/light blocking elements
 #define MAX_VERTICES 27 // num of vertices per light blocking element
 #define WORK_GROUP 100 //max buffer should be divisible by work group
@@ -84,6 +85,10 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
     UNREFERENCED_PARAMETER(tex);
     UNREFERENCED_PARAMETER(outtex);
     unsigned drawnlight{};
+    int entityIdx{};
+    int fbobindidx{};
+    int fbotexidx{};
+
     for (auto const& lightEntity : mEntities) {
         auto const& light = Coordinator::GetInstance()->GetComponent<Light>(lightEntity);
         glm::vec2 point = light.pos;//{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
@@ -237,6 +242,49 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
         }
 
         { // draw the array
+            //{//draw a full screen quad as well
+            //    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+
+            //    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+            //    glm::mat4 inviewprojection {glm::inverse(viewprojection) };
+            //    std::array<glm::vec4, 4> corners{
+            //        glm::vec4(-1.f, -1.f, 0, 1),
+            //            glm::vec4(-1.f, 1.f, 0, 1),
+            //            glm::vec4(1.f, 1.f, 0, 1),
+            //            glm::vec4(1.f, -1.f, 0, 1)
+            //    };
+
+            //    for (auto& c : corners) {
+            //        glm::vec4 transformedVec4 = inviewprojection * c;
+            //        c = transformedVec4;
+            //    }
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[0]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[1]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[2]), light.radius, light.intensity });
+
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[0]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[2]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[3]), light.radius, light.intensity });
+            //}
+
+            if (entityIdx % 2) {
+                fbobindidx = 5;
+            }
+            else fbobindidx = 4;
+
+            if (entityIdx == 0)
+                fbotexidx = 2;
+            else if (entityIdx % 2) {
+                fbotexidx = 4;
+            }
+            else {
+                fbotexidx = 5;
+            }
+
+            FBO(fbobindidx)->Bind();
+
+            Renderer::RenderFullscreenTexture(FBO(fbotexidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
+
             mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
             mLightRenderShader->Use();
 
@@ -251,8 +299,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             glActiveTexture(GL_TEXTURE0);
 
             //bind the texture you want to render
-            glBindTexture(GL_TEXTURE_2D, outtex);
-
+            glBindTexture(GL_TEXTURE_2D, FBO(fbotexidx)->GetColorAttachmentID());
 
             mLightVertexArray->Bind();
 
@@ -263,7 +310,15 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             mLightVertexArray->Unbind();
             glBindTexture(GL_TEXTURE_2D, 0);
             mLightRenderShader->Unuse();
+            FBO(fbobindidx)->Unbind();
         }
+        entityIdx++;
+    }
+    if (fbobindidx) {
+        FBO(2)->Bind();
+        Renderer::RenderFullscreenTexture(FBO(fbobindidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
+        FBO(2)->Unbind();
+
     }
     //std::cout << "drawn light " << drawnlight << std::endl;
 }
@@ -280,8 +335,9 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     //GLboolean scissorTestEnabled = glIsEnabled(GL_SCISSOR_TEST);
     //if (scissorTestEnabled)
     //    glEnable(GL_SCISSOR_TEST);
+    FBO(2)->Bind();
     Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
-
+    FBO(2)->Unbind();
     this->Update(tex, outtex);
 
     //glDisable(GL_SCISSOR_TEST);
