@@ -5444,6 +5444,82 @@
             }
         },
         {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIPurple",
+                "keyTag": "purple"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1707445848064327100
+            },
+            "Tag": {
+                "Tag": "KeyUIPurple"
+            },
+            "Transform": {
+                "posX": 317.5,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIGold",
+                "keyTag": "gold"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1710138226924060700
+            },
+            "Tag": {
+                "Tag": "KeyUIGold"
+            },
+            "Transform": {
+                "posX": 317.5,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
             "Collider": {
                 "collider": 0,
                 "posX": -195.5,
@@ -6157,82 +6233,6 @@
                 "scaleY": 60.0,
                 "scaleZ": 15.0,
                 "elipse": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
-            "Script": {
-                "scriptName": "ObjectKeyUI",
-                "scriptTag": "KeyUIPurple",
-                "keyTag": "purple"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 0.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1707445848064327100
-            },
-            "Tag": {
-                "Tag": "KeyUIPurple"
-            },
-            "Transform": {
-                "posX": 317.5,
-                "posY": 759.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 100.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
-            }
-        },
-        {
-            "Layering": {
-                "layering": "Default"
-            },
-            "Script": {
-                "scriptName": "ObjectKeyUI",
-                "scriptTag": "KeyUIGold",
-                "keyTag": "gold"
-            },
-            "Sprite": {
-                "r": 1.0,
-                "g": 0.0,
-                "b": 1.0,
-                "a": 0.0,
-                "layer": 2,
-                "assetID": 1710138226924060700
-            },
-            "Tag": {
-                "Tag": "KeyUIGold"
-            },
-            "Transform": {
-                "posX": 317.5,
-                "posY": 759.0,
-                "posZ": 0.0,
-                "rotX": 0.0,
-                "rotY": 0.0,
-                "rotZ": 0.0,
-                "scaleX": 100.0,
-                "scaleY": 100.0,
-                "scaleZ": 15.0,
-                "elipse": false
-            },
-            "UIImage": {
-                "enabled": true,
-                "isClicked": false,
-                "isHover": false
             }
         }
     ]

@@ -35,6 +35,7 @@ namespace Object
         {
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
             entityID = entityHandle;
+
         }
 
         /*  _________________________________________________________________________ */
