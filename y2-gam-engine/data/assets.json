@@ -1430,6 +1430,126 @@
             "idxY": 0.0,
             "dimX": 688.0,
             "dimY": 377.0
+        },
+        "1710389700855182100": {
+            "id": 1710389700855263100,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box1.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3477.0,
+            "dimY": 3332.0
+        },
+        "1710389704034032500": {
+            "id": 1710389704034117600,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box2.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3475.0,
+            "dimY": 3330.0
+        },
+        "1710389707717527200": {
+            "id": 1710389707717609400,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box3.jpg",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2344.0,
+            "dimY": 3330.0
+        },
+        "1710418938583377100": {
+            "id": 1710418938583404800,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3477.0,
+            "dimY": 3332.0
+        },
+        "1710419023156171200": {
+            "id": 1710419023156196300,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3477.0,
+            "dimY": 3332.0
+        },
+        "1710419058058179900": {
+            "id": 1710419058058207000,
+            "path": "../assets\\Textures\\backgrounds\\gam dungeon sewer updated_box3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2346.0,
+            "dimY": 3332.0
+        },
+        "1710424872976866000": {
+            "id": 1710424872976937200,
+            "path": "../assets\\Textures\\spikes_sewer.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 477.0,
+            "dimY": 168.0
+        },
+        "1710424874936470400": {
+            "id": 1710424874936507100,
+            "path": "../assets\\Textures\\sewer_box.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 180.0,
+            "dimY": 178.0
+        },
+        "1710427463969121200": {
+            "id": 1710427463969147700,
+            "path": "../assets\\Textures\\sewer_gate.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 134.0,
+            "dimY": 394.0
+        },
+        "1710427578042824500": {
+            "id": 1710427578042873900,
+            "path": "../assets\\Textures\\door_sewer_open.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710427580077480100": {
+            "id": 1710427580077513200,
+            "path": "../assets\\Textures\\door_sewer_close.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710431988611150000": {
+            "id": 1710431988611190100,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3372.0,
+            "dimY": 3332.0
+        },
+        "1710431990464499500": {
+            "id": 1710431990464535200,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3372.0,
+            "dimY": 3332.0
+        },
+        "1710431992582394900": {
+            "id": 1710431992582421200,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2564.0,
+            "dimY": 3332.0
+        },
+        "1710433532818777500": {
+            "id": 1710433532818829900,
+            "path": "../assets\\Textures\\spikes_sewer_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 450.0,
+            "dimY": 115.0
         }
     },
     "AnimationManager": {
@@ -1928,6 +2048,54 @@
             "idxCoordY": 0.0,
             "dimX": 120.0,
             "dimY": 120.0
+        },
+        "1710427633230824000": {
+            "id": 1710427633230849900,
+            "path": "../assets\\Textures\\door_sewer_open.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710427634286445800": {
+            "id": 1710427634286472200,
+            "path": "../assets\\Textures\\door_sewer_close.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 195.0,
+            "dimY": 387.0
+        },
+        "1710428243386816600": {
+            "id": 1710428243386865200,
+            "path": "../assets\\Textures\\sewer_gate.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 134.0,
+            "dimY": 394.0
+        },
+        "1710435390216659300": {
+            "id": 1710435390216685800,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain left side_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
+        },
+        "1710435392835011800": {
+            "id": 1710435392835038300,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain right side_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
+        },
+        "1710436376103654200": {
+            "id": 1710436376103695000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain left side_spritesheet2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
         }
     }
 }
