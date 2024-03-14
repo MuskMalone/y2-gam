@@ -1486,8 +1486,8 @@
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_idle.png",
             "frameCount": 7,
             "idxCoordY": 0.0,
-            "dimX": 256.0,
-            "dimY": 256.0
+            "dimX": 512.0,
+            "dimY": 512.0
         },
         "1700480697547170400": {
             "id": 1700480697547250300,
