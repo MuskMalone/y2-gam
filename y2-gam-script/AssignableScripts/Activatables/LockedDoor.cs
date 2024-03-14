@@ -23,7 +23,6 @@ namespace Object
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         private bool isUnlocked = false;
         private float doorColliderYOffset = 300.0f;
-
         public float Range;
 
         /*  _________________________________________________________________________ */

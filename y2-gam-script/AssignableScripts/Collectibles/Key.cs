@@ -20,6 +20,8 @@ namespace Object
 {
     public class Key : Entity
     {
+        public String keyTag;
+        //public bool firsttime = true;
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         public float Range;
 
@@ -77,11 +79,17 @@ namespace Object
             if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) &&
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && !player.KeyCollected)
             {
-                Console.WriteLine("Key Collected");
+                //Console.WriteLine("Key Collected");
                 //player.numKey++;
+                //if (keyTag == "gold")
+                //{
+                //    Console.WriteLine("its gold");
+                //}
                 player.KeyCollected = true;
+                //Console.WriteLine(keyTag);
                 PlayAudio("Key_Collection.wav", 0);
                 GameplayWrapper.DestroyEntity(entityID);
+                //firsttime = false;
             }
         }
 

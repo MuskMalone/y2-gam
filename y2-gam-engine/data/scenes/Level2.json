@@ -145,7 +145,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": 183.0,
                 "colliderPositionY": 156.0,
-                "isPaused": true,
+                "isPaused": false,
                 "spawnPositionX": 184.5,
                 "spawnPositionY": 165.5
             },
@@ -3412,7 +3412,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 0.516666829586029,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -3490,7 +3490,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 0.516666829586029,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 0.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -3623,7 +3623,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 2,
+                "currFrame": 0,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -4384,9 +4384,9 @@
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
                 "CardUIID": 714,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -4481,7 +4481,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 30.8115",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -4576,8 +4576,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -5194,7 +5194,8 @@
             "Script": {
                 "scriptName": "ObjectKey",
                 "scriptTag": "Key",
-                "Range": 10.0
+                "Range": 10.0,
+                "keyTag": "purple"
             },
             "Sprite": {
                 "r": 1.0,
@@ -5240,7 +5241,8 @@
             "Script": {
                 "scriptName": "ObjectKey",
                 "scriptTag": "KeyGold",
-                "Range": 10.0
+                "Range": 10.0,
+                "keyTag": "gold"
             },
             "Sprite": {
                 "r": 1.0,
@@ -5585,9 +5587,9 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700928706423252000
             },
@@ -5608,8 +5610,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -5683,8 +5685,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -5794,8 +5796,84 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIPurple",
+                "keyTag": "purple"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1707445848064327100
+            },
+            "Tag": {
+                "Tag": "KeyUIPurple"
+            },
+            "Transform": {
+                "posX": 317.5,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectKeyUI",
+                "scriptTag": "KeyUIGold",
+                "keyTag": "gold"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1710138226924060700
+            },
+            "Tag": {
+                "Tag": "KeyUIGold"
+            },
+            "Transform": {
+                "posX": 492.0450134277344,
+                "posY": 759.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 100.0,
+                "scaleY": 100.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]
