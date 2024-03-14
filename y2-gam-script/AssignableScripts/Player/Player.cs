@@ -281,7 +281,7 @@ namespace Object
                     //disappearing platforms
                     if (GetCurrentScene() == "Level1Transition")
                     {
-                        if (IsGrounded == true && PhysicsWrapper.IsCollidedWithLayer(entityID, "Environment"))
+                        if (IsGrounded == true && PhysicsWrapper.IsCollidedWithLayer(entityID, "hello"))
                         {
                             //Console.WriteLine("TEST DISAPPEARING PLATFORM ");
                             onPlatform = true;

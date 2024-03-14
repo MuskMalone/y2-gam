@@ -8,11 +8,12 @@ namespace Object
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         //public float range;
         private bool hasStepped = false;
-        private float timer = 2.0f;
+        private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
-        private float FadeOutTimer = 8.0f;
+        private float FadeOutTimer = 3.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
+        private Vector2 temp_translation;
 
 
         /*  _________________________________________________________________________ */
@@ -51,7 +52,7 @@ namespace Object
         */
         void OnCreate()
         {
-
+            temp_translation = Translation;
         }
 
         /*  _________________________________________________________________________ */
@@ -72,20 +73,29 @@ namespace Object
                 hasStepped = true;
             }
             
-            if(hasStepped && !FadedOut)
+            if(hasStepped)
             {
-                timer -= dt;
+                if (!FadedOut)
+                {
+                    timer -= dt;
+                }
                 if(timer <= 0.0f)
                 {
                     FadeOut(dt);
                     FadedOut = true;
                 }
             }
-            
-            if(FadedOut)
+
+            if(player.Dead)
             {
-                GameplayWrapper.DestroyEntity(entityID);
+                
+                ResetPlatform();
             }
+            
+            //if(FadedOut)
+            //{
+                
+            //}
         }
 
         void FadeOut(float dt)
@@ -93,10 +103,11 @@ namespace Object
             //FADEOUT
 
             //Console.WriteLine("Reached end of 23sec");
-            FadeOutTime += dt;
+            
             Console.WriteLine("FadeOutTime:" + FadeOutTime);
             if (FadeOutTime <= FadeOutTimer)
             {
+                FadeOutTime += dt;
                 float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
                 float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
                 ColourValue = 1.0f - easeOut;
@@ -107,10 +118,20 @@ namespace Object
             //FINISH FADEOUT
             else
             {
-                Colour = new Vector4(1, 1, 1, 0.0f);
-
+                //GameplayWrapper.DestroyEntity(entityID);
+                Translation = new Vector2(9999, 9999);
             }
 
+        }
+
+        void ResetPlatform()
+        {
+            timer = 2.0f;
+            FadeOutTime = 0.0f;
+            hasStepped = false;
+            FadedOut = false;
+            Colour = new Vector4(1, 1, 1, 1);
+            Translation = temp_translation;
         }
         /*  _________________________________________________________________________ */
         /*! OnExit
