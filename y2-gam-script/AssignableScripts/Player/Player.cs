@@ -46,7 +46,8 @@ namespace Object
         public String keyName;
         public bool KeyCollected = false;
         private float footstepTimer = 0.0f;
-        private float footstepInterval = 0.4f;
+        private float footstepInterval = 0.39f;
+        string[] footstepSounds;
 
         private Vector2 playerHead;
         public bool isPaused = false;
@@ -144,19 +145,19 @@ namespace Object
             {
                 spawnPosition = new Vector2(-400, -27);
                 colliderPosition = new Vector2(-400, -36);
-                FootTrack = "PlayerRunningFloor.wav";
+                //FootTrack = "PlayerRunningFloor.wav";
             }
             else if (GetCurrentScene()== "Level1Transition")
             {
                 spawnPosition = new Vector2(-592.5f, -114.5f);
                 colliderPosition = new Vector2(-591.5f, -123.5f);
-                FootTrack = "PlayerRunningFloor.wav";
+                //FootTrack = "PlayerRunningFloor.wav";
             }
             else if (GetCurrentScene() == "Level2")
             {
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
-                FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
+                //FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
             }           
         }
 
@@ -179,11 +180,7 @@ namespace Object
             }
 
             IsFacingRight = isFacingRight;
-            
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
+ 
 
             if (isPaused)
             {
@@ -337,8 +334,8 @@ namespace Object
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                     {
                         //Console.WriteLine("A was released");
-                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename(FootTrack);
+                        //PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                        //PauseAudioWithFilename(FootTrack);
                         Velocity *= 0.2f;
                     }
 
@@ -412,11 +409,11 @@ namespace Object
                         }
                     }
 
-                    if (!IsGrounded)
-                    {
-                        PauseAudioWithFilename("PlayerRunningScaffolding.wav");
-                        PauseAudioWithFilename(FootTrack);
-                    }
+                    //if (!IsGrounded)
+                    //{
+                    //    //PauseAudioWithFilename("PlayerRunningScaffolding.wav");
+                    //    //PauseAudioWithFilename(FootTrack);
+                    //}
 
                     playerHead = new Vector2(Collider.X, Collider.Y + (Scale.Y / 2.0f) + 1);
                     if (PhysicsWrapper.Raycast(Collider, playerHead, entityID, out RaycastHit anvilHit) && anvilHit.tag == "Anvil")
@@ -494,8 +491,8 @@ namespace Object
         */
         void OnExit()
         {
-            StopAudioWithFilename("PlayerRunningScaffolding.wav");
-            StopAudioWithFilename("PlayerRunningFloor.wav");
+            //StopAudioWithFilename("PlayerRunningScaffolding.wav");
+            //StopAudioWithFilename("PlayerRunningFloor.wav");
         }
 
         public void MoveLeft(float dt)
@@ -587,13 +584,24 @@ namespace Object
         {
 
             Console.WriteLine("Movement played");
-            string[] footstepSounds = new string[]
+            if (GetCurrentScene() == "Level1" || GetCurrentScene() == "Level1Transition")
             {
-                "PlayerRunningFloor_001.wav", "PlayerRunningFloor_002.wav", "PlayerRunningFloor_003.wav","PlayerRunningFloor_004.wav","PlayerRunningFloor_005.wav",
-                "PlayerRunningFloor_006.wav","PlayerRunningFloor_007.wav","PlayerRunningFloor_008.wav","PlayerRunningFloor_009.wav","PlayerRunningFloor_010.wav",
-                "PlayerRunningFloor_011.wav","PlayerRunningFloor_012.wav","PlayerRunningFloor_013.wav","PlayerRunningFloor_014.wav", "PlayerRunningFloor_015.wav",
-                "PlayerRunningFloor_016.wav","PlayerRunningFloor_017.wav","PlayerRunningFloor_018.wav","PlayerRunningFloor_019.wav","PlayerRunningFloor_020.wav",
-            };
+                footstepSounds = new string[]
+                {
+                    "PlayerRunningFloor_001.wav", "PlayerRunningFloor_002.wav", "PlayerRunningFloor_003.wav","PlayerRunningFloor_004.wav","PlayerRunningFloor_005.wav",
+                    "PlayerRunningFloor_006.wav","PlayerRunningFloor_007.wav","PlayerRunningFloor_008.wav","PlayerRunningFloor_009.wav","PlayerRunningFloor_010.wav",
+                    "PlayerRunningFloor_011.wav","PlayerRunningFloor_012.wav","PlayerRunningFloor_013.wav","PlayerRunningFloor_014.wav", "PlayerRunningFloor_015.wav",
+                    "PlayerRunningFloor_016.wav","PlayerRunningFloor_017.wav","PlayerRunningFloor_018.wav","PlayerRunningFloor_019.wav","PlayerRunningFloor_020.wav",
+                };
+            }
+            else if(GetCurrentScene() == "Level2")
+            {
+                footstepSounds = new string[]
+                {
+                    "PlayerRunningConcrete_1.wav", "PlayerRunningConcrete_2.wav", "PlayerRunningConcrete_3.wav","PlayerRunningConcrete_4.wav","PlayerRunningConcrete_5.wav",
+                    "PlayerRunningConcrete_6.wav","PlayerRunningConcrete_7.wav","PlayerRunningConcrete_8.wav"
+                };
+            }
 
 
             Random random = new Random();
@@ -603,14 +611,14 @@ namespace Object
             Console.WriteLine($"{footstepSound}");
 
             PlayAudio(footstepSound, 0);
-            SetAudioFileVolume(footstepSound, 0.6f);
+            SetAudioFileVolume(footstepSound, 0.8f);
             ResumeAudioWithFilename(footstepSound);
         }
 
         private void PlayScaffoldingFootstep()
         {
             Console.WriteLine("Scaffolding played");
-            string[] footstepSounds = new string[]
+            footstepSounds = new string[]
             {
                 "PlayerRunningScaffolding_001.wav", "PlayerRunningScaffolding_002.wav", "PlayerRunningScaffolding_003.wav","PlayerRunningScaffolding_004.wav","PlayerRunningScaffolding_005.wav",
                 "PlayerRunningScaffolding_006.wav","PlayerRunningScaffolding_007.wav","PlayerRunningScaffolding_008.wav","PlayerRunningScaffolding_009.wav","PlayerRunningScaffolding_010.wav",

@@ -599,6 +599,51 @@
             "id": 1710176493246536800,
             "path": "../assets\\audio\\sfx\\Anvil_Drop\\anvil_drop_2.wav",
             "stream": false
+        },
+        "1710438863396692100": {
+            "id": 1710438863396709000,
+            "path": "../assets\\audio\\sfx\\door_close.wav",
+            "stream": false
+        },
+        "1710443568201678200": {
+            "id": 1710443568201703700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_1.wav",
+            "stream": false
+        },
+        "1710443569317912000": {
+            "id": 1710443569317919100,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_2.wav",
+            "stream": false
+        },
+        "1710443570620175100": {
+            "id": 1710443570620180800,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_3.wav",
+            "stream": false
+        },
+        "1710443571616982700": {
+            "id": 1710443571616990700,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_4.wav",
+            "stream": false
+        },
+        "1710443573865892400": {
+            "id": 1710443573865900300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_5.wav",
+            "stream": false
+        },
+        "1710443575381807400": {
+            "id": 1710443575381815300,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_6.wav",
+            "stream": false
+        },
+        "1710443576798886200": {
+            "id": 1710443576798892900,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_7.wav",
+            "stream": false
+        },
+        "1710443577897864100": {
+            "id": 1710443577897869600,
+            "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_8.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

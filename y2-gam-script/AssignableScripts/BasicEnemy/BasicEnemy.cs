@@ -36,6 +36,7 @@ namespace Object
         public float HowLongDisplayEnemyDeath;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 7;
+        private string audioFile;
 
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
@@ -138,34 +139,12 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
-
             if (player.isPaused)
             {
                 dt = 0f;
-                //PauseGame();
-                //AnimationState = temp_AnimationState;
+
             }
-            //if (Input.IsKeyClicked(KeyCode.KEY_P))
-            //{
-            //    if (!isPaused)
-            //    {
-            //        //PauseGame();
-            //        temp_dt = dt;
-            //        dt = 0f;
-            //        isPaused = true;
-            //    }
-            //    else
-            //    {
-            //        //resume game
-            //        //ResumeGame();
-            //        dt = temp_dt;
-            //        isPaused = false;
-            //    }
-            //}
+
             if (!player.isPaused)
             {
                 // Workaround for now
@@ -209,7 +188,9 @@ namespace Object
                 {
                     EnemyDeathTimer += dt;
                     AnimationState = (int)AnimationCodeEnemy.DEAD;
-                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0);
+                    audioFile = "Jester Death_" + DeathAudioIncrement + ".wav";
+                    PlayAudio(audioFile, 0);
+                    SetAudioFileVolume(audioFile, 0.5f);
                     DeathAudioIncrement++;
 
                     if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
@@ -220,7 +201,7 @@ namespace Object
                     {
                         EnemyDeath = false;
                         EnemyDeathTimer = 0;
-                        PlayAudio("enemy_killed.wav", 0);
+                        //PlayAudio("enemy_killed.wav", 0);
                         GameplayWrapper.DestroyEntity(entityID);
                     }
                 }

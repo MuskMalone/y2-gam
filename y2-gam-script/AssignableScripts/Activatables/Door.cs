@@ -86,7 +86,7 @@ namespace Object
 
             if (button.isPressed == true && !previousButtonState)
             {
-                PlayAudio("door_open.wav", 0);
+                PlayPositionalAudio("door_open.wav", 0, Translation);
                 AnimationState = (int)AnimationCodeDoor.OPEN;
                 previousButtonState = true;
                 Collider = new Vector2(Collider.X, Collider.Y - doorColliderYOffset);
@@ -94,6 +94,7 @@ namespace Object
 
             else if (!button.isPressed && previousButtonState)
             {
+                PlayPositionalAudio("door_close.wav", 0, Translation);
                 AnimationState = (int)AnimationCodeDoor.CLOSED;
                 previousButtonState = false;
                 Collider = new Vector2(Collider.X, Collider.Y + doorColliderYOffset);

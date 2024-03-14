@@ -80,9 +80,10 @@ namespace Object
             {
                 if (UIClicked)
                 {
-                    PlayAudio("menu_click.wav", 0);
+                    
                     SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
-                    LoadScene("Settings");           
+                    LoadScene("Settings");
+                    PlayAudio("menu_click.wav", 0);
                 }
             }
         }

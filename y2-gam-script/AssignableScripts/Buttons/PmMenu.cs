@@ -90,7 +90,8 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
-                    StopAudio();
+                    PlayAudio("menu_click.wav", 0);
+                    //StopAudio();
                     LoadScene("MainMenu");
                     //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
                 }

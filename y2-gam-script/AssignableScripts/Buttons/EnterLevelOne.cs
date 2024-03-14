@@ -90,7 +90,7 @@ namespace Object
             if (UIClicked && firstTime)
             {
                 PlayAudio("menu_click.wav", 0);
-                StopAudio();
+                //StopAudio();
                 LoadScene("Cutscene");
                 firstTime = false;
             }
