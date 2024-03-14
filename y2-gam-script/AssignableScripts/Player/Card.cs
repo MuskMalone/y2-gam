@@ -23,7 +23,7 @@ namespace Object
     public class Card : Entity
     {
         Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
+        Arms arms; 
 
         private Vector2 direction;
         public float timeAlive = 0.0f;
@@ -43,6 +43,8 @@ namespace Object
         private uint HoveredID;
         private bool _isHovered;
 
+        private bool firstTimeEnterDeath = true;
+
         private Vector2 PositionToFire;
         public bool Hovering
         {
@@ -58,8 +60,6 @@ namespace Object
         }
 
         float temp_dt = 0f;
-        //bool isPaused = false;
-        //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         public bool HoveringChanged { get; private set; }
 
         private List<string> CardSwapAudio = new List<string>();
@@ -152,12 +152,8 @@ namespace Object
                 CardUIMaxScale = GetScaleFromEntity(CardUIID);
                 firstTime = false;
                 ResetCardPos();
+                arms = GameplayWrapper.FindEntityByName("Arms").As<Arms>();
             }
-
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
 
             if (player.isPaused)
             {
@@ -165,24 +161,6 @@ namespace Object
                 //PauseGame();
             }
 
-            //if (Input.IsKeyClicked(KeyCode.KEY_P))
-            //{
-            //    if (!isPaused)
-            //    {
-            //        //PauseGame();
-            //        temp_dt = dt;
-            //        dt = 0f;
-            //        isPaused = true;
-            //    }
-            //    else
-            //    {
-            //        //resume game
-            //        //ResumeGame();
-            //        dt = temp_dt;
-            //        isPaused = false;
-            //    }
-            //    //firstTime = false;
-            //}
             if (!player.isPaused)
             {
                 if (Alive)
@@ -251,7 +229,7 @@ namespace Object
                                     PlayAudio(CardSwapAudio[CardSwapAudioCounter], 0, (int)reverbSetting);
 
                                     ResetCardPos();
-                                    //ResetColour(swapRayCast.id);
+                                    ResetColour(swapRayCast.id);
                                 }
                             //}
                         }
@@ -260,26 +238,27 @@ namespace Object
                     // Check for Hover
                     if (PhysicsWrapper.Raycast(MousePos, MousePos, entityID, out RaycastHit mouseRayCast))
                     {
-                        Hovering = true;
-
-                        //if (HoveredID != mouseRayCast.id)
-                        //{
-                            //ResetColour(HoveredID);
-                        //}
-
-                        HoveredID = mouseRayCast.id;
-
-                        /*
-                        if (GameplayWrapper.IsSwappable(mouseRayCast.id))
+                        if (mouseRayCast.layer != "Platform" && mouseRayCast.layer != "NoSwap" && mouseRayCast.layer != "Spikes")
                         {
-                            SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
-                        }
+                            Hovering = true;
 
-                        else
-                        {
-                            SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
-                        }
-                        */
+                            if (HoveredID != mouseRayCast.id)
+                            {
+                                ResetColour(HoveredID);
+                            }
+
+                            HoveredID = mouseRayCast.id;
+
+                            if (GameplayWrapper.IsSwappable(mouseRayCast.id))
+                            {
+                                SetEntityColour(mouseRayCast.id, new Vector4(0, 1, 0, 1));
+                            }
+
+                            else
+                            {
+                                SetEntityColour(mouseRayCast.id, new Vector4(1, 0, 0, 1));
+                            }
+                        }               
                     }
 
                     else
@@ -287,21 +266,25 @@ namespace Object
                         Hovering = false;
                     }
 
-                    //if (HoveringChanged && !Hovering)
-                    //{
-                        //ResetColour(HoveredID);
-                    //}
+                    if (HoveringChanged && !Hovering)
+                    {
+                        ResetColour(HoveredID);
+                    }
 
-                    /*
                     if (PhysicsWrapper.IsCollidedWithAnything(entityID))
                     {
                         ResetCardPos();
                     }
-                    */
                 }
 
                 else
                 {
+                    if (firstTimeEnterDeath)
+                    {
+                        ResetColour(HoveredID);
+                        firstTimeEnterDeath = false;
+                    }
+                        
                     if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_RIGHT) && !StartDelay)
                     {
                         StartDelay = true;
@@ -314,6 +297,7 @@ namespace Object
 
                         if (CardReleaseTime >= CardReleaseDelay)
                         {
+                            firstTimeEnterDeath = true;
                             CardReleaseTime = 0;
                             StartDelay = false;
                             FireCard(PositionToFire);
@@ -358,9 +342,14 @@ namespace Object
 
         void FireCard(Vector2 mousePos)
         {
-            Translation = GameplayWrapper.PlayerPos;
-            Collider = GameplayWrapper.PlayerPos;
-            direction = mousePos - GameplayWrapper.PlayerPos;
+            //float cardOffset = (player.IsFacingRight) ? player.CardThrowOffsetFromPlayer : -player.CardThrowOffsetFromPlayer;
+            /*
+            Translation = new Vector2(GameplayWrapper.PlayerPos.X + cardOffset, GameplayWrapper.PlayerPos.Y);
+            Collider = new Vector2(GameplayWrapper.PlayerPos.X + cardOffset, GameplayWrapper.PlayerPos.Y);
+            */
+            Translation = arms.Translation;
+            Collider = Translation;
+            direction = mousePos - Translation;
             direction = PhysicsWrapper.Normalize(direction);
             Colour = new Vector4(1, 1, 1, 1);
             Alive = true;
@@ -372,11 +361,6 @@ namespace Object
             }
             PlayAudio(CardThrowAudio[CardThrowAudioCounter], 0, (int)reverbSetting);
         }
-
-        //bool CardInNoSwap()
-        //{
-            //return PhysicsWrapper.IsCollidedWithLayer(entityID, "NoSwap");
-        //}
 
         static double ScaleToRange(double value, double oldMin, double oldMax, double newMin, double newMax)
         {

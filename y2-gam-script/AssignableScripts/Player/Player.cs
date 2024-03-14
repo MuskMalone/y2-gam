@@ -235,6 +235,7 @@ namespace Object
                     }
 
                     float visionOffset = IsFacingRight ? VisionRange : -VisionRange;
+
                     RaycastHit topFacingRayCast = new RaycastHit();
                     RaycastHit midFacingRayCast = new RaycastHit();
                     RaycastHit botFacingRayCast = new RaycastHit();
@@ -339,7 +340,6 @@ namespace Object
                     if (Input.IsKeyReleased(KeyCode.KEY_A) || Input.IsKeyReleased(KeyCode.KEY_D))
                     {
                         GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
-                        //Console.WriteLine("A was released");
                         PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         PauseAudioWithFilename(FootTrack);
                         Velocity *= 0.2f;
@@ -358,7 +358,7 @@ namespace Object
 
                         }
                         else GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
-                        //Console.WriteLine("A was Pressed");
+
                         if (IsGrounded && (centreRayCast.layer == "Platform" ||
                             leftRayCast.layer == "Platform" ||
                             rightRayCast.layer == "Platform"))

@@ -28,7 +28,7 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void UpdateState(BasicEnemy enemy, float dt)
     {
-        if (enemy.TimeInState >= 2.0f)
+        if (enemy.TimeInState >= 0.1f)
         {
             if (enemy.IsFacingRight)
             {
