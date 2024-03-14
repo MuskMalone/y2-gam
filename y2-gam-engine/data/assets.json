@@ -1478,8 +1478,8 @@
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_RUN.png",
             "frameCount": 10,
             "idxCoordY": 0.0,
-            "dimX": 256.0,
-            "dimY": 256.0
+            "dimX": 512.0,
+            "dimY": 512.0
         },
         "1700480657025096500": {
             "id": 1700480657025132700,
@@ -1494,8 +1494,8 @@
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_jump.png",
             "frameCount": 7,
             "idxCoordY": 0.0,
-            "dimX": 256.0,
-            "dimY": 256.0
+            "dimX": 512.0,
+            "dimY": 512.0
         },
         "1700790935381564100": {
             "id": 1700790935381617200,
@@ -1606,8 +1606,8 @@
             "path": "../assets\\Textures\\ANIM\\DAA2402_ROBIN_APPEAR.png",
             "frameCount": 7,
             "idxCoordY": 0.0,
-            "dimX": 256.0,
-            "dimY": 256.0
+            "dimX": 512.0,
+            "dimY": 512.0
         },
         "1706900374940601200": {
             "id": 1706900374940637000,
