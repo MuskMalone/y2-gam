@@ -5310,19 +5310,19 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1710419023156171200
+                "assetID": 1710431990464499500
             },
             "Tag": {
                 "Tag": "BG2"
             },
             "Transform": {
-                "posX": 112.0,
+                "posX": 80.5,
                 "posY": 0.0,
                 "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 695.0,
+                "scaleX": 674.0,
                 "scaleY": 666.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -5338,19 +5338,19 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1710419058058179900
+                "assetID": 1710431992582394900
             },
             "Tag": {
                 "Tag": "BG3"
             },
             "Transform": {
-                "posX": 693.5,
+                "posX": 673.5,
                 "posY": 0.0,
                 "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 469.0,
+                "scaleX": 513.0,
                 "scaleY": 666.0,
                 "scaleZ": 15.0,
                 "elipse": false
@@ -5372,19 +5372,19 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1710418938583377100
+                "assetID": 1710431988611150000
             },
             "Tag": {
                 "Tag": "BG"
             },
             "Transform": {
-                "posX": -582.5,
+                "posX": -593.0,
                 "posY": 0.0,
                 "posZ": -4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 695.0,
+                "scaleX": 674.0,
                 "scaleY": 666.0,
                 "scaleZ": 15.0,
                 "elipse": false

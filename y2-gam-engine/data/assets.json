@@ -1518,6 +1518,30 @@
             "idxY": 0.0,
             "dimX": 195.0,
             "dimY": 387.0
+        },
+        "1710431988611150000": {
+            "id": 1710431988611190100,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3372.0,
+            "dimY": 3332.0
+        },
+        "1710431990464499500": {
+            "id": 1710431990464535200,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 3372.0,
+            "dimY": 3332.0
+        },
+        "1710431992582394900": {
+            "id": 1710431992582421200,
+            "path": "../assets\\Textures\\backgrounds\\gam_sewer_catacombs_box3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 2564.0,
+            "dimY": 3332.0
         }
     },
     "AnimationManager": {
