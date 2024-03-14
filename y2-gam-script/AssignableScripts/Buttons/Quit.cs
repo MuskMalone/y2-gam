@@ -59,9 +59,10 @@ namespace Object
         {
             if (UIClicked && firstTime)
             {
-                PlayAudio("menu_click.wav", 0);
+                
                 //StopAudio();
                 QuitGame();
+                PlayAudio("menu_click.wav", 0);
                 firstTime = false;
             }
 

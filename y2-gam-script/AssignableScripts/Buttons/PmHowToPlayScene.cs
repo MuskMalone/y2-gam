@@ -82,6 +82,7 @@ namespace Object
             if(UIClicked)
             {
                 LoadScene(InternalCalls.EngineCore_GetPrevSceneVar());
+                PlayAudio("menu_click.wav", 0);
             }
             //}
         }
