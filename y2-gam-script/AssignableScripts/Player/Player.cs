@@ -140,7 +140,7 @@ namespace Object
             isFacingRight = IsFacingRight;
             FacingDirectionChanged = false;
             isPaused = false;
-
+            GameplayWrapper.SlowdownTime(false);
             if (GetCurrentScene() == "Level1")
             {
                 spawnPosition = new Vector2(-400, -27);

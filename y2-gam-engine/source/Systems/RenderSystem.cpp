@@ -612,6 +612,8 @@ void RenderSystem::SceneTransitionListener(Event& event) {
 	[[maybe_unused]] auto fromScene = event.GetParam<std::string>(Events::System::Scene::Transition::FROM_SCENE);
 	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
 	trans.isTransitioning = true;
+
+	mIsTimeSlow = false;
 }
 
 /*  _________________________________________________________________________ */
