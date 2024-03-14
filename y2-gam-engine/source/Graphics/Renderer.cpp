@@ -167,6 +167,18 @@ void Renderer::Shutdown() {
 	//TODO SHIFT RENDERER DESTROY HERE
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief RenderFullscreenTexture Function
+
+Renders a full-screen texture using a specified shader.
+
+This function activates the shader, binds the provided texture, sets the necessary shader uniform for the texture,
+and then renders a full-screen quad to display the texture. It's designed to render a texture across the entire screen.
+
+\param tex The texture ID to render.
+\param shader The shared pointer to the shader to use for rendering the texture.
+*/
 void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader) {
 	shader->Use();
 
@@ -177,7 +189,6 @@ void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader>
 	glBindTexture(GL_TEXTURE_2D, tex);
 
 	shader->SetUniform("screenTex", 0); 
-	//shader->SetUniform("time", static_cast<float>(glfwGetTime()));
 
 	mData.screen.screenVertexArray->Bind();
 
@@ -189,6 +200,20 @@ void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader>
 	shader->Unuse();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief RenderFullscreenTexture Function
+
+Renders a full-screen texture using a specified shader and a list of uniforms.
+
+This function binds the provided texture and shader, sets the shader uniforms based on the supplied list,
+and then renders the texture to cover the entire screen. It supports various types of uniform data,
+including booleans, floats, doubles, and 2D vectors.
+
+\param tex The texture ID to render.
+\param shader The shader to use for rendering the texture.
+\param uniforms A list of uniform data to set in the shader.
+*/
 void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader> shader, std::vector<UniformData> const& uniforms) {
 	shader->Use();
 
@@ -221,13 +246,35 @@ void Renderer::RenderFullscreenTexture(unsigned int tex, std::shared_ptr<Shader>
 	shader->Unuse();
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief ApplyPostProcessing Function (Overload 1)
+
+Applies post-processing effects using the Renderer's post-processing shader, without additional uniforms.
+
+This function is a simplified overload that applies post-processing to a given texture
+using the renderer's internal post-processing shader, without setting any additional uniforms.
+
+\param texture The texture ID on which to apply post-processing.
+*/
 void Renderer::ApplyPostProcessing(unsigned int texture) {
 
 	RenderFullscreenTexture(texture, mData.postProcShader);
 
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief ApplyPostProcessing Function (Overload 2)
 
+Applies post-processing effects using the Renderer's post-processing shader, with additional uniforms.
+
+This function applies post-processing to a given texture using the renderer's internal post-processing shader.
+It allows for additional shader uniform settings through a list of uniform data.
+
+\param texture The texture ID on which to apply post-processing.
+\param uniforms A list of uniform data to set in the post-processing shader.
+*/
 void Renderer::ApplyPostProcessing(unsigned int texture, std::vector<UniformData> const& uniforms) {
 
 	RenderFullscreenTexture(texture, mData.postProcShader, uniforms);

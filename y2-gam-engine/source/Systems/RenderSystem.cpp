@@ -608,6 +608,17 @@ void RenderSystem::WindowSizeListener(Event& event)
 	//camera.SetProjectionMtx(left, right, bottom, top);
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief SceneTransitionListener Function
+
+Listens for scene transition events and initiates the transition process in the RenderSystem.
+
+This function is triggered by a scene transition event. It retrieves the 'from' and 'to' scene identifiers
+from the event and sets the transitioning flag to true, indicating that a scene transition is in progress.
+
+\param event The event object containing details about the scene transition.
+*/
 void RenderSystem::SceneTransitionListener(Event& event) {
 	[[maybe_unused]] auto fromScene = event.GetParam<std::string>(Events::System::Scene::Transition::FROM_SCENE);
 	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
@@ -631,6 +642,18 @@ void RenderSystem::DebugRay(Event& event) {
 	mRays.push_back(pos);
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief CheckAssetValidity Function
+
+Validates the asset IDs of sprites in all entities within the RenderSystem.
+
+This function iterates over each entity in the RenderSystem and checks if the associated sprite's asset ID is valid.
+If an invalid asset ID is detected (not existing in the AssetManager and not zero), it resets the asset ID and
+sprite ID to zero. If any sprite's asset ID is changed during this process, the scene is saved to reflect these changes.
+
+\note Assumes that an asset ID of 0 is always valid, representing a default or missing asset.
+*/
 void RenderSystem::CheckAssetValidity()
 {
 	bool changed{ false };
@@ -673,6 +696,18 @@ void RenderSystem::SetSceneCameraZoom(float zoom) {
 	}
 }
 
+/*  _________________________________________________________________________ */
+/*!
+\brief UpdateRadius Function
+
+Update the radius of the time slow effect in the RenderSystem.
+
+This function updates the radius of the time slow effect linearly based on the elapsed time.
+If the time slow effect is active, the radius increases until it reaches the maximum value.
+Otherwise, it decreases until it reaches zero.
+
+\param dt Delta time used for updating the radius.
+*/
 void RenderSystem::UpdateRadius(float dt) {
 	float changeRate = TimeSlowEffect::maxRadius / TimeSlowEffect::duration;
 
@@ -688,6 +723,20 @@ void RenderSystem::UpdateRadius(float dt) {
 	}
 }
 
+
+/*  _________________________________________________________________________ */
+/*!
+\brief UpdateTransition Function
+
+Update the transition state in the RenderSystem.
+
+This function manages the transition effects by adjusting the 'factor' based on the transition speed and
+the elapsed time. If the transition is increasing, the factor is incremented until it reaches 1.0,
+marking the end of the transition. If the transition is decreasing, the factor is decremented until it
+reaches 0.0, at which point the transition state is reset.
+
+\param dt Delta time used for updating the transition state.
+*/
 void RenderSystem::UpdateTransition(float dt) {
 	if (trans.isTransitioning) {
 		if (trans.isIncreasing) {
