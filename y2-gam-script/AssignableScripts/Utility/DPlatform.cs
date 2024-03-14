@@ -11,6 +11,7 @@ namespace Object
         private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
         public float FadeOutTimer = 45.0f;
+        public float FadeOutClock = 45.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
         private Vector2 temp_translation;
@@ -110,6 +111,7 @@ namespace Object
             //Console.WriteLine("FadeOutTime:" + FadeOutTime);
             if (FadeOutTime <= FadeOutTimer)
             {
+                //FadeOutClock -= dt;
                 FadeOutTime += dt;
                 float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
                 float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
