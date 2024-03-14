@@ -1542,6 +1542,14 @@
             "idxY": 0.0,
             "dimX": 2564.0,
             "dimY": 3332.0
+        },
+        "1710433532818777500": {
+            "id": 1710433532818829900,
+            "path": "../assets\\Textures\\spikes_sewer_short.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 450.0,
+            "dimY": 115.0
         }
     },
     "AnimationManager": {
@@ -2064,6 +2072,30 @@
             "idxCoordY": 0.0,
             "dimX": 134.0,
             "dimY": 394.0
+        },
+        "1710435390216659300": {
+            "id": 1710435390216685800,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain left side_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
+        },
+        "1710435392835011800": {
+            "id": 1710435392835038300,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain right side_spritesheet.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
+        },
+        "1710436376103654200": {
+            "id": 1710436376103695000,
+            "path": "../assets\\Textures\\ANIM\\ANIM_sewer_fountain left side_spritesheet2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 300.0,
+            "dimY": 300.0
         }
     }
 }
