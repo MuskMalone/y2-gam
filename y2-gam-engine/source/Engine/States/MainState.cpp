@@ -82,7 +82,7 @@ void MainState::Render(float dt) {
 		coordinator->GetSystem<AnimationSystem>()->Update(tdt);
 		coordinator->GetSystem<RenderSystem>()->Update(tdt);
 		coordinator->GetSystem<ParticleSystem>()->Update(tdt);
-		//coordinator->GetSystem<LightingSystem>()->Update(tdt);
+		coordinator->GetSystem<LightingSystem>()->Update(tdt);
 		FrameRateController::GetInstance()->EndSubFrameTime(ENGINE_RENDER_PROFILE);
 	//	accumulatedTime -= tdt;
 	//}

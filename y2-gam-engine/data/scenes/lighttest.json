@@ -104,7 +104,7 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 1698744788359338700
+                "assetID": 0
             },
             "Tag": {
                 "Tag": "bg"
@@ -259,10 +259,10 @@
                 "colx": 1.0,
                 "coly": 1.0,
                 "colz": 0.0,
-                "posx": -24.0,
-                "posy": 4.0,
+                "posx": -243.0,
+                "posy": 46.0,
                 "radius": 50.0,
-                "intensity": 0.33000001311302185
+                "intensity": 1.0
             },
             "Sprite": {
                 "r": 1.0,

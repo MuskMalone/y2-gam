@@ -74,7 +74,8 @@ class LightingSystem : public System
         };
         return true;
     }
-
+    std::deque<Point> intersects{};
+    std::vector<LightVertex>vertices{};
     std::vector<unsigned int> lightIndices{};
     //std::shared_ptr<Shader> mEmitterStepShader;
     //std::shared_ptr<Shader> mParticleShader;
@@ -87,8 +88,8 @@ class LightingSystem : public System
     void EventListener(Event&);
 public:
     void Init();
-    void Update(unsigned int tex, unsigned int outtex);
-    void Draw(unsigned int tex, unsigned int outtex);
+    void Update(float dt);
+    void Draw(unsigned int tex);
     void DrawDebug();
     void Destroy();
 };

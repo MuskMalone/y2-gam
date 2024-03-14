@@ -364,7 +364,7 @@ void RenderSystem::Update([[maybe_unused]] float dt)
 	{
 		mFramebuffers[2]->Bind();
 
-		::gCoordinator->GetSystem<LightingSystem>()->Draw(mFramebuffers[0]->GetColorAttachmentID(), mFramebuffers[2]->GetColorAttachmentID());
+		::gCoordinator->GetSystem<LightingSystem>()->Draw(mFramebuffers[0]->GetColorAttachmentID());
 
 		mFramebuffers[2]->Unbind();
 	}
