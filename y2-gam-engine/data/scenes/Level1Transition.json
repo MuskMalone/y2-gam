@@ -695,7 +695,7 @@
                 "posX": -385.5,
                 "posY": -154.5,
                 "rotation": 0.0,
-                "dimX": 800.0,
+                "dimX": 2000.0,
                 "dimY": 30.0
             },
             "Gravity": {
@@ -1024,7 +1024,7 @@
                 "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -1073,7 +1073,7 @@
                 "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -1122,7 +1122,7 @@
                 "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -1171,7 +1171,7 @@
                 "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Script": {
                 "scriptName": "ObjectDPlatform",
@@ -1273,7 +1273,7 @@
                 "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
-                "lockRotate": false
+                "lockRotate": true
             },
             "Sprite": {
                 "r": 1.0,
@@ -1294,6 +1294,108 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -287.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes3"
+            },
+            "Transform": {
+                "posX": -290.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -310.0,
+                "posY": -51.0,
+                "rotation": 0.0,
+                "dimX": 15.0,
+                "dimY": 14.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "Layering": {
+                "layering": "hello"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform2"
+            },
+            "Transform": {
+                "posX": -310.0,
+                "posY": -51.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
