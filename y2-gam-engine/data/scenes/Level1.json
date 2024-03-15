@@ -1653,7 +1653,7 @@
                 "states": [
                     1709742873940550100
                 ],
-                "currFrame": 3,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -2753,7 +2753,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmMenu",
-                "scriptTag": "PmMenu"
+                "scriptTag": "PmMenu",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -2798,7 +2799,7 @@
                 "b": 1.0,
                 "a": 0.0,
                 "layer": 2,
-                "assetID": 1700928706423252000
+                "assetID": 1700753029114891400
             },
             "Tag": {
                 "Tag": "PauseMenu2"
@@ -2828,6 +2829,7 @@
             "Script": {
                 "scriptName": "ObjectPmQuit",
                 "scriptTag": "PmQuit",
+                "hovered": false,
                 "quitClicked": false
             },
             "Sprite": {
@@ -2902,7 +2904,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmHowToPlay",
-                "scriptTag": "PmHowToPlay"
+                "scriptTag": "PmHowToPlay",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -3088,7 +3091,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
-                "scriptTag": "PmResumeGame"
+                "scriptTag": "PmResumeGame",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -3125,7 +3129,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmSettings",
-                "scriptTag": "Settings"
+                "scriptTag": "PmSettings",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -3136,7 +3141,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Settings"
+                "Tag": "PmSettings"
             },
             "Transform": {
                 "posX": 806.2659912109375,
@@ -3322,6 +3327,273 @@
                 "scaleY": 10.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710474429386190300,
+                    1710474273502342600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmSettingsImage",
+                "scriptTag": "PmSettingsImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmSettingsImage"
+            },
+            "Transform": {
+                "posX": 802.0,
+                "posY": 508.2430114746094,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 190.0,
+                "scaleY": 60.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710475673989582500,
+                    1710475672420945800
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmMenuImage",
+                "scriptTag": "PmMenuImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmMenuImage"
+            },
+            "Transform": {
+                "posX": 802.0,
+                "posY": 469.09100341796875,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 170.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710475971283618200,
+                    1710475969888475700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmResumeImage",
+                "scriptTag": "PmResumeImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmResumeImage"
+            },
+            "Transform": {
+                "posX": 810.0,
+                "posY": 388.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 250.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710476040299090300,
+                    1710476039021933500
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmQuitImage",
+                "scriptTag": "PmQuitImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmQuitImage"
+            },
+            "Transform": {
+                "posX": 805.0,
+                "posY": 426.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 200.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710476142695376700,
+                    1710476141584812800
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmHowToPlayImage",
+                "scriptTag": "PmHowToPlayImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmHowToPlayImage"
+            },
+            "Transform": {
+                "posX": 808.0,
+                "posY": 346.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 231.0,
+                "scaleY": 41.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmPauseImage",
+                "scriptTag": "PmPauseImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1710477921128218000
+            },
+            "Tag": {
+                "Tag": "PmPauseImage"
+            },
+            "Transform": {
+                "posX": 791.0,
+                "posY": 660.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 410.0,
+                "scaleY": 180.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         },
         {

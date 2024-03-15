@@ -25,6 +25,7 @@ namespace Object
         //private bool isPaused = false;
         private Vector2 temp_translation;
         Player player;
+        public bool hovered = false;
 
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
@@ -70,16 +71,16 @@ namespace Object
             temp_translation = Translation;
         }
 
-        void PauseGame()
-        {
-            Translation = new Vector2(1205, 345);
-        }
+        //void PauseGame()
+        //{
+        //    Translation = new Vector2(1205, 345);
+        //}
 
-        void ResumeGame()
-        {
-            //Colour = new Vector4(1, 0, 1, 0);
-            Translation = temp_translation;
-        }
+        //void ResumeGame()
+        //{
+        //    //Colour = new Vector4(1, 0, 1, 0);
+        //    Translation = temp_translation;
+        //}
         /*  _________________________________________________________________________ */
         /*! OnUpdate
         
@@ -104,6 +105,14 @@ namespace Object
                     SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
                     LoadScene("HowToPlay");
                     PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
+                }
+                if(UIHover)
+                {
+                    hovered = true;
+                }
+                else
+                {
+                    hovered = false;
                 }
             }
         }

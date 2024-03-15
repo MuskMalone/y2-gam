@@ -25,6 +25,7 @@ namespace Object
         //private bool isPaused = false;
         private Vector2 temp_translation;
         //private Vector2 temp_translation2;
+        public bool hovered = false;
         Player player;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         /*  _________________________________________________________________________ */
@@ -93,6 +94,14 @@ namespace Object
                     LoadScene("MainMenu");
                     PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                     //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
+                }
+                if (UIHover)
+                {
+                    hovered = true;
+                }
+                else
+                {
+                    hovered = false;
                 }
             }
         }

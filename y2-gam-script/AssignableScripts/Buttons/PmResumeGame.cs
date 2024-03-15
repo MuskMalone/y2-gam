@@ -27,6 +27,7 @@ namespace Object
         private Vector2 temp_translation;
         //PauseMenu2 pausemenu = GameplayWrapper.FindEntityByName("PauseMenu2").As<PauseMenu2>();
         Player player;
+        public bool hovered = false;
 
         //private bool firstTime = true;
 
@@ -103,6 +104,14 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 0);
                 Translation = new Vector2(99999, 99999);
                 player.ResumeGame();
+            }
+            if (UIHover)
+            {
+                hovered = true;
+            }
+            else
+            {
+                hovered = false;
             }
 
         }

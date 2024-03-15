@@ -25,6 +25,7 @@ namespace Object
         //private bool isPaused = false;
         public bool quitClicked = false;
         private Vector2 temp_translation;
+        public bool hovered = false;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
         Player player;
         /*  _________________________________________________________________________ */
@@ -95,6 +96,14 @@ namespace Object
                     PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                     Translation = new Vector2(99999, 99999);
                     quitClicked = true; 
+                }
+                if(UIHover)
+                {
+                    hovered = true;
+                }
+                else
+                {
+                    hovered = false;
                 }
             }
         }

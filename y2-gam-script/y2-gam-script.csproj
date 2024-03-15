@@ -74,11 +74,17 @@
     <Compile Include="AssignableScripts\Buttons\PauseMenu2.cs" />
     <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlay.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmHowToPlayImage.cs" />
     <Compile Include="AssignableScripts\Buttons\PmHowToPlayScene.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmPauseImage.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmQuitImage.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmResumeImage.cs" />
     <Compile Include="AssignableScripts\Buttons\PmSettings.cs" />
     <Compile Include="AssignableScripts\Buttons\PmMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\PmQuit.cs" />
     <Compile Include="AssignableScripts\Buttons\PmResumeGame.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmSettingsImage.cs" />
+    <Compile Include="AssignableScripts\Buttons\PmMenuImage.cs" />
     <Compile Include="AssignableScripts\Buttons\SettingsPage.cs" />
     <Compile Include="AssignableScripts\Buttons\Settings.cs" />
     <Compile Include="AssignableScripts\Buttons\SettingsBack.cs" />
