@@ -1947,7 +1947,7 @@ namespace Image {
         if (ImGui::IsWindowAppearing()) gSelectedPrefab = MAX_ENTITIES;
         ImGui::BeginChild("LevelEditor");
         auto const& framebuffer = ::gCoordinator->GetSystem<RenderSystem>()->GetFramebuffer(0); 
-        unsigned int texHdl = framebuffer->GetColorAttachmentID();
+        //unsigned int texHdl = framebuffer->GetColorAttachmentID();
         auto renderSystem = gCoordinator->GetSystem<RenderSystem>();
 
         ImVec2 contentSize = ImGui::GetContentRegionAvail();

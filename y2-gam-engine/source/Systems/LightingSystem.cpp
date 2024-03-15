@@ -157,9 +157,9 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 
         }
         if (points.empty()) {
-            auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+            //cam = Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera());
 
-            glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+            //glm::mat4 viewprojection{ cam.GetViewProjMtx() };
             glm::mat4 inviewprojection {glm::inverse(viewprojection) };
             std::array<glm::vec4, 4> corners{
                 glm::vec4(-1.f, -1.f, 0, 1),

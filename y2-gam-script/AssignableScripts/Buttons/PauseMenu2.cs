@@ -24,7 +24,7 @@ namespace Object
         //private bool IsKeyPressed = false;
         //bool isPaused = false;
         Player player;
-        PmConfirmationWindow confirmationwindow;
+        //PmConfirmationWindow confirmationwindow;
         //PmResumeGame resume = GameplayWrapper.FindEntityByName("PmResumeGame").As<PmResumeGame>();
 
         private Vector2 temp_translation;

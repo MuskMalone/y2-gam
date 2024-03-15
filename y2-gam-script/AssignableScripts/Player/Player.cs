@@ -145,18 +145,21 @@ namespace Object
             {
                 spawnPosition = new Vector2(-400, -27);
                 colliderPosition = new Vector2(-400, -36);
+                reverbSetting = ReverbCode.OFF;
                 //FootTrack = "PlayerRunningFloor.wav";
             }
             else if (GetCurrentScene()== "Level1Transition")
             {
                 spawnPosition = new Vector2(-592.5f, -114.5f);
                 colliderPosition = new Vector2(-591.5f, -123.5f);
+                reverbSetting = ReverbCode.OFF;
                 //FootTrack = "PlayerRunningFloor.wav";
             }
             else if (GetCurrentScene() == "Level2")
             {
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
+                reverbSetting = ReverbCode.CAVE;
                 //FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
             }
 

@@ -59,7 +59,7 @@ namespace Object
             }
         }
 
-        float temp_dt = 0f;
+        //float temp_dt = 0f;
         public bool HoveringChanged { get; private set; }
 
         private List<string> CardSwapAudio = new List<string>();
