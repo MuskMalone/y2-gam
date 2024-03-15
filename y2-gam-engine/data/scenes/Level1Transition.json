@@ -1155,10 +1155,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -336.3909912109375,
+                "posX": -343.0,
                 "posY": -35.0,
                 "rotation": 0.0,
-                "dimX": 15.0,
+                "dimX": 30.0,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -1180,8 +1180,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform1",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform1"
             },
             "Sprite": {
@@ -1383,8 +1383,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform2",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform2"
             },
             "Sprite": {
@@ -1439,8 +1439,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform3",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform3"
             },
             "Sprite": {
@@ -1495,8 +1495,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform4",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform4"
             },
             "Sprite": {
@@ -1551,8 +1551,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform5",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform5"
             },
             "Sprite": {
@@ -1582,10 +1582,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -160.0,
+                "posX": -168.0,
                 "posY": -60.0,
                 "rotation": 0.0,
-                "dimX": 15.0,
+                "dimX": 30.0,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -1607,8 +1607,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform6",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform6"
             },
             "Sprite": {
@@ -1638,10 +1638,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -130.0,
+                "posX": -137.0,
                 "posY": 35.0,
                 "rotation": 0.0,
-                "dimX": 15.0,
+                "dimX": 30.0,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -1663,8 +1663,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform7",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform7"
             },
             "Sprite": {
@@ -1719,8 +1719,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform8",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform8"
             },
             "Sprite": {
@@ -1775,8 +1775,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform9",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform9"
             },
             "Sprite": {
@@ -1831,8 +1831,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform10",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform10"
             },
             "Sprite": {
@@ -1887,8 +1887,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform11",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform11"
             },
             "Sprite": {
@@ -1943,8 +1943,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform12",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform12"
             },
             "Sprite": {
@@ -1974,10 +1974,10 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -20.0,
+                "posX": -13.0,
                 "posY": -80.0,
                 "rotation": 0.0,
-                "dimX": 15.0,
+                "dimX": 30.0,
                 "dimY": 15.0
             },
             "Gravity": {
@@ -1999,8 +1999,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform13",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform13"
             },
             "Sprite": {
@@ -2055,8 +2055,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform14",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform14"
             },
             "Sprite": {
@@ -2111,8 +2111,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform15",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform15"
             },
             "Sprite": {
@@ -2167,8 +2167,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform16",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform16"
             },
             "Sprite": {
@@ -2223,8 +2223,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform17",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
                 "platformTag": "DPlatform17"
             },
             "Sprite": {
@@ -2975,14 +2975,6 @@
             }
         },
         {
-            "Collider": {
-                "collider": 0,
-                "posX": -351.0,
-                "posY": -35.0,
-                "rotation": 0.0,
-                "dimX": 12.0,
-                "dimY": 15.0
-            },
             "Gravity": {
                 "x": 0.0,
                 "y": -10.0
@@ -3002,9 +2994,9 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform1p2",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
-                "platformTag": ""
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
+                "platformTag": "DPlatform1p2"
             },
             "Sprite": {
                 "r": 1.0,
@@ -3031,14 +3023,6 @@
             }
         },
         {
-            "Collider": {
-                "collider": 0,
-                "posX": -175.0,
-                "posY": -60.0,
-                "rotation": 0.0,
-                "dimX": 12.0,
-                "dimY": 15.0
-            },
             "Gravity": {
                 "x": 0.0,
                 "y": -10.0
@@ -3058,9 +3042,9 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform6p2",
-                "FadeOutClock": 75.0,
-                "FadeOutTimer": 75.0,
-                "platformTag": ""
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
+                "platformTag": "DPlatform6p2"
             },
             "Sprite": {
                 "r": 1.0,
@@ -3087,14 +3071,6 @@
             }
         },
         {
-            "Collider": {
-                "collider": 0,
-                "posX": -145.0,
-                "posY": 35.0,
-                "rotation": 0.0,
-                "dimX": 12.0,
-                "dimY": 15.0
-            },
             "Gravity": {
                 "x": 0.0,
                 "y": -10.0
@@ -3113,7 +3089,10 @@
             },
             "Script": {
                 "scriptName": "ObjectDPlatform",
-                "scriptTag": "DPlatform7p2"
+                "scriptTag": "DPlatform7p2",
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
+                "platformTag": "DPlatform7p2"
             },
             "Sprite": {
                 "r": 1.0,
@@ -3140,14 +3119,6 @@
             }
         },
         {
-            "Collider": {
-                "collider": 0,
-                "posX": -5.0,
-                "posY": -80.0,
-                "rotation": 0.0,
-                "dimX": 12.0,
-                "dimY": 15.0
-            },
             "Gravity": {
                 "x": 0.0,
                 "y": -10.0
@@ -3166,7 +3137,10 @@
             },
             "Script": {
                 "scriptName": "ObjectDPlatform",
-                "scriptTag": "DPlatform13p2"
+                "scriptTag": "DPlatform13p2",
+                "FadeOutClock": 90.0,
+                "FadeOutTimer": 90.0,
+                "platformTag": "DPlatform13p2"
             },
             "Sprite": {
                 "r": 1.0,

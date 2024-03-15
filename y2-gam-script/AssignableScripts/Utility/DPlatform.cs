@@ -10,8 +10,8 @@ namespace Object
         private bool hasStepped = false;
         private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
-        public float FadeOutTimer = 80.0f;
-        public float FadeOutClock = 80.0f;
+        public float FadeOutTimer = 90.0f;
+        public float FadeOutClock = 90.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
         private Vector2 temp_translation;
@@ -56,7 +56,10 @@ namespace Object
         void OnCreate()
         {
             temp_translation = Translation;
-            temp_collider = Collider;
+            if (platformTag != "DPlatform1p2" || platformTag != "DPlatform6p2" || platformTag != "DPlatform7p2" || platformTag != "DPlatform13p2")
+            {
+                temp_collider = Collider;
+            }
             
         }
 
@@ -119,6 +122,8 @@ namespace Object
                 ColourValue = Math.Max(ColourValue, 0.0f);
                 //Console.WriteLine("Colour Value: " + ColourValue);
                 Colour = new Vector4(1, 1, 1, ColourValue);
+                // Calculate the remaining time
+
             }
             //FINISH FADEOUT
             else
@@ -212,24 +217,24 @@ namespace Object
                 else if (platformTag == "DPlatform1p2")
                 {
                     Translation = new Vector2(9999, 9619);
-                    Collider = new Vector2(9999, 9619);
+                    //Collider = new Vector2(9999, 9619);
                 }
                 else if (platformTag == "DPlatform6p2")
                 {
                     Translation = new Vector2(9999, 9599);
-                    Collider = new Vector2(9999, 9599);
+                    //Collider = new Vector2(9999, 9599);
                 }
                 else if (platformTag == "DPlatform7p2")
                 {
                     Translation = new Vector2(9999, 9579);
-                    Collider = new Vector2(9999, 9579);
+                    //Collider = new Vector2(9999, 9579);
                 }
                 else if (platformTag == "DPlatform13p2")
                 {
                     Translation = new Vector2(9999, 9559);
-                    Collider = new Vector2(9999, 9559);
+                    //Collider = new Vector2(9999, 9559);
                 }
-
+                
                 //Collider = new Vector2(9999, 9999);
             }
 
@@ -239,13 +244,17 @@ namespace Object
         {
             //Console.WriteLine("HERE");
             timer = 0.0f;
-            FadeOutClock = 80.0f;
+            FadeOutClock = 90.0f;
             FadeOutTime = 0.0f;
             hasStepped = false;
             FadedOut = false;
             Colour = new Vector4(1, 1, 1, 1);
             Translation = temp_translation;
-            Collider = temp_collider;
+            if(platformTag != "DPlatform1p2" || platformTag != "DPlatform6p2" || platformTag != "DPlatform7p2" || platformTag != "DPlatform13p2")
+            {
+                Collider = temp_collider;
+            }
+            
         }
         /*  _________________________________________________________________________ */
         /*! OnExit
