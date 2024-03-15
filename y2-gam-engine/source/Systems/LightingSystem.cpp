@@ -280,7 +280,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 
             FBO(fbobindidx)->Bind();
 
-            Renderer::RenderFullscreenTexture(FBO(fbotexidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
+            //Renderer::RenderFullscreenTexture(FBO(fbotexidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
 
             mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
             mLightRenderShader->Use();
@@ -335,6 +335,12 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     FBO(2)->Bind();
     Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
     FBO(2)->Unbind();
+    FBO(4)->Bind();
+    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
+    FBO(4)->Unbind();
+    FBO(5)->Bind();
+    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
+    FBO(5)->Unbind();
     this->Update(tex, outtex);
 
     //glDisable(GL_SCISSOR_TEST);

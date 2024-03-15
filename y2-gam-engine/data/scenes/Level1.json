@@ -1685,7 +1685,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": -30.0,
+                "scaleX": 30.0,
                 "scaleY": 30.0,
                 "scaleZ": 1.0,
                 "elipse": false
@@ -2195,7 +2195,7 @@
                 "colz": 0.5907335877418518,
                 "posx": -347.0,
                 "posy": 43.0,
-                "radius": 322.0,
+                "radius": 170.0,
                 "intensity": 1.0
             },
             "Sprite": {
@@ -2226,6 +2226,15 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Light": {
+                "colx": 0.5907335877418518,
+                "coly": 0.5907335877418518,
+                "colz": 0.5907335877418518,
+                "posx": -265.0,
+                "posy": 43.0,
+                "radius": 131.0,
+                "intensity": 1.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -2253,6 +2262,15 @@
         {
             "Layering": {
                 "layering": "Default"
+            },
+            "Light": {
+                "colx": 0.5868725776672363,
+                "coly": 0.5868725776672363,
+                "colz": 0.5868725776672363,
+                "posx": -190.0,
+                "posy": 43.0,
+                "radius": 181.0,
+                "intensity": 1.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -2282,6 +2300,15 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Light": {
+                "colx": 0.5907335877418518,
+                "coly": 0.5907335877418518,
+                "colz": 0.5907335877418518,
+                "posx": -108.0,
+                "posy": 43.0,
+                "radius": 148.0,
+                "intensity": 1.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -2309,6 +2336,15 @@
         {
             "Layering": {
                 "layering": "Default"
+            },
+            "Light": {
+                "colx": 0.5945945978164673,
+                "coly": 0.5945945978164673,
+                "colz": 0.5945945978164673,
+                "posx": -29.0,
+                "posy": 43.0,
+                "radius": 189.0,
+                "intensity": 1.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -2338,6 +2374,15 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Light": {
+                "colx": 0.5868725776672363,
+                "coly": 0.5868725776672363,
+                "colz": 0.5868725776672363,
+                "posx": 52.0,
+                "posy": 43.0,
+                "radius": 188.0,
+                "intensity": 1.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -2365,6 +2410,15 @@
         {
             "Layering": {
                 "layering": "Default"
+            },
+            "Light": {
+                "colx": 0.5830116271972656,
+                "coly": 0.5830116271972656,
+                "colz": 0.5830116271972656,
+                "posx": 129.5,
+                "posy": 43.0,
+                "radius": 201.0,
+                "intensity": 1.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -2394,6 +2448,15 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Light": {
+                "colx": 0.5907335877418518,
+                "coly": 0.5907335877418518,
+                "colz": 0.5907335877418518,
+                "posx": 210.89999389648438,
+                "posy": 43.0,
+                "radius": 132.0,
+                "intensity": 1.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -2422,6 +2485,15 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Light": {
+                "colx": 0.5907335877418518,
+                "coly": 0.5907335877418518,
+                "colz": 0.5907335877418518,
+                "posx": 298.0,
+                "posy": 43.0,
+                "radius": 111.0,
+                "intensity": 1.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -2449,6 +2521,15 @@
         {
             "Layering": {
                 "layering": "Default"
+            },
+            "Light": {
+                "colx": 0.5907335877418518,
+                "coly": 0.5907335877418518,
+                "colz": 0.5907335877418518,
+                "posx": 380.0,
+                "posy": 43.0,
+                "radius": 111.0,
+                "intensity": 1.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -3232,7 +3313,7 @@
             "Transform": {
                 "posX": 300.0,
                 "posY": 20.0,
-                "posZ": 0.0,
+                "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
@@ -3249,7 +3330,7 @@
             "LightBlocker": {
                 "dimx": 0.0,
                 "dimy": 111.0,
-                "posx": -369.5,
+                "posx": 357.5,
                 "posy": -6.5,
                 "rotation": -3.453779458999634
             },
@@ -3262,10 +3343,850 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Name"
+                "Tag": "lb1"
             },
             "Transform": {
-                "posX": -361.5,
+                "posX": 365.5,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 321.5,
+                "posy": -6.5,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb1-1"
+            },
+            "Transform": {
+                "posX": 312.5,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": 297.99993896484375,
+                "posy": 59.5,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb1-2"
+            },
+            "Transform": {
+                "posX": 297.99993896484375,
+                "posY": 63.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -287.5,
+                "posy": -7.0,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb2"
+            },
+            "Transform": {
+                "posX": -279.5,
+                "posY": 43.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -242.0,
+                "posy": -7.0,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb2-1"
+            },
+            "Transform": {
+                "posX": -251.0,
+                "posY": 43.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": -264.5,
+                "posy": 59.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb2-2"
+            },
+            "Transform": {
+                "posX": -264.5,
+                "posY": 63.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -212.0,
+                "posy": -6.0,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb3"
+            },
+            "Transform": {
+                "posX": -204.0,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -168.0,
+                "posy": -6.0,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb3-1"
+            },
+            "Transform": {
+                "posX": -177.0,
+                "posY": 44.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": -190.50001525878906,
+                "posy": 60.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb3-2"
+            },
+            "Transform": {
+                "posX": -190.50001525878906,
+                "posY": 64.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -130.5,
+                "posy": -6.0,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb4"
+            },
+            "Transform": {
+                "posX": -122.5,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -85.5,
+                "posy": -6.0,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb4-1"
+            },
+            "Transform": {
+                "posX": -94.5,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": -108.00001525878906,
+                "posy": 60.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb4-2"
+            },
+            "Transform": {
+                "posX": -108.00001525878906,
+                "posY": 64.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -52.0,
+                "posy": -6.5,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb5"
+            },
+            "Transform": {
+                "posX": -44.0,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -6.0,
+                "posy": -6.0,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb5-1"
+            },
+            "Transform": {
+                "posX": -15.0,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": -28.500030517578125,
+                "posy": 60.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb5-2"
+            },
+            "Transform": {
+                "posX": -28.500030517578125,
+                "posY": 64.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 29.5,
+                "posy": -6.0,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb6"
+            },
+            "Transform": {
+                "posX": 37.5,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 74.5,
+                "posy": -6.0,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb6-1"
+            },
+            "Transform": {
+                "posX": 65.5,
+                "posY": 44.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": 51.999969482421875,
+                "posy": 60.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb6-2"
+            },
+            "Transform": {
+                "posX": 51.999969482421875,
+                "posY": 64.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 46.0,
+                "posx": 117.0,
+                "posy": 24.5,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb7"
+            },
+            "Transform": {
+                "posX": 125.0,
+                "posY": 74.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 152.0,
+                "posy": -6.5,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb7-1"
+            },
+            "Transform": {
+                "posX": 143.0,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": 128.99996948242188,
+                "posy": 59.5,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb7-2"
+            },
+            "Transform": {
+                "posX": 128.99996948242188,
+                "posY": 63.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 189.0,
+                "posy": -5.5,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb8"
+            },
+            "Transform": {
+                "posX": 197.0,
+                "posY": 44.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 233.0,
+                "posy": -5.5,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb8-1"
+            },
+            "Transform": {
+                "posX": 224.0,
+                "posY": 44.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": 210.99996948242188,
+                "posy": 60.5,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb8-2"
+            },
+            "Transform": {
+                "posX": 210.99996948242188,
+                "posY": 64.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 275.0,
+                "posy": -6.5,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb9"
+            },
+            "Transform": {
+                "posX": 283.0,
                 "posY": 43.5,
                 "posZ": 0.0,
                 "rotX": 0.0,
@@ -3297,7 +4218,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Name"
+                "Tag": "lb9-1"
             },
             "Transform": {
                 "posX": -333.0,
@@ -3332,7 +4253,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Name"
+                "Tag": "lb9-2"
             },
             "Transform": {
                 "posX": -347.0,
@@ -3343,6 +4264,146 @@
                 "rotZ": 0.0,
                 "scaleX": 22.615999221801758,
                 "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": -369.5,
+                "posy": -6.5,
+                "rotation": -3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb10"
+            },
+            "Transform": {
+                "posX": -361.5,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 0.0,
+                "dimy": 111.0,
+                "posx": 403.0,
+                "posy": -6.5,
+                "rotation": 3.453779458999634
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb10-1"
+            },
+            "Transform": {
+                "posX": 394.0,
+                "posY": 43.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 22.615999221801758,
+                "dimy": 26.42300033569336,
+                "posx": 379.99993896484375,
+                "posy": 59.5,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "lb10-2"
+            },
+            "Transform": {
+                "posX": 379.99993896484375,
+                "posY": 63.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 22.615999221801758,
+                "scaleY": 26.42300033569336,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "LightBlocker": {
+                "dimx": 20.0,
+                "dimy": 80.0,
+                "posx": 100.0,
+                "posy": 26.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Name"
+            },
+            "Transform": {
+                "posX": 100.0,
+                "posY": 26.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
