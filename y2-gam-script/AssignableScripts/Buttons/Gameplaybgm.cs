@@ -100,7 +100,7 @@ namespace Object
 
                 else if (GetCurrentScene() == "Level1Transition")
                 {
-                    PlayAudio("Level2_BGM.wav", -1);
+                    PlayAudio("Level2_BGM.wav", -1, (int)reverbSetting);
                 }
                 firstTime = false;
             }
