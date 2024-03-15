@@ -83,10 +83,9 @@ namespace Object
             {
                 if (UIClicked)
                 {
-                    
-                    SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
-                    LoadScene("Settings");
                     PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
+                    SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
+                    LoadScene("Settings");          
                 }
 
                 if (UIHover)
