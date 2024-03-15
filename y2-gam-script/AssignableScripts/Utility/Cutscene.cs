@@ -15,14 +15,15 @@
 /******************************************************************************/
 
 using Image;
-using System;
 
 namespace Object
 {
     public class Cutscene : Entity
     {
         public int CurrentAnimationIndex = 0;
-        public int LAST_CUTSCENE = 4;
+        public int LAST_CUTSCENE;
+
+        private bool firstTime = true;
 
         /*  _________________________________________________________________________ */
         /*! Cutscene
@@ -61,7 +62,7 @@ namespace Object
 
         void OnCreate()
         {
-
+            StopAudio();
         }
 
         /*  _________________________________________________________________________ */
@@ -76,6 +77,12 @@ namespace Object
         */
         void OnUpdate(float dt)
         {
+            if (firstTime)
+            {
+                PlayAudio("endcutscene.wav", 0, (int)ReverbCode.OFF);
+                firstTime = false;
+            }
+
             if (Input.IsMouseClicked(KeyCode.MOUSE_BUTTON_LEFT))
             {
                 CurrentAnimationIndex++;
@@ -83,9 +90,10 @@ namespace Object
 
             AnimationState = CurrentAnimationIndex;
 
-            if (CurrentAnimationIndex >= LAST_CUTSCENE)
+            if (CurrentAnimationIndex > LAST_CUTSCENE)
             {
-                LoadScene("LevelSelect");
+                StopAudio();
+                LoadScene("MainMenu");
             }
         }
 
