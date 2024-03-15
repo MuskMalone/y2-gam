@@ -10,8 +10,8 @@ namespace Object
         private bool hasStepped = false;
         private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
-        public float FadeOutTimer = 90.0f;
-        public float FadeOutClock = 90.0f;
+        public float FadeOutTimer = 80.0f;
+        public float FadeOutClock = 80.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
         private Vector2 temp_translation;
@@ -244,7 +244,7 @@ namespace Object
         {
             //Console.WriteLine("HERE");
             timer = 0.0f;
-            FadeOutClock = 90.0f;
+            FadeOutClock = 80.0f;
             FadeOutTime = 0.0f;
             hasStepped = false;
             FadedOut = false;

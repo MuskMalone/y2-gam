@@ -175,7 +175,7 @@ namespace Object
 
                     if(GetCurrentScene() == "Level1Transition")
                     {
-                        MAX_TIME_ALIVE = 1.5f;
+                        MAX_TIME_ALIVE = 1.4f;
                     }
                     else
                     {

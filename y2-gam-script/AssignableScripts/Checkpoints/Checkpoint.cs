@@ -90,10 +90,10 @@ namespace Object
                 player.colliderPosition += new Vector2(waypointOffset, waypointOffset);
                 player.colliderPosition -= new Vector2(0, colliderOffset);
                 Activated = true;
-                if(GetCurrentScene() == "Level1Transition")
-                {
-                    PlayAudio("Boss-Line-1.wav", 0);
-                }
+                //if(GetCurrentScene() == "Level1Transition")
+                //{
+                //    PlayAudio("Boss-Line-1.wav", 0);
+                //}
             }
         }
 
