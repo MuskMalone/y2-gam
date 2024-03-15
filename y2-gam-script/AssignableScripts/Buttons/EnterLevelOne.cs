@@ -89,10 +89,9 @@ namespace Object
 
             if (UIClicked && firstTime)
             {
-                PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
-                StopAudio();
-                //LoadScene("Cutscene");
-                LoadScene("IntroCutscene");
+                PlayAudio("menu_click.wav", 0, (int)reverbSetting);
+                //StopAudio();
+                LoadScene("Cutscene");
                 firstTime = false;
             }
         }

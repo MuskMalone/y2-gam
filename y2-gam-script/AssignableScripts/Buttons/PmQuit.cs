@@ -92,6 +92,7 @@ namespace Object
                 Colour = new Vector4(1, 1, 1, 1);
                 if (UIClicked)
                 {
+                    PlayAudio("menu_click.wav", 0);
                     Translation = new Vector2(99999, 99999);
                     quitClicked = true; 
                 }

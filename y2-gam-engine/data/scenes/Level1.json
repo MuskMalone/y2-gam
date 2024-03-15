@@ -507,7 +507,8 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
-                "isPaused": false,
+                "isPaused": true,
+                "keyName": "",
                 "spawnPositionX": -400.0,
                 "spawnPositionY": -27.0
             },
@@ -1865,7 +1866,7 @@
                 "rotation": 0.0,
                 "mass": 3.4028234663852886e38,
                 "posX": 100.0,
-                "posY": -32.0,
+                "posY": -33.5,
                 "lockRotate": false
             },
             "Script": {
@@ -2613,7 +2614,7 @@
                 "EnemyDeathTimer": 0.0,
                 "GroundHeightOffset": -16.0,
                 "HowLongDisplayEnemyDeath": 0.5,
-                "IsFacingRight": true,
+                "IsFacingRight": false,
                 "JumpCooldown": 0.20000000298023224,
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
@@ -2642,7 +2643,7 @@
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.00930639635771513,
-                "scaleX": -40.0,
+                "scaleX": 40.0,
                 "scaleY": 40.0,
                 "scaleZ": 15.0,
                 "elipse": false

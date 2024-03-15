@@ -103,6 +103,7 @@ namespace Object
                 {
                     SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
                     LoadScene("HowToPlay");
+                    PlayAudio("menu_click.wav", 0);
                 }
             }
         }

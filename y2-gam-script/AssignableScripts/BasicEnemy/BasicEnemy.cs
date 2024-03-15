@@ -36,6 +36,7 @@ namespace Object
         public float HowLongDisplayEnemyDeath;
         private int DeathAudioIncrement = 1;
         private int MAX_DEATH_AUDIO_FILES = 7;
+        private string audioFile;
 
         public Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
         public ReverbCode reverbSetting;
@@ -152,11 +153,6 @@ namespace Object
         {
             IsFacingRight = isFacingRight;
 
-            //if (resume.isRPaused == false)
-            //{
-            //    isPaused = false;
-            //}
-
             if (player.isPaused)
             {
                 dt = 0f;
@@ -205,7 +201,9 @@ namespace Object
                 {
                     EnemyDeathTimer += dt;
                     AnimationState = (int)AnimationCodeEnemy.DEAD;
-                    PlayAudio("Jester Death_" + DeathAudioIncrement + ".wav", 0, (int)reverbSetting);
+                    audioFile = "Jester Death_" + DeathAudioIncrement + ".wav";
+                    PlayAudio(audioFile, 0, (int)reverbSetting);
+                    SetAudioFileVolume(audioFile, 0.5f);
                     DeathAudioIncrement++;
 
                     if (DeathAudioIncrement > MAX_DEATH_AUDIO_FILES)
@@ -216,7 +214,7 @@ namespace Object
                     {
                         EnemyDeath = false;
                         EnemyDeathTimer = 0;
-                        PlayAudio("enemy_killed.wav", 0, (int)reverbSetting);
+                        //PlayAudio("enemy_killed.wav", 0);
                         GameplayWrapper.DestroyEntity(entityID);
                     }
                 }

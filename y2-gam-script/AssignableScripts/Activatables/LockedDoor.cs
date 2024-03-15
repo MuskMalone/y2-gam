@@ -95,7 +95,8 @@ namespace Object
             if ((player.Collider.X <= Translation.X + Range) && (player.Collider.X >= Translation.X - Range) &&
                 (player.Collider.Y <= Translation.Y + Range) && (player.Collider.Y >= Translation.Y - Range) && player.KeyCollected && !isUnlocked)
             {
-                PlayAudio("DoorUnlock.wav", 0, (int)reverbSetting);
+                //Console.WriteLine("Door Unlocked");
+                PlayPositionalAudio("DoorUnlock.wav", 0, Translation, (int)reverbSetting);
                 AnimationState = (int)AnimationCodeDoor.OPEN;
                 player.KeyCollected = false;
                 isUnlocked = true;
