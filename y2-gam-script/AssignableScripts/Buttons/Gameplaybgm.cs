@@ -69,7 +69,7 @@ namespace Object
                     PlayAudio("Level2_BGM.wav", -1);
                 }
 
-                else if(GetCurrentScene() == "Level1Transition")
+                else if (GetCurrentScene() == "Level1Transition")
                 {
                     PlayAudio("Level2_BGM.wav", -1);
                 }

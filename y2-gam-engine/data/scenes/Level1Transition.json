@@ -665,6 +665,10 @@
             "Layering": {
                 "layering": "Default"
             },
+            "Script": {
+                "scriptName": "ObjectGameplaybgm",
+                "scriptTag": "BG"
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -1176,6 +1180,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform1",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform1"
             },
@@ -1378,6 +1383,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform2",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform2"
             },
@@ -1433,6 +1439,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform3",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform3"
             },
@@ -1488,6 +1495,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform4",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform4"
             },
@@ -1543,6 +1551,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform5",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform5"
             },
@@ -1598,6 +1607,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform6",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform6"
             },
@@ -1653,6 +1663,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform7",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform7"
             },
@@ -1708,6 +1719,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform8",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform8"
             },
@@ -1763,6 +1775,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform9",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform9"
             },
@@ -1818,6 +1831,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform10",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform10"
             },
@@ -1873,6 +1887,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform11",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform11"
             },
@@ -1928,6 +1943,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform12",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform12"
             },
@@ -1983,6 +1999,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform13",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform13"
             },
@@ -2038,6 +2055,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform14",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform14"
             },
@@ -2093,6 +2111,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform15",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform15"
             },
@@ -2148,6 +2167,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform16",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform16"
             },
@@ -2203,6 +2223,7 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform17",
+                "FadeOutClock": 45.0,
                 "FadeOutTimer": 45.0,
                 "platformTag": "DPlatform17"
             },
@@ -2511,6 +2532,193 @@
                 "rotY": 0.0,
                 "rotZ": 0.0,
                 "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -160.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes6"
+            },
+            "Transform": {
+                "posX": -160.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -117.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes7"
+            },
+            "Transform": {
+                "posX": -117.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -75.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes8"
+            },
+            "Transform": {
+                "posX": -75.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectCastleTimer",
+                "scriptTag": "Timer"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "Timer"
+            },
+            "Text": {
+                "fontName": "Arial",
+                "scale": 0.05000000074505806,
+                "text": "Your Text Here",
+                "coloX": 1.0,
+                "coloY": 1.0,
+                "coloZ": 1.0
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
                 "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
