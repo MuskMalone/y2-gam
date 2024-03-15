@@ -70,6 +70,7 @@
     <Compile Include="AssignableScripts\Buttons\MainMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\IntroCutsceneBGM.cs" />
     <Compile Include="AssignableScripts\Buttons\MainMenubgm.cs" />
+    <Compile Include="AssignableScripts\Buttons\OnetotwoCutsceneBGM.cs" />
     <Compile Include="AssignableScripts\Buttons\PauseMenu.cs" />
     <Compile Include="AssignableScripts\Buttons\PauseMenu2.cs" />
     <Compile Include="AssignableScripts\Buttons\PmConfirmationWindow.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="AssignableScripts\Utility\IntroCutscene.cs" />
     <Compile Include="AssignableScripts\Utility\CastleTimer.cs" />
     <Compile Include="AssignableScripts\Utility\DPlatform.cs" />
+    <Compile Include="AssignableScripts\Utility\OnetotwoCutscene.cs" />
     <Compile Include="AssignableScripts\Utility\ZoomOut.cs" />
     <Compile Include="AssignableScripts\Utility\Cursor.cs" />
     <Compile Include="AssignableScripts\Utility\Cutscene.cs" />
