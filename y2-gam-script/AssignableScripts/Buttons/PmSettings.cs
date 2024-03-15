@@ -23,6 +23,8 @@ namespace Object
     {
         private Vector2 temp_translation;
         Player player;
+        //PmSettingsImage pmsettingsimage;
+        public bool hovered = false;
 
         /*  _________________________________________________________________________ */
         /*! PmMenu
@@ -61,6 +63,7 @@ namespace Object
         void OnCreate()
         {
             player = GameplayWrapper.FindEntityByName("Player").As<Player>();
+            //pmsettingsimage = GameplayWrapper.FindEntityByName("PmSettingsImage").As<PmSettingsImage>();
             temp_translation = Translation;
         }
 
@@ -85,6 +88,21 @@ namespace Object
                     LoadScene("Settings");
                     PlayAudio("menu_click.wav", 0);
                 }
+
+                if (UIHover)
+                {
+                    hovered = true;
+                }
+                else
+                {
+                    hovered = false;
+                }
+                //    pmsettingsimage.AnimationState = 1;
+                //}
+                //else
+                //{
+                //    pmsettingsimage.AnimationState = 0;
+                //}
             }
         }
 

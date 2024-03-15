@@ -65,7 +65,7 @@
                     1706897385432403900,
                     1706900374940601200
                 ],
-                "currFrame": 4,
+                "currFrame": 5,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -83,7 +83,7 @@
             },
             "Collider": {
                 "collider": 0,
-                "posX": 172.47889709472656,
+                "posX": 172.432861328125,
                 "posY": -37.000003814697266,
                 "rotation": -3.1415908336639404,
                 "dimX": 7.035999774932861,
@@ -101,7 +101,7 @@
                 "dimY": 32.0,
                 "rotation": -3.1415908336639404,
                 "mass": 10.0,
-                "posX": 172.47891235351563,
+                "posX": 172.4329071044922,
                 "posY": -37.000003814697266,
                 "lockRotate": true
             },
@@ -127,7 +127,7 @@
                 "VisionRange": 4.0,
                 "colliderPositionX": -400.0,
                 "colliderPositionY": -36.0,
-                "isPaused": true,
+                "isPaused": false,
                 "keyName": "",
                 "spawnPositionX": -400.0,
                 "spawnPositionY": -27.0
@@ -145,8 +145,8 @@
                 "Tag": "Player"
             },
             "Transform": {
-                "posX": 172.47889709472656,
-                "posY": -27.98337173461914,
+                "posX": 172.432861328125,
+                "posY": -27.981159210205078,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -160,9 +160,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -372.8216247558594,
-                "posY": -45.507843017578125,
-                "rotation": 3.141519784927368,
+                "posX": -372.81561279296875,
+                "posY": -45.502559661865234,
+                "rotation": 3.1415717601776123,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -176,10 +176,10 @@
             "RigidBody": {
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705,
-                "rotation": 3.141502857208252,
+                "rotation": 3.1415650844573975,
                 "mass": 1000.0,
-                "posX": -372.8215026855469,
-                "posY": -45.50980758666992,
+                "posX": -372.8155517578125,
+                "posY": -45.503204345703125,
                 "lockRotate": false
             },
             "Script": {
@@ -203,12 +203,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -372.81024169921875,
-                "posY": -45.80110549926758,
+                "posX": -372.8042297363281,
+                "posY": -45.79582214355469,
                 "posZ": 2.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 179.96946716308594,
+                "rotZ": 179.9708251953125,
                 "scaleX": 14.99999713897705,
                 "scaleY": 14.99999713897705,
                 "scaleZ": 14.99976634979248,
@@ -414,9 +414,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -63.27143859863281,
-                "posY": -45.53293991088867,
-                "rotation": 3.1425814628601074,
+                "posX": -63.26243209838867,
+                "posY": -45.51078414916992,
+                "rotation": 3.1419129371643066,
                 "dimX": 14.999999046325684,
                 "dimY": 14.999999046325684
             },
@@ -430,10 +430,10 @@
             "RigidBody": {
                 "dimX": 14.999999046325684,
                 "dimY": 14.999999046325684,
-                "rotation": 3.1428298950195313,
+                "rotation": 3.1419944763183594,
                 "mass": 1000.0,
-                "posX": -63.273292541503906,
-                "posY": -45.54117965698242,
+                "posX": -63.26304244995117,
+                "posY": -45.513484954833984,
                 "lockRotate": false
             },
             "Script": {
@@ -457,12 +457,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -63.32676696777344,
-                "posY": -45.53239059448242,
+                "posX": -63.3177604675293,
+                "posY": -45.51023483276367,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 180.0482940673828,
+                "rotZ": 180.00845336914063,
                 "scaleX": 14.999999046325684,
                 "scaleY": 14.999999046325684,
                 "scaleZ": 15.0,
@@ -472,9 +472,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -79.93244934082031,
-                "posY": -45.501041412353516,
-                "rotation": 0.0000035502691844158107,
+                "posX": -79.93719482421875,
+                "posY": -45.50033187866211,
+                "rotation": -0.00000271772432824946,
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705
             },
@@ -488,10 +488,10 @@
             "RigidBody": {
                 "dimX": 14.99999713897705,
                 "dimY": 14.99999713897705,
-                "rotation": 0.000005915091605857015,
+                "rotation": -0.000001929121481225593,
                 "mass": 1000.0,
-                "posX": -79.93246459960938,
-                "posY": -45.501304626464844,
+                "posX": -79.93720245361328,
+                "posY": -45.50041961669922,
                 "lockRotate": false
             },
             "Script": {
@@ -515,12 +515,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -79.93243408203125,
-                "posY": -45.50094985961914,
+                "posX": -79.93717956542969,
+                "posY": -45.500240325927734,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 0.00020446931011974812,
+                "rotZ": -0.00015453356900252402,
                 "scaleX": 14.99999713897705,
                 "scaleY": 14.99999713897705,
                 "scaleZ": 14.99979019165039,
@@ -533,7 +533,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 0.12999999523162842,
                 "currState": 0
             },
@@ -649,9 +649,9 @@
         {
             "Collider": {
                 "collider": 0,
-                "posX": -47.514488220214844,
-                "posY": -45.50004959106445,
-                "rotation": 1.5708037614822388,
+                "posX": -47.51799011230469,
+                "posY": -45.53293991088867,
+                "rotation": 1.5717850923538208,
                 "dimX": 15.000004768371582,
                 "dimY": 15.000004768371582
             },
@@ -665,10 +665,10 @@
             "RigidBody": {
                 "dimX": 15.000004768371582,
                 "dimY": 15.000004768371582,
-                "rotation": 1.570804238319397,
+                "rotation": 1.5720335245132446,
                 "mass": 1000.0,
-                "posX": -47.51449203491211,
-                "posY": -45.500064849853516,
+                "posX": -47.51984405517578,
+                "posY": -45.54117965698242,
                 "lockRotate": false
             },
             "Script": {
@@ -692,12 +692,12 @@
                 "Tag": "SwappableBox"
             },
             "Transform": {
-                "posX": -47.51446533203125,
-                "posY": -45.79327392578125,
+                "posX": -47.517967224121094,
+                "posY": -45.82616424560547,
                 "posZ": -1.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
-                "rotZ": 90.00855255126953,
+                "rotZ": 90.06507873535156,
                 "scaleX": 15.000004768371582,
                 "scaleY": 15.000004768371582,
                 "scaleZ": 14.999604225158691,
@@ -808,7 +808,7 @@
                     1707364242017229000,
                     1707305393690677100
                 ],
-                "currFrame": 1,
+                "currFrame": 0,
                 "speed": 0.12999999523162842,
                 "currState": 0
             },
@@ -1161,7 +1161,7 @@
                 "states": [
                     1709824160926932300
                 ],
-                "currFrame": 0,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -1195,10 +1195,10 @@
                 "Alive": false,
                 "CardReleaseDelay": 0.30000001192092896,
                 "CardReleaseTime": 0.0,
-                "CardUIID": 128,
-                "CardUIMaxScaleX": 100.0,
-                "CardUIMaxScaleY": 100.0,
-                "CardUIMaxScaleZ": 1.0,
+                "CardUIID": 184,
+                "CardUIMaxScaleX": 0.0,
+                "CardUIMaxScaleY": 0.0,
+                "CardUIMaxScaleZ": 0.0,
                 "MAX_TIME_ALIVE": 4.0,
                 "speed": 100.0,
                 "timeAlive": 0.0
@@ -1265,7 +1265,7 @@
                 "states": [
                     1709742873940550100
                 ],
-                "currFrame": 3,
+                "currFrame": 1,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -2198,7 +2198,7 @@
                     1698954487533620100,
                     1706963288764716700
                 ],
-                "currFrame": 4,
+                "currFrame": 3,
                 "speed": 0.07999999821186066,
                 "currState": 0
             },
@@ -2239,7 +2239,7 @@
                 "JumpForce": 3000.0,
                 "JumpTimer": 0.0,
                 "MovementSpeed": 20.0,
-                "TimeInState": 0.9333330988883972,
+                "TimeInState": 0.0,
                 "VisionHeightOffset": 15.0,
                 "VisionRange": 50.0,
                 "isGrounded": true
@@ -2275,13 +2275,14 @@
             },
             "Script": {
                 "scriptName": "ObjectPmMenu",
-                "scriptTag": "PmMenu"
+                "scriptTag": "PmMenu",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756896520626400
             },
@@ -2316,11 +2317,11 @@
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
-                "assetID": 1700928706423252000
+                "assetID": 1700753029114891400
             },
             "Tag": {
                 "Tag": "PauseMenu2"
@@ -2339,8 +2340,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2350,13 +2351,14 @@
             "Script": {
                 "scriptName": "ObjectPmQuit",
                 "scriptTag": "PmQuit",
+                "hovered": false,
                 "quitClicked": false
             },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700756892272022000
             },
@@ -2414,8 +2416,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2424,13 +2426,14 @@
             },
             "Script": {
                 "scriptName": "ObjectPmHowToPlay",
-                "scriptTag": "PmHowToPlay"
+                "scriptTag": "PmHowToPlay",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
-                "g": 1.0,
+                "g": 0.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1707116513468451400
             },
@@ -2477,7 +2480,7 @@
             "Text": {
                 "fontName": "AsapRegular",
                 "scale": 0.48500001430511475,
-                "text": "FPS: 61.46045",
+                "text": "FPSDisplay",
                 "coloX": 1.0,
                 "coloY": 0.9649860858917236,
                 "coloZ": 0.0458715558052063
@@ -2527,8 +2530,8 @@
                 "Tag": "Death"
             },
             "Transform": {
-                "posX": 172.48013305664063,
-                "posY": -27.9835262298584,
+                "posX": 172.43731689453125,
+                "posY": -27.98141098022461,
                 "posZ": 10.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2559,8 +2562,8 @@
                 "Tag": "Cursor"
             },
             "Transform": {
-                "posX": 827.142822265625,
-                "posY": 504.9459228515625,
+                "posX": 28.5714111328125,
+                "posY": 879.8299560546875,
                 "posZ": 4.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
@@ -2610,13 +2613,14 @@
             },
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
-                "scriptTag": "PmResumeGame"
+                "scriptTag": "PmResumeGame",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
                 "b": 1.0,
-                "a": 1.0,
+                "a": 0.0,
                 "layer": 2,
                 "assetID": 1700947919118509400
             },
@@ -2647,7 +2651,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmSettings",
-                "scriptTag": "Settings"
+                "scriptTag": "PmSettings",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -2658,7 +2663,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "Settings"
+                "Tag": "PmSettings"
             },
             "Transform": {
                 "posX": 806.2659912109375,
@@ -2674,8 +2679,8 @@
             },
             "UIImage": {
                 "enabled": true,
-                "isClicked": true,
-                "isHover": true
+                "isClicked": false,
+                "isHover": false
             }
         },
         {
@@ -2844,6 +2849,273 @@
                 "scaleY": 10.0,
                 "scaleZ": 15.0,
                 "elipse": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710474429386190300,
+                    1710474273502342600
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmSettingsImage",
+                "scriptTag": "PmSettingsImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmSettingsImage"
+            },
+            "Transform": {
+                "posX": 802.0,
+                "posY": 508.2430114746094,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 190.0,
+                "scaleY": 60.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710475673989582500,
+                    1710475672420945800
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmMenuImage",
+                "scriptTag": "PmMenuImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmMenuImage"
+            },
+            "Transform": {
+                "posX": 802.0,
+                "posY": 469.09100341796875,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 170.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710475971283618200,
+                    1710475969888475700
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmResumeImage",
+                "scriptTag": "PmResumeImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmResumeImage"
+            },
+            "Transform": {
+                "posX": 810.0,
+                "posY": 388.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 250.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710476040299090300,
+                    1710476039021933500
+                ],
+                "currFrame": 0,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmQuitImage",
+                "scriptTag": "PmQuitImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmQuitImage"
+            },
+            "Transform": {
+                "posX": 805.0,
+                "posY": 426.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 200.0,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Animation": {
+                "states": [
+                    1710476142695376700,
+                    1710476141584812800
+                ],
+                "currFrame": 1,
+                "speed": 0.07999999821186066,
+                "currState": 0
+            },
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmHowToPlayImage",
+                "scriptTag": "PmHowToPlayImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PmHowToPlayImage"
+            },
+            "Transform": {
+                "posX": 808.0,
+                "posY": 346.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 231.0,
+                "scaleY": 41.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectPmPauseImage",
+                "scriptTag": "PmPauseImage"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 1710477921128218000
+            },
+            "Tag": {
+                "Tag": "PmPauseImage"
+            },
+            "Transform": {
+                "posX": 791.0,
+                "posY": 660.0,
+                "posZ": 2.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 410.0,
+                "scaleY": 180.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
             }
         }
     ]

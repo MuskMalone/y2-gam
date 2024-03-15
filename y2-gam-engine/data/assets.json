@@ -1286,6 +1286,14 @@
             "idxY": 0.0,
             "dimX": 490.0,
             "dimY": 99.0
+        },
+        "1710477921128218000": {
+            "id": 1710477921128266800,
+            "path": "../assets\\Textures\\y2_pause menu_ PAUSED_noglow.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 697.0,
+            "dimY": 284.0
         }
     },
     "AnimationManager": {
@@ -1784,6 +1792,86 @@
             "idxCoordY": 0.0,
             "dimX": 120.0,
             "dimY": 120.0
+        },
+        "1710474273502342600": {
+            "id": 1710474273502395900,
+            "path": "../assets\\Textures\\y2_pause menu_ settings_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 260.0,
+            "dimY": 68.0
+        },
+        "1710474429386190300": {
+            "id": 1710474429386239500,
+            "path": "../assets\\Textures\\y2_pause menu_ SETTINGS_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 289.0,
+            "dimY": 88.0
+        },
+        "1710475673989582500": {
+            "id": 1710475673989660900,
+            "path": "../assets\\Textures\\y2_pause menu_ MENU_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 257.0,
+            "dimY": 69.0
+        },
+        "1710475672420945800": {
+            "id": 1710475672421008800,
+            "path": "../assets\\Textures\\y2_pause menu_ menu_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 182.0,
+            "dimY": 68.0
+        },
+        "1710475969888475700": {
+            "id": 1710475969888549600,
+            "path": "../assets\\Textures\\y2_pause menu_ resumegame_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 370.0,
+            "dimY": 60.0
+        },
+        "1710475971283618200": {
+            "id": 1710475971283805000,
+            "path": "../assets\\Textures\\y2_pause menu_ RESUMEGAME_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 384.0,
+            "dimY": 73.0
+        },
+        "1710476039021933500": {
+            "id": 1710476039021975900,
+            "path": "../assets\\Textures\\y2_pause menu_ quitgame_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 285.0,
+            "dimY": 63.0
+        },
+        "1710476040299090300": {
+            "id": 1710476040299134300,
+            "path": "../assets\\Textures\\y2_pause menu_ QUITGAME_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 310.0,
+            "dimY": 71.0
+        },
+        "1710476141584812800": {
+            "id": 1710476141584897100,
+            "path": "../assets\\Textures\\y2_pause menu_ howtoplay_glow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 344.0,
+            "dimY": 71.0
+        },
+        "1710476142695376700": {
+            "id": 1710476142695426600,
+            "path": "../assets\\Textures\\y2_pause menu_ HOWTOPLAY_noglow.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 358.0,
+            "dimY": 66.0
         }
     }
 }
