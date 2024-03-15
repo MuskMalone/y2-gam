@@ -83,7 +83,7 @@ namespace Object
                     
                     SaveScene(InternalCalls.EngineCore_GetPrevSceneVar());
                     LoadScene("Settings");
-                    PlayAudio("menu_click.wav", 0, (int)reverbSetting);
+                    PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                 }
             }
         }

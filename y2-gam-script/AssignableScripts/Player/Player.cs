@@ -158,7 +158,9 @@ namespace Object
                 spawnPosition = new Vector2(184.5f, 165.5f);
                 colliderPosition = new Vector2(183.0f, 156.0f);
                 //FootTrack = "FOOTSTEPS-OUTDOOR_GEN-HDF-12206.wav";
-            }           
+            }
+
+            GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
         }
 
         /*  _________________________________________________________________________ */
@@ -336,6 +338,7 @@ namespace Object
                         //Console.WriteLine("A was released");
                         //PauseAudioWithFilename("PlayerRunningScaffolding.wav");
                         //PauseAudioWithFilename(FootTrack);
+                        GraphicsWrapper.EmitterSetAlpha(entityID, 0, -1);
                         Velocity *= 0.2f;
                     }
 

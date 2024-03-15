@@ -62,7 +62,7 @@ namespace Object
                 
                 //StopAudio();
                 QuitGame();
-                PlayAudio("menu_click.wav", 0, (int)reverbSetting);
+                PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                 firstTime = false;
             }
 

@@ -91,7 +91,7 @@ namespace Object
                 if (UIClicked)
                 {
                     LoadScene("MainMenu");
-                    PlayAudio("menu_click.wav", 0);
+                    PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                     //GameplayWrapper.SpawnPrefab("pf_confirmation", new Vector2(750, 252));
                 }
             }

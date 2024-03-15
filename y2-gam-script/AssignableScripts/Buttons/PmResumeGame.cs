@@ -99,7 +99,7 @@ namespace Object
 
             if (UIClicked)
             {
-                PlayAudio("menu_click.wav", 0);
+                PlayAudio("menu_click.wav", 0, (int)ReverbCode.OFF);
                 Colour = new Vector4(1, 1, 1, 0);
                 Translation = new Vector2(99999, 99999);
                 player.ResumeGame();
