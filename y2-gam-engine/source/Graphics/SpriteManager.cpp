@@ -180,6 +180,17 @@ ResourceID SpriteManager::LoadAsset(rapidjson::Value const& obj) {
 
     return key;
 }
+
+/*  _________________________________________________________________________ */
+/*!
+\brief unLoads a sprite asset from a JSON object.
+
+@param obj
+The JSON object containing the sprite asset data.
+
+@return void
+
+*/
 void SpriteManager::UnloadAsset(AssetManager::Asset const& asset) {
     UnloadSprite(asset.resourceId);
 
