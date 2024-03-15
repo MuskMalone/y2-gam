@@ -170,6 +170,14 @@ namespace Object
                         PlayAudio("out_of_cards.wav", 0, (int)reverbSetting);
                     }
 
+                    if(GetCurrentScene() == "Level1Transition")
+                    {
+                        MAX_TIME_ALIVE = 1.4f;
+                    }
+                    else
+                    {
+                        MAX_TIME_ALIVE = 4.0f;
+                    }
                     // Card Related (Add time and velocity when alive)
                     timeAlive += dt;
                     Velocity += direction * speed * dt;

@@ -67,6 +67,9 @@ namespace Object
         public float VisionRange;
         public float OriginalFriction;
 
+        //disappearing platforms
+        public bool onPlatform = false;
+
         // Direction related
         private bool _isFacingRight;
         private bool isFacingRight
@@ -261,6 +264,7 @@ namespace Object
                         Dead = true;
                     }
 
+
                     if (PhysicsWrapper.Raycast(new Vector2(Collider.X - (ColliderDimensions.X / 2) + 2, Collider.Y),
                         new Vector2(Collider.X - (ColliderDimensions.X / 2) + 0.5f, Collider.Y - (ColliderDimensions.Y / 2) - 3), entityID, out leftRayCast) ||
                             PhysicsWrapper.Raycast(new Vector2(Collider.X + (ColliderDimensions.X / 2) - 2, Collider.Y),
@@ -281,6 +285,20 @@ namespace Object
                         if (!PlayAppearAnimation)
                         {
                             AnimationState = (int)AnimationCodePlayer.JUMP;
+                        }
+                    }
+
+                    //disappearing platforms
+                    if (GetCurrentScene() == "Level1Transition")
+                    {
+                        if (IsGrounded == true && PhysicsWrapper.IsCollidedWithLayer(entityID, "hello"))
+                        {
+                            //Console.WriteLine("TEST DISAPPEARING PLATFORM ");
+                            onPlatform = true;
+                        }
+                        else
+                        {
+                            onPlatform = false;
                         }
                     }
 

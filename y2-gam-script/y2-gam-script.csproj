@@ -93,6 +93,8 @@
     <Compile Include="AssignableScripts\Player\Death.cs" />
     <Compile Include="AssignableScripts\Utility\KeyUI.cs" />
     <Compile Include="AssignableScripts\Utility\IntroCutscene.cs" />
+    <Compile Include="AssignableScripts\Utility\CastleTimer.cs" />
+    <Compile Include="AssignableScripts\Utility\DPlatform.cs" />
     <Compile Include="AssignableScripts\Utility\ZoomOut.cs" />
     <Compile Include="AssignableScripts\Utility\Cursor.cs" />
     <Compile Include="AssignableScripts\Utility\Cutscene.cs" />

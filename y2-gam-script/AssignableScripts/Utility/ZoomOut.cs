@@ -90,6 +90,7 @@ namespace Object
 
                 timer += dt;
                 InternalCalls.GraphicsComponent_SetZoom(Linear(0.55f, zoomLevel,timer / maxTimer));
+                //InternalCalls.GraphicsComponent_SetZoom(Linear(0.30f, zoomLevel, timer / maxTimer));
                 if (timer >= maxTimer)
                 {
                     timer = 0;

@@ -84,8 +84,8 @@ namespace Object
                 {
                     
                     //load lvl2 till lvl1transition player script is ok
-                    //LoadScene("Level2");
-                    LoadScene("Level1Transition");
+                    LoadScene("Level2");
+                    //LoadScene("Level1Transition");
 
                 }
            
@@ -94,12 +94,22 @@ namespace Object
             //exitEnd = new Vector2(Collider.X - (Scale.Y / 2.0f), Collider.Y);
             if (PhysicsWrapper.IsCollidedWithAnything(entityID))
             {
-                if (scene == "Level1Transition")
+                //if (scene == "Level1Transition")
+                //{
+                //    LoadScene("Level2");
+
+                //}
+                //if (scene == "Level2")
+                //{
+                //    LoadScene("MainMenu");
+
+                //}
+                if (scene == "Level2")
                 {
-                    LoadScene("Level2");
+                    LoadScene("Level1Transition");
 
                 }
-                if (scene == "Level2")
+                if (scene == "Level1Transition")
                 {
                     LoadScene("MainMenu");
 

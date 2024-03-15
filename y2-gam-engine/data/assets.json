@@ -649,6 +649,11 @@
             "id": 1710443577897869600,
             "path": "../assets\\audio\\sfx\\PlayerRunning\\PlayerRunningConcrete\\PlayerRunningConcrete_8.wav",
             "stream": false
+        },
+        "1710472667814078100": {
+            "id": 1710472667814107700,
+            "path": "../assets\\audio\\sfx\\Boss-Line-1.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
@@ -1595,6 +1600,38 @@
             "idxY": 0.0,
             "dimX": 450.0,
             "dimY": 115.0
+        },
+        "1710133079142956700": {
+            "id": 1710133079142995400,
+            "path": "../assets\\Textures\\tiles\\gam200_backstage_tile_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 163.0,
+            "dimY": 124.0
+        },
+        "1710436411329534400": {
+            "id": 1710436411329571900,
+            "path": "../assets\\Textures\\UI\\TEXT_robin is scared.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 657.0,
+            "dimY": 87.0
+        },
+        "1710436413998058900": {
+            "id": 1710436413998100300,
+            "path": "../assets\\Textures\\UI\\TEXT_cards will last.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 1677.0,
+            "dimY": 87.0
+        },
+        "1710441285557991100": {
+            "id": 1710441285558025000,
+            "path": "../assets\\Textures\\UI\\hat_castle.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 134.0,
+            "dimY": 340.0
         }
     },
     "AnimationManager": {
