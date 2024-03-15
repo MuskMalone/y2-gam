@@ -111,8 +111,7 @@ namespace Object
                 }
                 if (scene == "Level1Transition")
                 {
-                    LoadScene("MainMenu");
-
+                    LoadScene("Cutscene");
                 }
             }
         }

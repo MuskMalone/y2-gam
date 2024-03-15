@@ -4,14 +4,14 @@
         {
             "Animation": {
                 "states": [
-                    1707393648820918400,
-                    1707393651369475400,
-                    1707393653966122400,
-                    1707393656264756000
+                    1710492288231462700,
+                    1710492290238655400,
+                    1710492293108799100,
+                    1710492296305705100
                 ],
                 "currFrame": 1,
                 "speed": 0.07999999821186066,
-                "currState": 2
+                "currState": 0
             },
             "Layering": {
                 "layering": "Default"
@@ -19,8 +19,8 @@
             "Script": {
                 "scriptName": "ObjectCutscene",
                 "scriptTag": "Background",
-                "CurrentAnimationIndex": 2,
-                "LAST_CUTSCENE": 4
+                "CurrentAnimationIndex": 0,
+                "LAST_CUTSCENE": 3
             },
             "Sprite": {
                 "r": 1.0,

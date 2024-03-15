@@ -659,6 +659,11 @@
             "id": 1710488276342178400,
             "path": "../assets\\audio\\music\\cutscene_transition.wav",
             "stream": false
+        },
+        "1710493309315269500": {
+            "id": 1710493309315273900,
+            "path": "../assets\\audio\\music\\endcutscene.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
@@ -2407,6 +2412,38 @@
             "idxCoordY": 0.0,
             "dimX": 358.0,
             "dimY": 66.0
+        },
+        "1710492288231462700": {
+            "id": 1710492288231470300,
+            "path": "../assets\\Textures\\backgrounds\\GAM_FinalCutscene_PAGE1.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 1920.0,
+            "dimY": 1080.0
+        },
+        "1710492290238655400": {
+            "id": 1710492290238661400,
+            "path": "../assets\\Textures\\backgrounds\\GAM_FinalCutscene_PAGE2.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1710492293108799100": {
+            "id": 1710492293108805100,
+            "path": "../assets\\Textures\\backgrounds\\GAM_FinalCutscene_PAGE3.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
+        },
+        "1710492296305705100": {
+            "id": 1710492296305710100,
+            "path": "../assets\\Textures\\backgrounds\\GAM_FinalCutscene_PAGE4.png",
+            "frameCount": 2,
+            "idxCoordY": 0.0,
+            "dimX": 2560.0,
+            "dimY": 1440.0
         }
     }
 }
