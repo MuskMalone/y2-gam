@@ -1,13 +1,50 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       Collision.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		collision stuff
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+			or disclosure of this file or its contents without the prior
+			written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "Math/MathUtils.h"
 
 namespace Physics {
 	//first: min point, second: size
 	using CollisionRect = std::pair<Vec2, Vec2>;
-
+	/**
+ * @brief Checks if two axis-aligned bounding boxes (AABBs) are overlapping.
+ *
+ * @param cmin The minimum coordinates of the first AABB.
+ * @param cmax The maximum coordinates of the first AABB.
+ * @param rmin The minimum coordinates of the second AABB.
+ * @param rmax The maximum coordinates of the second AABB.
+ *
+ * @return true if the AABBs are overlapping, false otherwise.
+ */
 	bool CheckAABBDiscrete(Vec2 const& cmin, Vec2 const& cmax, Vec2 const& rmin, Vec2 const& rmax) {
 		return (cmin.x < rmax.x && cmax.x > rmin.x && cmin.y < rmax.y && cmax.y > rmin.y);
 	}
+	/**
+ * @brief Performs ray-rectangle intersection testing.
+ *
+ * @param rayOrigin The origin of the ray.
+ * @param rayDir The direction of the ray.
+ * @param target The target rectangle to test for intersection.
+ * @param contactPoint Output parameter to store the contact point of the intersection.
+ * @param contactNormal Output parameter to store the contact normal of the intersection.
+ * @param tHitNear Output parameter to store the distance along the ray to the nearest intersection point.
+ *
+ * @return true if the ray intersects the rectangle, false otherwise.
+ */
 	bool CheckRayRect(const Vec2& rayOrigin, const Vec2& rayDir, const CollisionRect& target, Vec2& contactPoint, Vec2& contactNormal, float& tHitNear)
 	{
 		contactNormal = { 0,0 };

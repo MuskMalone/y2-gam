@@ -193,5 +193,6 @@
     <ClInclude Include="include\Systems\LightingSystem.hpp" />
     <ClInclude Include="include\Components\Light.hpp" />
     <ClInclude Include="include\Components\LightBlocker.hpp" />
+    <ClInclude Include="include\IMGUI\FileDialog.hpp" />
   </ItemGroup>
 </Project>

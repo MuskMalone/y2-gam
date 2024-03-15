@@ -3,14 +3,14 @@
 \par        Image Engine
 \file       LightingSystem.cpp
 
-\author     tan cheng hian t.chenghian
-\date       Nov 11, 2023
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
 
-\brief      The header file for the particle systme
+\brief		light
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
-                        or disclosure of this file or its contents without the prior
-                        written consent of DigiPen Institute of Technology is prohibited.
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
@@ -25,6 +25,7 @@
 #include "Graphics/SpriteManager.hpp"
 #include "Engine/SceneManager.hpp"
 #include "Core/Component.hpp"
+#define FBO(x) Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetFramebuffer(x)
 #define MAX_BUFFER (19683)//3^9 // num of light sources/light blocking elements
 #define MAX_VERTICES 27 // num of vertices per light blocking element
 #define WORK_GROUP 100 //max buffer should be divisible by work group
@@ -32,10 +33,7 @@
 //    float radius = 50.f;
 //}
 /**
- * @brief Event listener for the particle system.
- *
- * This function handles various events related to particle emitters and entities.
- * It performs actions based on the type of event received, such as adding or destroying emitters.
+ * @brief Event listener for the lighting system.
  *
  * @param event The event object containing the event data.
  */
@@ -45,9 +43,9 @@ void LightingSystem::EventListener(Event& event) {
 }
 
 /**
- * @brief Initializes the particle system.
+ * @brief Initializes the lighting system.
  *
- * This function initializes the particle system by creating the necessary buffers and shaders.
+ * This function initializes the lighting system by creating the necessary buffers and shaders.
  */
 void LightingSystem::Init() {
     mLightVertexArray = VertexArray::Create();
@@ -76,15 +74,18 @@ void LightingSystem::Init() {
 /**
  * @brief Updates the particle system.
  *
- * This function updates the particle system by updating the particles and emitters.
+ * This function updates the lighting system
  *
  * @param dt The time elapsed since the last update.
  */
 void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
     UNREFERENCED_PARAMETER(tex);
     UNREFERENCED_PARAMETER(outtex);
-    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
     unsigned drawnlight{};
+    int entityIdx{};
+    int fbobindidx{};
+    int fbotexidx{};
+
     for (auto const& lightEntity : mEntities) {
         auto const& light = Coordinator::GetInstance()->GetComponent<Light>(lightEntity);
         glm::vec2 point = light.pos;//{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
@@ -238,6 +239,49 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
         }
 
         { // draw the array
+            //{//draw a full screen quad as well
+            //    auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+
+            //    glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+            //    glm::mat4 inviewprojection {glm::inverse(viewprojection) };
+            //    std::array<glm::vec4, 4> corners{
+            //        glm::vec4(-1.f, -1.f, 0, 1),
+            //            glm::vec4(-1.f, 1.f, 0, 1),
+            //            glm::vec4(1.f, 1.f, 0, 1),
+            //            glm::vec4(1.f, -1.f, 0, 1)
+            //    };
+
+            //    for (auto& c : corners) {
+            //        glm::vec4 transformedVec4 = inviewprojection * c;
+            //        c = transformedVec4;
+            //    }
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[0]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[1]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[2]), light.radius, light.intensity });
+
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[0]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[2]), light.radius, light.intensity });
+            //    vertices.push_back({ light.pos, light.color, glm::vec2(corners[3]), light.radius, light.intensity });
+            //}
+
+            if (entityIdx % 2) {
+                fbobindidx = 5;
+            }
+            else fbobindidx = 4;
+
+            if (entityIdx == 0)
+                fbotexidx = 2;
+            else if (entityIdx % 2) {
+                fbotexidx = 4;
+            }
+            else {
+                fbotexidx = 5;
+            }
+
+            FBO(fbobindidx)->Bind();
+
+            Renderer::RenderFullscreenTexture(FBO(fbotexidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
+
             mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
             mLightRenderShader->Use();
 
@@ -252,8 +296,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             glActiveTexture(GL_TEXTURE0);
 
             //bind the texture you want to render
-            glBindTexture(GL_TEXTURE_2D, outtex);
-
+            glBindTexture(GL_TEXTURE_2D, FBO(fbotexidx)->GetColorAttachmentID());
 
             mLightVertexArray->Bind();
 
@@ -264,15 +307,23 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             mLightVertexArray->Unbind();
             glBindTexture(GL_TEXTURE_2D, 0);
             mLightRenderShader->Unuse();
+            FBO(fbobindidx)->Unbind();
         }
+        entityIdx++;
+    }
+    if (fbobindidx) {
+        FBO(2)->Bind();
+        Renderer::RenderFullscreenTexture(FBO(fbobindidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
+        FBO(2)->Unbind();
+
     }
     //std::cout << "drawn light " << drawnlight << std::endl;
 }
 
 /**
- * @brief Draws the particles.
+ * @brief Draws the lights.
  *
- * This function draws the particles.
+ * This function draws the lights.
  */
 void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     //GLboolean scissorTestEnabled;
@@ -281,7 +332,9 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     //GLboolean scissorTestEnabled = glIsEnabled(GL_SCISSOR_TEST);
     //if (scissorTestEnabled)
     //    glEnable(GL_SCISSOR_TEST);
-
+    FBO(2)->Bind();
+    Renderer::RenderFullscreenTexture(tex, mLightRenderPrePassShader);
+    FBO(2)->Unbind();
     this->Update(tex, outtex);
 
     //glDisable(GL_SCISSOR_TEST);
@@ -301,36 +354,25 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
 
 
 }
+/**
+ * @brief Draws the light blockers.
+ *
+ * This function draws the light blockers.
+ */
 void LightingSystem::DrawDebug() {
-    //auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    ////for testing, arbitrary
-    //glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 
-    //auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
-    //    return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
-    //    });
-    //intersects.erase(last, intersects.end());
-    //std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
-    //    return a.angle < b.angle;
-    //    });
+    auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
+    for (auto const& entity : lightblockers) {
+        auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
+        // Assuming Vec2 is equivalent to glm::vec2
+        glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
 
-    //for (int i{}; i < intersects.size(); ++i) {
-    //    auto const& p{ intersects[i] };
-    //    Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
-    //    Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
-    //}
-    //auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
-    //for (auto const& entity : lightblockers) {
-    //    auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);
-    //    // Assuming Vec2 is equivalent to glm::vec2
-    //    glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
+        glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
+        float rotation = lightblocker.rotation; // Example rotation in radians
 
-    //    glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
-    //    float rotation = lightblocker.rotation; // Example rotation in radians
+        Renderer::DrawLineRect(glm::vec3{ position,1 }, dimension, glm::vec4{ 1.f, 0.f, 1.f ,1.f }, Image::Degree(rotation) );
 
-    //    Renderer::DrawQuad(glm::vec3{ position,1 }, dimension, glm::vec4{ 1.f, 0.f, 1.f ,1.f }, Image::Degree(rotation) );
-
-    //}
+    }
 }
 
 /**

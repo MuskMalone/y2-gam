@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\par        Image Engine
+\file       LightingSystem.hpp
+
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
+
+\brief		light
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include <Core/Coordinator.hpp>
 #include <Graphics/Shader.hpp>
@@ -32,6 +49,21 @@ class LightingSystem : public System
         float radius;
         float intensity;
     };
+    /**
+* @brief Calculates the intersection point between a ray and a line segment in 2D space.
+*
+* @param ray The ray defined by a start point and an end point.
+* @param segment The line segment defined by a start point and an end point.
+* @param result A reference to an Intersect object that will store the intersection point and parametric value (T1) if an intersection is found.
+*
+* @return true if an intersection is found, false otherwise.
+*
+* The function uses parametric equations to determine the intersection point between the ray and the line segment.
+* It first checks if the ray and segment are parallel, in which case there is no intersection.
+* It then solves for the parametric values T1 and T2 using the equations derived from the parametric equations of the ray and the segment.
+* If an intersection is found and it lies within the valid range of the ray and the segment, the function calculates the intersection point
+* using the parametric equation of the ray with the value of T1. It stores the intersection point and the value of T1 in the result object.
+*/
     inline bool getIntersection(Ray ray, Ray segment, Intersect &result) {
 
         // RAY in parametric: Point + Delta*T1
@@ -74,7 +106,8 @@ class LightingSystem : public System
         };
         return true;
     }
-
+    //std::deque<Point> intersects{};
+    //std::vector<LightVertex>vertices{};
     std::vector<unsigned int> lightIndices{};
     //std::shared_ptr<Shader> mEmitterStepShader;
     //std::shared_ptr<Shader> mParticleShader;
