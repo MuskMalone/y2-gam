@@ -101,7 +101,9 @@ void AssetContents(std::string const& systemName) {
       
       if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
         //add actions
-        ::gSelectedAsset = asset;
+          if (gSelectedAsset.first == asset.first && gSelectedAsset.first) gSelectedAsset = {0, AssetManager::Asset()};
+          else ::gSelectedAsset = asset;
+
       }
 
       auto input = Coordinator::GetInstance()->GetSystem<InputSystem>();
@@ -371,6 +373,7 @@ void AssetPropertiesWindow(std::set<Entity> const& mEntities) {
   auto am(AssetManager::GetInstance());
 
   bool isSelected{};
+  if (!am->IsAssetExist(gSelectedAsset.first)) gSelectedAsset = { 0, AssetManager::Asset() };
   if (ImGui::Selectable(("Path: " + gSelectedAsset.second.path).c_str(), isSelected)) {}
   if (ImGui::BeginDragDropTarget()) {
     std::cout << "Began drag-drop target." << std::endl;

@@ -2408,7 +2408,8 @@ namespace Image {
 
                 }
                 else {
-                    selectedFP = filepathString;
+                    if (selectedFP.size() && !strcmp(selectedFP.c_str(), filepathString.c_str())) selectedFP = "";
+                    else selectedFP = filepathString;
                 }
             }
             auto input = Coordinator::GetInstance()->GetSystem<InputSystem>();
