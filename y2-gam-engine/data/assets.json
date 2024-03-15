@@ -1741,6 +1741,14 @@
             "idxY": 0.0,
             "dimX": 908.0,
             "dimY": 98.0
+        },
+        "1710491243708759000": {
+            "id": 1710491243708792300,
+            "path": "../assets\\Textures\\UI\\press 'space' to skip text.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 772.0,
+            "dimY": 82.0
         }
     },
     "AnimationManager": {

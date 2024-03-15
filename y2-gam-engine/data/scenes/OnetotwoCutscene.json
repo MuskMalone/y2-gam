@@ -472,20 +472,20 @@
                 "b": 1.0,
                 "a": 1.0,
                 "layer": 2,
-                "assetID": 0
+                "assetID": 1710491243708759000
             },
             "Tag": {
                 "Tag": "PressSkip"
             },
             "Transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": -1.0,
+                "posY": -54.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,
                 "rotZ": 0.0,
-                "scaleX": 15.0,
-                "scaleY": 15.0,
+                "scaleX": 86.0,
+                "scaleY": 9.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }

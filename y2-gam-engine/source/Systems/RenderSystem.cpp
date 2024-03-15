@@ -630,7 +630,7 @@ void RenderSystem::SceneTransitionListener(Event& event) {
 	[[maybe_unused]] auto toScene = event.GetParam<std::string>(Events::System::Scene::Transition::TO_SCENE);
 	trans.isTransitioning = true;
 
-	if (toScene == "IntroCutscene"){
+	if (toScene == "IntroCutscene" || toScene == "OnetotwoCutscene"){
 		auto &cam = gCoordinator->GetComponent<Camera>(mSceneCamera);
 		cam.SetPosition(glm::vec3{});
 		cam.UpdateZoom(0.5f);
