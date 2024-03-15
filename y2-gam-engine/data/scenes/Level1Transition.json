@@ -942,7 +942,7 @@
                 "scriptTag": "Zoomout",
                 "maxTimer": 5.0,
                 "timer": 0.0,
-                "zoomLevel": 1.600000023841858
+                "zoomLevel": 1.0
             },
             "Sprite": {
                 "r": 1.0,
@@ -1180,8 +1180,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform1",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform1"
             },
             "Sprite": {
@@ -1383,8 +1383,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform2",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform2"
             },
             "Sprite": {
@@ -1439,8 +1439,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform3",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform3"
             },
             "Sprite": {
@@ -1495,8 +1495,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform4",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform4"
             },
             "Sprite": {
@@ -1551,8 +1551,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform5",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform5"
             },
             "Sprite": {
@@ -1607,8 +1607,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform6",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform6"
             },
             "Sprite": {
@@ -1663,8 +1663,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform7",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform7"
             },
             "Sprite": {
@@ -1719,8 +1719,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform8",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform8"
             },
             "Sprite": {
@@ -1775,8 +1775,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform9",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform9"
             },
             "Sprite": {
@@ -1831,8 +1831,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform10",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform10"
             },
             "Sprite": {
@@ -1887,8 +1887,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform11",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform11"
             },
             "Sprite": {
@@ -1943,8 +1943,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform12",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform12"
             },
             "Sprite": {
@@ -1999,8 +1999,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform13",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform13"
             },
             "Sprite": {
@@ -2055,8 +2055,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform14",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform14"
             },
             "Sprite": {
@@ -2111,8 +2111,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform15",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform15"
             },
             "Sprite": {
@@ -2167,8 +2167,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform16",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform16"
             },
             "Sprite": {
@@ -2223,8 +2223,8 @@
             "Script": {
                 "scriptName": "ObjectDPlatform",
                 "scriptTag": "DPlatform17",
-                "FadeOutClock": 45.0,
-                "FadeOutTimer": 45.0,
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
                 "platformTag": "DPlatform17"
             },
             "Sprite": {
@@ -2685,6 +2685,251 @@
             }
         },
         {
+            "Collider": {
+                "collider": 0,
+                "posX": -32.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes9"
+            },
+            "Transform": {
+                "posX": -31.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 11.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes10"
+            },
+            "Transform": {
+                "posX": 11.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 54.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes11"
+            },
+            "Transform": {
+                "posX": 53.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 97.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes12"
+            },
+            "Transform": {
+                "posX": 96.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": 140.0,
+                "posY": -130.0,
+                "rotation": 0.0,
+                "dimX": 40.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "Layering": {
+                "layering": "Spikes"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1698951648982145500
+            },
+            "Tag": {
+                "Tag": "Spikes13"
+            },
+            "Transform": {
+                "posX": 140.0,
+                "posY": -130.0,
+                "posZ": -1.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 40.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
             "Layering": {
                 "layering": "Default"
             },
@@ -2705,15 +2950,238 @@
             },
             "Text": {
                 "fontName": "Arial",
-                "scale": 0.05000000074505806,
-                "text": "Your Text Here",
+                "scale": 0.5249999761581421,
+                "text": "Timer: ",
                 "coloX": 1.0,
                 "coloY": 1.0,
                 "coloZ": 1.0
             },
             "Transform": {
+                "posX": 154.31500244140625,
+                "posY": 223.85800170898438,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            },
+            "UIImage": {
+                "enabled": true,
+                "isClicked": false,
+                "isHover": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -351.0,
+                "posY": -35.0,
+                "rotation": 0.0,
+                "dimX": 12.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "Layering": {
+                "layering": "hello"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
                 "posX": 0.0,
                 "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform1p2",
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
+                "platformTag": ""
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform1p2"
+            },
+            "Transform": {
+                "posX": -351.0,
+                "posY": -35.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -175.0,
+                "posY": -60.0,
+                "rotation": 0.0,
+                "dimX": 12.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "Layering": {
+                "layering": "hello"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform6p2",
+                "FadeOutClock": 75.0,
+                "FadeOutTimer": 75.0,
+                "platformTag": ""
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform6p2"
+            },
+            "Transform": {
+                "posX": -175.0,
+                "posY": -60.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -145.0,
+                "posY": 35.0,
+                "rotation": 0.0,
+                "dimX": 12.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "Layering": {
+                "layering": "hello"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform7p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform7p2"
+            },
+            "Transform": {
+                "posX": -145.0,
+                "posY": 35.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Collider": {
+                "collider": 0,
+                "posX": -5.0,
+                "posY": -80.0,
+                "rotation": 0.0,
+                "dimX": 12.0,
+                "dimY": 15.0
+            },
+            "Gravity": {
+                "x": 0.0,
+                "y": -10.0
+            },
+            "Layering": {
+                "layering": "hello"
+            },
+            "RigidBody": {
+                "dimX": 15.0,
+                "dimY": 15.0,
+                "rotation": 0.0,
+                "mass": 3.4028234663852886e38,
+                "posX": 0.0,
+                "posY": 0.0,
+                "lockRotate": true
+            },
+            "Script": {
+                "scriptName": "ObjectDPlatform",
+                "scriptTag": "DPlatform13p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710133079142956700
+            },
+            "Tag": {
+                "Tag": "DPlatform13p2"
+            },
+            "Transform": {
+                "posX": -5.0,
+                "posY": -80.0,
                 "posZ": 0.0,
                 "rotX": 0.0,
                 "rotY": 0.0,

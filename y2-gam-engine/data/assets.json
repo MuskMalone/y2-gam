@@ -394,6 +394,11 @@
             "id": 1710088092545875400,
             "path": "../assets\\audio\\sfx\\menu_click.wav",
             "stream": false
+        },
+        "1710472667814078100": {
+            "id": 1710472667814107700,
+            "path": "../assets\\audio\\sfx\\Boss-Line-1.wav",
+            "stream": false
         }
     },
     "SpriteManager": {

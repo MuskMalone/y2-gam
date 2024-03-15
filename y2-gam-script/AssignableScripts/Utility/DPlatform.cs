@@ -10,8 +10,8 @@ namespace Object
         private bool hasStepped = false;
         private float timer = 0.0f;
         private float FadeOutTime = 0.0f;
-        public float FadeOutTimer = 45.0f;
-        public float FadeOutClock = 45.0f;
+        public float FadeOutTimer = 80.0f;
+        public float FadeOutClock = 80.0f;
         private float ColourValue = 0.0f;
         private bool FadedOut = false;
         private Vector2 temp_translation;
@@ -111,7 +111,7 @@ namespace Object
             //Console.WriteLine("FadeOutTime:" + FadeOutTime);
             if (FadeOutTime <= FadeOutTimer)
             {
-                //FadeOutClock -= dt;
+                FadeOutClock -= dt;
                 FadeOutTime += dt;
                 float normalizedFadeOutTime = FadeOutTime / FadeOutTimer;
                 float easeOut = normalizedFadeOutTime * (2 - normalizedFadeOutTime);
@@ -209,7 +209,27 @@ namespace Object
                     Translation = new Vector2(9999, 9639);
                     Collider = new Vector2(9999, 9639);
                 }
-                
+                else if (platformTag == "DPlatform1p2")
+                {
+                    Translation = new Vector2(9999, 9619);
+                    Collider = new Vector2(9999, 9619);
+                }
+                else if (platformTag == "DPlatform6p2")
+                {
+                    Translation = new Vector2(9999, 9599);
+                    Collider = new Vector2(9999, 9599);
+                }
+                else if (platformTag == "DPlatform7p2")
+                {
+                    Translation = new Vector2(9999, 9579);
+                    Collider = new Vector2(9999, 9579);
+                }
+                else if (platformTag == "DPlatform13p2")
+                {
+                    Translation = new Vector2(9999, 9559);
+                    Collider = new Vector2(9999, 9559);
+                }
+
                 //Collider = new Vector2(9999, 9999);
             }
 
@@ -219,6 +239,7 @@ namespace Object
         {
             //Console.WriteLine("HERE");
             timer = 0.0f;
+            FadeOutClock = 80.0f;
             FadeOutTime = 0.0f;
             hasStepped = false;
             FadedOut = false;

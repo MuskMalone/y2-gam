@@ -7,7 +7,7 @@ namespace Object
     public class CastleTimer : Entity
     {
         //Player player = GameplayWrapper.FindEntityByName("Player").As<Player>();
-        DPlatform dplatform = GameplayWrapper.FindEntityByName("DPlatform").As<DPlatform>();
+        DPlatform dplatform = GameplayWrapper.FindEntityByName("DPlatform1").As<DPlatform>();
         private string displayTime;
 
         /*  _________________________________________________________________________ */
@@ -47,7 +47,7 @@ namespace Object
         void OnCreate()
         {
 
-            //SetText("Timer: ");
+            SetText("Timer: ");
         }
 
         /*  _________________________________________________________________________ */
