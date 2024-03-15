@@ -1,0 +1,494 @@
+{
+    "Assets": [],
+    "Entities": [
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetotwoCutsceneBGM",
+                "scriptTag": "BG"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710141589503171600
+            },
+            "Tag": {
+                "Tag": "BG"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 1920.0,
+                "scaleY": 1080.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p1",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p1"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486677958631700
+            },
+            "Tag": {
+                "Tag": "c0p1"
+            },
+            "Transform": {
+                "posX": -47.65899658203125,
+                "posY": 27.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 95.80000305175781,
+                "scaleY": 55.5,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p3",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p3"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486685293548400
+            },
+            "Tag": {
+                "Tag": "c0p3"
+            },
+            "Transform": {
+                "posX": 39.499996185302734,
+                "posY": 29.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 62.70000076293945,
+                "scaleY": 50.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p4",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p4"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486686857779400
+            },
+            "Tag": {
+                "Tag": "c0p4"
+            },
+            "Transform": {
+                "posX": -67.5,
+                "posY": -25.999996185302734,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 56.0,
+                "scaleY": 44.29999923706055,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p6",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p6"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486690809781100
+            },
+            "Tag": {
+                "Tag": "c0p6"
+            },
+            "Transform": {
+                "posX": 35.5,
+                "posY": -25.999996185302734,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 89.4000015258789,
+                "scaleY": 44.29999923706055,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c1p1",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c1p1"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486692596350600
+            },
+            "Tag": {
+                "Tag": "c1p1"
+            },
+            "Transform": {
+                "posX": -71.0,
+                "posY": 3.0989990234375,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 47.900001525878906,
+                "scaleY": 102.5,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c1p3",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c1p3"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486696908205800
+            },
+            "Tag": {
+                "Tag": "c1p3"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 2.9010009765625,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 52.29999923706055,
+                "scaleY": 102.5,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c1p4",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c1p4"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486698274483400
+            },
+            "Tag": {
+                "Tag": "c1p4"
+            },
+            "Transform": {
+                "posX": 58.5,
+                "posY": 29.819000244140625,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 66.4000015258789,
+                "scaleY": 47.29999923706055,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c1p5",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c1p5"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486700843798500
+            },
+            "Tag": {
+                "Tag": "c1p5"
+            },
+            "Transform": {
+                "posX": 58.5,
+                "posY": -23.12100601196289,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 66.4000015258789,
+                "scaleY": 50.599998474121094,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p2",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486683808889200
+            },
+            "Tag": {
+                "Tag": "c0p2"
+            },
+            "Transform": {
+                "posX": 7.0,
+                "posY": 17.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 49.79999923706055,
+                "scaleY": 65.80000305175781,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c0p5",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c0p5"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486689292007100
+            },
+            "Tag": {
+                "Tag": "c0p5"
+            },
+            "Transform": {
+                "posX": -5.5,
+                "posY": -28.5,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 57.400001525878906,
+                "scaleY": 26.700000762939453,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Script": {
+                "scriptName": "ObjectOnetoTwoCutscene",
+                "scriptTag": "c1p2",
+                "CutsceneIndex": 0,
+                "FadeOutBegins": 24.299999237060547,
+                "FadeOutTime": 0.0,
+                "FadeOutTimer": 1.0,
+                "LastCutscene": 4,
+                "PanelTime": 0.0,
+                "cutsceneTag": "c1p2"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 1710486695326357200
+            },
+            "Tag": {
+                "Tag": "c1p2"
+            },
+            "Transform": {
+                "posX": -37.5,
+                "posY": 1.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 48.0,
+                "scaleY": 108.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "PressSkip"
+            },
+            "Transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        }
+    ]
+}
