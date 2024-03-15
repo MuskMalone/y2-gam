@@ -654,6 +654,11 @@
             "id": 1710472667814107700,
             "path": "../assets\\audio\\sfx\\Boss-Line-1.wav",
             "stream": false
+        },
+        "1710488276342135800": {
+            "id": 1710488276342178400,
+            "path": "../assets\\audio\\music\\cutscene_transition.wav",
+            "stream": false
         }
     },
     "SpriteManager": {
@@ -1640,6 +1645,110 @@
             "idxY": 0.0,
             "dimX": 697.0,
             "dimY": 284.0
+        },
+        "1710486677958631700": {
+            "id": 1710486677958666000,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 958.0,
+            "dimY": 555.0
+        },
+        "1710486683808889200": {
+            "id": 1710486683808925000,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 498.0,
+            "dimY": 658.0
+        },
+        "1710486685293548400": {
+            "id": 1710486685293582700,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 627.0,
+            "dimY": 500.0
+        },
+        "1710486686857779400": {
+            "id": 1710486686857813100,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 560.0,
+            "dimY": 443.0
+        },
+        "1710486689292007100": {
+            "id": 1710486689292042300,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_5.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 574.0,
+            "dimY": 267.0
+        },
+        "1710486690809781100": {
+            "id": 1710486690809832600,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE1_6.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 894.0,
+            "dimY": 443.0
+        },
+        "1710486692596350600": {
+            "id": 1710486692596394400,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE2_1.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 479.0,
+            "dimY": 1025.0
+        },
+        "1710486695326357200": {
+            "id": 1710486695326393100,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE2_2.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 480.0,
+            "dimY": 1080.0
+        },
+        "1710486696908205800": {
+            "id": 1710486696908245200,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE2_3.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 523.0,
+            "dimY": 1025.0
+        },
+        "1710486698274483400": {
+            "id": 1710486698274515700,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE2_4.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 664.0,
+            "dimY": 473.0
+        },
+        "1710486700843798500": {
+            "id": 1710486700843833500,
+            "path": "../assets\\Textures\\backgrounds\\GAM_LevelTransition_PAGE2_5.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 664.0,
+            "dimY": 506.0
+        },
+        "1710489622548515000": {
+            "id": 1710489622548587400,
+            "path": "../assets\\Textures\\UI\\Gam_UI_IngameInstructions_Escape.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 908.0,
+            "dimY": 98.0
+        },
+        "1710491243708759000": {
+            "id": 1710491243708792300,
+            "path": "../assets\\Textures\\UI\\press 'space' to skip text.png",
+            "idxX": 0.0,
+            "idxY": 0.0,
+            "dimX": 772.0,
+            "dimY": 82.0
         }
     },
     "AnimationManager": {

@@ -84,7 +84,7 @@ namespace Object
                 {
                     
                     //load lvl2 till lvl1transition player script is ok
-                    LoadScene("Level2");
+                    LoadScene("OnetotwoCutscene");
                     //LoadScene("Level1Transition");
 
                 }
