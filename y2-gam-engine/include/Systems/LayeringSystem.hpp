@@ -50,6 +50,8 @@ public:
 	static bool IsLayerVisible(std::string const& layerName);
 	static bool IsCollidable(std::string const& lhsName, std::string const& rhsName);
 
+	static void SetLayerVisibility(std::string, bool flag);
+
 private:
 	static std::vector<std::string> mLayerNames;
 	static std::vector<int> mLayerVisibility;

@@ -368,3 +368,12 @@ bool LayeringSystem::IsCollidable(std::string const& lhsName, std::string const&
   
   return mCollisionMatrix[idxLhs][idxRhs];
 }
+
+void LayeringSystem::SetLayerVisibility(std::string layerName, bool flag) {
+  for (int i{}; i < MAX_LAYERS; ++i) {
+    if (mLayerNames[i] == layerName) {
+      mLayerVisibility[i] = static_cast<int>(flag);
+      break;
+    }
+  }
+}

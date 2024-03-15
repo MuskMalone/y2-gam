@@ -63,4 +63,5 @@ namespace Image {
     //static bool mBufferFocus{ false };
     static ImVec2 mViewportDim{};
     void GuizmoWindow();
+    static bool FPSFlag = false;
 }

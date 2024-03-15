@@ -420,6 +420,11 @@ namespace Image {
         //Cant delete stuff with script
         // Ernest: Can delete now
         auto input = gCoordinator->GetSystem<InputSystem>();
+        if (input->CheckKey(InputSystem::InputKeyState::KEY_CLICKED, GLFW_KEY_P)) {        
+          LayeringSystem::SetLayerVisibility("FPS", FPSFlag);
+          FPSFlag = !FPSFlag;
+        }
+
         if (input->CheckKey(InputSystem::InputKeyState::KEY_PRESSED, GLFW_KEY_DELETE)) {
             if (gSelectedEntity != MAX_ENTITIES) {
                 //if (!gCoordinator->HasComponent<Script>(gSelectedEntity)) {
