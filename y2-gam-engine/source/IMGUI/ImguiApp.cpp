@@ -2217,6 +2217,14 @@ namespace Image {
                       collider.dimension.x += deltaScale.x ;
                       collider.dimension.y += deltaScale.y;
                   }
+
+                  if (gCoordinator->HasComponent<LightBlocker>(gSelectedEntity)) {
+                      LightBlocker& lb = gCoordinator->GetComponent<LightBlocker>(gSelectedEntity);
+                      lb.position.x += deltaPosition.x;
+                      lb.position.y += deltaPosition.y;
+                      lb.dimension.x += deltaScale.x;
+                      lb.dimension.y += deltaScale.y;
+                  }
               }
               wasUsingGuizmo = isUsingGuizmo;
           }
