@@ -1,3 +1,19 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       Light.vert
+
+\author     tan cheng hian t.chenghian
+\date       Oct 13, 2023
+
+\brief      
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
+
 #version 450 core
 
 layout(location = 0) in vec2 origin;

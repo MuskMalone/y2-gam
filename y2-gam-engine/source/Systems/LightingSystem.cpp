@@ -3,14 +3,14 @@
 \par        Image Engine
 \file       LightingSystem.cpp
 
-\author     tan cheng hian t.chenghian
-\date       Nov 11, 2023
+\author     tan cheng hian (t.chenghian)
+\date       Sep 17, 2023
 
-\brief      The header file for the particle systme
+\brief		light
 
 \copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
-                        or disclosure of this file or its contents without the prior
-                        written consent of DigiPen Institute of Technology is prohibited.
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
@@ -33,10 +33,7 @@
 //    float radius = 50.f;
 //}
 /**
- * @brief Event listener for the particle system.
- *
- * This function handles various events related to particle emitters and entities.
- * It performs actions based on the type of event received, such as adding or destroying emitters.
+ * @brief Event listener for the lighting system.
  *
  * @param event The event object containing the event data.
  */
@@ -46,9 +43,9 @@ void LightingSystem::EventListener(Event& event) {
 }
 
 /**
- * @brief Initializes the particle system.
+ * @brief Initializes the lighting system.
  *
- * This function initializes the particle system by creating the necessary buffers and shaders.
+ * This function initializes the lighting system by creating the necessary buffers and shaders.
  */
 void LightingSystem::Init() {
     mLightVertexArray = VertexArray::Create();
@@ -77,7 +74,7 @@ void LightingSystem::Init() {
 /**
  * @brief Updates the particle system.
  *
- * This function updates the particle system by updating the particles and emitters.
+ * This function updates the lighting system
  *
  * @param dt The time elapsed since the last update.
  */
@@ -324,9 +321,9 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 }
 
 /**
- * @brief Draws the particles.
+ * @brief Draws the lights.
  *
- * This function draws the particles.
+ * This function draws the lights.
  */
 void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
     //GLboolean scissorTestEnabled;
@@ -363,24 +360,13 @@ void LightingSystem::Draw(unsigned int tex, unsigned int outtex) {
 
 
 }
+/**
+ * @brief Draws the light blockers.
+ *
+ * This function draws the light blockers.
+ */
 void LightingSystem::DrawDebug() {
-    //auto inputSystem = Coordinator::GetInstance()->GetSystem<InputSystem>();
-    ////for testing, arbitrary
-    //glm::vec2 point = { inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
 
-    //auto last = std::unique(intersects.begin(), intersects.end(), [](const Point& a, const Point& b) {
-    //    return glm::distance(a.pos, b.pos) <= FLT_EPSILON;
-    //    });
-    //intersects.erase(last, intersects.end());
-    //std::sort(intersects.begin(), intersects.end(), [](Point const& a, Point const& b) {
-    //    return a.angle < b.angle;
-    //    });
-
-    //for (int i{}; i < intersects.size(); ++i) {
-    //    auto const& p{ intersects[i] };
-    //    Renderer::DrawLine(glm::vec3(point, 0), glm::vec3(p.pos, 0), { 1,(float)i / (float)intersects.size(),0,1 });
-    //    Renderer::DrawCircle(glm::vec3(p.pos, 0), { 1, 1 }, { 1,(float)i / (float)intersects.size(),0,1 });
-    //}
     auto const& lightblockers = Coordinator::GetInstance()->GetSystem<LightBlockingSystem>()->GetLightBlockers();
     for (auto const& entity : lightblockers) {
         auto const& lightblocker = Coordinator::GetInstance()->GetComponent<LightBlocker>(entity);

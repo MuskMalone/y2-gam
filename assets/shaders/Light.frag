@@ -1,3 +1,18 @@
+/*******************************************************************************/
+/*!
+\par        Image Engine
+\file       Light.frag
+
+\author     tan cheng hian t.chenghian
+\date       Oct 13, 2023
+
+\brief      
+
+\copyright  Copyright (C) 2023 DigiPen Institute of Technology. Reproduction
+            or disclosure of this file or its contents without the prior
+            written consent of DigiPen Institute of Technology is prohibited.
+*/
+/*******************************************************************************/
 #version 450 core
 
 layout(location = 0) out vec4 fragColor;
@@ -11,6 +26,7 @@ in vec2 fragTexCoord;
 
 uniform sampler2D screenTex; //texture to apply postprocessing
 void main(){
+    if (gl_FragCoord.z < 0.5) discard;
     vec2 fragWorldCoord = vec2(v_inverseTexViewProjMtx * vec4(fragTexCoord, 0, 1));
 
     vec2 diff = fragWorldCoord - v_origin;
