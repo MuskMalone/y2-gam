@@ -5314,6 +5314,13 @@
             "Layering": {
                 "layering": "Default"
             },
+            "LightBlocker": {
+                "dimx": 2046.0,
+                "dimy": 689.0,
+                "posx": 80.5,
+                "posy": 0.0,
+                "rotation": 0.0
+            },
             "Sprite": {
                 "r": 1.0,
                 "g": 1.0,
@@ -6241,6 +6248,50 @@
                 "rotZ": 0.0,
                 "scaleX": 60.0,
                 "scaleY": 60.0,
+                "scaleZ": 15.0,
+                "elipse": false
+            }
+        },
+        {
+            "Layering": {
+                "layering": "Default"
+            },
+            "Light": {
+                "colx": 0.2046331763267517,
+                "coly": 0.2046331763267517,
+                "colz": 0.2046331763267517,
+                "posx": 151.5,
+                "posy": -99.0,
+                "radius": 37.0,
+                "intensity": 1.0
+            },
+            "LightBlocker": {
+                "dimx": 18.0,
+                "dimy": 2.0,
+                "posx": 151.0,
+                "posy": -103.0,
+                "rotation": 0.0
+            },
+            "Sprite": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 0.0,
+                "layer": 2,
+                "assetID": 0
+            },
+            "Tag": {
+                "Tag": "light1"
+            },
+            "Transform": {
+                "posX": 151.5,
+                "posY": -99.0,
+                "posZ": 0.0,
+                "rotX": 0.0,
+                "rotY": 0.0,
+                "rotZ": 0.0,
+                "scaleX": 15.0,
+                "scaleY": 15.0,
                 "scaleZ": 15.0,
                 "elipse": false
             }
