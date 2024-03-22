@@ -200,7 +200,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 
                 // Find CLOSEST intersection
                 Intersect closestIntersect = { point, std::numeric_limits<float>::max() };
-                float t{ 0 };
+                //float t{ 0 };
                 for (auto i = 0; i < segments.size(); i++) {
                     Intersect intersect{};
                     if (!getIntersection(ray, segments[i], intersect)) continue;
@@ -282,12 +282,12 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 
             Renderer::RenderFullscreenTexture(FBO(fbotexidx)->GetColorAttachmentID(), mLightRenderPrePassShader);
 
-            mLightVertexBuffer->SetData(vertices.data(), vertices.size() * sizeof(LightVertex));
+            mLightVertexBuffer->SetData(vertices.data(), static_cast<unsigned int>(vertices.size() * static_cast<size_t>(sizeof(LightVertex))));
             mLightRenderShader->Use();
 
-            auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
+            //auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
 
-            glm::mat4 viewprojection{ cam.GetViewProjMtx() };
+            //glm::mat4 viewprojection{ cam.GetViewProjMtx() };
 
             mLightRenderShader->SetUniform("screenTex", 0);
             mLightRenderShader->SetUniform("u_ViewProjMtx", viewprojection);
@@ -302,7 +302,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
 
             //draw the full-screen quad
             // glDrawElements(GL_TRIANGLES, (vertices.size() - 2) * MAX_VERTICES, GL_UNSIGNED_INT, nullptr);
-            glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+            glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
             glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
             mLightVertexArray->Unbind();
             glBindTexture(GL_TEXTURE_2D, 0);

@@ -496,6 +496,7 @@ Computes the collision between two rigid bodies and returns the contact points.
         }
 
         // Grab face's vertices
+//#pragma warning (disable : 28020)
         Vec2 v1 = b2Vertices[faceNormal];
         uint32_t i2 = (faceNormal + 1 < b2Vertices.size()) ? faceNormal + 1 : 0;
         Vec2 v2 = b2Vertices[i2];
@@ -768,7 +769,7 @@ Debugs the CollisionSystem, drawing AABBs and other debug information.
 
         }
         */
-        Entity prev = -1;
+        Entity prev = static_cast<Entity>(-1);
         for (auto const& e : mEntities) {
             //auto const& rb{ Coordinator::GetInstance()->GetComponent<RigidBody>(e) };
             auto const& c{ Coordinator::GetInstance()->GetComponent<Collider>(e) };

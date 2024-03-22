@@ -23,7 +23,7 @@ namespace Object
     {
         public int CurrentAnimationIndex = (int)AnimationCodeLevelSelect.NONE;
         public bool LoadingScreenActive = false;
-        bool isPlaying = false;
+        public bool isPlaying = false;
 
         /*  _________________________________________________________________________ */
         /*! LevelSelect

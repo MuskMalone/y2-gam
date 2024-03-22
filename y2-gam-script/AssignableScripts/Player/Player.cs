@@ -57,7 +57,7 @@ namespace Object
         private int MAX_DEATH_AUDIO_FILES = 6;
         private int MAX_JUMP_AUDIO_FILES = 12;
         private int MAX_PLAYERDEATH_AUDIO_FILES = 8;
-        private string FootTrack;
+        //private string FootTrack;
         private ReverbCode reverbSetting;
 
         Card card;

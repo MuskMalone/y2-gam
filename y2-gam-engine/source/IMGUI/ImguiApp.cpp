@@ -2317,7 +2317,7 @@ namespace Image {
 
     This function displays all the assets and allows for dragging of the assets.
     */
-#include "IMGUI/FileDialog.hpp";
+#include "IMGUI/FileDialog.hpp"
     void ContentWindow() {
         ImGui::PushFont(mainfont);
         ImGui::Begin("Content Browser");
