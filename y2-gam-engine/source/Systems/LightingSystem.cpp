@@ -91,6 +91,8 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
         glm::vec2 point = light.pos;//{ inputSystem->GetWorldMousePos().first, inputSystem->GetWorldMousePos().second };
         float radius = light.radius;
         glm::vec3 clr = light.color;
+        glm::vec2 pointMax = point + glm::vec2(radius, radius);
+        glm::vec2 pointMin = point - glm::vec2(radius, radius);
         float intensity = light.intensity;
 
         auto& cam{ Coordinator::GetInstance()->GetComponent<Camera>(Coordinator::GetInstance()->GetSystem<RenderSystem>()->GetCamera()) };
@@ -116,6 +118,7 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
             glm::vec2 position = glm::vec2{ lightblocker.position.x, lightblocker.position.y };  // Example position
 
             glm::vec2 dimension = glm::vec2{ lightblocker.dimension.x, lightblocker.dimension.y }; // Example dimensions
+
             float rotation = lightblocker.rotation; // Example rotation in radians
 
             // Start with an identity matrix
@@ -147,7 +150,16 @@ void LightingSystem::Update(unsigned int tex, unsigned int outtex) {
                 glm::vec4 transformedVec4 = transformationMatrix * pointVec4;
 
                 // Convert back to glm::vec2 and store it
-                points.push_back({ glm::vec2(p = transformedVec4), std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
+                p = transformedVec4;
+                //points.push_back({ glm::vec2(p = transformedVec4), std::atan2(transformedVec4.y - point.y, transformedVec4.x - point.x) });
+            }
+            glm::vec2 blockerMax = glm::max(glm::max(glm::max(squarePoints[0], squarePoints[1]), squarePoints[2]), squarePoints[3]);
+            glm::vec2 blockerMin = glm::min(glm::min(glm::min(squarePoints[0], squarePoints[1]), squarePoints[2]), squarePoints[3]);
+
+            if (!(blockerMin.x < pointMax.x && blockerMax.x > pointMin.x && blockerMin.y < pointMax.y && blockerMax.y > pointMin.y)) continue;
+
+            for (auto& p : squarePoints) {
+                points.push_back({ p, std::atan2(p.y - point.y, p.x - point.x) });
             }
             for (int i{}; i < 4; ++i) {
                 if (i != 3)
