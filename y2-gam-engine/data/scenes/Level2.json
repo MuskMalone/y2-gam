@@ -491,6 +491,7 @@
                 "colliderPositionY": 156.0,
                 "isPaused": false,
                 "keyName": "",
+                "onPlatform": false,
                 "spawnPositionX": 184.5,
                 "spawnPositionY": 165.5
             },
@@ -4588,47 +4589,47 @@
                     {
                         "vertices": [
                             {
-                                "x": 151.0,
-                                "y": -127.08000183105469,
+                                "x": 143.6300048828125,
+                                "y": -95.87000274658203,
                                 "z": 0.0,
                                 "w": 0.0
                             },
                             {
-                                "x": 165.0,
-                                "y": -126.97000122070313,
+                                "x": 157.24000549316406,
+                                "y": -95.87000274658203,
                                 "z": 0.0,
-                                "w": 0.0
-                            },
-                            {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "z": 0.0,
-                                "w": 0.0
+                                "w": 1.0
                             },
                             {
                                 "x": 0.0,
                                 "y": 0.0,
                                 "z": 0.0,
                                 "w": 0.0
+                            },
+                            {
+                                "x": 143.6300048828125,
+                                "y": 0.0,
+                                "z": 0.0,
+                                "w": 1.0
                             }
                         ],
-                        "colX": 0.698039174079895,
-                        "colY": 0.8898730874061584,
-                        "colZ": 1.0,
-                        "colW": 0.0,
+                        "colX": 0.3997853398323059,
+                        "colY": 0.4092664122581482,
+                        "colZ": 0.3997853398323059,
+                        "colW": 1.0,
                         "gravityX": 0.0,
                         "gravityY": -0.05000000074505806,
-                        "sizeX": 0.3799999952316284,
-                        "sizeY": 0.3799999952316284,
+                        "sizeX": 0.7599999904632568,
+                        "sizeY": 0.6600000262260437,
                         "rot": 0.0,
-                        "lifetime": 1.0,
+                        "lifetime": 2.8299999237060547,
                         "angvel": 0.0,
-                        "speed": 6.070000171661377,
-                        "frequency": 0.10000000149011612,
-                        "type": 0,
+                        "speed": 6.329999923706055,
+                        "frequency": 0.20000000298023224,
+                        "type": 1,
                         "vCount": 2,
                         "preset": 2,
-                        "particlesPerFrame": 472,
+                        "particlesPerFrame": 1,
                         "drawEmitterVertices": false,
                         "spriteAssetID": 0
                     }
@@ -4646,7 +4647,7 @@
                 "assetID": 0
             },
             "Tag": {
-                "Tag": "WaterParticle3"
+                "Tag": "Particlefire"
             },
             "Transform": {
                 "posX": 236.0,
@@ -5050,7 +5051,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmMenu",
-                "scriptTag": "PmMenu"
+                "scriptTag": "PmMenu",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5125,6 +5127,7 @@
             "Script": {
                 "scriptName": "ObjectPmQuit",
                 "scriptTag": "PmQuit",
+                "hovered": false,
                 "quitClicked": false
             },
             "Sprite": {
@@ -5199,7 +5202,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmHowToPlay",
-                "scriptTag": "PmHowToPlay"
+                "scriptTag": "PmHowToPlay",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5236,7 +5240,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmResumeGame",
-                "scriptTag": "PmResumeGame"
+                "scriptTag": "PmResumeGame",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
@@ -5273,7 +5278,8 @@
             },
             "Script": {
                 "scriptName": "ObjectPmSettings",
-                "scriptTag": "Settings"
+                "scriptTag": "Settings",
+                "hovered": false
             },
             "Sprite": {
                 "r": 1.0,
